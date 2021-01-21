@@ -87,6 +87,7 @@ const RegisterScreen = () => {
   );
 
   const varifyOtp = () => {
+    console.log("add");
     if (otp.length < 5) {
       return false;
     } else {
