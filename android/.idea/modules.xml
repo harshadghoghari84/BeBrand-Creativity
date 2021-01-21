@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/my-app.iml" filepath="$PROJECT_DIR$/.idea/modules/my-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/my-app.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/my-app.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1162010516/my-app.expo-constants.iml" filepath="$PROJECT_DIR$/.idea/modules/1162010516/my-app.expo-constants.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/138884440/my-app.expo-error-recovery.iml" filepath="$PROJECT_DIR$/.idea/modules/138884440/my-app.expo-error-recovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1543303806/my-app.expo-file-system.iml" filepath="$PROJECT_DIR$/.idea/modules/-1543303806/my-app.expo-file-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1585248365/my-app.expo-font.iml" filepath="$PROJECT_DIR$/.idea/modules/1585248365/my-app.expo-font.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1480508189/my-app.expo-image-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/-1480508189/my-app.expo-image-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1177916834/my-app.expo-image-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1177916834/my-app.expo-image-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1601050843/my-app.expo-keep-awake.iml" filepath="$PROJECT_DIR$/.idea/modules/1601050843/my-app.expo-keep-awake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1467652678/my-app.expo-linear-gradient.iml" filepath="$PROJECT_DIR$/.idea/modules/-1467652678/my-app.expo-linear-gradient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1147160877/my-app.expo-location.iml" filepath="$PROJECT_DIR$/.idea/modules/-1147160877/my-app.expo-location.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1558940876/my-app.expo-media-library.iml" filepath="$PROJECT_DIR$/.idea/modules/-1558940876/my-app.expo-media-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-569386394/my-app.expo-permissions.iml" filepath="$PROJECT_DIR$/.idea/modules/-569386394/my-app.expo-permissions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-154431554/my-app.expo-sharing.iml" filepath="$PROJECT_DIR$/.idea/modules/-154431554/my-app.expo-sharing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/84356596/my-app.expo-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/84356596/my-app.expo-splash-screen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2054600790/my-app.expo-sqlite.iml" filepath="$PROJECT_DIR$/.idea/modules/-2054600790/my-app.expo-sqlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-996036180/my-app.expo-updates.iml" filepath="$PROJECT_DIR$/.idea/modules/-996036180/my-app.expo-updates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1687531456/my-app.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/1687531456/my-app.react-native-async-storage_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1819652732/my-app.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1819652732/my-app.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2042602971/my-app.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/2042602971/my-app.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-595231903/my-app.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-595231903/my-app.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/792769412/my-app.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/792769412/my-app.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/85584028/my-app.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/85584028/my-app.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1576349959/my-app.react-native-svg.iml" filepath="$PROJECT_DIR$/.idea/modules/-1576349959/my-app.react-native-svg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1905047515/my-app.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/1905047515/my-app.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/604215287/my-app.react-native-view-shot.iml" filepath="$PROJECT_DIR$/.idea/modules/604215287/my-app.react-native-view-shot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2036227624/my-app.unimodules-app-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/-2036227624/my-app.unimodules-app-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-176185052/my-app.unimodules-barcode-scanner-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-176185052/my-app.unimodules-barcode-scanner-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-127737750/my-app.unimodules-camera-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-127737750/my-app.unimodules-camera-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1966715262/my-app.unimodules-constants-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1966715262/my-app.unimodules-constants-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1715974420/my-app.unimodules-core.iml" filepath="$PROJECT_DIR$/.idea/modules/1715974420/my-app.unimodules-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1662419753/my-app.unimodules-face-detector-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/1662419753/my-app.unimodules-face-detector-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1939287881/my-app.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1939287881/my-app.unimodules-permissions-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" />
+    </modules>
+  </component>
+</project>
