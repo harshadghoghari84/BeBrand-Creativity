@@ -246,6 +246,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   const designPackage = designPackages.find(
                     (pkg) => pkg.id === item.package
                   );
+                  console.log(designPackage);
                   return (
                     <TouchableOpacity
                       style={styles.listDesignView}
