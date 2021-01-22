@@ -26,6 +26,9 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
 import { emptyValidator } from "../../utils/Validator";
 
+//Icon Path
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 const generateRNFile = (uri, name) => {
   return uri
     ? new ReactNativeFile({
@@ -393,26 +396,33 @@ const PersonalProfile = ({ navigation, userStore }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
+            <TouchableOpacity style={styles.plusIcon}>
+              <MaterialCommunityIcons
+                name="plus-circle"
+                size={50}
+                color={Color.darkBlue}
+              />
+            </TouchableOpacity>
             <View
               style={{
-                height: 90,
-                width: "30%",
+                height: 80,
+                width: "25%",
                 backgroundColor: "pink",
                 borderRadius: 10,
               }}
             ></View>
             <View
               style={{
-                height: 90,
-                width: "30%",
+                height: 80,
+                width: "25%",
                 backgroundColor: "pink",
                 borderRadius: 10,
               }}
             ></View>
             <View
               style={{
-                height: 90,
-                width: "30%",
+                height: 80,
+                width: "25%",
                 backgroundColor: "pink",
                 borderRadius: 10,
               }}
@@ -485,5 +495,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 7,
   },
-  filedsIcon: { height: 35, width: 35, marginHorizontal: 5, marginRight: 10 },
+  filedsIcon: {
+    height: 35,
+    width: 35,
+    marginHorizontal: 5,
+    marginRight: 10,
+  },
+  plusIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
