@@ -130,7 +130,7 @@ const TabsAnimation = (props) => {
   };
   const renderMainView = () => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: props.flex }}>
         {renderSelectionTab()}
         {renderBody()}
       </View>
