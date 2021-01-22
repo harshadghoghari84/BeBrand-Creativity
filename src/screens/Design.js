@@ -223,268 +223,554 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   return (
     <>
       <TabsAnimation
+        flex={1}
         bgColor={Color.blackTransparant}
         AnimbgColor={Color.darkBlue}
         activeColor={Color.white}
         InactiveColor={Color.darkBlue}
         txt1="Personal"
         txt2="Bussiness"
-        // child1={<PersonalProfile />}
-        // child2={<BusinessProfile />}
-      />
-
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={designs}
-            keyExtractor={keyExtractor}
-            style={styles.flatlist}
-            renderItem={({ item }) => {
-              const designPackage = designPackages.find(
-                (pkg) => pkg.id === item.package
-              );
-              return (
-                <TouchableOpacity
-                  style={styles.listDesignView}
-                  onPress={() => {
-                    if (
-                      designPackage.type === Constant.typeDesignPackagePro &&
-                      hasPro === false
-                    ) {
-                    } else {
-                      setCurrentDesign(item);
-                    }
-                  }}
-                >
-                  <View>
-                    <Image
-                      source={{ uri: item.thumbImage.url }}
-                      style={{ width: 75, height: 75 }}
-                    />
-                    {item.id === currentDesign.id && (
-                      <Icon
-                        name="ios-checkmark-circle"
-                        color={Color.primary}
-                        size={20}
-                        style={styles.icnCheck}
-                      />
-                    )}
-                    {designPackage.type === Constant.typeDesignPackagePro && (
-                      <Text style={styles.tagPro}>{designPackage.type}</Text>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
-
-          <ViewShot
-            style={styles.designView}
-            ref={viewRef}
-            options={{
-              format: "jpg",
-              quality: 1,
-              width: pixels,
-              height: pixels,
-            }}
+        child1={
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}
           >
-            <View style={{ flex: 1 }}>
-              <ImageBackground
-                source={{ uri: currentDesign.thumbImage.url }}
-                style={{ flex: 1 }}
-              >
-                {objFooter && (
-                  <View style={{ ...objFooter }}>
-                    <SvgUri
-                      uri={currentLayout.footerImage.url}
-                      width="100%"
-                      height="100%"
-                      fill={footerColor}
-                    />
-
-                    <Text style={{ ...objName, color: footerTextColor }}>
-                      {userData.name}
-                    </Text>
-                    <Text style={{ ...objDesignation, color: footerTextColor }}>
-                      {userData.designation}
-                    </Text>
-                    <Text style={{ ...objMobile, color: footerTextColor }}>
-                      {userData.mobile}
-                    </Text>
-
-                    <View
-                      style={{ ...objSocialMediaView, color: footerTextColor }}
+            <View style={styles.container}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={designs}
+                keyExtractor={keyExtractor}
+                style={styles.flatlist}
+                renderItem={({ item }) => {
+                  const designPackage = designPackages.find(
+                    (pkg) => pkg.id === item.package
+                  );
+                  return (
+                    <TouchableOpacity
+                      style={styles.listDesignView}
+                      onPress={() => {
+                        if (
+                          designPackage.type ===
+                            Constant.typeDesignPackagePro &&
+                          hasPro === false
+                        ) {
+                        } else {
+                          setCurrentDesign(item);
+                        }
+                      }}
                     >
-                      <Text
-                        style={{
-                          ...objSocialMediaLabel,
-                          color: footerTextColor,
-                        }}
-                      >
-                        {Common.getTranslation(LangKey.labFollowUs)}
-                      </Text>
-                      {socialIconList.map((item) => (
-                        <Icon
-                          key={item}
-                          name={item}
-                          size={currentLayout.socialIconSize}
-                          color={footerTextColor}
-                          style={{ ...objSocialIcon }}
+                      <View>
+                        <Image
+                          source={{ uri: item.thumbImage.url }}
+                          style={{ width: 75, height: 75 }}
                         />
-                      ))}
+                        {item.id === currentDesign.id && (
+                          <Icon
+                            name="ios-checkmark-circle"
+                            color={Color.primary}
+                            size={20}
+                            style={styles.icnCheck}
+                          />
+                        )}
+                        {designPackage.type ===
+                          Constant.typeDesignPackagePro && (
+                          <Text style={styles.tagPro}>
+                            {designPackage.type}
+                          </Text>
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+              />
 
-                      <Text
-                        style={{
-                          ...objSocialMediaName,
-                          color: footerTextColor,
-                        }}
-                      >
-                        {userData.socialMedia}
-                      </Text>
-                    </View>
+              <ViewShot
+                style={styles.designView}
+                ref={viewRef}
+                options={{
+                  format: "jpg",
+                  quality: 1,
+                  width: pixels,
+                  height: pixels,
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <ImageBackground
+                    source={{ uri: currentDesign.thumbImage.url }}
+                    style={{ flex: 1 }}
+                  >
+                    {objFooter && (
+                      <View style={{ ...objFooter }}>
+                        <SvgUri
+                          uri={currentLayout.footerImage.url}
+                          width="100%"
+                          height="100%"
+                          fill={footerColor}
+                        />
 
-                    {userData?.image && (
-                      <Image
-                        source={{ uri: userData.image }}
-                        style={{ ...objImage }}
-                        resizeMode="cover"
-                      />
+                        <Text style={{ ...objName, color: footerTextColor }}>
+                          {userData.name}
+                        </Text>
+                        <Text
+                          style={{ ...objDesignation, color: footerTextColor }}
+                        >
+                          {userData.designation}
+                        </Text>
+                        <Text style={{ ...objMobile, color: footerTextColor }}>
+                          {userData.mobile}
+                        </Text>
+
+                        <View
+                          style={{
+                            ...objSocialMediaView,
+                            color: footerTextColor,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              ...objSocialMediaLabel,
+                              color: footerTextColor,
+                            }}
+                          >
+                            {Common.getTranslation(LangKey.labFollowUs)}
+                          </Text>
+                          {socialIconList.map((item) => (
+                            <Icon
+                              key={item}
+                              name={item}
+                              size={currentLayout.socialIconSize}
+                              color={footerTextColor}
+                              style={{ ...objSocialIcon }}
+                            />
+                          ))}
+
+                          <Text
+                            style={{
+                              ...objSocialMediaName,
+                              color: footerTextColor,
+                            }}
+                          >
+                            {userData.socialMedia}
+                          </Text>
+                        </View>
+
+                        {userData?.image && (
+                          <Image
+                            source={{ uri: userData.image }}
+                            style={{ ...objImage }}
+                            resizeMode="cover"
+                          />
+                        )}
+                      </View>
                     )}
-                  </View>
-                )}
-              </ImageBackground>
-            </View>
-          </ViewShot>
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={layouts}
-            keyExtractor={keyExtractor}
-            style={styles.flatlist}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.listLayoutView}
-                onPress={() => {
-                  if (
-                    item.package.type === Constant.typeDesignPackagePro &&
-                    hasPro === false
-                  ) {
-                  } else {
-                    setCurrentLayout(item);
-                  }
-                }}
-              >
-                <View>
-                  <Image
-                    source={{ uri: item.layoutImage.url }}
-                    style={{ width: 75, height: 75 }}
-                  />
-                  {item.id === currentLayout.id && (
-                    <Icon
-                      name="ios-checkmark-circle"
-                      color={Color.primary}
-                      size={20}
-                      style={styles.icnCheck}
-                    />
-                  )}
-
-                  {item.package.type === Constant.typeDesignPackagePro && (
-                    <Text style={styles.tagPro}>{item.package.type}</Text>
-                  )}
+                  </ImageBackground>
                 </View>
-              </TouchableOpacity>
-            )}
-          />
+              </ViewShot>
 
-          <FlatList
-            style={styles.colorCodeList}
-            data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                key={index}
-                style={{ ...styles.colorCode, backgroundColor: item.code }}
-                onPress={() => {
-                  setFooterColor(item.code);
-                  item.isLight == true
-                    ? setFooterTextColor(Color.darkTextColor)
-                    : setFooterTextColor(Color.lightTextColor);
-                }}
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={layouts}
+                keyExtractor={keyExtractor}
+                style={styles.flatlist}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.listLayoutView}
+                    onPress={() => {
+                      if (
+                        item.package.type === Constant.typeDesignPackagePro &&
+                        hasPro === false
+                      ) {
+                      } else {
+                        setCurrentLayout(item);
+                      }
+                    }}
+                  >
+                    <View>
+                      <Image
+                        source={{ uri: item.layoutImage.url }}
+                        style={{ width: 75, height: 75 }}
+                      />
+                      {item.id === currentLayout.id && (
+                        <Icon
+                          name="ios-checkmark-circle"
+                          color={Color.primary}
+                          size={20}
+                          style={styles.icnCheck}
+                        />
+                      )}
+
+                      {item.package.type === Constant.typeDesignPackagePro && (
+                        <Text style={styles.tagPro}>{item.package.type}</Text>
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                )}
               />
-            )}
-          />
 
-          <FlatList
-            style={styles.socialIconList}
-            data={Constant.socialIconList}
-            horizontal
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <Icon
-                name={item}
-                size={40}
-                color={
-                  socialIconList.indexOf(item) < 0 ? Color.grey : Color.black
-                }
-                key={index}
-                style={styles.socialIcon}
-                onPress={() => {
-                  if (socialIconList.indexOf(item) >= 0) {
-                    setSocialIconList(
-                      socialIconList.filter((val) => val !== item)
-                    );
-                  } else if (socialIconList.length < Constant.socialIconLimit) {
-                    setSocialIconList([...socialIconList, item]);
-                  } else {
-                    Platform.OS == "android"
-                      ? ToastAndroid.show(
-                          Common.getTranslation(LangKey.msgSocialIconLimit),
-                          ToastAndroid.LONG
-                        )
-                      : alert(
-                          Common.getTranslation(LangKey.msgSocialIconLimit)
+              <FlatList
+                style={styles.colorCodeList}
+                data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={{ ...styles.colorCode, backgroundColor: item.code }}
+                    onPress={() => {
+                      setFooterColor(item.code);
+                      item.isLight == true
+                        ? setFooterTextColor(Color.darkTextColor)
+                        : setFooterTextColor(Color.lightTextColor);
+                    }}
+                  />
+                )}
+              />
+
+              <FlatList
+                style={styles.socialIconList}
+                data={Constant.socialIconList}
+                horizontal
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                  <Icon
+                    name={item}
+                    size={40}
+                    color={
+                      socialIconList.indexOf(item) < 0
+                        ? Color.grey
+                        : Color.black
+                    }
+                    key={index}
+                    style={styles.socialIcon}
+                    onPress={() => {
+                      if (socialIconList.indexOf(item) >= 0) {
+                        setSocialIconList(
+                          socialIconList.filter((val) => val !== item)
                         );
-                  }
+                      } else if (
+                        socialIconList.length < Constant.socialIconLimit
+                      ) {
+                        setSocialIconList([...socialIconList, item]);
+                      } else {
+                        Platform.OS == "android"
+                          ? ToastAndroid.show(
+                              Common.getTranslation(LangKey.msgSocialIconLimit),
+                              ToastAndroid.LONG
+                            )
+                          : alert(
+                              Common.getTranslation(LangKey.msgSocialIconLimit)
+                            );
+                      }
+                    }}
+                  />
+                )}
+              />
+
+              <View
+                style={{
+                  justifyContent: "center",
+                  marginTop: 15,
+                  paddingHorizontal: 15,
+                  flexDirection: "row",
+                }}
+              >
+                <View style={{ flex: 1, marginRight: 5 }}>
+                  <Button
+                    mode="contained"
+                    onPress={onClickShare}
+                    disabled={designs == null}
+                  >
+                    {Common.getTranslation(LangKey.txtShare)}
+                  </Button>
+                </View>
+                <View style={{ flex: 1, marginLeft: 5 }}>
+                  <Button
+                    mode="contained"
+                    onPress={onClickDownload}
+                    disabled={designs == null}
+                  >
+                    {Common.getTranslation(LangKey.txtDownload)}
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        }
+        child2={
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.container}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={designs}
+                keyExtractor={keyExtractor}
+                style={styles.flatlist}
+                renderItem={({ item }) => {
+                  const designPackage = designPackages.find(
+                    (pkg) => pkg.id === item.package
+                  );
+                  return (
+                    <TouchableOpacity
+                      style={styles.listDesignView}
+                      onPress={() => {
+                        if (
+                          designPackage.type ===
+                            Constant.typeDesignPackagePro &&
+                          hasPro === false
+                        ) {
+                        } else {
+                          setCurrentDesign(item);
+                        }
+                      }}
+                    >
+                      <View>
+                        <Image
+                          source={{ uri: item.thumbImage.url }}
+                          style={{ width: 75, height: 75 }}
+                        />
+                        {item.id === currentDesign.id && (
+                          <Icon
+                            name="ios-checkmark-circle"
+                            color={Color.primary}
+                            size={20}
+                            style={styles.icnCheck}
+                          />
+                        )}
+                        {designPackage.type ===
+                          Constant.typeDesignPackagePro && (
+                          <Text style={styles.tagPro}>
+                            {designPackage.type}
+                          </Text>
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  );
                 }}
               />
-            )}
-          />
 
-          <View
-            style={{
-              justifyContent: "center",
-              marginTop: 15,
-              paddingHorizontal: 15,
-              flexDirection: "row",
-            }}
-          >
-            <View style={{ flex: 1, marginRight: 5 }}>
-              <Button
-                mode="contained"
-                onPress={onClickShare}
-                disabled={designs == null}
+              <ViewShot
+                style={styles.designView}
+                ref={viewRef}
+                options={{
+                  format: "jpg",
+                  quality: 1,
+                  width: pixels,
+                  height: pixels,
+                }}
               >
-                {Common.getTranslation(LangKey.txtShare)}
-              </Button>
-            </View>
-            <View style={{ flex: 1, marginLeft: 5 }}>
-              <Button
-                mode="contained"
-                onPress={onClickDownload}
-                disabled={designs == null}
+                <View style={{ flex: 1 }}>
+                  <ImageBackground
+                    source={{ uri: currentDesign.thumbImage.url }}
+                    style={{ flex: 1 }}
+                  >
+                    {objFooter && (
+                      <View style={{ ...objFooter }}>
+                        <SvgUri
+                          uri={currentLayout.footerImage.url}
+                          width="100%"
+                          height="100%"
+                          fill={footerColor}
+                        />
+
+                        <Text style={{ ...objName, color: footerTextColor }}>
+                          {userData.name}
+                        </Text>
+                        <Text
+                          style={{ ...objDesignation, color: footerTextColor }}
+                        >
+                          {userData.designation}
+                        </Text>
+                        <Text style={{ ...objMobile, color: footerTextColor }}>
+                          {userData.mobile}
+                        </Text>
+
+                        <View
+                          style={{
+                            ...objSocialMediaView,
+                            color: footerTextColor,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              ...objSocialMediaLabel,
+                              color: footerTextColor,
+                            }}
+                          >
+                            {Common.getTranslation(LangKey.labFollowUs)}
+                          </Text>
+                          {socialIconList.map((item) => (
+                            <Icon
+                              key={item}
+                              name={item}
+                              size={currentLayout.socialIconSize}
+                              color={footerTextColor}
+                              style={{ ...objSocialIcon }}
+                            />
+                          ))}
+
+                          <Text
+                            style={{
+                              ...objSocialMediaName,
+                              color: footerTextColor,
+                            }}
+                          >
+                            {userData.socialMedia}
+                          </Text>
+                        </View>
+
+                        {userData?.image && (
+                          <Image
+                            source={{ uri: userData.image }}
+                            style={{ ...objImage }}
+                            resizeMode="cover"
+                          />
+                        )}
+                      </View>
+                    )}
+                  </ImageBackground>
+                </View>
+              </ViewShot>
+
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={layouts}
+                keyExtractor={keyExtractor}
+                style={styles.flatlist}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.listLayoutView}
+                    onPress={() => {
+                      if (
+                        item.package.type === Constant.typeDesignPackagePro &&
+                        hasPro === false
+                      ) {
+                      } else {
+                        setCurrentLayout(item);
+                      }
+                    }}
+                  >
+                    <View>
+                      <Image
+                        source={{ uri: item.layoutImage.url }}
+                        style={{ width: 75, height: 75 }}
+                      />
+                      {item.id === currentLayout.id && (
+                        <Icon
+                          name="ios-checkmark-circle"
+                          color={Color.primary}
+                          size={20}
+                          style={styles.icnCheck}
+                        />
+                      )}
+
+                      {item.package.type === Constant.typeDesignPackagePro && (
+                        <Text style={styles.tagPro}>{item.package.type}</Text>
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+
+              <FlatList
+                style={styles.colorCodeList}
+                data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={{ ...styles.colorCode, backgroundColor: item.code }}
+                    onPress={() => {
+                      setFooterColor(item.code);
+                      item.isLight == true
+                        ? setFooterTextColor(Color.darkTextColor)
+                        : setFooterTextColor(Color.lightTextColor);
+                    }}
+                  />
+                )}
+              />
+
+              <FlatList
+                style={styles.socialIconList}
+                data={Constant.socialIconList}
+                horizontal
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                  <Icon
+                    name={item}
+                    size={40}
+                    color={
+                      socialIconList.indexOf(item) < 0
+                        ? Color.grey
+                        : Color.black
+                    }
+                    key={index}
+                    style={styles.socialIcon}
+                    onPress={() => {
+                      if (socialIconList.indexOf(item) >= 0) {
+                        setSocialIconList(
+                          socialIconList.filter((val) => val !== item)
+                        );
+                      } else if (
+                        socialIconList.length < Constant.socialIconLimit
+                      ) {
+                        setSocialIconList([...socialIconList, item]);
+                      } else {
+                        Platform.OS == "android"
+                          ? ToastAndroid.show(
+                              Common.getTranslation(LangKey.msgSocialIconLimit),
+                              ToastAndroid.LONG
+                            )
+                          : alert(
+                              Common.getTranslation(LangKey.msgSocialIconLimit)
+                            );
+                      }
+                    }}
+                  />
+                )}
+              />
+
+              <View
+                style={{
+                  justifyContent: "center",
+                  marginTop: 15,
+                  paddingHorizontal: 15,
+                  flexDirection: "row",
+                }}
               >
-                {Common.getTranslation(LangKey.txtDownload)}
-              </Button>
+                <View style={{ flex: 1, marginRight: 5 }}>
+                  <Button
+                    mode="contained"
+                    onPress={onClickShare}
+                    disabled={designs == null}
+                  >
+                    {Common.getTranslation(LangKey.txtShare)}
+                  </Button>
+                </View>
+                <View style={{ flex: 1, marginLeft: 5 }}>
+                  <Button
+                    mode="contained"
+                    onPress={onClickDownload}
+                    disabled={designs == null}
+                  >
+                    {Common.getTranslation(LangKey.txtDownload)}
+                  </Button>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      </ScrollView>
+          </ScrollView>
+        }
+      />
     </>
   );
 };
