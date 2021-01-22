@@ -230,6 +230,15 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         InactiveColor={Color.darkBlue}
         txt1="Personal"
         txt2="Bussiness"
+        /*
+      .########..########.########...######...#######..##....##....###....##......
+      .##.....##.##.......##.....##.##....##.##.....##.###...##...##.##...##......
+      .##.....##.##.......##.....##.##.......##.....##.####..##..##...##..##......
+      .########..######...########...######..##.....##.##.##.##.##.....##.##......
+      .##........##.......##...##.........##.##.....##.##..####.#########.##......
+      .##........##.......##....##..##....##.##.....##.##...###.##.....##.##......
+      .##........########.##.....##..######...#######..##....##.##.....##.########
+      */
         child1={
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
@@ -246,6 +255,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   const designPackage = designPackages.find(
                     (pkg) => pkg.id === item.package
                   );
+                  console.log(designPackage);
                   return (
                     <TouchableOpacity
                       style={styles.listDesignView}
@@ -500,6 +510,15 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             </View>
           </ScrollView>
         }
+        /*
+      .########..##.....##..######...######..####.##....##.########..######...######.
+      .##.....##.##.....##.##....##.##....##..##..###...##.##.......##....##.##....##
+      .##.....##.##.....##.##.......##........##..####..##.##.......##.......##......
+      .########..##.....##..######...######...##..##.##.##.######....######...######.
+      .##.....##.##.....##.......##.......##..##..##..####.##.............##.......##
+      .##.....##.##.....##.##....##.##....##..##..##...###.##.......##....##.##....##
+      .########...#######...######...######..####.##....##.########..######...######.
+      */
         child2={
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
@@ -637,7 +656,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   </ImageBackground>
                 </View>
               </ViewShot>
-
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -679,7 +697,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   </TouchableOpacity>
                 )}
               />
-
               <FlatList
                 style={styles.colorCodeList}
                 data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
@@ -699,7 +716,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   />
                 )}
               />
-
               <FlatList
                 style={styles.socialIconList}
                 data={Constant.socialIconList}
@@ -739,7 +755,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   />
                 )}
               />
-
               <View
                 style={{
                   justifyContent: "center",
