@@ -20,6 +20,7 @@ const UserProfile = (props) => {
   const renderSelectTab = () => {
     return (
       <TabsAnimation
+        flex={1}
         bgColor={Color.blackTransparant}
         AnimbgColor={Color.darkBlue}
         activeColor={Color.white}

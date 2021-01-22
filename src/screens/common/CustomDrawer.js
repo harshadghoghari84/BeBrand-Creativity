@@ -28,6 +28,7 @@ const ACCOUNT = <Icon name="account-outline" size={23} />;
 const WHATSAPP = <Icon name="whatsapp" size={23} />;
 const FAQ = <Icon name="information-outline" size={23} />;
 const OUR_WORK_CULTURE = <Icon name="basketball-hoop-outline" size={23} />;
+
 class CustomDrawer extends Component {
   state = {
     DrawerItemsSection1: [
@@ -67,7 +68,14 @@ class CustomDrawer extends Component {
       { title: Constant.titPrivacyPolicy, isSelected: false },
       { title: Constant.titCopyright, isSelected: false },
     ],
+    TOKEN: "",
   };
+
+  componentDidUpdate() {
+    AsyncStorage.getItem(Constant.prfUserToken).then((res) =>
+      this.setState({ TOKEN: res })
+    );
+  }
 
   onDSection1 = (currantIndex) => {
     const { DrawerItemsSection1 } = this.state;
@@ -152,112 +160,72 @@ class CustomDrawer extends Component {
                 if (index == 7) {
                   return (
                     <>
-                      {/* <Drawer.Section style={styles.drawerSection}>
-                        <List.Accordion
-                          title={Constant.titAccount}
-                          titleStyle={{
-                            fontSize: 14,
-                            fontWeight: "normal",
-                            paddingLeft: 5,
-                          }}
-                          left={(props) => (
-                            <Icon
-                              name="account-outline"
-                              {...props}
-                              size={24}
-                              style={{ paddingHorizontal: 20 }}
-                            />
-                          )}
-                        >
-                          <DrawerItem
-                            label={Constant.titProfile}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navProfile
-                              );
-                            }}
-                          />
-                          <DrawerItem
-                            label={Constant.titPackage}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navPackage
-                              );
-                            }}
-                          />
-                          <DrawerItem
-                            label={Constant.titDesigns}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navDesigns
-                              );
-                            }}
-                          />
-                        </List.Accordion>
-                      </Drawer.Section> */}
-                      <TouchableOpacity
-                        onPress={() => this.onDSection1(index)}
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          borderBottomWidth: item.devider ? 1 : null,
-                          borderBottomColor: item.devider
-                            ? Color.dividerColor
-                            : null,
-                        }}
-                      >
-                        <View
+                      {this.state.TOKEN !== null && (
+                        <TouchableOpacity
+                          onPress={() => this.onDSection1(index)}
                           style={{
                             flexDirection: "row",
+                            justifyContent: "space-between",
                             alignItems: "center",
-                            paddingVertical: 10,
+                            borderBottomWidth: item.devider ? 1 : null,
+                            borderBottomColor: item.devider
+                              ? Color.dividerColor
+                              : null,
                           }}
                         >
-                          <Text
+                          <View
                             style={{
-                              paddingHorizontal: 30,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingVertical: 10,
                             }}
                           >
-                            {item.icon}
-                          </Text>
-                          <Text
-                            style={{
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
-                            }}
-                          >
-                            {item.title}
-                          </Text>
-                        </View>
-                        {item.isSelected ? (
-                          <Icon
-                            name="chevron-up"
-                            size={28}
-                            style={{
-                              paddingRight: 10,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
-                            }}
-                          />
-                        ) : (
-                          <Icon
-                            name="chevron-down"
-                            size={28}
-                            style={{
-                              paddingRight: 10,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
-                            }}
-                          />
-                        )}
-                      </TouchableOpacity>
+                            <Text
+                              style={{
+                                paddingHorizontal: 30,
+                                color: item.isSelected
+                                  ? Color.primary
+                                  : Color.grey,
+                              }}
+                            >
+                              {item.icon}
+                            </Text>
+                            <Text
+                              style={{
+                                color: item.isSelected
+                                  ? Color.primary
+                                  : Color.grey,
+                              }}
+                            >
+                              {item.title}
+                            </Text>
+                          </View>
+                          {item.isSelected ? (
+                            <Icon
+                              name="chevron-up"
+                              size={28}
+                              style={{
+                                paddingRight: 10,
+                                color: item.isSelected
+                                  ? Color.primary
+                                  : Color.grey,
+                              }}
+                            />
+                          ) : (
+                            <Icon
+                              name="chevron-down"
+                              size={28}
+                              style={{
+                                paddingRight: 10,
+                                color: item.isSelected
+                                  ? Color.primary
+                                  : Color.grey,
+                              }}
+                            />
+                          )}
+                        </TouchableOpacity>
+                      )}
+
                       {item.isSelected ? (
                         <>
                           <TouchableOpacity
@@ -327,36 +295,6 @@ class CustomDrawer extends Component {
                               {Constant.titDesigns}
                             </Text>
                           </TouchableOpacity>
-                          {/* <DrawerItem
-                            label={Constant.titProfile}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navProfile
-                              );
-                            }}
-                          />
-                          <DrawerItem
-                            label={Constant.titPackage}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navPackage
-                              );
-                            }}
-                          />
-                          <DrawerItem
-                            style={{
-                              borderBottomWidth: item.devider ? 1 : null,
-                              borderBottomColor: item.devider
-                                ? Color.dividerColor
-                                : null,
-                            }}
-                            label={Constant.titDesigns}
-                            onPress={() => {
-                              this.props.navigation.navigate(
-                                Constant.navDesigns
-                              );
-                            }}
-                          /> */}
                         </>
                       ) : null}
                     </>

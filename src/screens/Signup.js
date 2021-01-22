@@ -26,8 +26,10 @@ import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
 import Common from "../utils/Common";
 import Color from "../utils/Color";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { inject, observer } from "mobx-react";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -37,10 +39,6 @@ const RegisterScreen = () => {
   const [userSignup, { loading }] = useMutation(GraphqlQuery.userSignup, {
     errorPolicy: "all",
   });
-
-  useEffect(() => {
-    console.log("chk", mobileNo.value, otp);
-  }, []);
 
   const _onSignUpPressed = async () => {
     const mobileError = mobileValidator(mobileNo.value);
@@ -69,8 +67,7 @@ const RegisterScreen = () => {
           //   token
           // ).then(() => {
           // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-          navigation.navigate(Constant.navHome);
-
+          // navigation.navigate(Constant.navHome);
           // });
         } else {
           const errorMsg = result.errors[0].message;
@@ -86,21 +83,76 @@ const RegisterScreen = () => {
     GraphqlQuery.verifyUserOtp
   );
 
-  const varifyOtp = () => {
-    console.log("add");
-    if (otp.length < 5) {
-      return false;
+  if (error && error.length > 0) {
+    const errorMsg = result.errors[0].message;
+    Common.showMessage(errorMsg);
+  }
+
+  if (data) {
+    if (data != null) {
+      // set user to userStore
+      data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
+
+      const token = data.verifyUserOtp.token;
+
+      AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
+        navigation.navigate(Constant.navHome);
+      });
     } else {
-      try {
-        verifyUserOtp({
-          variables: {
-            mobile: mobileNo.value,
-            otp: otp,
-          },
-        });
-      } catch (err) {
-        console.log(err);
-      }
+    }
+  }
+
+  const verifyOtp = () => {
+    try {
+      verifyUserOtp({
+        variables: {
+          mobile: mobileNo.value,
+          otp: otp,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onPressGetOtp = () => {
+    setOtpVisible(true);
+
+    const mobileError = mobileValidator(mobileNo.value);
+    const passwordError = passwordValidator(password.value);
+
+    if (mobileError || passwordError) {
+      setMobileNo({ ...mobileNo, error: mobileError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
+
+    try {
+      userSignup({
+        variables: {
+          mobile: mobileNo.value,
+          password: password.value,
+        },
+      }).then((result) => {
+        const data = result.data;
+        console.log("response", result);
+        if (data !== null) {
+          // const token = data.userSignup.token;
+          // console.log(data.userSignup.token);
+          // AsyncStorage.setItem(
+          //   Constant.prfUserToken,
+          //   token
+          // ).then(() => {
+          // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
+          // navigation.navigate(Constant.navHome);
+          // });
+        } else {
+          const errorMsg = result.errors[0].message;
+          Common.showMessage(errorMsg);
+        }
+      });
+    } catch (err) {
+      console.log("ERROR", err);
     }
   };
 
@@ -240,7 +292,6 @@ const RegisterScreen = () => {
               maxLength={6}
               value={otp}
               onChangeText={(val) => setOtp(val)}
-              onEndEditing={varifyOtp}
             />
           </View>
           <Text
@@ -266,7 +317,7 @@ const RegisterScreen = () => {
                 marginHorizontal: 20,
                 marginVertical: 8,
               }}
-              onPress={() => _onSignUpPressed()}
+              onPress={() => verifyOtp()}
               // loading={loading}
               // disabled={loading}
             >
@@ -277,7 +328,7 @@ const RegisterScreen = () => {
           ) : (
             <TouchableOpacity
               style={styles.btnLoginView}
-              onPress={() => setOtpVisible(true)}
+              onPress={() => onPressGetOtp()}
               loading={loading}
               disabled={loading}
             >
@@ -302,6 +353,8 @@ const RegisterScreen = () => {
     // </Background>
   );
 };
+
+export default inject("userStore")(observer(RegisterScreen));
 
 const styles = StyleSheet.create({
   label: {
@@ -398,5 +451,3 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 });
-
-export default memo(RegisterScreen);
