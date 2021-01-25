@@ -316,6 +316,7 @@ export default {
       userDesignsF(subCategory: $subCategory, start: $start) {
         id
         layouts
+        designType
         subCategory
         package
         thumbImage {

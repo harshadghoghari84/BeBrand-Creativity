@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd03/Desktop/React Native/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/dc97ee678f1a2dd4c1f7c1b1dc5d5318/appcompat-1.1.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/28b495934fda1291104bc207d377eb41/appcompat-1.1.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/13191276611a1c28d2ec1c94113a1e25/media-1.0.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/8a3ee50c2ab66e168bf5f7150a6b2861/media-1.0.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
