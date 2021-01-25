@@ -30,4 +30,6 @@ export default {
   darkBlue: "#23234F",
   black: "#000000",
   blackTransparant: "#E3E3E3",
+  txtInBgColor: "#E6E6E6",
+  txtIntxtcolor: "#9C9C9C",
 };

@@ -12,7 +12,16 @@ import {
 import { useMutation, useLazyQuery } from "@apollo/client";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
-
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-community/google-signin";
+import {
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+  LoginManager,
+} from "react-native-fbsdk";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -39,6 +48,69 @@ const RegisterScreen = ({ userStore }) => {
   const [userSignup, { loading }] = useMutation(GraphqlQuery.userSignup, {
     errorPolicy: "all",
   });
+
+  /*
+  .##....##....###....##.....##.####..######......###....########.####..#######..##....##
+  .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
+  .####..##..##...##..##.....##..##..##.........##...##.....##.....##..##.....##.####..##
+  .##.##.##.##.....##.##.....##..##..##...####.##.....##....##.....##..##.....##.##.##.##
+  .##..####.#########..##...##...##..##....##..#########....##.....##..##.....##.##..####
+  .##...###.##.....##...##.##....##..##....##..##.....##....##.....##..##.....##.##...###
+  .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
+  */
+
+  const onGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
+  const getInfoFromToken = (token) => {
+    const PROFILE_REQ_PARAMS = {
+      fileds: {
+        string: "id,name,first_name,last_name",
+      },
+    };
+    const ProfileRequest = new GraphRequest(
+      "/me",
+      { token, parameters: PROFILE_REQ_PARAMS },
+      (error, user) => {
+        if (error) {
+          console.log("login info has error", error);
+        } else {
+          console.log("result user", user.name);
+        }
+      }
+    );
+    new GraphRequestManager().addRequest(ProfileRequest).start();
+  };
+
+  const onFaceBookLogin = async () => {
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+      (login) => {
+        if (login.isCancelled) {
+          console.log("login cancelled");
+        } else {
+          AccessToken.getCurrentAccessToken().then((data) => {
+            const accessToken = data.accessToken.toString();
+            getInfoFromToken(accessToken);
+          });
+        }
+      },
+      (error) => {
+        console.log("login fail with error", error);
+      }
+    );
+  };
 
   const _onSignUpPressed = async () => {
     const mobileError = mobileValidator(mobileNo.value);
@@ -184,7 +256,11 @@ const RegisterScreen = ({ userStore }) => {
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
         <Text
-          style={{ fontSize: 13, fontWeight: "700", color: Color.darkBlue }}
+          style={{
+            fontSize: 13,
+            fontWeight: "700",
+            color: Color.txtIntxtcolor,
+          }}
         >
           Sign in With Google
         </Text>
@@ -195,7 +271,11 @@ const RegisterScreen = ({ userStore }) => {
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
         <Text
-          style={{ fontSize: 13, fontWeight: "700", color: Color.darkBlue }}
+          style={{
+            fontSize: 13,
+            fontWeight: "700",
+            color: Color.txtIntxtcolor,
+          }}
         >
           Sign in With FaceBook
         </Text>
@@ -214,7 +294,7 @@ const RegisterScreen = ({ userStore }) => {
         />
         <TextInput
           placeholder={Common.getTranslation(LangKey.labMobile)}
-          placeholderTextColor={Color.darkBlue}
+          placeholderTextColor={Color.txtIntxtcolor}
           returnKeyType="next"
           value={mobileNo.value}
           onChangeText={(text) => setMobileNo({ value: text, error: "" })}
@@ -240,7 +320,7 @@ const RegisterScreen = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labPassword)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="done"
               value={password.value}
               onChangeText={(text) => setPassword({ value: text, error: "" })}
@@ -270,10 +350,9 @@ const RegisterScreen = ({ userStore }) => {
             style={[
               styles.socialBTNView,
               {
-                width: "90%",
+                width: "50%",
                 alignItems: "center",
                 justifyContent: "center",
-                marginHorizontal: 0,
               },
             ]}
           >
@@ -281,13 +360,13 @@ const RegisterScreen = ({ userStore }) => {
               style={[
                 styles.socialTXT,
                 {
-                  width: "30%",
+                  width: "100%",
                   textAlign: "center",
                   letterSpacing: 5,
                 },
               ]}
               placeholder="______"
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               keyboardType="number-pad"
               maxLength={6}
               value={otp}
@@ -310,13 +389,7 @@ const RegisterScreen = ({ userStore }) => {
         <>
           {otp !== null && otp.length > 5 ? (
             <TouchableOpacity
-              style={{
-                backgroundColor: Color.primary,
-                alignItems: "center",
-                borderRadius: 50,
-                marginHorizontal: 20,
-                marginVertical: 8,
-              }}
+              style={styles.btnLoginView}
               onPress={() => verifyOtp()}
               // loading={loading}
               // disabled={loading}
@@ -376,8 +449,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 50,
     marginHorizontal: 20,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
+    backgroundColor: Color.txtInBgColor,
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
@@ -391,7 +463,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   sapratorLines: {
-    borderBottomColor: Color.darkBlue,
+    borderBottomColor: Color.txtIntxtcolor,
     borderBottomWidth: 1,
     opacity: 0.6,
     width: "40%",
@@ -410,34 +482,27 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   txtSignin: {
-    paddingHorizontal: 40,
-    paddingVertical: 10,
-    borderRadius: 50,
+    // paddingHorizontal: 40,
+    // paddingVertical: 8,
+    // borderRadius: 50,
     fontSize: 18,
     fontWeight: "700",
     color: Color.white,
   },
-  socialBTNView: {
-    height: 55,
-    borderRadius: 50,
-    marginHorizontal: 20,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: 10,
-  },
+
   socialTXT: {
-    height: 50,
+    height: 48,
     fontSize: 13,
     fontWeight: "700",
     color: Color.darkBlue,
-    width: "80%",
+    // width: "80%",
   },
   btnLoginView: {
     backgroundColor: Color.primary,
     alignItems: "center",
     borderRadius: 50,
+    height: 35,
+    justifyContent: "center",
     marginHorizontal: 20,
     marginVertical: 8,
     shadowColor: "#000",

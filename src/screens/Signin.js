@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -11,7 +11,16 @@ import { useMutation } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-community/google-signin";
+import {
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+  LoginManager,
+} from "react-native-fbsdk";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -29,12 +38,84 @@ import Color from "../utils/Color";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
+
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
   const [userLogin, { loading }] = useMutation(GraphqlQuery.userLogin, {
     errorPolicy: "all",
   });
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+      offlineAccess: true,
+    });
+  }, []);
+
+  /*
+  .##....##....###....##.....##.####..######......###....########.####..#######..##....##
+  .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
+  .####..##..##...##..##.....##..##..##.........##...##.....##.....##..##.....##.####..##
+  .##.##.##.##.....##.##.....##..##..##...####.##.....##....##.....##..##.....##.##.##.##
+  .##..####.#########..##...##...##..##....##..#########....##.....##..##.....##.##..####
+  .##...###.##.....##...##.##....##..##....##..##.....##....##.....##..##.....##.##...###
+  .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
+  */
+
+  const onGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
+  const getInfoFromToken = (token) => {
+    const PROFILE_REQ_PARAMS = {
+      fileds: {
+        string: "id,name,first_name,last_name",
+      },
+    };
+    const ProfileRequest = new GraphRequest(
+      "/me",
+      { token, parameters: PROFILE_REQ_PARAMS },
+      (error, user) => {
+        if (error) {
+          console.log("login info has error", error);
+        } else {
+          console.log("result user", user.name);
+        }
+      }
+    );
+    new GraphRequestManager().addRequest(ProfileRequest).start();
+  };
+
+  const onFaceBookLogin = async () => {
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+      (login) => {
+        if (login.isCancelled) {
+          console.log("login cancelled");
+        } else {
+          AccessToken.getCurrentAccessToken().then((data) => {
+            const accessToken = data.accessToken.toString();
+            getInfoFromToken(accessToken);
+          });
+        }
+      },
+      (error) => {
+        console.log("login fail with error", error);
+      }
+    );
+  };
 
   const onLoginPressed = async () => {
     const mobileError = mobileValidator(mobileNo.value);
@@ -99,24 +180,38 @@ const LoginScreen = ({ userStore }) => {
     // <Logo />
     //<Header>{Common.getTranslation(LangKey.txtWelcome)}</Header>
     <View style={{ flex: 1 }}>
-      <TouchableOpacity style={styles.socialBTNView}>
+      <TouchableOpacity
+        // onPress={() => onGoogleLogin()}
+        style={styles.socialBTNView}
+      >
         <Image
           source={require("../assets/google.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
         <Text
-          style={{ fontSize: 13, fontWeight: "700", color: Color.darkBlue }}
+          style={{
+            fontSize: 13,
+            fontWeight: "700",
+            color: Color.txtIntxtcolor,
+          }}
         >
           Sign in With Google
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.socialBTNView}>
+      <TouchableOpacity
+        // onPress={() => onFaceBookLogin()}
+        style={styles.socialBTNView}
+      >
         <Image
           source={require("../assets/fb.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
         <Text
-          style={{ fontSize: 13, fontWeight: "700", color: Color.darkBlue }}
+          style={{
+            fontSize: 13,
+            fontWeight: "700",
+            color: Color.txtIntxtcolor,
+          }}
         >
           Sign in With FaceBook
         </Text>
@@ -136,7 +231,7 @@ const LoginScreen = ({ userStore }) => {
           />
           <TextInput
             placeholder={Common.getTranslation(LangKey.labMobile)}
-            placeholderTextColor={Color.darkBlue}
+            placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             value={mobileNo.value}
             onChangeText={(text) => setMobileNo({ value: text, error: "" })}
@@ -163,7 +258,7 @@ const LoginScreen = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labPassword)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="done"
               value={password.value}
               onChangeText={(text) => setPassword({ value: text, error: "" })}
@@ -234,11 +329,10 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
   },
   socialBTNView: {
-    height: 55,
+    height: 48,
     borderRadius: 50,
     marginHorizontal: 20,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
+    backgroundColor: Color.txtInBgColor,
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
@@ -252,7 +346,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   sapratorLines: {
-    borderBottomColor: Color.darkBlue,
+    borderBottomColor: Color.txtIntxtcolor,
     borderBottomWidth: 1,
     opacity: 0.6,
     width: "40%",
@@ -271,9 +365,9 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   txtSignin: {
-    paddingHorizontal: 40,
-    paddingVertical: 10,
-    borderRadius: 50,
+    // paddingHorizontal: 40,
+    // paddingVertical: 10,
+    // borderRadius: 50,
     fontSize: 18,
     fontWeight: "700",
     color: Color.white,
@@ -287,6 +381,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: "center",
     borderRadius: 50,
+    height: 35,
+    justifyContent: "center",
     marginHorizontal: 20,
     marginVertical: 8,
     shadowColor: "#000",

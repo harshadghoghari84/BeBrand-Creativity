@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "145083857360",
+    "project_id": "bebranddcreativity",
+    "storage_bucket": "bebranddcreativity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145083857360:android:788c1b9c6af80dc2fd61d5",
+        "android_client_info": {
+          "package_name": "com.bebrandd.yourdesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145083857360-lc8f1loarumn7iecutm675mqsckmi8ep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebrandd.yourdesign",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Qp_PMgafheidhk9d0PMYMugk71s5sOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

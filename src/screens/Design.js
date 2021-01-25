@@ -39,15 +39,26 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   const { designs, curDesign } = route.params;
 
-  useEffect(() => {
-    console.log("==", designs);
-    console.log("=>", curDesign);
-  }, []);
+  // useEffect(() => {
+  //   console.log("==", designs);
+  //   console.log("=>", curDesign);
+  // }, []);
+
+  const filterdDesignsPersonal = designs.filter(
+    (ele) => ele.designType !== null && (ele.designType === "ALL" || "PERSONAL")
+  );
+  const filterdDesignsBussiness = designs.filter(
+    (ele) =>
+      ele.designType !== null && (ele.designType === "ALL" || "BUSSINESS")
+  );
+  // useEffect(() => {
+  //   console.log("filterData", filterdDesigns);
+  // }, [filterdDesigns]);
 
   const allLayouts = toJS(designStore.designLayouts);
-  useEffect(() => {
-    console.log("Alllayouts", allLayouts);
-  }, [allLayouts]);
+  // useEffect(() => {
+  //   console.log("Alllayouts", allLayouts);
+  // }, [allLayouts]);
 
   const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
     errorPolicy: "all",
@@ -57,6 +68,17 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const [currentDesign, setCurrentDesign] = useState(curDesign);
 
   const [layouts, setLayouts] = useState([]);
+
+  const filterdLayoutPersonal = layouts.filter(
+    (ele) => ele.layoutType !== null && ele.layoutType === "PERSONAL"
+  );
+  const filterdLayoutBussiness = layouts.filter(
+    (ele) => ele.layoutType !== null && ele.layoutType === "BUSSINESS"
+  );
+
+  // useEffect(() => {
+  //   console.log("layouts", layouts);
+  // }, [allLayouts]);
 
   const [currentLayout, setCurrentLayout] = useState(
     allLayouts.length > 0
@@ -248,14 +270,13 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={designs}
+                data={filterdDesignsPersonal}
                 keyExtractor={keyExtractor}
                 style={styles.flatlist}
                 renderItem={({ item }) => {
                   const designPackage = designPackages.find(
                     (pkg) => pkg.id === item.package
                   );
-                  console.log(designPackage);
                   return (
                     <TouchableOpacity
                       style={styles.listDesignView}
@@ -275,6 +296,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                           source={{ uri: item.thumbImage.url }}
                           style={{ width: 75, height: 75 }}
                         />
+
                         {item.id === currentDesign.id && (
                           <Icon
                             name="ios-checkmark-circle"
@@ -381,7 +403,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={layouts}
+                data={filterdLayoutPersonal}
                 keyExtractor={keyExtractor}
                 style={styles.flatlist}
                 renderItem={({ item }) => (
@@ -528,7 +550,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={designs}
+                data={filterdDesignsBussiness}
                 keyExtractor={keyExtractor}
                 style={styles.flatlist}
                 renderItem={({ item }) => {
@@ -659,7 +681,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={layouts}
+                data={filterdLayoutBussiness}
                 keyExtractor={keyExtractor}
                 style={styles.flatlist}
                 renderItem={({ item }) => (

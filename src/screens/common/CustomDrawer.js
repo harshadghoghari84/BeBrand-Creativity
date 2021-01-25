@@ -141,7 +141,8 @@ class CustomDrawer extends Component {
                 <Text style={styles.txtUserName}>Guest</Text>
                 <View style={{ width: "80%" }}>
                   <ProgressBar
-                    progress={5}
+                    progress={0.5}
+                    color={Color.primary}
                     style={{
                       height: 7,
                       marginTop: 5,
