@@ -1,13 +1,13 @@
 import { Colors } from "react-native-paper";
 
 export default {
-  primary: "#FBBF17",
-  secondary: "#FBBF17",
+  primary: "#FF8200",
+  secondary: "#FF8200",
   accent: "#545454",
 
   drawerTextColor: "#545454",
 
-  tagColor: "#FBBF17",
+  tagColor: "#FF8200",
   tagTextColor: "#545454",
 
   bkgDesignDate: "#545454",

@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  Text,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { useMutation } from "@apollo/client";
@@ -376,8 +377,48 @@ const BusinessProfile = ({ userStore }) => {
           />
         </View>
 
+        <View style={{ width: "90%" }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "700",
+              color: Color.darkBlue,
+              paddingVertical: 5,
+            }}
+          >
+            Profile Image
+          </Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View
+              style={{
+                height: 90,
+                width: "30%",
+                backgroundColor: "pink",
+                borderRadius: 10,
+              }}
+            ></View>
+            <View
+              style={{
+                height: 90,
+                width: "30%",
+                backgroundColor: "pink",
+                borderRadius: 10,
+              }}
+            ></View>
+            <View
+              style={{
+                height: 90,
+                width: "30%",
+                backgroundColor: "pink",
+                borderRadius: 10,
+              }}
+            ></View>
+          </View>
+        </View>
+
         <Button
-          mode="contained"
           loading={loading}
           disabled={loading}
           style={styles.btnSave}
@@ -427,7 +468,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btnSave: {
-    width: "60%",
+    width: "80%",
   },
   icnCheck: {
     position: "absolute",

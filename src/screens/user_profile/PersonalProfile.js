@@ -421,7 +421,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         </View>
 
         <Button
-          mode="contained"
+          // mode=""
           loading={loading}
           disabled={loading}
           style={styles.btnSave}
