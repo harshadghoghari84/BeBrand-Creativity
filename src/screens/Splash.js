@@ -98,3 +98,14 @@ const styles = StyleSheet.create({
     top: 320,
   },
 });
+
+// return (
+//   <View style={styles.container}>
+//     <Image
+//       source={require("../assets/logo.png")}
+//       style={{ width: 250, height: 150, marginBottom: 20 }}
+//       resizeMode="center"
+//     />
+//     <ActivityIndicator animating={true} />
+//   </View>
+// );
