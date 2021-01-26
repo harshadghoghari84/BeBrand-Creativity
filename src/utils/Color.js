@@ -1,7 +1,7 @@
 import { Colors } from "react-native-paper";
 
 export default {
-  primary: "#FBBF17",
+  primary: "#FF8200",
   secondary: "#FBBF17",
   accent: "#545454",
 

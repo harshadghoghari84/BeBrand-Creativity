@@ -95,12 +95,29 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
   const getImagePickerView = () => {
     return (
-      <TouchableOpacity
-        style={styles.toProfileImage}
-        onPress={onClickImageSelect}
-      >
-        <Icon name="plus" color={Color.grey} size={34} />
-      </TouchableOpacity>
+      <View style={styles.toProfileImage}>
+        <TouchableOpacity onPress={onClickImageSelect}>
+          <Icon
+            style={{
+              padding: 10,
+              backgroundColor: Color.txtIntxtcolor,
+              borderRadius: 50,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+            }}
+            name="plus"
+            color={Color.white}
+            size={34}
+          />
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -249,7 +266,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labUserName)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={userName}
               onChangeText={(text) => setUserName(text)}
@@ -266,7 +283,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labMobile)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={mobile}
               keyboardType="phone-pad"
@@ -282,7 +299,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labEmail)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={email}
               onChangeText={(text) => setEmail(text)}
@@ -297,7 +314,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labDesignation)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={designation}
               onChangeText={(text) => setDesignation(text)}
@@ -312,7 +329,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={socialMediaId}
               onChangeText={(text) => setSocialMediaId(text)}
@@ -327,7 +344,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labWebsite)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={website}
               onChangeText={(text) => setWebsite(text)}
@@ -379,47 +396,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
             }}
           />
         </View>
-        <View style={{ width: "90%" }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: "700",
-              color: Color.darkBlue,
-              paddingVertical: 5,
-            }}
-          >
-            Profile Image
-          </Text>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <View
-              style={{
-                height: 90,
-                width: "30%",
-                backgroundColor: "pink",
-                borderRadius: 10,
-              }}
-            ></View>
-            <View
-              style={{
-                height: 90,
-                width: "30%",
-                backgroundColor: "pink",
-                borderRadius: 10,
-              }}
-            ></View>
-            <View
-              style={{
-                height: 90,
-                width: "30%",
-                backgroundColor: "pink",
-                borderRadius: 10,
-              }}
-            ></View>
-          </View>
-        </View>
-
         <Button
           loading={loading}
           disabled={loading}
@@ -475,11 +451,10 @@ const styles = StyleSheet.create({
     right: 3,
   },
   socialBTNView: {
-    height: 50,
+    height: 48,
     borderRadius: 50,
     marginHorizontal: 10,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
+    backgroundColor: Color.txtInBgColor,
     flexDirection: "row",
     alignItems: "center",
     margin: 7,

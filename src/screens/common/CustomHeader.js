@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
+  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -38,7 +39,7 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
               style={styles.backIcon}
               onPress={() => navigation.goBack()}
             >
-              <Icon name="ios-arrow-back" size={30} color={Color.accent} />
+              <Icon name="ios-arrow-back" size={30} color={Color.white} />
             </TouchableOpacity>
           )}
           <TouchableOpacity
@@ -48,14 +49,18 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
             }}
             onPress={() => navigation.openDrawer()}
           >
-            <Icon name="ios-menu" size={30} color={Color.accent} />
+            <Icon name="ios-menu" size={30} color={Color.white} />
           </TouchableOpacity>
-          <Text style={styles.companyName}>BE BRANDD</Text>
+          <Image
+            source={require("../../assets/DFS.png")}
+            style={{ height: 40, width: 200 }}
+            resizeMode="center"
+          />
           <View style={styles.containerSearchIcon}>
             <Icon
               name="ios-search"
-              size={20}
-              color={Color.accent}
+              size={27}
+              color={Color.white}
               onPress={() => navigation.openDrawer()}
             />
           </View>
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" ? StatusBar.currentHeight : 0,
     width: "100%",
     alignItems: "center",
-    display: "flex",
+    justifyContent: "space-between",
     flexDirection: "row",
   },
   backIcon: {
@@ -93,8 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerSearchIcon: {
-    backgroundColor: Color.white,
-    borderRadius: 100,
     paddingHorizontal: 10,
     paddingVertical: 7,
     marginRight: 15,

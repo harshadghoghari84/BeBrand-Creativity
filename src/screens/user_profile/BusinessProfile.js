@@ -244,7 +244,7 @@ const BusinessProfile = ({ userStore }) => {
 
             <TextInput
               placeholder={Common.getTranslation(LangKey.labUserName)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={userName}
               onChangeText={(text) => setUserName(text)}
@@ -261,7 +261,7 @@ const BusinessProfile = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labMobile)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={mobile}
               keyboardType="phone-pad"
@@ -277,7 +277,7 @@ const BusinessProfile = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labEmail)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={email}
               onChangeText={(text) => setEmail(text)}
@@ -292,7 +292,7 @@ const BusinessProfile = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labAddress)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={address}
               onChangeText={(text) => setAddress(text)}
@@ -307,7 +307,7 @@ const BusinessProfile = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={socialMediaId}
               onChangeText={(text) => setSocialMediaId(text)}
@@ -322,7 +322,7 @@ const BusinessProfile = ({ userStore }) => {
             />
             <TextInput
               placeholder={Common.getTranslation(LangKey.labWebsite)}
-              placeholderTextColor={Color.darkBlue}
+              placeholderTextColor={Color.txtIntxtcolor}
               returnKeyType="next"
               value={website}
               onChangeText={(text) => setWebsite(text)}
@@ -435,11 +435,10 @@ const styles = StyleSheet.create({
     right: 3,
   },
   socialBTNView: {
-    height: 50,
+    height: 48,
     borderRadius: 50,
     marginHorizontal: 10,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
+    backgroundColor: Color.txtInBgColor,
     flexDirection: "row",
     alignItems: "center",
     margin: 7,
