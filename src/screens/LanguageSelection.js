@@ -11,6 +11,7 @@ import { Colors } from "react-native-paper";
 import Common from "../utils/Common";
 import Button from "../components/Button";
 import Constant from "../utils/Constant";
+import Color from "../utils/Color";
 
 const lang = [
   { code: "en", name: "English" },
@@ -32,7 +33,7 @@ const LanguageSelection = ({ navigation }) => {
       <View style={{ marginTop: 60 }}>
         <Text style={styles.textHeading}>Please Select Preferred Language</Text>
       </View>
-      <ScrollView style={{ flex: 1, marginTop: 30, width: "40%" }}>
+      <ScrollView style={{ flex: 1, marginTop: 30, width: "50%" }}>
         {lang.map((item, key) => (
           <TouchableOpacity
             key={key}
@@ -43,14 +44,23 @@ const LanguageSelection = ({ navigation }) => {
             }
             onPress={() => setLangCode(item.code)}
           >
-            <Text style={styles.text}>{item.name}</Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color:
+                    item.code === langCode ? Color.white : Color.txtIntxtcolor,
+                },
+              ]}
+            >
+              {item.name}
+            </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
       <Button
-        mode="contained"
         style={{ marginBottom: 30, width: "60%" }}
-        labelColor={Colors.black}
+        labelColor={Color.white}
         onPress={onBtnPress}
       >
         Set Language
@@ -65,13 +75,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textHeading: {
-    color: "#191919",
+    color: Color.darkBlue,
     fontSize: 30,
     textAlign: "center",
   },
   elementContainer: {
     width: "100%",
-    height: 60,
+    height: 50,
     padding: 10,
     marginTop: 25,
     backgroundColor: Colors.grey200,
@@ -81,16 +91,16 @@ const styles = StyleSheet.create({
   },
   elementContainerActive: {
     width: "100%",
-    height: 60,
+    height: 50,
     padding: 10,
     marginTop: 25,
-    backgroundColor: Colors.yellow700,
+    backgroundColor: Color.darkBlue,
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
-    color: "#191919",
+    color: Color.txtIntxtcolor,
     fontSize: 25,
   },
 });
