@@ -77,8 +77,6 @@ class CustomDrawer extends Component {
 
   componentDidMount() {
     const user = toJS(this.props.userStore.user);
-    console.log(user && user);
-
     try {
       var val =
         user?.designPackage &&
