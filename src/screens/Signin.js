@@ -35,6 +35,7 @@ import LangKey from "../utils/LangKey";
 import Common from "../utils/Common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Color from "../utils/Color";
+import FastImage from "react-native-fast-image";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -184,7 +185,7 @@ const LoginScreen = ({ userStore }) => {
         // onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}
       >
-        <Image
+        <FastImage
           source={require("../assets/google.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
@@ -202,7 +203,7 @@ const LoginScreen = ({ userStore }) => {
         // onPress={() => onFaceBookLogin()}
         style={styles.socialBTNView}
       >
-        <Image
+        <FastImage
           source={require("../assets/fb.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
@@ -225,7 +226,7 @@ const LoginScreen = ({ userStore }) => {
       </View>
       <>
         <View style={styles.socialBTNView}>
-          <Image
+          <FastImage
             source={require("../assets/call.png")}
             style={{ height: 35, width: 35, marginHorizontal: 10 }}
           />
@@ -252,7 +253,7 @@ const LoginScreen = ({ userStore }) => {
           duration={500}
         >
           <View style={styles.socialBTNView}>
-            <Image
+            <FastImage
               source={require("../assets/lock.png")}
               style={{ height: 35, width: 35, marginHorizontal: 10 }}
             />

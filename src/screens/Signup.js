@@ -251,7 +251,7 @@ const RegisterScreen = ({ userStore }) => {
     //   <Header>{Common.getTranslation(LangKey.txtCreateAccount)}</Header>
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.socialBTNView}>
-        <Image
+        <FastImage
           source={require("../assets/google.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
@@ -266,7 +266,7 @@ const RegisterScreen = ({ userStore }) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.socialBTNView}>
-        <Image
+        <FastImage
           source={require("../assets/fb.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
@@ -288,7 +288,7 @@ const RegisterScreen = ({ userStore }) => {
         <View style={styles.sapratorLines} />
       </View>
       <View style={styles.socialBTNView}>
-        <Image
+        <FastImage
           source={require("../assets/call.png")}
           style={{ height: 35, width: 35, marginHorizontal: 10 }}
         />
@@ -314,7 +314,7 @@ const RegisterScreen = ({ userStore }) => {
           duration={500}
         >
           <View style={styles.socialBTNView}>
-            <Image
+            <FastImage
               source={require("../assets/lock.png")}
               style={{ height: 35, width: 35, marginHorizontal: 10 }}
             />

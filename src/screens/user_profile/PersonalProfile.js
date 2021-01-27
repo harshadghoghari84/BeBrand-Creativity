@@ -109,7 +109,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
               },
               shadowOpacity: 0.25,
               shadowRadius: 3.84,
-
               elevation: 5,
             }}
             name="plus"
@@ -157,7 +156,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
       if (!errors) {
         userStore.addPersonalImage(data.addPersonalImage);
       } else {
-        console.error(errors);
+        console.error("error===>", errors);
       }
     }
   };

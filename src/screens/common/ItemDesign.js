@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
-
+import FastImage from "react-native-fast-image";
 const imgWidth = (Dimensions.get("window").width - 30) / 2;
 
 const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
@@ -18,9 +18,9 @@ const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
     onPress={() => onDesignClick(packageType, design)}
   >
     <View>
-      <Image
+      <FastImage
         style={styles.imgSubCategoryDesign}
-        resizeMode="contain"
+        resizeMode={FastImage.resizeMode.contain}
         source={{ uri: design.thumbImage.url }}
       />
       {packageType === Constant.typeDesignPackagePro && (

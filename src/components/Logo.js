@@ -1,9 +1,10 @@
 import React, { memo } from "react";
 import { Image, StyleSheet } from "react-native";
+import FastImage from "react-native-fast-image";
 
 const Logo = () => (
-  <Image
-    resizeMode="center"
+  <FastImage
+    resizeMode={FastImage.resizeMode.contain}
     source={require("../assets/bdt.png")}
     style={styles.image}
   />
