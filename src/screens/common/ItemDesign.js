@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Image,
 } from "react-native";
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
