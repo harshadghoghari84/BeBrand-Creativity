@@ -143,7 +143,7 @@ export default TabsAnimation;
 
 const style = StyleSheet.create({
   selecteTabs: {
-    height: 50,
+    height: 35,
     flexDirection: "row",
     alignItems: "center",
     // backgroundColor: Color.blackTransparant,
@@ -152,7 +152,7 @@ const style = StyleSheet.create({
   },
   tabsView: {
     color: Color.white,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "700",
   },
 });

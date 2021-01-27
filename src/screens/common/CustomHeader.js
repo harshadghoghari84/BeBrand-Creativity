@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "../../components/svgIcons";
 
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
@@ -39,7 +39,7 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
               style={styles.backIcon}
               onPress={() => navigation.goBack()}
             >
-              <Icon name="ios-arrow-back" size={30} color={Color.white} />
+              <Icon name="back" fill={Color.white} height={20} width={20} />
             </TouchableOpacity>
           )}
           <TouchableOpacity
@@ -49,7 +49,7 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
             }}
             onPress={() => navigation.openDrawer()}
           >
-            <Icon name="ios-menu" size={30} color={Color.white} />
+            <Icon name="menu" fill={Color.white} height={20} width={20} />
           </TouchableOpacity>
           <Image
             source={require("../../assets/DFS.png")}
@@ -57,12 +57,9 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
             resizeMode="center"
           />
           <View style={styles.containerSearchIcon}>
-            <Icon
-              name="ios-search"
-              size={27}
-              color={Color.white}
-              onPress={() => navigation.openDrawer()}
-            />
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icon name="search" fill={Color.white} height={20} width={20} />
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
