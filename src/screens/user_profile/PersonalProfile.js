@@ -13,7 +13,7 @@ import { useMutation } from "@apollo/client";
 import { toJS } from "mobx";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "../../components/svgIcons";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
 
@@ -96,25 +96,24 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const getImagePickerView = () => {
     return (
       <View style={styles.toProfileImage}>
-        <TouchableOpacity onPress={onClickImageSelect}>
-          <Icon
-            style={{
-              padding: 10,
-              backgroundColor: Color.txtIntxtcolor,
-              borderRadius: 50,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-            }}
-            name="plus"
-            color={Color.white}
-            size={34}
-          />
+        <TouchableOpacity
+          onPress={() => onClickImageSelect()}
+          style={{
+            padding: 10,
+            backgroundColor: Color.txtIntxtcolor,
+            borderRadius: 50,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
+          }}
+        >
+          <Icon name="plus" fill={Color.white} height={25} width={25} />
         </TouchableOpacity>
       </View>
     );
@@ -156,7 +155,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
       if (!errors) {
         userStore.addPersonalImage(data.addPersonalImage);
       } else {
-        console.error("error===>", errors);
+        console.error(errors);
       }
     }
   };
@@ -259,10 +258,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
         <View style={styles.containerTil}>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon name="user" fill={Color.white} height={15} width={15} />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labUserName)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -276,10 +274,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
           </View>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon name="phone" fill={Color.white} height={15} width={15} />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labMobile)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -292,10 +289,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
           </View>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon name="email" fill={Color.white} height={15} width={15} />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labEmail)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -307,10 +303,14 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
           </View>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon
+                name="designation"
+                fill={Color.white}
+                height={15}
+                width={15}
+              />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labDesignation)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -322,10 +322,14 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
           </View>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon
+                name="social_id"
+                fill={Color.white}
+                height={15}
+                width={15}
+              />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -337,10 +341,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
             />
           </View>
           <View style={styles.socialBTNView}>
-            <Image
-              source={require("../../assets/call.png")}
-              style={styles.filedsIcon}
-            />
+            <View style={styles.filedsIcon}>
+              <Icon name="website" fill={Color.white} height={15} width={15} />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labWebsite)}
               placeholderTextColor={Color.txtIntxtcolor}
@@ -450,7 +453,7 @@ const styles = StyleSheet.create({
     right: 3,
   },
   socialBTNView: {
-    height: 48,
+    height: 40,
     borderRadius: 50,
     marginHorizontal: 10,
     backgroundColor: Color.txtInBgColor,
@@ -458,5 +461,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 7,
   },
-  filedsIcon: { height: 35, width: 35, marginHorizontal: 5, marginRight: 10 },
+  filedsIcon: {
+    marginHorizontal: 5,
+    marginRight: 10,
+    backgroundColor: Color.txtIntxtcolor,
+    // paddingVertical: 8,
+    // paddingHorizontal: 8,
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+  },
 });

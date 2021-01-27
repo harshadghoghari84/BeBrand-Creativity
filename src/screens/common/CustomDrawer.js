@@ -12,6 +12,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar, Drawer, List, ProgressBar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { inject, observer } from "mobx-react";
+import FastImage from "react-native-fast-image";
 
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
@@ -163,13 +164,13 @@ class CustomDrawer extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <View style={styles.containerUserDetails}>
-            <Avatar.Image
+            <FastImage
               source={{
                 uri: user?.userInfo?.personal?.image[0]?.url
                   ? user.userInfo.personal?.image[0].url
                   : "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png",
               }}
-              size={60}
+              style={{ height: 60, width: 60, borderRadius: 50 }}
             />
             <View style={styles.containerSubUserDetails}>
               <Text style={styles.txtUserName}>
