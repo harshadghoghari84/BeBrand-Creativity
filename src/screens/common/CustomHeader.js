@@ -12,7 +12,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "../../components/svgIcons";
 
 import Color from "../../utils/Color";
-import Constant from "../../utils/Constant";
 
 const CustomHeader = ({ isBackVisible = false, navigation }) => {
   // const { backKey } = route.params;
