@@ -77,23 +77,27 @@ class CustomDrawer extends Component {
 
   componentDidMount() {
     const user = toJS(this.props.userStore.user);
-    console.log(user);
+    console.log(user && user);
 
-    var val =
-      user?.designPackage &&
-      user.designPackage.reduce(function (previousValue, currentValue) {
-        return {
-          startDesignCredit:
-            previousValue.startDesignCredit + currentValue.startDesignCredit,
-          currentDesignCredit:
-            previousValue.currentDesignCredit +
-            currentValue.currentDesignCredit,
-        };
+    try {
+      var val =
+        user?.designPackage &&
+        user.designPackage.reduce(function (previousValue, currentValue) {
+          return {
+            startDesignCredit:
+              previousValue.startDesignCredit + currentValue.startDesignCredit,
+            currentDesignCredit:
+              previousValue.currentDesignCredit +
+              currentValue.currentDesignCredit,
+          };
+        });
+      this.setState({
+        startDesignCredit: val.startDesignCredit,
+        currentDesignCredit: val.currentDesignCredit,
       });
-    this.setState({
-      startDesignCredit: val.startDesignCredit,
-      currentDesignCredit: val.currentDesignCredit,
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   componentDidUpdate() {
