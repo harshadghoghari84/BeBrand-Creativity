@@ -71,7 +71,7 @@ class CustomDrawer extends Component {
       { title: Constant.titCopyright, isSelected: false },
     ],
     TOKEN: "",
-    startDesignCreditsum: "",
+    startDesignCredit: "",
     currentDesignCredit: "",
   };
 
@@ -90,9 +90,8 @@ class CustomDrawer extends Component {
             currentValue.currentDesignCredit,
         };
       });
-    console.log("val", val);
     this.setState({
-      startDesignCreditsum: val.startDesignCredit,
+      startDesignCredit: val.startDesignCredit,
       currentDesignCredit: val.currentDesignCredit,
     });
   }
@@ -157,7 +156,7 @@ class CustomDrawer extends Component {
     const user = toJS(this.props.userStore.user);
     const calculate =
       100 -
-      (this.state.currentDesignCredit * 100) / this.state.startDesignCreditsum;
+      (this.state.currentDesignCredit * 100) / this.state.startDesignCredit;
     const progressLimit = calculate / 100;
 
     return (
