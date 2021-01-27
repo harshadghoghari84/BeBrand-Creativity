@@ -8,6 +8,7 @@ import Constant from "../utils/Constant";
 import { StackActions } from "@react-navigation/native";
 import Color from "../utils/Color";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FastImage from "react-native-fast-image";
 const Splash = ({ navigation, userStore }) => {
   const [getUserData, { loading, data, error }] = useLazyQuery(
     GraphqlQuery.user,
@@ -39,10 +40,10 @@ const Splash = ({ navigation, userStore }) => {
     return (
       <View>
         <View style={styles.round} />
-        <Image
+        <FastImage
           source={require("../assets/DFS.png")}
           style={styles.logoImg}
-          resizeMode="center"
+          resizeMode={FastImage.resizeMode.contain}
         />
         <ActivityIndicator
           style={{

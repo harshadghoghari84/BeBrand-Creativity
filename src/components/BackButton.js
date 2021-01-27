@@ -1,9 +1,13 @@
 import React, { memo } from "react";
 import { TouchableOpacity, Image, StyleSheet, StatusBar } from "react-native";
+import FastImage from "react-native-fast-image";
 
 const BackButton = ({ goBack }) => (
   <TouchableOpacity onPress={goBack} style={styles.container}>
-    <Image style={styles.image} source={require("../assets/arrow_back.png")} />
+    <FastImage
+      style={styles.image}
+      source={require("../assets/arrow_back.png")}
+    />
   </TouchableOpacity>
 );
 

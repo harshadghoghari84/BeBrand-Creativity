@@ -5,6 +5,7 @@ import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
 import Constant from "../../utils/Constant";
+import FastImage from "react-native-fast-image";
 
 const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
   const color = isSelectedId === index ? Color.primary : Color.black;
@@ -32,9 +33,9 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
             </Text>
           </View>
         ) : (
-          <Image
+          <FastImage
             source={{ uri: item.image.url }}
-            resizeMode="cover"
+            resizeMode={FastImage.resizeMode.contain}
             style={styles.image}
           />
         )}

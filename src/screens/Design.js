@@ -29,6 +29,7 @@ import LangKey from "../utils/LangKey";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import TabsAnimation from "../components/TabsAnimation";
+import FastImage from "react-native-fast-image";
 
 const { width } = Dimensions.get("window");
 let localUri = "";
@@ -292,7 +293,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                       }}
                     >
                       <View>
-                        <Image
+                        <FastImage
                           source={{ uri: item.thumbImage.url }}
                           style={{ width: 75, height: 75 }}
                         />
@@ -572,7 +573,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                       }}
                     >
                       <View>
-                        <Image
+                        <FastImage
                           source={{ uri: item.thumbImage.url }}
                           style={{ width: 75, height: 75 }}
                         />
@@ -699,7 +700,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                     }}
                   >
                     <View>
-                      <Image
+                      <FastImage
                         source={{ uri: item.layoutImage.url }}
                         style={{ width: 75, height: 75 }}
                       />

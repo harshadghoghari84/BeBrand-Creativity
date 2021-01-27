@@ -17,6 +17,7 @@ import Constant from "../utils/Constant";
 import Color from "../utils/Color";
 import { color } from "react-native-reanimated";
 import LangKey from "../utils/LangKey";
+import FastImage from "react-native-fast-image";
 
 let isFirstTime = true;
 
@@ -46,7 +47,7 @@ const UserPackage = ({ navigation, designStore }) => {
       data?.perchasedPackages &&
         setPerchasedPackages([...perchasedPackages, ...data.perchasedPackages]);
 
-        data?.totalPerchasedPackages &&
+      data?.totalPerchasedPackages &&
         setTotalPerchasedPackages(data.totalPerchasedPackages);
     }
   }, [data]);
@@ -86,7 +87,7 @@ const UserPackage = ({ navigation, designStore }) => {
                 borderColor: Color.borderColor,
               }}
             >
-              <Image
+              <FastImage
                 source={{ uri: item?.package?.image?.url }}
                 resizeMode="contain"
                 style={{

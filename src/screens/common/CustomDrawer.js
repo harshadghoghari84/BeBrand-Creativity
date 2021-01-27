@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  SafeAreaView,
 } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar, Drawer, List, ProgressBar } from "react-native-paper";
@@ -69,7 +70,31 @@ class CustomDrawer extends Component {
       { title: Constant.titCopyright, isSelected: false },
     ],
     TOKEN: "",
+    startDesignCreditsum: "",
+    currentDesignCredit: "",
   };
+
+  componentDidMount() {
+    const user = toJS(this.props.userStore.user);
+    console.log(user);
+
+    var val =
+      user?.designPackage &&
+      user.designPackage.reduce(function (previousValue, currentValue) {
+        return {
+          startDesignCredit:
+            previousValue.startDesignCredit + currentValue.startDesignCredit,
+          currentDesignCredit:
+            previousValue.currentDesignCredit +
+            currentValue.currentDesignCredit,
+        };
+      });
+    console.log("val", val);
+    this.setState({
+      startDesignCreditsum: val.startDesignCredit,
+      currentDesignCredit: val.currentDesignCredit,
+    });
+  }
 
   componentDidUpdate() {
     AsyncStorage.getItem(Constant.prfUserToken).then((res) =>
@@ -126,218 +151,225 @@ class CustomDrawer extends Component {
       this.props.navigation.navigate(Constant.navCopyright);
     }
   };
-  render(props) {
+
+  render() {
     const user = toJS(this.props.userStore.user);
+    const calculate =
+      100 -
+      (this.state.currentDesignCredit * 100) / this.state.startDesignCreditsum;
+    const progressLimit = calculate / 100;
+
     return (
-      <View style={styles.container}>
-        <DrawerContentScrollView
-          showsVerticalScrollIndicator={false}
-          {...props}
-        >
-          <View style={styles.container}>
-            <View style={styles.containerUserDetails}>
-              <Avatar.Text size={70} label="G" />
-              <View style={styles.containerSubUserDetails}>
-                <Text style={styles.txtUserName}>Guest</Text>
-                <View style={{ width: "80%" }}>
-                  <ProgressBar
-                    progress={0.5}
-                    color={Color.primary}
-                    style={{
-                      height: 7,
-                      marginTop: 5,
-                      borderRadius: 5,
-                      overflow: "hidden",
-                    }}
-                  />
-                </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+          <View style={styles.containerUserDetails}>
+            <Avatar.Image
+              source={{
+                uri: user?.userInfo?.personal?.image[0]?.url
+                  ? user.userInfo.personal?.image[0].url
+                  : "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png",
+              }}
+              size={60}
+            />
+            <View style={styles.containerSubUserDetails}>
+              <Text style={styles.txtUserName}>
+                {user?.userInfo?.personal?.name
+                  ? user.userInfo.personal.name
+                  : "Guest"}
+              </Text>
+              <View style={{ width: "80%" }}>
+                <ProgressBar
+                  progress={Math.abs(progressLimit)}
+                  color={Color.primary}
+                  style={{
+                    height: 7,
+                    marginTop: 5,
+                    borderRadius: 5,
+                    overflow: "hidden",
+                  }}
+                />
               </View>
             </View>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={this.state.DrawerItemsSection1}
-              keyExtractor={(item) => item.key}
-              renderItem={({ item, index }) => {
-                if (index == 7) {
-                  return (
-                    <>
-                      {this.state.TOKEN !== null && (
-                        <TouchableOpacity
-                          onPress={() => this.onDSection1(index)}
-                          style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            borderBottomWidth: item.devider ? 1 : null,
-                            borderBottomColor: item.devider
-                              ? Color.dividerColor
-                              : null,
-                          }}
-                        >
-                          <View
-                            style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                              paddingVertical: 10,
-                            }}
-                          >
-                            <Text
-                              style={{
-                                paddingHorizontal: 30,
-                                color: item.isSelected
-                                  ? Color.primary
-                                  : Color.grey,
-                              }}
-                            >
-                              {item.icon}
-                            </Text>
-                            <Text
-                              style={{
-                                color: item.isSelected
-                                  ? Color.primary
-                                  : Color.grey,
-                              }}
-                            >
-                              {item.title}
-                            </Text>
-                          </View>
-                          {item.isSelected ? (
-                            <Icon
-                              name="chevron-up"
-                              size={28}
-                              style={{
-                                paddingRight: 10,
-                                color: item.isSelected
-                                  ? Color.primary
-                                  : Color.grey,
-                              }}
-                            />
-                          ) : (
-                            <Icon
-                              name="chevron-down"
-                              size={28}
-                              style={{
-                                paddingRight: 10,
-                                color: item.isSelected
-                                  ? Color.primary
-                                  : Color.grey,
-                              }}
-                            />
-                          )}
-                        </TouchableOpacity>
-                      )}
-
-                      {item.isSelected ? (
-                        <>
-                          <TouchableOpacity
-                            onPress={() =>
-                              this.props.navigation.navigate(
-                                Constant.navProfile
-                              )
-                            }
-                            style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                              paddingVertical: 10,
-                            }}
-                          >
-                            <Text
-                              style={{
-                                paddingLeft: 30,
-                                color: Color.grey,
-                              }}
-                            >
-                              {Constant.titProfile}
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            onPress={() =>
-                              this.props.navigation.navigate(
-                                Constant.navPackage
-                              )
-                            }
-                            style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                              paddingVertical: 10,
-                            }}
-                          >
-                            <Text
-                              style={{
-                                paddingLeft: 30,
-                                color: Color.grey,
-                              }}
-                            >
-                              {Constant.titPackage}
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            onPress={() =>
-                              this.props.navigation.navigate(
-                                Constant.navDesigns
-                              )
-                            }
-                            style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                              paddingVertical: 10,
-                              borderBottomWidth: item.devider ? 1 : null,
-                              borderBottomColor: item.devider
-                                ? Color.dividerColor
-                                : null,
-                            }}
-                          >
-                            <Text
-                              style={{
-                                paddingLeft: 30,
-                                color: Color.grey,
-                              }}
-                            >
-                              {Constant.titDesigns}
-                            </Text>
-                          </TouchableOpacity>
-                        </>
-                      ) : null}
-                    </>
-                  );
-                } else {
-                  return (
-                    <>
+          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={this.state.DrawerItemsSection1}
+            keyExtractor={(item) => item.key}
+            renderItem={({ item, index }) => {
+              if (index == 7) {
+                return (
+                  <>
+                    {this.state.TOKEN !== null && (
                       <TouchableOpacity
                         onPress={() => this.onDSection1(index)}
                         style={{
                           flexDirection: "row",
+                          justifyContent: "space-between",
                           alignItems: "center",
-                          paddingVertical: 10,
                           borderBottomWidth: item.devider ? 1 : null,
                           borderBottomColor: item.devider
                             ? Color.dividerColor
                             : null,
                         }}
                       >
-                        <Text
+                        <View
                           style={{
-                            paddingHorizontal: 30,
-                            color: item.isSelected ? Color.primary : Color.grey,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingVertical: 10,
                           }}
                         >
-                          {item.icon}
-                        </Text>
-                        <Text
-                          style={{
-                            color: item.isSelected ? Color.primary : Color.grey,
-                          }}
-                        >
-                          {item.title}
-                        </Text>
+                          <Text
+                            style={{
+                              paddingHorizontal: 30,
+                              color: item.isSelected
+                                ? Color.primary
+                                : Color.grey,
+                            }}
+                          >
+                            {item.icon}
+                          </Text>
+                          <Text
+                            style={{
+                              color: item.isSelected
+                                ? Color.primary
+                                : Color.grey,
+                            }}
+                          >
+                            {item.title}
+                          </Text>
+                        </View>
+                        {item.isSelected ? (
+                          <Icon
+                            name="chevron-up"
+                            size={28}
+                            style={{
+                              paddingRight: 10,
+                              color: item.isSelected
+                                ? Color.primary
+                                : Color.grey,
+                            }}
+                          />
+                        ) : (
+                          <Icon
+                            name="chevron-down"
+                            size={28}
+                            style={{
+                              paddingRight: 10,
+                              color: item.isSelected
+                                ? Color.primary
+                                : Color.grey,
+                            }}
+                          />
+                        )}
                       </TouchableOpacity>
-                    </>
-                  );
-                }
-              }}
-            />
-          </View>
-        </DrawerContentScrollView>
+                    )}
+
+                    {item.isSelected ? (
+                      <>
+                        <TouchableOpacity
+                          onPress={() =>
+                            this.props.navigation.navigate(Constant.navProfile)
+                          }
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingVertical: 10,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              paddingLeft: 30,
+                              color: Color.grey,
+                            }}
+                          >
+                            {Constant.titProfile}
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            this.props.navigation.navigate(Constant.navPackage)
+                          }
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingVertical: 10,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              paddingLeft: 30,
+                              color: Color.grey,
+                            }}
+                          >
+                            {Constant.titPackage}
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            this.props.navigation.navigate(Constant.navDesigns)
+                          }
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingVertical: 10,
+                            borderBottomWidth: item.devider ? 1 : null,
+                            borderBottomColor: item.devider
+                              ? Color.dividerColor
+                              : null,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              paddingLeft: 30,
+                              color: Color.grey,
+                            }}
+                          >
+                            {Constant.titDesigns}
+                          </Text>
+                        </TouchableOpacity>
+                      </>
+                    ) : null}
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <TouchableOpacity
+                      onPress={() => this.onDSection1(index)}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                        borderBottomWidth: item.devider ? 1 : null,
+                        borderBottomColor: item.devider
+                          ? Color.dividerColor
+                          : null,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          paddingHorizontal: 30,
+                          color: item.isSelected ? Color.primary : Color.grey,
+                        }}
+                      >
+                        {item.icon}
+                      </Text>
+                      <Text
+                        style={{
+                          color: item.isSelected ? Color.primary : Color.grey,
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                    </TouchableOpacity>
+                  </>
+                );
+              }
+            }}
+          />
+        </View>
+
         <Drawer.Section style={styles.bottomDrawerSection}>
           {user && user !== null ? (
             <DrawerItem
@@ -363,7 +395,7 @@ class CustomDrawer extends Component {
             />
           )}
         </Drawer.Section>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -372,6 +404,7 @@ export default inject("userStore")(observer(CustomDrawer));
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
   },
   drawerSection: {
     borderBottomColor: Color.dividerColor,
