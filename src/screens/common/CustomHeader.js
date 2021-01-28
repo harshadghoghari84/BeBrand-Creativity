@@ -2,11 +2,9 @@ import React from "react";
 import {
   View,
   StyleSheet,
-  Text,
   SafeAreaView,
   StatusBar,
   Platform,
-  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "../../components/svgIcons";
