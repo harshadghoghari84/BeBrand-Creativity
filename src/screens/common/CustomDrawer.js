@@ -18,7 +18,8 @@ import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { toJS } from "mobx";
-
+// import Icon from "../../components/svgIcons";
+// const HOME = <Icon name="home" height={20} width={20} />;
 const HOME = <Icon name="home-outline" size={23} />;
 const PRO = <Icon name="star-circle-outline" size={23} />;
 const NOTIFICATION = <Icon name="bell-alert-outline" size={23} />;
