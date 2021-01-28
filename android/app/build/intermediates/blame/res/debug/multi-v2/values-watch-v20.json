@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "/Users/bebrandd02/Desktop/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/0bf03a1d388977d5cf6f9c8d93525633/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
+                    "source": "/Users/bebrandd02/.gradle/caches/transforms-2/files-2.1/aa36f7c098557f09416b18b47f929a50/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/28b495934fda1291104bc207d377eb41/appcompat-1.1.0/res/values-watch-v20/values-watch-v20.xml",
+                    "source": "/Users/bebrandd02/.gradle/caches/transforms-2/files-2.1/28b495934fda1291104bc207d377eb41/appcompat-1.1.0/res/values-watch-v20/values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
