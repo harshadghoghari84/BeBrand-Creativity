@@ -109,4 +109,14 @@ export default {
 
   typeDesignPackageFree: "FREE",
   typeDesignPackagePro: "PRO",
+
+  // userDesign types
+  designTypeALL: "ALL",
+  designTypePERSONAL: "PERSONAL",
+  designTypeBUSINESS: "BUSINESS",
+
+  // Layout types
+  layoutTypeALL: "ALL",
+  layoutTypePERSONAL: "PERSONAL",
+  layoutTypeBUSINESS: "BUSINESS",
 };

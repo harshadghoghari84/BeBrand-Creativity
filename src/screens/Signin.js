@@ -108,6 +108,7 @@ const LoginScreen = ({ userStore }) => {
         } else {
           AccessToken.getCurrentAccessToken().then((data) => {
             const accessToken = data.accessToken.toString();
+            console.log("accessToken", accessToken);
             getInfoFromToken(accessToken);
           });
         }

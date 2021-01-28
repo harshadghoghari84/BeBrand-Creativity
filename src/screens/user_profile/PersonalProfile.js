@@ -16,6 +16,7 @@ import * as Permissions from "expo-permissions";
 import Icon from "../../components/svgIcons";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
+import FastImage from "react-native-fast-image";
 
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
@@ -109,7 +110,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
             },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
-
             elevation: 5,
           }}
         >
@@ -146,17 +146,21 @@ const PersonalProfile = ({ navigation, userStore }) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      const file = generateRNFile(result.uri, `${Date.now()}`);
-      const { data, errors } = await addPersonalImage({
-        variables: { image: file },
-      });
+    try {
+      if (!result.cancelled) {
+        const file = generateRNFile(result.uri, `${Date.now()}`);
+        const { data, errors } = await addPersonalImage({
+          variables: { image: file },
+        });
 
-      if (!errors) {
-        userStore.addPersonalImage(data.addPersonalImage);
-      } else {
-        console.error(errors);
+        if (!errors) {
+          userStore.addPersonalImage(data.addPersonalImage);
+        } else {
+          console.log("=============>", errors);
+        }
       }
+    } catch (error) {
+      console.log("hello error", error);
     }
   };
 
@@ -247,10 +251,12 @@ const PersonalProfile = ({ navigation, userStore }) => {
           <View>
             {defaultImageUrl &&
               defaultImageUrl !== null &&
-              defaultImageUrl !== "" && (
-                <Image
-                  source={{ uri: defaultImageUrl, width: 100, height: 100 }}
-                  resizeMode="contain"
+              defaultImageUrl !== "" &&
+              personalImageLimit > 0 && (
+                <FastImage
+                  style={{ width: 100, height: 100 }}
+                  source={{ uri: defaultImageUrl }}
+                  resizeMode={FastImage.resizeMode.cover}
                 />
               )}
           </View>
@@ -379,18 +385,22 @@ const PersonalProfile = ({ navigation, userStore }) => {
                   }}
                 >
                   {item.url && item.url !== "" && (
-                    <Image
+                    <FastImage
                       source={{ uri: item.url, width: 100, height: 100 }}
                       style={styles.toProfileImage}
                     />
                   )}
 
                   {defaultImageUrl === item.url && (
-                    <Icon
-                      name="checkbox-marked-circle"
-                      color={Color.primary}
-                      size={20}
-                      style={styles.icnCheck}
+                    <View
+                      style={[
+                        styles.toProfileImage,
+                        {
+                          backgroundColor: Color.blackTransparant,
+                          position: "absolute",
+                          opacity: 0.5,
+                        },
+                      ]}
                     />
                   )}
                 </TouchableOpacity>
@@ -439,6 +449,7 @@ const styles = StyleSheet.create({
   toProfileImage: {
     width: 80,
     height: 95,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,

@@ -46,11 +46,16 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   // }, []);
 
   const filterdDesignsPersonal = designs.filter(
-    (ele) => ele.designType !== null && (ele.designType === "ALL" || "PERSONAL")
+    (ele) =>
+      ele.designType !== null &&
+      (ele.designType === Constant.designTypeALL ||
+        ele.designType === Constant.designTypePERSONAL)
   );
   const filterdDesignsBussiness = designs.filter(
     (ele) =>
-      ele.designType !== null && (ele.designType === "ALL" || "BUSSINESS")
+      ele.designType !== null &&
+      (ele.designType === Constant.designTypeALL ||
+        ele.designType === Constant.designTypeBUSINESS)
   );
   // useEffect(() => {
   //   console.log("filterData", filterdDesigns);
@@ -71,10 +76,12 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const [layouts, setLayouts] = useState([]);
 
   const filterdLayoutPersonal = layouts.filter(
-    (ele) => ele.layoutType !== null && ele.layoutType === "PERSONAL"
+    (ele) =>
+      ele.layoutType !== null && ele.layoutType === Constant.layoutTypePERSONAL
   );
   const filterdLayoutBussiness = layouts.filter(
-    (ele) => ele.layoutType !== null && ele.layoutType === "BUSSINESS"
+    (ele) =>
+      ele.layoutType !== null && ele.layoutType === Constant.layoutTypePERSONAL
   );
 
   // useEffect(() => {
@@ -299,11 +306,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                         />
 
                         {item.id === currentDesign.id && (
-                          <Icon
-                            name="ios-checkmark-circle"
-                            color={Color.primary}
-                            size={20}
-                            style={styles.icnCheck}
+                          <View
+                            style={[
+                              styles.icnCheck,
+                              {
+                                backgroundColor: Color.blackTransparant,
+                                opacity: 0.6,
+                              },
+                            ]}
                           />
                         )}
                         {designPackage.type ===
@@ -329,7 +339,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  <ImageBackground
+                  <FastImage
                     source={{ uri: currentDesign.thumbImage.url }}
                     style={{ flex: 1 }}
                   >
@@ -389,15 +399,15 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                         </View>
 
                         {userData?.image && (
-                          <Image
+                          <FastImage
                             source={{ uri: userData.image }}
                             style={{ ...objImage }}
-                            resizeMode="cover"
+                            resizeMode={FastImage.resizeMode.contain}
                           />
                         )}
                       </View>
                     )}
-                  </ImageBackground>
+                  </FastImage>
                 </View>
               </ViewShot>
 
@@ -422,16 +432,19 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                     }}
                   >
                     <View>
-                      <Image
+                      <FastImage
                         source={{ uri: item.layoutImage.url }}
                         style={{ width: 75, height: 75 }}
                       />
                       {item.id === currentLayout.id && (
-                        <Icon
-                          name="ios-checkmark-circle"
-                          color={Color.primary}
-                          size={20}
-                          style={styles.icnCheck}
+                        <View
+                          style={[
+                            styles.icnCheck,
+                            {
+                              backgroundColor: Color.blackTransparant,
+                              opacity: 0.5,
+                            },
+                          ]}
                         />
                       )}
 
@@ -578,11 +591,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                           style={{ width: 75, height: 75 }}
                         />
                         {item.id === currentDesign.id && (
-                          <Icon
-                            name="ios-checkmark-circle"
-                            color={Color.primary}
-                            size={20}
-                            style={styles.icnCheck}
+                          <View
+                            style={[
+                              styles.icnCheck,
+                              {
+                                backgroundColor: Color.blackTransparant,
+                                opacity: 0.6,
+                              },
+                            ]}
                           />
                         )}
                         {designPackage.type ===
@@ -608,7 +624,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  <ImageBackground
+                  <FastImage
                     source={{ uri: currentDesign.thumbImage.url }}
                     style={{ flex: 1 }}
                   >
@@ -668,15 +684,15 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                         </View>
 
                         {userData?.image && (
-                          <Image
+                          <FastImage
                             source={{ uri: userData.image }}
                             style={{ ...objImage }}
-                            resizeMode="cover"
+                            resizeMode={FastImage.resizeMode.contain}
                           />
                         )}
                       </View>
                     )}
-                  </ImageBackground>
+                  </FastImage>
                 </View>
               </ViewShot>
               <FlatList
@@ -705,11 +721,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                         style={{ width: 75, height: 75 }}
                       />
                       {item.id === currentLayout.id && (
-                        <Icon
-                          name="ios-checkmark-circle"
-                          color={Color.primary}
-                          size={20}
-                          style={styles.icnCheck}
+                        <View
+                          style={[
+                            styles.icnCheck,
+                            {
+                              backgroundColor: Color.blackTransparant,
+                              opacity: 0.6,
+                            },
+                          ]}
                         />
                       )}
 
@@ -836,8 +855,8 @@ const styles = StyleSheet.create({
   },
   icnCheck: {
     position: "absolute",
-    top: 2,
-    right: 3,
+    width: 75,
+    height: 75,
   },
   designView: { marginTop: 10, width: width - 20, height: width - 20 },
   colorCodeList: {
