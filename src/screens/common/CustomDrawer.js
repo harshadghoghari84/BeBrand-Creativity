@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Avatar, Drawer, List, ProgressBar } from "react-native-paper";
+import { DrawerItem } from "@react-navigation/drawer";
+import { Drawer, List, ProgressBar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
