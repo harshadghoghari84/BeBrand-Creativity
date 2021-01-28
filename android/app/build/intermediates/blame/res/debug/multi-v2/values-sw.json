@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd03/Desktop/React Native/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw/values-sw.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw/values-sw.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/9e674bc04524a92f06d29dfb0a72550f/jetified-play-services-base-16.0.1/res/values-sw/values.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/ef680f10d716bd01e1d5824287ba8e1c/jetified-play-services-base-16.0.1/res/values-sw/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -21,24 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/bcce923b29718728e253b92a7b233f78/core-1.1.0/res/values-sw/values-sw.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "48",
-                        "startColumns": "4",
-                        "startOffsets": "5633",
-                        "endColumns": "100",
-                        "endOffsets": "5729"
-                    }
-                },
-                {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/fc9c2b7dce18bd4c01b9aad356feb14a/jetified-play-services-basement-16.0.1/res/values-sw/values.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/a3f4ee3b9b802e31cd28b8ede22d607a/jetified-play-services-basement-16.0.1/res/values-sw/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -55,7 +38,24 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd03/.gradle/caches/transforms-2/files-2.1/28b495934fda1291104bc207d377eb41/appcompat-1.1.0/res/values-sw/values-sw.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/bcce923b29718728e253b92a7b233f78/core-1.1.0/res/values-sw/values-sw.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "48",
+                        "startColumns": "4",
+                        "startOffsets": "5633",
+                        "endColumns": "100",
+                        "endOffsets": "5729"
+                    }
+                },
+                {
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/28b495934fda1291104bc207d377eb41/appcompat-1.1.0/res/values-sw/values-sw.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

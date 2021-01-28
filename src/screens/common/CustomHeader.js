@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "../../components/svgIcons";
-
+import FastImage from "react-native-fast-image";
 import Color from "../../utils/Color";
 
 const CustomHeader = ({ isBackVisible = false, navigation }) => {
@@ -50,10 +50,10 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
           >
             <Icon name="menu" fill={Color.white} height={20} width={20} />
           </TouchableOpacity>
-          <Image
+          <FastImage
             source={require("../../assets/DFS.png")}
             style={{ height: 40, width: 200 }}
-            resizeMode="center"
+            resizeMode={FastImage.resizeMode.contain}
           />
           <View style={styles.containerSearchIcon}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
