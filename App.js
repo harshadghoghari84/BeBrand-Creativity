@@ -20,6 +20,7 @@ import client from "./src/utils/ApolloClient";
 import CustomDrawer from "./src/screens/common/CustomDrawer";
 import HomeStackComponent from "./src/stacks/HomeStack";
 import Login from "./src/screens/Login";
+import WebViews from "./src/components/WebViews";
 
 Common.setTranslationInit();
 
@@ -51,6 +52,7 @@ export default function App() {
                 component={SplashScreen}
               />
               <Stack.Screen name={Constant.navLogin} component={Login} />
+              {/* <Stack.Screen name={Constant.navWebView} component={WebViews} /> */}
               <Stack.Screen
                 name="langaugeSelection"
                 component={LanguageSelectionScreen}

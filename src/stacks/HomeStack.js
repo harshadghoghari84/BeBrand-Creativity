@@ -9,6 +9,7 @@ import DesignScreen from "../screens/Design";
 import UserDesign from "../screens/UserDesign";
 import UserPackage from "../screens/UserPackage";
 import UserProfile from "../screens/user_profile";
+import WebViews from "../components/WebViews";
 
 const HomeStack = createStackNavigator();
 
@@ -19,6 +20,14 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navHome}
         component={HomeScreen}
         options={{ header: (props) => <CustomHeader {...props} /> }}
+      />
+
+      <HomeStack.Screen
+        name={Constant.navWebView}
+        component={WebViews}
+        options={{
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+        }}
       />
 
       <HomeStack.Screen
