@@ -37,6 +37,8 @@ import Common from "../utils/Common";
 import Color from "../utils/Color";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { inject, observer } from "mobx-react";
+import FastImage from "react-native-fast-image";
+import Icon from "../components/svgIcons";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -251,10 +253,19 @@ const RegisterScreen = ({ userStore }) => {
     //   <Header>{Common.getTranslation(LangKey.txtCreateAccount)}</Header>
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.socialBTNView}>
-        <FastImage
-          source={require("../assets/google.png")}
-          style={{ height: 35, width: 35, marginHorizontal: 10 }}
-        />
+        <View
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            height: 35,
+            width: 35,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            marginHorizontal: 8,
+          }}
+        >
+          <Icon name="google" fill={Color.white} height={"60%"} width={"60%"} />
+        </View>
         <Text
           style={{
             fontSize: 13,
@@ -266,10 +277,24 @@ const RegisterScreen = ({ userStore }) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.socialBTNView}>
-        <FastImage
-          source={require("../assets/fb.png")}
-          style={{ height: 35, width: 35, marginHorizontal: 10 }}
-        />
+        <View
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            height: 35,
+            width: 35,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            marginHorizontal: 8,
+          }}
+        >
+          <Icon
+            name="facebook"
+            fill={Color.white}
+            height={"60%"}
+            width={"60%"}
+          />
+        </View>
         <Text
           style={{
             fontSize: 13,
@@ -288,10 +313,19 @@ const RegisterScreen = ({ userStore }) => {
         <View style={styles.sapratorLines} />
       </View>
       <View style={styles.socialBTNView}>
-        <FastImage
-          source={require("../assets/call.png")}
-          style={{ height: 35, width: 35, marginHorizontal: 10 }}
-        />
+        <View
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            height: 35,
+            width: 35,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            marginHorizontal: 8,
+          }}
+        >
+          <Icon name="phone" fill={Color.white} height={"45%"} width={"45%"} />
+        </View>
         <TextInput
           placeholder={Common.getTranslation(LangKey.labMobile)}
           placeholderTextColor={Color.txtIntxtcolor}
@@ -314,10 +348,24 @@ const RegisterScreen = ({ userStore }) => {
           duration={500}
         >
           <View style={styles.socialBTNView}>
-            <FastImage
-              source={require("../assets/lock.png")}
-              style={{ height: 35, width: 35, marginHorizontal: 10 }}
-            />
+            <View
+              style={{
+                backgroundColor: Color.txtIntxtcolor,
+                height: 35,
+                width: 35,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+                marginHorizontal: 8,
+              }}
+            >
+              <Icon
+                name="lock"
+                fill={Color.white}
+                height={"45%"}
+                width={"45%"}
+              />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labPassword)}
               placeholderTextColor={Color.txtIntxtcolor}

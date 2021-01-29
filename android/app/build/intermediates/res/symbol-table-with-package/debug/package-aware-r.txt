@@ -2173,12 +2173,18 @@ string crop_image_menu_flip_horizontally
 string crop_image_menu_flip_vertically
 string crop_image_menu_rotate_left
 string crop_image_menu_rotate_right
+string default_web_client_id
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string facebook_app_id
 string fb_login_protocol_scheme
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
 string header_description
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
@@ -2230,6 +2236,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string pick_image_intent_chooser_title
 string progressbar_description
+string project_id
 string radiogroup_description
 string rn_tab_description
 string scrollbar_description
