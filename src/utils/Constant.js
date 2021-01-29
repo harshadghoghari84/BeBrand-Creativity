@@ -53,6 +53,7 @@ export default {
   navPrivacyPolicy: "privacyPolicy",
   navCopyright: "copyright",
   navSignOut: "logOut",
+  navWebView: "WebView",
 
   // titles
   titHome: "Home",

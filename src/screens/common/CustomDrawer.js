@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { DrawerItem } from "@react-navigation/drawer";
 import { Drawer, List, ProgressBar } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
 
@@ -17,51 +17,67 @@ import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { toJS } from "mobx";
-// import Icon from "../../components/svgIcons";
-// const HOME = <Icon name="home" height={20} width={20} />;
-const HOME = <Icon name="home-outline" size={23} />;
-const PRO = <Icon name="star-circle-outline" size={23} />;
-const NOTIFICATION = <Icon name="bell-alert-outline" size={23} />;
-const RATEAPP = <Icon name="thumb-up-outline" size={23} />;
-const SHAREAPP = <Icon name="share-outline" size={23} />;
-const REPORTISSUE = <Icon name="chat-outline" size={23} />;
-const REQUEST_FETURE = <Icon name="book-search-outline" size={23} />;
-const ACCOUNT = <Icon name="account-outline" size={23} />;
-const WHATSAPP = <Icon name="whatsapp" size={23} />;
-const FAQ = <Icon name="information-outline" size={23} />;
-const OUR_WORK_CULTURE = <Icon name="basketball-hoop-outline" size={23} />;
+import Icon from "../../components/svgIcons";
+import WebViews from "../../components/WebViews";
+
+export const get_Icon = (title, color) => {
+  switch (title) {
+    case Constant.titHome:
+      return <Icon name="home" fill={color} height={20} width={20} />;
+    case Constant.titPro:
+      return <Icon name="vip" fill={color} height={20} width={20} />;
+    case Constant.titNotification:
+      return <Icon name="notification" fill={color} height={20} width={20} />;
+    case Constant.titRateApp:
+      return <Icon name="rate" fill={color} height={20} width={20} />;
+    case Constant.titShareApp:
+      return <Icon name="share" fill={color} height={20} width={20} />;
+    case Constant.titReportIssue:
+      return <Icon name="report" fill={color} height={20} width={20} />;
+    case Constant.titRequestFeature:
+      return <Icon name="request" fill={color} height={20} width={20} />;
+    case Constant.titAccount:
+      return <Icon name="account" fill={color} height={20} width={20} />;
+    case Constant.titWhatsAppUs:
+      return <Icon name="whatsapp" fill={color} height={20} width={20} />;
+    default:
+      break;
+  }
+};
+
+// const FAQ = <Icon name="information-outline" size={23} />;
+// const OUR_WORK_CULTURE = <Icon name="basketball-hoop-outline" size={23} />;
 
 class CustomDrawer extends Component {
   state = {
     DrawerItemsSection1: [
-      { title: Constant.titHome, icon: HOME, isSelected: true },
-      { title: Constant.titPro, icon: PRO, isSelected: false },
+      { title: Constant.titHome, isSelected: true },
+      { title: Constant.titPro, isSelected: false },
       {
         title: Constant.titNotification,
-        icon: NOTIFICATION,
         isSelected: false,
         devider: true,
       },
-      { title: Constant.titRateApp, icon: RATEAPP, isSelected: false },
-      { title: Constant.titShareApp, icon: SHAREAPP, isSelected: false },
-      { title: Constant.titReportIssue, icon: REPORTISSUE, isSelected: false },
+      { title: Constant.titRateApp, isSelected: false },
+      { title: Constant.titShareApp, isSelected: false },
+      {
+        title: Constant.titReportIssue,
+        isSelected: false,
+      },
       {
         title: Constant.titRequestFeature,
-        icon: REQUEST_FETURE,
         isSelected: false,
         devider: true,
       },
       {
         title: Constant.titAccount,
-        icon: ACCOUNT,
         isSelected: false,
         devider: true,
       },
-      { title: Constant.titWhatsAppUs, icon: WHATSAPP, isSelected: false },
-      { title: Constant.titFaq, icon: FAQ, isSelected: false },
+      { title: Constant.titWhatsAppUs, isSelected: false },
+      { title: Constant.titFaq, isSelected: false },
       {
         title: Constant.titWorkCulture,
-        icon: OUR_WORK_CULTURE,
         isSelected: false,
         devider: true,
       },
@@ -144,13 +160,25 @@ class CustomDrawer extends Component {
     } else if (currantIndex == 10) {
       this.props.navigation.navigate(Constant.navWorkCulture);
     } else if (currantIndex == 11) {
-      this.props.navigation.navigate(Constant.navTermCondition);
+      // this.props.navigation.navigate(Constant.navTermCondition);
+      this.props.navigation.navigate(Constant.navWebView, {
+        uri: "https://infinite.red",
+      });
     } else if (currantIndex == 12) {
-      this.props.navigation.navigate(Constant.navDisclamer);
+      // this.props.navigation.navigate(Constant.navDisclamer);
+      this.props.navigation.navigate(Constant.navWebView, {
+        uri: "https://infinite.red",
+      });
     } else if (currantIndex == 13) {
-      this.props.navigation.navigate(Constant.navPrivacyPolicy);
+      // this.props.navigation.navigate(Constant.navPrivacyPolicy);
+      this.props.navigation.navigate(Constant.navWebView, {
+        uri: "https://infinite.red",
+      });
     } else if (currantIndex == 14) {
-      this.props.navigation.navigate(Constant.navCopyright);
+      // this.props.navigation.navigate(Constant.navCopyright);
+      this.props.navigation.navigate(Constant.navWebView, {
+        uri: "https://infinite.red",
+      });
     }
   };
 
@@ -229,7 +257,10 @@ class CustomDrawer extends Component {
                                 : Color.grey,
                             }}
                           >
-                            {item.icon}
+                            {get_Icon(
+                              item.title,
+                              item.isSelected ? Color.primary : Color.grey
+                            )}
                           </Text>
                           <Text
                             style={{
@@ -243,24 +274,22 @@ class CustomDrawer extends Component {
                         </View>
                         {item.isSelected ? (
                           <Icon
-                            name="chevron-up"
-                            size={28}
+                            name="up"
+                            height={15}
+                            width={15}
+                            fill={item.isSelected ? Color.primary : Color.grey}
                             style={{
-                              paddingRight: 10,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
+                              marginRight: 20,
                             }}
                           />
                         ) : (
                           <Icon
-                            name="chevron-down"
-                            size={28}
+                            name="down"
+                            height={15}
+                            width={15}
+                            fill={item.isSelected ? Color.primary : Color.grey}
                             style={{
-                              paddingRight: 10,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
+                              marginRight: 20,
                             }}
                           />
                         )}
@@ -279,6 +308,14 @@ class CustomDrawer extends Component {
                             paddingVertical: 10,
                           }}
                         >
+                          <View style={{ marginLeft: 30 }}>
+                            <Icon
+                              name="profile"
+                              fill={Color.txtIntxtcolor}
+                              height={20}
+                              width={20}
+                            />
+                          </View>
                           <Text
                             style={{
                               paddingLeft: 30,
@@ -298,6 +335,14 @@ class CustomDrawer extends Component {
                             paddingVertical: 10,
                           }}
                         >
+                          <View style={{ marginLeft: 30 }}>
+                            <Icon
+                              name="package"
+                              fill={Color.txtIntxtcolor}
+                              height={20}
+                              width={20}
+                            />
+                          </View>
                           <Text
                             style={{
                               paddingLeft: 30,
@@ -321,6 +366,14 @@ class CustomDrawer extends Component {
                               : null,
                           }}
                         >
+                          <View style={{ marginLeft: 30 }}>
+                            <Icon
+                              name="design"
+                              fill={Color.txtIntxtcolor}
+                              height={20}
+                              width={20}
+                            />
+                          </View>
                           <Text
                             style={{
                               paddingLeft: 30,
@@ -355,8 +408,12 @@ class CustomDrawer extends Component {
                           color: item.isSelected ? Color.primary : Color.grey,
                         }}
                       >
-                        {item.icon}
+                        {get_Icon(
+                          item.title,
+                          item.isSelected ? Color.primary : Color.grey
+                        )}
                       </Text>
+
                       <Text
                         style={{
                           color: item.isSelected ? Color.primary : Color.grey,
@@ -376,7 +433,12 @@ class CustomDrawer extends Component {
           {user && user !== null ? (
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="exit-to-app" color={color} size={size} />
+                <Icon
+                  name="logout"
+                  fill={Color.txtIntxtcolor}
+                  height={20}
+                  width={20}
+                />
               )}
               label={Constant.titSignOut}
               onPress={() => {
