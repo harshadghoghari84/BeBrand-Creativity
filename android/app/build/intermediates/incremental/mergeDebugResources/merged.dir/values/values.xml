@@ -810,12 +810,18 @@
     <string name="crop_image_menu_flip_vertically">Flip vertically</string>
     <string name="crop_image_menu_rotate_left">Rotate counter clockwise</string>
     <string name="crop_image_menu_rotate_right">Rotate</string>
+    <string name="default_web_client_id" translatable="false">145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com</string>
     <string name="error_icon_content_description">Error</string>
     <string name="exposed_dropdown_menu_content_description">Show dropdown menu</string>
     <string name="fab_transformation_scrim_behavior" translatable="false">com.google.android.material.transformation.FabTransformationScrimBehavior</string>
     <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
     <string name="facebook_app_id">460843578247177</string>
     <string name="fb_login_protocol_scheme">fb460843578247177</string>
+    <string name="gcm_defaultSenderId" translatable="false">145083857360</string>
+    <string name="google_api_key" translatable="false">AIzaSyC0Qp_PMgafheidhk9d0PMYMugk71s5sOE</string>
+    <string name="google_app_id" translatable="false">1:145083857360:android:788c1b9c6af80dc2fd61d5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC0Qp_PMgafheidhk9d0PMYMugk71s5sOE</string>
+    <string name="google_storage_bucket" translatable="false">bebranddcreativity.appspot.com</string>
     <string name="header_description" translatable="false">Heading</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
@@ -867,6 +873,7 @@
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="pick_image_intent_chooser_title">Select source</string>
     <string name="progressbar_description" translatable="false">Progress Bar</string>
+    <string name="project_id" translatable="false">bebranddcreativity</string>
     <string name="radiogroup_description" translatable="false">Radio Group</string>
     <string name="rn_tab_description" translatable="false">Tab</string>
     <string name="scrollbar_description" translatable="false">Scroll Bar</string>

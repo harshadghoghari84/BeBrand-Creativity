@@ -9,6 +9,7 @@ import {
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
 import FastImage from "react-native-fast-image";
+import Icon from "../../components/svgIcons";
 const imgWidth = (Dimensions.get("window").width - 30) / 2;
 
 const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
@@ -24,6 +25,7 @@ const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
       />
       {packageType === Constant.typeDesignPackagePro && (
         <Text style={styles.tagPro}>{packageType}</Text>
+        // <Icon name="Premium" height={30} width={30} fill={Color.primary} />
       )}
 
       {designDate && (

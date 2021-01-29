@@ -44,7 +44,7 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
-              initialRouteName={Constant.navSplash}
+              initialRouteName={Constant.navLogin}
             >
               <Stack.Screen
                 name={Constant.navSplash}

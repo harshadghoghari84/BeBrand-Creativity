@@ -36,12 +36,17 @@ import Common from "../utils/Common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Color from "../utils/Color";
 import FastImage from "react-native-fast-image";
+import Icon from "../components/svgIcons";
+import auth from "@react-native-firebase/auth";
+import firebase from "@react-native-firebase/app";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
 
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [user, setUser] = useState();
+  const [initializing, setInitializing] = useState(true);
 
   const [userLogin, { loading }] = useMutation(GraphqlQuery.userLogin, {
     errorPolicy: "all",
@@ -53,7 +58,20 @@ const LoginScreen = ({ userStore }) => {
         "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
       offlineAccess: true,
     });
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
   }, []);
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) {
+      setInitializing(false);
+    }
+  }
+
+  useEffect(() => {
+    console.log("user", user);
+  }, [user]);
 
   /*
   .##....##....###....##.....##.####..######......###....########.####..#######..##....##
@@ -67,17 +85,27 @@ const LoginScreen = ({ userStore }) => {
 
   const onGoogleLogin = async () => {
     try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+      const { idToken } = await GoogleSignin.signIn();
+
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+      return auth().signInWithCredential(googleCredential);
     } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      } else {
-        console.log(error);
-      }
+      console.log("===>", error);
     }
+
+    // try {
+    //   await GoogleSignin.hasPlayServices();
+    //   const userInfo = await GoogleSignin.signIn();
+    //   console.log(userInfo);
+    // } catch (error) {
+    //   if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+    //   } else if (error.code === statusCodes.IN_PROGRESS) {
+    //   } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+    //   } else {
+    //     console.log(error);
+    //   }
+    // }
   };
 
   const getInfoFromToken = (token) => {
@@ -101,22 +129,40 @@ const LoginScreen = ({ userStore }) => {
   };
 
   const onFaceBookLogin = async () => {
-    LoginManager.logInWithPermissions(["public_profile"]).then(
-      (login) => {
-        if (login.isCancelled) {
-          console.log("login cancelled");
-        } else {
-          AccessToken.getCurrentAccessToken().then((data) => {
-            const accessToken = data.accessToken.toString();
-            console.log("accessToken", accessToken);
-            getInfoFromToken(accessToken);
-          });
-        }
-      },
-      (error) => {
-        console.log("login fail with error", error);
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email",
+      ]);
+      if (result.isCancelled) {
+        throw "User cancelled the login process";
       }
-    );
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        throw "Something went wrong obtaining access token";
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+      return auth().signInWithCredential(facebookCredential);
+    } catch (error) {
+      console.log(error);
+    }
+    // LoginManager.logInWithPermissions(["public_profile"]).then(
+    //   (login) => {
+    //     if (login.isCancelled) {
+    //       console.log("login cancelled");
+    //     } else {
+    //       AccessToken.getCurrentAccessToken().then((data) => {
+    //         const accessToken = data.accessToken.toString();
+    //         getInfoFromToken(accessToken);
+    //       });
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log("login fail with error", error);
+    //   }
+    // );
   };
 
   const onLoginPressed = async () => {
@@ -183,13 +229,22 @@ const LoginScreen = ({ userStore }) => {
     //<Header>{Common.getTranslation(LangKey.txtWelcome)}</Header>
     <View style={{ flex: 1 }}>
       <TouchableOpacity
-        // onPress={() => onGoogleLogin()}
+        onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}
       >
-        <FastImage
-          source={require("../assets/google.png")}
-          style={{ height: 35, width: 35, marginHorizontal: 10 }}
-        />
+        <View
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            height: 35,
+            width: 35,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            marginHorizontal: 8,
+          }}
+        >
+          <Icon name="google" fill={Color.white} height={"60%"} width={"60%"} />
+        </View>
         <Text
           style={{
             fontSize: 13,
@@ -201,13 +256,27 @@ const LoginScreen = ({ userStore }) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        // onPress={() => onFaceBookLogin()}
+        onPress={() => onFaceBookLogin()}
         style={styles.socialBTNView}
       >
-        <FastImage
-          source={require("../assets/fb.png")}
-          style={{ height: 35, width: 35, marginHorizontal: 10 }}
-        />
+        <View
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            height: 35,
+            width: 35,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            marginHorizontal: 8,
+          }}
+        >
+          <Icon
+            name="facebook"
+            fill={Color.white}
+            height={"60%"}
+            width={"60%"}
+          />
+        </View>
         <Text
           style={{
             fontSize: 13,
@@ -227,10 +296,24 @@ const LoginScreen = ({ userStore }) => {
       </View>
       <>
         <View style={styles.socialBTNView}>
-          <FastImage
-            source={require("../assets/call.png")}
-            style={{ height: 35, width: 35, marginHorizontal: 10 }}
-          />
+          <View
+            style={{
+              backgroundColor: Color.txtIntxtcolor,
+              height: 35,
+              width: 35,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 50,
+              marginHorizontal: 8,
+            }}
+          >
+            <Icon
+              name="phone"
+              fill={Color.white}
+              height={"45%"}
+              width={"45%"}
+            />
+          </View>
           <TextInput
             placeholder={Common.getTranslation(LangKey.labMobile)}
             placeholderTextColor={Color.txtIntxtcolor}
@@ -254,10 +337,24 @@ const LoginScreen = ({ userStore }) => {
           duration={500}
         >
           <View style={styles.socialBTNView}>
-            <FastImage
-              source={require("../assets/lock.png")}
-              style={{ height: 35, width: 35, marginHorizontal: 10 }}
-            />
+            <View
+              style={{
+                backgroundColor: Color.txtIntxtcolor,
+                height: 35,
+                width: 35,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+                marginHorizontal: 8,
+              }}
+            >
+              <Icon
+                name="lock"
+                fill={Color.white}
+                height={"45%"}
+                width={"45%"}
+              />
+            </View>
             <TextInput
               placeholder={Common.getTranslation(LangKey.labPassword)}
               placeholderTextColor={Color.txtIntxtcolor}
