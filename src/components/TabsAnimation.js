@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,16 +10,23 @@ import * as Animatable from "react-native-animatable";
 import Color from "../utils/Color";
 
 const TabsAnimation = (props) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(props.defaultTab ? props.defaultTab : 0);
   const [xTabOne, setxTabOne] = useState(0);
   const [xTabTwo, setxTabTwo] = useState(0);
   const [translateX, settranslateX] = useState(new Animated.Value(0));
 
+  useEffect(() => {
+    if (props.onTabChange)
+      props.onTabChange(props.defaultTab ? props.defaultTab : 0);
+  }, []);
+
   const handleSlide = (type) => {
     if (active == 0) {
       setActive(1);
+      if (props.onTabChange) props.onTabChange(1);
     } else {
       setActive(0);
+      if (props.onTabChange) props.onTabChange(0);
     }
     Animated.spring(translateX, {
       toValue: type,
@@ -28,31 +35,47 @@ const TabsAnimation = (props) => {
     }).start();
   };
 
+  useEffect(() => {
+    if (active === 0 && xTabOne > 0) {
+      Animated.spring(translateX, {
+        toValue: xTabOne,
+        duration: 100,
+        useNativeDriver: true,
+      }).start();
+    } else if (active === 1 && xTabTwo > 0) {
+      Animated.spring(translateX, {
+        toValue: xTabTwo,
+        duration: 100,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [xTabOne, xTabTwo, props.defaultTab]);
+
   const renderBody = () => {
     return (
       <>
         {active === 0 ? (
-          <Animatable.View
-            animation="slideInLeft"
-            direction="normal"
-            duration={300}
+          <View
+            // animation="slideInLeft"
+            // direction="normal"
+            // duration={300}
             style={{
               flex: 1,
             }}
           >
             {props.child1}
-          </Animatable.View>
+          </View>
         ) : (
-          <Animatable.View
-            animation="slideInRight"
-            direction="normal"
-            duration={300}
+          <View
+            // animation="slideInRight"
+            // direction="normal"
+            // duration={300}
             style={{
               flex: 1,
             }}
           >
             {props.child2}
-          </Animatable.View>
+          </View>
         )}
       </>
     );

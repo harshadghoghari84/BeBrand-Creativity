@@ -32,6 +32,8 @@ module.exports = {
   msgSocialIconLimit: "msgSocialIconLimit",
   txtShare: "txtShare",
   txtDownload: "txtDownload",
+  txtEdit: "txtEdit",
+  txtReset: "txtReset",
   msgPerchasePkg: "msgPerchasePkg",
   msgCreateAcc: "msgCreateAcc",
   msgDesignDownload: "msgDesignDownload",

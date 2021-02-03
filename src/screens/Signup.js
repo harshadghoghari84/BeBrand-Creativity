@@ -37,8 +37,8 @@ import Common from "../utils/Common";
 import Color from "../utils/Color";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { inject, observer } from "mobx-react";
-import FastImage from "react-native-fast-image";
 import Icon from "../components/svgIcons";
+import auth from "@react-native-firebase/auth";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -51,6 +51,13 @@ const RegisterScreen = ({ userStore }) => {
     errorPolicy: "all",
   });
 
+  const [userSignupSocial, { loading: mutLoading }] = useMutation(
+    GraphqlQuery.userSignupSocial,
+    {
+      errorPolicy: "all",
+    }
+  );
+
   /*
   .##....##....###....##.....##.####..######......###....########.####..#######..##....##
   .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
@@ -61,57 +68,117 @@ const RegisterScreen = ({ userStore }) => {
   .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
   */
 
-  const onGoogleLogin = async () => {
+  const sendTokentoServer = (response) => {
     try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      } else {
-        console.log(error);
-      }
+      auth()
+        .currentUser?.getIdToken()
+        .then((token) => {
+          return userSignupSocial({
+            variables: {
+              token: token,
+              name: response?.user?._user?.displayName
+                ? response.user._user.displayName
+                : "",
+              email: response?.user?._user?.email
+                ? response.user._user.email
+                : "",
+              mobile: response?.user?._user?.phoneNumber
+                ? response.user._user.phoneNumber
+                : "",
+            },
+          })
+            .then(({ data, errors }) => {
+              console.log("=======)))))>>>>>>", data);
+              if (errors && errors.length > 0) {
+                const errorMsg = data.errors[0].message;
+                Common.showMessage(errorMsg);
+              }
+
+              if (data) {
+                if (data != null) {
+                  // set user to userStore
+                  data?.userSignupSocial?.user &&
+                    userStore.setUser(data.userSignupSocial.user);
+
+                  const token = data.userSignupSocial.token;
+
+                  AsyncStorage.setItem(Constant.prfUserToken, token).then(
+                    () => {
+                      navigation.navigate(Constant.navHome);
+                    }
+                  );
+                }
+              }
+            })
+            .catch((error) => {
+              console.log("catch error", error);
+            });
+        });
+    } catch (err) {
+      console.log("=======>err", err);
     }
   };
 
-  const getInfoFromToken = (token) => {
-    const PROFILE_REQ_PARAMS = {
-      fileds: {
-        string: "id,name,first_name,last_name",
-      },
-    };
-    const ProfileRequest = new GraphRequest(
-      "/me",
-      { token, parameters: PROFILE_REQ_PARAMS },
-      (error, user) => {
-        if (error) {
-          console.log("login info has error", error);
-        } else {
-          console.log("result user", user.name);
-        }
-      }
-    );
-    new GraphRequestManager().addRequest(ProfileRequest).start();
+  const onGoogleLogin = async () => {
+    try {
+      const { idToken } = await GoogleSignin.signIn();
+      console.log("idToken", idToken);
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      return auth()
+        .signInWithCredential(googleCredential)
+        .then((res) => {
+          sendTokentoServer(res);
+        });
+    } catch (error) {
+      console.log("===>", error);
+    }
   };
 
+  // const getInfoFromToken = (token) => {
+  //   const PROFILE_REQ_PARAMS = {
+  //     fileds: {
+  //       string: "id,name,first_name,last_name",
+  //     },
+  //   };
+  //   const ProfileRequest = new GraphRequest(
+  //     "/me",
+  //     { token, parameters: PROFILE_REQ_PARAMS },
+  //     (error, user) => {
+  //       if (error) {
+  //         console.log("login info has error", error);
+  //       } else {
+  //         console.log("result user", user.name);
+  //       }
+  //     }
+  //   );
+  //   new GraphRequestManager().addRequest(ProfileRequest).start();
+  // };
+
   const onFaceBookLogin = async () => {
-    LoginManager.logInWithPermissions(["public_profile"]).then(
-      (login) => {
-        if (login.isCancelled) {
-          console.log("login cancelled");
-        } else {
-          AccessToken.getCurrentAccessToken().then((data) => {
-            const accessToken = data.accessToken.toString();
-            getInfoFromToken(accessToken);
-          });
-        }
-      },
-      (error) => {
-        console.log("login fail with error", error);
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email",
+      ]);
+      if (result.isCancelled) {
+        throw "User cancelled the login process";
       }
-    );
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        throw "Something went wrong obtaining access token";
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+      return auth()
+        .signInWithCredential(facebookCredential)
+        .then((res) => {
+          console.log("facebook response==>", res);
+          sendTokentoServer(res);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const _onSignUpPressed = async () => {
@@ -252,7 +319,10 @@ const RegisterScreen = ({ userStore }) => {
 
     //   <Header>{Common.getTranslation(LangKey.txtCreateAccount)}</Header>
     <View style={{ flex: 1 }}>
-      <TouchableOpacity style={styles.socialBTNView}>
+      <TouchableOpacity
+        onPress={() => onGoogleLogin()}
+        style={styles.socialBTNView}
+      >
         <View
           style={{
             backgroundColor: Color.txtIntxtcolor,
@@ -276,7 +346,10 @@ const RegisterScreen = ({ userStore }) => {
           Sign in With Google
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.socialBTNView}>
+      <TouchableOpacity
+        onPress={() => onFaceBookLogin()}
+        style={styles.socialBTNView}
+      >
         <View
           style={{
             backgroundColor: Color.txtIntxtcolor,

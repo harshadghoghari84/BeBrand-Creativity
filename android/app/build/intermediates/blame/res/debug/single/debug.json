@@ -2424,6 +2424,10 @@
         "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/adce1d73ed72ea4b4c27c2589de7eab9/material-1.1.0/res/color/mtrl_indicator_text_color.xml"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/xml_file_provider_paths.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/packaged_res/debug/xml/file_provider_paths.xml"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/layout-sw600dp-v13_mtrl_layout_snackbar.xml.flat",
         "source": "/Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/adce1d73ed72ea4b4c27c2589de7eab9/material-1.1.0/res/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
     },

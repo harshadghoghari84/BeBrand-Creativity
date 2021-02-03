@@ -27,6 +27,7 @@ MERGED from [:react-native-screens] /Users/bebrandd1/Desktop/bebrandd/node_modul
 MERGED from [:react-native-svg] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-svg/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-vector-icons] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-view-shot/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
 MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4131dfaf6d6d8992067916001d6108a7/jetified-react-native-0.62.2/AndroidManifest.xml:2:1-13:12
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-30:12
 MERGED from [:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-25:12
@@ -279,6 +280,8 @@ MERGED from [com.facebook.android:facebook-android-sdk:7.1.0] /Users/bebrandd1/.
 MERGED from [com.facebook.android:facebook-android-sdk:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/a3d2b3f4a8f86029da17799217790b0c/facebook-android-sdk-7.1.0/AndroidManifest.xml:28:5-29:19
 MERGED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-15:19
 MERGED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-15:19
+MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
 MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4131dfaf6d6d8992067916001d6108a7/jetified-react-native-0.62.2/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4131dfaf6d6d8992067916001d6108a7/jetified-react-native-0.62.2/AndroidManifest.xml:11:5-20
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-28:19
@@ -501,6 +504,8 @@ MERGED from [:react-native-vector-icons] /Users/bebrandd1/Desktop/bebrandd/node_
 MERGED from [:react-native-vector-icons] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-view-shot/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-view-shot/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4131dfaf6d6d8992067916001d6108a7/jetified-react-native-0.62.2/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4131dfaf6d6d8992067916001d6108a7/jetified-react-native-0.62.2/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
@@ -735,6 +740,22 @@ ADDED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/
 		ADDED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-88
 	android:name
 		ADDED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-79
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+	android:exported
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-19:63
+	android:resource
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-60
+	android:name
+		ADDED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-67
 uses-permission#android.permission.STORAGE
 ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-66
 	android:name
@@ -751,12 +772,6 @@ ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/ex
 		ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-48
 	android:name
 		ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-74
-meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:70
-	android:resource
-		ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-67
-	android:name
-		ADDED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
 provider#expo.modules.imagepicker.ImagePickerFileProvider
 ADDED from [:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-22:20
 	android:grantUriPermissions

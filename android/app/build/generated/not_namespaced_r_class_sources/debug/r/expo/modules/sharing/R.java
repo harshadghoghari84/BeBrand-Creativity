@@ -238,6 +238,6 @@ public final class R {
     public static final class xml {
         private xml() {}
 
-        public static final int sharing_provider_paths = 0x7f120003;
+        public static final int sharing_provider_paths = 0x7f120004;
     }
 }

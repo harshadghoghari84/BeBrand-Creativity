@@ -247,21 +247,21 @@ const PersonalProfile = ({ navigation, userStore }) => {
           message="Saving Data"
         />
 
-        <TouchableOpacity style={styles.toUserImage}>
-          <View>
-            {defaultImageUrl &&
-              defaultImageUrl !== null &&
-              defaultImageUrl !== "" &&
-              personalImageLimit > 0 && (
-                <FastImage
-                  style={{ width: 100, height: 100 }}
-                  source={{ uri: defaultImageUrl }}
-                  resizeMode={FastImage.resizeMode.cover}
-                />
-              )}
-          </View>
-        </TouchableOpacity>
-
+        {personalImageLimit > 0 && (
+          <TouchableOpacity style={styles.toUserImage}>
+            <View>
+              {defaultImageUrl &&
+                defaultImageUrl !== null &&
+                defaultImageUrl !== "" && (
+                  <FastImage
+                    style={{ width: 100, height: 100 }}
+                    source={{ uri: defaultImageUrl }}
+                    resizeMode={FastImage.resizeMode.cover}
+                  />
+                )}
+            </View>
+          </TouchableOpacity>
+        )}
         <View style={styles.containerTil}>
           <View style={styles.socialBTNView}>
             <View style={styles.filedsIcon}>

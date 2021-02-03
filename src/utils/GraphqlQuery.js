@@ -57,6 +57,68 @@ export default {
       userSignup(mobile: $mobile, password: $password)
     }
   `,
+  userSignupSocial: gql`
+    mutation userSignupSocial(
+      $token: String!
+      $name: String!
+      $email: String!
+      $mobile: String!
+    ) {
+      userSignupSocial(
+        token: $token
+        name: $name
+        email: $email
+        mobile: $mobile
+      ) {
+        token
+        msg
+        user {
+          mobile
+          userInfo {
+            personal {
+              name
+              mobile
+              email
+              designation
+              website
+              socialMediaId
+              image {
+                url
+                isDefault
+              }
+            }
+            business {
+              name
+              mobile
+              email
+              address
+              website
+              socialMediaId
+              image {
+                url
+                isDefault
+              }
+            }
+          }
+          designPackage {
+            package {
+              id
+              type
+              name
+            }
+            startDesignCredit
+            currentDesignCredit
+            personalImageLimit
+            businessImageLimit
+            price
+            purchaseDate
+            expiryDate
+          }
+        }
+      }
+    }
+  `,
+
   verifyUserOtp: gql`
     query verifyUserOtp($mobile: String!, $otp: String!) {
       verifyUserOtp(mobile: $mobile, otp: $otp) {
@@ -182,16 +244,24 @@ export default {
         designs {
           id
           layouts
+          designType
           subCategory
           package
+          language {
+            code
+          }
           thumbImage {
+            url
+          }
+          designImage {
             url
           }
           colorCodes {
             code
             isLight
           }
-          textColor
+          darkTextColor
+          lightTextColor
           categoryRank
         }
       }
@@ -282,7 +352,8 @@ export default {
             code
             isLight
           }
-          textColor
+          darkTextColor
+          lightTextColor
           categoryRank
         }
       }
@@ -319,6 +390,9 @@ export default {
         designType
         subCategory
         package
+        language {
+          code
+        }
         thumbImage {
           url
         }
@@ -329,7 +403,8 @@ export default {
           code
           isLight
         }
-        textColor
+        darkTextColor
+        lightTextColor
         categoryRank
       }
     }
@@ -341,6 +416,9 @@ export default {
         layouts
         subCategory
         package
+        language {
+          code
+        }
         thumbImage {
           url
         }
@@ -351,7 +429,8 @@ export default {
           code
           isLight
         }
-        textColor
+        darkTextColor
+        lightTextColor
         categoryRank
       }
     }
@@ -373,7 +452,8 @@ export default {
             code
             isLight
           }
-          textColor
+          darkTextColor
+          lightTextColor
           categoryRank
         }
       }
@@ -398,7 +478,8 @@ export default {
             code
             isLight
           }
-          textColor
+          darkTextColor
+          lightTextColor
           categoryRank
         }
       }
