@@ -17,7 +17,7 @@ export default {
   splashTime: 1000,
 
   defLangCode: "en",
-
+  defUserName: "Guest",
   prfUserToken: "userToken",
   prfLangCode: "langCode",
 
@@ -69,6 +69,7 @@ export default {
   titPackage: "Package",
   titDesigns: "Designs",
   titWhatsAppUs: "WhatsApp Us",
+  titLegal: "Legal",
   titFaq: "Support System(FAQ)",
   titWorkCulture: "Our Work Culture",
   titTermCondition: "Term & Condition",
