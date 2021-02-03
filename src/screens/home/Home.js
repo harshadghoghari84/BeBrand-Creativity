@@ -20,6 +20,7 @@ import Common from "../../utils/Common";
 import FlatListSlider from "../../components/flatlist_carousel/FlatListSlider";
 import Preview from "../sample/Preview";
 import ItemDesign from "../common/ItemDesign";
+import PopUp from "../../components/PopUp";
 
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
@@ -50,6 +51,10 @@ const data = [
 ];
 
 const Home = ({ navigation, designStore, userStore }) => {
+  const [modalVisible, setmodalVisible] = useState(false);
+  const toggleVisible = () => {
+    setmodalVisible(!modalVisible);
+  };
   const [hasPro, sethasPro] = useState(false);
   const designPackages = toJS(designStore.designPackages);
   const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
@@ -81,17 +86,32 @@ const Home = ({ navigation, designStore, userStore }) => {
   }, []);
 
   useEffect(() => {
-    isMountedRef.current &&
-      setUserSubCategoriesAfter(toJS(designStore.userSubCategoriesAfter));
+    if (isMountedRef.current) {
+      const afterCategory = toJS(designStore.userSubCategoriesAfter);
+      console.log("afterCategory", afterCategory);
+      setUserSubCategoriesAfter(afterCategory);
+    }
   }, [designStore.userSubCategoriesAfter]);
 
   useEffect(() => {
-    isMountedRef.current &&
-      setUserSubCategoriesBefore(toJS(designStore.userSubCategoriesBefore));
+    if (isMountedRef.current) {
+      const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
+      console.log("beforeCatragory", beforeCatragory);
+      setUserSubCategoriesBefore(beforeCatragory);
+    }
   }, [designStore.userSubCategoriesBefore]);
 
   useEffect(() => {
     if (isMountedRef.current) {
+      // console.log("updated");
+      console.log("chk___before__", userSubCategoriesBefore);
+      console.log("chk___After__", userSubCategoriesAfter);
+      if (userSubCategoriesBefore) {
+        setUserSubCategories([...userSubCategoriesBefore]);
+      }
+      if (userSubCategoriesAfter) {
+        setUserSubCategories([...userSubCategoriesAfter]);
+      }
       if (userSubCategoriesBefore && userSubCategoriesAfter) {
         setUserSubCategories([
           ...userSubCategoriesBefore,
@@ -164,8 +184,8 @@ const Home = ({ navigation, designStore, userStore }) => {
   );
 
   const onDesignClick = (packageType, design) => {
-    if (packageType === Constant.typeDesignPackagePro && hasPro === false) {
-      // show popup to user for pro
+    if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
+      setmodalVisible(true);
     } else {
       navigation.navigate(Constant.navDesign, {
         designs: userSubCategories[selectedSubCategory].designs,
@@ -176,13 +196,7 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   return (
     <View style={styles.containerMain}>
-      {/* <ActivityIndicator animating={designStore.hdLoading} />
-      <Button mode="contained" onPress={onFetchMorePressed}>
-        FetchMore
-      </Button> */}
-
-      {/* <Carousel data={dummyData} /> */}
-
+      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
       <View
         style={{
           marginHorizontal: 10,
@@ -204,14 +218,14 @@ const Home = ({ navigation, designStore, userStore }) => {
 
       <View style={styles.containerSub}>
         <View style={styles.containerSubCatList}>
-          <View style={{ marginTop: 10 }}>
+          {/* <View style={{ marginTop: 10 }}>
             <ItemSubCategory
               item={{ id: Constant.defHomeSubCategory }}
               isSelectedId={selectedSubCategory}
               index={Constant.defHomeSubCategory}
               onSelect={(itemId) => setSelectedSubCategory(itemId)}
             />
-          </View>
+          </View> */}
           <FlatList
             horizontal
             ref={refCategoryList}
@@ -229,12 +243,14 @@ const Home = ({ navigation, designStore, userStore }) => {
                 userSubCategoriesBefore.length > 0
               ) {
                 isFirstTimeListLoad = false;
+                const index =
+                  userSubCategories.length > userSubCategoriesBefore.length
+                    ? userSubCategoriesBefore.length
+                    : userSubCategoriesBefore.length - 1;
                 refCategoryList.current.scrollToIndex({
-                  index:
-                    userSubCategories.length > userSubCategoriesBefore.length
-                      ? userSubCategoriesBefore.length
-                      : userSubCategoriesBefore.length - 1,
+                  index: index,
                 });
+                setSelectedSubCategory(index);
               }
             }}
             onScrollToIndexFailed={() => {}}
@@ -245,6 +261,7 @@ const Home = ({ navigation, designStore, userStore }) => {
                 index={index}
                 isSelectedId={selectedSubCategory}
                 onSelect={(itemId) => {
+                  console.log("itemId: ", itemId);
                   setSelectedSubCategory(itemId);
                   item.totalDesign > 0 &&
                     item.designs.length === 0 &&
@@ -255,42 +272,39 @@ const Home = ({ navigation, designStore, userStore }) => {
           />
         </View>
         <View style={styles.containerDesignList}>
-          {selectedSubCategory === Constant.defHomeSubCategory ? (
-            <FlatList
-              style={styles.listAllDesign}
-              data={userSubCategoriesHome}
-              keyExtractor={keyExtractor}
-              maxToRenderPerBatch={6}
-              windowSize={10}
-              renderItem={({ item, index }) => {
-                return item.designs.length > 0 ? (
-                  <FlatList
-                    key={index}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={styles.listHorizontalDesign}
-                    data={item.designs}
-                    keyExtractor={keyExtractor}
-                    // onEndReached={() => loadMoreDesigns(item.id)}
-                    maxToRenderPerBatch={5}
-                    windowSize={7}
-                    renderItem={({ item: design }) => {
-                      const designPackage = designPackages.find(
-                        (item) => item.id === design.package
-                      );
-                      return (
-                        <ItemDesign
-                          design={design}
-                          packageType={designPackage.type}
-                          onDesignClick={onDesignClick}
-                        />
-                      );
-                    }}
-                  />
-                ) : null;
-              }}
-            />
-          ) : userSubCategories[selectedSubCategory].totalDesign > 0 ? (
+          {selectedSubCategory ===
+          Constant.defHomeSubCategory ? null : //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
+          //   maxToRenderPerBatch={6}
+          //   windowSize={10}
+          //   renderItem={({ item, index }) => {
+          //     return item.designs.length > 0 ? (
+          //       <FlatList
+          //         key={index}
+          //         horizontal
+          //         showsHorizontalScrollIndicator={false}
+          //         style={styles.listHorizontalDesign}
+          //         data={item.designs}
+          //         keyExtractor={keyExtractor}
+          //         // onEndReached={() => loadMoreDesigns(item.id)}
+          //         maxToRenderPerBatch={5}
+          //         windowSize={7}
+          //         renderItem={({ item: design }) => {
+          //           const designPackage = designPackages.find(
+          //             (item) => item.id === design.package
+          //           );
+          //           return (
+          //             <ItemDesign
+          //               design={design}
+          //               packageType={designPackage.type}
+          //               onDesignClick={onDesignClick}
+          //             />
+          //           );
+          //         }}
+          //       />
+          //     ) : null;
+          //   }}
+          // />
+          userSubCategories[selectedSubCategory].totalDesign > 0 ? (
             <FlatList
               key={2}
               numColumns={2}

@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   SafeAreaView,
   StatusBar,
   Platform,
+  Text,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "../../components/svgIcons";
 import FastImage from "react-native-fast-image";
 import Color from "../../utils/Color";
+import ProgressDialog from "./ProgressDialog";
+import Modal from "../../components/modal";
 
-const CustomHeader = ({ isBackVisible = false, navigation }) => {
+const CustomHeader = ({
+  langauge = false,
+  isBackVisible = false,
+  navigation,
+  search = false,
+  empty = false,
+}) => {
   // const { backKey } = route.params;
 
+  const [visibleModal, setVisibleModal] = useState(false);
+
+  const toggleVisible = () => {
+    setVisibleModal(!visibleModal);
+  };
   return (
     <View
       style={{
@@ -25,6 +39,12 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
         elevation: 7,
       }}
     >
+      <StatusBar
+        barStyle="light-content"
+        translucent={Platform.OS === "ios" ? true : false}
+      />
+      <Modal visible={visibleModal} toggleVisible={toggleVisible} />
+
       <SafeAreaView
         style={{
           backgroundColor: Color.primary,
@@ -50,14 +70,42 @@ const CustomHeader = ({ isBackVisible = false, navigation }) => {
           </TouchableOpacity>
           <FastImage
             source={require("../../assets/DFS.png")}
-            style={{ height: 40, width: 200 }}
+            style={styles.companyLogo}
             resizeMode={FastImage.resizeMode.contain}
           />
-          <View style={styles.containerSearchIcon}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Icon name="search" fill={Color.white} height={20} width={20} />
-            </TouchableOpacity>
-          </View>
+          {search === true && (
+            <View style={styles.containerSearchIcon}>
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <Icon name="search" fill={Color.white} height={20} width={20} />
+              </TouchableOpacity>
+            </View>
+          )}
+          {langauge === true && (
+            <View style={styles.containerSearchIcon}>
+              <TouchableOpacity
+                onPress={() => {
+                  setVisibleModal(true);
+                }}
+              >
+                <Icon
+                  name="language"
+                  fill={Color.white}
+                  height={20}
+                  width={20}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+          {empty === true && (
+            <View style={styles.containerSearchIcon}>
+              <Icon
+                name="language"
+                fill={"transparent"}
+                height={20}
+                width={20}
+              />
+            </View>
+          )}
         </View>
       </SafeAreaView>
     </View>
@@ -84,12 +132,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  companyName: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: Color.accent,
-    textAlign: "center",
-    flex: 1,
+  companyLogo: {
+    width: "65%",
+    height: 40,
   },
   containerSearchIcon: {
     paddingHorizontal: 10,

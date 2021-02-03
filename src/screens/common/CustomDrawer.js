@@ -221,7 +221,45 @@ class CustomDrawer extends Component {
               </View>
             </View>
           </View>
-          <FlatList
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="home-outline" color={color} size={size} />
+              )}
+              label={Constant.titHome}
+              onPress={() => {
+                this.props.navigation.navigate(Constant.navHome);
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="star-circle-outline" color={color} size={size} />
+              )}
+              label={Constant.titPro}
+              onPress={() => {
+                this.props.navigation.navigate(Constant.navPro);
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="bell-alert-outline" color={color} size={size} />
+              )}
+              label={Constant.titNotification}
+              onPress={() => {
+                this.props.navigation.navigate(Constant.navNotification);
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="heart-outline" color={color} size={size} />
+              )}
+              label={Constant.titWishlist}
+              onPress={() => {
+                this.props.navigation.navigate(Constant.navWishlist);
+              }}
+            />
+          </Drawer.Section>
+          {/* <FlatList
             showsVerticalScrollIndicator={false}
             data={this.state.DrawerItemsSection1}
             keyExtractor={(item) => item.key}
@@ -426,7 +464,7 @@ class CustomDrawer extends Component {
                 );
               }
             }}
-          />
+          /> */}
         </View>
 
         <Drawer.Section style={styles.bottomDrawerSection}>

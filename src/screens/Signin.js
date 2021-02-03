@@ -35,10 +35,8 @@ import LangKey from "../utils/LangKey";
 import Common from "../utils/Common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Color from "../utils/Color";
-import FastImage from "react-native-fast-image";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
-import firebase from "@react-native-firebase/app";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -51,6 +49,12 @@ const LoginScreen = ({ userStore }) => {
   const [userLogin, { loading }] = useMutation(GraphqlQuery.userLogin, {
     errorPolicy: "all",
   });
+  const [userSignupSocial, { loading: mutLoading, data }] = useMutation(
+    GraphqlQuery.userSignupSocial,
+    {
+      errorPolicy: "all",
+    }
+  );
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -58,20 +62,7 @@ const LoginScreen = ({ userStore }) => {
         "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
       offlineAccess: true,
     });
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
   }, []);
-
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) {
-      setInitializing(false);
-    }
-  }
-
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
 
   /*
   .##....##....###....##.....##.####..######......###....########.####..#######..##....##
@@ -83,29 +74,71 @@ const LoginScreen = ({ userStore }) => {
   .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
   */
 
+  const sendTokentoServer = (response) => {
+    try {
+      auth()
+        .currentUser?.getIdToken()
+        .then((token) => {
+          return userSignupSocial({
+            variables: {
+              token: token,
+              name: response?.user?._user?.displayName
+                ? response.user._user.displayName
+                : "",
+              email: response?.user?._user?.email
+                ? response.user._user.email
+                : "",
+              mobile: response?.user?._user?.phoneNumber
+                ? response.user._user.phoneNumber
+                : "",
+            },
+          })
+            .then(({ data, errors }) => {
+              console.log("my last data ", data);
+              if (errors && errors.length > 0) {
+                const errorMsg = data.errors[0].message;
+                Common.showMessage(errorMsg);
+              }
+
+              if (data) {
+                if (data != null) {
+                  // set user to userStore
+                  data?.userSignupSocial?.user &&
+                    userStore.setUser(data.userSignupSocial.user);
+
+                  const token = data.userSignupSocial.token;
+
+                  AsyncStorage.setItem(Constant.prfUserToken, token).then(
+                    () => {
+                      navigation.navigate(Constant.navHome);
+                    }
+                  );
+                }
+              }
+            })
+            .catch((error) => {
+              console.log("catch error", error);
+            });
+        });
+    } catch (err) {
+      console.log("=======>err", err);
+    }
+  };
+
   const onGoogleLogin = async () => {
     try {
       const { idToken } = await GoogleSignin.signIn();
-
+      console.log("idToken", idToken);
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-      return auth().signInWithCredential(googleCredential);
+      return auth()
+        .signInWithCredential(googleCredential)
+        .then((res) => {
+          console.log("myResponse", res);
+          sendTokentoServer(res);
+        });
     } catch (error) {
       console.log("===>", error);
     }
-
-    // try {
-    //   await GoogleSignin.hasPlayServices();
-    //   const userInfo = await GoogleSignin.signIn();
-    //   console.log(userInfo);
-    // } catch (error) {
-    //   if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-    //   } else if (error.code === statusCodes.IN_PROGRESS) {
-    //   } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-    //   } else {
-    //     console.log(error);
-    //   }
-    // }
   };
 
   const getInfoFromToken = (token) => {
@@ -144,25 +177,16 @@ const LoginScreen = ({ userStore }) => {
       const facebookCredential = auth.FacebookAuthProvider.credential(
         data.accessToken
       );
-      return auth().signInWithCredential(facebookCredential);
+      console.log("data", data);
+      return auth()
+        .signInWithCredential(facebookCredential)
+        .then((res) => {
+          console.log("facebook response==>", res);
+          sendTokentoServer(res);
+        });
     } catch (error) {
       console.log(error);
     }
-    // LoginManager.logInWithPermissions(["public_profile"]).then(
-    //   (login) => {
-    //     if (login.isCancelled) {
-    //       console.log("login cancelled");
-    //     } else {
-    //       AccessToken.getCurrentAccessToken().then((data) => {
-    //         const accessToken = data.accessToken.toString();
-    //         getInfoFromToken(accessToken);
-    //       });
-    //     }
-    //   },
-    //   (error) => {
-    //     console.log("login fail with error", error);
-    //   }
-    // );
   };
 
   const onLoginPressed = async () => {

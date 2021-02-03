@@ -13,7 +13,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+// import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
 import { SvgUri } from "react-native-svg";
 import { inject, observer } from "mobx-react";
@@ -21,6 +21,7 @@ import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import * as Sharing from "expo-sharing";
 
+import Icon from "../components/svgIcons";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
 import Constant from "../utils/Constant";
@@ -37,66 +38,30 @@ let localUri = "";
 const Design = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
-
-  const { designs, curDesign } = route.params;
-
-  // useEffect(() => {
-  //   console.log("==", designs);
-  //   console.log("=>", curDesign);
-  // }, []);
-
-  const filterdDesignsPersonal = designs.filter(
-    (ele) =>
-      ele.designType !== null &&
-      (ele.designType === Constant.designTypeALL ||
-        ele.designType === Constant.designTypePERSONAL)
-  );
-  const filterdDesignsBussiness = designs.filter(
-    (ele) =>
-      ele.designType !== null &&
-      (ele.designType === Constant.designTypeALL ||
-        ele.designType === Constant.designTypeBUSINESS)
-  );
-  // useEffect(() => {
-  //   console.log("filterData", filterdDesigns);
-  // }, [filterdDesigns]);
-
+  const { designs: designsArr, curDesign } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
-  // useEffect(() => {
-  //   console.log("Alllayouts", allLayouts);
-  // }, [allLayouts]);
+  /*
+  ..######..########....###....########.########
+  .##....##....##......##.##......##....##......
+  .##..........##.....##...##.....##....##......
+  ..######.....##....##.....##....##....######..
+  .......##....##....#########....##....##......
+  .##....##....##....##.....##....##....##......
+  ..######.....##....##.....##....##....########
+  */
 
   const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
     errorPolicy: "all",
   });
 
   const [hasPro, sethasPro] = useState(false);
+  const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const [layouts, setLayouts] = useState([]);
 
-  const filterdLayoutPersonal = layouts.filter(
-    (ele) =>
-      ele.layoutType !== null && ele.layoutType === Constant.layoutTypePERSONAL
-  );
-  const filterdLayoutBussiness = layouts.filter(
-    (ele) =>
-      ele.layoutType !== null && ele.layoutType === Constant.layoutTypePERSONAL
-  );
-
-  // useEffect(() => {
-  //   console.log("layouts", layouts);
-  // }, [allLayouts]);
-
-  const [currentLayout, setCurrentLayout] = useState(
-    allLayouts.length > 0
-      ? hasPro === true
-        ? allLayouts[0]
-        : allLayouts.find(
-            (item) => item.package.type === Constant.typeDesignPackageFree
-          )
-      : null
-  );
+  const [currentLayout, setCurrentLayout] = useState(null);
 
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
@@ -109,12 +74,63 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      const filter = allLayouts.filter((item) =>
+      let filterArr = allLayouts.filter((item) =>
         currentDesign.layouts.includes(item.id)
       );
-      setLayouts(filter);
+
+      if (selectedTab === 0) {
+        filterArr = filterArr.filter(
+          (item) =>
+            item.layoutType === Constant.layoutTypePERSONAL ||
+            item.layoutType === Constant.layoutTypeALL
+        );
+      } else {
+        filterArr = filterArr.filter(
+          (item) =>
+            item.layoutType === Constant.layoutTypeBUSINESS ||
+            item.layoutType === Constant.layoutTypeALL
+        );
+      }
+
+      setLayouts(filterArr);
+      setCurrentLayout(
+        filterArr.length > 0
+          ? hasPro === true
+            ? filterArr[0]
+            : filterArr.find(
+                (item) => item.package.type === Constant.typeDesignPackageFree
+              )
+          : null
+      );
+
+      if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
+        setFooterColor(currentDesign.colorCodes[0].code);
+        currentDesign.colorCodes[0].isLight == true
+          ? setFooterTextColor(currentDesign.darkTextColor)
+          : setFooterTextColor(currentDesign.lightTextColor);
+      }
     }
-  }, [currentDesign]);
+  }, [currentDesign, selectedTab]);
+
+  useEffect(() => {
+    let filterArr = [];
+    if (selectedTab === 0)
+      filterArr = designsArr.filter(
+        (ele) =>
+          ele.designType !== null &&
+          (ele.designType === Constant.designTypeALL ||
+            ele.designType === Constant.designTypePERSONAL)
+      );
+    else if (selectedTab === 1)
+      filterArr = designsArr.filter(
+        (ele) =>
+          ele.designType !== null &&
+          (ele.designType === Constant.designTypeALL ||
+            ele.designType === Constant.designTypeBUSINESS)
+      );
+
+    setDesigns(filterArr);
+  }, [selectedTab]);
 
   useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
@@ -151,15 +167,39 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
     : undefined;
 
-  const userData =
+  const userDataPersonal =
     user && user != null
       ? {
-          name: user.name,
-          mobile: user.mobile,
-          designation: user?.designation ? user.designation : null,
-          socialMedia: user?.socialMediaInfo?.name
-            ? user.socialMediaInfo.name
-            : null,
+          name: user?.userInfo?.personal && user.userInfo.personal.name,
+
+          mobile: user?.userInfo?.personal && user.userInfo.personal.mobile,
+
+          designation:
+            user?.userInfo?.personal && user.userInfo.personal.designation,
+
+          socialMedia:
+            user?.userInfo?.personal && user.userInfo.personal.socialMediaId,
+
+          image:
+            user?.imageInfo?.profile.length > 0
+              ? user.imageInfo.profile.find((item) => item.isDefault === true)
+                  .url
+              : null,
+        }
+      : Constant.dummyUserData[0];
+  const userDataBussiness =
+    user && user != null
+      ? {
+          name: user?.userInfo?.business && user.userInfo.business.name,
+
+          mobile: user?.userInfo?.business && user.userInfo.business.mobile,
+
+          designation:
+            user?.userInfo?.business && user.userInfo.business.designation,
+
+          socialMedia:
+            user?.userInfo?.business && user.userInfo.business.socialMediaId,
+
           image:
             user?.imageInfo?.profile.length > 0
               ? user.imageInfo.profile.find((item) => item.isDefault === true)
@@ -249,6 +289,780 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
+  /*
+      .########..########.########...######...#######..##....##....###....##......
+      .##.....##.##.......##.....##.##....##.##.....##.###...##...##.##...##......
+      .##.....##.##.......##.....##.##.......##.....##.####..##..##...##..##......
+      .########..######...########...######..##.....##.##.##.##.##.....##.##......
+      .##........##.......##...##.........##.##.....##.##..####.#########.##......
+      .##........##.......##....##..##....##.##.....##.##...###.##.....##.##......
+      .##........########.##.....##..######...#######..##....##.##.....##.########
+      */
+  const Personal = () => {
+    return (
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={designs}
+            keyExtractor={keyExtractor}
+            style={styles.flatlist}
+            renderItem={({ item }) => {
+              const designPackage = designPackages.find(
+                (pkg) => pkg.id === item.package
+              );
+              return (
+                <TouchableOpacity
+                  style={styles.listDesignView}
+                  onPress={() => {
+                    if (
+                      designPackage.type === Constant.typeDesignPackageVip &&
+                      hasPro === false
+                    ) {
+                    } else {
+                      setCurrentDesign(item);
+                    }
+                  }}
+                >
+                  <View>
+                    <FastImage
+                      source={{ uri: item.thumbImage.url }}
+                      style={{ width: 75, height: 75 }}
+                    />
+
+                    {item.id === currentDesign.id && (
+                      <View
+                        style={[
+                          styles.icnCheck,
+                          {
+                            backgroundColor: Color.blackTransparant,
+                            opacity: 0.6,
+                          },
+                        ]}
+                      />
+                    )}
+                    {designPackage.type === Constant.typeDesignPackageVip && (
+                      <Icon
+                        style={styles.tagPro}
+                        name="Premium"
+                        height={18}
+                        width={10}
+                        fill={Color.primary}
+                      />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+
+          <ViewShot
+            style={styles.designView}
+            ref={viewRef}
+            options={{
+              format: "jpg",
+              quality: 1,
+              width: pixels,
+              height: pixels,
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <FastImage
+                source={{
+                  uri: currentDesign.designImage.url,
+                }}
+                style={{ flex: 1 }}
+              >
+                {objFooter && (
+                  <View style={{ ...objFooter }}>
+                    <SvgUri
+                      uri={currentLayout.footerImage.url}
+                      width="100%"
+                      height="100%"
+                      fill={footerColor}
+                    />
+
+                    <Text style={{ ...objName, color: footerTextColor }}>
+                      {userDataPersonal.name}
+                    </Text>
+                    <Text style={{ ...objDesignation, color: footerTextColor }}>
+                      {userDataPersonal.designation}
+                    </Text>
+                    <Text style={{ ...objMobile, color: footerTextColor }}>
+                      {userDataPersonal.mobile}
+                    </Text>
+
+                    <View
+                      style={{
+                        ...objSocialMediaView,
+                        color: footerTextColor,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...objSocialMediaLabel,
+                          color: footerTextColor,
+                        }}
+                      >
+                        {Common.getTranslation(LangKey.labFollowUs)}
+                      </Text>
+                      {socialIconList.map((item) => (
+                        <Icon
+                          key={item}
+                          name={item}
+                          height={12}
+                          width={12}
+                          size={currentLayout.socialIconSize}
+                          fill={footerTextColor}
+                          style={{ ...objSocialIcon }}
+                        />
+                      ))}
+
+                      <Text
+                        style={{
+                          ...objSocialMediaName,
+                          color: footerTextColor,
+                        }}
+                      >
+                        {userDataPersonal.socialMedia}
+                      </Text>
+                    </View>
+
+                    {userDataPersonal?.image && (
+                      <FastImage
+                        source={{ uri: userDataPersonal.image }}
+                        style={{ ...objImage }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    )}
+                  </View>
+                )}
+              </FastImage>
+            </View>
+          </ViewShot>
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={layouts}
+            keyExtractor={keyExtractor}
+            style={styles.flatlist}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.listLayoutView}
+                onPress={() => {
+                  if (
+                    item.package.type === Constant.typeDesignPackageVip &&
+                    hasPro === false
+                  ) {
+                  } else {
+                    setCurrentLayout(item);
+                  }
+                }}
+              >
+                <View>
+                  <FastImage
+                    source={{ uri: item.layoutImage.url }}
+                    style={{ width: 75, height: 75 }}
+                  />
+                  {item.id === currentLayout.id && (
+                    <View
+                      style={[
+                        styles.icnCheck,
+                        {
+                          backgroundColor: Color.blackTransparant,
+                          opacity: 0.5,
+                        },
+                      ]}
+                    />
+                  )}
+
+                  {item.package.type === Constant.typeDesignPackageVip && (
+                    <Icon
+                      style={styles.tagPro}
+                      name="Premium"
+                      height={18}
+                      width={10}
+                      fill={Color.primary}
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+
+          <FlatList
+            style={styles.colorCodeList}
+            data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                key={index}
+                style={{ ...styles.colorCode, backgroundColor: item.code }}
+                onPress={() => {
+                  setFooterColor(item.code);
+                  item.isLight == true
+                    ? setFooterTextColor(item.darkTextColor)
+                    : setFooterTextColor(item.lightTextColor);
+                }}
+              >
+                {item.code === footerColor ? (
+                  <View
+                    style={[
+                      {
+                        backgroundColor: Color.white,
+                        opacity: 0.5,
+                        position: "absolute",
+                        height: 25,
+                        width: 25,
+                        borderRadius: 20,
+                      },
+                    ]}
+                  />
+                ) : null}
+              </TouchableOpacity>
+            )}
+          />
+
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginHorizontal: 15,
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onPress={() => navigation.navigate(Constant.navProfile)}
+                icon={() => (
+                  <Icon name="edit" height={15} width={15} fill={Color.white} />
+                )}
+                style={{
+                  margin: 5,
+                  width: 150,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {Common.getTranslation(LangKey.txtEdit)}
+              </Button>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onPress={() => {
+                  if (currentDesign.id === curDesign.id) {
+                    setFooterColor(currentDesign.colorCodes[0].code);
+                    currentDesign.colorCodes[0].isLight == true
+                      ? setFooterTextColor(currentDesign.darkTextColor)
+                      : setFooterTextColor(currentDesign.lightTextColor);
+                  } else {
+                    setCurrentDesign(curDesign);
+                  }
+                }}
+                icon={() => (
+                  <Icon
+                    name="reset"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                )}
+                style={{
+                  marginHorizontal: 5,
+                  width: 150,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {Common.getTranslation(LangKey.txtReset)}
+              </Button>
+            </View>
+          </View>
+          <FlatList
+            style={styles.socialIconList}
+            data={Constant.socialIconList}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                style={{
+                  height: 45,
+                  width: 45,
+                  margin: 3,
+                  backgroundColor: Color.darkBlue,
+                  borderRadius: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  if (socialIconList.indexOf(item) >= 0) {
+                    setSocialIconList(
+                      socialIconList.filter((val) => val !== item)
+                    );
+                  } else if (socialIconList.length < Constant.socialIconLimit) {
+                    setSocialIconList([...socialIconList, item]);
+                  } else {
+                    Platform.OS == "android"
+                      ? ToastAndroid.show(
+                          Common.getTranslation(LangKey.msgSocialIconLimit),
+                          ToastAndroid.LONG
+                        )
+                      : alert(
+                          Common.getTranslation(LangKey.msgSocialIconLimit)
+                        );
+                  }
+                }}
+              >
+                <View
+                  style={{
+                    height: 45,
+                    width: 45,
+                    backgroundColor:
+                      socialIconList.indexOf(item) < 0 ? null : Color.white,
+                    opacity: 0.3,
+                    position: "absolute",
+                  }}
+                />
+
+                <Icon
+                  name={item}
+                  height={25}
+                  width={25}
+                  fill={Color.white}
+                  key={index}
+                />
+              </TouchableOpacity>
+            )}
+          />
+
+          <View
+            style={{
+              justifyContent: "center",
+              marginTop: 15,
+              paddingHorizontal: 15,
+              flexDirection: "row",
+            }}
+          >
+            <View style={{ flex: 1, marginRight: 5 }}>
+              <Button mode="contained" onPress={onClickShare}>
+                {Common.getTranslation(LangKey.txtShare)}
+              </Button>
+            </View>
+            <View style={{ flex: 1, marginLeft: 5 }}>
+              <Button mode="contained" onPress={onClickDownload}>
+                {Common.getTranslation(LangKey.txtDownload)}
+              </Button>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  };
+  /*
+      .########..##.....##..######...######..####.##....##.########..######...######.
+      .##.....##.##.....##.##....##.##....##..##..###...##.##.......##....##.##....##
+      .##.....##.##.....##.##.......##........##..####..##.##.......##.......##......
+      .########..##.....##..######...######...##..##.##.##.######....######...######.
+      .##.....##.##.....##.......##.......##..##..##..####.##.............##.......##
+      .##.....##.##.....##.##....##.##....##..##..##...###.##.......##....##.##....##
+      .########...#######...######...######..####.##....##.########..######...######.
+      */
+  const bussiness = () => {
+    return (
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={designs}
+            keyExtractor={keyExtractor}
+            style={styles.flatlist}
+            renderItem={({ item }) => {
+              const designPackage = designPackages.find(
+                (pkg) => pkg.id === item.package
+              );
+              return (
+                <TouchableOpacity
+                  style={styles.listDesignView}
+                  onPress={() => {
+                    if (
+                      designPackage.type === Constant.typeDesignPackageVip &&
+                      hasPro === false
+                    ) {
+                    } else {
+                      setCurrentDesign(item);
+                    }
+                  }}
+                >
+                  <View>
+                    <FastImage
+                      source={{ uri: item.thumbImage.url }}
+                      style={{ width: 75, height: 75 }}
+                    />
+                    {item.id === currentDesign.id && (
+                      <View
+                        style={[
+                          styles.icnCheck,
+                          {
+                            backgroundColor: Color.blackTransparant,
+                            opacity: 0.6,
+                          },
+                        ]}
+                      />
+                    )}
+                    {designPackage.type === Constant.typeDesignPackageVip && (
+                      <Icon
+                        style={styles.tagPro}
+                        name="Premium"
+                        height={18}
+                        width={10}
+                        fill={Color.primary}
+                      />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+
+          <ViewShot
+            style={styles.designView}
+            ref={viewRef}
+            options={{
+              format: "jpg",
+              quality: 1,
+              width: pixels,
+              height: pixels,
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <FastImage
+                source={{
+                  uri: currentDesign.designImage.url,
+                }}
+                style={{ flex: 1 }}
+              >
+                {objFooter && (
+                  <View style={{ ...objFooter }}>
+                    <SvgUri
+                      uri={currentLayout.footerImage.url}
+                      width="100%"
+                      height="100%"
+                      fill={footerColor}
+                    />
+
+                    <Text style={{ ...objName, color: footerTextColor }}>
+                      {userDataBussiness.name}
+                    </Text>
+                    <Text style={{ ...objDesignation, color: footerTextColor }}>
+                      {userDataBussiness.designation}
+                    </Text>
+                    <Text style={{ ...objMobile, color: footerTextColor }}>
+                      {userDataBussiness.mobile}
+                    </Text>
+
+                    <View
+                      style={{
+                        ...objSocialMediaView,
+                        color: footerTextColor,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...objSocialMediaLabel,
+                          color: footerTextColor,
+                        }}
+                      >
+                        {Common.getTranslation(LangKey.labFollowUs)}
+                      </Text>
+                      {socialIconList.map((item) => (
+                        <Icon
+                          key={item}
+                          name={item}
+                          height={12}
+                          width={12}
+                          size={currentLayout.socialIconSize}
+                          fill={footerTextColor}
+                          style={{ ...objSocialIcon }}
+                        />
+                      ))}
+
+                      <Text
+                        style={{
+                          ...objSocialMediaName,
+                          color: footerTextColor,
+                        }}
+                      >
+                        {userDataBussiness.socialMedia}
+                      </Text>
+                    </View>
+
+                    {userDataBussiness?.image && (
+                      <FastImage
+                        source={{ uri: userDataBussiness.image }}
+                        style={{ ...objImage }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    )}
+                  </View>
+                )}
+              </FastImage>
+            </View>
+          </ViewShot>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={layouts}
+            keyExtractor={keyExtractor}
+            style={styles.flatlist}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.listLayoutView}
+                onPress={() => {
+                  if (
+                    item.package.type === Constant.typeDesignPackageVip &&
+                    hasPro === false
+                  ) {
+                  } else {
+                    setCurrentLayout(item);
+                  }
+                }}
+              >
+                <View>
+                  <FastImage
+                    source={{ uri: item.layoutImage.url }}
+                    style={{ width: 75, height: 75 }}
+                  />
+                  {item.id === currentLayout.id && (
+                    <View
+                      style={[
+                        styles.icnCheck,
+                        {
+                          backgroundColor: Color.blackTransparant,
+                          opacity: 0.6,
+                        },
+                      ]}
+                    />
+                  )}
+
+                  {item.package.type === Constant.typeDesignPackageVip && (
+                    <Icon
+                      style={styles.tagPro}
+                      name="Premium"
+                      height={18}
+                      width={10}
+                      fill={Color.primary}
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+          <FlatList
+            style={styles.colorCodeList}
+            data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                key={index}
+                style={{ ...styles.colorCode, backgroundColor: item.code }}
+                onPress={() => {
+                  setFooterColor(item.code);
+                  item.isLight == true
+                    ? setFooterTextColor(item.darkTextColor)
+                    : setFooterTextColor(item.lightTextColor);
+                }}
+              >
+                {item.code === footerColor ? (
+                  <View
+                    style={[
+                      {
+                        backgroundColor: Color.white,
+                        opacity: 0.5,
+                        position: "absolute",
+                        height: 25,
+                        width: 25,
+                        borderRadius: 20,
+                      },
+                    ]}
+                  />
+                ) : null}
+              </TouchableOpacity>
+            )}
+          />
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginHorizontal: 15,
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onPress={() => navigation.navigate(Constant.navProfile)}
+                icon={() => (
+                  <Icon name="edit" height={15} width={15} fill={Color.white} />
+                )}
+                style={{
+                  margin: 5,
+                  width: 150,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {Common.getTranslation(LangKey.txtEdit)}
+              </Button>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onPress={() => {
+                  if (currentDesign.id === curDesign.id) {
+                    setFooterColor(currentDesign.colorCodes[0].code);
+                    currentDesign.colorCodes[0].isLight == true
+                      ? setFooterTextColor(currentDesign.darkTextColor)
+                      : setFooterTextColor(currentDesign.lightTextColor);
+                  } else {
+                    setCurrentDesign(curDesign);
+                  }
+                }}
+                icon={() => (
+                  <Icon
+                    name="reset"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                )}
+                style={{
+                  marginHorizontal: 5,
+                  width: 150,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {Common.getTranslation(LangKey.txtReset)}
+              </Button>
+            </View>
+          </View>
+          <FlatList
+            style={styles.socialIconList}
+            data={Constant.socialIconList}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                style={{
+                  height: 45,
+                  width: 45,
+                  margin: 3,
+                  backgroundColor: Color.darkBlue,
+                  borderRadius: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  if (socialIconList.indexOf(item) >= 0) {
+                    setSocialIconList(
+                      socialIconList.filter((val) => val !== item)
+                    );
+                  } else if (socialIconList.length < Constant.socialIconLimit) {
+                    setSocialIconList([...socialIconList, item]);
+                  } else {
+                    Platform.OS == "android"
+                      ? ToastAndroid.show(
+                          Common.getTranslation(LangKey.msgSocialIconLimit),
+                          ToastAndroid.LONG
+                        )
+                      : alert(
+                          Common.getTranslation(LangKey.msgSocialIconLimit)
+                        );
+                  }
+                }}
+              >
+                <View
+                  style={{
+                    height: 45,
+                    width: 45,
+                    backgroundColor:
+                      socialIconList.indexOf(item) < 0 ? null : Color.white,
+                    opacity: 0.3,
+                    position: "absolute",
+                  }}
+                />
+                <Icon
+                  name={item}
+                  height={25}
+                  width={25}
+                  fill={Color.white}
+                  key={index}
+                />
+              </TouchableOpacity>
+            )}
+          />
+          <View
+            style={{
+              justifyContent: "center",
+              marginTop: 15,
+              paddingHorizontal: 15,
+              flexDirection: "row",
+            }}
+          >
+            <View style={{ flex: 1, marginRight: 5 }}>
+              <Button mode="contained" onPress={onClickShare}>
+                {Common.getTranslation(LangKey.txtShare)}
+              </Button>
+            </View>
+            <View style={{ flex: 1, marginLeft: 5 }}>
+              <Button mode="contained" onPress={onClickDownload}>
+                {Common.getTranslation(LangKey.txtDownload)}
+              </Button>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  };
 
   return (
     <>
@@ -258,575 +1072,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         AnimbgColor={Color.darkBlue}
         activeColor={Color.white}
         InactiveColor={Color.darkBlue}
+        defaultTab={
+          currentDesign.designType === Constant.designTypeBUSINESS ? 1 : 0
+        }
+        onTabChange={(val) => setSelectedTab(val)}
         txt1="Personal"
         txt2="Bussiness"
-        /*
-      .########..########.########...######...#######..##....##....###....##......
-      .##.....##.##.......##.....##.##....##.##.....##.###...##...##.##...##......
-      .##.....##.##.......##.....##.##.......##.....##.####..##..##...##..##......
-      .########..######...########...######..##.....##.##.##.##.##.....##.##......
-      .##........##.......##...##.........##.##.....##.##..####.#########.##......
-      .##........##.......##....##..##....##.##.....##.##...###.##.....##.##......
-      .##........########.##.....##..######...#######..##....##.##.....##.########
-      */
-        child1={
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.container}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={filterdDesignsPersonal}
-                keyExtractor={keyExtractor}
-                style={styles.flatlist}
-                renderItem={({ item }) => {
-                  const designPackage = designPackages.find(
-                    (pkg) => pkg.id === item.package
-                  );
-                  return (
-                    <TouchableOpacity
-                      style={styles.listDesignView}
-                      onPress={() => {
-                        if (
-                          designPackage.type ===
-                            Constant.typeDesignPackagePro &&
-                          hasPro === false
-                        ) {
-                        } else {
-                          setCurrentDesign(item);
-                        }
-                      }}
-                    >
-                      <View>
-                        <FastImage
-                          source={{ uri: item.thumbImage.url }}
-                          style={{ width: 75, height: 75 }}
-                        />
-
-                        {item.id === currentDesign.id && (
-                          <View
-                            style={[
-                              styles.icnCheck,
-                              {
-                                backgroundColor: Color.blackTransparant,
-                                opacity: 0.6,
-                              },
-                            ]}
-                          />
-                        )}
-                        {designPackage.type ===
-                          Constant.typeDesignPackagePro && (
-                          <Text style={styles.tagPro}>
-                            {designPackage.type}
-                          </Text>
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-
-              <ViewShot
-                style={styles.designView}
-                ref={viewRef}
-                options={{
-                  format: "jpg",
-                  quality: 1,
-                  width: pixels,
-                  height: pixels,
-                }}
-              >
-                <View style={{ flex: 1 }}>
-                  <FastImage
-                    source={{ uri: currentDesign.thumbImage.url }}
-                    style={{ flex: 1 }}
-                  >
-                    {objFooter && (
-                      <View style={{ ...objFooter }}>
-                        <SvgUri
-                          uri={currentLayout.footerImage.url}
-                          width="100%"
-                          height="100%"
-                          fill={footerColor}
-                        />
-
-                        <Text style={{ ...objName, color: footerTextColor }}>
-                          {userData.name}
-                        </Text>
-                        <Text
-                          style={{ ...objDesignation, color: footerTextColor }}
-                        >
-                          {userData.designation}
-                        </Text>
-                        <Text style={{ ...objMobile, color: footerTextColor }}>
-                          {userData.mobile}
-                        </Text>
-
-                        <View
-                          style={{
-                            ...objSocialMediaView,
-                            color: footerTextColor,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              ...objSocialMediaLabel,
-                              color: footerTextColor,
-                            }}
-                          >
-                            {Common.getTranslation(LangKey.labFollowUs)}
-                          </Text>
-                          {socialIconList.map((item) => (
-                            <Icon
-                              key={item}
-                              name={item}
-                              size={currentLayout.socialIconSize}
-                              color={footerTextColor}
-                              style={{ ...objSocialIcon }}
-                            />
-                          ))}
-
-                          <Text
-                            style={{
-                              ...objSocialMediaName,
-                              color: footerTextColor,
-                            }}
-                          >
-                            {userData.socialMedia}
-                          </Text>
-                        </View>
-
-                        {userData?.image && (
-                          <FastImage
-                            source={{ uri: userData.image }}
-                            style={{ ...objImage }}
-                            resizeMode={FastImage.resizeMode.contain}
-                          />
-                        )}
-                      </View>
-                    )}
-                  </FastImage>
-                </View>
-              </ViewShot>
-
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={filterdLayoutPersonal}
-                keyExtractor={keyExtractor}
-                style={styles.flatlist}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    style={styles.listLayoutView}
-                    onPress={() => {
-                      if (
-                        item.package.type === Constant.typeDesignPackagePro &&
-                        hasPro === false
-                      ) {
-                      } else {
-                        setCurrentLayout(item);
-                      }
-                    }}
-                  >
-                    <View>
-                      <FastImage
-                        source={{ uri: item.layoutImage.url }}
-                        style={{ width: 75, height: 75 }}
-                      />
-                      {item.id === currentLayout.id && (
-                        <View
-                          style={[
-                            styles.icnCheck,
-                            {
-                              backgroundColor: Color.blackTransparant,
-                              opacity: 0.5,
-                            },
-                          ]}
-                        />
-                      )}
-
-                      {item.package.type === Constant.typeDesignPackagePro && (
-                        <Text style={styles.tagPro}>{item.package.type}</Text>
-                      )}
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
-
-              <FlatList
-                style={styles.colorCodeList}
-                data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={{ ...styles.colorCode, backgroundColor: item.code }}
-                    onPress={() => {
-                      setFooterColor(item.code);
-                      item.isLight == true
-                        ? setFooterTextColor(Color.darkTextColor)
-                        : setFooterTextColor(Color.lightTextColor);
-                    }}
-                  />
-                )}
-              />
-
-              <FlatList
-                style={styles.socialIconList}
-                data={Constant.socialIconList}
-                horizontal
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                  <Icon
-                    name={item}
-                    size={40}
-                    color={
-                      socialIconList.indexOf(item) < 0
-                        ? Color.grey
-                        : Color.black
-                    }
-                    key={index}
-                    style={styles.socialIcon}
-                    onPress={() => {
-                      if (socialIconList.indexOf(item) >= 0) {
-                        setSocialIconList(
-                          socialIconList.filter((val) => val !== item)
-                        );
-                      } else if (
-                        socialIconList.length < Constant.socialIconLimit
-                      ) {
-                        setSocialIconList([...socialIconList, item]);
-                      } else {
-                        Platform.OS == "android"
-                          ? ToastAndroid.show(
-                              Common.getTranslation(LangKey.msgSocialIconLimit),
-                              ToastAndroid.LONG
-                            )
-                          : alert(
-                              Common.getTranslation(LangKey.msgSocialIconLimit)
-                            );
-                      }
-                    }}
-                  />
-                )}
-              />
-
-              <View
-                style={{
-                  justifyContent: "center",
-                  marginTop: 15,
-                  paddingHorizontal: 15,
-                  flexDirection: "row",
-                }}
-              >
-                <View style={{ flex: 1, marginRight: 5 }}>
-                  <Button
-                    mode="contained"
-                    onPress={onClickShare}
-                    disabled={designs == null}
-                  >
-                    {Common.getTranslation(LangKey.txtShare)}
-                  </Button>
-                </View>
-                <View style={{ flex: 1, marginLeft: 5 }}>
-                  <Button
-                    mode="contained"
-                    onPress={onClickDownload}
-                    disabled={designs == null}
-                  >
-                    {Common.getTranslation(LangKey.txtDownload)}
-                  </Button>
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        }
-        /*
-      .########..##.....##..######...######..####.##....##.########..######...######.
-      .##.....##.##.....##.##....##.##....##..##..###...##.##.......##....##.##....##
-      .##.....##.##.....##.##.......##........##..####..##.##.......##.......##......
-      .########..##.....##..######...######...##..##.##.##.######....######...######.
-      .##.....##.##.....##.......##.......##..##..##..####.##.............##.......##
-      .##.....##.##.....##.##....##.##....##..##..##...###.##.......##....##.##....##
-      .########...#######...######...######..####.##....##.########..######...######.
-      */
-        child2={
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.container}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={filterdDesignsBussiness}
-                keyExtractor={keyExtractor}
-                style={styles.flatlist}
-                renderItem={({ item }) => {
-                  const designPackage = designPackages.find(
-                    (pkg) => pkg.id === item.package
-                  );
-                  return (
-                    <TouchableOpacity
-                      style={styles.listDesignView}
-                      onPress={() => {
-                        if (
-                          designPackage.type ===
-                            Constant.typeDesignPackagePro &&
-                          hasPro === false
-                        ) {
-                        } else {
-                          setCurrentDesign(item);
-                        }
-                      }}
-                    >
-                      <View>
-                        <FastImage
-                          source={{ uri: item.thumbImage.url }}
-                          style={{ width: 75, height: 75 }}
-                        />
-                        {item.id === currentDesign.id && (
-                          <View
-                            style={[
-                              styles.icnCheck,
-                              {
-                                backgroundColor: Color.blackTransparant,
-                                opacity: 0.6,
-                              },
-                            ]}
-                          />
-                        )}
-                        {designPackage.type ===
-                          Constant.typeDesignPackagePro && (
-                          <Text style={styles.tagPro}>
-                            {designPackage.type}
-                          </Text>
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-
-              <ViewShot
-                style={styles.designView}
-                ref={viewRef}
-                options={{
-                  format: "jpg",
-                  quality: 1,
-                  width: pixels,
-                  height: pixels,
-                }}
-              >
-                <View style={{ flex: 1 }}>
-                  <FastImage
-                    source={{ uri: currentDesign.thumbImage.url }}
-                    style={{ flex: 1 }}
-                  >
-                    {objFooter && (
-                      <View style={{ ...objFooter }}>
-                        <SvgUri
-                          uri={currentLayout.footerImage.url}
-                          width="100%"
-                          height="100%"
-                          fill={footerColor}
-                        />
-
-                        <Text style={{ ...objName, color: footerTextColor }}>
-                          {userData.name}
-                        </Text>
-                        <Text
-                          style={{ ...objDesignation, color: footerTextColor }}
-                        >
-                          {userData.designation}
-                        </Text>
-                        <Text style={{ ...objMobile, color: footerTextColor }}>
-                          {userData.mobile}
-                        </Text>
-
-                        <View
-                          style={{
-                            ...objSocialMediaView,
-                            color: footerTextColor,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              ...objSocialMediaLabel,
-                              color: footerTextColor,
-                            }}
-                          >
-                            {Common.getTranslation(LangKey.labFollowUs)}
-                          </Text>
-                          {socialIconList.map((item) => (
-                            <Icon
-                              key={item}
-                              name={item}
-                              size={currentLayout.socialIconSize}
-                              color={footerTextColor}
-                              style={{ ...objSocialIcon }}
-                            />
-                          ))}
-
-                          <Text
-                            style={{
-                              ...objSocialMediaName,
-                              color: footerTextColor,
-                            }}
-                          >
-                            {userData.socialMedia}
-                          </Text>
-                        </View>
-
-                        {userData?.image && (
-                          <FastImage
-                            source={{ uri: userData.image }}
-                            style={{ ...objImage }}
-                            resizeMode={FastImage.resizeMode.contain}
-                          />
-                        )}
-                      </View>
-                    )}
-                  </FastImage>
-                </View>
-              </ViewShot>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={filterdLayoutBussiness}
-                keyExtractor={keyExtractor}
-                style={styles.flatlist}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    style={styles.listLayoutView}
-                    onPress={() => {
-                      if (
-                        item.package.type === Constant.typeDesignPackagePro &&
-                        hasPro === false
-                      ) {
-                      } else {
-                        setCurrentLayout(item);
-                      }
-                    }}
-                  >
-                    <View>
-                      <FastImage
-                        source={{ uri: item.layoutImage.url }}
-                        style={{ width: 75, height: 75 }}
-                      />
-                      {item.id === currentLayout.id && (
-                        <View
-                          style={[
-                            styles.icnCheck,
-                            {
-                              backgroundColor: Color.blackTransparant,
-                              opacity: 0.6,
-                            },
-                          ]}
-                        />
-                      )}
-
-                      {item.package.type === Constant.typeDesignPackagePro && (
-                        <Text style={styles.tagPro}>{item.package.type}</Text>
-                      )}
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
-              <FlatList
-                style={styles.colorCodeList}
-                data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={{ ...styles.colorCode, backgroundColor: item.code }}
-                    onPress={() => {
-                      setFooterColor(item.code);
-                      item.isLight == true
-                        ? setFooterTextColor(Color.darkTextColor)
-                        : setFooterTextColor(Color.lightTextColor);
-                    }}
-                  />
-                )}
-              />
-              <FlatList
-                style={styles.socialIconList}
-                data={Constant.socialIconList}
-                horizontal
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                  <Icon
-                    name={item}
-                    size={40}
-                    color={
-                      socialIconList.indexOf(item) < 0
-                        ? Color.grey
-                        : Color.black
-                    }
-                    key={index}
-                    style={styles.socialIcon}
-                    onPress={() => {
-                      if (socialIconList.indexOf(item) >= 0) {
-                        setSocialIconList(
-                          socialIconList.filter((val) => val !== item)
-                        );
-                      } else if (
-                        socialIconList.length < Constant.socialIconLimit
-                      ) {
-                        setSocialIconList([...socialIconList, item]);
-                      } else {
-                        Platform.OS == "android"
-                          ? ToastAndroid.show(
-                              Common.getTranslation(LangKey.msgSocialIconLimit),
-                              ToastAndroid.LONG
-                            )
-                          : alert(
-                              Common.getTranslation(LangKey.msgSocialIconLimit)
-                            );
-                      }
-                    }}
-                  />
-                )}
-              />
-              <View
-                style={{
-                  justifyContent: "center",
-                  marginTop: 15,
-                  paddingHorizontal: 15,
-                  flexDirection: "row",
-                }}
-              >
-                <View style={{ flex: 1, marginRight: 5 }}>
-                  <Button
-                    mode="contained"
-                    onPress={onClickShare}
-                    disabled={designs == null}
-                  >
-                    {Common.getTranslation(LangKey.txtShare)}
-                  </Button>
-                </View>
-                <View style={{ flex: 1, marginLeft: 5 }}>
-                  <Button
-                    mode="contained"
-                    onPress={onClickDownload}
-                    disabled={designs == null}
-                  >
-                    {Common.getTranslation(LangKey.txtDownload)}
-                  </Button>
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        }
+        child1={Personal()}
+        child2={bussiness()}
       />
     </>
   );
@@ -873,18 +1126,14 @@ const styles = StyleSheet.create({
   },
   socialIconList: {
     marginTop: 15,
-    marginRight: 15,
+    marginHorizontal: 10,
   },
   socialIcon: { marginLeft: 10 },
   tagPro: {
-    backgroundColor: Color.tagColor,
     paddingHorizontal: 4,
     marginRight: 5,
-    borderRadius: 3,
-    fontSize: 9,
     color: Color.tagTextColor,
     position: "absolute",
-    top: 5,
     left: 5,
     overflow: "hidden",
   },

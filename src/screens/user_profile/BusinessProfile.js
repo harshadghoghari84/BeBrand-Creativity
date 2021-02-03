@@ -237,20 +237,20 @@ const BusinessProfile = ({ userStore }) => {
           dismissable={false}
           message="Saving Data"
         />
-
-        <TouchableOpacity style={styles.toUserImage}>
-          <View>
-            {defaultImageUrl &&
-              defaultImageUrl !== null &&
-              defaultImageUrl !== "" && (
-                <Image
-                  source={{ uri: defaultImageUrl, width: 100, height: 100 }}
-                  resizeMode="contain"
-                />
-              )}
-          </View>
-        </TouchableOpacity>
-
+        {businessImageLimit > 0 && (
+          <TouchableOpacity style={styles.toUserImage}>
+            <View>
+              {defaultImageUrl &&
+                defaultImageUrl !== null &&
+                defaultImageUrl !== "" && (
+                  <Image
+                    source={{ uri: defaultImageUrl, width: 100, height: 100 }}
+                    resizeMode="contain"
+                  />
+                )}
+            </View>
+          </TouchableOpacity>
+        )}
         <View style={styles.containerTil}>
           <View style={styles.socialBTNView}>
             <View style={styles.filedsIcon}>

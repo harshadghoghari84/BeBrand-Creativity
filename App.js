@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { Provider } from "mobx-react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { MenuProvider } from "react-native-popup-menu";
 
 import Common from "./src/utils/Common";
 import { paperTheme } from "./src/utils/Theme";
@@ -39,42 +40,44 @@ const DrawerScreen = () => (
 
 export default function App() {
   return (
-    <Provider designStore={DesignStore} userStore={UserStore}>
-      <ApolloProvider client={client}>
-        <PaperProvider theme={paperTheme}>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              initialRouteName={Constant.navLogin}
-            >
-              <Stack.Screen
-                name={Constant.navSplash}
-                component={SplashScreen}
-              />
-              <Stack.Screen name={Constant.navLogin} component={Login} />
-              {/* <Stack.Screen name={Constant.navWebView} component={WebViews} /> */}
-              <Stack.Screen
-                name="langaugeSelection"
-                component={LanguageSelectionScreen}
-              />
-              <Stack.Screen
-                name={Constant.navSignIn}
-                component={SigninScreen}
-              />
-              <Stack.Screen
-                name={Constant.navSignUp}
-                component={SignupScreen}
-              />
-              <Stack.Screen name={Constant.navOtp} component={OtpScreen} />
+    <MenuProvider>
+      <Provider designStore={DesignStore} userStore={UserStore}>
+        <ApolloProvider client={client}>
+          <PaperProvider theme={paperTheme}>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+                initialRouteName={Constant.navSplash}
+              >
+                <Stack.Screen
+                  name={Constant.navSplash}
+                  component={SplashScreen}
+                />
+                <Stack.Screen name={Constant.navLogin} component={Login} />
+                {/* <Stack.Screen name={Constant.navWebView} component={WebViews} /> */}
+                <Stack.Screen
+                  name="langaugeSelection"
+                  component={LanguageSelectionScreen}
+                />
+                <Stack.Screen
+                  name={Constant.navSignIn}
+                  component={SigninScreen}
+                />
+                <Stack.Screen
+                  name={Constant.navSignUp}
+                  component={SignupScreen}
+                />
+                <Stack.Screen name={Constant.navOtp} component={OtpScreen} />
 
-              <Stack.Screen
-                name={Constant.navHomeStack}
-                component={DrawerScreen}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </PaperProvider>
-      </ApolloProvider>
-    </Provider>
+                <Stack.Screen
+                  name={Constant.navHomeStack}
+                  component={DrawerScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </PaperProvider>
+        </ApolloProvider>
+      </Provider>
+    </MenuProvider>
   );
 }

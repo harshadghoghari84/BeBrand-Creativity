@@ -82,20 +82,16 @@ export default {
   designPixel: 1500,
   socialIconLimit: 4,
   socialIconList: [
-    "logo-facebook",
-    "logo-instagram",
-    "logo-twitter",
-    "logo-youtube",
-    "logo-linkedin",
-    "logo-github",
-    "logo-pinterest",
+    "facebook",
+    "instagram",
+    "twitter",
+    "youtube",
+    "linkedin",
+    "github",
+    "facebook",
   ],
-  defSocialIconList: [
-    "logo-facebook",
-    "logo-linkedin",
-    "logo-twitter",
-    "logo-youtube",
-  ],
+  defSocialIconList: ["facebook", "linkedin", "twitter", "youtube"],
+
   designAlbumName: "Be Brandd",
 
   // Home Constants
@@ -105,11 +101,15 @@ export default {
   homeItemSubCategoryHeight: 100,
 
   // mobx/DesignStore constants
+  designLangCodeAll: "all",
   userSubCategoryTypeAfter: "AFTER",
   userSubCategoryTypeBefore: "BEFORE",
+  globleuserSubCategoryTypeAfter: "AFTER",
+  globleuserSubCategoryTypeBefore: "BEFORE",
 
   typeDesignPackageFree: "FREE",
   typeDesignPackagePro: "PRO",
+  typeDesignPackageVip: "VIP",
 
   // userDesign types
   designTypeALL: "ALL",
@@ -120,4 +120,8 @@ export default {
   layoutTypeALL: "ALL",
   layoutTypePERSONAL: "PERSONAL",
   layoutTypeBUSINESS: "BUSINESS",
+
+  // design page
+  txtEdit: "Edit",
+  txtReset: "Reset",
 };

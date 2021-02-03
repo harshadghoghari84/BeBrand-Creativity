@@ -19,7 +19,9 @@ const HomeStackComponent = ({ navigation }) => {
       <HomeStack.Screen
         name={Constant.navHome}
         component={HomeScreen}
-        options={{ header: (props) => <CustomHeader {...props} /> }}
+        options={{
+          header: (props) => <CustomHeader langauge={true} {...props} />,
+        }}
       />
 
       <HomeStack.Screen
@@ -33,13 +35,17 @@ const HomeStackComponent = ({ navigation }) => {
       <HomeStack.Screen
         name={Constant.navDesigns}
         component={UserDesign}
-        options={{ header: (props) => <CustomHeader {...props} /> }}
+        options={{
+          header: (props) => <CustomHeader search={true} {...props} />,
+        }}
       />
 
       <HomeStack.Screen
         name={Constant.navPackage}
         component={UserPackage}
-        options={{ header: (props) => <CustomHeader {...props} /> }}
+        options={{
+          header: (props) => <CustomHeader search={true} {...props} />,
+        }}
       />
       {/* <HomeStack.Screen
         name={Constant.navHome}
@@ -60,7 +66,9 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navProfile}
         component={UserProfile}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader isBackVisible={true} empty={true} {...props} />
+          ),
         }}
       />
     </HomeStack.Navigator>

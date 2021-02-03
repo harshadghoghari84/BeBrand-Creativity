@@ -21,11 +21,17 @@ const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
       <FastImage
         style={styles.imgSubCategoryDesign}
         resizeMode={FastImage.resizeMode.contain}
-        source={{ uri: design.thumbImage.url }}
+        source={{ uri: design?.thumbImage?.url ? design.thumbImage.url : null }}
       />
-      {packageType === Constant.typeDesignPackagePro && (
-        <Text style={styles.tagPro}>{packageType}</Text>
-        // <Icon name="Premium" height={30} width={30} fill={Color.primary} />
+
+      {packageType === Constant.typeDesignPackageVip && (
+        <Icon
+          style={styles.tagPro}
+          name="Premium"
+          height={18}
+          width={10}
+          fill={Color.primary}
+        />
       )}
 
       {designDate && (
@@ -43,12 +49,9 @@ const styles = StyleSheet.create({
     height: imgWidth,
   },
   tagPro: {
-    backgroundColor: Color.tagColor,
     paddingHorizontal: 8,
     marginRight: 5,
     marginTop: 5,
-    borderRadius: 5,
-    fontSize: 10,
     color: Color.tagTextColor,
     position: "absolute",
     right: 0,
