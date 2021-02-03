@@ -397,7 +397,6 @@ const BusinessProfile = ({ userStore }) => {
         </View>
 
         <Button
-          mode="contained"
           loading={loading}
           disabled={loading}
           style={styles.btnSave}

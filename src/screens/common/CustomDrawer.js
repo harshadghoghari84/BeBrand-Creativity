@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { DrawerItem } from "@react-navigation/drawer";
 import { Drawer, List, ProgressBar } from "react-native-paper";
@@ -20,75 +21,12 @@ import { toJS } from "mobx";
 import Icon from "../../components/svgIcons";
 import WebViews from "../../components/WebViews";
 
-export const get_Icon = (title, color) => {
-  switch (title) {
-    case Constant.titHome:
-      return <Icon name="home" fill={color} height={20} width={20} />;
-    case Constant.titPro:
-      return <Icon name="vip" fill={color} height={20} width={20} />;
-    case Constant.titNotification:
-      return <Icon name="notification" fill={color} height={20} width={20} />;
-    case Constant.titRateApp:
-      return <Icon name="rate" fill={color} height={20} width={20} />;
-    case Constant.titShareApp:
-      return <Icon name="share" fill={color} height={20} width={20} />;
-    case Constant.titReportIssue:
-      return <Icon name="report" fill={color} height={20} width={20} />;
-    case Constant.titRequestFeature:
-      return <Icon name="request" fill={color} height={20} width={20} />;
-    case Constant.titAccount:
-      return <Icon name="account" fill={color} height={20} width={20} />;
-    case Constant.titWhatsAppUs:
-      return <Icon name="whatsapp" fill={color} height={20} width={20} />;
-    default:
-      break;
-  }
-};
-
-// const FAQ = <Icon name="information-outline" size={23} />;
-// const OUR_WORK_CULTURE = <Icon name="basketball-hoop-outline" size={23} />;
-
 class CustomDrawer extends Component {
   state = {
-    DrawerItemsSection1: [
-      { title: Constant.titHome, isSelected: true },
-      { title: Constant.titPro, isSelected: false },
-      {
-        title: Constant.titNotification,
-        isSelected: false,
-        devider: true,
-      },
-      { title: Constant.titRateApp, isSelected: false },
-      { title: Constant.titShareApp, isSelected: false },
-      {
-        title: Constant.titReportIssue,
-        isSelected: false,
-      },
-      {
-        title: Constant.titRequestFeature,
-        isSelected: false,
-        devider: true,
-      },
-      {
-        title: Constant.titAccount,
-        isSelected: false,
-        devider: true,
-      },
-      { title: Constant.titWhatsAppUs, isSelected: false },
-      { title: Constant.titFaq, isSelected: false },
-      {
-        title: Constant.titWorkCulture,
-        isSelected: false,
-        devider: true,
-      },
-      { title: Constant.titTermCondition, isSelected: false },
-      { title: Constant.titDisclamer, isSelected: false },
-      { title: Constant.titPrivacyPolicy, isSelected: false },
-      { title: Constant.titCopyright, isSelected: false },
-    ],
-    TOKEN: "",
     startDesignCredit: "",
     currentDesignCredit: "",
+    isSelected: false,
+    Activated: Constant.titHome,
   };
 
   componentDidMount() {
@@ -114,72 +52,8 @@ class CustomDrawer extends Component {
     }
   }
 
-  componentDidUpdate() {
-    AsyncStorage.getItem(Constant.prfUserToken).then((res) =>
-      this.setState({ TOKEN: res })
-    );
-  }
-
-  onDSection1 = (currantIndex) => {
-    const { DrawerItemsSection1 } = this.state;
-    let tmpArr = DrawerItemsSection1;
-
-    tmpArr.forEach((ele, index) => {
-      if (index == currantIndex) {
-        if (ele.title == Constant.titAccount) {
-          tmpArr[currantIndex].isSelected = !tmpArr[currantIndex].isSelected;
-        } else {
-          tmpArr[currantIndex].isSelected = true;
-        }
-      } else {
-        tmpArr[index].isSelected = false;
-      }
-    });
-    this.setState({ DrawerItemsSection1: tmpArr });
-
-    if (currantIndex == 0) {
-      this.props.navigation.navigate(Constant.navHome);
-    } else if (currantIndex == 1) {
-      this.props.navigation.navigate(Constant.navPro);
-    } else if (currantIndex == 2) {
-      this.props.navigation.navigate(Constant.navNotification);
-    } else if (currantIndex == 3) {
-      this.props.navigation.navigate(Constant.navRateApp);
-    } else if (currantIndex == 4) {
-      this.props.navigation.navigate(Constant.navShareApp);
-    } else if (currantIndex == 5) {
-      this.props.navigation.navigate(Constant.navReportIssue);
-    } else if (currantIndex == 6) {
-      this.props.navigation.navigate(Constant.navRequestFeature);
-    } else if (currantIndex == 7) {
-      // this.props.navigation.navigate(Constant.navAccount);
-    } else if (currantIndex == 8) {
-      this.props.navigation.navigate(Constant.navWhatsAppUs);
-    } else if (currantIndex == 9) {
-      this.props.navigation.navigate(Constant.navFaq);
-    } else if (currantIndex == 10) {
-      this.props.navigation.navigate(Constant.navWorkCulture);
-    } else if (currantIndex == 11) {
-      // this.props.navigation.navigate(Constant.navTermCondition);
-      this.props.navigation.navigate(Constant.navWebView, {
-        uri: "https://infinite.red",
-      });
-    } else if (currantIndex == 12) {
-      // this.props.navigation.navigate(Constant.navDisclamer);
-      this.props.navigation.navigate(Constant.navWebView, {
-        uri: "https://infinite.red",
-      });
-    } else if (currantIndex == 13) {
-      // this.props.navigation.navigate(Constant.navPrivacyPolicy);
-      this.props.navigation.navigate(Constant.navWebView, {
-        uri: "https://infinite.red",
-      });
-    } else if (currantIndex == 14) {
-      // this.props.navigation.navigate(Constant.navCopyright);
-      this.props.navigation.navigate(Constant.navWebView, {
-        uri: "https://infinite.red",
-      });
-    }
+  getColor = (val) => {
+    return val == true ? Color.primary : Color.grey;
   };
 
   render() {
@@ -205,7 +79,7 @@ class CustomDrawer extends Component {
               <Text style={styles.txtUserName}>
                 {user?.userInfo?.personal?.name
                   ? user.userInfo.personal.name
-                  : "Guest"}
+                  : Constant.defUserName}
               </Text>
               <View style={{ width: "80%" }}>
                 <ProgressBar
@@ -221,282 +95,550 @@ class CustomDrawer extends Component {
               </View>
             </View>
           </View>
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="home-outline" color={color} size={size} />
-              )}
-              label={Constant.titHome}
-              onPress={() => {
-                this.props.navigation.navigate(Constant.navHome);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="star-circle-outline" color={color} size={size} />
-              )}
-              label={Constant.titPro}
-              onPress={() => {
-                this.props.navigation.navigate(Constant.navPro);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="bell-alert-outline" color={color} size={size} />
-              )}
-              label={Constant.titNotification}
-              onPress={() => {
-                this.props.navigation.navigate(Constant.navNotification);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="heart-outline" color={color} size={size} />
-              )}
-              label={Constant.titWishlist}
-              onPress={() => {
-                this.props.navigation.navigate(Constant.navWishlist);
-              }}
-            />
-          </Drawer.Section>
-          {/* <FlatList
-            showsVerticalScrollIndicator={false}
-            data={this.state.DrawerItemsSection1}
-            keyExtractor={(item) => item.key}
-            renderItem={({ item, index }) => {
-              if (index == 7) {
-                return (
-                  <>
-                    {this.state.TOKEN !== null && (
+          <ScrollView style={{ flex: 1 }}>
+            <View>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titHome }, () =>
+                    this.props.navigation.navigate(Constant.navHome)
+                  )
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="home"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titHome
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titHome
+                    ),
+                  }}
+                >
+                  {Constant.titHome}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titPro }, () =>
+                    this.props.navigation.navigate(Constant.navPro)
+                  )
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="vip"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titPro
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titPro
+                    ),
+                  }}
+                >
+                  {Constant.titPro}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titNotification }, () =>
+                    this.props.navigation.navigate(Constant.navNotification)
+                  )
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="notification"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titNotification
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titNotification
+                    ),
+                  }}
+                >
+                  {Constant.titNotification}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titRateApp })
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="rate"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titRateApp
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titRateApp
+                    ),
+                  }}
+                >
+                  {Constant.titRateApp}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titShareApp })
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="share"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titShareApp
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titShareApp
+                    ),
+                  }}
+                >
+                  {Constant.titShareApp}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titReportIssue })
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="report"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titReportIssue
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titReportIssue
+                    ),
+                  }}
+                >
+                  {Constant.titReportIssue}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({
+                    Activated: Constant.titRequestFeature,
+                  })
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="request"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titRequestFeature
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titRequestFeature
+                    ),
+                  }}
+                >
+                  {Constant.titRequestFeature}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              {this.props.userStore.user !== null && (
+                <View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ isSelected: !this.state.isSelected })
+                    }
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      paddingVertical: 10,
+                      borderBottomWidth: 1,
+                      borderBottomColor: Color.dividerColor,
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ paddingHorizontal: 30 }}>
+                        <Icon
+                          name="account"
+                          fill={
+                            this.state.isSelected ? Color.primary : Color.grey
+                          }
+                          height={20}
+                          width={20}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          color: this.state.isSelected
+                            ? Color.primary
+                            : Color.grey,
+                        }}
+                      >
+                        {Constant.titAccount}
+                      </Text>
+                    </View>
+                    {this.state.isSelected ? (
+                      <Icon
+                        name="up"
+                        height={15}
+                        width={15}
+                        fill={
+                          this.state.isSelected ? Color.primary : Color.grey
+                        }
+                        style={{
+                          marginRight: 20,
+                        }}
+                      />
+                    ) : (
+                      <Icon
+                        name="down"
+                        height={15}
+                        width={15}
+                        fill={
+                          this.state.isSelected ? Color.primary : Color.grey
+                        }
+                        style={{
+                          marginRight: 20,
+                        }}
+                      />
+                    )}
+                  </TouchableOpacity>
+                  {this.state.isSelected ? (
+                    <>
                       <TouchableOpacity
-                        onPress={() => this.onDSection1(index)}
+                        onPress={() =>
+                          this.setState(
+                            { Activated: Constant.titProfile },
+                            () =>
+                              this.props.navigation.navigate(
+                                Constant.navProfile
+                              )
+                          )
+                        }
                         style={{
                           flexDirection: "row",
-                          justifyContent: "space-between",
                           alignItems: "center",
-                          borderBottomWidth: item.devider ? 1 : null,
-                          borderBottomColor: item.devider
-                            ? Color.dividerColor
-                            : null,
+                          paddingVertical: 10,
                         }}
                       >
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingVertical: 10,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              paddingHorizontal: 30,
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
-                            }}
-                          >
-                            {get_Icon(
-                              item.title,
-                              item.isSelected ? Color.primary : Color.grey
+                        <View style={{ paddingHorizontal: 30 }}>
+                          <Icon
+                            name="profile"
+                            fill={this.getColor(
+                              this.state.Activated === Constant.titProfile
                             )}
-                          </Text>
-                          <Text
-                            style={{
-                              color: item.isSelected
-                                ? Color.primary
-                                : Color.grey,
-                            }}
-                          >
-                            {item.title}
-                          </Text>
+                            height={20}
+                            width={20}
+                          />
                         </View>
-                        {item.isSelected ? (
-                          <Icon
-                            name="up"
-                            height={15}
-                            width={15}
-                            fill={item.isSelected ? Color.primary : Color.grey}
-                            style={{
-                              marginRight: 20,
-                            }}
-                          />
-                        ) : (
-                          <Icon
-                            name="down"
-                            height={15}
-                            width={15}
-                            fill={item.isSelected ? Color.primary : Color.grey}
-                            style={{
-                              marginRight: 20,
-                            }}
-                          />
-                        )}
+                        <Text
+                          style={{
+                            color: this.getColor(
+                              this.state.Activated === Constant.titProfile
+                            ),
+                          }}
+                        >
+                          {Constant.titProfile}
+                        </Text>
                       </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState(
+                            { Activated: Constant.titPackage },
+                            () =>
+                              this.props.navigation.navigate(
+                                Constant.navPackage
+                              )
+                          )
+                        }
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          paddingVertical: 10,
+                        }}
+                      >
+                        <View style={{ paddingHorizontal: 30 }}>
+                          <Icon
+                            name="package"
+                            fill={this.getColor(
+                              this.state.Activated === Constant.titPackage
+                            )}
+                            height={20}
+                            width={20}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            color: this.getColor(
+                              this.state.Activated === Constant.titPackage
+                            ),
+                          }}
+                        >
+                          {Constant.titPackage}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState(
+                            { Activated: Constant.titDesigns },
+                            () =>
+                              this.props.navigation.navigate(
+                                Constant.navDesigns
+                              )
+                          )
+                        }
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          paddingVertical: 10,
+                          borderBottomWidth: 1,
+                          borderBottomColor: Color.dividerColor,
+                        }}
+                      >
+                        <View style={{ paddingHorizontal: 30 }}>
+                          <Icon
+                            name="design"
+                            fill={this.getColor(
+                              this.state.Activated === Constant.titDesigns
+                            )}
+                            height={20}
+                            width={20}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            color: this.getColor(
+                              this.state.Activated === Constant.titDesigns
+                            ),
+                          }}
+                        >
+                          {Constant.titDesigns}
+                        </Text>
+                      </TouchableOpacity>
+                    </>
+                  ) : null}
+                </View>
+              )}
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({ Activated: Constant.titWhatsAppUs }, () =>
+                    this.props.navigation.navigate(Constant.navWebView, {
+                      uri: "https://infinite.red",
+                    })
+                  )
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="whatsapp"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titWhatsAppUs
                     )}
-
-                    {item.isSelected ? (
-                      <>
-                        <TouchableOpacity
-                          onPress={() =>
-                            this.props.navigation.navigate(Constant.navProfile)
-                          }
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingVertical: 10,
-                          }}
-                        >
-                          <View style={{ marginLeft: 30 }}>
-                            <Icon
-                              name="profile"
-                              fill={Color.txtIntxtcolor}
-                              height={20}
-                              width={20}
-                            />
-                          </View>
-                          <Text
-                            style={{
-                              paddingLeft: 30,
-                              color: Color.grey,
-                            }}
-                          >
-                            {Constant.titProfile}
-                          </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          onPress={() =>
-                            this.props.navigation.navigate(Constant.navPackage)
-                          }
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingVertical: 10,
-                          }}
-                        >
-                          <View style={{ marginLeft: 30 }}>
-                            <Icon
-                              name="package"
-                              fill={Color.txtIntxtcolor}
-                              height={20}
-                              width={20}
-                            />
-                          </View>
-                          <Text
-                            style={{
-                              paddingLeft: 30,
-                              color: Color.grey,
-                            }}
-                          >
-                            {Constant.titPackage}
-                          </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          onPress={() =>
-                            this.props.navigation.navigate(Constant.navDesigns)
-                          }
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingVertical: 10,
-                            borderBottomWidth: item.devider ? 1 : null,
-                            borderBottomColor: item.devider
-                              ? Color.dividerColor
-                              : null,
-                          }}
-                        >
-                          <View style={{ marginLeft: 30 }}>
-                            <Icon
-                              name="design"
-                              fill={Color.txtIntxtcolor}
-                              height={20}
-                              width={20}
-                            />
-                          </View>
-                          <Text
-                            style={{
-                              paddingLeft: 30,
-                              color: Color.grey,
-                            }}
-                          >
-                            {Constant.titDesigns}
-                          </Text>
-                        </TouchableOpacity>
-                      </>
-                    ) : null}
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <TouchableOpacity
-                      onPress={() => this.onDSection1(index)}
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingVertical: 10,
-                        borderBottomWidth: item.devider ? 1 : null,
-                        borderBottomColor: item.devider
-                          ? Color.dividerColor
-                          : null,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          paddingHorizontal: 30,
-                          color: item.isSelected ? Color.primary : Color.grey,
-                        }}
-                      >
-                        {get_Icon(
-                          item.title,
-                          item.isSelected ? Color.primary : Color.grey
-                        )}
-                      </Text>
-
-                      <Text
-                        style={{
-                          color: item.isSelected ? Color.primary : Color.grey,
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-                    </TouchableOpacity>
-                  </>
-                );
-              }
-            }}
-          /> */}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titWhatsAppUs
+                    ),
+                  }}
+                >
+                  {Constant.titWhatsAppUs}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({ Activated: Constant.titLegal })}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="report"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    ),
+                  }}
+                >
+                  {Constant.titLegal}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
-
-        <Drawer.Section style={styles.bottomDrawerSection}>
+        <View style={styles.bottomDrawerSection}>
           {user && user !== null ? (
-            <DrawerItem
-              icon={({ color, size }) => (
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.removeItem(Constant.prfUserToken);
+                this.props.userStore.setUser(null);
+                this.setState({ Activated: Constant.titSignOut });
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ marginLeft: 30 }}>
                 <Icon
                   name="logout"
-                  fill={Color.txtIntxtcolor}
+                  fill={this.getColor(
+                    this.state.Activated === Constant.titSignOut
+                  )}
                   height={20}
                   width={20}
                 />
-              )}
-              label={Constant.titSignOut}
-              onPress={() => {
-                AsyncStorage.removeItem(Constant.prfUserToken);
-                // props.navigation.navigate(Constant.navSignIn);
-                this.props.userStore.setUser(null);
-              }}
-            />
+              </View>
+              <Text
+                style={{
+                  paddingLeft: 30,
+                  color: this.getColor(
+                    this.state.Activated === Constant.titSignOut
+                  ),
+                }}
+              >
+                {Constant.titSignOut}
+              </Text>
+            </TouchableOpacity>
           ) : (
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="login-variant" color={color} size={size} />
-              )}
-              label={Constant.titSignIn}
-              onPress={() => {
-                this.props.navigation.navigate(Constant.navLogin);
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({ Activated: Constant.titSignIn }, () =>
+                  this.props.navigation.navigate(Constant.navLogin)
+                )
+              }
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
               }}
-            />
+            >
+              <View style={{ marginLeft: 30 }}>
+                <Icon
+                  name="logout"
+                  fill={this.getColor(
+                    this.state.Activated === Constant.titSignIn
+                  )}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingLeft: 30,
+                  color: this.getColor(
+                    this.state.Activated === Constant.titSignIn
+                  ),
+                }}
+              >
+                {Constant.titSignIn}
+              </Text>
+            </TouchableOpacity>
           )}
-        </Drawer.Section>
+        </View>
       </SafeAreaView>
     );
   }
@@ -513,6 +655,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
   },
   bottomDrawerSection: {
+    height: 55,
+    justifyContent: "center",
     borderTopColor: Color.dividerColor,
     borderTopWidth: 1,
   },
@@ -525,193 +669,3 @@ const styles = StyleSheet.create({
   containerSubUserDetails: { width: "60%", left: 15 },
   txtUserName: { color: Color.drawerTextColor, fontSize: 17 },
 });
-
-{
-  /* <Drawer.Section style={styles.drawerSection}>
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon name="home-outline" color={color} size={size} />
-                )}
-                label={Constant.titHome}
-                onPress={() => {
-                  this.props.navigation.navigate(Constant.navHome);
-                }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon name="star-circle-outline" color={color} size={size} />
-                )}
-                label={Constant.titPro}
-                onPress={() => {
-                  this.props.navigation.navigate(Constant.navPro);
-                }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon name="bell-alert-outline" color={color} size={size} />
-                )}
-                label={Constant.titNotification}
-                onPress={() => {
-                  this.props.navigation.navigate(Constant.navNotification);
-                }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon name="heart-outline" color={color} size={size} />
-                )}
-                label={Constant.titWishlist}
-                onPress={() => {
-                  this.props.navigation.navigate(Constant.navWishlist);
-                }}
-              />
-            </Drawer.Section> */
-}
-
-{
-  /* suggestion section */
-}
-{
-  /* <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="thumb-up-outline" color={color} size={size} />
-              )}
-              label={Constant.titRateApp}
-              onPress={() => {
-                props.navigation.navigate(Constant.navRateApp);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="share-outline" color={color} size={size} />
-              )}
-              label={Constant.titShareApp}
-              onPress={() => {
-                props.navigation.navigate(Constant.navShareApp);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="chat-outline" color={color} size={size} />
-              )}
-              label={Constant.titReportIssue}
-              onPress={() => {
-                props.navigation.navigate(Constant.navReportIssue);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="book-search-outline" color={color} size={size} />
-              )}
-              label={Constant.titRequestFeature}
-              onPress={() => {
-                props.navigation.navigate(Constant.navRequestFeature);
-              }}
-            />
-          </Drawer.Section> */
-}
-
-{
-  /* user section */
-}
-{
-  /* <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="account-outline" color={color} size={size} />
-              )}
-              label={Constant.titAccount}
-              onPress={() => {
-                props.navigation.navigate(Constant.navAccount);
-              }}
-            />
-            <List.Accordion
-              title={Constant.titAccount}
-              left={(props) => (
-                <Icon name="account-outline" {...props} size={24} />
-              )}
-            >
-              <DrawerItem
-                label={Constant.titProfile}
-                onPress={() => {
-                  props.navigation.navigate(Constant.navProfile);
-                }}
-              />
-              <DrawerItem
-                label={Constant.titPackage}
-                onPress={() => {
-                  props.navigation.navigate(Constant.navPackage);
-                }}
-              />
-              <DrawerItem
-                label={Constant.titDesigns}
-                onPress={() => {
-                  props.navigation.navigate(Constant.navDesigns);
-                }}
-              />
-            </List.Accordion>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="whatsapp" color={color} size={size} />
-              )}
-              label={Constant.titWhatsAppUs}
-              onPress={() => {
-                props.navigation.navigate(Constant.navWhatsAppUs);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="information-outline" color={color} size={size} />
-              )}
-              label={Constant.titFaq}
-              onPress={() => {
-                props.navigation.navigate(Constant.navFaq);
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="basketball-hoop-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label={Constant.titWorkCulture}
-              onPress={() => {
-                props.navigation.navigate(Constant.navWorkCulture);
-              }}
-            />
-          </Drawer.Section> */
-}
-
-{
-  /* Legal Condition section */
-}
-{
-  /* <View>
-            <DrawerItem
-              label={Constant.titTermCondition}
-              onPress={() => {
-                props.navigation.navigate(Constant.navTermCondition);
-              }}
-            />
-            <DrawerItem
-              label={Constant.titDisclamer}
-              onPress={() => {
-                props.navigation.navigate(Constant.navDisclamer);
-              }}
-            />
-            <DrawerItem
-              label={Constant.titPrivacyPolicy}
-              onPress={() => {
-                props.navigation.navigate(Constant.navPrivacyPolicy);
-              }}
-            />
-            <DrawerItem
-              label={Constant.titCopyright}
-              onPress={() => {
-                props.navigation.navigate(Constant.navCopyright);
-              }}
-            />
-          </View> */
-}

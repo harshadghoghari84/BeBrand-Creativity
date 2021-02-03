@@ -67,48 +67,52 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     Constant.defSocialIconList
   );
 
-  const [footerColor, setFooterColor] = useState(Color.white);
+  const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
 
   const isMountedRef = Common.useIsMountedRef();
 
+  const onReset = () => {
+    let filterArr = allLayouts.filter((item) =>
+      currentDesign.layouts.includes(item.id)
+    );
+
+    if (selectedTab === 0) {
+      filterArr = filterArr.filter(
+        (item) =>
+          item.layoutType === Constant.layoutTypePERSONAL ||
+          item.layoutType === Constant.layoutTypeALL
+      );
+    } else {
+      filterArr = filterArr.filter(
+        (item) =>
+          item.layoutType === Constant.layoutTypeBUSINESS ||
+          item.layoutType === Constant.layoutTypeALL
+      );
+    }
+
+    setLayouts(filterArr);
+    setCurrentLayout(
+      filterArr.length > 0
+        ? hasPro === true
+          ? filterArr[0]
+          : filterArr.find(
+              (item) => item.package.type === Constant.typeDesignPackageFree
+            )
+        : null
+    );
+
+    if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
+      setFooterColor(currentDesign.colorCodes[0].code);
+      currentDesign.colorCodes[0].isLight == true
+        ? setFooterTextColor(currentDesign.darkTextColor)
+        : setFooterTextColor(currentDesign.lightTextColor);
+    }
+  };
+
   useEffect(() => {
     if (isMountedRef.current) {
-      let filterArr = allLayouts.filter((item) =>
-        currentDesign.layouts.includes(item.id)
-      );
-
-      if (selectedTab === 0) {
-        filterArr = filterArr.filter(
-          (item) =>
-            item.layoutType === Constant.layoutTypePERSONAL ||
-            item.layoutType === Constant.layoutTypeALL
-        );
-      } else {
-        filterArr = filterArr.filter(
-          (item) =>
-            item.layoutType === Constant.layoutTypeBUSINESS ||
-            item.layoutType === Constant.layoutTypeALL
-        );
-      }
-
-      setLayouts(filterArr);
-      setCurrentLayout(
-        filterArr.length > 0
-          ? hasPro === true
-            ? filterArr[0]
-            : filterArr.find(
-                (item) => item.package.type === Constant.typeDesignPackageFree
-              )
-          : null
-      );
-
-      if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
-        setFooterColor(currentDesign.colorCodes[0].code);
-        currentDesign.colorCodes[0].isLight == true
-          ? setFooterTextColor(currentDesign.darkTextColor)
-          : setFooterTextColor(currentDesign.lightTextColor);
-      }
+      onReset();
     }
   }, [currentDesign, selectedTab]);
 
@@ -509,8 +513,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                 onPress={() => {
                   setFooterColor(item.code);
                   item.isLight == true
-                    ? setFooterTextColor(item.darkTextColor)
-                    : setFooterTextColor(item.lightTextColor);
+                    ? setFooterTextColor(currentDesign.darkTextColor)
+                    : setFooterTextColor(currentDesign.lightTextColor);
                 }}
               >
                 {item.code === footerColor ? (
@@ -571,10 +575,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 onPress={() => {
                   if (currentDesign.id === curDesign.id) {
-                    setFooterColor(currentDesign.colorCodes[0].code);
-                    currentDesign.colorCodes[0].isLight == true
-                      ? setFooterTextColor(currentDesign.darkTextColor)
-                      : setFooterTextColor(currentDesign.lightTextColor);
+                    onReset();
                   } else {
                     setCurrentDesign(curDesign);
                   }
@@ -896,8 +897,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                 onPress={() => {
                   setFooterColor(item.code);
                   item.isLight == true
-                    ? setFooterTextColor(item.darkTextColor)
-                    : setFooterTextColor(item.lightTextColor);
+                    ? setFooterTextColor(currentDesign.darkTextColor)
+                    : setFooterTextColor(currentDesign.lightTextColor);
                 }}
               >
                 {item.code === footerColor ? (
@@ -957,10 +958,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 onPress={() => {
                   if (currentDesign.id === curDesign.id) {
-                    setFooterColor(currentDesign.colorCodes[0].code);
-                    currentDesign.colorCodes[0].isLight == true
-                      ? setFooterTextColor(currentDesign.darkTextColor)
-                      : setFooterTextColor(currentDesign.lightTextColor);
+                    onReset();
                   } else {
                     setCurrentDesign(curDesign);
                   }
@@ -1122,7 +1120,7 @@ const styles = StyleSheet.create({
     width: 25,
     borderRadius: 20,
     elevation: 5,
-    marginVertical: 5,
+    marginVertical: 10,
   },
   socialIconList: {
     marginTop: 15,
