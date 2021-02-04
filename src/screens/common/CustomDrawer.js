@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
+  StatusBar,
   ScrollView,
 } from "react-native";
 import { DrawerItem } from "@react-navigation/drawer";
@@ -23,34 +24,9 @@ import WebViews from "../../components/WebViews";
 
 class CustomDrawer extends Component {
   state = {
-    startDesignCredit: "",
-    currentDesignCredit: "",
     isSelected: false,
     Activated: Constant.titHome,
   };
-
-  componentDidMount() {
-    const user = toJS(this.props.userStore.user);
-    try {
-      var val =
-        user?.designPackage &&
-        user.designPackage.reduce(function (previousValue, currentValue) {
-          return {
-            startDesignCredit:
-              previousValue.startDesignCredit + currentValue.startDesignCredit,
-            currentDesignCredit:
-              previousValue.currentDesignCredit +
-              currentValue.currentDesignCredit,
-          };
-        });
-      this.setState({
-        startDesignCredit: val.startDesignCredit,
-        currentDesignCredit: val.currentDesignCredit,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   getColor = (val) => {
     return val == true ? Color.primary : Color.grey;
@@ -58,9 +34,9 @@ class CustomDrawer extends Component {
 
   render() {
     const user = toJS(this.props.userStore.user);
-    const calculate =
-      100 -
-      (this.state.currentDesignCredit * 100) / this.state.startDesignCredit;
+    const startDesignCredit = toJS(this.props.userStore.startDesignCredit);
+    const currentDesignCredit = toJS(this.props.userStore.currentDesignCredit);
+    const calculate = 100 - (currentDesignCredit * 100) / startDesignCredit;
     const progressLimit = calculate / 100;
 
     return (
@@ -139,6 +115,8 @@ class CustomDrawer extends Component {
                   flexDirection: "row",
                   alignItems: "center",
                   paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
                 }}
               >
                 <View style={{ paddingHorizontal: 30 }}>
@@ -161,7 +139,7 @@ class CustomDrawer extends Component {
                   {Constant.titPro}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() =>
                   this.setState({ Activated: Constant.titNotification }, () =>
                     this.props.navigation.navigate(Constant.navNotification)
@@ -194,13 +172,10 @@ class CustomDrawer extends Component {
                 >
                   {Constant.titNotification}
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View>
               <TouchableOpacity
-                onPress={() =>
-                  this.setState({ Activated: Constant.titRateApp })
-                }
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -210,27 +185,20 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="rate"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titRateApp
-                    )}
+                    fill={this.getColor(false)}
                     height={20}
                     width={20}
                   />
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titRateApp
-                    ),
+                    color: this.getColor(false),
                   }}
                 >
                   {Constant.titRateApp}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  this.setState({ Activated: Constant.titShareApp })
-                }
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -240,27 +208,20 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="share"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titShareApp
-                    )}
+                    fill={this.getColor(false)}
                     height={20}
                     width={20}
                   />
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titShareApp
-                    ),
+                    color: this.getColor(false),
                   }}
                 >
                   {Constant.titShareApp}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  this.setState({ Activated: Constant.titReportIssue })
-                }
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -270,29 +231,20 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="report"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titReportIssue
-                    )}
+                    fill={this.getColor(false)}
                     height={20}
                     width={20}
                   />
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titReportIssue
-                    ),
+                    color: this.getColor(false),
                   }}
                 >
                   {Constant.titReportIssue}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  this.setState({
-                    Activated: Constant.titRequestFeature,
-                  })
-                }
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -304,18 +256,14 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="request"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titRequestFeature
-                    )}
+                    fill={this.getColor(false)}
                     height={20}
                     width={20}
                   />
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titRequestFeature
-                    ),
+                    color: this.getColor(false),
                   }}
                 >
                   {Constant.titRequestFeature}
@@ -326,9 +274,13 @@ class CustomDrawer extends Component {
               {this.props.userStore.user !== null && (
                 <View>
                   <TouchableOpacity
-                    onPress={() =>
-                      this.setState({ isSelected: !this.state.isSelected })
-                    }
+                    onPress={() => {
+                      if (this.state.Activated === Constant.titAccount) {
+                        this.setState({ Activated: "" });
+                      } else {
+                        this.setState({ Activated: Constant.titAccount });
+                      }
+                    }}
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -342,31 +294,31 @@ class CustomDrawer extends Component {
                       <View style={{ paddingHorizontal: 30 }}>
                         <Icon
                           name="account"
-                          fill={
-                            this.state.isSelected ? Color.primary : Color.grey
-                          }
+                          fill={this.getColor(
+                            this.state.Activated === Constant.titAccount
+                          )}
                           height={20}
                           width={20}
                         />
                       </View>
                       <Text
                         style={{
-                          color: this.state.isSelected
-                            ? Color.primary
-                            : Color.grey,
+                          color: this.getColor(
+                            this.state.Activated === Constant.titAccount
+                          ),
                         }}
                       >
                         {Constant.titAccount}
                       </Text>
                     </View>
-                    {this.state.isSelected ? (
+                    {this.state.Activated === Constant.titAccount ? (
                       <Icon
                         name="up"
                         height={15}
                         width={15}
-                        fill={
-                          this.state.isSelected ? Color.primary : Color.grey
-                        }
+                        fill={this.getColor(
+                          this.state.Activated === Constant.titAccount
+                        )}
                         style={{
                           marginRight: 20,
                         }}
@@ -376,16 +328,16 @@ class CustomDrawer extends Component {
                         name="down"
                         height={15}
                         width={15}
-                        fill={
-                          this.state.isSelected ? Color.primary : Color.grey
-                        }
+                        fill={this.getColor(
+                          this.state.Activated === Constant.titAccount
+                        )}
                         style={{
                           marginRight: 20,
                         }}
                       />
                     )}
                   </TouchableOpacity>
-                  {this.state.isSelected ? (
+                  {this.state.Activated === Constant.titAccount ? (
                     <>
                       <TouchableOpacity
                         onPress={() =>
@@ -574,7 +526,6 @@ class CustomDrawer extends Component {
               onPress={() => {
                 AsyncStorage.removeItem(Constant.prfUserToken);
                 this.props.userStore.setUser(null);
-                this.setState({ Activated: Constant.titSignOut });
               }}
               style={{
                 flexDirection: "row",
@@ -585,9 +536,7 @@ class CustomDrawer extends Component {
               <View style={{ marginLeft: 30 }}>
                 <Icon
                   name="logout"
-                  fill={this.getColor(
-                    this.state.Activated === Constant.titSignOut
-                  )}
+                  fill={this.getColor(false)}
                   height={20}
                   width={20}
                 />
@@ -595,9 +544,7 @@ class CustomDrawer extends Component {
               <Text
                 style={{
                   paddingLeft: 30,
-                  color: this.getColor(
-                    this.state.Activated === Constant.titSignOut
-                  ),
+                  color: this.getColor(false),
                 }}
               >
                 {Constant.titSignOut}
@@ -605,11 +552,7 @@ class CustomDrawer extends Component {
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              onPress={() =>
-                this.setState({ Activated: Constant.titSignIn }, () =>
-                  this.props.navigation.navigate(Constant.navLogin)
-                )
-              }
+              onPress={() => this.props.navigation.navigate(Constant.navLogin)}
               style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -619,9 +562,7 @@ class CustomDrawer extends Component {
               <View style={{ marginLeft: 30 }}>
                 <Icon
                   name="logout"
-                  fill={this.getColor(
-                    this.state.Activated === Constant.titSignIn
-                  )}
+                  fill={this.getColor(false)}
                   height={20}
                   width={20}
                 />
@@ -629,9 +570,7 @@ class CustomDrawer extends Component {
               <Text
                 style={{
                   paddingLeft: 30,
-                  color: this.getColor(
-                    this.state.Activated === Constant.titSignIn
-                  ),
+                  color: this.getColor(false),
                 }}
               >
                 {Constant.titSignIn}

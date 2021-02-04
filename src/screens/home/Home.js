@@ -8,6 +8,7 @@ import {
   Image,
   Dimensions,
   Text,
+  Animated,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -194,6 +195,8 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
+  const scrollA = useRef(new Animated.Value(0)).current;
+
   return (
     <View style={styles.containerMain}>
       <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
@@ -273,11 +276,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         </View>
         <View style={styles.containerDesignList}>
           {selectedSubCategory ===
-          Constant.defHomeSubCategory ? null : //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
-          //   maxToRenderPerBatch={6}
-          //   windowSize={10}
-          //   renderItem={({ item, index }) => {
-          //     return item.designs.length > 0 ? (
+          Constant.defHomeSubCategory ? null : //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
           //       <FlatList
           //         key={index}
           //         horizontal
@@ -308,6 +307,10 @@ const Home = ({ navigation, designStore, userStore }) => {
             <FlatList
               key={2}
               numColumns={2}
+              onScroll={Animated.event([
+                { nativeEvent: { contentOffset: { y: scrollA } } },
+              ])}
+              showsVerticalScrollIndicator={false}
               style={styles.listSubCategoryDesign}
               data={userSubCategories[selectedSubCategory].designs}
               keyExtractor={keyExtractor}
