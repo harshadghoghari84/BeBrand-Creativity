@@ -9,6 +9,7 @@ import {
   Dimensions,
   Text,
   Animated,
+  ScrollView,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -24,6 +25,7 @@ import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
 
 const windowWidth = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 const imgWidth = (windowWidth - 30) / 2;
 
 let isFirstTimeListLoad = true;
@@ -56,6 +58,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   const toggleVisible = () => {
     setmodalVisible(!modalVisible);
   };
+
   const [hasPro, sethasPro] = useState(false);
   const designPackages = toJS(designStore.designPackages);
   const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
@@ -195,32 +198,60 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const scrollA = useRef(new Animated.Value(0)).current;
+  const scrollY = new Animated.Value(0);
 
+  const diffClamp = Animated.diffClamp(scrollY, 0, 100);
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, 120],
+    outputRange: [0, -120],
+  });
+  const translateYforHeight = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -100],
+  });
+
+  const diffClampForSlider = Animated.diffClamp(scrollY, 0, 70);
+  const translateYForSlider = diffClampForSlider.interpolate({
+    inputRange: [0, 70],
+    outputRange: [0, -70],
+  });
+  let scrollValue = 0;
   return (
-    <View style={styles.containerMain}>
+    <View contentContainerStyle={[styles.containerMain]}>
       <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
-      <View
+      <Animated.View
         style={{
-          marginHorizontal: 10,
-          marginVertical: 10,
-          borderRadius: 10,
-          overflow: "hidden",
+          transform: [
+            {
+              translateY: translateYForSlider,
+            },
+          ],
+          position: "absolute",
+          // zIndex: 1,
         }}
       >
-        <FlatListSlider
-          data={data}
-          timer={5000}
-          height={150}
-          onPress={(item) => alert(JSON.stringify(item))}
-          indicatorContainerStyle={{ position: "absolute", bottom: 20 }}
-          indicatorActiveColor={Color.primary}
-          animation
-        />
-      </View>
+        <View
+          style={{
+            marginHorizontal: 10,
+            marginVertical: 10,
+            borderRadius: 10,
+            overflow: "hidden",
+          }}
+        >
+          <FlatListSlider
+            data={data}
+            timer={5000}
+            height={150}
+            onPress={(item) => alert(JSON.stringify(item))}
+            indicatorContainerStyle={{ position: "absolute", bottom: 20 }}
+            indicatorActiveColor={Color.primary}
+            animation
+          />
+        </View>
 
-      <View style={styles.containerSub}>
-        <View style={styles.containerSubCatList}>
+        <Animated.View
+          style={[styles.containerSubCatList, { transform: [{ translateY }] }]}
+        >
           {/* <View style={{ marginTop: 10 }}>
             <ItemSubCategory
               item={{ id: Constant.defHomeSubCategory }}
@@ -235,6 +266,13 @@ const Home = ({ navigation, designStore, userStore }) => {
             data={userSubCategories}
             extraData={selectedSubCategory}
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+              paddingVertical: 8,
+              height: 100,
+              backgroundColor: "pink",
+            }}
             onEndReached={() => loadMoreAfterSubCategories()}
             keyExtractor={keyExtractor}
             onContentSizeChange={() => {
@@ -273,45 +311,42 @@ const Home = ({ navigation, designStore, userStore }) => {
               />
             )}
           />
-        </View>
-        <View style={styles.containerDesignList}>
-          {selectedSubCategory ===
-          Constant.defHomeSubCategory ? null : //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
-          //       <FlatList
-          //         key={index}
-          //         horizontal
-          //         showsHorizontalScrollIndicator={false}
-          //         style={styles.listHorizontalDesign}
-          //         data={item.designs}
-          //         keyExtractor={keyExtractor}
-          //         // onEndReached={() => loadMoreDesigns(item.id)}
-          //         maxToRenderPerBatch={5}
-          //         windowSize={7}
-          //         renderItem={({ item: design }) => {
-          //           const designPackage = designPackages.find(
-          //             (item) => item.id === design.package
-          //           );
-          //           return (
-          //             <ItemDesign
-          //               design={design}
-          //               packageType={designPackage.type}
-          //               onDesignClick={onDesignClick}
-          //             />
-          //           );
-          //         }}
-          //       />
-          //     ) : null;
-          //   }}
-          // />
-          userSubCategories[selectedSubCategory].totalDesign > 0 ? (
-            <FlatList
+        </Animated.View>
+      </Animated.View>
+
+      <Animated.View
+        style={[styles.containerSub, { transform: [{ translateY }] }]}
+      >
+        {selectedSubCategory ===
+        Constant.defHomeSubCategory ? null : userSubCategories[ // /> //   }} //     ) : null; //       /> //         }} //           ); //             /> //               onDesignClick={onDesignClick} //               packageType={designPackage.type} //               design={design} //             <ItemDesign //           return ( //           ); //             (item) => item.id === design.package //           const designPackage = designPackages.find( //         renderItem={({ item: design }) => { //         windowSize={7} //         maxToRenderPerBatch={5} //         // onEndReached={() => loadMoreDesigns(item.id)} //         keyExtractor={keyExtractor} //         data={item.designs} //         style={styles.listHorizontalDesign} //         showsHorizontalScrollIndicator={false} //         horizontal //         key={index} //       <FlatList //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
+            selectedSubCategory
+          ].totalDesign > 0 ? (
+          <>
+            <Animated.View
+              style={{
+                height: 200,
+                marginTop: 50,
+                backgroundColor: "red",
+              }}
+            />
+            <Animated.FlatList
               key={2}
               numColumns={2}
-              onScroll={Animated.event([
-                { nativeEvent: { contentOffset: { y: scrollA } } },
-              ])}
+              onScroll={(e) => {
+                // scrollY.setValue(e.nativeEvent.contentOffset.y);
+                if (scrollValue < e.nativeEvent.contentOffset.y) {
+                  console.log("up=====>", e.nativeEvent.contentOffset.y);
+                  scrollValue = e.nativeEvent.contentOffset.y;
+                  scrollY.setValue(scrollValue);
+                }
+                // else if (scrollValue > e.nativeEvent.contentOffset.y) {
+                //   console.log("=====>", e.nativeEvent.contentOffset.y);
+                //   scrollValue = scrollValue - 3;
+                //   scrollY.setValue(scrollValue);
+                // }
+              }}
               showsVerticalScrollIndicator={false}
-              style={styles.listSubCategoryDesign}
+              contentContainerStyle={[styles.listSubCategoryDesign]}
               data={userSubCategories[selectedSubCategory].designs}
               keyExtractor={keyExtractor}
               maxToRenderPerBatch={6}
@@ -324,21 +359,24 @@ const Home = ({ navigation, designStore, userStore }) => {
                   (item) => item.id === design.package
                 );
                 return (
-                  <ItemDesign
-                    design={design}
-                    packageType={designPackage.type}
-                    onDesignClick={onDesignClick}
-                  />
+                  <>
+                    <ItemDesign
+                      dummyView={true}
+                      design={design}
+                      packageType={designPackage.type}
+                      onDesignClick={onDesignClick}
+                    />
+                  </>
                 );
               }}
             />
-          ) : (
-            <View style={styles.containerNoDesign}>
-              <Text>No Designs Availlable</Text>
-            </View>
-          )}
-        </View>
-      </View>
+          </>
+        ) : (
+          <View style={styles.containerNoDesign}>
+            <Text>No Designs Availlable</Text>
+          </View>
+        )}
+      </Animated.View>
     </View>
   );
 };
@@ -346,14 +384,23 @@ export default inject("designStore", "userStore")(observer(Home));
 
 const styles = StyleSheet.create({
   containerMain: {
-    flex: 1,
+    flexGrow: 1,
+    backgroundColor: "white",
   },
   containerSub: {
-    flex: 1,
-    width: "100%",
+    zIndex: -1,
+
+    alignItems: "center",
+    justifyContent: "center",
+    // backgroundColor: "green",
   },
   containerSubCatList: {
-    flexDirection: "row",
+    backgroundColor: "white",
+    // position: "absolute",
+    // zIndex: 1,
+    top: 0,
+    left: 0,
+    right: 0,
   },
   containerDesignList: {
     flex: 1,
@@ -365,7 +412,11 @@ const styles = StyleSheet.create({
   },
   listAllDesign: { paddingTop: 10 },
   listHorizontalDesign: { marginBottom: 10 },
-  listSubCategoryDesign: { marginBottom: 10, marginRight: 10 },
+  listSubCategoryDesign: {
+    // position: "absolute",
+    marginTop: 10,
+    marginBottom: 10,
+  },
   imgAllDesign: {
     width: 150,
     height: 150,

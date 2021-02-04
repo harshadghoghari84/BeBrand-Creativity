@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOpacity: 0.2,
     elevation: 7,
+    zIndex: 1000,
   },
   safeArea: {
     backgroundColor: Color.primary,
@@ -142,6 +143,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+    zIndex: 2,
   },
   companyLogo: {
     flex: 1,

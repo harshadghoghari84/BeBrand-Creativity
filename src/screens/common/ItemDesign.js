@@ -12,33 +12,45 @@ import FastImage from "react-native-fast-image";
 import Icon from "../../components/svgIcons";
 const imgWidth = (Dimensions.get("window").width - 30) / 2;
 
-const ItemDesign = ({ packageType, design, onDesignClick, designDate }) => (
-  <TouchableOpacity
-    style={styles.container}
-    onPress={() => onDesignClick(packageType, design)}
-  >
-    <View>
-      <FastImage
-        style={styles.imgSubCategoryDesign}
-        resizeMode={FastImage.resizeMode.contain}
-        source={{ uri: design?.thumbImage?.url ? design.thumbImage.url : null }}
-      />
-
-      {packageType === Constant.typeDesignPackageVip && (
-        <Icon
-          style={styles.tagPro}
-          name="Premium"
-          height={18}
-          width={10}
-          fill={Color.primary}
+const ItemDesign = ({
+  dummyView,
+  packageType,
+  design,
+  onDesignClick,
+  designDate,
+}) => (
+  <>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onDesignClick(packageType, design)}
+    >
+      <View>
+        <FastImage
+          style={styles.imgSubCategoryDesign}
+          resizeMode={FastImage.resizeMode.contain}
+          source={{
+            uri: design?.thumbImage?.url ? design.thumbImage.url : null,
+          }}
         />
-      )}
 
-      {designDate && (
-        <Text style={styles.txtDesignDate}>{designDate.substring(0, 10)}</Text>
-      )}
-    </View>
-  </TouchableOpacity>
+        {packageType === Constant.typeDesignPackageVip && (
+          <Icon
+            style={styles.tagPro}
+            name="Premium"
+            height={18}
+            width={10}
+            fill={Color.primary}
+          />
+        )}
+
+        {designDate && (
+          <Text style={styles.txtDesignDate}>
+            {designDate.substring(0, 10)}
+          </Text>
+        )}
+      </View>
+    </TouchableOpacity>
+  </>
 );
 export default ItemDesign;
 
