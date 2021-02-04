@@ -7,6 +7,8 @@ class UserStore {
   hasPro = false;
   personalImageLimit = 0;
   businessImageLimit = 0;
+  startDesignCredit = 0;
+  currentDesignCredit = 0;
 
   setUser = (user) => {
     this.user = user;
@@ -101,6 +103,25 @@ class UserStore {
     }
 
     this.user = user;
+  };
+  designCraditsCalculate = () => {
+    try {
+      var val =
+        this.user?.designPackage &&
+        this.user.designPackage.reduce(function (previousValue, currentValue) {
+          return {
+            startDesignCredit:
+              previousValue.startDesignCredit + currentValue.startDesignCredit,
+            currentDesignCredit:
+              previousValue.currentDesignCredit +
+              currentValue.currentDesignCredit,
+          };
+        });
+      this.startDesignCredit = val.startDesignCredit;
+      this.currentDesignCredit = val.currentDesignCredit;
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

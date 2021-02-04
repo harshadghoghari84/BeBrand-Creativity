@@ -5,20 +5,22 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
+  Image,
   Text,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+// relative Path
 import Icon from "../../components/svgIcons";
-import FastImage from "react-native-fast-image";
 import Color from "../../utils/Color";
-import ProgressDialog from "./ProgressDialog";
 import Modal from "../../components/modal";
+import Constant from "../../utils/Constant";
 
 const CustomHeader = ({
   langauge = false,
   isBackVisible = false,
   navigation,
   search = false,
+  notification = false,
   empty = false,
 }) => {
   // const { backKey } = route.params;
@@ -29,83 +31,92 @@ const CustomHeader = ({
     setVisibleModal(!visibleModal);
   };
   return (
-    <View
-      style={{
-        shadowOffset: { width: 0, height: 4 },
-        shadowRadius: 3,
-        backgroundColor: Color.primary,
-        shadowColor: "black",
-        shadowOpacity: 0.2,
-        elevation: 7,
-      }}
-    >
+    <View style={styles.container}>
       <StatusBar
         barStyle="light-content"
+        backgroundColor={Color.primary}
         translucent={Platform.OS === "ios" ? true : false}
       />
       <Modal visible={visibleModal} toggleVisible={toggleVisible} />
-
-      <SafeAreaView
-        style={{
-          backgroundColor: Color.primary,
-        }}
-      >
+      <SafeAreaView style={styles.safeArea}>
         <View style={{ ...styles.header }}>
-          {isBackVisible === true && (
-            <TouchableOpacity
-              style={styles.backIcon}
-              onPress={() => navigation.goBack()}
-            >
-              <Icon name="back" fill={Color.white} height={20} width={20} />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={{
-              ...styles.menuIcon,
-              marginLeft: isBackVisible === true ? 5 : 15,
-            }}
-            onPress={() => navigation.openDrawer()}
-          >
-            <Icon name="menu" fill={Color.white} height={20} width={20} />
-          </TouchableOpacity>
-          <FastImage
-            source={require("../../assets/DFS.png")}
-            style={styles.companyLogo}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          {search === true && (
-            <View style={styles.containerSearchIcon}>
-              <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                <Icon name="search" fill={Color.white} height={20} width={20} />
-              </TouchableOpacity>
-            </View>
-          )}
-          {langauge === true && (
-            <View style={styles.containerSearchIcon}>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            {isBackVisible === true && (
               <TouchableOpacity
-                onPress={() => {
-                  setVisibleModal(true);
-                }}
+                style={styles.icons}
+                onPress={() => navigation.goBack()}
+              >
+                <Icon name="back" fill={Color.white} height={20} width={20} />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={{
+                ...styles.icons,
+              }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <Icon name="menu" fill={Color.white} height={20} width={20} />
+            </TouchableOpacity>
+          </View>
+
+          <Image
+            source={require("../../assets/DFS.png")}
+            resizeMode="contain"
+            style={styles.companyLogo}
+          />
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            {search === true && (
+              <View style={styles.icons}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                  <Icon
+                    name="search"
+                    fill={Color.white}
+                    height={20}
+                    width={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+            {langauge === true && (
+              <View style={styles.icons}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setVisibleModal(true);
+                  }}
+                >
+                  <Icon
+                    name="language"
+                    fill={Color.white}
+                    height={20}
+                    width={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+            {notification === true && (
+              <TouchableOpacity
+                onPress={() => navigation.navigate(Constant.navNotification)}
+                style={styles.icons}
               >
                 <Icon
-                  name="language"
+                  name="notification"
                   fill={Color.white}
                   height={20}
                   width={20}
                 />
               </TouchableOpacity>
-            </View>
-          )}
-          {empty === true && (
-            <View style={styles.containerSearchIcon}>
-              <Icon
-                name="language"
-                fill={"transparent"}
-                height={20}
-                width={20}
-              />
-            </View>
-          )}
+            )}
+            {empty === true && (
+              <View style={styles.icons}>
+                <Icon
+                  name="notification"
+                  fill={"transparent"}
+                  height={20}
+                  width={20}
+                />
+              </View>
+            )}
+          </View>
         </View>
       </SafeAreaView>
     </View>
@@ -113,34 +124,32 @@ const CustomHeader = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 3,
+    backgroundColor: Color.primary,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    elevation: 7,
+  },
+  safeArea: {
+    backgroundColor: Color.primary,
+  },
   header: {
     height: 60,
     marginTop: Platform.OS === "ios" ? StatusBar.currentHeight : 0,
-    width: "100%",
+    paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
   },
-  backIcon: {
-    marginLeft: 10,
-    width: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  menuIcon: {
-    width: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   companyLogo: {
-    width: "65%",
+    flex: 1,
     height: 40,
   },
-  containerSearchIcon: {
-    paddingHorizontal: 10,
+  icons: {
     paddingVertical: 7,
-    marginRight: 15,
-    marginLeft: 15,
+    paddingHorizontal: 10,
   },
   searchIcon: {},
 });
