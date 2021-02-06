@@ -54,6 +54,7 @@ const RegisterScreen = ({ userStore }) => {
   const [userSignupSocial, { loading: mutLoading }] = useMutation(
     GraphqlQuery.userSignupSocial,
     {
+      fetchPolicy: "no-cache",
       errorPolicy: "all",
     }
   );
@@ -622,7 +623,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: "center",
     borderRadius: 50,
-    height: 40,
+    height: 35,
     justifyContent: "center",
     marginHorizontal: 20,
     marginVertical: 8,

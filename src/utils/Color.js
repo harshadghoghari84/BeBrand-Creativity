@@ -5,7 +5,7 @@ export default {
   secondary: "#FBBF17",
   accent: "#545454",
 
-  drawerTextColor: "#545454",
+  drawerTextColor: "white",
 
   tagColor: "#FBBF17",
   tagTextColor: "#545454",
@@ -13,12 +13,12 @@ export default {
   bkgDesignDate: "#545454",
   txtDesignDate: "#ffffff",
 
-  dividerColor: "#e4e4e4",
+  dividerColor: "#d4d4d4",
 
   borderColor: "#545454",
 
   black: "#000000",
-  grey: "#757575",
+  grey: "#4a4a4a",
   white: "#ffffff",
   red: "#c62828",
   green: "#388e3c",

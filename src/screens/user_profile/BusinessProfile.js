@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btnSave: {
-    width: "60%",
+    width: "80%",
     marginTop: 10,
   },
   icnCheck: {

@@ -43,6 +43,7 @@
     "react-native-paper": "^4.0.1",
     "react-native-popover-view": "^3.1.1",
     "react-native-popup-menu": "^0.15.10",
+    "react-native-rate": "^1.2.4",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",

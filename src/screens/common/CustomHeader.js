@@ -14,6 +14,7 @@ import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
 import Modal from "../../components/modal";
 import Constant from "../../utils/Constant";
+import FastImage from "react-native-fast-image";
 
 const CustomHeader = ({
   langauge = false,
@@ -59,9 +60,9 @@ const CustomHeader = ({
             </TouchableOpacity>
           </View>
 
-          <Image
+          <FastImage
             source={require("../../assets/DFS.png")}
-            resizeMode="contain"
+            resizeMode={FastImage.resizeMode.contain}
             style={styles.companyLogo}
           />
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -70,22 +71,6 @@ const CustomHeader = ({
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                   <Icon
                     name="search"
-                    fill={Color.white}
-                    height={20}
-                    width={20}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
-            {langauge === true && (
-              <View style={styles.icons}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setVisibleModal(true);
-                  }}
-                >
-                  <Icon
-                    name="language"
                     fill={Color.white}
                     height={20}
                     width={20}
@@ -106,6 +91,23 @@ const CustomHeader = ({
                 />
               </TouchableOpacity>
             )}
+            {langauge === true && (
+              <View style={styles.icons}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setVisibleModal(true);
+                  }}
+                >
+                  <Icon
+                    name="language"
+                    fill={Color.white}
+                    height={20}
+                    width={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+
             {empty === true && (
               <View style={styles.icons}>
                 <Icon
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
   },
   header: {
-    height: 60,
+    height: 50,
     marginTop: Platform.OS === "ios" ? StatusBar.currentHeight : 0,
     paddingHorizontal: 10,
     alignItems: "center",
@@ -145,10 +147,9 @@ const styles = StyleSheet.create({
   },
   companyLogo: {
     flex: 1,
-    height: 40,
+    height: 35,
   },
   icons: {
-    paddingVertical: 7,
     paddingHorizontal: 10,
   },
   searchIcon: {},

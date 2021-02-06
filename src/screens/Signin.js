@@ -52,6 +52,7 @@ const LoginScreen = ({ userStore }) => {
   const [userSignupSocial, { loading: mutLoading, data }] = useMutation(
     GraphqlQuery.userSignupSocial,
     {
+      fetchPolicy: "no-cache",
       errorPolicy: "all",
     }
   );
@@ -79,7 +80,8 @@ const LoginScreen = ({ userStore }) => {
       auth()
         .currentUser?.getIdToken()
         .then((token) => {
-          return userSignupSocial({
+          console.log("auth token", token);
+          userSignupSocial({
             variables: {
               token: token,
               name: response?.user?._user?.displayName
@@ -416,20 +418,6 @@ const LoginScreen = ({ userStore }) => {
         </Text>
       </TouchableOpacity>
     </View>
-    // {/* <View style={styles.row}>
-    //   <Text style={styles.label}>
-    //     {Common.getTranslation(LangKey.labNothaveAcc)}
-    //   </Text>
-    //   <TouchableOpacity
-    //     onPress={() => navigation.navigate(Constant.navSignUp)}
-    //   >
-    //     <Text style={styles.link}>
-    //       {Common.getTranslation(LangKey.labSignup)}
-    //     </Text>
-    //   </TouchableOpacity>
-    // </View> */}
-
-    //</Background>
   );
 };
 
@@ -504,7 +492,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: "center",
     borderRadius: 50,
-    height: 40,
+    height: 35,
     justifyContent: "center",
     marginHorizontal: 20,
     marginVertical: 8,

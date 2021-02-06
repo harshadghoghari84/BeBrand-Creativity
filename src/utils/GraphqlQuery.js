@@ -316,10 +316,17 @@ export default {
 
       designPackages {
         id
-        type
         name
+        type
         actualPrice
         discountPrice
+        designCredit
+        businessImageLimit
+        personalImageLimit
+        validity
+        image {
+          url
+        }
       }
     }
   `,

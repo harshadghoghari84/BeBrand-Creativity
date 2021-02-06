@@ -89,7 +89,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       const afterCategory = toJS(designStore.userSubCategoriesAfter);
-      console.log("afterCategory", afterCategory);
       setUserSubCategoriesAfter(afterCategory);
     }
   }, [designStore.userSubCategoriesAfter]);
@@ -97,7 +96,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
-      console.log("beforeCatragory", beforeCatragory);
       setUserSubCategoriesBefore(beforeCatragory);
     }
   }, [designStore.userSubCategoriesBefore]);
@@ -195,33 +193,37 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const scrollA = useRef(new Animated.Value(0)).current;
-
-  return (
-    <View style={styles.containerMain}>
-      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
+  const slider = () => {
+    return (
       <View
         style={{
-          marginHorizontal: 10,
-          marginVertical: 10,
-          borderRadius: 10,
-          overflow: "hidden",
+          marginBottom: 10,
         }}
       >
         <FlatListSlider
           data={data}
           timer={5000}
-          height={150}
+          height={130}
           onPress={(item) => alert(JSON.stringify(item))}
-          indicatorContainerStyle={{ position: "absolute", bottom: 20 }}
+          indicatorContainerStyle={{ position: "absolute", bottom: 8 }}
           indicatorActiveColor={Color.primary}
           animation
         />
       </View>
+    );
+  };
 
+  return (
+    <View style={styles.containerMain}>
+      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
       <View style={styles.containerSub}>
-        <View style={styles.containerSubCatList}>
-          {/* <View style={{ marginTop: 10 }}>
+        <View
+          style={{
+            borderBottomColor: Color.dividerColor,
+            borderBottomWidth: 5,
+          }}
+        >
+          {/* 
             <ItemSubCategory
               item={{ id: Constant.defHomeSubCategory }}
               isSelectedId={selectedSubCategory}
@@ -235,6 +237,22 @@ const Home = ({ navigation, designStore, userStore }) => {
             data={userSubCategories}
             extraData={selectedSubCategory}
             showsHorizontalScrollIndicator={false}
+            ListFooterComponent={
+              designStore.ahdLoading ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ActivityIndicator size={20} color={Color.primary} />
+                </View>
+              ) : null
+            }
+            contentContainerStyle={{
+              paddingHorizontal: 10,
+            }}
             onEndReached={() => loadMoreAfterSubCategories()}
             keyExtractor={keyExtractor}
             onContentSizeChange={() => {
@@ -256,7 +274,6 @@ const Home = ({ navigation, designStore, userStore }) => {
                 setSelectedSubCategory(index);
               }
             }}
-            onScrollToIndexFailed={() => {}}
             getItemLayout={getItemLayoutsCategory}
             renderItem={({ item, index }) => (
               <ItemSubCategory
@@ -264,7 +281,6 @@ const Home = ({ navigation, designStore, userStore }) => {
                 index={index}
                 isSelectedId={selectedSubCategory}
                 onSelect={(itemId) => {
-                  console.log("itemId: ", itemId);
                   setSelectedSubCategory(itemId);
                   item.totalDesign > 0 &&
                     item.designs.length === 0 &&
@@ -276,62 +292,50 @@ const Home = ({ navigation, designStore, userStore }) => {
         </View>
         <View style={styles.containerDesignList}>
           {selectedSubCategory ===
-          Constant.defHomeSubCategory ? null : //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
-          //       <FlatList
-          //         key={index}
-          //         horizontal
-          //         showsHorizontalScrollIndicator={false}
-          //         style={styles.listHorizontalDesign}
-          //         data={item.designs}
-          //         keyExtractor={keyExtractor}
-          //         // onEndReached={() => loadMoreDesigns(item.id)}
-          //         maxToRenderPerBatch={5}
-          //         windowSize={7}
-          //         renderItem={({ item: design }) => {
-          //           const designPackage = designPackages.find(
-          //             (item) => item.id === design.package
-          //           );
-          //           return (
-          //             <ItemDesign
-          //               design={design}
-          //               packageType={designPackage.type}
-          //               onDesignClick={onDesignClick}
-          //             />
-          //           );
-          //         }}
-          //       />
-          //     ) : null;
-          //   }}
-          // />
-          userSubCategories[selectedSubCategory].totalDesign > 0 ? (
-            <FlatList
-              key={2}
-              numColumns={2}
-              onScroll={Animated.event([
-                { nativeEvent: { contentOffset: { y: scrollA } } },
-              ])}
-              showsVerticalScrollIndicator={false}
-              style={styles.listSubCategoryDesign}
-              data={userSubCategories[selectedSubCategory].designs}
-              keyExtractor={keyExtractor}
-              maxToRenderPerBatch={6}
-              windowSize={10}
-              onEndReached={() =>
-                loadMoreDesigns(userSubCategories[selectedSubCategory].id)
-              }
-              renderItem={({ item: design, index: desIndex }) => {
-                const designPackage = designPackages.find(
-                  (item) => item.id === design.package
-                );
-                return (
-                  <ItemDesign
-                    design={design}
-                    packageType={designPackage.type}
-                    onDesignClick={onDesignClick}
-                  />
-                );
-              }}
-            />
+          Constant.defHomeSubCategory ? null : userSubCategories[ // /> //   }} //     ) : null; //       /> //         }} //           ); //             /> //               onDesignClick={onDesignClick} //               packageType={designPackage.type} //               design={design} //             <ItemDesign //           return ( //           ); //             (item) => item.id === design.package //           const designPackage = designPackages.find( //         renderItem={({ item: design }) => { //         windowSize={7} //         maxToRenderPerBatch={5} //         // onEndReached={() => loadMoreDesigns(item.id)} //         keyExtractor={keyExtractor} //         data={item.designs} //         style={styles.listHorizontalDesign} //         showsHorizontalScrollIndicator={false} //         horizontal //         key={index} //       <FlatList //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
+              selectedSubCategory
+            ].totalDesign > 0 ? (
+            <>
+              <FlatList
+                key={2}
+                numColumns={2}
+                ListHeaderComponent={slider()}
+                showsVerticalScrollIndicator={false}
+                style={styles.listSubCategoryDesign}
+                data={userSubCategories[selectedSubCategory].designs}
+                keyExtractor={keyExtractor}
+                maxToRenderPerBatch={6}
+                windowSize={10}
+                onEndReached={() =>
+                  loadMoreDesigns(userSubCategories[selectedSubCategory].id)
+                }
+                renderItem={({ item: design, index: desIndex }) => {
+                  const designPackage = designPackages.find(
+                    (item) => item.id === design.package
+                  );
+                  return (
+                    <ItemDesign
+                      design={design}
+                      packageType={designPackage.type}
+                      onDesignClick={onDesignClick}
+                    />
+                  );
+                }}
+              />
+              {designStore.udLoading ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                  }}
+                >
+                  <ActivityIndicator size={25} color={Color.primary} />
+                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                    Loading...
+                  </Text>
+                </View>
+              ) : null}
+            </>
           ) : (
             <View style={styles.containerNoDesign}>
               <Text>No Designs Availlable</Text>
@@ -347,25 +351,27 @@ export default inject("designStore", "userStore")(observer(Home));
 const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
+    backgroundColor: Color.white,
   },
   containerSub: {
     flex: 1,
-    width: "100%",
-  },
-  containerSubCatList: {
-    flexDirection: "row",
+    backgroundColor: Color.white,
   },
   containerDesignList: {
     flex: 1,
+    backgroundColor: Color.white,
   },
   containerNoDesign: {
     flex: 1,
+    backgroundColor: Color.white,
+
     justifyContent: "center",
     alignItems: "center",
   },
   listAllDesign: { paddingTop: 10 },
   listHorizontalDesign: { marginBottom: 10 },
-  listSubCategoryDesign: { marginBottom: 10, marginRight: 10 },
+
+  listSubCategoryDesign: { marginBottom: 10 },
   imgAllDesign: {
     width: 150,
     height: 150,
