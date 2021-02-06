@@ -54,5 +54,6 @@
   "labAddress": "Address",
   "errCompanyName": "Enter valid company name",
   "txtEdit": "edit",
-  "txtReset": "reset"
+  "txtReset": "reset",
+  "labPerchase": "Perchase"
 }

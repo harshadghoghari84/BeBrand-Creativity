@@ -123,11 +123,17 @@ class UserStore {
       console.log(error);
     }
   };
+
+  updateCurrantDesignCredit = (updatedCredit) => {
+    this.currentDesignCredit = updatedCredit;
+  };
 }
 
 decorate(UserStore, {
   user: observable,
   hasPro: observable,
+  startDesignCredit: observable,
+  currentDesignCredit: observable,
   setUser: action,
   setOnlyUserDetail: action,
   addPersonalImage: action,

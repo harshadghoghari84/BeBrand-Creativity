@@ -59,4 +59,7 @@ module.exports = {
   labCompanyName: "labCompanyName",
   labAddress: "labAddress",
   errCompanyName: "errCompanyName",
+
+  // Packages Screen
+  labPerchase: "labPerchase",
 };

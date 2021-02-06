@@ -12,6 +12,7 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  PermissionsAndroid,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
@@ -235,12 +236,31 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   };
 
   const saveDesign = async () => {
-    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (status !== Permissions.PermissionStatus.GRANTED) {
-      const { status: newStatus } = await Permissions.askAsync(
-        Permissions.CAMERA_ROLL
-      );
-      if (newStatus !== Permissions.PermissionStatus.GRANTED) {
+    // const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    // if (status !== Permissions.PermissionStatus.GRANTED) {
+    //   const { status: newStatus } = await Permissions.askAsync(
+    //     Permissions.CAMERA_ROLL
+    //   );
+    //   if (newStatus !== Permissions.PermissionStatus.GRANTED) {
+    //     Common.showMessage(
+    //       Common.getTranslation(LangKey.msgCameraRollPermission)
+    //     );
+    //   } else {
+    //     await takeDesignShot();
+    //   }
+    // } else {
+    //   await takeDesignShot();
+    // }
+    // const permissionRead = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+    const permissionWrite =
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+    // const hasPermissionRead = await PermissionsAndroid.check(permissionRead);
+    const hasPermissionWrite = await PermissionsAndroid.check(permissionWrite);
+    // console.log(hasPermissionRead, hasPermissionWrite);
+    if (hasPermissionWrite === false) {
+      const status = await PermissionsAndroid.request(permissionWrite);
+      console.log("status: ", status);
+      if (status !== "granted") {
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
@@ -256,23 +276,43 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     await addUserDesign({
       variables: { designId: currentDesign.id },
     });
-
     const uri = await viewRef.current.capture();
     localUri = uri;
-
-    if (Platform.OS === "android") {
-      await MediaLibrary.saveToLibraryAsync(uri);
-    } else {
-      const asset = await MediaLibrary.createAssetAsync(uri);
-      const album = await MediaLibrary.getAlbumAsync(Constant.designAlbumName);
-      album && album !== null
-        ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-        : await MediaLibrary.createAlbumAsync(
-            Constant.designAlbumName,
-            asset,
-            false
-          );
-    }
+    await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
+      .then((res) => console.log("res: ", res))
+      .catch((err) => console.log("err: ", err));
+    // if (Platform.OS === "android") {
+    //   CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
+    //     .then((res) => console.log("res: ", res))
+    //     .catch((err) => console.log("err: ", err));
+    //   // await MediaLibrary.saveToLibraryAsync(uri)
+    //   //   .then((res) => console.log("res: ", res))
+    //   //   .catch((err) => console.log("err: ", err));
+    //   const asset = await MediaLibrary.createAssetAsync(uri);
+    //   if (asset && asset !== null) {
+    //     const album = await MediaLibrary.getAlbumAsync(
+    //       Constant.designAlbumName
+    //     );
+    //     album && album !== null
+    //       ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+    //       : await MediaLibrary.createAlbumAsync(
+    //           Constant.designAlbumName,
+    //           asset,
+    //           false
+    //         );
+    //   }
+    //   console.log("asset: ", asset);
+    // } else {
+    //   const asset = await MediaLibrary.createAssetAsync(uri);
+    //   const album = await MediaLibrary.getAlbumAsync(Constant.designAlbumName);
+    //   album && album !== null
+    //     ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+    //     : await MediaLibrary.createAlbumAsync(
+    //         Constant.designAlbumName,
+    //         asset,
+    //         false
+    //       );
+    // }
   };
 
   let openShareDialogAsync = async () => {

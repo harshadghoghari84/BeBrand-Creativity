@@ -11,6 +11,7 @@ import UserPackage from "../screens/UserPackage";
 import UserProfile from "../screens/user_profile";
 import WebViews from "../components/WebViews";
 import Notification from "../screens/Notification";
+import Packages from "../screens/Packages";
 
 const HomeStack = createStackNavigator();
 
@@ -23,6 +24,16 @@ const HomeStackComponent = ({ navigation }) => {
         options={{
           header: (props) => (
             <CustomHeader langauge={true} notification={true} {...props} />
+          ),
+        }}
+      />
+
+      <HomeStack.Screen
+        name={Constant.navPro}
+        component={Packages}
+        options={{
+          header: (props) => (
+            <CustomHeader isBackVisible={true} notification={true} {...props} />
           ),
         }}
       />
@@ -42,7 +53,7 @@ const HomeStackComponent = ({ navigation }) => {
         component={UserDesign}
         options={{
           header: (props) => (
-            <CustomHeader search={true} notification={true} {...props} />
+            <CustomHeader isBackVisible={true} notification={true} {...props} />
           ),
         }}
       />
@@ -52,7 +63,7 @@ const HomeStackComponent = ({ navigation }) => {
         component={UserPackage}
         options={{
           header: (props) => (
-            <CustomHeader search={true} notification={true} {...props} />
+            <CustomHeader isBackVisible={true} notification={true} {...props} />
           ),
         }}
       />

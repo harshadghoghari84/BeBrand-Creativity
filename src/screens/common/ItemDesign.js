@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from "react-native";
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
@@ -24,7 +25,7 @@ const ItemDesign = ({
       style={styles.container}
       onPress={() => onDesignClick(packageType, design)}
     >
-      <View>
+      <View style={styles.innContainer}>
         <FastImage
           style={styles.imgSubCategoryDesign}
           resizeMode={FastImage.resizeMode.contain}
@@ -55,7 +56,17 @@ const ItemDesign = ({
 export default ItemDesign;
 
 const styles = StyleSheet.create({
-  container: { marginLeft: 10, marginBottom: 10 },
+  container: {
+    marginLeft: 10,
+    marginBottom: 10,
+    borderRadius: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 3,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    elevation: Platform.OS === "ios" ? 7 : 2,
+  },
+  innContainer: { borderRadius: 3, overflow: "hidden" },
   imgSubCategoryDesign: {
     width: imgWidth,
     height: imgWidth,

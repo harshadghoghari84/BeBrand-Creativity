@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
+import { TouchableWithoutFeedback, StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
 export default ChildItem = ({
   item,
@@ -11,12 +11,15 @@ export default ChildItem = ({
   height,
 }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onPress(index)}>
+    <TouchableWithoutFeedback
+      style={styles.container}
+      onPress={() => onPress(index)}
+    >
       <FastImage
         style={[styles.image, style, { height: height }]}
         source={local ? item[imageKey] : { uri: item[imageKey] }}
       />
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 

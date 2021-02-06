@@ -14,6 +14,8 @@ export default {
   serverUrl: "https://admin.branddot.in/gql",
   // ServerUrl: "http://192.168.100.4:5000/graphql",
 
+  playStoreURL:
+    "https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en",
   splashTime: 1000,
 
   defLangCode: "en",
@@ -60,7 +62,7 @@ export default {
   titPro: "Be VIP",
   titNotification: "Notifications",
   titWishlist: "Wishlist",
-  titRateApp: "Rate App",
+  titRateApp: "Rate Us",
   titShareApp: "Share App",
   titReportIssue: "Report Issue",
   titRequestFeature: "Request Feature",
