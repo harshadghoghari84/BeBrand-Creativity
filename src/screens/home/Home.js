@@ -9,7 +9,6 @@ import {
   Dimensions,
   Text,
   Animated,
-  ScrollView,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -25,7 +24,6 @@ import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
 
 const windowWidth = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
 const imgWidth = (windowWidth - 30) / 2;
 
 let isFirstTimeListLoad = true;
@@ -58,7 +56,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   const toggleVisible = () => {
     setmodalVisible(!modalVisible);
   };
-
   const [hasPro, sethasPro] = useState(false);
   const designPackages = toJS(designStore.designPackages);
   const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
@@ -92,7 +89,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       const afterCategory = toJS(designStore.userSubCategoriesAfter);
-      console.log("afterCategory", afterCategory);
       setUserSubCategoriesAfter(afterCategory);
     }
   }, [designStore.userSubCategoriesAfter]);
@@ -100,7 +96,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
-      console.log("beforeCatragory", beforeCatragory);
       setUserSubCategoriesBefore(beforeCatragory);
     }
   }, [designStore.userSubCategoriesBefore]);
@@ -198,61 +193,37 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const scrollY = new Animated.Value(0);
-
-  const diffClamp = Animated.diffClamp(scrollY, 0, 100);
-  const translateY = diffClamp.interpolate({
-    inputRange: [0, 120],
-    outputRange: [0, -120],
-  });
-  const translateYforHeight = scrollY.interpolate({
-    inputRange: [0, 100],
-    outputRange: [0, -100],
-  });
-
-  const diffClampForSlider = Animated.diffClamp(scrollY, 0, 70);
-  const translateYForSlider = diffClampForSlider.interpolate({
-    inputRange: [0, 70],
-    outputRange: [0, -70],
-  });
-  let scrollValue = 0;
-  return (
-    <View contentContainerStyle={[styles.containerMain]}>
-      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
-      <Animated.View
+  const slider = () => {
+    return (
+      <View
         style={{
-          transform: [
-            {
-              translateY: translateYForSlider,
-            },
-          ],
-          position: "absolute",
-          // zIndex: 1,
+          marginBottom: 10,
         }}
       >
+        <FlatListSlider
+          data={data}
+          timer={5000}
+          height={130}
+          onPress={(item) => alert(JSON.stringify(item))}
+          indicatorContainerStyle={{ position: "absolute", bottom: 8 }}
+          indicatorActiveColor={Color.primary}
+          animation
+        />
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.containerMain}>
+      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
+      <View style={styles.containerSub}>
         <View
           style={{
-            marginHorizontal: 10,
-            marginVertical: 10,
-            borderRadius: 10,
-            overflow: "hidden",
+            borderBottomColor: Color.dividerColor,
+            borderBottomWidth: 5,
           }}
         >
-          <FlatListSlider
-            data={data}
-            timer={5000}
-            height={150}
-            onPress={(item) => alert(JSON.stringify(item))}
-            indicatorContainerStyle={{ position: "absolute", bottom: 20 }}
-            indicatorActiveColor={Color.primary}
-            animation
-          />
-        </View>
-
-        <Animated.View
-          style={[styles.containerSubCatList, { transform: [{ translateY }] }]}
-        >
-          {/* <View style={{ marginTop: 10 }}>
+          {/* 
             <ItemSubCategory
               item={{ id: Constant.defHomeSubCategory }}
               isSelectedId={selectedSubCategory}
@@ -266,12 +237,21 @@ const Home = ({ navigation, designStore, userStore }) => {
             data={userSubCategories}
             extraData={selectedSubCategory}
             showsHorizontalScrollIndicator={false}
+            ListFooterComponent={
+              designStore.ahdLoading ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ActivityIndicator size={20} color={Color.primary} />
+                </View>
+              ) : null
+            }
             contentContainerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-              paddingVertical: 8,
-              height: 100,
-              backgroundColor: "pink",
+              paddingHorizontal: 10,
             }}
             onEndReached={() => loadMoreAfterSubCategories()}
             keyExtractor={keyExtractor}
@@ -294,7 +274,6 @@ const Home = ({ navigation, designStore, userStore }) => {
                 setSelectedSubCategory(index);
               }
             }}
-            onScrollToIndexFailed={() => {}}
             getItemLayout={getItemLayoutsCategory}
             renderItem={({ item, index }) => (
               <ItemSubCategory
@@ -302,7 +281,6 @@ const Home = ({ navigation, designStore, userStore }) => {
                 index={index}
                 isSelectedId={selectedSubCategory}
                 onSelect={(itemId) => {
-                  console.log("itemId: ", itemId);
                   setSelectedSubCategory(itemId);
                   item.totalDesign > 0 &&
                     item.designs.length === 0 &&
@@ -311,72 +289,60 @@ const Home = ({ navigation, designStore, userStore }) => {
               />
             )}
           />
-        </Animated.View>
-      </Animated.View>
-
-      <Animated.View
-        style={[styles.containerSub, { transform: [{ translateY }] }]}
-      >
-        {selectedSubCategory ===
-        Constant.defHomeSubCategory ? null : userSubCategories[ // /> //   }} //     ) : null; //       /> //         }} //           ); //             /> //               onDesignClick={onDesignClick} //               packageType={designPackage.type} //               design={design} //             <ItemDesign //           return ( //           ); //             (item) => item.id === design.package //           const designPackage = designPackages.find( //         renderItem={({ item: design }) => { //         windowSize={7} //         maxToRenderPerBatch={5} //         // onEndReached={() => loadMoreDesigns(item.id)} //         keyExtractor={keyExtractor} //         data={item.designs} //         style={styles.listHorizontalDesign} //         showsHorizontalScrollIndicator={false} //         horizontal //         key={index} //       <FlatList //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
-            selectedSubCategory
-          ].totalDesign > 0 ? (
-          <>
-            <Animated.View
-              style={{
-                height: 200,
-                marginTop: 50,
-                backgroundColor: "red",
-              }}
-            />
-            <Animated.FlatList
-              key={2}
-              numColumns={2}
-              onScroll={(e) => {
-                // scrollY.setValue(e.nativeEvent.contentOffset.y);
-                if (scrollValue < e.nativeEvent.contentOffset.y) {
-                  console.log("up=====>", e.nativeEvent.contentOffset.y);
-                  scrollValue = e.nativeEvent.contentOffset.y;
-                  scrollY.setValue(scrollValue);
+        </View>
+        <View style={styles.containerDesignList}>
+          {selectedSubCategory ===
+          Constant.defHomeSubCategory ? null : userSubCategories[ // /> //   }} //     ) : null; //       /> //         }} //           ); //             /> //               onDesignClick={onDesignClick} //               packageType={designPackage.type} //               design={design} //             <ItemDesign //           return ( //           ); //             (item) => item.id === design.package //           const designPackage = designPackages.find( //         renderItem={({ item: design }) => { //         windowSize={7} //         maxToRenderPerBatch={5} //         // onEndReached={() => loadMoreDesigns(item.id)} //         keyExtractor={keyExtractor} //         data={item.designs} //         style={styles.listHorizontalDesign} //         showsHorizontalScrollIndicator={false} //         horizontal //         key={index} //       <FlatList //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
+              selectedSubCategory
+            ].totalDesign > 0 ? (
+            <>
+              <FlatList
+                key={2}
+                numColumns={2}
+                ListHeaderComponent={slider()}
+                showsVerticalScrollIndicator={false}
+                style={styles.listSubCategoryDesign}
+                data={userSubCategories[selectedSubCategory].designs}
+                keyExtractor={keyExtractor}
+                maxToRenderPerBatch={6}
+                windowSize={10}
+                onEndReached={() =>
+                  loadMoreDesigns(userSubCategories[selectedSubCategory].id)
                 }
-                // else if (scrollValue > e.nativeEvent.contentOffset.y) {
-                //   console.log("=====>", e.nativeEvent.contentOffset.y);
-                //   scrollValue = scrollValue - 3;
-                //   scrollY.setValue(scrollValue);
-                // }
-              }}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={[styles.listSubCategoryDesign]}
-              data={userSubCategories[selectedSubCategory].designs}
-              keyExtractor={keyExtractor}
-              maxToRenderPerBatch={6}
-              windowSize={10}
-              onEndReached={() =>
-                loadMoreDesigns(userSubCategories[selectedSubCategory].id)
-              }
-              renderItem={({ item: design, index: desIndex }) => {
-                const designPackage = designPackages.find(
-                  (item) => item.id === design.package
-                );
-                return (
-                  <>
+                renderItem={({ item: design, index: desIndex }) => {
+                  const designPackage = designPackages.find(
+                    (item) => item.id === design.package
+                  );
+                  return (
                     <ItemDesign
-                      dummyView={true}
                       design={design}
                       packageType={designPackage.type}
                       onDesignClick={onDesignClick}
                     />
-                  </>
-                );
-              }}
-            />
-          </>
-        ) : (
-          <View style={styles.containerNoDesign}>
-            <Text>No Designs Availlable</Text>
-          </View>
-        )}
-      </Animated.View>
+                  );
+                }}
+              />
+              {designStore.udLoading ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                  }}
+                >
+                  <ActivityIndicator size={25} color={Color.primary} />
+                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                    Loading...
+                  </Text>
+                </View>
+              ) : null}
+            </>
+          ) : (
+            <View style={styles.containerNoDesign}>
+              <Text>No Designs Availlable</Text>
+            </View>
+          )}
+        </View>
+      </View>
     </View>
   );
 };
@@ -384,39 +350,28 @@ export default inject("designStore", "userStore")(observer(Home));
 
 const styles = StyleSheet.create({
   containerMain: {
-    flexGrow: 1,
-    backgroundColor: "white",
+    flex: 1,
+    backgroundColor: Color.white,
   },
   containerSub: {
-    zIndex: -1,
-
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor: "green",
-  },
-  containerSubCatList: {
-    backgroundColor: "white",
-    // position: "absolute",
-    // zIndex: 1,
-    top: 0,
-    left: 0,
-    right: 0,
+    flex: 1,
+    backgroundColor: Color.white,
   },
   containerDesignList: {
     flex: 1,
+    backgroundColor: Color.white,
   },
   containerNoDesign: {
     flex: 1,
+    backgroundColor: Color.white,
+
     justifyContent: "center",
     alignItems: "center",
   },
   listAllDesign: { paddingTop: 10 },
   listHorizontalDesign: { marginBottom: 10 },
-  listSubCategoryDesign: {
-    // position: "absolute",
-    marginTop: 10,
-    marginBottom: 10,
-  },
+
+  listSubCategoryDesign: { marginBottom: 10 },
   imgAllDesign: {
     width: 150,
     height: 150,
