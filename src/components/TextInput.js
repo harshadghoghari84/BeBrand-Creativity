@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 13,
+    color: Color.darkBlue,
     fontWeight: "700",
     width: "80%",
   },

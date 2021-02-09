@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, { Component, createRef } from "react";
 import {
   FlatList,
   View,
@@ -7,33 +7,33 @@ import {
   Platform,
   UIManager,
   Dimensions,
-} from 'react-native';
-import Indicator from './Indicator';
-import ChildItem from './ChildItem';
+} from "react-native";
+import Indicator from "./Indicator";
+import ChildItem from "./ChildItem";
 
 export default class FlatListSlider extends Component {
   slider = createRef();
 
   static defaultProps = {
     data: [],
-    imageKey: 'image',
+    imageKey: "image",
     local: false,
-    width: Math.round(Dimensions.get('window').width),
+    width: Math.round(Dimensions.get("window").width),
     height: 230,
     separatorWidth: 0,
     loop: true,
     indicator: true,
     indicatorStyle: {},
     indicatorContainerStyle: {},
-    indicatorActiveColor: '#3498db',
-    indicatorInActiveColor: '#bdc3c7',
+    indicatorActiveColor: "#3498db",
+    indicatorInActiveColor: "#bdc3c7",
     indicatorActiveWidth: 6,
     animation: true,
     autoscroll: true,
     timer: 3000,
     onPress: {},
     contentContainerStyle: {},
-    component: <ChildItem/>,
+    component: <ChildItem />,
   };
 
   constructor(props) {
@@ -42,7 +42,7 @@ export default class FlatListSlider extends Component {
       index: 0,
       data: this.props.data,
     };
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
@@ -76,9 +76,9 @@ export default class FlatListSlider extends Component {
           contentContainerStyle={this.props.contentContainerStyle}
           data={this.state.data}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item, index}) =>
+          renderItem={({ item, index }) =>
             React.cloneElement(this.props.component, {
-              style: {width: this.props.width},
+              style: { width: this.props.width },
               item: item,
               imageKey: this.props.imageKey,
               onPress: this.props.onPress,
@@ -89,7 +89,7 @@ export default class FlatListSlider extends Component {
             })
           }
           ItemSeparatorComponent={() => (
-            <View style={{width: this.props.separatorWidth}} />
+            <View style={{ width: this.props.separatorWidth }} />
           )}
           keyExtractor={(item, index) => item.toString() + index}
           onViewableItemsChanged={this.onViewableItemsChanged}
@@ -116,14 +116,14 @@ export default class FlatListSlider extends Component {
             indicatorActiveColor={this.props.indicatorActiveColor}
             indicatorInActiveColor={this.props.indicatorInActiveColor}
             indicatorActiveWidth={this.props.indicatorActiveWidth}
-            style={{...styles.indicator, ...this.props.indicatorStyle}}
+            style={{ ...styles.indicator, ...this.props.indicatorStyle }}
           />
         )}
       </View>
     );
-  };
+  }
 
-  onViewableItemsChanged = ({viewableItems, changed}) => {
+  onViewableItemsChanged = ({ viewableItems, changed }) => {
     if (viewableItems.length > 0) {
       let currentIndex = viewableItems[0].index;
       if (
@@ -135,7 +135,7 @@ export default class FlatListSlider extends Component {
           data: [...this.state.data, ...this.props.data],
         });
       } else {
-        this.setState({index: currentIndex});
+        this.setState({ index: currentIndex });
       }
 
       if (this.props.currentIndexCallback) {
@@ -152,7 +152,7 @@ export default class FlatListSlider extends Component {
     if (this.props.animation) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeIn);
     }
-    this.setState({index: this.state.index + 1});
+    this.setState({ index: this.state.index + 1 });
     this.slider.current.scrollToIndex({
       index: this.state.index,
       animated: true,
@@ -162,7 +162,7 @@ export default class FlatListSlider extends Component {
   startAutoPlay = () => {
     this.sliderTimer = setInterval(
       this.changeSliderListIndex,
-      this.props.timer,
+      this.props.timer
     );
   };
 
@@ -177,7 +177,7 @@ export default class FlatListSlider extends Component {
 const styles = StyleSheet.create({
   image: {
     height: 230,
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
   },
   indicatorContainerStyle: {
     marginTop: 18,
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
   shadow: {
     ...Platform.select({
       ios: {
-        shadowColor: 'black',
-        shadowOffset: {width: 3, height: 3},
+        shadowColor: "black",
+        shadowOffset: { width: 3, height: 3 },
         shadowOpacity: 0.4,
         shadowRadius: 10,
       },

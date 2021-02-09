@@ -95,7 +95,7 @@ export default {
   ],
   defSocialIconList: ["facebook", "linkedin", "twitter", "youtube"],
 
-  designAlbumName: "Be Brandd",
+  designAlbumName: "Brand Dot",
 
   // Home Constants
   defHomeSubCategory: "All",
@@ -127,4 +127,8 @@ export default {
   // design page
   txtEdit: "Edit",
   txtReset: "Reset",
+
+  // modal placeholder text
+
+  modalTxtPlaceHolder: "Write here...",
 };

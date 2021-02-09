@@ -324,6 +324,7 @@ export default {
         businessImageLimit
         personalImageLimit
         validity
+        features
         image {
           url
         }
@@ -549,6 +550,11 @@ export default {
   addBusinessImage: gql`
     mutation($image: GraphQLUpload!) {
       addBusinessImage(image: $image)
+    }
+  `,
+  addRequestFeature: gql`
+    mutation($feature: String!) {
+      addRequestFeature(feature: $feature)
     }
   `,
   updatePersonalUserInfo: gql`

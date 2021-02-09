@@ -313,12 +313,6 @@ const RegisterScreen = ({ userStore }) => {
 
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
-    // <Background>
-    //   <BackButton goBack={() => navigation.goBack()} />
-
-    //   <Logo />
-
-    //   <Header>{Common.getTranslation(LangKey.txtCreateAccount)}</Header>
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
@@ -513,8 +507,6 @@ const RegisterScreen = ({ userStore }) => {
             <TouchableOpacity
               style={styles.btnLoginView}
               onPress={() => verifyOtp()}
-              // loading={loading}
-              // disabled={loading}
             >
               <Text style={styles.txtSignin}>
                 {Common.getTranslation(LangKey.labSignup)}
@@ -532,20 +524,7 @@ const RegisterScreen = ({ userStore }) => {
           )}
         </>
       ) : null}
-      {/* <View style={styles.row}>
-        <Text style={styles.label}>
-          {Common.getTranslation(LangKey.labAlreadyAcc)}
-        </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(Constant.navSignIn)}
-        >
-          <Text style={styles.link}>
-            {Common.getTranslation(LangKey.labSignin)}
-          </Text>
-        </TouchableOpacity>
-      </View> */}
     </View>
-    // </Background>
   );
 };
 
@@ -568,7 +547,7 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
   },
   socialBTNView: {
-    height: 55,
+    height: 48,
     borderRadius: 50,
     marginHorizontal: 20,
     backgroundColor: Color.txtInBgColor,
@@ -604,9 +583,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   txtSignin: {
-    // paddingHorizontal: 40,
-    // paddingVertical: 8,
-    // borderRadius: 50,
     fontSize: 18,
     fontWeight: "700",
     color: Color.white,
@@ -617,23 +593,23 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "700",
     color: Color.darkBlue,
-    // width: "80%",
   },
   btnLoginView: {
     backgroundColor: Color.primary,
     alignItems: "center",
     borderRadius: 50,
     height: 35,
+    width: "50%",
+    alignSelf: "center",
     justifyContent: "center",
-    marginHorizontal: 20,
     marginVertical: 8,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
 });

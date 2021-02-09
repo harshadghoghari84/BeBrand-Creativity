@@ -34,13 +34,16 @@ import Ratings from "../../utils/ratings";
 class CustomDrawer extends Component {
   state = {
     isSelected: false,
-    Activated: "",
+    Activated: Constant.titAccount,
     modalVisible: false,
     modalVisibleforRating: false,
   };
 
   toggleVisible = () => {
     this.setState({ modalVisible: !this.state.modalVisible });
+  };
+  toggleVisibleforRating = () => {
+    this.setState({ modalVisibleforRating: !this.state.modalVisibleforRating });
   };
 
   getColor = (val) => {
@@ -70,14 +73,12 @@ class CustomDrawer extends Component {
             })
           }
         >
-          <KeyboardAvoidingView style={styles.centeredView}>
+          <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={{ flex: 1 }}>
                 <TouchableOpacity
                   onPress={() =>
-                    this.setState({
-                      modalVisibleforRating: !this.state.modalVisibleforRating,
-                    })
+                    this.setState({ modalVisibleforRating: false })
                   }
                   style={{
                     width: 30,
@@ -92,10 +93,10 @@ class CustomDrawer extends Component {
                 >
                   <ICON name="close" size={20} color={Color.white} />
                 </TouchableOpacity>
-                <Ratings />
+                <Ratings toggleforRating={this.toggleVisibleforRating} />
               </View>
             </View>
-          </KeyboardAvoidingView>
+          </View>
         </Modal>
 
         <View style={styles.container}>
@@ -283,11 +284,13 @@ class CustomDrawer extends Component {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.setState({ modalVisible: true })}
+                onPress={() => Common.openWhatsApp(9726009509, "")}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
                   paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
                 }}
               >
                 <View style={{ paddingHorizontal: 30 }}>
@@ -306,7 +309,7 @@ class CustomDrawer extends Component {
                   {Constant.titReportIssue}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => this.setState({ modalVisible: true })}
                 style={{
                   flexDirection: "row",
@@ -331,7 +334,7 @@ class CustomDrawer extends Component {
                 >
                   {Constant.titRequestFeature}
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View>
               {this.props.userStore.user !== null && (
@@ -503,11 +506,11 @@ class CustomDrawer extends Component {
                 </View>
               )}
               <TouchableOpacity
-                onPress={() =>
-                  // this.setState({ Activated: Constant.titWhatsAppUs }, () =>
-                  // )
-                  Common.openWhatsApp(9726009509, "")
-                }
+                // onPress={() =>
+                //   // this.setState({ Activated: Constant.titWhatsAppUs }, () =>
+                //   // )
+                //   Common.openWhatsApp(9726009509, "")
+                // }
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -571,7 +574,7 @@ class CustomDrawer extends Component {
             </View>
           </ScrollView>
         </View>
-        <KeyboardAvoidingView style={styles.bottomDrawerSection}>
+        <View style={styles.bottomDrawerSection}>
           {user && user !== null ? (
             <TouchableOpacity
               onPress={() => {
@@ -628,7 +631,7 @@ class CustomDrawer extends Component {
               </Text>
             </TouchableOpacity>
           )}
-        </KeyboardAvoidingView>
+        </View>
       </View>
     );
   }

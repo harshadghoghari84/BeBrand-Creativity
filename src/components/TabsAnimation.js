@@ -84,14 +84,13 @@ const TabsAnimation = (props) => {
     return (
       <View
         style={{
-          width: "90%",
           marginLeft: "auto",
           marginRight: "auto",
           backgroundColor: props.bgColor,
-          padding: 5,
+          padding: 3,
           borderRadius: 50,
           marginTop: 10,
-          // marginVertical: 10,
+          marginBottom: 5,
         }}
       >
         <View style={style.selecteTabs}>
@@ -166,16 +165,16 @@ export default TabsAnimation;
 
 const style = StyleSheet.create({
   selecteTabs: {
-    height: 35,
+    height: 30,
+    width: "50%",
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: Color.blackTransparant,
     borderRadius: 50,
     position: "relative",
   },
   tabsView: {
     color: Color.white,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "700",
   },
 });

@@ -32,9 +32,10 @@ import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import TabsAnimation from "../components/TabsAnimation";
 import FastImage from "react-native-fast-image";
+import PopUp from "../components/PopUp";
 
 const { width } = Dimensions.get("window");
-let localUri = "";
+let isShareClick = false;
 
 const Design = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
@@ -55,6 +56,10 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     errorPolicy: "all",
   });
 
+  const [visibleModal, setVisibleModal] = useState(false);
+  const toggleVisible = () => {
+    setVisibleModal(!visibleModal);
+  };
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
@@ -186,9 +191,10 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             user?.userInfo?.personal && user.userInfo.personal.socialMediaId,
 
           image:
-            user?.imageInfo?.profile.length > 0
-              ? user.imageInfo.profile.find((item) => item.isDefault === true)
-                  .url
+            user?.userInfo?.personal.image.length > 0
+              ? user?.userInfo?.personal.image.find(
+                  (item) => item.isDefault === true
+                ).url
               : null,
         }
       : Constant.dummyUserData[0];
@@ -199,16 +205,16 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
           mobile: user?.userInfo?.business && user.userInfo.business.mobile,
 
-          designation:
-            user?.userInfo?.business && user.userInfo.business.designation,
+          address: user?.userInfo?.business && user.userInfo.business.address,
 
           socialMedia:
             user?.userInfo?.business && user.userInfo.business.socialMediaId,
 
           image:
-            user?.imageInfo?.profile.length > 0
-              ? user.imageInfo.profile.find((item) => item.isDefault === true)
-                  .url
+            user?.userInfo?.business?.image.length > 0
+              ? user?.userInfo?.business?.image.find(
+                  (item) => item.isDefault === true
+                ).url
               : null,
         }
       : Constant.dummyUserData[0];
@@ -220,7 +226,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const onClickDownload = async () => {
     if (user && user !== null) {
       await saveDesign();
-      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
@@ -228,39 +233,20 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   const onClickShare = async () => {
     if (user && user !== null) {
+      isShareClick = true;
       await saveDesign();
-      await openShareDialogAsync();
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
   };
 
   const saveDesign = async () => {
-    // const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    // if (status !== Permissions.PermissionStatus.GRANTED) {
-    //   const { status: newStatus } = await Permissions.askAsync(
-    //     Permissions.CAMERA_ROLL
-    //   );
-    //   if (newStatus !== Permissions.PermissionStatus.GRANTED) {
-    //     Common.showMessage(
-    //       Common.getTranslation(LangKey.msgCameraRollPermission)
-    //     );
-    //   } else {
-    //     await takeDesignShot();
-    //   }
-    // } else {
-    //   await takeDesignShot();
-    // }
-    // const permissionRead = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
-    const permissionWrite =
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-    // const hasPermissionRead = await PermissionsAndroid.check(permissionRead);
-    const hasPermissionWrite = await PermissionsAndroid.check(permissionWrite);
-    // console.log(hasPermissionRead, hasPermissionWrite);
-    if (hasPermissionWrite === false) {
-      const status = await PermissionsAndroid.request(permissionWrite);
-      console.log("status: ", status);
-      if (status !== "granted") {
+    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    if (status !== Permissions.PermissionStatus.GRANTED) {
+      const { status: newStatus } = await Permissions.askAsync(
+        Permissions.CAMERA_ROLL
+      );
+      if (newStatus !== Permissions.PermissionStatus.GRANTED) {
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
@@ -270,52 +256,88 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     } else {
       await takeDesignShot();
     }
-  };
-
-  const takeDesignShot = async () => {
-    await addUserDesign({
-      variables: { designId: currentDesign.id },
-    });
-    const uri = await viewRef.current.capture();
-    localUri = uri;
-    await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
-      .then((res) => console.log("res: ", res))
-      .catch((err) => console.log("err: ", err));
-    // if (Platform.OS === "android") {
-    //   CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
-    //     .then((res) => console.log("res: ", res))
-    //     .catch((err) => console.log("err: ", err));
-    //   // await MediaLibrary.saveToLibraryAsync(uri)
-    //   //   .then((res) => console.log("res: ", res))
-    //   //   .catch((err) => console.log("err: ", err));
-    //   const asset = await MediaLibrary.createAssetAsync(uri);
-    //   if (asset && asset !== null) {
-    //     const album = await MediaLibrary.getAlbumAsync(
-    //       Constant.designAlbumName
+    // // const permissionRead = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+    // const permissionWrite =
+    //   PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+    // // const hasPermissionRead = await PermissionsAndroid.check(permissionRead);
+    // const hasPermissionWrite = await PermissionsAndroid.check(permissionWrite);
+    // // console.log(hasPermissionRead, hasPermissionWrite);
+    // if (hasPermissionWrite === false) {
+    //   const status = await PermissionsAndroid.request(permissionWrite);
+    //   console.log("status: ", status);
+    //   if (status !== "granted") {
+    //     Common.showMessage(
+    //       Common.getTranslation(LangKey.msgCameraRollPermission)
     //     );
-    //     album && album !== null
-    //       ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-    //       : await MediaLibrary.createAlbumAsync(
-    //           Constant.designAlbumName,
-    //           asset,
-    //           false
-    //         );
+    //   } else {
+    //     await takeDesignShot();
     //   }
-    //   console.log("asset: ", asset);
     // } else {
-    //   const asset = await MediaLibrary.createAssetAsync(uri);
-    //   const album = await MediaLibrary.getAlbumAsync(Constant.designAlbumName);
-    //   album && album !== null
-    //     ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-    //     : await MediaLibrary.createAlbumAsync(
-    //         Constant.designAlbumName,
-    //         asset,
-    //         false
-    //       );
+    //   await takeDesignShot();
     // }
   };
 
-  let openShareDialogAsync = async () => {
+  const takeDesignShot = async () => {
+    const currentDesignCredit = toJS(userStore.currentDesignCredit);
+    if (currentDesignCredit.length > 0) {
+      const { data, errors } = await addUserDesign({
+        variables: { designId: currentDesign.id },
+      });
+
+      if (data !== null && !errors) {
+        userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
+      } else {
+      }
+
+      const uri = await viewRef.current.capture();
+
+      // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
+      //   .then((res) => console.log("res: ", res))
+      //   .catch((err) => console.log("err: ", err));
+
+      if (Platform.OS === "android") {
+        // await MediaLibrary.saveToLibraryAsync(uri)
+        //   .then((res) => console.log("res: ", res))
+        //   .catch((err) => console.log("err: ", err));
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        if (asset && asset !== null) {
+          const album = await MediaLibrary.getAlbumAsync(
+            Constant.designAlbumName
+          );
+          album && album !== null
+            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+            : await MediaLibrary.createAlbumAsync(
+                Constant.designAlbumName,
+                asset,
+                false
+              );
+        }
+        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+      } else {
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        const album = await MediaLibrary.getAlbumAsync(
+          Constant.designAlbumName
+        );
+        album && album !== null
+          ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+          : await MediaLibrary.createAlbumAsync(
+              Constant.designAlbumName,
+              asset,
+              false
+            );
+        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+      }
+
+      if (isShareClick === true) {
+        isShareClick = false;
+        await openShareDialogAsync(uri);
+      }
+    } else {
+      setVisibleModal(true);
+    }
+  };
+
+  let openShareDialogAsync = async (localUri) => {
     if (!(await Sharing.isAvailableAsync())) {
       Common.showMessage(Common.getTranslation(LangKey.msgShareNotAvaillable));
       return;
@@ -348,6 +370,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
+        <PopUp
+          visible={visibleModal}
+          toggleVisible={toggleVisible}
+          isPurchased={true}
+        />
         <View style={styles.container}>
           <FlatList
             horizontal
@@ -367,6 +394,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                       designPackage.type === Constant.typeDesignPackageVip &&
                       hasPro === false
                     ) {
+                      setVisibleModal(true);
                     } else {
                       setCurrentDesign(item);
                     }
@@ -504,6 +532,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                     item.package.type === Constant.typeDesignPackageVip &&
                     hasPro === false
                   ) {
+                    setVisibleModal(true);
                   } else {
                     setCurrentLayout(item);
                   }
@@ -575,70 +604,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             )}
           />
 
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginHorizontal: 15,
-              flexDirection: "row",
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                onPress={() => navigation.navigate(Constant.navProfile)}
-                icon={() => (
-                  <Icon name="edit" height={15} width={15} fill={Color.white} />
-                )}
-                style={{
-                  margin: 5,
-                  width: 150,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {Common.getTranslation(LangKey.txtEdit)}
-              </Button>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                onPress={() => {
-                  if (currentDesign.id === curDesign.id) {
-                    onReset();
-                  } else {
-                    setCurrentDesign(curDesign);
-                  }
-                }}
-                icon={() => (
-                  <Icon
-                    name="reset"
-                    height={15}
-                    width={15}
-                    fill={Color.white}
-                  />
-                )}
-                style={{
-                  marginHorizontal: 5,
-                  width: 150,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {Common.getTranslation(LangKey.txtReset)}
-              </Button>
-            </View>
-          </View>
           <FlatList
             style={styles.socialIconList}
             data={Constant.socialIconList}
@@ -697,25 +662,60 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             )}
           />
 
-          <View
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
             style={{
-              justifyContent: "center",
-              marginTop: 15,
-              paddingHorizontal: 15,
-              flexDirection: "row",
+              marginHorizontal: 10,
+              marginVertical: 10,
+              marginBottom: 10,
             }}
           >
-            <View style={{ flex: 1, marginRight: 5 }}>
-              <Button mode="contained" onPress={onClickShare}>
+            <View
+              style={{
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <Button
+                style={{ margin: 5 }}
+                onPress={() => navigation.navigate(Constant.navProfile)}
+                icon={
+                  <Icon name="edit" height={15} width={15} fill={Color.white} />
+                }
+              >
+                {Common.getTranslation(LangKey.txtEdit)}
+              </Button>
+
+              <Button
+                style={{ margin: 5 }}
+                onPress={() => {
+                  if (currentDesign.id === curDesign.id) {
+                    onReset();
+                  } else {
+                    setCurrentDesign(curDesign);
+                  }
+                }}
+                icon={
+                  <Icon
+                    name="reset"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
+              >
+                {Common.getTranslation(LangKey.txtReset)}
+              </Button>
+              <Button style={{ margin: 5 }} onPress={onClickShare}>
                 {Common.getTranslation(LangKey.txtShare)}
               </Button>
-            </View>
-            <View style={{ flex: 1, marginLeft: 5 }}>
-              <Button mode="contained" onPress={onClickDownload}>
+
+              <Button style={{ margin: 5 }} onPress={onClickDownload}>
                 {Common.getTranslation(LangKey.txtDownload)}
               </Button>
             </View>
-          </View>
+          </ScrollView>
         </View>
       </ScrollView>
     );
@@ -735,6 +735,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
+        <PopUp
+          visible={visibleModal}
+          toggleVisible={toggleVisible}
+          isPurchased={true}
+        />
         <View style={styles.container}>
           <FlatList
             horizontal
@@ -754,6 +759,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                       designPackage.type === Constant.typeDesignPackageVip &&
                       hasPro === false
                     ) {
+                      setVisibleModal(true);
                     } else {
                       setCurrentDesign(item);
                     }
@@ -889,6 +895,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                     item.package.type === Constant.typeDesignPackageVip &&
                     hasPro === false
                   ) {
+                    setVisibleModal(true);
                   } else {
                     setCurrentLayout(item);
                   }
@@ -958,70 +965,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               </TouchableOpacity>
             )}
           />
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginHorizontal: 15,
-              flexDirection: "row",
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                onPress={() => navigation.navigate(Constant.navProfile)}
-                icon={() => (
-                  <Icon name="edit" height={15} width={15} fill={Color.white} />
-                )}
-                style={{
-                  margin: 5,
-                  width: 150,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {Common.getTranslation(LangKey.txtEdit)}
-              </Button>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                onPress={() => {
-                  if (currentDesign.id === curDesign.id) {
-                    onReset();
-                  } else {
-                    setCurrentDesign(curDesign);
-                  }
-                }}
-                icon={() => (
-                  <Icon
-                    name="reset"
-                    height={15}
-                    width={15}
-                    fill={Color.white}
-                  />
-                )}
-                style={{
-                  marginHorizontal: 5,
-                  width: 150,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {Common.getTranslation(LangKey.txtReset)}
-              </Button>
-            </View>
-          </View>
+
           <FlatList
             style={styles.socialIconList}
             data={Constant.socialIconList}
@@ -1078,32 +1022,67 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               </TouchableOpacity>
             )}
           />
-          <View
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
             style={{
-              justifyContent: "center",
-              marginTop: 15,
-              paddingHorizontal: 15,
-              flexDirection: "row",
+              marginHorizontal: 10,
+              marginVertical: 10,
+              marginBottom: 10,
             }}
           >
-            <View style={{ flex: 1, marginRight: 5 }}>
-              <Button mode="contained" onPress={onClickShare}>
+            <View
+              style={{
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <Button
+                style={{ margin: 5 }}
+                onPress={() => navigation.navigate(Constant.navProfile)}
+                icon={
+                  <Icon name="edit" height={15} width={15} fill={Color.white} />
+                }
+              >
+                {Common.getTranslation(LangKey.txtEdit)}
+              </Button>
+
+              <Button
+                style={{ margin: 5 }}
+                onPress={() => {
+                  if (currentDesign.id === curDesign.id) {
+                    onReset();
+                  } else {
+                    setCurrentDesign(curDesign);
+                  }
+                }}
+                icon={
+                  <Icon
+                    name="reset"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
+              >
+                {Common.getTranslation(LangKey.txtReset)}
+              </Button>
+              <Button style={{ margin: 5 }} onPress={onClickShare}>
                 {Common.getTranslation(LangKey.txtShare)}
               </Button>
-            </View>
-            <View style={{ flex: 1, marginLeft: 5 }}>
-              <Button mode="contained" onPress={onClickDownload}>
+
+              <Button style={{ margin: 5 }} onPress={onClickDownload}>
                 {Common.getTranslation(LangKey.txtDownload)}
               </Button>
             </View>
-          </View>
+          </ScrollView>
         </View>
       </ScrollView>
     );
   };
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <TabsAnimation
         flex={1}
         bgColor={Color.blackTransparant}
@@ -1119,7 +1098,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         child1={Personal()}
         child2={bussiness()}
       />
-    </>
+    </View>
   );
 };
 export default inject("designStore", "userStore")(observer(Design));
@@ -1130,8 +1109,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flatlist: {
-    marginTop: 10,
     height: 85,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   listLayoutView: {
     marginLeft: 5,
@@ -1140,9 +1127,19 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   listDesignView: {
-    marginLeft: 5,
+    marginHorizontal: 5,
     marginVertical: 5,
+    borderRadius: 5,
     overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
   },
   icnCheck: {
     position: "absolute",

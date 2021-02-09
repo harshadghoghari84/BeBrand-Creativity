@@ -1,7 +1,7 @@
 import { registerRootComponent } from "expo";
 
 import App from "./App";
-// import App from "./dummy";
+// import App from "./src/screens/pacakges/index";
 
 console.disableYellowBox = true;
 
