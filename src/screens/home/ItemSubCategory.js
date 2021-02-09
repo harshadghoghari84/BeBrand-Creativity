@@ -35,7 +35,7 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
         ) : (
           <FastImage
             source={{ uri: item.image.url }}
-            resizeMode={FastImage.resizeMode.contain}
+            resizeMode={FastImage.resizeMode.cover}
             style={styles.image}
           />
         )}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   image: {
     width: 75,
     height: 55,
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: "center",
     alignSelf: "center",
   },

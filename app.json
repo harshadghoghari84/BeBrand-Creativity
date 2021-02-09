@@ -19,7 +19,11 @@
     "ios": {
       "bundleIdentifier": "com.bebrandd.yourdesign",
       "buildNumber": "1.0.0",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./assets/DFS.png",
+        "resizeMode": "cover"
+      }
     },
     "android": {
       "package": "com.bebrandd.yourdesign",

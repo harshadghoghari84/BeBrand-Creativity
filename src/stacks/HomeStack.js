@@ -11,7 +11,8 @@ import UserPackage from "../screens/UserPackage";
 import UserProfile from "../screens/user_profile";
 import WebViews from "../components/WebViews";
 import Notification from "../screens/Notification";
-import Packages from "../screens/Packages";
+import Packages from "../screens/pacakges/Packages";
+import MyTabs from "../screens/pacakges";
 
 const HomeStack = createStackNavigator();
 
@@ -30,7 +31,7 @@ const HomeStackComponent = ({ navigation }) => {
 
       <HomeStack.Screen
         name={Constant.navPro}
-        component={Packages}
+        component={MyTabs}
         options={{
           header: (props) => (
             <CustomHeader isBackVisible={true} notification={true} {...props} />

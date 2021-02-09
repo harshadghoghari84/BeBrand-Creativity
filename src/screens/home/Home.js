@@ -215,7 +215,11 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   return (
     <View style={styles.containerMain}>
-      <PopUp visible={modalVisible} toggleVisible={toggleVisible} />
+      <PopUp
+        visible={modalVisible}
+        toggleVisible={toggleVisible}
+        isPurchased={true}
+      />
       <View style={styles.containerSub}>
         <View
           style={{

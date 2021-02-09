@@ -62,4 +62,7 @@ module.exports = {
 
   // Packages Screen
   labPerchase: "labPerchase",
+
+  // modal text
+  modalTxtPlaceHolder: "modalTxtPlaceHolder",
 };

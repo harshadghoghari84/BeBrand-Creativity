@@ -138,6 +138,7 @@ decorate(UserStore, {
   setOnlyUserDetail: action,
   addPersonalImage: action,
   addBusinessImage: action,
+  updateCurrantDesignCredit: action,
 });
 
 export default new UserStore();

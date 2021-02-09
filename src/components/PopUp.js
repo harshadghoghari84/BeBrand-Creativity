@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,42 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Color from "../utils/Color";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import Ratings from "../utils/ratings";
+import Common from "../utils/Common";
+import LangKey from "../utils/LangKey";
+import { useMutation } from "@apollo/client";
+import GraphqlQuery from "../utils/GraphqlQuery";
+import Constant from "../utils/Constant";
 
 const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
+  const navigation = useNavigation();
+  const [feture, setFeture] = useState();
+
+  const [userRequestFeture, { loading }] = useMutation(
+    GraphqlQuery.addRequestFeature,
+    {
+      errorPolicy: "all",
+    }
+  );
+
+  const onsubmit = () => {
+    userRequestFeture({
+      variables: {
+        feature: feture,
+      },
+    })
+      .then((result) => {
+        console.log("reslut", result);
+        toggleVisible();
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
   return (
     <Modal
       transparent={true}
@@ -42,20 +73,23 @@ const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
               }}
             >
               <TextInput
-                placeholder="write here..."
+                placeholder={Common.getTranslation(LangKey.modalTxtPlaceHolder)}
+                placeholderTextColor={Color.grey}
                 multiline={true}
+                value={feture}
+                onChangeText={(val) => setFeture(val)}
                 style={{
-                  flex: 1,
-                  // height: 60,
-                  // width: "80%",
+                  // flex: 1,
+                  height: 100,
+                  width: "90%",
                   borderRadius: 10,
-                  paddingLeft: 20,
+                  paddingHorizontal: 20,
                   backgroundColor: Color.txtInBgColor,
                 }}
               />
               <View
                 style={{
-                  marginTop: 20,
+                  marginTop: 5,
                   flexDirection: "row",
                   justifyContent: "space-between",
                 }}
@@ -65,17 +99,17 @@ const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
                   style={{
                     ...styles.openButton,
                     backgroundColor: Color.primary,
-                    margin: 5,
+                    marginHorizontal: 5,
                   }}
                 >
                   <Text style={styles.textStyle}>close</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => toggleVisible()}
+                  onPress={() => onsubmit()}
                   style={{
                     ...styles.openButton,
-                    backgroundColor: Color.darkBlue,
-                    margin: 5,
+                    backgroundColor: Color.primary,
+                    marginHorizontal: 5,
                   }}
                 >
                   <Text style={styles.textStyle}>Submit</Text>
@@ -103,7 +137,10 @@ const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={() => toggleVisible()}
+                  onPress={() => {
+                    toggleVisible();
+                    navigation.navigate(Constant.navPro);
+                  }}
                   style={{
                     ...styles.openButton,
                     backgroundColor: Color.primary,

@@ -13,7 +13,7 @@ import PopUp from "../components/PopUp";
 import Color from "./Color";
 import Rate, { AndroidMarket } from "react-native-rate";
 
-const Ratings = () => {
+const Ratings = ({ toggleforRating }) => {
   const [defaultRating, setDefaultRating] = useState(0);
 
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
@@ -21,6 +21,7 @@ const Ratings = () => {
   const [visible, setVisible] = useState(false);
   const toggleVisible = () => {
     setVisible(!visible);
+    toggleforRating();
   };
   const [rated, setRated] = useState(false);
 
@@ -33,8 +34,11 @@ const Ratings = () => {
               key={item}
               onPress={() => {
                 setDefaultRating(item);
-                item === 5 ? open_App() : null,
-                  item === 3 ? setVisible(true) : null;
+                item >= 4 ? open_Store() : null;
+                if (item <= 3) {
+                  setVisible(true);
+                  // toggleforRating();
+                }
               }}
             >
               <Icon
@@ -49,7 +53,7 @@ const Ratings = () => {
     );
   };
 
-  const open_App = () => {
+  const open_Store = () => {
     const options = {
       AppleAppID: "2193813192",
       GooglePackageName: "nic.goi.aarogyasetu",

@@ -246,13 +246,6 @@ const LoginScreen = ({ userStore }) => {
 
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
-    // <Background>
-    // <BackButton
-    //   goBack={() => navigation.navigate(Constant.navLangSelection)}
-    // />
-
-    // <Logo />
-    //<Header>{Common.getTranslation(LangKey.txtWelcome)}</Header>
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
@@ -407,16 +400,24 @@ const LoginScreen = ({ userStore }) => {
           </View>
         </Animatable.View>
       )}
-      <TouchableOpacity
-        style={styles.btnLoginView}
-        onPress={onLoginPressed}
-        loading={loading}
-        disabled={loading}
-      >
-        <Text style={styles.txtSignin}>
-          {Common.getTranslation(LangKey.labSignin)}
-        </Text>
-      </TouchableOpacity>
+      {password.value.length > 0 && (
+        <Animatable.View
+          animation={fadeInDown}
+          direction="normal"
+          duration={500}
+        >
+          <TouchableOpacity
+            style={styles.btnLoginView}
+            onPress={onLoginPressed}
+            loading={loading}
+            disabled={loading}
+          >
+            <Text style={styles.txtSignin}>
+              {Common.getTranslation(LangKey.labSignin)}
+            </Text>
+          </TouchableOpacity>
+        </Animatable.View>
+      )}
     </View>
   );
 };
@@ -476,9 +477,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   txtSignin: {
-    // paddingHorizontal: 40,
-    // paddingVertical: 10,
-    // borderRadius: 50,
     fontSize: 18,
     fontWeight: "700",
     color: Color.white,
@@ -493,18 +491,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 50,
     height: 35,
+    width: "50%",
+    alignSelf: "center",
     justifyContent: "center",
-    marginHorizontal: 20,
     marginVertical: 8,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
 });
 
