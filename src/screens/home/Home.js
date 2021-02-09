@@ -11,18 +11,16 @@ import {
   Animated,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
-
-import Button from "../../components/Button";
 import ItemSubCategory from "./ItemSubCategory";
 import Constant from "../../utils/Constant";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import FlatListSlider from "../../components/flatlist_carousel/FlatListSlider";
 import Preview from "../sample/Preview";
 import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
-
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import FastImage from "react-native-fast-image";
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
@@ -52,6 +50,7 @@ const data = [
 ];
 
 const Home = ({ navigation, designStore, userStore }) => {
+  const [activeSlide, setActiveSlide] = useState(false);
   const [modalVisible, setmodalVisible] = useState(false);
   const toggleVisible = () => {
     setmodalVisible(!modalVisible);
@@ -193,6 +192,38 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
+  const SLIDER_WIDTH = Dimensions.get("window").width;
+
+  const renderImages = ({ item }) => {
+    return <FastImage source={{ uri: item.image }} style={{ height: 130 }} />;
+  };
+
+  const pagination = () => {
+    return (
+      <Pagination
+        dotsLength={data.length}
+        activeDotIndex={activeSlide}
+        containerStyle={{
+          position: "absolute",
+          alignSelf: "center",
+          bottom: 0,
+          paddingVertical: 10,
+        }}
+        dotStyle={{
+          width: 7,
+          height: 7,
+          marginHorizontal: -8,
+          backgroundColor: Color.primary,
+        }}
+        inactiveDotStyle={{
+          backgroundColor: Color.white,
+        }}
+        inactiveDotOpacity={0.6}
+        inactiveDotScale={0.8}
+      />
+    );
+  };
+
   const slider = () => {
     return (
       <View
@@ -200,7 +231,18 @@ const Home = ({ navigation, designStore, userStore }) => {
           marginBottom: 10,
         }}
       >
-        <FlatListSlider
+        <Carousel
+          data={data}
+          renderItem={renderImages}
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={SLIDER_WIDTH}
+          autoplay={true}
+          loop
+          onSnapToItem={(index) => setActiveSlide(index)}
+          inactiveSlideScale={1}
+        />
+        {pagination()}
+        {/* <FlatListSlider
           data={data}
           timer={5000}
           height={130}
@@ -208,7 +250,7 @@ const Home = ({ navigation, designStore, userStore }) => {
           indicatorContainerStyle={{ position: "absolute", bottom: 8 }}
           indicatorActiveColor={Color.primary}
           animation
-        />
+        /> */}
       </View>
     );
   };
@@ -220,6 +262,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisible={toggleVisible}
         isPurchased={true}
       />
+      {/* {slider()} */}
       <View style={styles.containerSub}>
         <View
           style={{
@@ -273,7 +316,7 @@ const Home = ({ navigation, designStore, userStore }) => {
                     ? userSubCategoriesBefore.length
                     : userSubCategoriesBefore.length - 1;
                 refCategoryList.current.scrollToIndex({
-                  index: index,
+                  index,
                 });
                 setSelectedSubCategory(index);
               }
