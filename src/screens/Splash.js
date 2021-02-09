@@ -3,12 +3,16 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
-import GraphqlQuery from "../utils/GraphqlQuery";
-import Constant from "../utils/Constant";
 import { StackActions } from "@react-navigation/native";
-import Color from "../utils/Color";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FastImage from "react-native-fast-image";
+import * as SplashScreen from "expo-splash-screen";
+
+// relative
+import GraphqlQuery from "../utils/GraphqlQuery";
+import Constant from "../utils/Constant";
+import Color from "../utils/Color";
+
 const Splash = ({ navigation, userStore }) => {
   const [getUserData, { loading, data, error }] = useLazyQuery(
     GraphqlQuery.user,
@@ -17,16 +21,26 @@ const Splash = ({ navigation, userStore }) => {
       errorPolicy: "all",
     }
   );
+
   const [isTimerRunning, setIsTimerRunning] = useState(true);
+
   useEffect(() => {
+    async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+      } catch (e) {
+        console.warn(e);
+      }
+    };
     AsyncStorage.getItem(Constant.prfUserToken).then((token) => {
       token && getUserData();
       startWithDelay();
     });
   }, []);
   const startWithDelay = () => {
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsTimerRunning(false);
+      await SplashScreen.hideAsync();
       !loading && openScreen();
     }, Constant.splashTime);
   };
