@@ -21,12 +21,8 @@ import {
   GraphRequestManager,
   LoginManager,
 } from "react-native-fbsdk";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
+
 import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
 import { paperTheme as theme } from "../utils/Theme";
 import { mobileValidator, passwordValidator } from "../utils/Validator";
 import GraphqlQuery from "../utils/GraphqlQuery";
@@ -254,8 +250,8 @@ const LoginScreen = ({ userStore }) => {
         <View
           style={{
             backgroundColor: Color.txtIntxtcolor,
-            height: 35,
-            width: 35,
+            height: 30,
+            width: 30,
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 50,
@@ -281,8 +277,8 @@ const LoginScreen = ({ userStore }) => {
         <View
           style={{
             backgroundColor: Color.txtIntxtcolor,
-            height: 35,
-            width: 35,
+            height: 30,
+            width: 30,
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 50,
@@ -314,40 +310,18 @@ const LoginScreen = ({ userStore }) => {
         <View style={styles.sapratorLines} />
       </View>
       <>
-        <View style={styles.socialBTNView}>
-          <View
-            style={{
-              backgroundColor: Color.txtIntxtcolor,
-              height: 35,
-              width: 35,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 50,
-              marginHorizontal: 8,
-            }}
-          >
-            <Icon
-              name="phone"
-              fill={Color.white}
-              height={"45%"}
-              width={"45%"}
-            />
-          </View>
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labMobile)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            value={mobileNo.value}
-            onChangeText={(text) => setMobileNo({ value: text, error: "" })}
-            error={!!mobileNo.error}
-            errorText={mobileNo.error}
-            autoCapitalize="none"
-            keyboardType="numeric"
-          />
-        </View>
-        {mobileNo.error ? (
-          <Text style={styles.error}>{mobileNo.error}</Text>
-        ) : null}
+        <TextInput
+          placeholder={Common.getTranslation(LangKey.labMobile)}
+          placeholderTextColor={Color.txtIntxtcolor}
+          returnKeyType="next"
+          iconName="phone"
+          value={mobileNo.value}
+          onChangeText={(text) => setMobileNo({ value: text, error: "" })}
+          error={!!mobileNo.error}
+          errorText={mobileNo.error}
+          autoCapitalize="none"
+          keyboardType="numeric"
+        />
       </>
       {mobileNo.value.length > 9 && (
         <Animatable.View
@@ -355,39 +329,17 @@ const LoginScreen = ({ userStore }) => {
           direction="normal"
           duration={500}
         >
-          <View style={styles.socialBTNView}>
-            <View
-              style={{
-                backgroundColor: Color.txtIntxtcolor,
-                height: 35,
-                width: 35,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 50,
-                marginHorizontal: 8,
-              }}
-            >
-              <Icon
-                name="lock"
-                fill={Color.white}
-                height={"45%"}
-                width={"45%"}
-              />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labPassword)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="done"
-              value={password.value}
-              onChangeText={(text) => setPassword({ value: text, error: "" })}
-              error={!!password.error}
-              errorText={password.error}
-              secureTextEntry
-            />
-          </View>
-          {password.error ? (
-            <Text style={styles.error}>{password.error}</Text>
-          ) : null}
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labPassword)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="done"
+            iconName="lock"
+            value={password.value}
+            onChangeText={(text) => setPassword({ value: text, error: "" })}
+            error={!!password.error}
+            errorText={password.error}
+            secureTextEntry
+          />
 
           <View style={styles.forgotPassword}>
             <TouchableOpacity
@@ -441,7 +393,7 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
   },
   socialBTNView: {
-    height: 48,
+    height: 40,
     borderRadius: 50,
     marginHorizontal: 20,
     backgroundColor: Color.txtInBgColor,

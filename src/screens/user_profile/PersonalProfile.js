@@ -13,11 +13,12 @@ import { useMutation } from "@apollo/client";
 import { toJS } from "mobx";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import Icon from "../../components/svgIcons";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
 import FastImage from "react-native-fast-image";
 
+// relative path
+import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
@@ -229,12 +230,8 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const keyExtractor = useCallback((item, index) => index.toString(), []);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: Color.white }}
-    >
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
       <View style={styles.container}>
-        {/* loading dialog */}
         <ProgressDialog
           visible={loadingUserImage}
           dismissable={false}
@@ -262,104 +259,70 @@ const PersonalProfile = ({ navigation, userStore }) => {
             </View>
           </TouchableOpacity>
         )}
+
         <View style={styles.containerTil}>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="user" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labUserName)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={userName}
-              onChangeText={(text) => setUserName(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-              error={!!errorUserName}
-              errorText={errorUserName}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="phone" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labMobile)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={mobile}
-              keyboardType="phone-pad"
-              onChangeText={(text) => setMobile(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="email" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labEmail)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon
-                name="designation"
-                fill={Color.white}
-                height={15}
-                width={15}
-              />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labDesignation)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={designation}
-              onChangeText={(text) => setDesignation(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon
-                name="social_id"
-                fill={Color.white}
-                height={15}
-                width={15}
-              />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={socialMediaId}
-              onChangeText={(text) => setSocialMediaId(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="website" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labWebsite)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={website}
-              onChangeText={(text) => setWebsite(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labUserName)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="user"
+            value={userName}
+            onChangeText={(text) => setUserName(text)}
+            autoCapitalize="none"
+            error={!!errorUserName}
+            errorText={errorUserName}
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labMobile)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="phone"
+            value={mobile}
+            keyboardType="phone-pad"
+            onChangeText={(text) => setMobile(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labEmail)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labDesignation)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="designation"
+            value={designation}
+            onChangeText={(text) => setDesignation(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="social_id"
+            value={socialMediaId}
+            onChangeText={(text) => setSocialMediaId(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labWebsite)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="website"
+            value={website}
+            onChangeText={(text) => setWebsite(text)}
+            autoCapitalize="none"
+          />
         </View>
         <View style={styles.containerProfile}>
           {personalImageLimit > 0 &&
@@ -423,6 +386,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
 export default inject("userStore")(observer(PersonalProfile));
 
 const styles = StyleSheet.create({
+  sv: {
+    backgroundColor: Color.white,
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -437,8 +403,7 @@ const styles = StyleSheet.create({
   },
   containerTil: { width: "90%" },
   tiCommon: {
-    // marginTop: -5,
-    // backgroundColor: Color.white,
+    color: Color.darkBlue,
   },
   containerProfile: {
     flex: 1,
@@ -455,7 +420,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btnSave: {
-    width: "80%",
+    width: "30%",
     marginTop: 10,
   },
   icnCheck: {
@@ -476,8 +441,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginRight: 10,
     backgroundColor: Color.txtIntxtcolor,
-    // paddingVertical: 8,
-    // paddingHorizontal: 8,
     width: 30,
     height: 30,
     alignItems: "center",

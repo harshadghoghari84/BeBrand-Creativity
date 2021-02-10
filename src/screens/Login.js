@@ -9,11 +9,10 @@ import {
   ScrollView,
 } from "react-native";
 import { inject, observer } from "mobx-react";
-import * as Animatable from "react-native-animatable";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 // relative path
 import Background from "../components/Background";
-import Header from "../components/Header";
 import Logo from "../components/Logo";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
@@ -21,40 +20,18 @@ import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
 import Signin from "./Signin";
 import Signup from "./Signup";
-import TabsAnimation from "../components/TabsAnimation";
+
+import TopTabBar from "../components/TopTabBar";
+
+const Tab = createMaterialTopTabNavigator();
 
 const Login = (props) => {
-  /*
-  .##....##....###....##.....##.####..######......###....########.####..#######..##....##
-  .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
-  .####..##..##...##..##.....##..##..##.........##...##.....##.....##..##.....##.####..##
-  .##.##.##.##.....##.##.....##..##..##...####.##.....##....##.....##..##.....##.##.##.##
-  .##..####.#########..##...##...##..##....##..#########....##.....##..##.....##.##..####
-  .##...###.##.....##...##.##....##..##....##..##.....##....##.....##..##.....##.##...###
-  .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
-  */
-
-  /*
-  ..######...#######..##.....##.########...#######..##....##....###....##....##.########..######.
-  .##....##.##.....##.###...###.##.....##.##.....##.###...##...##.##...###...##....##....##....##
-  .##.......##.....##.####.####.##.....##.##.....##.####..##..##...##..####..##....##....##......
-  .##.......##.....##.##.###.##.########..##.....##.##.##.##.##.....##.##.##.##....##.....######.
-  .##.......##.....##.##.....##.##........##.....##.##..####.#########.##..####....##..........##
-  .##....##.##.....##.##.....##.##........##.....##.##...###.##.....##.##...###....##....##....##
-  ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##.....######.
-  */
   const renderSelectTabs = () => {
     return (
-      <TabsAnimation
-        bgColor={Color.blackTransparant}
-        AnimbgColor={Color.darkBlue}
-        activeColor={Color.white}
-        InactiveColor={Color.darkBlue}
-        txt1="SignIn"
-        txt2="SignUp"
-        child1={<Signin />}
-        child2={<Signup />}
-      />
+      <Tab.Navigator tabBar={(props) => <TopTabBar {...props} arr={2} />}>
+        <Tab.Screen name="Signin" component={Signin} />
+        <Tab.Screen name="Signup" component={Signup} />
+      </Tab.Navigator>
     );
   };
   const renderMainView = () => {

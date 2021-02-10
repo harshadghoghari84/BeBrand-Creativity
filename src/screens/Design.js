@@ -42,6 +42,10 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const user = toJS(userStore.user);
   const { designs: designsArr, curDesign } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
+
+  useEffect(() => {
+    console.log("user", user);
+  }, [user]);
   /*
   ..######..########....###....########.########
   .##....##....##......##.##......##....##......
@@ -158,6 +162,9 @@ const Design = ({ route, designStore, userStore, navigation }) => {
     : undefined;
   const objDesignation = currentLayout?.layoutFields?.designation
     ? Common.convertStringToObject(currentLayout?.layoutFields?.designation)
+    : undefined;
+  const objAddress = currentLayout?.layoutFields?.address
+    ? Common.convertStringToObject(currentLayout?.layoutFields?.address)
     : undefined;
   const objImage = currentLayout?.layoutFields?.image
     ? Common.convertStringToObject(currentLayout?.layoutFields?.image)
@@ -678,6 +685,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               }}
             >
               <Button
+                disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
                 onPress={() => navigation.navigate(Constant.navProfile)}
                 icon={
@@ -688,6 +696,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               </Button>
 
               <Button
+                disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
                 onPress={() => {
                   if (currentDesign.id === curDesign.id) {
@@ -707,11 +716,19 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               >
                 {Common.getTranslation(LangKey.txtReset)}
               </Button>
-              <Button style={{ margin: 5 }} onPress={onClickShare}>
+              <Button
+                disable={designs == null || designs == undefined}
+                style={{ margin: 5 }}
+                onPress={onClickShare}
+              >
                 {Common.getTranslation(LangKey.txtShare)}
               </Button>
 
-              <Button style={{ margin: 5 }} onPress={onClickDownload}>
+              <Button
+                disable={designs == null || designs == undefined}
+                style={{ margin: 5 }}
+                onPress={onClickDownload}
+              >
                 {Common.getTranslation(LangKey.txtDownload)}
               </Button>
             </View>
@@ -825,8 +842,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                     <Text style={{ ...objName, color: footerTextColor }}>
                       {userDataBussiness.name}
                     </Text>
-                    <Text style={{ ...objDesignation, color: footerTextColor }}>
-                      {userDataBussiness.designation}
+                    <Text style={{ ...objAddress, color: footerTextColor }}>
+                      {userDataBussiness.address}
                     </Text>
                     <Text style={{ ...objMobile, color: footerTextColor }}>
                       {userDataBussiness.mobile}
@@ -1038,6 +1055,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               }}
             >
               <Button
+                disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
                 onPress={() => navigation.navigate(Constant.navProfile)}
                 icon={
@@ -1048,6 +1066,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               </Button>
 
               <Button
+                disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
                 onPress={() => {
                   if (currentDesign.id === curDesign.id) {
@@ -1067,11 +1086,19 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               >
                 {Common.getTranslation(LangKey.txtReset)}
               </Button>
-              <Button style={{ margin: 5 }} onPress={onClickShare}>
+              <Button
+                disable={designs == null || designs == undefined}
+                style={{ margin: 5 }}
+                onPress={onClickShare}
+              >
                 {Common.getTranslation(LangKey.txtShare)}
               </Button>
 
-              <Button style={{ margin: 5 }} onPress={onClickDownload}>
+              <Button
+                disable={designs == null || designs == undefined}
+                style={{ margin: 5 }}
+                onPress={onClickDownload}
+              >
                 {Common.getTranslation(LangKey.txtDownload)}
               </Button>
             </View>

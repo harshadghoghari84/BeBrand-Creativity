@@ -6,16 +6,19 @@ import {
   Image,
   ScrollView,
   FlatList,
+  Text,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { useMutation } from "@apollo/client";
 import { toJS } from "mobx";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import Icon from "../../components/svgIcons";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
+import FastImage from "react-native-fast-image";
 
+// relative path
+import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
@@ -206,6 +209,8 @@ const BusinessProfile = ({ userStore }) => {
               },
             };
 
+            console.log("===> user :", newUser);
+
             userStore.setOnlyUserDetail(newUser);
           } else {
             Common.showMessage(errors[0].message);
@@ -225,7 +230,6 @@ const BusinessProfile = ({ userStore }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
       <View style={styles.container}>
-        {/* loading dialog */}
         <ProgressDialog
           visible={loadingUserImage}
           dismissable={false}
@@ -252,104 +256,68 @@ const BusinessProfile = ({ userStore }) => {
           </TouchableOpacity>
         )}
         <View style={styles.containerTil}>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="user" fill={Color.white} height={15} width={15} />
-            </View>
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labUserName)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            iconName="user"
+            returnKeyType="next"
+            value={userName}
+            onChangeText={(text) => setUserName(text)}
+            autoCapitalize="none"
+            error={!!errorUserName}
+            errorText={errorUserName}
+          />
 
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labUserName)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={userName}
-              onChangeText={(text) => setUserName(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-              error={!!errorUserName}
-              errorText={errorUserName}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="phone" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labMobile)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={mobile}
-              keyboardType="phone-pad"
-              onChangeText={(text) => setMobile(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="email" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labEmail)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon
-                name="designation"
-                fill={Color.white}
-                height={15}
-                width={15}
-              />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labAddress)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={address}
-              onChangeText={(text) => setAddress(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon
-                name="social_id"
-                fill={Color.white}
-                height={15}
-                width={15}
-              />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={socialMediaId}
-              onChangeText={(text) => setSocialMediaId(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
-          <View style={styles.socialBTNView}>
-            <View style={styles.filedsIcon}>
-              <Icon name="website" fill={Color.white} height={15} width={15} />
-            </View>
-            <TextInput
-              placeholder={Common.getTranslation(LangKey.labWebsite)}
-              placeholderTextColor={Color.txtIntxtcolor}
-              returnKeyType="next"
-              value={website}
-              onChangeText={(text) => setWebsite(text)}
-              autoCapitalize="none"
-              style={styles.tiCommon}
-            />
-          </View>
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labMobile)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="phone"
+            value={mobile}
+            keyboardType="phone-pad"
+            onChangeText={(text) => setMobile(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labEmail)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labAddress)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="designation"
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="social_id"
+            value={socialMediaId}
+            onChangeText={(text) => setSocialMediaId(text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labWebsite)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="website"
+            value={website}
+            onChangeText={(text) => setWebsite(text)}
+            autoCapitalize="none"
+          />
         </View>
 
         <View style={styles.containerProfile}>
@@ -376,18 +344,22 @@ const BusinessProfile = ({ userStore }) => {
                   }}
                 >
                   {item.url && item.url !== "" && (
-                    <Image
+                    <FastImage
                       source={{ uri: item.url, width: 100, height: 100 }}
                       style={styles.toProfileImage}
                     />
                   )}
 
                   {defaultImageUrl === item.url && (
-                    <Icon
-                      name="checkbox-marked-circle"
-                      color={Color.primary}
-                      size={20}
-                      style={styles.icnCheck}
+                    <View
+                      style={[
+                        styles.toProfileImage,
+                        {
+                          backgroundColor: Color.blackTransparant,
+                          position: "absolute",
+                          opacity: 0.5,
+                        },
+                      ]}
                     />
                   )}
                 </TouchableOpacity>
@@ -395,7 +367,6 @@ const BusinessProfile = ({ userStore }) => {
             }}
           />
         </View>
-
         <Button
           loading={loading}
           disabled={loading}
@@ -412,7 +383,6 @@ export default inject("userStore")(observer(BusinessProfile));
 
 const styles = StyleSheet.create({
   sv: {
-    flex: 1,
     backgroundColor: Color.white,
   },
   container: {
@@ -429,8 +399,7 @@ const styles = StyleSheet.create({
   },
   containerTil: { width: "90%" },
   tiCommon: {
-    // marginTop: -5,
-    // backgroundColor: Color.white,
+    color: Color.darkBlue,
   },
   containerProfile: {
     flex: 1,
@@ -446,7 +415,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btnSave: {
-    width: "80%",
+    width: "30%",
     marginTop: 10,
   },
   icnCheck: {

@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/drawable_splashscreen_image.jpg.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splashscreen_image.jpg"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/drawable_splashscreen.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splashscreen.xml"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    }
+]

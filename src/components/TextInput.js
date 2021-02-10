@@ -1,18 +1,16 @@
 import React, { memo } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput as Input,
-  Image as Icon,
-} from "react-native";
+import { View, StyleSheet, Text, TextInput as Input } from "react-native";
 import Color from "../utils/Color";
+import Icon from "./svgIcons";
 
-import { paperTheme as theme } from "../utils/Theme";
-
-const TextInput = ({ errorText, ...props }) => (
+const TextInput = ({ iconName, errorText, ...props }) => (
   <>
-    <Input style={styles.input} {...props} />
+    <View style={styles.socialBTNView}>
+      <View style={styles.filedsIcon}>
+        <Icon name={iconName} fill={Color.white} height={15} width={15} />
+      </View>
+      <Input style={styles.input} {...props} />
+    </View>
     {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
   </>
 );
@@ -25,24 +23,34 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 13,
+    borderRadius: 50,
     color: Color.darkBlue,
     fontWeight: "700",
     width: "80%",
   },
   error: {
     fontSize: 14,
-    color: theme.colors.error,
+    color: Color.red,
     paddingLeft: 30,
   },
   socialBTNView: {
-    height: 55,
+    height: 40,
     borderRadius: 50,
     marginHorizontal: 20,
-    borderColor: Color.darkBlue,
-    borderWidth: 3,
+    backgroundColor: Color.txtInBgColor,
     flexDirection: "row",
     alignItems: "center",
-    margin: 10,
+    margin: 7,
+  },
+  filedsIcon: {
+    marginHorizontal: 5,
+    marginRight: 10,
+    backgroundColor: Color.txtIntxtcolor,
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
   },
 });
 
