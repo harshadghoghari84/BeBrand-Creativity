@@ -82,7 +82,9 @@ const Home = ({ navigation, designStore, userStore }) => {
   }, [userStore.hasPro]);
 
   useEffect(() => {
-    designStore.loadHomeData();
+    if (isMountedRef.current && isFirstTimeListLoad) {
+      designStore.loadHomeData();
+    }
   }, []);
 
   useEffect(() => {
@@ -189,6 +191,24 @@ const Home = ({ navigation, designStore, userStore }) => {
         designs: userSubCategories[selectedSubCategory].designs,
         curDesign: design,
       });
+    }
+  };
+
+  const setSubCategoryindex = () => {
+    if (
+      refCategoryList &&
+      refCategoryList.current.scrollToIndex &&
+      userSubCategoriesBefore &&
+      userSubCategoriesBefore.length > 0
+    ) {
+      const index =
+        userSubCategories.length > userSubCategoriesBefore.length
+          ? userSubCategoriesBefore.length
+          : userSubCategoriesBefore.length - 1;
+      refCategoryList.current.scrollToIndex({
+        index: index,
+      });
+      setSelectedSubCategory(index);
     }
   };
 
@@ -303,22 +323,14 @@ const Home = ({ navigation, designStore, userStore }) => {
             onEndReached={() => loadMoreAfterSubCategories()}
             keyExtractor={keyExtractor}
             onContentSizeChange={() => {
-              if (
-                isFirstTimeListLoad === true &&
-                refCategoryList &&
-                refCategoryList.current.scrollToIndex &&
-                userSubCategoriesBefore &&
-                userSubCategoriesBefore.length > 0
-              ) {
+              if (isFirstTimeListLoad) {
                 isFirstTimeListLoad = false;
-                const index =
-                  userSubCategories.length > userSubCategoriesBefore.length
-                    ? userSubCategoriesBefore.length
-                    : userSubCategoriesBefore.length - 1;
-                refCategoryList.current.scrollToIndex({
-                  index,
-                });
-                setSelectedSubCategory(index);
+                setSubCategoryindex();
+              }
+            }}
+            onLayout={() => {
+              if (isFirstTimeListLoad === false) {
+                setSubCategoryindex();
               }
             }}
             getItemLayout={getItemLayoutsCategory}

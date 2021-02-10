@@ -300,6 +300,7 @@ export default {
           designation
           mobile
           image
+          address
           footer
           socialMediaView
           socialMediaLabel
