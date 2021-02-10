@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CocoaLibEvent.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DoubleConversion.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -289,6 +294,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>React-Core-AccessibilityResources.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>React-Core.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -340,6 +350,11 @@
 			<false/>
 		</dict>
 		<key>React-RCTVibration.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>React-callinvoker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -465,11 +480,6 @@
 			<false/>
 		</dict>
 		<key>glog.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>libevent.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
