@@ -29,7 +29,7 @@ MERGED from [:react-native-svg] /Users/bebrandd1/Desktop/bebrandd/node_modules/r
 MERGED from [:react-native-vector-icons] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-view-shot/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
-MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/c4d0cabba89681702baf3332716d9c02/jetified-react-native-0.62.2/AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.react:react-native:0.63.4] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/38a83ef550a9c5d13c2ae584e1181b0e/jetified-react-native-0.63.4/AndroidManifest.xml:2:1-13:12
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-30:12
 MERGED from [:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-25:12
 MERGED from [:expo-sharing] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
@@ -73,7 +73,7 @@ MERGED from [com.facebook.fresco:nativeimagefilters:2.0.0] /Users/bebrandd1/.gra
 MERGED from [com.facebook.fresco:imagepipeline:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/4afbf42a21dfb25c540da01b64c81d5f/jetified-imagepipeline-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/89606c104deae5f7d9d91393b223ff42/jetified-nativeimagetranscoder-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/48dce084b28e42ace5ee58d2c1508756/jetified-imagepipeline-base-2.0.0/AndroidManifest.xml:2:1-9:12
-MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b7d8c76d4c01a3a990e59142d55b7803/jetified-soloader-0.8.2/AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/3247ae89ff05c7d440996b104b8eb951/jetified-soloader-0.9.0/AndroidManifest.xml:2:1-13:12
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.7.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b5149d82d2290e20fc843e3debf43f72/jetified-android-image-cropper-2.7.0/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2f8bd9c4130c56f7cc8fef2403aea9b0/material-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/34cffa46ca84a386ef7adc4554df2a11/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -135,7 +135,6 @@ MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/bebrandd1/
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/32b571256d561b9a3aeee5ce2236ea7a/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e8a1442353fefdc2a5e76d28f5152b46/jetified-library-3.2.11/AndroidManifest.xml:2:1-30:12
 MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2bed205243644d8e2cc7f2127017fe44/jetified-core-1.8.0/AndroidManifest.xml:2:1-19:12
-MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e442b3771f1336388bbefee5920702ac/jetified-annotation-0.8.0/AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2559c18ad403de9711f42d441b431b90/jetified-fbcore-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/6a9b5b568d5ec1ef13c4a2278565ecfd/jetified-installreferrer-1.0/AndroidManifest.xml:2:1-13:12
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/debug/AndroidManifest.xml:1:1-7:12
@@ -200,8 +199,8 @@ MERGED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd
 MERGED from [:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-15:19
 MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
 MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
-MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/c4d0cabba89681702baf3332716d9c02/jetified-react-native-0.62.2/AndroidManifest.xml:11:5-20
-MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/c4d0cabba89681702baf3332716d9c02/jetified-react-native-0.62.2/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.63.4] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/38a83ef550a9c5d13c2ae584e1181b0e/jetified-react-native-0.63.4/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.63.4] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/38a83ef550a9c5d13c2ae584e1181b0e/jetified-react-native-0.63.4/AndroidManifest.xml:11:5-20
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-28:19
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-28:19
 MERGED from [:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-23:19
@@ -218,8 +217,8 @@ MERGED from [com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradl
 MERGED from [com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/024fc34c5a9b1f4a3b000582c60f8c49/jetified-facebook-common-7.1.0/AndroidManifest.xml:29:5-50:19
 MERGED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-19:19
 MERGED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-19:19
-MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b7d8c76d4c01a3a990e59142d55b7803/jetified-soloader-0.8.2/AndroidManifest.xml:11:5-20
-MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b7d8c76d4c01a3a990e59142d55b7803/jetified-soloader-0.8.2/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/3247ae89ff05c7d440996b104b8eb951/jetified-soloader-0.9.0/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/3247ae89ff05c7d440996b104b8eb951/jetified-soloader-0.9.0/AndroidManifest.xml:11:5-20
 MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2f8bd9c4130c56f7cc8fef2403aea9b0/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2f8bd9c4130c56f7cc8fef2403aea9b0/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2a79d1f15f818697ce799c919325d1fd/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:10:5-14:19
@@ -266,8 +265,6 @@ MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/ca
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e8a1442353fefdc2a5e76d28f5152b46/jetified-library-3.2.11/AndroidManifest.xml:18:5-28:19
 MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2bed205243644d8e2cc7f2127017fe44/jetified-core-1.8.0/AndroidManifest.xml:10:3-17:17
 MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2bed205243644d8e2cc7f2127017fe44/jetified-core-1.8.0/AndroidManifest.xml:10:3-17:17
-MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e442b3771f1336388bbefee5920702ac/jetified-annotation-0.8.0/AndroidManifest.xml:11:5-20
-MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e442b3771f1336388bbefee5920702ac/jetified-annotation-0.8.0/AndroidManifest.xml:11:5-20
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/6a9b5b568d5ec1ef13c4a2278565ecfd/jetified-installreferrer-1.0/AndroidManifest.xml:11:5-20
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/6a9b5b568d5ec1ef13c4a2278565ecfd/jetified-installreferrer-1.0/AndroidManifest.xml:11:5-20
 	android:requestLegacyExternalStorage
@@ -443,8 +440,8 @@ MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_mod
 MERGED from [:react-native-view-shot] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-view-shot/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-webview] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
-MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/c4d0cabba89681702baf3332716d9c02/jetified-react-native-0.62.2/AndroidManifest.xml:7:5-9:41
-MERGED from [com.facebook.react:react-native:0.62.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/c4d0cabba89681702baf3332716d9c02/jetified-react-native-0.62.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.63.4] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/38a83ef550a9c5d13c2ae584e1181b0e/jetified-react-native-0.63.4/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.63.4] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/38a83ef550a9c5d13c2ae584e1181b0e/jetified-react-native-0.63.4/AndroidManifest.xml:7:5-9:41
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
 MERGED from [:expo-file-system] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
 MERGED from [:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
@@ -531,8 +528,8 @@ MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] /Users/bebrandd1/.
 MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/89606c104deae5f7d9d91393b223ff42/jetified-nativeimagetranscoder-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/48dce084b28e42ace5ee58d2c1508756/jetified-imagepipeline-base-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/48dce084b28e42ace5ee58d2c1508756/jetified-imagepipeline-base-2.0.0/AndroidManifest.xml:5:5-7:41
-MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b7d8c76d4c01a3a990e59142d55b7803/jetified-soloader-0.8.2/AndroidManifest.xml:7:5-9:41
-MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b7d8c76d4c01a3a990e59142d55b7803/jetified-soloader-0.8.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/3247ae89ff05c7d440996b104b8eb951/jetified-soloader-0.9.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/3247ae89ff05c7d440996b104b8eb951/jetified-soloader-0.9.0/AndroidManifest.xml:7:5-9:41
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.7.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b5149d82d2290e20fc843e3debf43f72/jetified-android-image-cropper-2.7.0/AndroidManifest.xml:7:5-9:41
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.7.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/b5149d82d2290e20fc843e3debf43f72/jetified-android-image-cropper-2.7.0/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2f8bd9c4130c56f7cc8fef2403aea9b0/material-1.1.0/AndroidManifest.xml:20:5-44
@@ -655,8 +652,6 @@ MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/ca
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e8a1442353fefdc2a5e76d28f5152b46/jetified-library-3.2.11/AndroidManifest.xml:8:5-10:41
 MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2bed205243644d8e2cc7f2127017fe44/jetified-core-1.8.0/AndroidManifest.xml:4:3-70
 MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2bed205243644d8e2cc7f2127017fe44/jetified-core-1.8.0/AndroidManifest.xml:4:3-70
-MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e442b3771f1336388bbefee5920702ac/jetified-annotation-0.8.0/AndroidManifest.xml:7:5-9:41
-MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/e442b3771f1336388bbefee5920702ac/jetified-annotation-0.8.0/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2559c18ad403de9711f42d441b431b90/jetified-fbcore-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/2559c18ad403de9711f42d441b431b90/jetified-fbcore-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-2/files-2.1/6a9b5b568d5ec1ef13c4a2278565ecfd/jetified-installreferrer-1.0/AndroidManifest.xml:5:5-7:41
