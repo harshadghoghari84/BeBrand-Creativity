@@ -33,6 +33,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Color from "../utils/Color";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
+import ProgressDialog from "./common/ProgressDialog";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -258,9 +259,24 @@ const LoginScreen = ({ userStore }) => {
     };
   };
 
+  const isLoading = () => {
+    {
+      mutLoading
+        ? mutLoading
+        : loading && (
+            <ProgressDialog
+              visible={true}
+              dismissable={false}
+              message={Common.getTranslation(LangKey.labLoading)}
+            />
+          );
+    }
+  };
+
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
     <View style={{ flex: 1 }}>
+      {isLoading()}
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}

@@ -17,6 +17,7 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Common from "../utils/Common";
+import CustomHeader from "./common/CustomHeader";
 
 const Otp = ({ route, navigation, userStore }) => {
   // state for textInput
@@ -43,7 +44,7 @@ const Otp = ({ route, navigation, userStore }) => {
   );
 
   const { mobile } = route.params;
-  // console.log("otp mobile: ", mobile);
+  console.log("otp mobile: ", mobile);
 
   useEffect(() => {
     firstRef.current.focus();
@@ -92,145 +93,147 @@ const Otp = ({ route, navigation, userStore }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={styles.container}
-        // onPress={() => dismissKeyboard()}
-      >
-        <View style={styles.container}>
-          <View style={styles.otpContainer}>
-            <TextInput
-              style={styles.textInput}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={firstRef}
-              value={firstVal}
-              onSubmitEditing={() => secondRef.current.focus()}
-              onChangeText={(text) => {
-                setFirstVal(text);
-                if (text.length > 0) secondRef.current.focus();
-              }}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key != "Backspace" && firstVal.length > 0) {
-                  setFirstVal(nativeEvent.key);
-                  secondRef.current.focus();
-                }
-              }}
-            />
-            <TextInput
-              style={[styles.textInput, { marginLeft: 10 }]}
-              maxLength={1}
-              keyboardType="numeric"
-              ref={secondRef}
-              onSubmitEditing={() => thirdRef.current.focus()}
-              onChangeText={(text) => {
-                setSecondVal(text);
-                if (text.length > 0) thirdRef.current.focus();
-              }}
-              value={secondVal}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  if (secondVal == "") firstRef.current.focus();
-                } else if (secondVal.length > 0) {
-                  setSecondVal(nativeEvent.key);
-                  thirdRef.current.focus();
-                }
-              }}
-            />
-            <TextInput
-              style={[styles.textInput, { marginLeft: 10 }]}
-              maxLength={1}
-              keyboardType="numeric"
-              ref={thirdRef}
-              onSubmitEditing={() => fourRef.current.focus()}
-              onChangeText={(text) => {
-                setThirdVal(text);
-                if (text.length > 0) fourRef.current.focus();
-              }}
-              value={thirdVal}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  if (thirdVal == "") secondRef.current.focus();
-                } else if (thirdVal.length > 0) {
-                  setThirdVal(nativeEvent.key);
-                  fourRef.current.focus();
-                }
-              }}
-            />
-            <TextInput
-              style={[styles.textInput, { marginLeft: 10 }]}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={fourRef}
-              onSubmitEditing={() => fiveRef.current.focus()}
-              onChangeText={(text) => {
-                setFourVal(text);
-                if (text.length > 0) fiveRef.current.focus();
-              }}
-              value={fourVal}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  if (fourVal == "") thirdRef.current.focus();
-                } else if (fourVal.length > 0) {
-                  setFourVal(nativeEvent.key);
-                  fiveRef.current.focus();
-                }
-              }}
-            />
-            <TextInput
-              style={[styles.textInput, { marginLeft: 10 }]}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={fiveRef}
-              onSubmitEditing={() => sixRef.current.focus()}
-              onChangeText={(text) => {
-                setFiveVal(text);
-                if (text.length > 0) sixRef.current.focus();
-              }}
-              value={fiveVal}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  if (fiveVal == "") fourRef.current.focus();
-                } else if (fiveVal.length > 0) {
-                  setFiveVal(nativeEvent.key);
-                  sixRef.current.focus();
-                }
-              }}
-            />
-            <TextInput
-              style={[styles.textInput, { marginLeft: 10 }]}
-              keyboardType="numeric"
-              maxLength={1}
-              ref={sixRef}
-              onSubmitEditing={() => Keyboard.dismiss()}
-              onChangeText={(text) => {
-                setSixVal(text);
-                if (text.length > 0) Keyboard.dismiss();
-              }}
-              value={sixVal}
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  if (sixVal == "") fiveRef.current.focus();
-                } else if (sixVal.length > 0) {
-                  setSixVal(nativeEvent.key);
-                  dismissKeyboard();
-                }
-              }}
-            />
-          </View>
+    <>
+      <SafeAreaView style={styles.container}>
+        <View
+          style={styles.container}
+          // onPress={() => dismissKeyboard()}
+        >
+          <View style={styles.container}>
+            <View style={styles.otpContainer}>
+              <TextInput
+                style={styles.textInput}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={firstRef}
+                value={firstVal}
+                onSubmitEditing={() => secondRef.current.focus()}
+                onChangeText={(text) => {
+                  setFirstVal(text);
+                  if (text.length > 0) secondRef.current.focus();
+                }}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key != "Backspace" && firstVal.length > 0) {
+                    setFirstVal(nativeEvent.key);
+                    secondRef.current.focus();
+                  }
+                }}
+              />
+              <TextInput
+                style={[styles.textInput, { marginLeft: 10 }]}
+                maxLength={1}
+                keyboardType="numeric"
+                ref={secondRef}
+                onSubmitEditing={() => thirdRef.current.focus()}
+                onChangeText={(text) => {
+                  setSecondVal(text);
+                  if (text.length > 0) thirdRef.current.focus();
+                }}
+                value={secondVal}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    if (secondVal == "") firstRef.current.focus();
+                  } else if (secondVal.length > 0) {
+                    setSecondVal(nativeEvent.key);
+                    thirdRef.current.focus();
+                  }
+                }}
+              />
+              <TextInput
+                style={[styles.textInput, { marginLeft: 10 }]}
+                maxLength={1}
+                keyboardType="numeric"
+                ref={thirdRef}
+                onSubmitEditing={() => fourRef.current.focus()}
+                onChangeText={(text) => {
+                  setThirdVal(text);
+                  if (text.length > 0) fourRef.current.focus();
+                }}
+                value={thirdVal}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    if (thirdVal == "") secondRef.current.focus();
+                  } else if (thirdVal.length > 0) {
+                    setThirdVal(nativeEvent.key);
+                    fourRef.current.focus();
+                  }
+                }}
+              />
+              <TextInput
+                style={[styles.textInput, { marginLeft: 10 }]}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={fourRef}
+                onSubmitEditing={() => fiveRef.current.focus()}
+                onChangeText={(text) => {
+                  setFourVal(text);
+                  if (text.length > 0) fiveRef.current.focus();
+                }}
+                value={fourVal}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    if (fourVal == "") thirdRef.current.focus();
+                  } else if (fourVal.length > 0) {
+                    setFourVal(nativeEvent.key);
+                    fiveRef.current.focus();
+                  }
+                }}
+              />
+              <TextInput
+                style={[styles.textInput, { marginLeft: 10 }]}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={fiveRef}
+                onSubmitEditing={() => sixRef.current.focus()}
+                onChangeText={(text) => {
+                  setFiveVal(text);
+                  if (text.length > 0) sixRef.current.focus();
+                }}
+                value={fiveVal}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    if (fiveVal == "") fourRef.current.focus();
+                  } else if (fiveVal.length > 0) {
+                    setFiveVal(nativeEvent.key);
+                    sixRef.current.focus();
+                  }
+                }}
+              />
+              <TextInput
+                style={[styles.textInput, { marginLeft: 10 }]}
+                keyboardType="numeric"
+                maxLength={1}
+                ref={sixRef}
+                onSubmitEditing={() => Keyboard.dismiss()}
+                onChangeText={(text) => {
+                  setSixVal(text);
+                  if (text.length > 0) Keyboard.dismiss();
+                }}
+                value={sixVal}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    if (sixVal == "") fiveRef.current.focus();
+                  } else if (sixVal.length > 0) {
+                    setSixVal(nativeEvent.key);
+                    dismissKeyboard();
+                  }
+                }}
+              />
+            </View>
 
-          <Button
-            mode="contained"
-            style={styles.btn}
-            loading={loading}
-            disabled={loading}
-            onPress={_onVerifyPressed}
-          >
-            Verify Otp
-          </Button>
+            <Button
+              mode="contained"
+              style={styles.btn}
+              loading={loading}
+              disabled={loading}
+              onPress={_onVerifyPressed}
+            >
+              Verify Otp
+            </Button>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 export default inject("userStore")(observer(Otp));

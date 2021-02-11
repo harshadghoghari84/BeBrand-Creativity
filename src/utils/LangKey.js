@@ -9,6 +9,7 @@ module.exports = {
   // user screen
   labMobile: "labMobile",
   labPassword: "labPassword",
+  labConfirmPassword: "labConfirmPassword",
   labAlreadyAcc: "labAlreadyAcc",
   labNothaveAcc: "labNothaveAcc",
   labForgetPassword: "labForgetPassword",
@@ -21,6 +22,7 @@ module.exports = {
   errorMobileNo: "errorMobileNo",
   errorEmail: "errorEmail",
   errorPassword: "errorPassword",
+  errorConfirmPassword: "errorConfirmPassword",
   errorName: "errorName",
   errorGender: "errorGender",
 
@@ -65,4 +67,7 @@ module.exports = {
 
   // modal text
   modalTxtPlaceHolder: "modalTxtPlaceHolder",
+
+  // signin
+  labLoading: "labLoading",
 };

@@ -18,6 +18,7 @@
   "errorMobileNo": "Please enter valid mobile number",
   "errorEmail": "Please enter valid email address",
   "errorPassword": "Please enter valid password",
+  "errorConfirmPassword": "password not match as above",
   "errorName": "Please enter your name",
   "errorGender": "Please select your gender",
 
@@ -56,5 +57,7 @@
   "txtEdit": "edit",
   "txtReset": "reset",
   "labPerchase": "Purchase",
-  "modalTxtPlaceHolder":"write here..."
+  "modalTxtPlaceHolder":"write here...",
+  "labLoading":"Loading...",
+  "labConfirmPassword":"Confirm Password"
 }
