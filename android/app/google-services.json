@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "145083857360",
-    "project_id": "bebranddcreativity",
-    "storage_bucket": "bebranddcreativity.appspot.com"
+    "project_number": "600189297260",
+    "project_id": "branddot-5d796",
+    "storage_bucket": "branddot-5d796.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:145083857360:android:788c1b9c6af80dc2fd61d5",
+        "mobilesdk_app_id": "1:600189297260:android:36448a9be70ad6980aae49",
         "android_client_info": {
-          "package_name": "com.bebrandd.yourdesign"
+          "package_name": "com.bebrandd.branddot"
         }
       },
       "oauth_client": [
         {
-          "client_id": "145083857360-lc8f1loarumn7iecutm675mqsckmi8ep.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bebrandd.yourdesign",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+          "client_id": "600189297260-84i8k158h4i6s8elhu4hh9pa4cdbpn8j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC0Qp_PMgafheidhk9d0PMYMugk71s5sOE"
+          "current_key": "AIzaSyAN_G9JHsIbU5JIsZuhEPNl4dv-xEYX130"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+              "client_id": "600189297260-84i8k158h4i6s8elhu4hh9pa4cdbpn8j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.bebrandd.yourdesign.generated;
+package com.bebrandd.branddot.generated;
 
 import java.util.Arrays;
 import java.util.List;

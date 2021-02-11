@@ -1,4 +1,4 @@
-package com.bebrandd.yourdesign;
+package com.bebrandd.branddot;
 
 import android.os.Bundle;
 

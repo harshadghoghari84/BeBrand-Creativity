@@ -42,14 +42,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.facebook.soloader:nativeloader:0.8.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.soloader:annotation:0.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.soloader:nativeloader:0.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.infer.annotation:infer-annotation:0.11.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:3.12.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:3.12.12" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.14.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.2" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-android:1.4.0" level="project" />
@@ -64,14 +65,13 @@
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fbjni:fbjni-java-only:0.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.device.yearclass:yearclass:2.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.11.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.11.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.flipper:flipper:0.33.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.react:react-native:0.62.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.soloader:soloader:0.8.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.soloader:annotation:0.8.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.react:react-native:0.63.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.soloader:soloader:0.9.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.theartofdev.edmodo:android-image-cropper:2.7.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-android-sdk:7.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-login:7.1.0@aar" level="project" />
@@ -175,6 +175,7 @@
     <orderEntry type="module" module-name="my-app.react-native-fast-image" />
     <orderEntry type="module" module-name="my-app.react-native-fbsdk" />
     <orderEntry type="module" module-name="my-app.react-native-gesture-handler" />
+    <orderEntry type="module" module-name="my-app.react-native-rate" />
     <orderEntry type="module" module-name="my-app.react-native-reanimated" />
     <orderEntry type="module" module-name="my-app.react-native-safe-area-context" />
     <orderEntry type="module" module-name="my-app.react-native-screens" />
