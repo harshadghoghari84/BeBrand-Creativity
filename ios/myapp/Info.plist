@@ -38,19 +38,17 @@
 				<string>com.googleusercontent.apps.600189297260-vr9ha7le3sv7v4apqlc1lsht9km4ergh</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb142168254391909</string>
-			</array>
-		</dict>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb719753938932389</string>
+      </array>
+      </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>FacebookAppID</key>
-	<string>142168254391909</string>
+	<string>719753938932389</string>
 	<key>FacebookDisplayName</key>
 	<string>Brand Dot</string>
 	<key>LSRequiresIPhoneOS</key>
