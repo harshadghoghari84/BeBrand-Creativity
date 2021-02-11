@@ -125,15 +125,33 @@ const LoginScreen = ({ userStore }) => {
 
   const onGoogleLogin = async () => {
     try {
-      const { idToken } = await GoogleSignin.signIn();
-      console.log("idToken", idToken);
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      return auth()
-        .signInWithCredential(googleCredential)
-        .then((res) => {
-          console.log("myResponse", res);
-          sendTokentoServer(res);
-        });
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      if (isSignedIn) {
+        try {
+          const userInfo = await GoogleSignin.signInSilently();
+          const googleCredential = auth.GoogleAuthProvider.credential(
+            userInfo.idToken
+          );
+          auth()
+            .signInWithCredential(googleCredential)
+            .then((res) => {
+              console.log("myResponse", res);
+              sendTokentoServer(res);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        const { idToken } = await GoogleSignin.signIn();
+        console.log("idToken", idToken);
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        return auth()
+          .signInWithCredential(googleCredential)
+          .then((res) => {
+            console.log("myResponse", res);
+            sendTokentoServer(res);
+          });
+      }
     } catch (error) {
       console.log("===>", error);
     }
