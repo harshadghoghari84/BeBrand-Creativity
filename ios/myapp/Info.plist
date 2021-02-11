@@ -2,25 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb460843578247177</string>
-    </array>
-    </dict>
-  </array>
-  <key>FacebookAppID</key>
-  <string>460843578247177</string>
-  <key>FacebookDisplayName</key>
-  <string>BeBrandCreativity</string>
-  
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>my-app</string>
+	<string>Brand Dot</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,9 +23,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.bebrandd.yourdesign</string>
+				<string>com.bebrandd.branddot</string>
 			</array>
 		</dict>
 		<dict>
@@ -48,7 +35,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.145083857360-q8anbvo2mfok8s8iv5oc0musp37fm430</string>
+				<string>com.googleusercontent.apps.600189297260-vr9ha7le3sv7v4apqlc1lsht9km4ergh</string>
 			</array>
 		</dict>
 		<dict>
@@ -56,12 +43,16 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb460843578247177</string>
+				<string>fb142168254391909</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
+	<key>FacebookAppID</key>
+	<string>142168254391909</string>
+	<key>FacebookDisplayName</key>
+	<string>Brand Dot</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
