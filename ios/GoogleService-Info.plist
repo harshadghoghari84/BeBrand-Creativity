@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>145083857360-q8anbvo2mfok8s8iv5oc0musp37fm430.apps.googleusercontent.com</string>
+	<string>600189297260-vr9ha7le3sv7v4apqlc1lsht9km4ergh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.145083857360-q8anbvo2mfok8s8iv5oc0musp37fm430</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>145083857360-lc8f1loarumn7iecutm675mqsckmi8ep.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.600189297260-vr9ha7le3sv7v4apqlc1lsht9km4ergh</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAQu7sRORw_OXYz0xoEhze51AZsbL3Q310</string>
+	<string>AIzaSyA_Yd84eOXaOFtB1W66Re1aLDcUBaXhDYE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>145083857360</string>
+	<string>600189297260</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.bebrandd.yourdesign</string>
+	<string>com.bebrandd.branddot</string>
 	<key>PROJECT_ID</key>
-	<string>bebranddcreativity</string>
+	<string>branddot-5d796</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bebranddcreativity.appspot.com</string>
+	<string>branddot-5d796.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:145083857360:ios:2db8d172d9f191d1fd61d5</string>
+	<string>1:600189297260:ios:f70e8e8f21f39a0c0aae49</string>
 </dict>
 </plist>

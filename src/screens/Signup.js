@@ -59,6 +59,13 @@ const RegisterScreen = ({ userStore }) => {
     }
   );
 
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: Constant.webClientId,
+      offlineAccess: true,
+    });
+  }, []);
+
   /*
   .##....##....###....##.....##.####..######......###....########.####..#######..##....##
   .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##

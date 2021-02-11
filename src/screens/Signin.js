@@ -55,8 +55,7 @@ const LoginScreen = ({ userStore }) => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId:
-        "145083857360-h33qlqtc5v4f8jl7ou1rl8n52s4464l5.apps.googleusercontent.com",
+      webClientId: Constant.webClientId,
       offlineAccess: true,
     });
   }, []);
@@ -72,6 +71,7 @@ const LoginScreen = ({ userStore }) => {
   */
 
   const sendTokentoServer = (response) => {
+    console.log("fbRes____", response);
     try {
       auth()
         .currentUser?.getIdToken()

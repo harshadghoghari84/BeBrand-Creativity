@@ -23,6 +23,8 @@ export default {
   prfUserToken: "userToken",
   prfLangCode: "langCode",
 
+  webClientId:
+    "600189297260-84i8k158h4i6s8elhu4hh9pa4cdbpn8j.apps.googleusercontent.com",
   // navigation names
   navSplash: "splash",
   navLangSelection: "langaugeSelection",
