@@ -1,0 +1,63 @@
+{
+  "titleHome": "Home",
+  "titleFavourite": "Favourite",
+  "titleCart": "Cart",
+  "titleNotification": "Notification",
+  "titleProfile": "Profile",
+
+  "labMobile": "Mobile No",
+  "labPassword": "Password",
+  "labSignin": "Login",
+  "labSignup": "Signup",
+  "labAlreadyAcc": "Already have an account? ",
+  "labNothaveAcc": "Don’t have an account? ",
+  "labForgetPassword": "Forgot your password?",
+  "txtWelcome": "Welcome back...",
+  "txtCreateAccount": "Create Account",
+
+  "errorMobileNo": "Please enter valid mobile number",
+  "errorEmail": "Please enter valid email address",
+  "errorPassword": "Please enter valid password",
+  "errorConfirmPassword": "password not match as above",
+  "errorName": "Please enter your name",
+  "errorGender": "Please select your gender",
+
+  "headerSearchHint": "Search Items. E.g Diwali",
+
+  "cartEmpty": "Your cart is empty",
+
+  "labAll": "All",
+
+  "labFollowUs": "Follow Us On",
+  "msgSocialIconLimit": "You can add maximum 4 social media icons",
+  "txtShare": "Share",
+  "txtDownload": "Download",
+  "msgPerchasePkg": "Please perchase any package to use pro content",
+  "msgCreateAcc": "Please login or create account to get these design",
+  "msgDesignDownload": "Your design downloaded successfully",
+  "msgShareNotAvaillable": "Uh oh, sharing isn't available on your platform",
+
+  "txtDesignCredit": "Design Credit",
+  "txtRemainingCredit": "Remaining Credit",
+  "txtPerchsedAt": "Perchased At",
+  "txtExpiredAt": "Expired At",
+
+  "msgCameraRollPermission": "we need camera roll permissions to make this work!",
+  "labUserName": "User Name",
+  "labEmail": "Email",
+  "labDesignation": "Designation",
+  "labSocialMediaId": "SocialMedia Id",
+  "labWebsite": "Website",
+  "txtSave": "Save",
+  "errUserName": "Enter valid username",
+
+  "labCompanyName": "Company Name",
+  "labAddress": "Address",
+  "errCompanyName": "Enter valid company name",
+  "txtEdit": "edit",
+  "txtReset": "reset",
+  "labPerchase": "Purchase",
+  "modalTxtPlaceHolder":"write here...",
+  "labLoading":"Loading...",
+  "labConfirmPassword":"Confirm Password"
+}
