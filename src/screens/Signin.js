@@ -81,15 +81,6 @@ const LoginScreen = ({ userStore }) => {
           userSignupSocial({
             variables: {
               token: token,
-              name: response?.user?._user?.displayName
-                ? response.user._user.displayName
-                : "",
-              email: response?.user?._user?.email
-                ? response.user._user.email
-                : "",
-              mobile: response?.user?._user?.phoneNumber
-                ? response.user._user.phoneNumber
-                : "",
             },
           })
             .then(({ data, errors }) => {

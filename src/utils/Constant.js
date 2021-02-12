@@ -15,7 +15,7 @@ export default {
   // ServerUrl: "http://192.168.100.4:5000/graphql",
 
   playStoreURL:
-    "https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en",
+    "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
   splashTime: 1000,
 
   defLangCode: "en",
