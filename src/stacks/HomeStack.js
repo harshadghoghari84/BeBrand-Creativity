@@ -13,6 +13,7 @@ import WebViews from "../components/WebViews";
 import Notification from "../screens/Notification";
 import Packages from "../screens/pacakges/Packages";
 import MyTabs from "../screens/pacakges";
+import Otp from "../screens/Otp";
 
 const HomeStack = createStackNavigator();
 

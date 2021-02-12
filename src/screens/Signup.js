@@ -29,7 +29,11 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { paperTheme as theme } from "../utils/Theme";
-import { mobileValidator, passwordValidator } from "../utils/Validator";
+import {
+  mobileValidator,
+  passwordValidator,
+  confirmPasswordValidator,
+} from "../utils/Validator";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
@@ -39,11 +43,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { inject, observer } from "mobx-react";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
+import ProgressDialog from "./common/ProgressDialog";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [confirmPassword, setConfirmPassword] = useState({
+    value: "",
+    error: "",
+  });
   const [otp, setOtp] = useState("");
   const [otpVisible, setOtpVisible] = useState(false);
 
@@ -129,14 +138,33 @@ const RegisterScreen = ({ userStore }) => {
 
   const onGoogleLogin = async () => {
     try {
-      const { idToken } = await GoogleSignin.signIn();
-      console.log("idToken", idToken);
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      return auth()
-        .signInWithCredential(googleCredential)
-        .then((res) => {
-          sendTokentoServer(res);
-        });
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      if (isSignedIn) {
+        try {
+          const userInfo = await GoogleSignin.signInSilently();
+          const googleCredential = auth.GoogleAuthProvider.credential(
+            userInfo.idToken
+          );
+          auth()
+            .signInWithCredential(googleCredential)
+            .then((res) => {
+              console.log("myResponse", res);
+              sendTokentoServer(res);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        const { idToken } = await GoogleSignin.signIn();
+        console.log("idToken", idToken);
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        return auth()
+          .signInWithCredential(googleCredential)
+          .then((res) => {
+            console.log("myResponse", res);
+            sendTokentoServer(res);
+          });
+      }
     } catch (error) {
       console.log("===>", error);
     }
@@ -192,40 +220,47 @@ const RegisterScreen = ({ userStore }) => {
   const _onSignUpPressed = async () => {
     const mobileError = mobileValidator(mobileNo.value);
     const passwordError = passwordValidator(password.value);
+    const confirmPasswordError = confirmPasswordValidator(
+      password.value,
+      confirmPassword.value
+    );
 
-    if (mobileError || passwordError) {
+    if (mobileError || passwordError || confirmPasswordError) {
       setMobileNo({ ...mobileNo, error: mobileError });
       setPassword({ ...password, error: passwordError });
+      setConfirmPassword({ ...confirmPassword, error: confirmPasswordError });
       return;
     }
 
-    try {
-      userSignup({
-        variables: {
-          mobile: mobileNo.value,
-          password: password.value,
-        },
-      }).then((result) => {
-        const data = result.data;
-        console.log("response", result);
-        if (data !== null) {
-          // const token = data.userSignup.token;
-          // console.log(data.userSignup.token);
-          // AsyncStorage.setItem(
-          //   Constant.prfUserToken,
-          //   token
-          // ).then(() => {
-          // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-          // navigation.navigate(Constant.navHome);
-          // });
-        } else {
-          const errorMsg = result.errors[0].message;
-          Common.showMessage(errorMsg);
-        }
-      });
-    } catch (err) {
-      console.log("ERROR", err);
-    }
+    navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
+
+    // try {
+    //   userSignup({
+    //     variables: {
+    //       mobile: mobileNo.value,
+    //       password: password.value,
+    //     },
+    //   }).then((result) => {
+    //     const data = result.data;
+    //     console.log("response", result);
+    //     if (data !== null) {
+    //       // const token = data.userSignup.token;
+    //       // console.log(data.userSignup.token);
+    //       // AsyncStorage.setItem(
+    //       //   Constant.prfUserToken,
+    //       //   token
+    //       // ).then(() => {
+    //       // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
+    //       // navigation.navigate(Constant.navHome);
+    //       // });
+    //     } else {
+    //       const errorMsg = result.errors[0].message;
+    //       Common.showMessage(errorMsg);
+    //     }
+    //   });
+    // } catch (err) {
+    //   console.log("ERROR", err);
+    // }
   };
 
   const [verifyUserOtp, { error, data }] = useLazyQuery(
@@ -269,10 +304,15 @@ const RegisterScreen = ({ userStore }) => {
 
     const mobileError = mobileValidator(mobileNo.value);
     const passwordError = passwordValidator(password.value);
+    const confirmPasswordError = confirmPasswordValidator(
+      password.value,
+      confirmPassword.value
+    );
 
-    if (mobileError || passwordError) {
+    if (mobileError || passwordError || confirmPasswordError) {
       setMobileNo({ ...mobileNo, error: mobileError });
       setPassword({ ...password, error: passwordError });
+      setConfirmPassword({ ...confirmPassword, error: confirmPasswordError });
       return;
     }
 
@@ -321,6 +361,15 @@ const RegisterScreen = ({ userStore }) => {
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
     <View style={{ flex: 1 }}>
+      {mutLoading
+        ? mutLoading
+        : loading && (
+            <ProgressDialog
+              visible={true}
+              dismissable={false}
+              message={Common.getTranslation(LangKey.labLoading)}
+            />
+          )}
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}
@@ -420,6 +469,27 @@ const RegisterScreen = ({ userStore }) => {
           />
         </Animatable.View>
       )}
+      {password.value.length > 0 && (
+        <Animatable.View
+          animation={fadeInDown}
+          direction="normal"
+          duration={500}
+        >
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labConfirmPassword)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="done"
+            iconName="lock"
+            value={confirmPassword.value}
+            onChangeText={(text) =>
+              setConfirmPassword({ value: text, error: "" })
+            }
+            error={!!confirmPassword.error}
+            errorText={confirmPassword.error}
+            secureTextEntry
+          />
+        </Animatable.View>
+      )}
       {otpVisible && (
         <Animatable.View
           animation={fadeInDown}
@@ -485,7 +555,7 @@ const RegisterScreen = ({ userStore }) => {
           ) : (
             <TouchableOpacity
               style={styles.btnLoginView}
-              onPress={() => onPressGetOtp()}
+              onPress={() => _onSignUpPressed()}
               loading={loading}
               disabled={loading}
             >

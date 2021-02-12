@@ -29,6 +29,15 @@ export const passwordValidator = (password) => {
 
   return "";
 };
+export const confirmPasswordValidator = (password, confirmPassword) => {
+  if (!password || password.length <= 0) {
+    return Common.getTranslation(LangKey.errorPassword);
+  } else if (password !== confirmPassword) {
+    return Common.getTranslation(LangKey.errorConfirmPassword);
+  }
+
+  return "";
+};
 
 export const nameValidator = (name) => {
   if (!name || name.length <= 0)
@@ -38,8 +47,7 @@ export const nameValidator = (name) => {
 };
 
 export const emptyValidator = (name) => {
-  if (!name || name.length <= 0)
-    return true;
+  if (!name || name.length <= 0) return true;
 
   return false;
 };

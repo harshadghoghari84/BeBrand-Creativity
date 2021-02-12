@@ -22,6 +22,7 @@ const CustomHeader = ({
   navigation,
   search = false,
   notification = false,
+
   empty = false,
 }) => {
   // const { backKey } = route.params;
@@ -50,6 +51,7 @@ const CustomHeader = ({
                 <Icon name="back" fill={Color.white} height={20} width={20} />
               </TouchableOpacity>
             )}
+
             <TouchableOpacity
               style={{
                 ...styles.icons,
