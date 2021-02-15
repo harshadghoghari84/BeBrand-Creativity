@@ -22,13 +22,11 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
   }, []);
 
   useEffect(() => {
-    console.log("navigationState.index: ", navigationState.index);
     changeTab(navigationState.index);
   }, [navigationState.index]);
 
   const changeTab = (currantIndex) => {
     const selectedXTab = xTab[currantIndex] ? xTab[currantIndex] : 0;
-    console.log("selectedXTab: ", selectedXTab);
     Animated.spring(translateX, {
       toValue: selectedXTab,
       duration: 100,
@@ -45,7 +43,7 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
   .##....##.##.....##.##.....##.##........##.....##.##...###.##.....##.##...###....##...
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
-  const renderBottom = () => {
+  const renderTop = () => {
     return (
       <View
         style={{
@@ -111,7 +109,7 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
   };
 
   const renderMainview = () => {
-    return <View>{renderBottom()}</View>;
+    return <View>{renderTop()}</View>;
   };
 
   return renderMainview();

@@ -15,12 +15,11 @@ import ItemSubCategory from "./ItemSubCategory";
 import Constant from "../../utils/Constant";
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
-import FlatListSlider from "../../components/flatlist_carousel/FlatListSlider";
-import Preview from "../sample/Preview";
 import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import FastImage from "react-native-fast-image";
+import ProgressDialog from "../common/ProgressDialog";
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
@@ -50,12 +49,13 @@ const data = [
 ];
 
 const Home = ({ navigation, designStore, userStore }) => {
-  const [activeSlide, setActiveSlide] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [modalVisible, setmodalVisible] = useState(false);
   const toggleVisible = () => {
     setmodalVisible(!modalVisible);
   };
   const [hasPro, sethasPro] = useState(false);
+  const homeDataLoading = toJS(designStore.hdLoading);
   const designPackages = toJS(designStore.designPackages);
   const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
@@ -215,7 +215,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   const SLIDER_WIDTH = Dimensions.get("window").width;
 
   const renderImages = ({ item }) => {
-    return <FastImage source={{ uri: item.image }} style={{ height: 130 }} />;
+    return <FastImage source={{ uri: item.image }} style={{ height: 110 }} />;
   };
 
   const pagination = () => {
@@ -275,8 +275,22 @@ const Home = ({ navigation, designStore, userStore }) => {
     );
   };
 
+  /*
+  ..######...#######..##.....##.########...#######..##....##....###....##....##.########
+  .##....##.##.....##.###...###.##.....##.##.....##.###...##...##.##...###...##....##...
+  .##.......##.....##.####.####.##.....##.##.....##.####..##..##...##..####..##....##...
+  .##.......##.....##.##.###.##.########..##.....##.##.##.##.##.....##.##.##.##....##...
+  .##.......##.....##.##.....##.##........##.....##.##..####.#########.##..####....##...
+  .##....##.##.....##.##.....##.##........##.....##.##...###.##.....##.##...###....##...
+  ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
+  */
   return (
     <View style={styles.containerMain}>
+      <ProgressDialog
+        visible={homeDataLoading}
+        dismissable={false}
+        message="Loading..."
+      />
       <PopUp
         visible={modalVisible}
         toggleVisible={toggleVisible}

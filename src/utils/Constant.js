@@ -58,10 +58,11 @@ export default {
   navCopyright: "copyright",
   navSignOut: "logOut",
   navWebView: "WebView",
+  navReferandEarn: "Refer and Earn",
 
   // titles
   titHome: "Home",
-  titPro: "Be VIP",
+  titPro: "Be Premium",
   titNotification: "Notifications",
   titWishlist: "Wishlist",
   titRateApp: "Rate Us",
@@ -72,8 +73,9 @@ export default {
   titProfile: "Profile",
   titPackage: "Package",
   titDesigns: "Designs",
-  titWhatsAppUs: "WhatsApp Us",
+  titWhatsAppUs: "WhatsApp Updates",
   titLegal: "Legal",
+  titReferandEarn: "Refer & Earn",
   titFaq: "Support System(FAQ)",
   titWorkCulture: "Our Work Culture",
   titTermCondition: "Term & Condition",
@@ -133,4 +135,7 @@ export default {
   // modal placeholder text
 
   modalTxtPlaceHolder: "Write here...",
+
+  // signin
+  userNotVerify: "USER_NOT_VERIFIED",
 };

@@ -620,8 +620,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             renderItem={({ item, index }) => (
               <TouchableOpacity
                 style={{
-                  height: 45,
-                  width: 45,
+                  height: 40,
+                  width: 40,
                   margin: 3,
                   backgroundColor: Color.darkBlue,
                   borderRadius: 50,
@@ -992,8 +992,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             renderItem={({ item, index }) => (
               <TouchableOpacity
                 style={{
-                  height: 45,
-                  width: 45,
+                  height: 40,
+                  width: 40,
                   margin: 3,
                   backgroundColor: Color.darkBlue,
                   borderRadius: 50,

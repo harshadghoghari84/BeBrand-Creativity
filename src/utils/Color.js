@@ -32,4 +32,5 @@ export default {
   blackTransparant: "#E3E3E3",
   txtInBgColor: "#E6E6E6",
   txtIntxtcolor: "#9C9C9C",
+  transparent: "transparent",
 };

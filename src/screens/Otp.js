@@ -7,8 +7,9 @@ import {
   Platform,
   StatusBar,
   Keyboard,
+  TouchableOpacity,
 } from "react-native";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 
 import Color from "../utils/Color";
@@ -16,8 +17,10 @@ import Button from "../components/Button";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "../components/svgIcons";
 import Common from "../utils/Common";
-import CustomHeader from "./common/CustomHeader";
+import LangKey from "../utils/LangKey";
+import ProgressDialog from "./common/ProgressDialog";
 
 const Otp = ({ route, navigation, userStore }) => {
   // state for textInput
@@ -36,15 +39,14 @@ const Otp = ({ route, navigation, userStore }) => {
   const fiveRef = useRef(null);
   const sixRef = useRef(null);
 
+  const { mobile, password } = route.params;
+
   const [verifyUserOtp, { loading, data, error }] = useLazyQuery(
-    GraphqlQuery.verifyUserOtp,
+    password ? GraphqlQuery.resetUserPassword : GraphqlQuery.verifyUserOtp,
     {
       errorPolicy: "all",
     }
   );
-
-  const { mobile } = route.params;
-  console.log("otp mobile: ", mobile);
 
   useEffect(() => {
     firstRef.current.focus();
@@ -56,20 +58,29 @@ const Otp = ({ route, navigation, userStore }) => {
     return otp;
   };
 
-  if (error && error.length > 0) {
-    const errorMsg = result.errors[0].message;
+  if (error && error.graphQLErrors.length > 0) {
+    const errorMsg = error.graphQLErrors[0].message;
     Common.showMessage(errorMsg);
   }
 
   if (data) {
     if (data != null) {
       // set user to userStore
-      data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
+      if (password) {
+        data?.resetUserPassword?.user &&
+          userStore.setUser(data.resetUserPassword.user);
 
-      const token = data.verifyUserOtp.token;
-      AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
-        navigation.navigate(Constant.navHome);
-      });
+        const token = data.resetUserPassword.token;
+        AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
+          navigation.navigate(Constant.navHome);
+        });
+      } else {
+        data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
+        const token = data.verifyUserOtp.token;
+        AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
+          navigation.navigate(Constant.navHome);
+        });
+      }
     } else {
     }
   }
@@ -77,11 +88,18 @@ const Otp = ({ route, navigation, userStore }) => {
   const _onVerifyPressed = async () => {
     try {
       const otp = getFullOtp();
+      const data = {
+        mobile: mobile,
+        otp: otp,
+      };
+      password &&
+        password !== null &&
+        password !== "" &&
+        (data.password = password);
+
+      console.log("chk obj", data);
       verifyUserOtp({
-        variables: {
-          mobile: mobile,
-          otp: otp,
-        },
+        variables: data,
       });
     } catch (err) {
       console.log(err);
@@ -95,8 +113,23 @@ const Otp = ({ route, navigation, userStore }) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <ProgressDialog
+          visible={loading}
+          color={Color.white}
+          dismissable={false}
+          message={Common.getTranslation(LangKey.labLoading)}
+        />
+        <View style={styles.filedsIcon}>
+          <TouchableOpacity
+            style={styles.icons}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="back" fill={Color.white} height={15} width={15} />
+          </TouchableOpacity>
+        </View>
+
         <View
-          style={styles.container}
+          style={[styles.container, { alignItems: "center" }]}
           // onPress={() => dismissKeyboard()}
         >
           <View style={styles.container}>
@@ -222,13 +255,13 @@ const Otp = ({ route, navigation, userStore }) => {
             </View>
 
             <Button
-              mode="contained"
               style={styles.btn}
+              normal="normal"
               loading={loading}
               disabled={loading}
               onPress={_onVerifyPressed}
             >
-              Verify Otp
+              {Common.getTranslation(LangKey.labVarifyOTP)}
             </Button>
           </View>
         </View>
@@ -249,7 +282,6 @@ const getStatusBarHeight = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
   otpContainer: {
@@ -261,12 +293,26 @@ const styles = StyleSheet.create({
   textInput: {
     width: 45,
     height: 45,
-    backgroundColor: Color.grey,
+    backgroundColor: Color.txtIntxtcolor,
     borderRadius: 10,
     justifyContent: "center",
     textAlign: "center",
   },
   btn: {
     marginTop: 30,
+  },
+  icons: {
+    paddingHorizontal: 10,
+  },
+  filedsIcon: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    marginRight: 10,
+    backgroundColor: Color.txtIntxtcolor,
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
   },
 });

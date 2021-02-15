@@ -24,7 +24,11 @@ import {
 
 import TextInput from "../components/TextInput";
 import { paperTheme as theme } from "../utils/Theme";
-import { mobileValidator, passwordValidator } from "../utils/Validator";
+import {
+  mobileValidator,
+  passwordValidator,
+  reTypePassValidator,
+} from "../utils/Validator";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
@@ -34,12 +38,20 @@ import Color from "../utils/Color";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
+import Button from "../components/Button";
 
 const LoginScreen = ({ userStore }) => {
   const navigation = useNavigation();
 
+  const [loader, setLoader] = useState(false);
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [userNotVerify, setUserNotVerify] = useState(false);
+  const [reTypePass, setreTypePass] = useState({
+    value: "",
+    error: "",
+  });
+  const [isForgotPass, setIsForgotPass] = useState(false);
   const [user, setUser] = useState();
   const [initializing, setInitializing] = useState(true);
 
@@ -48,6 +60,13 @@ const LoginScreen = ({ userStore }) => {
   });
   const [userSignupSocial, { loading: mutLoading, data }] = useMutation(
     GraphqlQuery.userSignupSocial,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
+  const [sendUserOtp, { loading: otpLoading, data: otpData }] = useMutation(
+    GraphqlQuery.sendUserOtp,
     {
       fetchPolicy: "no-cache",
       errorPolicy: "all",
@@ -72,19 +91,16 @@ const LoginScreen = ({ userStore }) => {
   */
 
   const sendTokentoServer = (response) => {
-    console.log("fbRes____", response);
     try {
       auth()
         .currentUser?.getIdToken()
         .then((token) => {
-          console.log("auth token", token);
           userSignupSocial({
             variables: {
               token: token,
             },
           })
             .then(({ data, errors }) => {
-              console.log("my last data ", data);
               if (errors && errors.length > 0) {
                 const errorMsg = data.errors[0].message;
                 Common.showMessage(errorMsg);
@@ -117,20 +133,26 @@ const LoginScreen = ({ userStore }) => {
 
   const onGoogleLogin = async () => {
     try {
+      setLoader(true);
+
       const isSignedIn = await GoogleSignin.isSignedIn();
       if (isSignedIn) {
         try {
           const userInfo = await GoogleSignin.signInSilently();
+
           const googleCredential = auth.GoogleAuthProvider.credential(
             userInfo.idToken
           );
+
           auth()
             .signInWithCredential(googleCredential)
             .then((res) => {
-              console.log("myResponse", res);
               sendTokentoServer(res);
+              setLoader(false);
             });
         } catch (error) {
+          setLoader(false);
+
           console.log(error);
         }
       } else {
@@ -140,33 +162,12 @@ const LoginScreen = ({ userStore }) => {
         return auth()
           .signInWithCredential(googleCredential)
           .then((res) => {
-            console.log("myResponse", res);
             sendTokentoServer(res);
           });
       }
     } catch (error) {
       console.log("===>", error);
     }
-  };
-
-  const getInfoFromToken = (token) => {
-    const PROFILE_REQ_PARAMS = {
-      fileds: {
-        string: "id,name,first_name,last_name",
-      },
-    };
-    const ProfileRequest = new GraphRequest(
-      "/me",
-      { token, parameters: PROFILE_REQ_PARAMS },
-      (error, user) => {
-        if (error) {
-          console.log("login info has error", error);
-        } else {
-          console.log("result user", user.name);
-        }
-      }
-    );
-    new GraphRequestManager().addRequest(ProfileRequest).start();
   };
 
   const onFaceBookLogin = async () => {
@@ -185,11 +186,10 @@ const LoginScreen = ({ userStore }) => {
       const facebookCredential = auth.FacebookAuthProvider.credential(
         data.accessToken
       );
-      console.log("data", data);
+
       return auth()
         .signInWithCredential(facebookCredential)
         .then((res) => {
-          console.log("facebook response==>", res);
           sendTokentoServer(res);
         });
     } catch (error) {
@@ -228,13 +228,69 @@ const LoginScreen = ({ userStore }) => {
             navigation.navigate(Constant.navHome);
           });
         } else {
-          const errorMsg = result.errors[0].message;
-          Common.showMessage(errorMsg);
+          console.log("object");
+          if (result.errors[0].extensions.code === Constant.userNotVerify) {
+            Common.showMessage(result.errors[0].message);
+            setUserNotVerify(true);
+          } else {
+            const errorMsg = result.errors[0].message;
+            Common.showMessage(errorMsg);
+          }
         }
       });
     } catch (err) {
       console.error("error=>", err);
     }
+  };
+
+  const onSendOTPUserNotVerify = () => {
+    sendUserOtp({
+      variables: {
+        mobile: mobileNo.value,
+      },
+    }).then(({ data, errors }) => {
+      navigation.navigate(Constant.navOtp, {
+        mobile: mobileNo.value,
+      });
+    });
+  };
+
+  const onSendOTP = () => {
+    const mobileError = mobileValidator(mobileNo.value);
+    const passwordError = passwordValidator(password.value);
+    const reTypePassError = reTypePassValidator(
+      password.value,
+      reTypePass.value
+    );
+
+    if (mobileError || passwordError || reTypePassError) {
+      setMobileNo({ ...mobileNo, error: mobileError });
+      setPassword({ ...password, error: passwordError });
+      setreTypePass({ ...reTypePass, error: reTypePassError });
+      return;
+    }
+
+    sendUserOtp({
+      variables: {
+        mobile: mobileNo.value,
+      },
+    })
+      .then(({ data, errors }) => {
+        if (errors && errors.length > 0) {
+          const errorMsg = errors[0].message;
+          Common.showMessage(errorMsg);
+        }
+        if (data.sendUserOtp && data.sendUserOtp !== null) {
+          navigation.navigate(Constant.navOtp, {
+            mobile: mobileNo.value,
+            password: reTypePass.value,
+          });
+          setIsForgotPass(false);
+        }
+      })
+      .catch((error) => {
+        console.log("___eerro____", error);
+      });
   };
 
   const makeFadeInTranslation = (translationType, fromValue) => {
@@ -250,24 +306,23 @@ const LoginScreen = ({ userStore }) => {
     };
   };
 
-  const isLoading = () => {
-    {
-      mutLoading
-        ? mutLoading
-        : loading && (
-            <ProgressDialog
-              visible={true}
-              dismissable={false}
-              message={Common.getTranslation(LangKey.labLoading)}
-            />
-          );
-    }
-  };
-
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
     <View style={{ flex: 1 }}>
-      {isLoading()}
+      <ProgressDialog
+        visible={
+          loader
+            ? loader
+            : otpLoading
+            ? otpLoading
+            : mutLoading
+            ? mutLoading
+            : loading
+        }
+        dismissable={false}
+        color={Color.white}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}
@@ -355,7 +410,11 @@ const LoginScreen = ({ userStore }) => {
           duration={500}
         >
           <TextInput
-            placeholder={Common.getTranslation(LangKey.labPassword)}
+            placeholder={
+              isForgotPass
+                ? Common.getTranslation(LangKey.newPass)
+                : Common.getTranslation(LangKey.labPassword)
+            }
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="done"
             iconName="lock"
@@ -365,25 +424,53 @@ const LoginScreen = ({ userStore }) => {
             errorText={password.error}
             secureTextEntry
           />
-
-          <View style={styles.forgotPassword}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(Constant.navForgetPassword)}
-            >
-              <Text style={styles.label}>
-                {Common.getTranslation(LangKey.labForgetPassword)}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </Animatable.View>
       )}
-      {password.value.length > 0 && (
+      {isForgotPass && password.value.length > 0 && (
         <Animatable.View
           animation={fadeInDown}
           direction="normal"
           duration={500}
         >
-          <TouchableOpacity
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.reTypePass)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="done"
+            iconName="lock"
+            value={reTypePass.value}
+            onChangeText={(text) => setreTypePass({ value: text, error: "" })}
+            error={!!reTypePass.error}
+            errorText={reTypePass.error}
+            secureTextEntry
+          />
+        </Animatable.View>
+      )}
+      <View style={styles.forgotPassword}>
+        <TouchableOpacity
+          onPress={() => {
+            const mobileError = mobileValidator(mobileNo.value);
+            if (mobileError) {
+              setMobileNo({ ...mobileNo, error: mobileError });
+              return;
+            }
+            setIsForgotPass(true);
+          }}
+        >
+          <Text style={styles.label}>
+            {Common.getTranslation(LangKey.labForgetPassword)}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {!userNotVerify && !isForgotPass && password.value.length > 0 && (
+        <Animatable.View
+          animation={fadeInDown}
+          direction="normal"
+          duration={500}
+        >
+          <Button style={{ margin: 5 }} onPress={onLoginPressed}>
+            {Common.getTranslation(LangKey.labSignin)}
+          </Button>
+          {/* <TouchableOpacity
             style={styles.btnLoginView}
             onPress={onLoginPressed}
             loading={loading}
@@ -391,6 +478,43 @@ const LoginScreen = ({ userStore }) => {
           >
             <Text style={styles.txtSignin}>
               {Common.getTranslation(LangKey.labSignin)}
+            </Text>
+          </TouchableOpacity> */}
+        </Animatable.View>
+      )}
+
+      {userNotVerify && (
+        <Animatable.View
+          animation={fadeInDown}
+          direction="normal"
+          duration={500}
+        >
+          <TouchableOpacity
+            style={styles.btnLoginView}
+            onPress={() => onSendOTPUserNotVerify()}
+            loading={loading}
+            disabled={loading}
+          >
+            <Text style={styles.txtSignin}>
+              {Common.getTranslation(LangKey.labSendOTP)}
+            </Text>
+          </TouchableOpacity>
+        </Animatable.View>
+      )}
+      {isForgotPass && reTypePass.value.length > 0 && (
+        <Animatable.View
+          animation={fadeInDown}
+          direction="normal"
+          duration={500}
+        >
+          <TouchableOpacity
+            style={styles.btnLoginView}
+            onPress={() => onSendOTP()}
+            loading={loading}
+            disabled={loading}
+          >
+            <Text style={styles.txtSignin}>
+              {Common.getTranslation(LangKey.labSendOTP)}
             </Text>
           </TouchableOpacity>
         </Animatable.View>
@@ -456,6 +580,7 @@ const styles = StyleSheet.create({
   txtSignin: {
     fontSize: 18,
     fontWeight: "700",
+    paddingHorizontal: 40,
     color: Color.white,
   },
   error: {
@@ -468,7 +593,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 50,
     height: 35,
-    width: "50%",
+
     alignSelf: "center",
     justifyContent: "center",
     marginVertical: 8,
