@@ -57,19 +57,14 @@ export default {
       userSignup(mobile: $mobile, password: $password)
     }
   `,
+  sendUserOtp: gql`
+    mutation sendUserOtp($mobile: String!) {
+      sendUserOtp(mobile: $mobile)
+    }
+  `,
   userSignupSocial: gql`
-    mutation userSignupSocial(
-      $token: String!
-      $name: String!
-      $email: String!
-      $mobile: String!
-    ) {
-      userSignupSocial(
-        token: $token
-        name: $name
-        email: $email
-        mobile: $mobile
-      ) {
+    mutation userSignupSocial($token: String!) {
+      userSignupSocial(token: $token) {
         token
         msg
         user {
@@ -122,6 +117,61 @@ export default {
   verifyUserOtp: gql`
     query verifyUserOtp($mobile: String!, $otp: String!) {
       verifyUserOtp(mobile: $mobile, otp: $otp) {
+        token
+        msg
+        user {
+          mobile
+          userInfo {
+            personal {
+              name
+              mobile
+              email
+              designation
+              website
+              socialMediaId
+              image {
+                url
+                isDefault
+              }
+            }
+            business {
+              name
+              mobile
+              email
+              address
+              website
+              socialMediaId
+              image {
+                url
+                isDefault
+              }
+            }
+          }
+          designPackage {
+            package {
+              id
+              type
+              name
+            }
+            startDesignCredit
+            currentDesignCredit
+            personalImageLimit
+            businessImageLimit
+            price
+            purchaseDate
+            expiryDate
+          }
+        }
+      }
+    }
+  `,
+  resetUserPassword: gql`
+    query resetUserPassword(
+      $mobile: String!
+      $password: String!
+      $otp: String!
+    ) {
+      resetUserPassword(mobile: $mobile, password: $password, otp: $otp) {
         token
         msg
         user {

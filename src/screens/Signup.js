@@ -47,6 +47,8 @@ import ProgressDialog from "./common/ProgressDialog";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
+  const [loader, setLoader] = useState(false);
+
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [confirmPassword, setConfirmPassword] = useState({
@@ -96,7 +98,6 @@ const RegisterScreen = ({ userStore }) => {
             },
           })
             .then(({ data, errors }) => {
-              console.log("=======)))))>>>>>>", data);
               if (errors && errors.length > 0) {
                 const errorMsg = data.errors[0].message;
                 Common.showMessage(errorMsg);
@@ -129,6 +130,7 @@ const RegisterScreen = ({ userStore }) => {
 
   const onGoogleLogin = async () => {
     try {
+      setLoader(true);
       const isSignedIn = await GoogleSignin.isSignedIn();
       if (isSignedIn) {
         try {
@@ -139,20 +141,21 @@ const RegisterScreen = ({ userStore }) => {
           auth()
             .signInWithCredential(googleCredential)
             .then((res) => {
-              console.log("myResponse", res);
               sendTokentoServer(res);
+              setLoader(false);
             });
         } catch (error) {
+          setLoader(false);
+
           console.log(error);
         }
       } else {
         const { idToken } = await GoogleSignin.signIn();
-        console.log("idToken", idToken);
+
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         return auth()
           .signInWithCredential(googleCredential)
           .then((res) => {
-            console.log("myResponse", res);
             sendTokentoServer(res);
           });
       }
@@ -160,26 +163,6 @@ const RegisterScreen = ({ userStore }) => {
       console.log("===>", error);
     }
   };
-
-  // const getInfoFromToken = (token) => {
-  //   const PROFILE_REQ_PARAMS = {
-  //     fileds: {
-  //       string: "id,name,first_name,last_name",
-  //     },
-  //   };
-  //   const ProfileRequest = new GraphRequest(
-  //     "/me",
-  //     { token, parameters: PROFILE_REQ_PARAMS },
-  //     (error, user) => {
-  //       if (error) {
-  //         console.log("login info has error", error);
-  //       } else {
-  //         console.log("result user", user.name);
-  //       }
-  //     }
-  //   );
-  //   new GraphRequestManager().addRequest(ProfileRequest).start();
-  // };
 
   const onFaceBookLogin = async () => {
     try {
@@ -200,7 +183,6 @@ const RegisterScreen = ({ userStore }) => {
       return auth()
         .signInWithCredential(facebookCredential)
         .then((res) => {
-          console.log("facebook response==>", res);
           sendTokentoServer(res);
         });
     } catch (error) {
@@ -223,35 +205,33 @@ const RegisterScreen = ({ userStore }) => {
       return;
     }
 
-    navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-
-    // try {
-    //   userSignup({
-    //     variables: {
-    //       mobile: mobileNo.value,
-    //       password: password.value,
-    //     },
-    //   }).then((result) => {
-    //     const data = result.data;
-    //     console.log("response", result);
-    //     if (data !== null) {
-    //       // const token = data.userSignup.token;
-    //       // console.log(data.userSignup.token);
-    //       // AsyncStorage.setItem(
-    //       //   Constant.prfUserToken,
-    //       //   token
-    //       // ).then(() => {
-    //       // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-    //       // navigation.navigate(Constant.navHome);
-    //       // });
-    //     } else {
-    //       const errorMsg = result.errors[0].message;
-    //       Common.showMessage(errorMsg);
-    //     }
-    //   });
-    // } catch (err) {
-    //   console.log("ERROR", err);
-    // }
+    try {
+      userSignup({
+        variables: {
+          mobile: mobileNo.value,
+          password: password.value,
+        },
+      }).then((result) => {
+        const data = result.data;
+        if (data !== null) {
+          // const token = data.userSignup.token;
+          // console.log(data.userSignup.token);
+          // AsyncStorage.setItem(
+          //   Constant.prfUserToken,
+          //   token
+          // ).then(() => {
+          // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
+          // navigation.navigate(Constant.navHome);
+          // });
+          navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
+        } else {
+          const errorMsg = result.errors[0].message;
+          Common.showMessage(errorMsg);
+        }
+      });
+    } catch (err) {
+      console.log("ERROR", err);
+    }
   };
 
   const [verifyUserOtp, { error, data }] = useLazyQuery(
@@ -315,17 +295,7 @@ const RegisterScreen = ({ userStore }) => {
         },
       }).then((result) => {
         const data = result.data;
-        console.log("response", result);
         if (data !== null) {
-          // const token = data.userSignup.token;
-          // console.log(data.userSignup.token);
-          // AsyncStorage.setItem(
-          //   Constant.prfUserToken,
-          //   token
-          // ).then(() => {
-          // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-          // navigation.navigate(Constant.navHome);
-          // });
         } else {
           const errorMsg = result.errors[0].message;
           Common.showMessage(errorMsg);
@@ -352,15 +322,13 @@ const RegisterScreen = ({ userStore }) => {
   const fadeInDown = makeFadeInTranslation("translateY", -30);
   return (
     <View style={{ flex: 1 }}>
-      {mutLoading
-        ? mutLoading
-        : loading && (
-            <ProgressDialog
-              visible={true}
-              dismissable={false}
-              message={Common.getTranslation(LangKey.labLoading)}
-            />
-          )}
+      <ProgressDialog
+        color={Color.white}
+        visible={loader ? loader : mutLoading ? mutLoading : loading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
+
       <TouchableOpacity
         onPress={() => onGoogleLogin()}
         style={styles.socialBTNView}
@@ -528,7 +496,7 @@ const RegisterScreen = ({ userStore }) => {
               paddingVertical: 8,
             }}
           >
-            An OTP was sent your phone
+            {Common.getTranslation(LangKey.labAnOtpSent)}
           </Text>
         </Animatable.View>
       )}
@@ -550,7 +518,9 @@ const RegisterScreen = ({ userStore }) => {
               loading={loading}
               disabled={loading}
             >
-              <Text style={styles.txtSignin}>get OTP</Text>
+              <Text style={styles.txtSignin}>
+                {Common.getTranslation(LangKey.labSendOTP)}
+              </Text>
             </TouchableOpacity>
           )}
         </>

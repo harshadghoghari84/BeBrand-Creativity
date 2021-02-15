@@ -38,6 +38,15 @@ export const confirmPasswordValidator = (password, confirmPassword) => {
 
   return "";
 };
+export const reTypePassValidator = (password, reTypePass) => {
+  if (!password || password.length <= 0) {
+    return Common.getTranslation(LangKey.errorPassword);
+  } else if (password !== reTypePass) {
+    return Common.getTranslation(LangKey.errorreTypePass);
+  }
+
+  return "";
+};
 
 export const nameValidator = (name) => {
   if (!name || name.length <= 0)

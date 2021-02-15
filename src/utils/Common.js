@@ -75,8 +75,7 @@ const onShare = async () => {
     const result = await Share.share(
       {
         title: "App link",
-        message:
-          "Please install this app and stay safe , AppLink :https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en",
+        message: "Please install this app and stay safe , AppLink :",
         url: Platform.OS === "ios" ? null : Constant.playStoreURL,
       },
       {
@@ -106,6 +105,7 @@ const onShare = async () => {
         ],
       }
     );
+    console.log("result__", result);
     if (result.action === Share.sharedAction) {
       if (result.activityType) {
       } else {
@@ -113,7 +113,7 @@ const onShare = async () => {
     } else if (result.action === Share.dismissedAction) {
     }
   } catch (error) {
-    alert(error.message);
+    showMessage(error.message);
   }
 };
 

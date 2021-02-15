@@ -1,14 +1,31 @@
 module.exports = {
-  // Screen titles
+  // Screen titles and Drwer title
   titleHome: "titleHome",
+  titleBePremium: "titleBePremium",
+  titleRateUs: "titleRateUs",
+  titleShareApp: "titleShareApp",
+  titleReportIssue: "titleReportIssue",
+  titleAccount: "titleAccount",
   titleFavourite: "titleFavourite",
+  titleDesign: "titleDesign",
   titleCart: "titleCart",
   titleNotification: "titleNotification",
   titleProfile: "titleProfile",
+  titlePackage: "titlePackage",
+  titleWhatsAppUpdates: "titleWhatsAppUpdates",
+  titReferandEarn: "titReferandEarn",
+  titLegal: "titLegal",
+  titSignOut: "titSignOut",
+  titSignIn: "titSignIn",
 
   // user screen
   labMobile: "labMobile",
   labPassword: "labPassword",
+  newPass: "newPass",
+  reTypePass: "reTypePass",
+  labSendOTP: "labSendOTP",
+  labVarifyOTP: "labVarifyOTP",
+  labAnOtpSent: "labAnOtpSent",
   labConfirmPassword: "labConfirmPassword",
   labAlreadyAcc: "labAlreadyAcc",
   labNothaveAcc: "labNothaveAcc",
@@ -23,6 +40,7 @@ module.exports = {
   errorEmail: "errorEmail",
   errorPassword: "errorPassword",
   errorConfirmPassword: "errorConfirmPassword",
+  errorreTypePass: "errorreTypePass",
   errorName: "errorName",
   errorGender: "errorGender",
 

@@ -7,11 +7,16 @@
 
   "labMobile": "Mobile No",
   "labPassword": "Password",
+  "newPass": "New Password",
+  "reTypePass": "Re Type Password",
   "labSignin": "Login",
   "labSignup": "Signup",
+  "labSendOTP": "send OTP",
+  "labVarifyOTP": "varify",
+  "labAnOtpSent": "An OTP was sent your phone",
   "labAlreadyAcc": "Already have an account? ",
   "labNothaveAcc": "Don’t have an account? ",
-  "labForgetPassword": "Forgot your password?",
+  "labForgetPassword": "Forgot password?",
   "txtWelcome": "Welcome back...",
   "txtCreateAccount": "Create Account",
 
@@ -19,6 +24,7 @@
   "errorEmail": "Please enter valid email address",
   "errorPassword": "Please enter valid password",
   "errorConfirmPassword": "password not match as above",
+  "errorreTypePass": "New password not match as above",
   "errorName": "Please enter your name",
   "errorGender": "Please select your gender",
 

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Switch,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Color from "../utils/Color";
@@ -18,9 +19,19 @@ import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 
-const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
+const PopUp = ({
+  visible,
+  toggleVisible,
+  isPurchased,
+  other,
+  isRating,
+  toggle,
+}) => {
   const navigation = useNavigation();
   const [feture, setFeture] = useState();
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const [userRequestFeture, { loading }] = useMutation(
     GraphqlQuery.addRequestFeature,
@@ -53,15 +64,31 @@ const PopUp = ({ visible, toggleVisible, isPurchased, other, isRating }) => {
     >
       <KeyboardAvoidingView style={styles.centeredView}>
         <View style={styles.modalView}>
-          {isRating && (
-            <View style={{ flex: 1 }}>
+          {toggle && (
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Switch
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
               <TouchableOpacity
                 onPress={() => toggleVisible()}
-                style={{ alignItems: "flex-end", padding: 5 }}
+                style={{
+                  ...styles.openButton,
+                  backgroundColor: Color.primary,
+                  marginHorizontal: 5,
+                }}
               >
-                <ICON name="close" size={30} color="#E53A40" />
+                <Text style={styles.textStyle}>close</Text>
               </TouchableOpacity>
-              <Ratings />
             </View>
           )}
           {other && (

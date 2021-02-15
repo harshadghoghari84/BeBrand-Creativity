@@ -14,6 +14,7 @@ import Notification from "../screens/Notification";
 import Packages from "../screens/pacakges/Packages";
 import MyTabs from "../screens/pacakges";
 import Otp from "../screens/Otp";
+import ReferAndEarn from "../screens/ReferAndEarn";
 
 const HomeStack = createStackNavigator();
 
@@ -98,6 +99,15 @@ const HomeStackComponent = ({ navigation }) => {
       <HomeStack.Screen
         name={Constant.navNotification}
         component={Notification}
+        options={{
+          header: (props) => (
+            <CustomHeader isBackVisible={true} empty={true} {...props} />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.navReferandEarn}
+        component={ReferAndEarn}
         options={{
           header: (props) => (
             <CustomHeader isBackVisible={true} empty={true} {...props} />

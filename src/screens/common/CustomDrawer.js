@@ -30,6 +30,7 @@ import PopUp from "../../components/PopUp";
 import RatingPop from "../../components/PopUp";
 import Common from "../../utils/Common";
 import Ratings from "../../utils/ratings";
+import LangKey from "../../utils/LangKey";
 
 class CustomDrawer extends Component {
   state = {
@@ -61,7 +62,7 @@ class CustomDrawer extends Component {
         <PopUp
           visible={this.state.modalVisible}
           toggleVisible={this.toggleVisible}
-          other={true}
+          toggle={true}
         />
         <Modal
           transparent={true}
@@ -162,7 +163,7 @@ class CustomDrawer extends Component {
                     ),
                   }}
                 >
-                  {Constant.titHome}
+                  {Common.getTranslation(LangKey.titleHome)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -183,7 +184,8 @@ class CustomDrawer extends Component {
                   <Icon
                     name="vip"
                     fill={this.getColor(
-                      this.state.Activated === Constant.titPro
+                      // this.state.Activated === Constant.titPro
+                      true
                     )}
                     height={20}
                     width={20}
@@ -196,7 +198,7 @@ class CustomDrawer extends Component {
                     ),
                   }}
                 >
-                  {Constant.titPro}
+                  {Common.getTranslation(LangKey.titleBePremium)}
                 </Text>
               </TouchableOpacity>
               {/* <TouchableOpacity
@@ -256,7 +258,7 @@ class CustomDrawer extends Component {
                     color: this.getColor(false),
                   }}
                 >
-                  {Constant.titRateApp}
+                  {Common.getTranslation(LangKey.titleRateUs)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -280,7 +282,7 @@ class CustomDrawer extends Component {
                     color: this.getColor(false),
                   }}
                 >
-                  {Constant.titShareApp}
+                  {Common.getTranslation(LangKey.titleShareApp)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -306,7 +308,7 @@ class CustomDrawer extends Component {
                     color: this.getColor(false),
                   }}
                 >
-                  {Constant.titReportIssue}
+                  {Common.getTranslation(LangKey.titleReportIssue)}
                 </Text>
               </TouchableOpacity>
               {/* <TouchableOpacity
@@ -370,7 +372,7 @@ class CustomDrawer extends Component {
                           color: this.getColor(false),
                         }}
                       >
-                        {Constant.titAccount}
+                        {Common.getTranslation(LangKey.titleAccount)}
                       </Text>
                     </View>
                     {this.state.Activated === Constant.titAccount ? (
@@ -428,7 +430,7 @@ class CustomDrawer extends Component {
                             ),
                           }}
                         >
-                          {Constant.titProfile}
+                          {Common.getTranslation(LangKey.titleProfile)}
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -462,7 +464,7 @@ class CustomDrawer extends Component {
                             ),
                           }}
                         >
-                          {Constant.titPackage}
+                          {Common.getTranslation(LangKey.titlePackage)}
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -498,7 +500,7 @@ class CustomDrawer extends Component {
                             ),
                           }}
                         >
-                          {Constant.titDesigns}
+                          {Common.getTranslation(LangKey.titleDesign)}
                         </Text>
                       </TouchableOpacity>
                     </>
@@ -506,11 +508,7 @@ class CustomDrawer extends Component {
                 </View>
               )}
               <TouchableOpacity
-                // onPress={() =>
-                //   // this.setState({ Activated: Constant.titWhatsAppUs }, () =>
-                //   // )
-                //   Common.openWhatsApp(9726009509, "")
-                // }
+                onPress={() => this.setState({ modalVisible: true })}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -534,7 +532,40 @@ class CustomDrawer extends Component {
                     ),
                   }}
                 >
-                  {Constant.titWhatsAppUs}
+                  {Common.getTranslation(LangKey.titleWhatsAppUpdates)}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate(Constant.navReferandEarn)
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Color.dividerColor,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="report"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    ),
+                  }}
+                >
+                  {Common.getTranslation(LangKey.titReferandEarn)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -568,69 +599,82 @@ class CustomDrawer extends Component {
                     ),
                   }}
                 >
-                  {Constant.titLegal}
+                  {Common.getTranslation(LangKey.titLegal)}
                 </Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
-        <View style={styles.bottomDrawerSection}>
-          {user && user !== null ? (
-            <TouchableOpacity
-              onPress={() => {
-                AsyncStorage.removeItem(Constant.prfUserToken);
-                this.props.userStore.setUser(null);
-              }}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingVertical: 10,
-              }}
-            >
-              <View style={{ marginLeft: 30 }}>
-                <Icon
-                  name="logout"
-                  fill={this.getColor(false)}
-                  height={20}
-                  width={20}
-                />
-              </View>
-              <Text
+        <View>
+          <Text
+            style={{
+              alignSelf: "center",
+              paddingBottom: 10,
+              color: Color.grey,
+            }}
+          >
+            Made With <Text style={{ fontSize: 12 }}>❤️</Text> in India
+          </Text>
+          <View style={styles.bottomDrawerSection}>
+            {user && user !== null ? (
+              <TouchableOpacity
+                onPress={() => {
+                  AsyncStorage.removeItem(Constant.prfUserToken);
+                  this.props.userStore.setUser(null);
+                }}
                 style={{
-                  paddingLeft: 30,
-                  color: this.getColor(false),
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
                 }}
               >
-                {Constant.titSignOut}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate(Constant.navLogin)}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingVertical: 10,
-              }}
-            >
-              <View style={{ marginLeft: 30 }}>
-                <Icon
-                  name="logout"
-                  fill={this.getColor(false)}
-                  height={20}
-                  width={20}
-                />
-              </View>
-              <Text
+                <View style={{ marginLeft: 30 }}>
+                  <Icon
+                    name="logout"
+                    fill={this.getColor(false)}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    paddingLeft: 30,
+                    color: this.getColor(false),
+                  }}
+                >
+                  {Common.getTranslation(LangKey.titSignOut)}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate(Constant.navLogin)
+                }
                 style={{
-                  paddingLeft: 30,
-                  color: this.getColor(false),
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
                 }}
               >
-                {Constant.titSignIn}
-              </Text>
-            </TouchableOpacity>
-          )}
+                <View style={{ marginLeft: 30 }}>
+                  <Icon
+                    name="logout"
+                    fill={this.getColor(false)}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    paddingLeft: 30,
+                    color: this.getColor(false),
+                  }}
+                >
+                  {Common.getTranslation(LangKey.titSignIn)}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     );
@@ -658,6 +702,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 10,
     backgroundColor: Color.primary,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   containerSubUserDetails: { width: "60%", left: 15 },
   txtUserName: { color: Color.drawerTextColor, fontSize: 17 },
