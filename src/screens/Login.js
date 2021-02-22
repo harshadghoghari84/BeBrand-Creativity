@@ -29,8 +29,8 @@ const Login = (props) => {
   const renderSelectTabs = () => {
     return (
       <Tab.Navigator tabBar={(props) => <TopTabBar {...props} arr={2} />}>
-        <Tab.Screen name="Signin" component={Signin} />
-        <Tab.Screen name="Signup" component={Signup} />
+        <Tab.Screen name={Constant.navSignIn} component={Signin} />
+        <Tab.Screen name={Constant.navSignUp} component={Signup} />
       </Tab.Navigator>
     );
   };

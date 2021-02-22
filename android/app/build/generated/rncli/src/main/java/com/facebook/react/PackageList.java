@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 // @react-native-async-storage/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-community/datetimepicker
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // @react-native-community/google-signin
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 // @react-native-community/masked-view
@@ -27,6 +29,8 @@ import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-iap
+import com.dooboolab.RNIap.RNIapPackage;
 // react-native-rate
 import com.reactnativerate.RNRatePackage;
 // react-native-reanimated
@@ -89,6 +93,7 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
+      new RNDateTimePickerPackage(),
       new RNGoogleSigninPackage(),
       new RNCMaskedViewPackage(),
       new ReactNativeFirebaseAppPackage(),
@@ -96,6 +101,7 @@ public class PackageList {
       new FastImageViewPackage(),
       new FBSDKPackage(),
       new RNGestureHandlerPackage(),
+      new RNIapPackage(),
       new RNRatePackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),

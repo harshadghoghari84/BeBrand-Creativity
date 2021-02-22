@@ -22,7 +22,6 @@ const CustomHeader = ({
   navigation,
   search = false,
   notification = false,
-
   empty = false,
 }) => {
   // const { backKey } = route.params;
@@ -63,7 +62,7 @@ const CustomHeader = ({
           </View>
 
           <FastImage
-            source={require("../../assets/DFS.png")}
+            source={require("../../assets/LOGO2.png")}
             resizeMode={FastImage.resizeMode.contain}
             style={styles.companyLogo}
           />
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
   },
   companyLogo: {
     flex: 1,
-    height: 35,
+    height: 18,
   },
   icons: {
     paddingHorizontal: 10,

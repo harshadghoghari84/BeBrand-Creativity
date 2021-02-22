@@ -15,182 +15,7 @@ import { toJS } from "mobx";
 import Common from "../../utils/Common";
 import Color from "../../utils/Color";
 import LangKey from "../../utils/LangKey";
-
-// const App = ({ navigation, designStore }) => {
-//   const { width, height } = Dimensions.get("screen");
-
-//   const myPkg = {
-//     Free: <Packages designStore={designStore} />,
-//     Monthly: <Packages designStore={designStore} />,
-//   };
-
-//   const data = Object.keys(myPkg).map((i) => ({
-//     key: i,
-//     title: i,
-//     pkg: myPkg[i],
-//     ref: React.createRef(),
-//   }));
-
-//   const Tab = React.forwardRef(
-//     ({ item, onItemPress, measures, scrollX }, ref) => {
-//       const inputRange = data.map((_, i) => i * width);
-//       const indicatorWidth = scrollX.interpolate({
-//         inputRange,
-//         outputRange: measures.map((measures) => measures.width),
-//       });
-//       const translateX = scrollX.interpolate({
-//         inputRange,
-//         outputRange: measures.map((measures) => measures.x),
-//       });
-//       return (
-//         <TouchableOpacity onPress={onItemPress}>
-//           <View
-//             style={{
-//               position: "absolute",
-
-//               width: indicatorWidth,
-//               backgroundColor: Color.darkBlue,
-//               // bottom: -10,
-//               borderRadius: 8,
-//               transform: [{ translateX }],
-//             }}
-//           >
-//             <View ref={ref} styles={{ backgroundColor: "green" }}>
-//               <Text
-//                 style={{
-//                   color: Color.darkBlue,
-//                   fontSize: 18,
-//                 }}
-//               >
-//                 {item.title}
-//               </Text>
-//             </View>
-//           </View>
-//         </TouchableOpacity>
-//       );
-//     }
-//   );
-//   const Indicator = ({ measures, scrollX }) => {
-//     const inputRange = data.map((_, i) => i * width);
-//     const indicatorWidth = scrollX.interpolate({
-//       inputRange,
-//       outputRange: measures.map((measures) => measures.width),
-//     });
-//     const translateX = scrollX.interpolate({
-//       inputRange,
-//       outputRange: measures.map((measures) => measures.x),
-//     });
-//     return (
-//       <Animated.View
-//         style={{
-//           position: "absolute",
-//           height: 4,
-//           width: indicatorWidth,
-//           backgroundColor: Color.darkBlue,
-//           bottom: -10,
-//           borderRadius: 8,
-//           transform: [{ translateX }],
-//         }}
-//       />
-//     );
-//   };
-//   const Tabs = ({ data, scrollX, onItemPress }) => {
-//     const containerRef = useRef();
-//     const [measures, setMeasures] = useState([]);
-//     useEffect(() => {
-//       let m = [];
-//       data.forEach((item) => {
-//         item.ref.current.measureLayout(
-//           containerRef.current,
-//           (x, y, width, height) => {
-//             m.push({
-//               x,
-//               y,
-//               width,
-//               height,
-//             });
-//             if (m.length === data.length) {
-//               setMeasures(m);
-//             }
-//           }
-//         );
-//       });
-//     }, []);
-//     return (
-//       <View style={{ position: "absolute", width }}>
-//         <View
-//           ref={containerRef}
-//           style={{
-//             justifyContent: "space-evenly",
-//             flex: 1,
-//             flexDirection: "row",
-//           }}
-//         >
-//           {data.map((item, index) => {
-//             return (
-//               <>
-//                 {measures.length > 0 && (
-//                   <Tab
-//                     key={item.key}
-//                     item={item}
-//                     ref={item.ref}
-//                     measures={measures}
-//                     scrollX={scrollX}
-//                     onItemPress={() => onItemPress(index)}
-//                   />
-//                 )}
-//               </>
-//             );
-//           })}
-//         </View>
-//         {/* {measures.length > 0 && (   )} */}
-//         {/* <Indicator measures={measures} scrollX={scrollX} /> */}
-//       </View>
-//     );
-//   };
-
-//   const scrollX = useRef(new Animated.Value(0)).current;
-
-//   const ref = useRef();
-//   const onItemPress = useCallback((itemIndex) => {
-//     ref?.current?.scrollToOffset({
-//       offset: itemIndex * width,
-//     });
-//   });
-//   return (
-//     <View style={styles.container}>
-//       <Animated.FlatList
-//         ref={ref}
-//         data={data}
-//         keyExtractor={(item) => item.key}
-//         horizontal
-//         showsHorizontalScrollIndicator={false}
-//         pagingEnabled
-//         onScroll={Animated.event(
-//           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-//           { useNativeDriver: false }
-//         )}
-//         bounces={false}
-//         renderItem={({ item }) => {
-//           return (
-//             <View style={{ height, width }}>
-//               {item.pkg}
-//               {/* <View
-//                 style={[
-//                   StyleSheet.absoluteFillObject,
-//                   { backgroundColor: "rgba(0,0,0,0.3)" },
-//                 ]}
-//               /> */}
-//             </View>
-//           );
-//         }}
-//       />
-//       <Tabs scrollX={scrollX} data={data} onItemPress={onItemPress} />
-//     </View>
-//   );
-// };
-
-// export default inject("designStore")(observer(App));
+import Button from "../../components/Button";
 
 const Packages = ({ navigation, designStore }) => {
   const designPackages = toJS(designStore.designPackages);
@@ -290,17 +115,12 @@ const Packages = ({ navigation, designStore }) => {
               {item.features.map((ele) => {
                 return (
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ marginHorizontal: 5 }}>O</Text>
-                    <Text>{ele}</Text>
+                    <Text>{`\u2B22 ${ele}`}</Text>
                   </View>
                 );
               })}
 
-              <TouchableOpacity style={styles.btnPerchase}>
-                <Text style={styles.txtPerchase}>
-                  {Common.getTranslation(LangKey.labPerchase)}
-                </Text>
-              </TouchableOpacity>
+              <Button>{Common.getTranslation(LangKey.labPerchase)}</Button>
             </View>
           );
         }}

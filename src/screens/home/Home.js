@@ -11,6 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import ItemSubCategory from "./ItemSubCategory";
 import Constant from "../../utils/Constant";
 import Color from "../../utils/Color";
@@ -20,6 +21,9 @@ import PopUp from "../../components/PopUp";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import FastImage from "react-native-fast-image";
 import ProgressDialog from "../common/ProgressDialog";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import GraphqlQuery from "../../utils/GraphqlQuery";
+import LangKey from "../../utils/LangKey";
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
@@ -49,6 +53,22 @@ const data = [
 ];
 
 const Home = ({ navigation, designStore, userStore }) => {
+  useEffect(() => {
+    AsyncStorage.getItem(Constant.prfUserloginTime)
+      .then((res) => {
+        if (res && res !== null) {
+          console.log("already have ");
+          return;
+        } else {
+          AsyncStorage.setItem(Constant.prfUserloginTime, new Date())
+            .then(() => {})
+            .catch((err) => console.log("err", err));
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const { loading, error, data: imageData } = useQuery(GraphqlQuery.offers);
+
   const [activeSlide, setActiveSlide] = useState(0);
   const [modalVisible, setmodalVisible] = useState(false);
   const toggleVisible = () => {
@@ -82,8 +102,10 @@ const Home = ({ navigation, designStore, userStore }) => {
   }, [userStore.hasPro]);
 
   useEffect(() => {
-    if (isMountedRef.current && isFirstTimeListLoad) {
-      designStore.loadHomeData();
+    if (isMountedRef.current) {
+      if (isFirstTimeListLoad) {
+        designStore.loadHomeData();
+      }
     }
   }, []);
 
@@ -104,8 +126,8 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       // console.log("updated");
-      console.log("chk___before__", userSubCategoriesBefore);
-      console.log("chk___After__", userSubCategoriesAfter);
+      // console.log("chk___before__", userSubCategoriesBefore);
+      // console.log("chk___After__", userSubCategoriesAfter);
       if (userSubCategoriesBefore) {
         setUserSubCategories([...userSubCategoriesBefore]);
       }
@@ -215,13 +237,19 @@ const Home = ({ navigation, designStore, userStore }) => {
   const SLIDER_WIDTH = Dimensions.get("window").width;
 
   const renderImages = ({ item }) => {
-    return <FastImage source={{ uri: item.image }} style={{ height: 110 }} />;
+    return (
+      <FastImage
+        source={{ uri: item.image.url }}
+        style={{ height: 110 }}
+        resizeMode={FastImage.resizeMode.cover}
+      />
+    );
   };
 
   const pagination = () => {
     return (
       <Pagination
-        dotsLength={data.length}
+        dotsLength={imageData?.offers ? imageData.offers.length : 0}
         activeDotIndex={activeSlide}
         containerStyle={{
           position: "absolute",
@@ -252,7 +280,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         }}
       >
         <Carousel
-          data={data}
+          data={imageData?.offers}
           renderItem={renderImages}
           sliderWidth={SLIDER_WIDTH}
           itemWidth={SLIDER_WIDTH}
@@ -296,7 +324,6 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisible={toggleVisible}
         isPurchased={true}
       />
-      {/* {slider()} */}
       <View style={styles.containerSub}>
         <View
           style={{
@@ -404,14 +431,14 @@ const Home = ({ navigation, designStore, userStore }) => {
                 >
                   <ActivityIndicator size={25} color={Color.primary} />
                   <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
-                    Loading...
+                    {Common.getTranslation(LangKey.labLoading)}
                   </Text>
                 </View>
               ) : null}
             </>
           ) : (
             <View style={styles.containerNoDesign}>
-              <Text>No Designs Availlable</Text>
+              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
             </View>
           )}
         </View>

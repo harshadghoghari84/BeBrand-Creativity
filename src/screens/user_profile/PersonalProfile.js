@@ -161,7 +161,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         }
       }
     } catch (error) {
-      console.log("hello error", error);
+      console.log("error", error);
     }
   };
 
@@ -235,15 +235,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
         <ProgressDialog
           visible={loadingUserImage}
           dismissable={false}
-          message="Uploading Image"
+          message={Common.getTranslation(LangKey.labUploadingImage)}
         />
-
         <ProgressDialog
           visible={loading}
           dismissable={false}
-          message="Saving Data"
+          message={Common.getTranslation(LangKey.labsSaving)}
         />
-
         {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
             <View>
@@ -284,7 +282,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
           />
 
-          <TextInput
+          {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labEmail)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -292,7 +290,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             autoCapitalize="none"
-          />
+          /> */}
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labDesignation)}
@@ -314,7 +312,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
           />
 
-          <TextInput
+          {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labWebsite)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -322,7 +320,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={website}
             onChangeText={(text) => setWebsite(text)}
             autoCapitalize="none"
-          />
+          /> */}
         </View>
         <View style={styles.containerProfile}>
           {personalImageLimit > 0 &&
@@ -373,6 +371,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         </View>
         <Button
           loading={loading}
+          normal={true}
           disabled={loading}
           style={styles.btnSave}
           onPress={onClickSave}
@@ -401,7 +400,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     backgroundColor: Color.lightGrey,
   },
-  containerTil: { width: "90%" },
+  containerTil: { width: "100%" },
   tiCommon: {
     color: Color.darkBlue,
   },

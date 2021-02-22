@@ -7,27 +7,33 @@ import PersonalProfile from "./PersonalProfile";
 import BusinessProfile from "./BusinessProfile";
 import TopTabBar from "../../components/TopTabBar";
 import Color from "../../utils/Color";
+import Common from "../../utils/Common";
+import LangKey from "../../utils/LangKey";
 
 const Tab = createMaterialTopTabNavigator();
 
-const UserProfile = (props) => {
-  const renderMainView = () => {
-    return (
-      <View style={{ flex: 1, backgroundColor: Color.white }}>
-        <Tab.Navigator tabBar={(props) => <TopTabBar {...props} arr={2} />}>
-          <Tab.Screen
-            name={Constant.navPersonalProfile}
-            component={PersonalProfile}
-          />
-          <Tab.Screen
-            name={Constant.navBusinessProfile}
-            component={BusinessProfile}
-          />
-        </Tab.Navigator>
-      </View>
-    );
-  };
-  return renderMainView();
+const UserProfile = ({ route }) => {
+  return (
+    <View style={{ flex: 1, backgroundColor: Color.white }}>
+      <Tab.Navigator
+        initialRouteName={
+          route?.params?.title && route?.params?.title !== null
+            ? route.params.title
+            : Constant.titPersonalProfile
+        }
+        tabBar={(props) => <TopTabBar {...props} arr={2} />}
+      >
+        <Tab.Screen
+          name={Constant.titPersonalProfile}
+          component={PersonalProfile}
+        />
+        <Tab.Screen
+          name={Constant.titBusinessProfile}
+          component={BusinessProfile}
+        />
+      </Tab.Navigator>
+    </View>
+  );
 };
 
 export default UserProfile;

@@ -68,6 +68,7 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Otevřít v telefonu"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Přihlásit se"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Přihlásit se k účtu Google"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Odkaz zkopírován do schránky"</string>
     <string name="crop_image_activity_no_permissions">Probíhá storno, požadovaná povolení nejsou udělena</string>
     <string name="crop_image_activity_title"/>
     <string name="crop_image_menu_crop">Oříznout</string>
@@ -76,6 +77,9 @@
     <string name="crop_image_menu_flip_vertically">Překlopit svisle</string>
     <string name="crop_image_menu_rotate_left">Otočit proti směru hodinových ručiček</string>
     <string name="crop_image_menu_rotate_right">Otočit</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Kopírovat odkaz"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Otevřít v prohlížeči"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Sdílet odkaz"</string>
     <string name="pick_image_intent_chooser_title">Vybrat zdroj</string>
     <string msgid="730395136688082741" name="search_menu_title">"Hledat"</string>
     <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>

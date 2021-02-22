@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import PopUp from "../components/PopUp";
 import Color from "./Color";
 import Rate, { AndroidMarket } from "react-native-rate";
+import Constant from "./Constant";
+import Button from "../components/Button";
+import Icon from "../components/svgIcons";
+import FastImage from "react-native-fast-image";
 
 const Ratings = ({ toggleforRating }) => {
   const [defaultRating, setDefaultRating] = useState(0);
@@ -55,17 +58,18 @@ const Ratings = ({ toggleforRating }) => {
 
   const open_Store = () => {
     const options = {
-      AppleAppID: "2193813192",
-      GooglePackageName: "nic.goi.aarogyasetu",
-      OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
+      AppleAppID: Constant.titAppleIdForAppStore,
+      GooglePackageName: Constant.titPkgnameForAndroidPlayStore,
+      OtherAndroidURL: Constant.OtherAndroidURL,
       preferredAndroidMarket: AndroidMarket.Google,
       preferInApp: false,
       openAppStoreIfInAppFails: true,
-      fallbackPlatformURL: "http://www.mywebsite.com/myapp.html",
+      fallbackPlatformURL: Constant.fallbackPlatformURL,
     };
     Rate.rate(options, (success) => {
       if (success) {
         setRated(true);
+        toggleforRating();
       }
     });
   };
@@ -73,13 +77,45 @@ const Ratings = ({ toggleforRating }) => {
   return (
     <View style={{ flex: 1, marginHorizontal: 20 }}>
       <PopUp visible={visible} toggleVisible={toggleVisible} other={true} />
-      <Text style={styles.txt}>How was your experience with us</Text>
-      <Text style={[styles.txt, { marginVertical: 5 }]}>Please Rate Us</Text>
-      <Text style={styles.txt}>
-        {defaultRating} / {Math.max.apply(null, maxRating)}
-      </Text>
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontWeight: "700",
+            fontSize: 18,
+            color: Color.darkBlue,
+            marginVertical: 5,
+          }}
+        >
+          Share Your Experiance
+        </Text>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontWeight: "700",
+            fontSize: 15,
+            color: Color.darkBlue,
+          }}
+        >
+          we love to here from you !
+        </Text>
 
-      <CustomRatingBar />
+        <View style={{ alignItems: "center" }}>
+          <FastImage
+            source={require("../assets/Rating.png")}
+            resizeMode={FastImage.resizeMode.contain}
+            style={{ height: 200, width: "70%" }}
+          />
+        </View>
+        <View style={{ marginBottom: 10 }}>
+          <Button onPress={() => open_Store()} big={true}>
+            I Love it!
+          </Button>
+          <Button onPress={() => setVisible(true)} border={true}>
+            It needs to be improved
+          </Button>
+        </View>
+      </View>
     </View>
   );
 };

@@ -233,13 +233,13 @@ const BusinessProfile = ({ userStore }) => {
         <ProgressDialog
           visible={loadingUserImage}
           dismissable={false}
-          message="Uploading Image"
+          message={Common.getTranslation(LangKey.labUploadingImage)}
         />
 
         <ProgressDialog
           visible={loading}
           dismissable={false}
-          message="Saving Data"
+          message={Common.getTranslation(LangKey.labsSaving)}
         />
         {businessImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
@@ -256,7 +256,7 @@ const BusinessProfile = ({ userStore }) => {
           </TouchableOpacity>
         )}
         <View style={styles.containerTil}>
-          <TextInput
+          {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labUserName)}
             placeholderTextColor={Color.txtIntxtcolor}
             iconName="user"
@@ -266,7 +266,7 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorUserName}
             errorText={errorUserName}
-          />
+          /> */}
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labMobile)}
@@ -289,7 +289,7 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
           />
 
-          <TextInput
+          {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labAddress)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -297,7 +297,7 @@ const BusinessProfile = ({ userStore }) => {
             value={address}
             onChangeText={(text) => setAddress(text)}
             autoCapitalize="none"
-          />
+          /> */}
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
@@ -370,6 +370,7 @@ const BusinessProfile = ({ userStore }) => {
         <Button
           loading={loading}
           disabled={loading}
+          normal={true}
           style={styles.btnSave}
           onPress={onClickSave}
         >
@@ -397,7 +398,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     backgroundColor: Color.lightGrey,
   },
-  containerTil: { width: "90%" },
+  containerTil: { width: "100%" },
   tiCommon: {
     color: Color.darkBlue,
   },

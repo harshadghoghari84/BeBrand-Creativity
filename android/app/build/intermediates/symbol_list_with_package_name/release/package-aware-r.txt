@@ -1513,6 +1513,9 @@ drawable mtrl_popupmenu_background
 drawable mtrl_popupmenu_background_dark
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable node_modules_reactnative_libraries_newappscreen_components_logo
+drawable node_modules_reactnativecolorpicker_resources_colorcircle
+drawable node_modules_reactnativecolorpicker_resources_hsv_triangle_mask
 drawable node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon
 drawable node_modules_reactnavigation_stack_src_views_assets_backicon
 drawable node_modules_reactnavigation_stack_src_views_assets_backiconmask
@@ -1531,9 +1534,10 @@ drawable notify_panel_notification_icon_bg
 drawable redbox_top_border_background
 drawable splashscreen
 drawable splashscreen_image
-drawable src_assets_arrow_back
 drawable src_assets_bdt
-drawable src_assets_dfs
+drawable src_assets_logo2
+drawable src_assets_rating
+drawable src_assets_splash
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -2216,6 +2220,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string copy_toast_msg
 string crop_image_activity_no_permissions
 string crop_image_activity_title
 string crop_image_menu_crop
@@ -2230,6 +2235,9 @@ string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string facebook_app_id
+string fallback_menu_item_copy_link
+string fallback_menu_item_open_in_browser
+string fallback_menu_item_share_link
 string fb_login_protocol_scheme
 string gcm_defaultSenderId
 string google_api_key
@@ -3128,6 +3136,7 @@ styleable com_facebook_profile_picture_view com_facebook_is_cropped com_facebook
 xml file_provider_paths
 xml file_system_provider_paths
 xml image_picker_provider_paths
+xml image_share_filepaths
 xml rn_dev_preferences
 xml sharing_provider_paths
 xml standalone_badge

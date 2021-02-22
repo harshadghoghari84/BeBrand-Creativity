@@ -68,6 +68,7 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Auf Smartphone öffnen"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Anmelden"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Über Google anmelden"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Link in Zwischenablage kopiert"</string>
     <string name="crop_image_activity_no_permissions">Vorgang wird abgebrochen, benötigte Berechtigungen wurden nicht erteilt.</string>
     <string name="crop_image_activity_title"/>
     <string name="crop_image_menu_crop">zuschneiden</string>
@@ -76,6 +77,9 @@
     <string name="crop_image_menu_flip_vertically">vertikal spiegeln</string>
     <string name="crop_image_menu_rotate_left">gegen den Uhrzeigersinn drehen</string>
     <string name="crop_image_menu_rotate_right">drehen</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Link kopieren"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Im Browser öffnen"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Link teilen"</string>
     <string name="pick_image_intent_chooser_title">Quelle wählen</string>
     <string msgid="730395136688082741" name="search_menu_title">"Suche"</string>
     <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>

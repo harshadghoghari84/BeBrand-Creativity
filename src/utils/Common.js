@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n from "i18n-js";
 import { useEffect, useRef } from "react";
 import {
+  Alert,
   Linking,
   PixelRatio,
   Platform,
@@ -50,9 +51,16 @@ const convertIsoToDate = (string) => {
 };
 const openWhatsApp = (mobile, msg) => {
   Linking.openURL(`whatsapp://send?phone=91${mobile}&text=${msg}`)
-    .then((data) => console.log(data))
+    .then((data) => data)
     .catch(() => {
       alert("Make sure Whatsapp installed on your device");
+    });
+};
+const openWeb = () => {
+  Linking.openURL(Constant.branddotLegalUrl)
+    .then((data) => data)
+    .catch(() => {
+      // alert("Make sure Whatsapp installed on your device");
     });
 };
 
@@ -67,7 +75,7 @@ const getPixels = (targetPixelCount) => {
 const showMessage = (message) => {
   Platform.OS == "android"
     ? ToastAndroid.show(message, ToastAndroid.LONG)
-    : alert(message);
+    : Alert.alert(message);
 };
 
 const onShare = async () => {
@@ -105,7 +113,6 @@ const onShare = async () => {
         ],
       }
     );
-    console.log("result__", result);
     if (result.action === Share.sharedAction) {
       if (result.activityType) {
       } else {
@@ -128,4 +135,5 @@ export default {
   showMessage,
   openWhatsApp,
   onShare,
+  openWeb,
 };

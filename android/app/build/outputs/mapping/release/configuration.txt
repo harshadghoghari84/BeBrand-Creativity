@@ -128,6 +128,7 @@
 # The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/aapt_proguard_file/release/aapt_rules.txt
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
+-keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
 -keep class com.bebrandd.branddot.MainActivity { <init>(); }
 -keep class com.bebrandd.branddot.MainApplication { <init>(); }
 -keep class com.facebook.CurrentAccessTokenExpirationBroadcastReceiver { <init>(); }
@@ -584,6 +585,9 @@
 }
 
 # End of content from /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/core/android/build/intermediates/consumer_proguard_dir/release/lib0/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/9b50165d76f39b4c3bacdc4faaad1895/transformed/jetified-billing-3.0.0/proguard.txt
+-keep class com.android.vending.billing.**
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/9b50165d76f39b4c3bacdc4faaad1895/transformed/jetified-billing-3.0.0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/b8fc52b1e8a1eb97b72eef6de09feaaa/transformed/jetified-facebook-places-7.1.0/proguard.txt
 # Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
 #
@@ -904,20 +908,6 @@
 # keep rules. Add a commonly used SearchView to the keep list until b/109831488 is resolved.
 -keep class androidx.appcompat.widget.SearchView { <init>(...); }
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/21b64ac4c7d2836450199bc33c91b372/transformed/appcompat-1.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/920119921107258d74264dc51e7cdb19/transformed/rules/lib/META-INF/proguard/okhttp3.pro
-# JSR 305 annotations are for embedding nullability information.
--dontwarn javax.annotation.**
-
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-
-# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
--dontwarn org.codehaus.mojo.animal_sniffer.*
-
-# OkHttp platform used only on JVM and when Conscrypt dependency is available.
--dontwarn okhttp3.internal.platform.ConscryptPlatform
-
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/920119921107258d74264dc51e7cdb19/transformed/rules/lib/META-INF/proguard/okhttp3.pro
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/83c5229d1a953d9878e2acf61ab3f7fb/transformed/jetified-glide-4.11.0/proguard.txt
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep class * extends com.bumptech.glide.module.AppGlideModule {
@@ -1267,7 +1257,7 @@
 }
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/78820b1095bb5354c9ca278828be8e6a/transformed/jetified-savedstate-1.0.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/a06b52485859b52e1032246e165c22fd/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/667e53faa51e5c5f6074d95d19cd6252/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
 -keep,allowobfuscation @interface androidx.annotation.Keep
 -keep @androidx.annotation.Keep class * {*;}
 
@@ -1283,7 +1273,25 @@
     @androidx.annotation.Keep <init>(...);
 }
 
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/a06b52485859b52e1032246e165c22fd/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+-keepclassmembers,allowobfuscation class * {
+  @androidx.annotation.DoNotInline <methods>;
+}
+
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/667e53faa51e5c5f6074d95d19cd6252/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/920119921107258d74264dc51e7cdb19/transformed/rules/lib/META-INF/proguard/okhttp3.pro
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/920119921107258d74264dc51e7cdb19/transformed/rules/lib/META-INF/proguard/okhttp3.pro
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/1ad01f768e95e68c3bb14d6390b12ab7/transformed/jetified-fbcore-2.0.0/proguard.txt
 # Keep our interfaces so they can be used by other ProGuard rules.
 # See http://sourceforge.net/p/proguard/bugs/466/

@@ -3,15 +3,27 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 // relative path
 import TopTabBar from "../../components/TopTabBar";
 import Packages from "./Packages";
+import FreePkg from "./FreePkg";
+import PremiumPkg from "./PremiumPkg";
+import { ScrollView } from "react-native";
+import Constant from "../../utils/Constant";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function MyTabs() {
+const MyTabs = ({ route }) => {
   return (
-    <Tab.Navigator tabBar={(props) => <TopTabBar {...props} arr={3} />}>
-      <Tab.Screen name="free" component={Packages} />
-      <Tab.Screen name="monthly" component={Packages} />
-      <Tab.Screen name="extra" component={Packages} />
+    <Tab.Navigator
+      initialRouteName={
+        route?.params?.title && route?.params?.title !== null
+          ? route.params.title
+          : Constant.titFree
+      }
+      tabBar={(props) => <TopTabBar {...props} arr={2} />}
+    >
+      <Tab.Screen name={Constant.titFree} component={FreePkg} />
+      <Tab.Screen name={Constant.titPrimium} component={PremiumPkg} />
     </Tab.Navigator>
   );
-}
+};
+
+export default MyTabs;

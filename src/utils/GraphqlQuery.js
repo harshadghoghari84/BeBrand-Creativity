@@ -7,7 +7,15 @@ export default {
         token
         msg
         user {
+          id
+          name
           mobile
+          birthDate
+          anniversaryDate
+          state
+          city
+          refCode
+          parentRefCode
           userInfo {
             personal {
               name
@@ -68,7 +76,15 @@ export default {
         token
         msg
         user {
+          id
+          name
           mobile
+          birthDate
+          anniversaryDate
+          state
+          city
+          refCode
+          parentRefCode
           userInfo {
             personal {
               name
@@ -120,7 +136,15 @@ export default {
         token
         msg
         user {
+          id
+          name
           mobile
+          birthDate
+          anniversaryDate
+          state
+          city
+          refCode
+          parentRefCode
           userInfo {
             personal {
               name
@@ -175,7 +199,15 @@ export default {
         token
         msg
         user {
+          id
+          name
           mobile
+          birthDate
+          anniversaryDate
+          state
+          city
+          refCode
+          parentRefCode
           userInfo {
             personal {
               name
@@ -225,10 +257,30 @@ export default {
       verifyUserToken
     }
   `,
+  notifications: gql`
+    query {
+      notifications {
+        id
+        title
+        body
+        type
+        status
+        updatedAt
+      }
+    }
+  `,
   user: gql`
     query {
       user(id: "") {
+        id
+        name
         mobile
+        birthDate
+        anniversaryDate
+        state
+        city
+        refCode
+        parentRefCode
         userInfo {
           personal {
             name
@@ -372,12 +424,29 @@ export default {
         actualPrice
         discountPrice
         designCredit
+        description
         businessImageLimit
         personalImageLimit
         validity
         features
         image {
           url
+        }
+      }
+    }
+  `,
+  offers: gql`
+    query {
+      offers {
+        id
+        title
+        message
+        image {
+          url
+        }
+        link {
+          linkType
+          linkData
         }
       }
     }
@@ -606,6 +675,23 @@ export default {
   addRequestFeature: gql`
     mutation($feature: String!) {
       addRequestFeature(feature: $feature)
+    }
+  `,
+  updateUserProfile: gql`
+    mutation(
+      $name: String!
+      $birthDate: String!
+      $anniversaryDate: String
+      $state: String!
+      $city: String!
+    ) {
+      updateUserProfile(
+        name: $name
+        birthDate: $birthDate
+        anniversaryDate: $anniversaryDate
+        state: $state
+        city: $city
+      )
     }
   `,
   updatePersonalUserInfo: gql`

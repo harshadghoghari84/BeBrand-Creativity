@@ -9,6 +9,7 @@ import DesignScreen from "../screens/Design";
 import UserDesign from "../screens/UserDesign";
 import UserPackage from "../screens/UserPackage";
 import UserProfile from "../screens/user_profile";
+import ProfileUser from "../screens/ProfileUser";
 import WebViews from "../components/WebViews";
 import Notification from "../screens/Notification";
 import Packages from "../screens/pacakges/Packages";
@@ -70,13 +71,7 @@ const HomeStackComponent = ({ navigation }) => {
           ),
         }}
       />
-      {/* <HomeStack.Screen
-        name={Constant.navHome}
-        component={CarouselSample}
-        options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
-        }}
-      /> */}
+
       <HomeStack.Screen
         name={Constant.navDesign}
         component={DesignScreen}
@@ -90,6 +85,15 @@ const HomeStackComponent = ({ navigation }) => {
       <HomeStack.Screen
         name={Constant.navProfile}
         component={UserProfile}
+        options={{
+          header: (props) => (
+            <CustomHeader isBackVisible={true} notification={true} {...props} />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.navProfileUser}
+        component={ProfileUser}
         options={{
           header: (props) => (
             <CustomHeader isBackVisible={true} notification={true} {...props} />

@@ -7,7 +7,12 @@ const TextInput = ({ iconName, errorText, ...props }) => (
   <>
     <View style={styles.socialBTNView}>
       <View style={styles.filedsIcon}>
-        <Icon name={iconName} fill={Color.white} height={15} width={15} />
+        <Icon
+          name={iconName}
+          fill={Color.white}
+          height={iconName === "refferfilld" ? 22 : 15}
+          width={iconName === "refferfilld" ? 22 : 15}
+        />
       </View>
       <Input style={styles.input} {...props} />
     </View>

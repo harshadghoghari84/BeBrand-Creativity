@@ -21,7 +21,10 @@ export default {
   defLangCode: "en",
   defUserName: "Guest",
   prfUserToken: "userToken",
+  prfUserloginTime: "userLoginTime",
   prfLangCode: "langCode",
+
+  branddotLegalUrl: "https://branddot.in/?page_id=559",
 
   webClientId:
     "600189297260-84i8k158h4i6s8elhu4hh9pa4cdbpn8j.apps.googleusercontent.com",
@@ -45,6 +48,7 @@ export default {
   navRequestFeature: "requestFeature",
   navAccount: "account",
   navProfile: "userProfile",
+  navProfileUser: "profileUser",
   navPersonalProfile: "personal",
   navBusinessProfile: "business",
   navPackage: "userPackage",
@@ -73,6 +77,8 @@ export default {
   titProfile: "Profile",
   titPackage: "Package",
   titDesigns: "Designs",
+  titPersonalProfile: "Personal",
+  titBusinessProfile: "Business",
   titWhatsAppUs: "WhatsApp Updates",
   titLegal: "Legal",
   titReferandEarn: "Refer & Earn",
@@ -94,8 +100,15 @@ export default {
     "twitter",
     "youtube",
     "linkedin",
-    "github",
-    "facebook",
+    "googlePlus",
+    "pintrest",
+    "behance",
+    // "github",
+    "skype",
+    "snapchat",
+    "dribble",
+    "dropbox",
+    "vimio",
   ],
   defSocialIconList: ["facebook", "linkedin", "twitter", "youtube"],
 
@@ -138,4 +151,17 @@ export default {
 
   // signin
   userNotVerify: "USER_NOT_VERIFIED",
+
+  // design pkg type
+  free: "FREE",
+  vip: "VIP",
+  // Rating POPup
+  titAppleIdForAppStore: "2193813192",
+  titPkgnameForAndroidPlayStore: "com.bebrandd.branddot",
+  OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
+  fallbackPlatformURL: "http://www.mywebsite.com/myapp.html",
+
+  // pkg name
+  titFree: "free",
+  titPrimium: "Premium",
 };
