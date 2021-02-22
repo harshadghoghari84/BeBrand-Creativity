@@ -277,6 +277,7 @@ com.facebook.react.uimanager.MatrixMathHelper:
 com.google.android.material.shape.MaterialShapeUtils:
     private void <init>()
 com.google.android.play.core.splitinstall.af
+com.android.billingclient.api.BillingFlowParams$ProrationMode
 com.facebook.common.memory.NoOpMemoryTrimmableRegistry:
     public void unregisterMemoryTrimmable(com.facebook.common.memory.MemoryTrimmable)
 androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationCallback
@@ -508,6 +509,8 @@ androidx.core.app.NotificationCompat:
     public static final int GROUP_ALERT_ALL
     public static final int GROUP_ALERT_SUMMARY
     public static final int GROUP_ALERT_CHILDREN
+com.amazon.device.iap.internal.b.b.d:
+    public void b()
 com.facebook.share.model.ShareVideo$Builder:
     public synthetic bridge com.facebook.share.model.ShareMedia$Builder readFrom(com.facebook.share.model.ShareMedia)
     public synthetic bridge com.facebook.share.model.ShareModelBuilder readFrom(com.facebook.share.model.ShareModel)
@@ -585,6 +588,7 @@ expo.modules.constants.ConstantsService:
     private static final java.lang.String UUID_KEY
 com.google.android.gms.common.api.internal.DataHolderResult
 com.facebook.react.packagerconnection.RequestOnlyHandler
+androidx.browser.trusted.TrustedWebActivityIntent
 com.google.android.gms.common.api.AvailabilityException:
     public com.google.android.gms.common.ConnectionResult getConnectionResult(com.google.android.gms.common.api.HasApiKey)
 com.bumptech.glide.request.target.CustomViewTarget$1
@@ -630,6 +634,7 @@ com.google.android.gms.tasks.CancellationToken
 androidx.vectordrawable.R$dimen
 androidx.annotation.RawRes
 org.apache.commons.lang3.text.translate.UnicodeUnescaper
+com.android.billingclient.api.zzy
 com.google.android.gms.internal.base.zak
 com.google.android.gms.internal.auth-api-phone.zzj:
     public abstract void zza(java.lang.String,com.google.android.gms.internal.auth-api-phone.zzl)
@@ -684,6 +689,7 @@ androidx.transition.TransitionListenerAdapter:
     public void onTransitionEnd(androidx.transition.Transition)
 com.google.android.gms.tasks.zzx
 androidx.core.view.inputmethod.InputContentInfoCompat$InputContentInfoCompatBaseImpl
+com.amazon.device.iap.internal.b.h.a
 fr.greweb.reactnativeviewshot.DebugViews:
     public void <init>()
     public static final int LOG_MSG_LIMIT
@@ -774,6 +780,7 @@ org.apache.commons.lang3.time.FastDateParser$3
 androidx.media.MediaSessionManager$MediaSessionManagerImpl
 io.nlopez.smartlocation.R$color
 com.google.android.gms.internal.location.zzh
+com.dooboolab.RNIap.R$drawable
 androidx.fragment.R$attr
 org.apache.commons.codec.binary.Hex:
     public static byte[] decodeHex(char[])
@@ -863,6 +870,7 @@ com.facebook.react.devsupport.DevServerHelper$1$4
 com.facebook.react.fabric.FabricJSIModuleProvider
 com.google.android.play.core.appupdate.u
 kotlin.SuccessOrFailureKt
+com.android.billingclient.api.BillingClient$SkuType
 com.facebook.share.internal.LikeActionController$PublishLikeRequestWrapper
 com.facebook.react.views.textinput.ReactTextInputFocusEvent:
     private static final java.lang.String EVENT_NAME
@@ -1006,12 +1014,12 @@ javax.inject.Named
 com.google.android.gms.auth.api.accounttransfer.zzr
 com.facebook.react.devsupport.DevLoadingViewController$2
 kotlin.jvm.internal.LongSpreadBuilder
-com.facebook.imagepipeline.cache.BitmapCountingMemoryCacheFactory:
-    public void <init>()
-    public static com.facebook.imagepipeline.cache.CountingMemoryCache get(com.facebook.common.internal.Supplier,com.facebook.common.memory.MemoryTrimmableRegistry)
 androidx.transition.ViewUtilsBase:
     private static final java.lang.String TAG
     private static final int VISIBILITY_MASK
+com.facebook.imagepipeline.cache.BitmapCountingMemoryCacheFactory:
+    public void <init>()
+    public static com.facebook.imagepipeline.cache.CountingMemoryCache get(com.facebook.common.internal.Supplier,com.facebook.common.memory.MemoryTrimmableRegistry)
 androidx.appcompat.widget.AppCompatPopupWindow:
     public void <init>(android.content.Context,android.util.AttributeSet,int)
 androidx.recyclerview.widget.ChildHelper$Bucket:
@@ -1214,6 +1222,7 @@ com.bumptech.glide.disklrucache.DiskLruCache$Value:
     public com.bumptech.glide.disklrucache.DiskLruCache$Editor edit()
     public java.lang.String getString(int)
     public long getLength(int)
+androidx.browser.trusted.TrustedWebActivityServiceConnection$NotifyNotificationArgs
 com.google.android.gms.common.internal.service.zak
 com.google.android.material.card.MaterialCardViewHelper:
     public void <init>(com.google.android.material.card.MaterialCardView,android.util.AttributeSet,int,int)
@@ -1266,6 +1275,7 @@ io.nlopez.smartlocation.geofencing.utils.TransitionGeofence:
     public int getTransitionType()
 com.google.android.play.core.assetpacks.AssetPackManager
 expo.modules.sharing.R$dimen
+android.support.customtabs.trusted.ITrustedWebActivityService$Stub$Proxy
 kotlin.reflect.jvm.internal.KMutableProperty2Impl:
     public void <init>(kotlin.reflect.jvm.internal.KDeclarationContainerImpl,java.lang.String,java.lang.String)
     public synthetic bridge kotlin.reflect.KMutableProperty$Setter getSetter()
@@ -1553,6 +1563,7 @@ androidx.appcompat.view.menu.MenuItemWrapperICS:
     static final java.lang.String LOG_TAG
 android.support.v4.media.MediaBrowserCompat$ItemCallback$StubApi23
 kotlin.time.MeasureTimeKt
+android.support.customtabs.trusted.ITrustedWebActivityService
 com.google.zxing.oned.rss.expanded.decoders.AI013x0x1xDecoder
 android.support.v4.media.session.MediaControllerCompat$MediaControllerImplApi21:
     public void <init>(android.content.Context,android.support.v4.media.session.MediaSessionCompat$Token)
@@ -1588,6 +1599,7 @@ com.google.android.gms.internal.firebase-auth-api.zzaan:
     public final boolean equals(java.lang.Object)
     public final java.lang.String toString()
 androidx.collection.CircularIntArray
+com.android.billingclient.api.PriceChangeFlowParams
 com.google.android.gms.auth.account.zze
 com.google.firebase.auth.internal.R
 com.google.android.gms.common.internal.ConnectionErrorMessages:
@@ -1620,6 +1632,7 @@ com.bebrandd.branddot.R$raw
 androidx.transition.GhostViewPlatform:
     private static final java.lang.String TAG
 androidx.core.os.ParcelableCompat
+com.dooboolab.RNIap.R$styleable
 androidx.appcompat.widget.AppCompatSeekBar:
     public void <init>(android.content.Context)
 kotlin.collections.CollectionsKt__CollectionsJVMKt:
@@ -1721,6 +1734,7 @@ com.facebook.internal.instrument.InstrumentData:
     private static final java.lang.String PARAM_CALLSTACK
     private static final java.lang.String PARAM_TYPE
     private static final java.lang.String PARAM_FEATURE_NAMES
+androidx.concurrent.futures.AbstractResolvableFuture$1
 com.google.android.play.core.splitinstall.ad
 com.google.android.gms.auth.api.credentials.CredentialsApi:
     public abstract com.google.android.gms.common.api.PendingResult request(com.google.android.gms.common.api.GoogleApiClient,com.google.android.gms.auth.api.credentials.CredentialRequest)
@@ -1828,6 +1842,7 @@ androidx.transition.TransitionManager:
     private androidx.collection.ArrayMap mSceneTransitions
     private androidx.collection.ArrayMap mScenePairTransitions
     private static final java.lang.String LOG_TAG
+androidx.concurrent.futures.AbstractResolvableFuture$Listener
 org.apache.commons.io.input.TeeInputStream
 androidx.core.app.JobIntentService$JobServiceEngineImpl$WrapperWorkItem
 kotlin.sequences.USequencesKt
@@ -1884,6 +1899,7 @@ kotlin.text.CharsKt__CharKt:
     public static synthetic boolean equals$default(char,char,boolean,int,java.lang.Object)
     public static final boolean isSurrogate(char)
     public void <init>()
+com.reactcommunity.rndatetimepicker.R$dimen
 com.google.android.material.internal.CheckableImageButton:
     public void <init>(android.content.Context)
     public boolean isPressable()
@@ -2090,6 +2106,7 @@ com.google.android.gms.internal.firebase-auth-api.zzem:
     static final synthetic int[] zza
 com.facebook.internal.ImageRequest$Callback
 com.google.zxing.client.result.EmailAddressResultParser
+androidx.browser.trusted.PackageIdentityUtils
 com.google.android.gms.auth.api.accounttransfer.zzt
 androidx.annotation.RequiresFeature
 androidx.core.os.ParcelCompat
@@ -2151,6 +2168,8 @@ com.facebook.share.model.ShareHashtag$Builder:
     public java.lang.String getHashtag()
     public synthetic bridge com.facebook.share.model.ShareModelBuilder readFrom(com.facebook.share.model.ShareModel)
     public synthetic bridge java.lang.Object build()
+com.amazon.device.iap.internal.b.b.b:
+    protected void preExecution()
 fr.greweb.reactnativeviewshot.BuildConfig
 com.google.android.gms.auth.api.accounttransfer.AccountTransferClient
 com.facebook.react.jstasks.NoRetryPolicy
@@ -2206,6 +2225,7 @@ kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$ContractOrBuilder
 com.google.android.gms.location.ActivityTransition$Builder
 org.apache.commons.lang3.time.FastDateParser$1
 android.support.v4.media.session.PlaybackStateCompat$Actions
+androidx.browser.trusted.TokenContents
 androidx.viewpager.R$styleable
 com.facebook.imagepipeline.core.ImagePipelineExperiments:
     public static com.facebook.imagepipeline.core.ImagePipelineExperiments$Builder newBuilder(com.facebook.imagepipeline.core.ImagePipelineConfig$Builder)
@@ -2236,8 +2256,15 @@ androidx.browser.customtabs.CustomTabsIntent:
     public static int getMaxToolbarItems()
     public static android.content.Intent setAlwaysUseBrowserUI(android.content.Intent)
     public static boolean shouldAlwaysUseBrowserUI(android.content.Intent)
+    public static androidx.browser.customtabs.CustomTabColorSchemeParams getColorSchemeParams(android.content.Intent,int)
     private static final java.lang.String EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS
     public static final java.lang.String EXTRA_SESSION
+    public static final java.lang.String EXTRA_SESSION_ID
+    public static final int COLOR_SCHEME_SYSTEM
+    public static final int COLOR_SCHEME_LIGHT
+    public static final int COLOR_SCHEME_DARK
+    private static final int COLOR_SCHEME_MAX
+    public static final java.lang.String EXTRA_COLOR_SCHEME
     public static final java.lang.String EXTRA_TOOLBAR_COLOR
     public static final java.lang.String EXTRA_ENABLE_URLBAR_HIDING
     public static final java.lang.String EXTRA_CLOSE_BUTTON_ICON
@@ -2254,12 +2281,20 @@ androidx.browser.customtabs.CustomTabsIntent:
     public static final java.lang.String EXTRA_MENU_ITEMS
     public static final java.lang.String KEY_MENU_ITEM_TITLE
     public static final java.lang.String EXTRA_EXIT_ANIMATION_BUNDLE
+    public static final int SHARE_STATE_DEFAULT
+    public static final int SHARE_STATE_ON
+    public static final int SHARE_STATE_OFF
+    private static final int SHARE_STATE_MAX
+    public static final java.lang.String EXTRA_SHARE_STATE
     public static final java.lang.String EXTRA_DEFAULT_SHARE_MENU_ITEM
     public static final java.lang.String EXTRA_REMOTEVIEWS
     public static final java.lang.String EXTRA_REMOTEVIEWS_VIEW_IDS
     public static final java.lang.String EXTRA_REMOTEVIEWS_PENDINGINTENT
     public static final java.lang.String EXTRA_REMOTEVIEWS_CLICKED_ID
     public static final java.lang.String EXTRA_ENABLE_INSTANT_APPS
+    public static final java.lang.String EXTRA_COLOR_SCHEME_PARAMS
+    public static final java.lang.String EXTRA_NAVIGATION_BAR_COLOR
+    public static final java.lang.String EXTRA_NAVIGATION_BAR_DIVIDER_COLOR
     public static final java.lang.String KEY_ID
     public static final int TOOLBAR_ACTION_BUTTON_ID
     private static final int MAX_TOOLBAR_ITEMS
@@ -2319,8 +2354,8 @@ com.google.zxing.pdf417.PDF417Writer:
     private static final int DEFAULT_ERROR_CORRECTION_LEVEL
 androidx.annotation.FloatRange
 com.google.android.material.R
-androidx.appcompat.graphics.drawable.DrawerArrowDrawable$ArrowDirection
 com.facebook.react.devsupport.WebsocketJavaScriptExecutor$WebsocketExecutorTimeoutException
+androidx.appcompat.graphics.drawable.DrawerArrowDrawable$ArrowDirection
 com.google.android.gms.common.api.DataBufferResponse
 com.google.android.gms.tasks.zzv
 org.apache.commons.lang3.mutable.MutableInt
@@ -2919,9 +2954,9 @@ androidx.core.internal.view.SupportMenu:
     public static final int FLAG_KEEP_OPEN_ON_SUBMENU_OPENED
 com.google.zxing.multi.MultipleBarcodeReader
 org.unimodules.adapters.react.R$string
+com.facebook.login.widget.ProfilePictureView$OnErrorListener
 com.facebook.react.viewmanagers.AndroidSwipeRefreshLayoutManagerDelegate:
     public void receiveCommand(com.facebook.react.viewmanagers.AndroidSwipeRefreshLayoutManagerInterface,android.view.View,java.lang.String,com.facebook.react.bridge.ReadableArray)
-com.facebook.login.widget.ProfilePictureView$OnErrorListener
 com.google.zxing.pdf417.decoder.DecodedBitStreamParser$Mode
 com.facebook.imagepipeline.cache.BufferedDiskCache:
     private bolts.Task containsAsync(com.facebook.cache.common.CacheKey)
@@ -2959,6 +2994,7 @@ android.support.v4.media.MediaBrowserCompat$ItemCallback:
 com.google.android.gms.auth.account.zzc
 com.google.android.play.core.splitcompat.SplitCompat
 com.facebook.places.R$string
+com.android.billingclient.api.BillingClient$FeatureType
 androidx.core.provider.FontsContractCompat$FontRequestCallback$FontRequestFailReason
 kotlin.ExceptionsKt:
     private void <init>()
@@ -2992,6 +3028,14 @@ com.facebook.share.widget.GameRequestDialog:
     public void <init>(android.app.Fragment)
     private void <init>(com.facebook.internal.FragmentWrapper)
     private static final java.lang.String GAME_REQUEST_DIALOG
+com.amazon.device.iap.model.PurchaseResponse:
+    public void <init>(com.amazon.device.iap.internal.model.PurchaseResponseBuilder)
+    public org.json.JSONObject toJSON()
+    private static final java.lang.String USER_DATA
+    private static final java.lang.String RECEIPT
+    private static final java.lang.String REQUEST_STATUS
+    private static final java.lang.String REQUEST_ID
+    private static final java.lang.String TO_STRING_FORMAT
 org.apache.commons.lang3.concurrent.MultiBackgroundInitializer
 androidx.vectordrawable.graphics.drawable.AnimatorInflaterCompat$PathDataEvaluator:
     void <init>(androidx.core.graphics.PathParser$PathDataNode[])
@@ -3008,6 +3052,7 @@ androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl:
     public void onCloseSubMenu(androidx.appcompat.view.menu.SubMenuBuilder)
 com.google.android.gms.internal.firebase-auth-api.zzen:
     private void <init>()
+com.dooboolab.RNIap.BuildConfig
 kotlin.sequences.SequencesKt___SequencesKt$requireNoNulls$1
 com.facebook.share.widget.CreateAppGroupDialog
 com.facebook.messenger.MessengerUtils
@@ -3195,10 +3240,13 @@ com.google.android.gms.auth.api.identity.BeginSignInRequest$PasswordRequestOptio
 androidx.vectordrawable.R
 com.oblador.vectoricons.R$anim
 androidx.activity.R$attr
+com.android.billingclient.api.zzu
 com.facebook.imagepipeline.memory.BitmapCounterConfig$Builder
+androidx.browser.trusted.splashscreens.SplashScreenVersion
 com.google.android.material.circularreveal.CircularRevealRelativeLayout
 com.google.android.material.floatingactionbutton.FloatingActionButton$ShadowDelegateImpl:
     public float getRadius()
+androidx.browser.browseractions.BrowserServiceFileProvider
 com.facebook.share.R$drawable
 com.google.android.gms.common.config.zzc
 com.google.android.material.snackbar.BaseTransientBottomBar
@@ -3226,11 +3274,14 @@ kotlin.sequences.DropTakeSequence:
 org.unimodules.adapters.react.R$style
 androidx.asynclayoutinflater.view.AsyncLayoutInflater$1
 com.google.android.gms.location.zzg
+com.amazon.device.iap.internal.b.g.b:
+    public void b()
 io.nlopez.smartlocation.location.providers.LocationManagerProvider:
     public void stop()
     private static final java.lang.String LOCATIONMANAGERPROVIDER_ID
 io.nlopez.smartlocation.R$string
 kotlin.io.TextStreamsKt
+com.android.billingclient.api.PriceChangeFlowParams$Builder
 org.apache.commons.lang3.math.NumberUtils
 kotlin.reflect.jvm.internal.impl.metadata.jvm.JvmProtoBuf$JvmFieldSignature$Builder:
     public kotlin.reflect.jvm.internal.impl.metadata.jvm.JvmProtoBuf$JvmFieldSignature getDefaultInstanceForType()
@@ -3277,6 +3328,7 @@ androidx.core.app.NotificationCompatSideChannelService
 com.google.android.gms.common.data.DataBufferObserverSet
 org.apache.commons.lang3.concurrent.AbstractCircuitBreaker$1
 expo.modules.imageloader.R$bool
+com.amazon.device.iap.internal.a.b
 org.apache.commons.io.input.SwappedDataInputStream
 com.facebook.imagepipeline.cache.BufferedDiskCache$1
 com.facebook.react.views.scroll.ReactScrollView:
@@ -3298,13 +3350,13 @@ kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineFromSu
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$QualifiedNameTable$QualifiedName:
     public kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$QualifiedNameTable$QualifiedName getDefaultInstanceForType()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
+com.bumptech.glide.load.engine.bitmap_recycle.BaseKeyPool:
+    private static final int MAX_SIZE
 com.facebook.imagepipeline.producers.NetworkFetchProducer:
     public static final java.lang.String PRODUCER_NAME
     public static final java.lang.String INTERMEDIATE_RESULT_PRODUCER_EVENT
     private static final int READ_SIZE
     static final long TIME_BETWEEN_PARTIAL_RESULTS_MS
-com.bumptech.glide.load.engine.bitmap_recycle.BaseKeyPool:
-    private static final int MAX_SIZE
 com.facebook.react.devsupport.WebsocketJavaScriptExecutor$2
 org.apache.commons.io.monitor.FileAlterationListener
 com.google.android.gms.auth.api.accounttransfer.DeviceMetaData
@@ -3321,6 +3373,7 @@ kotlin.reflect.jvm.internal.KPropertyImpl$Accessor:
     public boolean isInfix()
     public boolean isSuspend()
 androidx.core.util.PatternsCompat
+androidx.concurrent.futures.AbstractResolvableFuture$Waiter
 com.android.installreferrer.api.ReferrerDetails:
     public long getReferrerClickTimestampSeconds()
     public long getInstallBeginTimestampSeconds()
@@ -3604,6 +3657,7 @@ org.apache.commons.lang3.mutable.MutableLong
 androidx.fragment.app.FragmentLayoutInflaterFactory:
     private static final java.lang.String TAG
 com.google.android.gms.common.zzm
+com.amazon.device.iap.internal.model.ProductBuilder
 org.apache.commons.codec.language.MatchRatingApproachEncoder
 org.apache.commons.lang3.concurrent.BackgroundInitializer$InitializationTask
 com.facebook.react.devsupport.StackTraceHelper$StackFrameImpl
@@ -3720,6 +3774,7 @@ org.apache.commons.codec.language.bm.PhoneticEngine$1
 androidx.appcompat.app.ActionBar$LayoutParams:
     public void <init>(int,int,int)
     public void <init>(int)
+androidx.browser.trusted.TrustedWebActivityServiceConnection
 com.facebook.share.internal.LikeBoxCountView$LikeBoxCountViewCaretPosition
 com.google.zxing.qrcode.encoder.ByteMatrix:
     public void set(int,int,byte)
@@ -4529,11 +4584,17 @@ com.google.android.gms.internal.auth-api.zzam
 androidx.annotation.GuardedBy
 com.google.android.gms.base.R$id
 kotlin.jvm.JvmSuppressWildcards
+com.amazon.device.iap.internal.model.ReceiptBuilder
 org.unimodules.interfaces.barcodescanner.BarCodeScannerResult
+com.amazon.device.iap.model.UserData:
+    public void <init>(com.amazon.device.iap.internal.model.UserDataBuilder)
+    private static final java.lang.String USER_ID
+    private static final java.lang.String MARKETPLACE
 com.facebook.react.devsupport.RedBoxDialog$StackAdapter
 com.bumptech.glide.util.Executors:
     private void <init>()
     public static void shutdownAndAwaitTermination(java.util.concurrent.ExecutorService)
+com.android.billingclient.api.zzv
 com.google.android.material.circularreveal.CircularRevealGridLayout
 androidx.recyclerview.widget.AdapterHelper$UpdateOp:
     static final int ADD
@@ -4589,6 +4650,7 @@ androidx.appcompat.widget.ListPopupWindow:
     public static final int INPUT_METHOD_FROM_FOCUSABLE
     public static final int INPUT_METHOD_NEEDED
     public static final int INPUT_METHOD_NOT_NEEDED
+androidx.browser.trusted.sharing.ShareTarget$EncodingType
 com.google.android.play.core.client.R
 androidx.recyclerview.widget.StaggeredGridLayoutManager$LayoutParams:
     public void <init>(androidx.recyclerview.widget.RecyclerView$LayoutParams)
@@ -4602,6 +4664,7 @@ com.facebook.drawee.interfaces.DraweeController:
     public abstract boolean isSameImageRequest(com.facebook.drawee.interfaces.DraweeController)
 com.reactnativecommunity.asyncstorage.R
 com.google.android.play.core.appupdate.y
+androidx.browser.trusted.sharing.ShareTarget$FileFormField
 android.support.v4.media.MediaBrowserCompatApi21$SubscriptionCallback
 androidx.recyclerview.widget.DiffUtil
 androidx.transition.CircularPropagation
@@ -4630,7 +4693,23 @@ okio.ByteString:
     public final int lastIndexOf(okio.ByteString,int)
     public final int lastIndexOf(byte[])
     public int lastIndexOf(byte[],int)
+androidx.browser.trusted.TrustedWebActivityServiceConnectionPool$BindToServiceAsyncTask
 org.reactnative.maskedview.R$anim
+com.amazon.device.iap.internal.a.c:
+    private void a(android.content.Intent)
+    private com.amazon.device.iap.model.PurchaseUpdatesResponse b(android.content.Intent)
+    private void c(android.content.Intent)
+    private com.amazon.device.iap.model.ProductDataResponse d(android.content.Intent)
+    private com.amazon.device.iap.model.Product a(java.lang.String,org.json.JSONObject)
+    private void e(android.content.Intent)
+    private void a(java.lang.String,java.lang.String,boolean)
+    private com.amazon.device.iap.model.UserDataResponse f(android.content.Intent)
+    private void g(android.content.Intent)
+    private com.amazon.device.iap.model.PurchaseResponse h(android.content.Intent)
+    private com.amazon.device.iap.model.Receipt a(org.json.JSONObject)
+    static synthetic java.lang.String a()
+    public void a(android.content.Context,android.content.Intent)
+    protected void a(java.lang.Object)
 com.google.android.material.internal.ViewUtils$RelativePadding
 com.google.android.gms.common.api.internal.zaa
 com.facebook.common.disk.DiskTrimmableRegistry:
@@ -4654,6 +4733,7 @@ com.google.android.gms.location.Geofence:
 com.facebook.share.internal.WebDialogParameters:
     public void <init>()
     public static android.os.Bundle create(com.facebook.share.model.AppGroupCreationContent)
+androidx.browser.trusted.Token
 com.facebook.react.common.JavascriptException:
     public java.lang.String getExtraDataAsJson()
 com.google.android.gms.common.server.response.FastJsonResponse$Field
@@ -4811,10 +4891,11 @@ kotlin.collections.CollectionsKt___CollectionsKt:
     public static final float sumOfFloat(java.lang.Iterable)
     public static final double sumOfDouble(java.lang.Iterable)
     public void <init>()
+com.google.android.gms.internal.firebase-auth-api.zzrn
 com.facebook.imagepipeline.platform.PlatformDecoder:
     public abstract com.facebook.common.references.CloseableReference decodeFromEncodedImage(com.facebook.imagepipeline.image.EncodedImage,android.graphics.Bitmap$Config,android.graphics.Rect)
-com.google.android.gms.internal.firebase-auth-api.zzrn
 kotlin.jvm.internal.MutablePropertyReference0Impl
+com.reactcommunity.rndatetimepicker.R$styleable
 com.google.android.play.core.splitinstall.aa
 kotlin.collections.CollectionsKt__MutableCollectionsJVMKt:
     private static final void sort(java.util.List,java.util.Comparator)
@@ -5126,6 +5207,7 @@ com.google.android.material.datepicker.UtcDates:
 org.apache.commons.lang3.text.translate.NumericEntityUnescaper$OPTION
 com.swmansion.rnscreens.ScreenStack:
     private static final java.lang.String BACK_STACK_TAG
+com.reactcommunity.rndatetimepicker.R$id
 expo.modules.lineargradient.LinearGradientManager:
     public static final java.lang.String VIEW_CLASS_NAME
     public static final java.lang.String PROP_COLORS
@@ -5154,6 +5236,12 @@ com.facebook.appevents.aam.MetadataRule:
     private static final java.lang.String FIELD_V
     private static final java.lang.String FIELD_K_DELIMITER
 kotlin.jvm.internal.markers.KMutableIterator
+com.amazon.device.iap.internal.b.b.a:
+    static synthetic java.lang.String a()
+    static synthetic java.lang.String a(com.amazon.device.iap.internal.b.b.a)
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
+    protected com.amazon.android.framework.task.TaskManager a
+    protected com.amazon.android.framework.context.ContextManager b
 org.unimodules.adapters.react.views.ViewManagerAdapterUtils:
     public void <init>()
 com.google.zxing.datamatrix.encoder.Encoder:
@@ -5175,6 +5263,7 @@ kotlin.LazyKt:
 com.facebook.common.internal.ByteStreams$1
 com.facebook.share.internal.LikeActionController$RequestCompletionCallback
 com.facebook.gamingservices.R$style
+androidx.concurrent.futures.CallbackToFutureAdapter$SafeFuture$1
 kotlin.collections.ShortIterator
 org.apache.commons.codec.net.Utils
 org.unimodules.interfaces.constants.BuildConfig
@@ -5247,10 +5336,10 @@ com.google.zxing.datamatrix.encoder.DefaultPlacement:
 com.google.android.play.core.splitcompat.h
 org.unimodules.adapters.react.services.UIManagerModuleWrapper$2
 androidx.recyclerview.R$layout
-com.facebook.imagepipeline.datasource.ListDataSource
 com.google.android.gms.common.api.ResultCallbacks:
     public void <init>()
     public final void onResult(com.google.android.gms.common.api.Result)
+com.facebook.imagepipeline.datasource.ListDataSource
 com.google.android.gms.common.api.internal.LifecycleFragment:
     public abstract boolean isCreated()
     public abstract boolean isStarted()
@@ -5259,8 +5348,8 @@ org.apache.commons.lang3.time.FastDatePrinter$TwoDigitNumberField
 kotlin.collections.MapsKt:
     private void <init>()
 com.facebook.react.devsupport.DevServerHelper$BundleType
-javax.annotation.Nonnull$Checker
 com.google.android.gms.common.internal.service.zag
+javax.annotation.Nonnull$Checker
 kotlin.NumbersKt__BigDecimalsKt
 bolts.Task:
     public static void setUnobservedExceptionHandler(bolts.Task$UnobservedExceptionHandler)
@@ -5902,6 +5991,7 @@ androidx.room.RoomMasterTable:
     public static final java.lang.String CREATE_QUERY
     public static final java.lang.String READ_QUERY
 expo.modules.imageloader.BuildConfig
+com.reactcommunity.rndatetimepicker.R$string
 androidx.core.text.PrecomputedTextCompat$PrecomputedTextFutureTask
 org.apache.commons.lang3.time.FastDateParser$5
 com.facebook.imagepipeline.memory.FlexByteArrayPool:
@@ -5915,6 +6005,8 @@ org.apache.commons.codec.CharEncoding
 com.facebook.react.views.text.DefaultStyleValuesUtil:
     private void <init>()
 org.apache.commons.lang3.text.StrBuilder$StrBuilderWriter
+androidx.browser.customtabs.CustomTabsServiceConnection:
+    android.content.Context getApplicationContext()
 com.bumptech.glide.load.engine.executor.GlideExecutor:
     public static com.bumptech.glide.load.engine.executor.GlideExecutor newDiskCacheExecutor(com.bumptech.glide.load.engine.executor.GlideExecutor$UncaughtThrowableStrategy)
     public static com.bumptech.glide.load.engine.executor.GlideExecutor newDiskCacheExecutor(int,java.lang.String,com.bumptech.glide.load.engine.executor.GlideExecutor$UncaughtThrowableStrategy)
@@ -6017,14 +6109,15 @@ org.apache.commons.io.FileSystemUtils
 com.google.android.material.navigation.NavigationView$SavedState
 androidx.room.Query
 com.facebook.internal.ImageDownloader$RequestKey
+com.amazon.device.iap.internal.util.c
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$1
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$1
 com.facebook.react.devsupport.JSException:
     public void <init>(java.lang.String,java.lang.String)
     public java.lang.String getStack()
+androidx.recyclerview.widget.ItemTouchHelper$ViewDropHandler
 com.facebook.imagepipeline.debug.NoOpCloseableReferenceLeakTracker:
     public void setListener(com.facebook.imagepipeline.debug.CloseableReferenceLeakTracker$Listener)
-androidx.recyclerview.widget.ItemTouchHelper$ViewDropHandler
 com.facebook.places.internal.BluetoothScanResult
 kotlin.reflect.KAnnotatedElement
 com.google.android.material.internal.ParcelableSparseBooleanArray
@@ -6041,6 +6134,7 @@ com.bumptech.glide.integration.okhttp.R$style
 com.google.android.gms.internal.location.zzb:
     static void <clinit>()
     private static com.google.android.gms.internal.location.zzd zzc
+com.reactcommunity.rndatetimepicker.R$bool
 kotlin.reflect.jvm.internal.impl.types.model.StubTypeMarker
 com.bumptech.glide.load.resource.bitmap.Downsampler:
     static final java.lang.String TAG
@@ -6205,13 +6299,13 @@ com.google.android.gms.common.internal.safeparcel.SafeParcelWriter:
     public static void writeByteArraySparseArray(android.os.Parcel,int,android.util.SparseArray,boolean)
 com.google.android.gms.auth.api.proxy.ProxyRequest
 com.facebook.GraphRequest$2
+com.google.android.gms.auth.api.identity.zzf
 com.google.android.material.animation.MotionSpec:
     private android.animation.PropertyValuesHolder[] clonePropertyValuesHolder(android.animation.PropertyValuesHolder[])
     public boolean hasPropertyValues(java.lang.String)
     public android.animation.PropertyValuesHolder[] getPropertyValues(java.lang.String)
     public android.animation.ObjectAnimator getAnimator(java.lang.String,java.lang.Object,android.util.Property)
     private static final java.lang.String TAG
-com.google.android.gms.auth.api.identity.zzf
 com.facebook.imagepipeline.memory.DummyBitmapPool:
     public void trim(com.facebook.common.memory.MemoryTrimType)
 com.google.android.play.core.tasks.Task:
@@ -6386,11 +6480,11 @@ kotlin.coroutines.experimental.RestrictsSuspension
 com.google.android.gms.common.util.Base64Utils:
     public void <init>()
     public static byte[] decode(java.lang.String)
-com.google.android.material.snackbar.BaseTransientBottomBar$4
 com.google.firebase.heartbeatinfo.HeartBeatInfo:
     public abstract com.google.firebase.heartbeatinfo.HeartBeatInfo$HeartBeat getHeartBeatCode(java.lang.String)
     public abstract com.google.android.gms.tasks.Task storeHeartBeatInfo(java.lang.String)
     public abstract com.google.android.gms.tasks.Task getAndClearStoredHeartBeatInfo()
+com.google.android.material.snackbar.BaseTransientBottomBar$4
 com.facebook.common.internal.Objects$ToStringHelper:
     private com.facebook.common.internal.Objects$ToStringHelper addHolder(java.lang.Object)
     public com.facebook.common.internal.Objects$ToStringHelper omitNullValues()
@@ -6437,6 +6531,8 @@ com.facebook.react.devsupport.DevSupportManagerBase$8$1
 com.facebook.places.R
 org.intellij.lang.annotations.JdkConstants$InputEventMask
 androidx.appcompat.widget.ActionMenuPresenter$SavedState$1
+com.dooboolab.RNIap.RNIapPackage:
+    public java.util.List createJSModules()
 android.support.v4.media.session.MediaSessionCompat$Token:
     void <init>(java.lang.Object,android.support.v4.media.session.IMediaSession)
     public static android.support.v4.media.session.MediaSessionCompat$Token fromToken(java.lang.Object)
@@ -6459,6 +6555,7 @@ com.bumptech.glide.load.engine.executor.RuntimeCompat:
     private static final java.lang.String CPU_LOCATION
 org.apache.commons.lang3.text.StrTokenizer
 expo.modules.location.R$layout
+com.amazon.device.iap.internal.b.a.d
 com.facebook.binaryresource.FileBinaryResource:
     public byte[] read()
 com.facebook.react.modules.debug.interfaces.DeveloperSettings:
@@ -6475,6 +6572,11 @@ com.facebook.react.devsupport.DevLoadingViewController$3
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$2
 com.google.android.play.core.install.model.a
 kotlin.coroutines.jvm.internal.SuspendLambda
+com.amazon.device.iap.model.RequestId:
+    private void <init>(java.lang.String)
+    public static com.amazon.device.iap.model.RequestId fromString(java.lang.String)
+    public org.json.JSONObject toJSON()
+    private static final java.lang.String ENCODED_ID
 com.google.zxing.ResultMetadataType
 androidx.annotation.StringRes
 com.google.android.gms.common.api.internal.GoogleApiManager:
@@ -6483,12 +6585,12 @@ com.google.android.gms.common.api.internal.GoogleApiManager:
     public final com.google.android.gms.tasks.Task zac(com.google.android.gms.common.api.GoogleApi)
 kotlin.reflect.KVisibility
 kotlin.coroutines.SafeContinuation$Companion
+com.google.android.gms.internal.auth.zzv
 com.facebook.imagepipeline.backends.okhttp3.OkHttpNetworkFetcher:
     private static final java.lang.String QUEUE_TIME
     private static final java.lang.String FETCH_TIME
     private static final java.lang.String TOTAL_TIME
     private static final java.lang.String IMAGE_SIZE
-com.google.android.gms.internal.auth.zzv
 org.unimodules.interfaces.sensors.SensorService
 kotlin.TuplesKt:
     public static final java.util.List toList(kotlin.Pair)
@@ -6680,18 +6782,24 @@ com.google.android.play.core.internal.br
 kotlin.coroutines.experimental.CoroutineContext$Element
 androidx.appcompat.widget.AppCompatHintHelper:
     private void <init>()
+com.reactcommunity.rndatetimepicker.ReflectionHelper:
+    public void <init>()
 org.apache.commons.lang3.builder.Diffable
 com.google.android.gms.tasks.R
+com.android.billingclient.api.PriceChangeConfirmationListener
 org.apache.commons.lang3.LocaleUtils$SyncAvoid
 androidx.transition.AnimatorUtils:
     private void <init>()
+com.reactcommunity.rndatetimepicker.R$attr
 com.google.android.material.shape.RelativeCornerSize:
     public float getRelativePercent()
 com.facebook.drawee.backends.pipeline.BuildConfig
 kotlin.reflect.KProperty$DefaultImpls
+com.amazon.device.iap.internal.b.b.a$1
 org.apache.commons.io.ByteOrderMark
 com.facebook.share.internal.LikeActionController
 com.facebook.messenger.R$attr
+androidx.browser.trusted.TrustedWebActivityServiceConnection$1
 com.google.android.material.appbar.AppBarLayout:
     public void addOnOffsetChangedListener(com.google.android.material.appbar.AppBarLayout$BaseOnOffsetChangedListener)
     public void addOnOffsetChangedListener(com.google.android.material.appbar.AppBarLayout$OnOffsetChangedListener)
@@ -6712,6 +6820,7 @@ com.facebook.internal.NativeProtocol$ProtocolVersionQueryResult:
 expo.modules.location.R$attr
 com.bumptech.glide.load.model.ResourceLoader:
     private static final java.lang.String TAG
+android.support.customtabs.trusted.ITrustedWebActivityCallback$Default
 androidx.recyclerview.widget.ScrollbarHelper:
     private void <init>()
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$VersionRequirement:
@@ -6730,6 +6839,8 @@ androidx.swiperefreshlayout.R$dimen
 org.apache.commons.codec.language.bm.Languages
 com.google.android.gms.actions.SearchIntents
 com.facebook.login.R$color
+com.amazon.device.iap.internal.b.g.a:
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 android.support.v4.media.MediaBrowserCompat$ConnectionCallback
 com.google.android.gms.internal.base.zal:
     public abstract java.util.concurrent.ExecutorService zaa(int,int)
@@ -6786,7 +6897,11 @@ com.facebook.share.model.ShareMessengerURLActionButton:
     private void <init>(com.facebook.share.model.ShareMessengerURLActionButton$Builder)
     synthetic void <init>(com.facebook.share.model.ShareMessengerURLActionButton$Builder,com.facebook.share.model.ShareMessengerURLActionButton$1)
 com.bumptech.glide.request.transition.DrawableCrossFadeTransition
+androidx.browser.trusted.ScreenOrientation
 com.facebook.GraphRequest$GraphJSONArrayCallback
+com.amazon.device.iap.internal.util.d:
+    public void <init>()
+    public static void a(java.lang.String,java.lang.String)
 androidx.legacy.coreutils.R$styleable
 androidx.viewpager.R$id
 org.apache.commons.io.input.InfiniteCircularInputStream
@@ -6824,12 +6939,17 @@ io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider:
     private static final java.lang.String NAME_ID
     private static final java.lang.String LOCATION_ID
     private static final java.lang.String RESULT_ID
+com.android.billingclient.api.Purchase$PurchasesResult:
+    public int getResponseCode()
 androidx.activity.R$layout
 kotlin.time.AbstractDoubleClock
 kotlin.experimental.BitwiseOperationsKt
 org.apache.commons.codec.language.DaitchMokotoffSoundex$Rule
 com.google.zxing.common.reedsolomon.ReedSolomonDecoder
 com.facebook.react.devsupport.DevSupportManagerBase$BundleLoadCallback
+com.google.android.gms.internal.firebase-auth-api.zzej:
+    static void <clinit>()
+    static final synthetic int[] zza
 okio.RealBufferedSink:
     public okio.BufferedSink writeUtf8(java.lang.String,int,int)
     public okio.BufferedSink writeUtf8CodePoint(int)
@@ -6840,9 +6960,6 @@ okio.RealBufferedSink:
     public okio.BufferedSink writeIntLe(int)
     public okio.BufferedSink writeLong(long)
     public okio.BufferedSink writeLongLe(long)
-com.google.android.gms.internal.firebase-auth-api.zzej:
-    static void <clinit>()
-    static final synthetic int[] zza
 com.facebook.imagepipeline.transcoder.JpegTranscoderUtils:
     public void <init>()
     private static final int FULL_ROUND
@@ -6894,6 +7011,8 @@ com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState:
     public void <init>(android.os.Parcel)
     public void <init>(android.os.Parcelable,int)
 org.apache.commons.codec.language.bm.Languages$SomeLanguages
+com.google.android.gms.signin.internal.zad:
+    public void zab(com.google.android.gms.signin.internal.zak)
 com.facebook.drawee.drawable.FadeDrawable:
     public int getTransitionDuration()
     public void reset()
@@ -6908,8 +7027,6 @@ com.facebook.drawee.drawable.FadeDrawable:
     public static final int TRANSITION_STARTING
     public static final int TRANSITION_RUNNING
     public static final int TRANSITION_NONE
-com.google.android.gms.signin.internal.zad:
-    public void zab(com.google.android.gms.signin.internal.zak)
 kotlin.UseExperimental
 com.google.android.play.core.common.IntentSenderForResultStarter
 com.google.android.gms.auth.api.identity.zze
@@ -6994,6 +7111,8 @@ androidx.swiperefreshlayout.widget.CircularProgressDrawable:
     private static final float MAX_PROGRESS_ARC
     private static final float MIN_PROGRESS_ARC
     private static final float RING_ROTATION
+com.amazon.device.iap.internal.util.e:
+    public void <init>()
 com.facebook.react.MemoryPressureRouter:
     public void destroy(android.content.Context)
 org.apache.commons.io.monitor.FileAlterationMonitor
@@ -7085,6 +7204,7 @@ org.apache.commons.io.output.XmlStreamWriter
 androidx.media.MediaBrowserServiceCompat$1
 androidx.core.app.BundleCompat:
     private void <init>()
+com.amazon.device.iap.model.package-info
 com.facebook.appevents.integrity.IntegrityManager:
     public static final java.lang.String INTEGRITY_TYPE_NONE
     public static final java.lang.String INTEGRITY_TYPE_ADDRESS
@@ -7144,6 +7264,7 @@ com.google.zxing.oned.CodaBarReader:
     private static final float PADDING
     private static final java.lang.String ALPHABET_STRING
     private static final int MIN_CHARACTER_LENGTH
+androidx.browser.trusted.TrustedWebActivityDisplayMode$ImmersiveMode
 kotlin.UnsignedKt
 com.theartofdev.edmodo.cropper.R$style
 expo.modules.location.taskConsumers.LocationTaskConsumer$3
@@ -7158,9 +7279,9 @@ com.facebook.share.internal.DeviceShareDialogFragment:
     private static final java.lang.String EXTRA_ERROR
 com.facebook.yoga.YogaAlign:
     public static com.facebook.yoga.YogaAlign fromInt(int)
-okio.package-info
 com.facebook.react.views.text.TextAttributes:
     public static final float DEFAULT_MAX_FONT_SIZE_MULTIPLIER
+okio.package-info
 expo.modules.splashscreen.R$string
 androidx.recyclerview.widget.PagerSnapHelper
 org.unimodules.interfaces.taskManager.TaskConsumer:
@@ -7276,6 +7397,8 @@ com.google.firebase.auth.PhoneMultiFactorGenerator
 androidx.recyclerview.widget.MessageThreadUtil$1
 co.apptailor.googlesignin.R
 com.google.android.gms.auth.zzg
+com.reactcommunity.rndatetimepicker.Common:
+    public void <init>()
 org.apache.commons.codec.binary.Base64OutputStream
 org.unimodules.interfaces.barcodescanner.BarCodeScannerProvider
 com.facebook.applinks.R$drawable
@@ -7494,6 +7617,8 @@ com.google.android.gms.common.api.internal.zacm:
     private final synthetic com.google.android.gms.common.api.internal.zack zaky
 com.google.android.material.badge.BadgeDrawable$SavedState
 kotlin.collections.CharIterator
+com.android.billingclient.api.SkuDetails:
+    public long getIntroductoryPriceAmountMicros()
 android.support.v4.media.MediaBrowserCompat$MediaItem$Flags
 org.unimodules.interfaces.taskManager.TaskManagerUtilsInterface:
     public abstract android.app.PendingIntent createTaskIntent(android.content.Context,org.unimodules.interfaces.taskManager.TaskInterface)
@@ -7550,6 +7675,7 @@ fr.greweb.reactnativeviewshot.R
 com.facebook.react.devsupport.RedBoxDialog$StackAdapter$FrameViewHolder
 androidx.recyclerview.widget.LinearSnapHelper:
     private static final float INVALID_DISTANCE
+com.amazon.device.iap.internal.util.a
 androidx.drawerlayout.R$id
 io.invertase.firebase.auth.R$bool
 androidx.viewpager2.widget.ViewPager2$PagerSnapHelperImpl
@@ -7582,6 +7708,7 @@ expo.modules.permissions.R$style
 com.facebook.react.R$attr
 androidx.core.view.accessibility.AccessibilityManagerCompat$TouchExplorationStateChangeListener
 androidx.transition.Styleable$VisibilityTransition
+androidx.browser.trusted.TrustedWebActivityService
 kotlin.internal.InlineOnly
 kotlin.reflect.KTypeProjection:
     public static synthetic kotlin.reflect.KTypeProjection copy$default(kotlin.reflect.KTypeProjection,kotlin.reflect.KVariance,kotlin.reflect.KType,int,java.lang.Object)
@@ -8006,13 +8133,13 @@ com.bumptech.glide.load.engine.SourceGenerator:
 kotlin.jvm.functions.Function8:
     public abstract java.lang.Object invoke(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
 com.swmansion.reanimated.R$string
+androidx.recyclerview.widget.OrientationHelper$2:
+    public void offsetChild(android.view.View,int)
 com.facebook.imagepipeline.request.ImageRequestBuilder:
     public static com.facebook.imagepipeline.request.ImageRequestBuilder newBuilderWithResourceId(int)
     public com.facebook.imagepipeline.request.ImageRequestBuilder disableDiskCache()
     public com.facebook.imagepipeline.request.ImageRequestBuilder disableMemoryCache()
     public com.facebook.imagepipeline.request.ImageRequestBuilder setResizingAllowedOverride(java.lang.Boolean)
-androidx.recyclerview.widget.OrientationHelper$2:
-    public void offsetChild(android.view.View,int)
 androidx.annotation.InterpolatorRes
 com.android.installreferrer.BuildConfig
 androidx.room.R$dimen
@@ -8085,6 +8212,7 @@ com.bumptech.glide.disklrucache.StrictLineReader:
     private static final byte CR
     private static final byte LF
 com.facebook.internal.metrics.Tag
+androidx.browser.browseractions.BrowserActionsFallbackMenuUi$3
 androidx.core.view.inputmethod.InputContentInfoCompat
 androidx.legacy.coreutils.R$attr
 kotlin.contracts.ConditionalEffect
@@ -8547,8 +8675,8 @@ kotlin.sequences.SubSequence$iterator$1
 expo.modules.splashscreen.R$xml
 kotlin.collections.RingBuffer
 org.apache.commons.codec.net.QCodec
-com.facebook.imagepipeline.systrace.DefaultFrescoSystrace$DefaultArgsBuilder
 android.support.v4.media.session.MediaControllerCompatApi24$TransportControls
+com.facebook.imagepipeline.systrace.DefaultFrescoSystrace$DefaultArgsBuilder
 androidx.core.os.HandlerCompat
 com.bumptech.glide.gifdecoder.GifDecoder:
     public abstract int getWidth()
@@ -8618,8 +8746,8 @@ kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$VersionRequirement$Builder:
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.GeneratedMessageLite getDefaultInstanceForType()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.AbstractMessageLite$Builder clone()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
-com.facebook.imagepipeline.producers.RemoveImageTransformMetaDataProducer$RemoveImageTransformMetaDataConsumer
 com.google.android.gms.auth.zzh
+com.facebook.imagepipeline.producers.RemoveImageTransformMetaDataProducer$RemoveImageTransformMetaDataConsumer
 org.apache.commons.lang3.time.FastDatePrinter$DayInWeekField
 androidx.appcompat.app.ActionBarDrawerToggle
 com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool:
@@ -8672,6 +8800,7 @@ com.horcrux.svg.FontData:
     private static final java.lang.String FONT_FEATURE_SETTINGS
     private static final java.lang.String FONT_VARIATION_SETTINGS
     private static final java.lang.String FONT_VARIANT_LIGATURES
+androidx.browser.customtabs.CustomTabsService$FilePurpose
 com.google.android.gms.common.api.internal.zav:
     public final com.google.android.gms.common.ConnectionResult blockingConnect()
     public final com.google.android.gms.common.ConnectionResult blockingConnect(long,java.util.concurrent.TimeUnit)
@@ -8701,6 +8830,7 @@ com.google.android.gms.auth.api.phone.SmsRetrieverApi
 com.facebook.react.devsupport.DevSupportManagerBase
 com.facebook.places.internal.LocationScanner
 com.google.android.gms.common.server.response.zak
+com.amazon.device.iap.internal.util.a$1
 com.google.zxing.qrcode.decoder.DataMask
 com.bumptech.glide.load.Key:
     public static final java.lang.String STRING_CHARSET_NAME
@@ -8753,6 +8883,8 @@ androidx.room.InvalidationTracker:
     private static final java.lang.String CREATE_TRACKING_TABLE_SQL
     static final java.lang.String RESET_UPDATED_TABLES_SQL
     static final java.lang.String SELECT_UPDATED_TABLES_SQL
+com.amazon.device.iap.internal.util.b:
+    public static java.lang.String a(java.lang.String)
 com.facebook.share.internal.LikeDialog$1
 kotlin.collections.State
 com.google.android.gms.dynamite.DynamiteModule$LoadingException
@@ -8797,6 +8929,7 @@ androidx.core.app.Person
 kotlin.internal.PlatformImplementationsKt:
     private static final synthetic java.lang.Object castToBaseType(java.lang.Object)
     public static final boolean apiVersionIsAtLeast(int,int,int)
+com.dooboolab.RNIap.R$color
 androidx.core.app.NotificationCompat$NotificationVisibility
 expo.modules.imagepicker.R$attr
 com.google.zxing.datamatrix.decoder.DecodedBitStreamParser$Mode
@@ -8954,12 +9087,14 @@ com.facebook.login.R$drawable:
     public static final int tooltip_frame_dark
     public static final int tooltip_frame_light
 androidx.core.view.accessibility.AccessibilityManagerCompat$AccessibilityStateChangeListenerCompat
+com.amazon.device.iap.internal.b.d.a:
+    public void b()
 com.google.android.material.snackbar.BaseTransientBottomBar$2
 kotlin.collections.unsigned.UArraysKt
 org.apache.commons.lang3.builder.DiffBuilder$14
-javax.annotation.concurrent.NotThreadSafe
 androidx.viewpager2.adapter.FragmentStateAdapter$FragmentMaxLifecycleEnforcer$3:
     void <init>(androidx.viewpager2.adapter.FragmentStateAdapter$FragmentMaxLifecycleEnforcer)
+javax.annotation.concurrent.NotThreadSafe
 com.facebook.places.model.PlaceFields
 kotlin.collections.IndexedValue:
     public static synthetic kotlin.collections.IndexedValue copy$default(kotlin.collections.IndexedValue,int,java.lang.Object,int,java.lang.Object)
@@ -9814,6 +9949,7 @@ org.apache.commons.io.output.ChunkedOutputStream
 androidx.media.R$integer
 com.facebook.yoga.LayoutPassReason
 javax.annotation.meta.Exclusive
+androidx.browser.trusted.TrustedWebActivityCallbackRemote
 com.facebook.react.R$drawable
 kotlin.coroutines.experimental.SafeContinuation$Fail
 com.google.android.material.appbar.AppBarLayout$BaseBehavior:
@@ -9831,8 +9967,10 @@ android.support.customtabs.ICustomTabsService:
     public abstract android.os.Bundle extraCommand(java.lang.String,android.os.Bundle)
     public abstract boolean updateVisuals(android.support.customtabs.ICustomTabsCallback,android.os.Bundle)
     public abstract boolean requestPostMessageChannel(android.support.customtabs.ICustomTabsCallback,android.net.Uri)
+    public abstract boolean requestPostMessageChannelWithExtras(android.support.customtabs.ICustomTabsCallback,android.net.Uri,android.os.Bundle)
     public abstract int postMessage(android.support.customtabs.ICustomTabsCallback,java.lang.String,android.os.Bundle)
     public abstract boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle)
+    public abstract boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle)
 com.google.zxing.aztec.encoder.State:
     com.google.zxing.aztec.encoder.Token getToken()
 com.google.android.play.core.assetpacks.db:
@@ -9895,6 +10033,8 @@ com.facebook.R$styleable
 kotlin.ranges.UIntRange$Companion
 com.bumptech.glide.load.engine.cache.DiskCacheWriteLocker$WriteLockPool:
     private static final int MAX_POOL_SIZE
+com.amazon.device.iap.internal.b.c.d:
+    public void b()
 androidx.room.IMultiInstanceInvalidationCallback$Stub:
     private static final java.lang.String DESCRIPTOR
     static final int TRANSACTION_onInvalidation
@@ -9959,6 +10099,7 @@ androidx.recyclerview.widget.ViewBoundsCheck:
     static final int FLAG_CVE_LT_PVE
     static final int MASK
 com.facebook.common.executors.ConstrainedExecutorService
+android.support.customtabs.ICustomTabsCallback$Default
 com.google.firebase.auth.MultiFactor:
     public abstract com.google.android.gms.tasks.Task getSession()
     public abstract com.google.android.gms.tasks.Task enroll(com.google.firebase.auth.MultiFactorAssertion,java.lang.String)
@@ -10071,6 +10212,7 @@ com.google.android.gms.common.GooglePlayServicesUtil:
     public static final java.lang.String GMS_ERROR_DIALOG
     public static final java.lang.String GOOGLE_PLAY_SERVICES_PACKAGE
     public static final java.lang.String GOOGLE_PLAY_STORE_PACKAGE
+androidx.browser.customtabs.CustomTabsSession$PendingSession
 org.apache.commons.lang3.text.FormattableUtils
 androidx.appcompat.resources.R$attr
 com.google.zxing.pdf417.decoder.Codeword
@@ -10113,6 +10255,7 @@ com.google.android.gms.common.api.internal.zaad:
     private final androidx.collection.ArraySet zafs
     private com.google.android.gms.common.api.internal.GoogleApiManager zabo
 com.google.android.gms.location.ActivityRecognitionClient
+com.google.android.gms.common.server.response.FastSafeParcelableJsonResponse
 androidx.core.view.accessibility.AccessibilityRecordCompat:
     public void <init>(java.lang.Object)
     public static androidx.core.view.accessibility.AccessibilityRecordCompat obtain(androidx.core.view.accessibility.AccessibilityRecordCompat)
@@ -10167,7 +10310,6 @@ androidx.core.view.accessibility.AccessibilityRecordCompat:
     public int hashCode()
     public boolean equals(java.lang.Object)
     private final android.view.accessibility.AccessibilityRecord mRecord
-com.google.android.gms.common.server.response.FastSafeParcelableJsonResponse
 com.google.android.gms.internal.auth.zza:
     protected final void transactAndReadExceptionReturnVoid(int,android.os.Parcel)
 androidx.versionedparcelable.VersionedParcelStream$FieldBuffer
@@ -10293,7 +10435,6 @@ com.facebook.react.views.view.ReactViewBackgroundDrawable:
     private static final int DEFAULT_BORDER_ALPHA
     private static final int ALL_BITS_SET
     private static final int ALL_BITS_UNSET
-androidx.browser.customtabs.CustomTabsService$1$1
 com.google.android.material.datepicker.MaterialCalendar:
     private static final java.lang.String THEME_RES_ID_KEY
     private static final java.lang.String GRID_SELECTOR_KEY
@@ -10343,6 +10484,8 @@ com.reactnativecommunity.webview.events.TopMessageEvent:
 com.google.android.gms.common.server.response.FastParser$zaa
 androidx.core.content.res.ConfigurationHelper
 kotlin.internal.OnlyInputTypes
+com.amazon.device.iap.internal.model.PurchaseUpdatesResponseBuilder
+com.android.billingclient.BuildConfig
 androidx.vectordrawable.graphics.drawable.VectorDrawableCommon:
     protected void onBoundsChange(android.graphics.Rect)
 com.google.zxing.oned.rss.expanded.decoders.DecodedObject
@@ -10422,6 +10565,14 @@ com.facebook.imagepipeline.memory.DefaultFlexByteArrayPoolParams:
 androidx.slidingpanelayout.widget.SlidingPaneLayout$SavedState$1
 org.apache.commons.lang3.tuple.ImmutableTriple
 com.bumptech.glide.R$layout
+com.amazon.device.iap.model.ProductDataResponse:
+    public void <init>(com.amazon.device.iap.internal.model.ProductDataResponseBuilder)
+    public org.json.JSONObject toJSON()
+    private static final java.lang.String PRODUCT_DATA
+    private static final java.lang.String REQUEST_STATUS
+    private static final java.lang.String REQUEST_ID
+    private static final java.lang.String UNAVAILABLE_SKUS
+    private static final java.lang.String TO_STRING_FORMAT
 androidx.core.R
 org.apache.commons.codec.binary.CharSequenceUtils
 com.dylanvann.fastimage.R$id
@@ -10430,6 +10581,7 @@ com.google.android.play.core.splitinstall.r
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi
 com.google.android.gms.tasks.Tasks$zzb
 com.facebook.appevents.codeless.internal.Constants
+androidx.browser.trusted.TrustedWebActivityDisplayMode$DefaultMode
 kotlin.sequences.DropWhileSequence
 androidx.core.app.NotificationCompat$CarExtender$UnreadConversation$Builder
 androidx.coordinatorlayout.widget.CoordinatorLayout:
@@ -10444,7 +10596,9 @@ kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineFromSu
 kotlin.text.MatchGroupCollection:
     public abstract kotlin.text.MatchGroup get(int)
 com.google.zxing.qrcode.decoder.DataMask$1
+com.amazon.device.iap.internal.model.UserDataResponseBuilder
 kotlin.jvm.internal.PropertyReference2
+androidx.browser.trusted.TokenStore
 kotlin.time.Duration
 com.facebook.imagepipeline.producers.PostprocessedBitmapMemoryCacheProducer:
     public static final java.lang.String PRODUCER_NAME
@@ -11053,6 +11207,7 @@ com.bumptech.glide.request.transition.DrawableCrossFadeFactory$Builder
 expo.modules.location.R$dimen
 com.google.android.material.animation.MatrixEvaluator:
     public synthetic bridge java.lang.Object evaluate(float,java.lang.Object,java.lang.Object)
+com.amazon.device.iap.ResponseReceiver
 kotlin.io.FileWalkDirection
 com.facebook.react.animated.SpringAnimation:
     private static final double MAX_DELTA_TIME_SEC
@@ -11061,6 +11216,7 @@ com.facebook.react.modules.blob.BlobCollector:
     void <init>()
 androidx.vectordrawable.animated.R$drawable
 android.support.v4.media.session.MediaControllerCompatApi24
+androidx.browser.trusted.NotificationApiHelperForO
 android.support.v4.media.session.MediaSessionCompat$MediaSessionImplBase
 androidx.media.MediaBrowserServiceCompatApi26$MediaBrowserServiceAdaptor
 com.bebrandd.branddot.R$xml
@@ -11210,6 +11366,7 @@ kotlin.jvm.functions.Function16:
 com.google.android.gms.internal.auth-api.zzaw
 kotlin.Lazy:
     public abstract boolean isInitialized()
+com.dooboolab.RNIap.R$xml
 org.apache.commons.lang3.text.StrMatcher$CharMatcher
 com.google.android.gms.common.api.zaa
 com.google.android.gms.auth.api.accounttransfer.AccountTransferException
@@ -11229,6 +11386,7 @@ com.facebook.gamingservices.R$dimen
 com.google.android.gms.auth.zzc
 com.facebook.common.memory.MemoryTrimType
 com.google.android.gms.dynamite.DynamiteModule$zza
+androidx.browser.trusted.PackageIdentityUtils$Pre28Implementation
 androidx.fragment.app.FragmentController:
     public androidx.loader.app.LoaderManager getSupportLoaderManager()
     public int getActiveFragmentsCount()
@@ -11409,6 +11567,8 @@ androidx.core.text.util.LinkifyCompat
 androidx.lifecycle.livedata.core.R
 org.apache.commons.lang3.event.EventListenerSupport$ProxyInvocationHandler
 kotlin.jvm.internal.MutablePropertyReference0
+com.amazon.device.iap.model.PurchaseResponse$RequestStatus:
+    public static com.amazon.device.iap.model.PurchaseResponse$RequestStatus safeValueOf(java.lang.String)
 com.google.firebase.auth.PhoneAuthProvider:
     public static com.google.firebase.auth.PhoneAuthProvider getInstance()
     public static final java.lang.String PROVIDER_ID
@@ -11434,6 +11594,9 @@ com.google.android.gms.common.internal.zzm
 androidx.room.DatabaseView
 kotlin.coroutines.jvm.internal.SuspendFunction
 com.facebook.login.widget.ProfilePictureView
+com.amazon.device.iap.internal.b.c.b:
+    private com.amazon.device.iap.model.Product a(java.lang.String,java.util.Map)
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 androidx.media.MediaSessionManager
 com.google.android.material.shape.ShapePathModel
 com.google.android.play.core.internal.bk
@@ -11488,8 +11651,10 @@ kotlin.jvm.functions.Function4:
 bolts.AppLinkNavigation$NavigationResult
 com.google.firebase.auth.internal.zzad
 com.google.android.gms.common.api.ResolvingResultCallbacks
+com.amazon.device.iap.internal.c.a$1
 com.google.firebase.emulators.EmulatedServiceSettings
 org.apache.commons.codec.binary.BaseNCodec
+com.dooboolab.RNIap.R
 androidx.core.provider.FontsContractCompat$4$6
 androidx.appcompat.content.res.AppCompatResources:
     private void <init>()
@@ -11516,6 +11681,7 @@ androidx.appcompat.view.menu.MenuView$ItemView:
     public abstract boolean showsIcon()
 androidx.core.view.ViewCompat$2
 kotlin.collections.AbstractMap$keys$1$iterator$1
+androidx.browser.browseractions.BrowserServiceFileProvider$1
 com.google.firebase.auth.internal.zzx:
     public static com.google.firebase.auth.FirebaseUser zzs(com.google.firebase.FirebaseApp,com.google.firebase.auth.FirebaseUser)
 com.google.android.material.internal.ScrimInsetsFrameLayout$1
@@ -11641,6 +11807,17 @@ kotlin.reflect.jvm.internal.KTypeImpl:
     public java.util.List getAnnotations()
 androidx.browser.R$attr
 com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource
+com.dooboolab.RNIap.RNIapAmazonListener:
+    private static final java.lang.String E_PRODUCT_DATA_RESPONSE_FAILED
+    private static final java.lang.String E_PRODUCT_DATA_RESPONSE_NOT_SUPPORTED
+    private static final java.lang.String E_PURCHASE_UPDATES_RESPONSE_FAILED
+    private static final java.lang.String E_PURCHASE_UPDATES_RESPONSE_NOT_SUPPORTED
+    private static final java.lang.String E_PURCHASE_RESPONSE_FAILED
+    private static final java.lang.String E_PURCHASE_RESPONSE_ALREADY_PURCHASED
+    private static final java.lang.String E_PURCHASE_RESPONSE_NOT_SUPPORTED
+    private static final java.lang.String E_PURCHASE_RESPONSE_INVALID_SKU
+    private static final java.lang.String E_USER_DATA_RESPONSE_FAILED
+    private static final java.lang.String E_USER_DATA_RESPONSE_NOT_SUPPORTED
 com.google.android.play.core.splitinstall.t
 androidx.asynclayoutinflater.R$integer
 kotlin.text.Regex$Serialized:
@@ -11775,6 +11952,7 @@ kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$Type$Argument:
 com.google.zxing.maxicode.decoder.BitMatrixParser
 androidx.browser.customtabs.TrustedWebUtils
 androidx.viewpager2.adapter.FragmentStateAdapter$3
+androidx.concurrent.futures.AbstractResolvableFuture$Failure
 com.facebook.appevents.internal.ActivityLifecycleTracker:
     public static boolean isTracking()
     private static final java.lang.String INCORRECT_IMPL_WARNING
@@ -11801,6 +11979,7 @@ com.google.android.play.core.assetpacks.AssetPackException:
     public int getErrorCode()
 com.google.android.gms.internal.auth.zzaf
 com.facebook.perftest.PerfTestConfig
+com.dooboolab.RNIap.R$anim
 com.google.android.material.snackbar.SnackbarManager:
     private void showNextSnackbarLocked()
     private boolean isNextSnackbarLocked(com.google.android.material.snackbar.SnackbarManager$Callback)
@@ -12353,6 +12532,7 @@ com.facebook.debug.tags.ReactDebugOverlayTags:
     public void <init>()
 com.google.android.gms.auth.api.identity.zzo
 com.google.android.gms.common.internal.ICancelToken$Stub$zza
+androidx.concurrent.futures.CallbackToFutureAdapter$Completer
 com.google.zxing.qrcode.decoder.DataMask$4
 org.apache.commons.codec.language.bm.RuleType
 com.google.firebase.auth.FirebaseAuthUserCollisionException:
@@ -12544,6 +12724,7 @@ okio.Segment:
     static final int SIZE
     static final int SHARE_MINIMUM
 org.apache.commons.lang3.text.FormatFactory
+androidx.browser.trusted.TrustedWebActivityIntentBuilder
 com.facebook.imagepipeline.producers.DecodeProducer$ProgressiveDecoder:
     private static final int DECODE_EXCEPTION_MESSAGE_NUM_HEADER_BYTES
 androidx.transition.ViewOverlayApi14$OverlayViewGroup:
@@ -12768,6 +12949,7 @@ com.facebook.react.uimanager.ReactClippingViewGroupHelper:
     public void <init>()
     public static final java.lang.String PROP_REMOVE_CLIPPED_SUBVIEWS
 kotlin.jvm.internal.ArrayBooleanIterator
+androidx.browser.trusted.NotificationApiHelperForM
 org.apache.commons.lang3.concurrent.ConstantInitializer
 com.google.android.gms.common.util.WorkSourceUtil
 androidx.vectordrawable.graphics.drawable.VectorDrawableCompat$VPath:
@@ -12878,6 +13060,8 @@ com.bumptech.glide.util.ContentLengthInputStream:
 com.bebrandd.branddot.R$menu
 com.facebook.share.widget.LikeView$LikeControllerBroadcastReceiver
 androidx.swiperefreshlayout.R$integer
+com.amazon.device.iap.PurchasingService:
+    public static final java.lang.String SDK_VERSION
 com.facebook.common.file.FileUtils$RenameException:
     public void <init>(java.lang.String)
 androidx.annotation.Px
@@ -13092,21 +13276,21 @@ com.google.android.material.internal.ForegroundLinearLayout:
 com.reactnativecommunity.asyncstorage.R$xml
 com.reactnativecommunity.webview.R$style
 org.apache.commons.codec.language.bm.Lang
-com.facebook.imagepipeline.request.HasImageRequest
 androidx.lifecycle.LiveData$AlwaysActiveObserver
+com.facebook.imagepipeline.request.HasImageRequest
 com.google.zxing.oned.UPCEANExtensionSupport
 com.google.zxing.qrcode.decoder.DataMask$5
 org.unimodules.core.interfaces.services.EventEmitter$Event
 org.apache.commons.io.output.LockableFileWriter
 com.facebook.internal.CollectionMapper$Collection
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$4
+com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory$1
 com.facebook.imagepipeline.decoder.ImageDecoderConfig$1
 com.facebook.imagepipeline.cache.CountingLruMap:
     synchronized java.util.ArrayList getKeys()
     synchronized java.util.ArrayList getValues()
     public synchronized boolean contains(java.lang.Object)
     public synchronized java.util.ArrayList clear()
-com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory$1
 com.facebook.infer.annotation.Present
 androidx.recyclerview.widget.RecyclerView$LayoutManager:
     public static int getChildMeasureSpec(int,int,int,boolean)
@@ -13142,9 +13326,6 @@ kotlin.ranges.ULongProgression
 com.facebook.imagepipeline.nativecode.NativeFiltersLoader:
     public void <init>()
 com.google.zxing.qrcode.detector.FinderPatternFinder$FurthestFromAverageComparator
-com.facebook.imagepipeline.core.ImagePipelineConfig:
-    static void resetDefaultRequestConfig()
-    public com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory getPlatformBitmapFactory()
 com.google.android.gms.common.internal.safeparcel.SafeParcelReader:
     private void <init>()
     public static byte readByte(android.os.Parcel,int)
@@ -13184,6 +13365,9 @@ com.google.android.gms.common.internal.safeparcel.SafeParcelReader:
     public static android.os.Parcel[] createParcelArray(android.os.Parcel,int)
     public static java.util.ArrayList createParcelList(android.os.Parcel,int)
     public static void readList(android.os.Parcel,int,java.util.List,java.lang.ClassLoader)
+com.facebook.imagepipeline.core.ImagePipelineConfig:
+    static void resetDefaultRequestConfig()
+    public com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory getPlatformBitmapFactory()
 kotlin.jvm.functions.Function13:
     public abstract java.lang.Object invoke(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
 androidx.media.R
@@ -13241,6 +13425,15 @@ kotlin.text.CharsKt__CharJVMKt:
     private static final boolean isLowSurrogate(char)
     public void <init>()
 kotlin.coroutines.ContinuationInterceptor
+com.amazon.device.iap.model.Product:
+    public void <init>(com.amazon.device.iap.internal.model.ProductBuilder)
+    private static final java.lang.String SKU
+    private static final java.lang.String PRODUCT_TYPE
+    private static final java.lang.String DESCRIPTION
+    private static final java.lang.String PRICE
+    private static final java.lang.String SMALL_ICON_URL
+    private static final java.lang.String TITLE
+    private static final java.lang.String COINS_REWARD_AMOUNT
 androidx.appcompat.widget.PopupMenu$3
 kotlin.jvm.internal.PropertyReference:
     public void <init>(java.lang.Object)
@@ -13300,6 +13493,7 @@ com.google.zxing.datamatrix.decoder.DecodedBitStreamParser
 com.google.android.gms.auth.api.credentials.CredentialsOptions
 com.oblador.vectoricons.R$id
 androidx.core.app.NotificationManagerCompat$NotifyTask
+android.support.customtabs.trusted.ITrustedWebActivityService$Stub
 com.facebook.drawee.backends.pipeline.info.ImageOriginUtils:
     private void <init>()
 kotlin.reflect.jvm.KClassesJvm
@@ -13314,6 +13508,7 @@ androidx.coordinatorlayout.R$style:
     public static final int Widget_Compat_NotificationActionText
 com.google.android.material.chip.ChipGroup$LayoutParams:
     public void <init>(android.view.ViewGroup$MarginLayoutParams)
+com.reactcommunity.rndatetimepicker.R$anim
 org.apache.commons.lang3.arch.Processor
 com.facebook.imagepipeline.producers.ThrottlingProducer:
     public static final java.lang.String PRODUCER_NAME
@@ -13973,6 +14168,9 @@ com.google.android.gms.location.zzm
 com.google.android.material.radiobutton.MaterialRadioButton:
     public void <init>(android.content.Context)
     public boolean isUseMaterialThemeColors()
+com.amazon.device.iap.internal.b.c.a:
+    private com.amazon.device.iap.model.Product a(java.lang.String,java.util.Map)
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 org.apache.commons.lang3.ArrayUtils$1
 androidx.appcompat.widget.AppCompatSpinner$DialogPopup:
     public int getHorizontalOriginalOffset()
@@ -14010,12 +14208,15 @@ androidx.core.graphics.TypefaceCompatApi21Impl:
     private static final java.lang.String CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD
 android.support.customtabs.ICustomTabsCallback$Stub:
     public static android.support.customtabs.ICustomTabsCallback asInterface(android.os.IBinder)
+    public static boolean setDefaultImpl(android.support.customtabs.ICustomTabsCallback)
+    public static android.support.customtabs.ICustomTabsCallback getDefaultImpl()
     private static final java.lang.String DESCRIPTOR
     static final int TRANSACTION_onNavigationEvent
     static final int TRANSACTION_extraCallback
     static final int TRANSACTION_onMessageChannelReady
     static final int TRANSACTION_onPostMessage
     static final int TRANSACTION_onRelationshipValidationResult
+    static final int TRANSACTION_extraCallbackWithResult
 com.facebook.appevents.suggestedevents.ViewObserver:
     private static final int MAX_TEXT_LENGTH
 com.google.zxing.aztec.decoder.Decoder
@@ -14278,8 +14479,10 @@ android.support.customtabs.ICustomTabsService$Stub$Proxy:
     public android.os.Bundle extraCommand(java.lang.String,android.os.Bundle)
     public boolean updateVisuals(android.support.customtabs.ICustomTabsCallback,android.os.Bundle)
     public boolean requestPostMessageChannel(android.support.customtabs.ICustomTabsCallback,android.net.Uri)
+    public boolean requestPostMessageChannelWithExtras(android.support.customtabs.ICustomTabsCallback,android.net.Uri,android.os.Bundle)
     public int postMessage(android.support.customtabs.ICustomTabsCallback,java.lang.String,android.os.Bundle)
     public boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle)
+    public boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle)
 org.apache.commons.io.input.BoundedInputStream
 kotlin.text.StringsKt__StringBuilderKt:
     private static final java.lang.String buildString(kotlin.jvm.functions.Function1)
@@ -14336,6 +14539,7 @@ com.google.firebase.auth.internal.zzae:
     public final java.util.List getHints()
     public final com.google.android.gms.tasks.Task resolveSignIn(com.google.firebase.auth.MultiFactorAssertion)
     public final com.google.firebase.auth.FirebaseAuth getFirebaseAuth()
+androidx.browser.trusted.FutureUtils
 org.unimodules.interfaces.facedetector.FaceDetectionUnspecifiedError
 androidx.coordinatorlayout.widget.CoordinatorLayout$DispatchChangeEvent
 kotlin.text.StringsKt__RegexExtensionsJVMKt:
@@ -14359,6 +14563,7 @@ com.google.zxing.oned.rss.expanded.decoders.AI013103decoder
 com.facebook.share.widget.AppInviteDialog$WebFallbackHandler
 androidx.core.net.TrafficStatsCompat
 com.facebook.share.internal.VideoUploader$UploadWorkItemBase$2
+androidx.browser.trusted.sharing.ShareTarget$Params
 com.google.android.play.core.splitinstall.ay
 kotlin.text.StringsKt___StringsKt$withIndex$1
 com.bumptech.glide.load.engine.prefill.BitmapPreFillRunner
@@ -14773,6 +14978,9 @@ kotlin.collections.ArraysKt___ArraysJvmKt:
     public static final java.util.SortedSet toSortedSet(char[])
     public static final java.util.SortedSet toSortedSet(java.lang.Object[],java.util.Comparator)
     public void <init>()
+com.google.android.gms.internal.play_billing.zzc:
+    public final int zzb(int,java.lang.String,java.lang.String,android.os.Bundle)
+    public final android.os.Bundle zzb(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle)
 com.google.android.gms.common.api.internal.zabr:
     public abstract com.google.android.gms.common.ConnectionResult blockingConnect()
     public abstract com.google.android.gms.common.ConnectionResult blockingConnect(long,java.util.concurrent.TimeUnit)
@@ -15011,6 +15219,8 @@ com.facebook.react.uimanager.ReactShadowNodeImpl:
     public final com.facebook.yoga.YogaValue getStylePadding(int)
     public void setBaselineFunction(com.facebook.yoga.YogaBaselineFunction)
     public java.lang.String getHierarchyInfo()
+com.amazon.device.iap.internal.c.b
+androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$1
 com.google.android.gms.auth.api.credentials.zzd
 com.horcrux.svg.PropHelper:
     void <init>()
@@ -15274,6 +15484,7 @@ kotlin.reflect.KProperty$Accessor
 expo.modules.permissions.PermissionsServiceKt
 androidx.drawerlayout.R$drawable
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$PackageFragmentOrBuilder
+com.amazon.device.iap.internal.model.PurchaseResponseBuilder
 com.google.firebase.components.ComponentContainer:
     public abstract com.google.firebase.inject.Deferred getDeferred(java.lang.Class)
 kotlin.coroutines.AbstractCoroutineContextElement
@@ -15331,6 +15542,17 @@ kotlin.reflect.jvm.internal.impl.resolve.MemberComparator$NameAndTypeMemberCompa
 com.swmansion.gesturehandler.react.R$layout
 kotlin.text.StringsKt___StringsKt$chunkedSequence$1
 com.google.android.material.tabs.TabLayout$PagerAdapterObserver
+com.amazon.device.iap.internal.b.i:
+    private void a(com.amazon.android.framework.prompt.PromptContent)
+    protected java.lang.String c()
+    protected boolean isExecutionNeeded()
+    protected java.lang.String getCommandName()
+    protected java.lang.String getCommandVersion()
+    protected java.util.Map getCommandData()
+    protected final void onSuccess(com.amazon.venezia.command.SuccessResult)
+    protected final void onFailure(com.amazon.venezia.command.FailureResult)
+    protected final void onException(com.amazon.android.framework.exception.KiwiException)
+    protected abstract boolean a(com.amazon.venezia.command.SuccessResult)
 com.google.android.gms.auth.api.proxy.ProxyApi$ProxyResult
 com.google.android.gms.auth.api.phone.SmsRetrieverClient:
     public void <init>(android.app.Activity)
@@ -15401,6 +15623,7 @@ org.apache.commons.lang3.StringEscapeUtils
 com.bumptech.glide.load.resource.bitmap.CircleCrop
 com.facebook.react.views.view.ReactDrawableHelper:
     public void <init>()
+com.reactcommunity.rndatetimepicker.R$xml
 org.intellij.lang.annotations.JdkConstants$FlowLayoutAlignment
 com.facebook.share.model.ShareMediaContent$Builder
 androidx.loader.R$id
@@ -15440,6 +15663,7 @@ com.google.zxing.qrcode.encoder.QRCode:
     public int getMaskPattern()
     public static final int NUM_MASK_PATTERNS
 android.support.v4.media.session.MediaSessionCompatApi24
+androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$2
 kotlin.jvm.JvmStatic
 kotlin.sequences.SequencesKt:
     private void <init>()
@@ -15521,6 +15745,8 @@ com.google.android.gms.internal.auth.zzaj
 com.google.android.gms.common.api.Api$Client:
     public abstract boolean requiresAccount()
     public abstract com.google.android.gms.common.Feature[] getRequiredFeatures()
+com.amazon.device.iap.internal.b.e.c:
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 android.support.v4.media.MediaDescriptionCompatApi21$Builder:
     private void <init>()
 androidx.cursoradapter.widget.ResourceCursorAdapter:
@@ -15620,13 +15846,14 @@ com.facebook.share.internal.LikeDialog
 com.facebook.react.views.common.ContextUtils:
     public void <init>()
 com.reactnativecommunity.webview.R$string
+com.reactcommunity.rndatetimepicker.R$integer
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$Effect:
     public kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$Effect getDefaultInstanceForType()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
 io.nlopez.smartlocation.rx.ObservableFactory$4
 org.apache.commons.lang3.CharRange$CharacterIterator
-javax.annotation.MatchesPattern
 androidx.core.view.GestureDetectorCompat
+javax.annotation.MatchesPattern
 androidx.room.FtsOptions
 androidx.slidingpanelayout.R$attr
 androidx.core.content.MimeTypeFilter
@@ -15674,6 +15901,7 @@ kotlin.collections.UArraySortingKt
 androidx.core.text.PrecomputedTextCompat$PrecomputedTextFutureTask$PrecomputedTextCallback
 androidx.recyclerview.widget.SortedList$BatchedCallback
 com.google.android.gms.auth.api.credentials.zzc
+com.amazon.device.iap.internal.c.c
 com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 com.google.android.play.core.splitinstall.g
 com.facebook.drawee.drawable.CloneableDrawable
@@ -15720,6 +15948,7 @@ com.facebook.drawee.backends.pipeline.info.VisibilityState
 com.swmansion.gesturehandler.GestureHandlerRegistryImpl
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImpl
 com.facebook.LoginStatusCallback
+androidx.browser.customtabs.CustomTabsIntent$ShareState
 fr.greweb.reactnativeviewshot.R$bool
 kotlin.comparisons.ReversedComparator
 com.google.zxing.oned.Code93Reader:
@@ -15934,6 +16163,7 @@ com.facebook.imageutils.JfifUtil:
     public static final int MARKER_RST0
     public static final int MARKER_RST7
     public static final int APP1_EXIF_MAGIC
+com.reactcommunity.rndatetimepicker.R$style
 com.facebook.share.widget.AppInviteDialog$NativeHandler
 androidx.core.view.inputmethod.InputContentInfoCompat$InputContentInfoCompatImpl
 com.google.android.material.internal.NavigationMenuPresenter$ViewHolder
@@ -16009,12 +16239,14 @@ com.facebook.FacebookSdk:
 kotlin.internal.DynamicExtension
 com.google.android.gms.location.places.PlaceReport
 kotlin.jvm.internal.FunctionReferenceImpl
+android.support.customtabs.trusted.ITrustedWebActivityService$Default
 kotlin.UByteArray
 io.invertase.firebase.common.ReactNativeFirebaseEvent:
     public java.lang.String getFirebaseAppName()
 io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesWithFallbackProvider:
     public void stop()
 androidx.core.view.MenuItemCompat$OnActionExpandListener
+com.android.billingclient.api.Purchase$PurchaseState
 com.google.zxing.datamatrix.DataMatrixWriter:
     public com.google.zxing.common.BitMatrix encode(java.lang.String,com.google.zxing.BarcodeFormat,int,int)
 com.bumptech.glide.request.transition.ViewPropertyAnimationFactory
@@ -17266,9 +17498,9 @@ com.facebook.common.disk.NoOpDiskTrimmableRegistry:
     public void unregisterDiskTrimmable(com.facebook.common.disk.DiskTrimmable)
 androidx.coordinatorlayout.R$id
 com.google.android.play.core.appupdate.d
-javax.annotation.Untainted
 com.google.android.gms.internal.location.zzx
 androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener
+javax.annotation.Untainted
 kotlin.collections.AbstractSet$Companion
 com.google.android.gms.dynamite.DynamiteModule:
     public static com.google.android.gms.dynamite.DynamiteModule load(android.content.Context,com.google.android.gms.dynamite.DynamiteModule$VersionPolicy,java.lang.String)
@@ -17290,6 +17522,7 @@ com.google.android.gms.dynamite.DynamiteModule:
     private static com.google.android.gms.dynamite.zzj zziv
     private static com.google.android.gms.dynamite.zzl zziw
     private static java.lang.String zzix
+androidx.browser.trusted.ConnectionHolder
 androidx.versionedparcelable.VersionedParcelStream$1
 com.google.firebase.auth.internal.zzax:
     static synthetic void zze(com.google.firebase.auth.internal.zzax,android.content.Intent,com.google.android.gms.tasks.TaskCompletionSource,com.google.firebase.auth.FirebaseAuth,android.content.Context)
@@ -17299,6 +17532,7 @@ com.google.firebase.auth.internal.zzax:
     public final boolean zzc(android.app.Activity,com.google.android.gms.tasks.TaskCompletionSource,com.google.firebase.auth.FirebaseAuth,com.google.firebase.auth.FirebaseUser)
 com.facebook.internal.InstallReferrerUtil:
     private static final java.lang.String IS_REFERRER_UPDATED
+androidx.concurrent.futures.AbstractResolvableFuture$SafeAtomicHelper
 kotlin.collections.ULongIterator
 com.facebook.react.viewmanagers.UnimplementedNativeViewManagerInterface
 kotlin.ranges.RangesKt__RangesKt:
@@ -17308,6 +17542,9 @@ kotlin.ranges.RangesKt__RangesKt:
     public void <init>()
 org.apache.commons.io.filefilter.PrefixFileFilter
 com.google.android.material.navigation.NavigationView
+com.google.android.gms.internal.play_billing.zze:
+    public android.os.IBinder asBinder()
+    public boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
 androidx.lifecycle.SavedStateHandle$1
 com.google.android.gms.common.api.GoogleApiClient$ConnectionCallbacks:
     public static final int CAUSE_SERVICE_DISCONNECTED
@@ -17349,6 +17586,7 @@ androidx.browser.customtabs.CustomTabsSessionToken
 io.nlopez.smartlocation.location.providers.MultiFallbackProvider
 com.google.android.gms.internal.auth.zzam
 com.google.zxing.aztec.AztecDetectorResult
+androidx.room.RoomSQLiteQuery$1
 com.facebook.react.fabric.mounting.MountingManager:
     public void <init>(com.facebook.react.uimanager.ViewManagerRegistry)
     private void dropView(android.view.View)
@@ -17365,7 +17603,6 @@ com.facebook.imagepipeline.producers.PartialDiskCacheProducer:
     public static final java.lang.String PRODUCER_NAME
     public static final java.lang.String EXTRA_CACHED_VALUE_FOUND
     public static final java.lang.String ENCODED_IMAGE_SIZE
-androidx.room.RoomSQLiteQuery$1
 androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi26
 kotlin.sequences.SequencesKt___SequencesJvmKt:
     public static final kotlin.sequences.Sequence filterIsInstance(kotlin.sequences.Sequence,java.lang.Class)
@@ -17498,6 +17735,7 @@ kotlin.reflect.jvm.internal.impl.protobuf.GeneratedMessageLite$ExtendableBuilder
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.GeneratedMessageLite$Builder clone()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.AbstractMessageLite$Builder clone()
     public synthetic bridge java.lang.Object clone()
+androidx.concurrent.futures.CallbackToFutureAdapter$FutureGarbageCollectedException
 androidx.customview.R$styleable
 androidx.sqlite.db.SupportSQLiteStatement:
     public abstract void execute()
@@ -17554,6 +17792,7 @@ com.facebook.reactnative.androidsdk.R
 com.google.android.gms.internal.auth.zzi
 kotlin.TypeCastException:
     public void <init>()
+com.reactcommunity.rndatetimepicker.RNConstants
 com.oblador.vectoricons.VectorIconsPackage:
     public java.util.List createJSModules()
 androidx.legacy.coreutils.R$color
@@ -17941,6 +18180,7 @@ org.unimodules.core.errors.CodedException:
     public java.lang.String getCode()
 kotlin.collections.SlidingWindowKt
 org.apache.commons.lang3.reflect.ConstructorUtils
+androidx.recyclerview.widget.TileList$Tile
 com.facebook.infer.annotation.Assertions:
     public void <init>()
     public static java.lang.Object assumeNotNull(java.lang.Object)
@@ -17954,7 +18194,6 @@ com.facebook.infer.annotation.Assertions:
     public static java.lang.AssertionError assertUnreachable()
     public static java.lang.AssertionError assertUnreachable(java.lang.String)
     public static java.lang.AssertionError assertUnreachable(java.lang.Exception)
-androidx.recyclerview.widget.TileList$Tile
 com.google.zxing.oned.rss.expanded.decoders.BlockParsedResult
 com.bumptech.glide.load.engine.cache.DiskLruCacheFactory$1
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$thenBy$2
@@ -18360,6 +18599,7 @@ kotlin.reflect.jvm.internal.impl.metadata.jvm.JvmProtoBuf$JvmFieldSignature:
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
 com.facebook.share.widget.JoinAppGroupDialog$Result
 org.apache.commons.lang3.concurrent.AtomicSafeInitializer
+com.amazon.device.iap.internal.c.a
 kotlin.coroutines.ContinuationKt
 com.google.zxing.RGBLuminanceSource
 com.google.android.gms.internal.auth.zzal
@@ -18545,6 +18785,7 @@ expo.modules.splashscreen.R$drawable:
     public static final int tooltip_frame_light
 kotlin.jvm.internal.FloatCompanionObject
 org.apache.commons.lang3.time.FormatCache$MultipartKey
+com.amazon.device.iap.package-info
 com.google.android.gms.common.util.DefaultClock:
     public long elapsedRealtime()
     public long nanoTime()
@@ -18556,6 +18797,7 @@ com.facebook.drawee.controller.AbstractDraweeController:
     public java.lang.String getContentDescription()
     public void onViewportVisibilityHint(boolean)
 androidx.asynclayoutinflater.R$attr
+com.android.billingclient.api.BillingClient$BillingResponseCode
 org.apache.commons.lang3.time.FastDateParser$CopyQuotedStrategy
 com.google.zxing.oned.rss.expanded.decoders.DecodedChar
 org.apache.commons.io.filefilter.FalseFileFilter
@@ -18580,6 +18822,8 @@ org.apache.commons.lang3.builder.EqualsBuilder
 com.google.android.play.core.splitinstall.i
 com.bumptech.glide.ListPreloader$PreloadTarget
 kotlin.collections.AbstractIterator
+com.amazon.device.iap.internal.b.e.a:
+    public void b()
 kotlin.reflect.jvm.internal.KPackageImpl:
     public synthetic void <init>(java.lang.Class,java.lang.String,int,kotlin.jvm.internal.DefaultConstructorMarker)
     public java.util.Collection getMembers()
@@ -18697,6 +18941,7 @@ com.facebook.react.views.image.ImageLoadEvent:
     public static final int ON_LOAD_START
     public static final int ON_PROGRESS
 com.facebook.imagepipelinebase.BuildConfig
+androidx.browser.trusted.sharing.ShareTarget
 io.nlopez.smartlocation.rx.ObservableFactory$6
 com.google.android.material.button.MaterialButtonToggleGroup
 com.reactnativerate.R$style
@@ -18751,6 +18996,9 @@ kotlin.math.MathKt
 androidx.core.content.pm.PermissionInfoCompat$ProtectionFlags
 com.th3rdwave.safeareacontext.R$id
 org.reactnative.maskedview.R$style
+androidx.browser.customtabs.CustomTabColorSchemeParams:
+    static androidx.browser.customtabs.CustomTabColorSchemeParams fromBundle(android.os.Bundle)
+    androidx.browser.customtabs.CustomTabColorSchemeParams withDefaults(androidx.browser.customtabs.CustomTabColorSchemeParams)
 com.facebook.react.devsupport.DebugOverlayController
 androidx.loader.app.LoaderManagerImpl$LoaderInfo:
     boolean isCallbackWaitingForData()
@@ -18949,6 +19197,9 @@ androidx.asynclayoutinflater.R$styleable
 com.google.android.gms.common.data.DataBufferRef
 com.google.android.play.core.assetpacks.bf
 com.google.android.material.tabs.TabLayout$OnTabSelectedListener
+com.amazon.device.iap.internal.b.h:
+    public void a(java.lang.Object)
+    public void b()
 androidx.recyclerview.widget.SortedList$Callback
 com.facebook.login.widget.LoginButton:
     public void <init>(android.content.Context,android.util.AttributeSet)
@@ -19213,6 +19464,7 @@ androidx.browser.customtabs.CustomTabsCallback:
     public static final int NAVIGATION_ABORTED
     public static final int TAB_SHOWN
     public static final int TAB_HIDDEN
+    public static final java.lang.String ONLINE_EXTRAS_KEY
 androidx.core.app.ActivityOptionsCompat
 com.google.firebase.auth.zze:
     public final java.lang.String getSignInMethod()
@@ -19228,8 +19480,8 @@ com.facebook.react.views.image.ImageResizeMode:
     private static final java.lang.String RESIZE_MODE_REPEAT
 com.facebook.imagepipeline.producers.JobScheduler$JobStartExecutorSupplier:
     void <init>()
-com.google.android.material.circularreveal.CircularRevealLinearLayout
 com.facebook.react.devsupport.DevSupportManagerBase$11
+com.google.android.material.circularreveal.CircularRevealLinearLayout
 com.google.android.material.shape.ShapePath:
     public void <init>(float,float)
     public void quadToPoint(float,float,float,float)
@@ -19389,6 +19641,7 @@ com.google.android.material.R$drawable:
     public static final int test_custom_background
     public static final int tooltip_frame_dark
     public static final int tooltip_frame_light
+com.amazon.device.iap.internal.model.ProductDataResponseBuilder
 androidx.appcompat.widget.ActivityChooserView$2
 androidx.core.app.JobIntentService$CompatJobEngine
 androidx.core.view.NestedScrollingChildHelper:
@@ -19399,6 +19652,9 @@ com.google.android.gms.internal.firebase-auth-api.zzii:
     static final synthetic int[] zza
 androidx.core.provider.FontsContractCompat$4$5
 androidx.viewpager2.widget.MarginPageTransformer
+com.android.billingclient.api.BillingClient:
+    public abstract com.android.billingclient.api.BillingResult isFeatureSupported(java.lang.String)
+    public abstract void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,com.android.billingclient.api.PriceChangeConfirmationListener)
 org.apache.commons.lang3.time.FastDateParser$TimeZoneStrategy$TzInfo
 com.facebook.internal.CollectionMapper$ValueMapper
 com.google.android.play.core.splitinstall.as
@@ -19535,6 +19791,7 @@ androidx.core.view.ViewCompat$AccessibilityPaneVisibilityManager:
     void removeAccessibilityPane(android.view.View)
 com.facebook.internal.NativeProtocol$WakizashiAppInfo:
     static final java.lang.String WAKIZASHI_PACKAGE
+com.dooboolab.RNIap.R$id
 com.google.firebase.components.Component$Builder:
     public com.google.firebase.components.Component$Builder alwaysEager()
     public com.google.firebase.components.Component$Builder publishes(java.lang.Class)
@@ -19701,8 +19958,11 @@ androidx.cardview.R$attr:
     public static final int contentPaddingTop
 android.support.v4.media.session.MediaSessionCompatApi21
 com.facebook.infer.annotation.PropagatesNullable
+androidx.concurrent.futures.AbstractResolvableFuture$Failure$1
 com.google.firebase.platforminfo.DefaultUserAgentPublisher:
     public java.lang.String getUserAgent()
+com.amazon.device.iap.internal.b.d.d:
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 androidx.media.session.MediaButtonReceiver
 javax.annotation.meta.TypeQualifierValidator
 com.google.android.gms.common.internal.LegacyInternalGmsClient
@@ -20032,9 +20292,9 @@ kotlin.LazyKt__LazyJVMKt:
     public static final kotlin.Lazy lazy(java.lang.Object,kotlin.jvm.functions.Function0)
     public void <init>()
 kotlin.collections.ArraysKt___ArraysKt$groupingBy$1
-com.facebook.nativeimagetranscoder.BuildConfig
 com.facebook.share.model.ShareMessengerGenericTemplateContent:
     protected void <init>(com.facebook.share.model.ShareMessengerGenericTemplateContent$Builder)
+com.facebook.nativeimagetranscoder.BuildConfig
 com.facebook.react.uimanager.TouchTargetHelper:
     public static int findTargetTagForTouch(float,float,android.view.ViewGroup,int[])
 com.google.android.material.circularreveal.CircularRevealHelper$Delegate
@@ -20079,6 +20339,7 @@ androidx.annotation.RequiresApi
 org.reactnative.maskedview.R$xml
 com.facebook.internal.BundleJSONConverter$3:
     public void setOnJSON(org.json.JSONObject,java.lang.String,java.lang.Object)
+androidx.concurrent.futures.AbstractResolvableFuture$AtomicHelper
 kotlin.jvm.internal.LocalVariableReference
 com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory:
     private static final int DEFAULT_PRIORITY
@@ -20116,6 +20377,8 @@ com.facebook.places.R$drawable
 androidx.core.content.ContextCompat$MainHandlerExecutor
 com.bumptech.glide.request.target.PreloadTarget:
     private static final int MESSAGE_CLEAR
+androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments:
+    public java.lang.CharSequence getText()
 okio.SegmentedByteString:
     public java.lang.String string(java.nio.charset.Charset)
     public okio.ByteString toAsciiUppercase()
@@ -20127,8 +20390,6 @@ okio.SegmentedByteString:
     public void write(java.io.OutputStream)
     public int indexOf(byte[],int)
     public int lastIndexOf(byte[],int)
-androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments:
-    public java.lang.CharSequence getText()
 kotlin.reflect.KType:
     public abstract java.util.List getArguments()
     public abstract boolean isMarkedNullable()
@@ -20176,7 +20437,6 @@ org.apache.commons.codec.language.Caverphone
 androidx.appcompat.widget.ActivityChooserModel$OnChooseActivityListener
 kotlin.jvm.internal.FunctionImpl
 androidx.core.hardware.fingerprint.FingerprintManagerCompat$CryptoObject
-com.google.android.gms.auth.api.credentials.CredentialRequestResponse
 android.support.v4.media.MediaMetadataCompat:
     void <init>(android.os.Bundle)
     public boolean containsKey(java.lang.String)
@@ -20227,6 +20487,7 @@ android.support.v4.media.MediaMetadataCompat:
     static final int METADATA_TYPE_TEXT
     static final int METADATA_TYPE_BITMAP
     static final int METADATA_TYPE_RATING
+com.google.android.gms.auth.api.credentials.CredentialRequestResponse
 com.facebook.imagepipeline.producers.StatefulProducerRunnable:
     protected abstract void disposeResult(java.lang.Object)
 com.google.android.gms.common.util.NumberUtils
@@ -20472,6 +20733,7 @@ com.facebook.appevents.ml.ModelManager$TaskHandler:
 com.facebook.share.widget.ShareButton:
     public void <init>(android.content.Context,android.util.AttributeSet)
     public void <init>(android.content.Context,android.util.AttributeSet,int)
+com.amazon.device.iap.internal.a.c$1
 kotlin.text.MatcherMatchResult$groups$1:
     public kotlin.text.MatchGroup get(java.lang.String)
 com.bumptech.glide.load.resource.gif.GifDrawable:
@@ -20516,24 +20778,34 @@ android.support.v4.media.session.PlaybackStateCompat$CustomAction$Builder
 com.facebook.reactnative.androidsdk.R$style
 expo.modules.font.BuildConfig
 androidx.browser.customtabs.CustomTabsIntent$Builder:
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setPendingSession(androidx.browser.customtabs.CustomTabsSession$PendingSession)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setToolbarColor(int)
     public androidx.browser.customtabs.CustomTabsIntent$Builder enableUrlBarHiding()
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setUrlBarHidingEnabled(boolean)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setCloseButtonIcon(android.graphics.Bitmap)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setShowTitle(boolean)
     public androidx.browser.customtabs.CustomTabsIntent$Builder addMenuItem(java.lang.String,android.app.PendingIntent)
     public androidx.browser.customtabs.CustomTabsIntent$Builder addDefaultShareMenuItem()
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setDefaultShareMenuItemEnabled(boolean)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setShareState(int)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setActionButton(android.graphics.Bitmap,java.lang.String,android.app.PendingIntent,boolean)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setActionButton(android.graphics.Bitmap,java.lang.String,android.app.PendingIntent)
     public androidx.browser.customtabs.CustomTabsIntent$Builder addToolbarItem(int,android.graphics.Bitmap,java.lang.String,android.app.PendingIntent)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setSecondaryToolbarColor(int)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setNavigationBarColor(int)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setNavigationBarDividerColor(int)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setSecondaryToolbarViews(android.widget.RemoteViews,int[],android.app.PendingIntent)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setInstantAppsEnabled(boolean)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setStartAnimations(android.content.Context,int,int)
     public androidx.browser.customtabs.CustomTabsIntent$Builder setExitAnimations(android.content.Context,int,int)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setColorScheme(int)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setColorSchemeParams(int,androidx.browser.customtabs.CustomTabColorSchemeParams)
+    public androidx.browser.customtabs.CustomTabsIntent$Builder setDefaultColorSchemeParams(androidx.browser.customtabs.CustomTabColorSchemeParams)
 androidx.appcompat.widget.RtlSpacingHelper:
     public static final int UNDEFINED
 androidx.print.PrintHelper$PrintBitmapAdapter
 kotlin.sequences.SequencesKt___SequencesKt$minus$2$iterator$1
+androidx.browser.trusted.TrustedWebActivityServiceConnection$ActiveNotificationsArgs
 com.google.android.material.floatingactionbutton.AnimatorTracker
 com.facebook.react.ReactNativeHost:
     public void clear()
@@ -20610,6 +20882,7 @@ org.apache.commons.codec.BinaryEncoder
 com.google.android.gms.internal.location.zzt
 androidx.core.content.res.ColorStateListInflaterCompat:
     private void <init>()
+com.amazon.device.iap.internal.util.MetricsHelper
 com.swmansion.gesturehandler.GestureUtils:
     public void <init>()
 com.facebook.react.devsupport.FpsView
@@ -20834,6 +21107,11 @@ com.google.android.material.animation.AnimatorSetCompat:
 com.google.android.material.R$interpolator
 androidx.annotation.IntRange
 androidx.recyclerview.widget.ItemTouchHelper$RecoverAnimation
+androidx.browser.customtabs.CustomTabColorSchemeParams$Builder:
+    public androidx.browser.customtabs.CustomTabColorSchemeParams$Builder setToolbarColor(int)
+    public androidx.browser.customtabs.CustomTabColorSchemeParams$Builder setSecondaryToolbarColor(int)
+    public androidx.browser.customtabs.CustomTabColorSchemeParams$Builder setNavigationBarColor(int)
+    public androidx.browser.customtabs.CustomTabColorSchemeParams$Builder setNavigationBarDividerColor(int)
 com.facebook.internal.DialogPresenter:
     public void <init>()
     public static boolean canPresentWebFallbackDialogWithFeature(com.facebook.internal.DialogFeature)
@@ -21506,6 +21784,7 @@ kotlin.collections.CollectionsKt__IteratorsJVMKt:
     public void <init>()
 com.google.zxing.aztec.decoder.Decoder$Table
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$QualifiedNameTable$QualifiedNameOrBuilder
+com.reactcommunity.rndatetimepicker.R$layout
 com.google.android.gms.internal.firebase-auth-api.zzyt:
     private void <init>()
 com.facebook.react.devsupport.InspectorPackagerConnection$Connection
@@ -21567,6 +21846,7 @@ kotlin.ExceptionsKt__ExceptionsKt:
     public static synthetic void stackTrace$annotations(java.lang.Throwable)
     public static final java.lang.StackTraceElement[] getStackTrace(java.lang.Throwable)
     public void <init>()
+android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub
 kotlin.ranges.RangesKt___RangesKt:
     private static final int random(kotlin.ranges.IntRange)
     private static final long random(kotlin.ranges.LongRange)
@@ -21688,6 +21968,9 @@ com.facebook.react.views.image.ReactImageView:
     public static final java.lang.String REMOTE_TRANSPARENT_BITMAP_URI
 kotlin.reflect.jvm.internal.KPackageImpl$Data:
     public final java.util.Collection getMembers()
+com.google.android.gms.internal.play_billing.zza:
+    public abstract int zzb(int,java.lang.String,java.lang.String,android.os.Bundle)
+    public abstract android.os.Bundle zzb(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle)
 kotlin.collections.ArraysKt:
     private void <init>()
 com.facebook.imagepipeline.cache.EncodedCountingMemoryCacheFactory:
@@ -21712,6 +21995,7 @@ com.google.android.gms.common.images.zad
 org.apache.commons.io.FileCleaner
 com.facebook.imagepipeline.systrace.DefaultFrescoSystrace:
     public com.facebook.imagepipeline.systrace.FrescoSystrace$ArgsBuilder beginSectionWithArgs(java.lang.String)
+com.amazon.device.iap.internal.c.d
 android.support.v4.media.session.MediaSessionCompat$MediaSessionImplBase$1
 com.google.zxing.oned.rss.expanded.decoders.GeneralAppIdDecoder
 androidx.core.app.ServiceCompat
@@ -21764,6 +22048,7 @@ kotlin.coroutines.experimental.migration.ExperimentalContinuationMigration
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$VersionRequirementTable:
     public kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$VersionRequirementTable getDefaultInstanceForType()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
+androidx.browser.trusted.TrustedWebActivityServiceConnection$CancelNotificationArgs
 com.google.android.play.core.splitinstall.aq
 com.facebook.internal.ImageDownloader$CacheReadWorkItem
 com.facebook.react.devsupport.DevServerHelper$PackagerCommandListener
@@ -21775,6 +22060,7 @@ androidx.core.view.accessibility.AccessibilityViewCommand$SetSelectionArguments:
     public int getEnd()
 com.facebook.imagepipeline.nativecode.NativeJpegTranscoderSoLoader:
     public void <init>()
+com.android.billingclient.api.zzb
 kotlin.collections.unsigned.UArraysKt___UArraysKt$withIndex$2
 kotlin.sequences.SequenceScope
 org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover
@@ -21799,6 +22085,8 @@ com.facebook.react.views.text.ReactBaseTextShadowNode:
 com.google.android.gms.common.data.EntityBuffer
 androidx.vectordrawable.R$integer
 androidx.loader.R$layout
+com.amazon.device.iap.internal.b.d.b:
+    protected void preExecution()
 com.swmansion.gesturehandler.react.R$integer
 org.apache.commons.lang3.SystemUtils
 com.google.android.material.circularreveal.CircularRevealWidget:
@@ -21865,6 +22153,8 @@ org.apache.commons.codec.digest.DigestUtils:
     public static java.security.MessageDigest updateDigest(java.security.MessageDigest,byte[])
     public static java.security.MessageDigest updateDigest(java.security.MessageDigest,java.lang.String)
     private static final int STREAM_BUFFER_LENGTH
+com.amazon.device.iap.internal.d:
+    public void a(android.content.Context,android.content.Intent)
 org.unimodules.core.InvalidArgumentException:
     public void <init>()
     public void <init>(java.lang.Throwable)
@@ -21880,6 +22170,15 @@ androidx.core.widget.AutoSizeableTextView:
     public abstract int getAutoSizeMinTextSize()
     public abstract int getAutoSizeMaxTextSize()
     public abstract int[] getAutoSizeTextAvailableSizes()
+com.amazon.device.iap.model.Receipt:
+    public void <init>(com.amazon.device.iap.internal.model.ReceiptBuilder)
+    public java.util.Date getCancelDate()
+    public boolean isCanceled()
+    private static final java.lang.String RECEIPT_ID
+    private static final java.lang.String SKU
+    private static final java.lang.String PRODUCT_TYPE
+    private static final java.lang.String PURCHASE_DATE
+    private static final java.lang.String CANCEL_DATE
 androidx.browser.browseractions.BrowserActionsIntent
 androidx.appcompat.widget.Toolbar$ExpandedActionViewMenuPresenter:
     public androidx.appcompat.view.menu.MenuView getMenuView(android.view.ViewGroup)
@@ -21898,6 +22197,7 @@ androidx.appcompat.widget.ListPopupWindow$1
 com.facebook.drawee.R$attr
 com.facebook.imageformat.ImageFormat:
     public java.lang.String getFileExtension()
+com.android.billingclient.api.zzb$zza
 com.google.android.material.tabs.TabLayout
 com.google.android.gms.auth.api.identity.SignInClient
 com.facebook.places.internal.BleScannerImpl$1
@@ -22058,6 +22358,7 @@ androidx.versionedparcelable.ParcelImpl:
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$TypeTableOrBuilder
 com.facebook.cache.disk.DiskStorage$DiskDumpInfoEntry
 com.google.zxing.oned.rss.DataCharacter
+androidx.browser.trusted.TrustedWebActivityServiceConnection$ResultArgs
 com.facebook.common.executors.StatefulRunnable:
     protected static final int STATE_CREATED
     protected static final int STATE_STARTED
@@ -22179,6 +22480,9 @@ com.google.android.gms.auth.api.R$dimen
 androidx.room.Relation
 androidx.asynclayoutinflater.view.AsyncLayoutInflater$InflateThread
 androidx.legacy.content.WakefulBroadcastReceiver
+com.facebook.imagepipeline.cache.BitmapMemoryCacheTrimStrategy:
+    public double getTrimRatio(com.facebook.common.memory.MemoryTrimType)
+    private static final java.lang.String TAG
 com.google.android.gms.common.data.DataHolder:
     public void <init>(java.lang.String[],android.database.CursorWindow[],int,android.os.Bundle)
     private void <init>(com.google.android.gms.common.sqlite.CursorWrapper,int,android.os.Bundle)
@@ -22204,9 +22508,6 @@ com.google.android.gms.common.data.DataHolder:
     public final boolean hasNull(java.lang.String,int,int)
     public final int getCount()
     public final int getWindowIndex(int)
-com.facebook.imagepipeline.cache.BitmapMemoryCacheTrimStrategy:
-    public double getTrimRatio(com.facebook.common.memory.MemoryTrimType)
-    private static final java.lang.String TAG
 org.apache.commons.lang3.Functions$FailableFunction
 com.google.zxing.client.result.ExpandedProductParsedResult
 com.google.zxing.client.result.ParsedResultType
@@ -22250,9 +22551,9 @@ com.dylanvann.fastimage.R$integer
 androidx.customview.R$id
 androidx.core.view.ViewCompat$FocusRelativeDirection
 com.google.android.gms.auth.account.WorkAccountApi
-com.facebook.cache.common.BaseCacheEventListener
 com.google.android.gms.common.util.Strings:
     private void <init>()
+com.facebook.cache.common.BaseCacheEventListener
 com.google.android.play.core.splitcompat.SplitCompatApplication
 com.bumptech.glide.load.resource.bitmap.HardwareConfigState:
     static final int MIN_HARDWARE_DIMENSION_O
@@ -22293,6 +22594,7 @@ com.bumptech.glide.util.ByteBufferUtil$ByteBufferStream:
     private static final int UNSET
 kotlin.reflect.jvm.internal.impl.types.DelegatedTypeSubstitution:
     public boolean approximateContravariantCapturedTypes()
+com.dooboolab.RNIap.R$integer
 com.google.android.gms.safetynet.SafetyNetApi$SafeBrowsingResult
 com.theartofdev.edmodo.cropper.R$bool
 org.apache.commons.codec.binary.Base64InputStream
@@ -22391,7 +22693,11 @@ com.facebook.imagepipeline.producers.LocalExifThumbnailProducer:
     private static final int COMMON_EXIF_THUMBNAIL_MAX_DIMENSION
     public static final java.lang.String PRODUCER_NAME
     static final java.lang.String CREATED_THUMBNAIL
+com.amazon.device.iap.internal.c.e
 co.apptailor.googlesignin.R$anim
+com.amazon.device.iap.internal.b.d.c:
+    private java.util.List a(java.lang.String,java.lang.String,java.lang.String)
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 com.facebook.drawee.drawable.AutoRotateDrawable:
     public void reset()
     public void setClockwise(boolean)
@@ -22400,6 +22706,7 @@ com.facebook.drawee.drawable.AutoRotateDrawable:
     private static final int DEGREES_IN_FULL_ROTATION
     private static final int FRAME_INTERVAL_MS
 kotlin.math.MathKt__MathHKt
+android.support.customtabs.ICustomTabsService$Default
 androidx.legacy.coreui.R$style
 androidx.transition.ObjectAnimatorUtils:
     private void <init>()
@@ -22470,6 +22777,7 @@ androidx.lifecycle.Transformations$1
 com.bumptech.glide.load.resource.bitmap.DrawableToBitmapConverter:
     private void <init>()
     private static final java.lang.String TAG
+androidx.concurrent.futures.ResolvableFuture
 androidx.core.util.TimeUtils:
     public static void formatDuration(long,java.lang.StringBuilder)
     private void <init>()
@@ -22739,11 +23047,14 @@ com.facebook.appevents.restrictivedatafilter.RestrictiveDataManager:
     private static final java.lang.String RESTRICTIVE_PARAM
     private static final java.lang.String RESTRICTIVE_PARAM_KEY
 android.support.v4.media.session.MediaSessionCompat$3
+com.amazon.device.iap.internal.c:
+    public abstract void a(android.content.Context,android.content.Intent)
 com.google.android.material.floatingactionbutton.FloatingActionButtonImplLollipop:
     void initializeBackgroundDrawable(android.content.res.ColorStateList,android.graphics.PorterDuff$Mode,android.content.res.ColorStateList,int)
     com.google.android.material.floatingactionbutton.BorderDrawable createBorderDrawable(int,android.content.res.ColorStateList)
     com.google.android.material.shape.MaterialShapeDrawable createShapeDrawable()
 com.google.android.gms.internal.firebase-auth-api.zzsb
+androidx.browser.trusted.PackageIdentityUtils$SignaturesCompat
 androidx.core.app.NotificationCompat$Builder:
     private android.graphics.Bitmap reduceLargeIconSize(android.graphics.Bitmap)
     public androidx.core.app.NotificationCompat$Builder setShowWhen(boolean)
@@ -22810,6 +23121,7 @@ androidx.appcompat.widget.AppCompatDrawableManager:
     private static final java.lang.String TAG
     private static final boolean DEBUG
 com.google.android.gms.common.internal.ViewUtils
+androidx.concurrent.futures.AbstractResolvableFuture$Cancellation
 com.google.android.gms.internal.firebase-auth-api.zzaac
 com.facebook.react.uimanager.ReactStylesDiffMap:
     public java.util.Map toMap()
@@ -22940,6 +23252,7 @@ com.google.android.gms.location.ActivityRecognitionApi:
     public abstract com.google.android.gms.common.api.PendingResult zza(com.google.android.gms.common.api.GoogleApiClient,android.app.PendingIntent)
 com.google.zxing.common.detector.MathUtils
 androidx.loader.R$string
+androidx.concurrent.futures.DirectExecutor
 com.google.android.material.ripple.RippleUtils:
     public static android.content.res.ColorStateList convertToRippleDrawableColor(android.content.res.ColorStateList)
     private static int getColorForState(android.content.res.ColorStateList,int[])
@@ -23062,6 +23375,7 @@ com.facebook.GraphResponse:
     private static final java.lang.String CODE_KEY
     private static final java.lang.String BODY_KEY
     private static final java.lang.String RESPONSE_LOG_TAG
+com.dooboolab.RNIap.R$layout
 com.google.android.material.snackbar.BaseTransientBottomBar$AnimationMode
 com.facebook.places.internal.BleScannerImpl$2
 io.invertase.firebase.auth.R$color
@@ -23117,6 +23431,7 @@ io.invertase.firebase.interfaces.NativeEvent:
     public abstract java.lang.String getFirebaseAppName()
 com.facebook.internal.BundleJSONConverter$4:
     public void setOnJSON(org.json.JSONObject,java.lang.String,java.lang.Object)
+com.dooboolab.RNIap.R$string
 kotlin.ranges.LongRange$Companion
 com.bumptech.glide.load.resource.bitmap.CenterCrop:
     private static final java.lang.String ID
@@ -23523,6 +23838,7 @@ com.google.firebase.internal.DataCollectionConfigStorage:
 androidx.core.text.util.FindAddress
 android.support.v4.media.session.MediaControllerCompat$TransportControlsApi23
 com.google.android.gms.internal.safetynet.zzk$zzc
+androidx.browser.trusted.TrustedWebActivityService$1
 androidx.room.IMultiInstanceInvalidationCallback$Stub$Proxy:
     public java.lang.String getInterfaceDescriptor()
 kotlin.coroutines.jvm.internal.CoroutineStackFrame
@@ -24101,6 +24417,7 @@ androidx.media.MediaBrowserServiceCompat$ServiceBinderImpl
 com.google.android.material.transformation.TransformationChildCard:
     public void <init>(android.content.Context)
     public void <init>(android.content.Context,android.util.AttributeSet)
+androidx.browser.trusted.TrustedWebActivityCallback
 kotlin.coroutines.experimental.EmptyCoroutineContext
 org.apache.commons.codec.language.ColognePhonetic$CologneBuffer
 com.facebook.react.views.viewpager.PageScrollStateChangedEvent:
@@ -24116,11 +24433,11 @@ com.google.android.gms.internal.auth-api-phone.zza:
     static void <clinit>()
     private static com.google.android.gms.internal.auth-api-phone.zzc zza
 kotlin.ranges.ClosedFloatingPointRange$DefaultImpls
+com.bumptech.glide.load.data.LocalUriFetcher:
+    private static final java.lang.String TAG
 com.facebook.imagepipeline.producers.BaseNetworkFetcher:
     public void onFetchCompletion(com.facebook.imagepipeline.producers.FetchState,int)
     public java.util.Map getExtraMap(com.facebook.imagepipeline.producers.FetchState,int)
-com.bumptech.glide.load.data.LocalUriFetcher:
-    private static final java.lang.String TAG
 androidx.core.net.DatagramSocketWrapper
 com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener
 com.facebook.react.common.build.ReactBuildConfig
@@ -24366,7 +24683,6 @@ kotlin.comparisons.ComparisonsKt:
     private void <init>()
 com.google.android.gms.common.Scopes
 androidx.recyclerview.widget.AsyncListDiffer$1
-com.facebook.drawee.generic.GenericDraweeHierarchyInflater
 com.google.android.gms.internal.location.zzap:
     public final void zza(com.google.android.gms.location.ActivityTransitionRequest,android.app.PendingIntent,com.google.android.gms.common.api.internal.IStatusCallback)
     public final void zza(android.app.PendingIntent,com.google.android.gms.common.api.internal.IStatusCallback)
@@ -24374,6 +24690,7 @@ com.google.android.gms.internal.location.zzap:
     public final void zza(android.location.Location)
     public final void zza(com.google.android.gms.internal.location.zzaj)
     public final com.google.android.gms.location.LocationAvailability zzb(java.lang.String)
+com.facebook.drawee.generic.GenericDraweeHierarchyInflater
 com.facebook.internal.AttributionIdentifiers:
     public static com.facebook.internal.AttributionIdentifiers getCachedIdentifiers()
     private static final java.lang.String ATTRIBUTION_ID_CONTENT_PROVIDER
@@ -24420,8 +24737,8 @@ com.google.android.play.core.internal.s:
     public abstract void c(java.lang.String,java.util.List,android.os.Bundle,com.google.android.play.core.internal.u)
     public abstract void e(java.lang.String,android.os.Bundle,android.os.Bundle,com.google.android.play.core.internal.u)
 kotlin.collections.MovingSubList
-com.facebook.react.common.ShakeDetector$ShakeListener
 com.facebook.react.devsupport.RedBoxDialog
+com.facebook.react.common.ShakeDetector$ShakeListener
 com.oblador.vectoricons.R$color
 com.google.android.gms.common.api.internal.zabz
 android.support.v4.media.MediaMetadataCompat$TextKey
@@ -24482,9 +24799,15 @@ com.facebook.react.views.switchview.ReactSwitchEvent:
 androidx.viewpager2.widget.ViewPager2$4
 kotlin.reflect.KMutableProperty0$Setter
 androidx.browser.customtabs.CustomTabsClient:
+    public static boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection)
     public static java.lang.String getPackageName(android.content.Context,java.util.List)
     public static java.lang.String getPackageName(android.content.Context,java.util.List,boolean)
+    private static android.app.PendingIntent createSessionId(android.content.Context,int)
+    public static androidx.browser.customtabs.CustomTabsSession$PendingSession newPendingSession(android.content.Context,androidx.browser.customtabs.CustomTabsCallback,int)
+    public androidx.browser.customtabs.CustomTabsSession newSession(androidx.browser.customtabs.CustomTabsCallback,int)
     public android.os.Bundle extraCommand(java.lang.String,android.os.Bundle)
+    public androidx.browser.customtabs.CustomTabsSession attachSession(androidx.browser.customtabs.CustomTabsSession$PendingSession)
+    private static final java.lang.String TAG
 com.facebook.internal.Utility:
     public static int[] intersectRanges(int[],int[])
     public static boolean isSubset(java.util.Collection,java.util.Collection)
@@ -24575,10 +24898,19 @@ com.facebook.react.modules.i18nmanager.I18nUtil:
 com.facebook.share.R$integer
 com.swmansion.rnscreens.R$drawable
 com.facebook.places.R$style
+com.amazon.device.iap.internal.b.a.b
 androidx.activity.R
 androidx.print.PrintHelper$PrintUriAdapter$1
 androidx.browser.R$style
 expo.modules.keepawake.R
+com.amazon.device.iap.model.UserDataResponse:
+    public void <init>(com.amazon.device.iap.internal.model.UserDataResponseBuilder)
+    public com.amazon.device.iap.model.RequestId getRequestId()
+    public org.json.JSONObject toJSON()
+    private static final java.lang.String TO_STRING_FORMAT
+    private static final java.lang.String REQUEST_ID
+    private static final java.lang.String REQUEST_STATUS
+    private static final java.lang.String USER_DATA
 org.apache.commons.lang3.time.DateUtils$DateIterator
 kotlin.jvm.internal.CharSpreadBuilder
 com.google.android.play.core.internal.bx
@@ -24778,6 +25110,7 @@ com.facebook.common.R$layout:
     public static final int select_dialog_multichoice_material
     public static final int select_dialog_singlechoice_material
     public static final int support_simple_spinner_dropdown_item
+androidx.browser.trusted.PackageIdentityUtils$Api28Implementation
 androidx.appcompat.widget.VectorEnabledTintResources:
     public static void setCompatVectorFromResourcesEnabled(boolean)
     public static final int MAX_SDK_WHERE_REQUIRED
@@ -24844,6 +25177,7 @@ com.swmansion.rnscreens.ScreenAppearEvent:
     public static final java.lang.String EVENT_NAME
 com.google.android.gms.internal.auth.zzn
 com.swmansion.reanimated.R$color
+com.reactcommunity.rndatetimepicker.R$drawable
 com.facebook.imagepipeline.nativecode.WebpTranscoderFactory:
     public void <init>()
 com.facebook.datasource.DataSources$ValueHolder
@@ -24889,6 +25223,7 @@ kotlin.concurrent.LocksKt
 com.google.android.gms.internal.base.zar:
     public void <init>()
 org.apache.commons.io.output.AppendableOutputStream
+com.amazon.device.iap.internal.b.a
 com.facebook.react.modules.debug.FpsDebugFrameCallback:
     public int get4PlusFrameStutters()
     public void reset()
@@ -25050,6 +25385,7 @@ com.bebrandd.branddot.R$bool
 android.support.v4.media.MediaMetadataCompat$Builder
 javax.annotation.concurrent.Immutable
 expo.modules.sharing.R$id
+com.amazon.device.iap.internal.b.a.c
 com.bumptech.glide.load.engine.EngineJob:
     synchronized boolean isCancelled()
 kotlin.coroutines.EmptyCoroutineContext
@@ -25086,6 +25422,8 @@ com.facebook.imagepipeline.memory.PoolConfig$Builder:
     public com.facebook.imagepipeline.memory.PoolConfig$Builder setBitmapPoolMaxPoolSize(int)
     public com.facebook.imagepipeline.memory.PoolConfig$Builder setBitmapPoolMaxBitmapSize(int)
     public void setRegisterLruBitmapPoolAsMemoryTrimmable(boolean)
+com.android.billingclient.api.BillingFlowParams$Builder:
+    public com.android.billingclient.api.BillingFlowParams$Builder setVrPurchaseFlow(boolean)
 com.google.android.gms.common.api.internal.zaby
 com.google.android.material.floatingactionbutton.BorderDrawable$BorderState
 com.dylanvann.fastimage.R$style
@@ -25382,6 +25720,7 @@ com.facebook.places.internal.LocationPackageManager$4
 com.google.android.gms.auth.api.phone.SmsRetrieverStatusCodes
 io.invertase.firebase.app.ReactNativeFirebaseVersion:
     public void <init>()
+com.amazon.device.iap.internal.b.f.b
 androidx.room.RoomDatabase:
     java.lang.ThreadLocal getSuspendingTransactionId()
     java.util.Map getBackingFieldMap()
@@ -25420,6 +25759,7 @@ androidx.browser.customtabs.CustomTabsSession:
     public boolean requestPostMessageChannel(android.net.Uri)
     public int postMessage(java.lang.String,android.os.Bundle)
     public boolean validateRelationship(int,android.net.Uri,android.os.Bundle)
+    public boolean receiveFile(android.net.Uri,int,android.os.Bundle)
     private static final java.lang.String TAG
 com.google.android.gms.common.internal.ResolveAccountResponse:
     public void <init>(com.google.android.gms.common.ConnectionResult)
@@ -25430,6 +25770,7 @@ com.google.android.gms.common.internal.ResolveAccountResponse:
 com.oblador.vectoricons.R$dimen
 com.facebook.places.internal.BleScannerImpl$ScanCallBackImpl
 androidx.appcompat.widget.ShareActionProvider$ShareActivityChooserModelPolicy
+androidx.browser.trusted.TrustedWebActivityServiceConnectionPool
 com.google.android.material.datepicker.CalendarConstraints:
     boolean isWithinBounds(long)
 org.apache.commons.io.output.WriterOutputStream
@@ -25698,9 +26039,9 @@ com.facebook.share.internal.CameraEffectJSONUtility$3:
     public void setOnArgumentsBuilder(com.facebook.share.model.CameraEffectArguments$Builder,java.lang.String,java.lang.Object)
 com.bumptech.glide.gifdecoder.R
 androidx.core.content.SharedPreferencesCompat
-android.support.v4.media.session.PlaybackStateCompat$RepeatMode
 com.google.android.material.bottomsheet.BottomSheetDialogFragment:
     public void dismissAllowingStateLoss()
+android.support.v4.media.session.PlaybackStateCompat$RepeatMode
 com.google.android.material.internal.NavigationMenuPresenter$NormalViewHolder
 org.apache.commons.io.input.ClassLoaderObjectInputStream
 com.facebook.share.model.CameraEffectArguments$Builder:
@@ -25829,6 +26170,7 @@ androidx.cardview.R$dimen:
     public static final int cardview_default_elevation
     public static final int cardview_default_radius
 org.apache.commons.lang3.time.DurationFormatUtils$Token
+com.dooboolab.RNIap.R$attr
 com.facebook.react.modules.core.JavaTimerManager:
     private static final float IDLE_CALLBACK_FRAME_DEADLINE_MS
     private static final float FRAME_DURATION_MS
@@ -26061,6 +26403,7 @@ androidx.legacy.widget.Space
 com.facebook.share.model.ShareMessengerActionButton:
     protected void <init>(com.facebook.share.model.ShareMessengerActionButton$Builder)
 com.google.android.play.core.internal.bv
+com.dooboolab.RNIap.R$dimen
 androidx.appcompat.widget.ViewUtils:
     private void <init>()
     private static final java.lang.String TAG
@@ -26110,6 +26453,7 @@ com.google.android.gms.auth.api.accounttransfer.zzk
 com.facebook.share.widget.JoinAppGroupDialog$WebHandler
 com.facebook.applinks.R$styleable
 co.apptailor.googlesignin.R$style
+androidx.browser.browseractions.BrowserServiceFileProvider$FileCleanupTask
 com.google.android.material.internal.CollapsingTextHelper$2
 com.google.android.material.math.MathUtils:
     private void <init>()
@@ -26170,17 +26514,21 @@ com.swmansion.rnscreens.R
 androidx.swiperefreshlayout.R$color
 android.support.customtabs.ICustomTabsService$Stub:
     public void <init>()
+    public static boolean setDefaultImpl(android.support.customtabs.ICustomTabsService)
     public android.os.IBinder asBinder()
     public boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
     private static final java.lang.String DESCRIPTOR
     static final int TRANSACTION_warmup
     static final int TRANSACTION_newSession
+    static final int TRANSACTION_newSessionWithExtras
     static final int TRANSACTION_mayLaunchUrl
     static final int TRANSACTION_extraCommand
     static final int TRANSACTION_updateVisuals
     static final int TRANSACTION_requestPostMessageChannel
+    static final int TRANSACTION_requestPostMessageChannelWithExtras
     static final int TRANSACTION_postMessage
     static final int TRANSACTION_validateRelationship
+    static final int TRANSACTION_receiveFile
 com.facebook.react.surface.ReactStage
 androidx.transition.TransitionUtils:
     private void <init>()
@@ -26230,9 +26578,9 @@ androidx.appcompat.widget.AppCompatCheckedTextView:
     public void <init>(android.content.Context)
 org.unimodules.core.interfaces.RuntimeEnvironmentInterface$PlatformVersion
 com.google.android.gms.base.R
+android.support.v4.media.session.MediaSessionCompatApi23$Callback
 com.facebook.soloader.Api18TraceUtils:
     private static final int MAX_SECTION_NAME_LENGTH
-android.support.v4.media.session.MediaSessionCompatApi23$Callback
 com.bumptech.glide.request.target.FixedSizeDrawable$State
 com.google.android.gms.safetynet.SafetyNetApi$zzc
 expo.modules.imageloader.R$id
@@ -26643,6 +26991,7 @@ androidx.core.app.FrameMetricsAggregator
 com.dylanvann.fastimage.R$dimen
 org.apache.commons.io.CopyUtils
 androidx.viewpager.R$layout
+androidx.concurrent.futures.AbstractResolvableFuture$SynchronizedHelper
 com.facebook.imagepipeline.core.ImagePipeline$5
 com.facebook.react.views.art.ARTShapeShadowNode:
     private static final int CAP_BUTT
@@ -26673,12 +27022,14 @@ com.facebook.appevents.AppEventStore:
 com.facebook.share.R$layout
 com.google.android.material.tabs.TabLayout$AdapterChangeListener
 expo.modules.sqlite.R
+androidx.browser.customtabs.PostMessageBackend
 org.apache.commons.io.DirectoryWalker
 com.google.android.material.shape.MaterialShapeDrawable$CompatibilityShadowMode
 androidx.annotation.IntegerRes
 com.facebook.react.ReactActivityDelegate:
     public void <init>(android.app.Activity,java.lang.String)
     public com.facebook.react.ReactInstanceManager getReactInstanceManager()
+com.amazon.device.iap.internal.b.f.c
 com.facebook.WebDialog
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat$CollectionItemInfoCompat:
     public int getColumnIndex()
@@ -26712,11 +27063,13 @@ com.facebook.drawee.view.SimpleDraweeView:
     public void <init>(android.content.Context,android.util.AttributeSet,int)
     public void <init>(android.content.Context,android.util.AttributeSet,int,int)
     private void init(android.content.Context,android.util.AttributeSet)
+androidx.browser.browseractions.BrowserServiceFileProvider$FileSaveTask
 bolts.Bolts
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$4
 com.google.android.gms.common.api.internal.RegistrationMethods
 com.facebook.imagepipeline.filter.IterativeBoxBlurFilter
 androidx.lifecycle.viewmodel.savedstate.R
+com.reactcommunity.rndatetimepicker.BuildConfig
 androidx.core.graphics.TypefaceCompatApi24Impl:
     private static final java.lang.String TAG
     private static final java.lang.String FONT_FAMILY_CLASS
@@ -27259,6 +27612,7 @@ com.google.android.material.datepicker.DateValidatorPointForward:
     public static com.google.android.material.datepicker.DateValidatorPointForward now()
 androidx.core.view.LayoutInflaterFactory
 kotlin.ExtensionFunctionType
+com.amazon.device.iap.internal.model.UserDataBuilder
 com.facebook.share.widget.CreateAppGroupDialog$1
 androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup:
     public void setSpanIndexCacheEnabled(boolean)
@@ -27284,6 +27638,7 @@ androidx.core.view.InputDeviceCompat
 org.apache.commons.lang3.time.FastDatePrinter$TwoDigitMonthField
 org.reactnative.maskedview.RNCMaskedView:
     private static final java.lang.String TAG
+androidx.browser.R$xml
 androidx.core.provider.FontRequest:
     public void <init>(java.lang.String,java.lang.String,java.lang.String,int)
 com.facebook.react.devsupport.interfaces.DevBundleDownloadListener:
@@ -27428,6 +27783,7 @@ kotlin.reflect.jvm.internal.KProperty2Impl:
     public java.lang.Object getDelegate(java.lang.Object,java.lang.Object)
 com.google.zxing.oned.rss.Pair
 com.facebook.places.R$layout
+com.amazon.device.iap.internal.b.a.a
 com.google.firebase.auth.ActionCodeInfo:
     public java.lang.String getEmail()
 com.google.android.play.core.internal.bw
@@ -27615,6 +27971,17 @@ com.facebook.datasource.DataSources$3
 com.google.android.gms.internal.auth.zzq
 androidx.transition.RectEvaluator:
     void <init>(android.graphics.Rect)
+com.android.billingclient.api.BillingClientImpl:
+    private void <init>(android.app.Activity,boolean,java.lang.String)
+    private void <init>(java.lang.String)
+    private void startConnection(long)
+    private void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,long)
+    private int launchBillingFlowCpp(android.app.Activity,com.android.billingclient.api.BillingFlowParams)
+    private final com.android.billingclient.api.BillingResult zzb(java.lang.String)
+    private static android.os.Bundle zzb()
+    static synthetic android.os.Bundle zze(com.android.billingclient.api.BillingClientImpl)
+    public com.android.billingclient.api.BillingResult isFeatureSupported(java.lang.String)
+    public void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,com.android.billingclient.api.PriceChangeConfirmationListener)
 androidx.recyclerview.widget.AsyncListUtil$1
 org.apache.commons.io.input.ReversedLinesFileReader
 org.unimodules.adapters.react.services.UIManagerModuleWrapper$2$1
@@ -27640,6 +28007,7 @@ kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$Annotation$Argument$Value$Bui
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.GeneratedMessageLite getDefaultInstanceForType()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.AbstractMessageLite$Builder clone()
     public synthetic bridge kotlin.reflect.jvm.internal.impl.protobuf.MessageLite getDefaultInstanceForType()
+com.dooboolab.RNIap.R$style
 org.apache.commons.codec.digest.Sha2Crypt
 kotlin.jvm.JvmDefault
 androidx.appcompat.widget.AbsActionBarView:
@@ -27663,6 +28031,7 @@ com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate:
     public void setBaseTransientBottomBar(com.google.android.material.snackbar.BaseTransientBottomBar)
 com.facebook.share.internal.LikeDialog$WebFallbackHandler
 com.swmansion.gesturehandler.react.R$string
+com.amazon.device.iap.internal.b.d
 kotlin.io.FileTreeWalk$FileTreeWalkIterator$WhenMappings
 com.google.android.gms.internal.firebase-auth-api.zzhy:
     static void <clinit>()
@@ -27703,6 +28072,7 @@ com.google.android.gms.safetynet.SafeBrowsingData:
     public void setBlacklists(byte[])
     public byte[] getBlacklists()
     public void setTempDir(java.io.File)
+com.dooboolab.RNIap.R$bool
 kotlin.ranges.ClosedFloatRange
 org.unimodules.interfaces.facedetector.FaceDetectionError
 com.facebook.imagepipeline.transcoder.SimpleImageTranscoder:
@@ -27748,18 +28118,21 @@ com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedList
 androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImpl
 com.swmansion.gesturehandler.PointerEvents
 co.apptailor.googlesignin.R$color
+androidx.browser.customtabs.CustomTabsSession$MockSession
 com.google.android.play.core.assetpacks.cj
 org.unimodules.core.R
 com.google.zxing.pdf417.decoder.ec.ErrorCorrection
+androidx.annotation.ChecksSdkIntAtLeast
 org.apache.commons.lang3.builder.DiffBuilder$2
 io.nlopez.smartlocation.R$attr
 com.oblador.vectoricons.R$layout
-com.bumptech.glide.load.engine.prefill.PreFillType$Builder
 com.google.android.material.datepicker.RangeDateSelector$3
+com.bumptech.glide.load.engine.prefill.PreFillType$Builder
 com.google.android.gms.internal.auth-api.zzaf
 com.bumptech.glide.load.engine.Engine$EngineJobFactory:
     void shutdown()
 org.unimodules.core.interfaces.services.UIManager$ViewHolder
+android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub$Proxy
 com.google.android.gms.internal.auth.zzax
 com.google.android.gms.internal.common.zzi:
     public void <init>()
@@ -27878,6 +28251,7 @@ androidx.media.AudioAttributesImpl:
     public abstract int getFlags()
     public abstract android.os.Bundle toBundle()
 com.facebook.share.BuildConfig
+com.android.billingclient.api.zzah
 com.google.android.gms.common.api.GoogleApiClient:
     public static void dumpAll(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[])
     public com.google.android.gms.common.api.internal.ListenerHolder registerListener(java.lang.Object)
@@ -28039,6 +28413,7 @@ androidx.fragment.app.Fragment:
     static final int ACTIVITY_CREATED
     static final int STARTED
     static final int RESUMED
+androidx.browser.trusted.ConnectionHolder$WrapperFactory
 com.facebook.places.R$styleable
 android.support.v4.media.RatingCompat$StarStyle
 kotlin.LateinitKt
@@ -28063,6 +28438,15 @@ androidx.appcompat.app.AlertDialog:
     static final int LAYOUT_HINT_NONE
     static final int LAYOUT_HINT_SIDE
 com.facebook.drawee.backends.pipeline.R$styleable
+com.android.billingclient.api.BillingFlowParams:
+    public java.lang.String getSku()
+    public java.lang.String getSkuType()
+    public com.android.billingclient.api.SkuDetails getSkuDetails()
+    public static final java.lang.String EXTRA_PARAM_KEY_ACCOUNT_ID
+    public static final java.lang.String EXTRA_PARAM_KEY_REPLACE_SKUS_PRORATION_MODE
+    public static final java.lang.String EXTRA_PARAM_KEY_VR
+    public static final java.lang.String EXTRA_PARAM_KEY_OLD_SKUS
+    public static final java.lang.String EXTRA_PARAM_KEY_OLD_SKU_PURCHASE_TOKEN
 com.bumptech.glide.util.pool.StateVerifier$DebugStateVerifier
 com.facebook.react.views.textinput.ReactTextInputEndEditingEvent:
     private static final java.lang.String EVENT_NAME
@@ -28092,6 +28476,7 @@ com.swmansion.gesturehandler.react.R$anim
 androidx.appcompat.widget.ActivityChooserView$5
 org.apache.commons.lang3.arch.Processor$Type
 com.facebook.react.devsupport.DevServerHelper$4
+androidx.browser.trusted.TrustedWebActivityDisplayMode
 com.facebook.places.internal.WifiScanner
 expo.modules.imageloader.ImageLoaderModule:
     public java.util.concurrent.Future loadImageForDisplayFromURL(java.lang.String)
@@ -28099,6 +28484,7 @@ expo.modules.imageloader.ImageLoaderModule:
     public java.util.concurrent.Future loadImageForManipulationFromURL(java.lang.String)
     public final android.content.Context getContext()
 androidx.media.MediaSessionManager$RemoteUserInfoImpl
+androidx.concurrent.futures.AbstractResolvableFuture$SetFuture
 com.bumptech.glide.load.resource.bitmap.TransformationUtils:
     private void <init>()
     public static android.graphics.Bitmap rotateImage(android.graphics.Bitmap,int)
@@ -28142,10 +28528,12 @@ androidx.core.view.ViewParentCompat:
     private static int[] getTempNestedScrollConsumed()
     private static final java.lang.String TAG
     private static int[] sTempNestedScrollConsumed
+androidx.browser.trusted.ScreenOrientation$LockType
 com.google.android.material.badge.BadgeDrawable
 bolts.Task$12
 com.google.android.gms.auth.api.Auth$AuthCredentialsOptions$Builder:
     public com.google.android.gms.auth.api.Auth$AuthCredentialsOptions$Builder forceEnableSaveDialog()
+com.dooboolab.RNIap.DoobooUtils$1
 com.reactnativecommunity.asyncstorage.AsyncLocalStorageUtil:
     public void <init>()
 com.google.android.gms.internal.safetynet.zzk$zzh
@@ -28286,10 +28674,14 @@ io.invertase.firebase.auth.R
 com.facebook.imagepipeline.cache.BitmapMemoryCacheTrimStrategy$1
 org.apache.commons.codec.StringEncoder
 com.facebook.core.R$dimen
+com.amazon.device.iap.internal.b.f.a
 kotlin.jvm.PurelyImplements
+androidx.concurrent.futures.CallbackToFutureAdapter
 io.invertase.firebase.R$drawable
 androidx.recyclerview.widget.AsyncListUtil
 kotlin.ranges.CharRange
+com.amazon.device.iap.internal.b.e:
+    public void b()
 com.facebook.imagepipeline.nativecode.DalvikPurgeableDecoder:
     public com.facebook.common.references.CloseableReference decodeFromEncodedImage(com.facebook.imagepipeline.image.EncodedImage,android.graphics.Bitmap$Config,android.graphics.Rect)
 androidx.lifecycle.GenericLifecycleObserver
@@ -28320,6 +28712,7 @@ com.google.android.play.core.splitinstall.c
 kotlin.coroutines.experimental.ContinuationInterceptor$Key
 com.facebook.imagepipeline.memory.DummyTrackingInUseBitmapPool:
     public void trim(com.facebook.common.memory.MemoryTrimType)
+com.android.billingclient.R
 kotlin.sequences.SequencesKt___SequencesKt:
     public static final boolean contains(kotlin.sequences.Sequence,java.lang.Object)
     public static final java.lang.Object elementAt(kotlin.sequences.Sequence,int)
@@ -28475,6 +28868,7 @@ androidx.lifecycle.MethodCallsLogger:
     public boolean approveCall(java.lang.String,int)
 com.facebook.react.views.drawer.events.DrawerSlideEvent:
     public static final java.lang.String EVENT_NAME
+androidx.browser.trusted.sharing.ShareData
 com.facebook.internal.logging.monitor.Monitor:
     private void <init>()
     public static void addLog(com.facebook.internal.logging.ExternalLog)
@@ -28764,6 +29158,7 @@ com.facebook.share.internal.CameraEffectJSONUtility$2:
     public void setOnArgumentsBuilder(com.facebook.share.model.CameraEffectArguments$Builder,java.lang.String,java.lang.Object)
 com.google.android.gms.dynamite.zzd:
     public final com.google.android.gms.dynamite.DynamiteModule$VersionPolicy$zza zza(android.content.Context,java.lang.String,com.google.android.gms.dynamite.DynamiteModule$VersionPolicy$zzb)
+androidx.annotation.DoNotInline
 com.google.android.gms.common.internal.GmsClient:
     protected void <init>(android.content.Context,android.os.Handler,int,com.google.android.gms.common.internal.ClientSettings)
     protected void <init>(android.content.Context,android.os.Looper,int,com.google.android.gms.common.internal.ClientSettings)
@@ -28786,10 +29181,10 @@ kotlin.text.Regex$Companion:
     public final kotlin.text.Regex fromLiteral(java.lang.String)
     public final java.lang.String escape(java.lang.String)
     public final java.lang.String escapeReplacement(java.lang.String)
-com.facebook.appevents.ml.Model:
-    private static final int SEQ_LEN
 androidx.core.widget.TintableCompoundButton:
     public abstract android.graphics.PorterDuff$Mode getSupportButtonTintMode()
+com.facebook.appevents.ml.Model:
+    private static final int SEQ_LEN
 com.bumptech.glide.util.LogTime:
     private void <init>()
 com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory$1
@@ -28808,9 +29203,9 @@ com.facebook.react.views.art.ARTTextShadowNode:
 com.facebook.internal.WorkQueue$WorkItem
 com.reactnativecommunity.webview.R$anim
 com.google.android.gms.internal.common.zzj
+com.google.android.gms.internal.auth.zzaw
 com.facebook.imagepipeline.nativecode.NativeImageTranscoderFactory:
     private void <init>()
-com.google.android.gms.internal.auth.zzaw
 com.bumptech.glide.load.model.DataUrlLoader:
     private static final java.lang.String DATA_SCHEME_IMAGE
     private static final java.lang.String BASE64_TAG
@@ -28821,6 +29216,7 @@ com.google.android.gms.internal.location.zzas:
     public final void zza(android.app.PendingIntent,com.google.android.gms.internal.location.zzaj)
     public final void zza(android.location.Location)
     public final void zza(com.google.android.gms.internal.location.zzaj)
+androidx.browser.customtabs.CustomTabsIntent$ColorScheme
 com.google.android.material.behavior.SwipeDismissBehavior:
     public void setListener(com.google.android.material.behavior.SwipeDismissBehavior$OnDismissListener)
     public void setDragDismissDistance(float)
@@ -29342,6 +29738,7 @@ androidx.exifinterface.media.ExifInterface:
 kotlin.internal.RequireKotlinVersionKind
 com.google.android.material.resources.MaterialResources:
     private void <init>()
+android.support.customtabs.trusted.ITrustedWebActivityCallback
 com.google.android.gms.internal.auth-api.zzad
 kotlin.collections.ArraysKt___ArraysJvmKt$asList$1
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplBase$1
@@ -29666,12 +30063,6 @@ com.google.android.material.resources.MaterialAttributes:
     public static int resolveMinimumAccessibleTouchTarget(android.content.Context)
     public static int resolveDimension(android.content.Context,int,int)
 org.apache.commons.lang3.exception.CloneFailedException
-com.facebook.share.model.CameraEffectTextures$Builder:
-    private com.facebook.share.model.CameraEffectTextures$Builder putParcelableTexture(java.lang.String,android.os.Parcelable)
-    public com.facebook.share.model.CameraEffectTextures$Builder putTexture(java.lang.String,android.graphics.Bitmap)
-    public com.facebook.share.model.CameraEffectTextures$Builder putTexture(java.lang.String,android.net.Uri)
-    public synthetic bridge com.facebook.share.model.ShareModelBuilder readFrom(com.facebook.share.model.ShareModel)
-    public synthetic bridge java.lang.Object build()
 com.facebook.react.ReactInstanceManager:
     private com.facebook.react.bridge.JavaScriptExecutorFactory getJSExecutorFactory()
     private void toggleElementInspector()
@@ -29694,6 +30085,12 @@ com.facebook.react.ReactInstanceManager:
     public void removeReactInstanceEventListener(com.facebook.react.ReactInstanceManager$ReactInstanceEventListener)
     public com.facebook.react.common.LifecycleState getLifecycleState()
     public java.lang.String getJsExecutorName()
+com.facebook.share.model.CameraEffectTextures$Builder:
+    private com.facebook.share.model.CameraEffectTextures$Builder putParcelableTexture(java.lang.String,android.os.Parcelable)
+    public com.facebook.share.model.CameraEffectTextures$Builder putTexture(java.lang.String,android.graphics.Bitmap)
+    public com.facebook.share.model.CameraEffectTextures$Builder putTexture(java.lang.String,android.net.Uri)
+    public synthetic bridge com.facebook.share.model.ShareModelBuilder readFrom(com.facebook.share.model.ShareModel)
+    public synthetic bridge java.lang.Object build()
 com.facebook.imagepipeline.decoder.ImageDecoderConfig:
     private void <init>(com.facebook.imagepipeline.decoder.ImageDecoderConfig$Builder)
     public static com.facebook.imagepipeline.decoder.ImageDecoderConfig$Builder newBuilder()
@@ -29760,6 +30157,16 @@ com.facebook.R$attr
 org.apache.commons.lang3.Validate
 com.google.android.gms.internal.auth.zzaz
 com.google.android.gms.internal.safetynet.zzk$zze
+com.amazon.device.iap.model.PurchaseUpdatesResponse:
+    public void <init>(com.amazon.device.iap.internal.model.PurchaseUpdatesResponseBuilder)
+    public com.amazon.device.iap.model.RequestId getRequestId()
+    public org.json.JSONObject toJSON()
+    private static final java.lang.String HAS_MORE
+    private static final java.lang.String TO_STRING_FORMAT
+    private static final java.lang.String REQUEST_ID
+    private static final java.lang.String REQUEST_STATUS
+    private static final java.lang.String USER_DATA
+    private static final java.lang.String RECEIPTS
 androidx.core.R$dimen
 com.google.android.gms.internal.auth.zzm
 kotlin.io.LinesSequence$iterator$1
@@ -29813,6 +30220,8 @@ com.google.android.gms.common.api.internal.StatusPendingResult:
 androidx.media.MediaBrowserServiceCompatApi23
 com.google.firebase.components.RestrictedComponentContainer:
     public com.google.firebase.inject.Deferred getDeferred(java.lang.Class)
+com.amazon.device.iap.internal.b.e.d:
+    protected boolean a(com.amazon.venezia.command.SuccessResult)
 kotlin.reflect.jvm.ReflectJvmMapping$WhenMappings
 com.google.android.gms.common.internal.safeparcel.SafeParcelable$Param
 com.google.zxing.qrcode.detector.FinderPatternFinder$CenterComparator
@@ -29952,6 +30361,7 @@ androidx.browser.browseractions.BrowserActionItem
 com.android.installreferrer.api.InstallReferrerClient:
     public abstract boolean isReady()
     public abstract void endConnection()
+com.amazon.device.iap.internal.b.b
 androidx.core.content.FileProvider:
     private static final java.lang.String META_DATA_FILE_PROVIDER_PATHS
     private static final java.lang.String TAG_ROOT_PATH
@@ -30859,6 +31269,7 @@ androidx.appcompat.app.ActionBar:
     public static final int DISPLAY_HOME_AS_UP
     public static final int DISPLAY_SHOW_TITLE
     public static final int DISPLAY_SHOW_CUSTOM
+androidx.concurrent.futures.AbstractResolvableFuture
 com.google.android.play.core.appupdate.AppUpdateInfo
 org.apache.commons.codec.language.ColognePhonetic$CologneOutputBuffer
 androidx.appcompat.widget.AppCompatCompoundButtonHelper$DirectSetButtonDrawableInterface
@@ -30867,6 +31278,7 @@ com.facebook.imagepipeline.memory.LruBucketsPoolBackend:
 androidx.viewpager2.R$style
 com.facebook.react.devsupport.DevServerHelper$2
 androidx.room.RoomWarnings
+com.google.common.util.concurrent.ListenableFuture
 com.google.android.gms.common.AccountPicker$AccountChooserOptions$Builder
 com.google.android.gms.auth.api.accounttransfer.zzg
 kotlin.Result$Failure
@@ -30978,6 +31390,7 @@ kotlin.sequences.SequencesKt__SequenceBuilderKt:
     private static final int State_Done
     private static final int State_Failed
 com.google.android.material.internal.ViewUtils$3
+com.reactcommunity.rndatetimepicker.R
 com.google.android.play.core.appupdate.p
 com.google.android.material.tabs.TabLayout$SlidingTabIndicator$2
 com.google.android.gms.internal.firebase-auth-api.zzeq:
@@ -31015,6 +31428,7 @@ com.google.zxing.common.reedsolomon.GenericGF:
 com.facebook.ProfileTracker$ProfileBroadcastReceiver
 com.google.firebase.auth.AuthCredential:
     public abstract java.lang.String getSignInMethod()
+androidx.concurrent.futures.CallbackToFutureAdapter$Resolver
 com.facebook.imagepipeline.listener.ForwardingRequestListener:
     private static final java.lang.String TAG
 org.apache.commons.lang3.time.FastDateParser$NumberStrategy
@@ -31028,6 +31442,7 @@ kotlin.collections.CollectionsKt___CollectionsJvmKt:
     public static final java.util.SortedSet toSortedSet(java.lang.Iterable)
     public static final java.util.SortedSet toSortedSet(java.lang.Iterable,java.util.Comparator)
     public void <init>()
+androidx.browser.trusted.sharing.ShareTarget$RequestMethod
 kotlin.jvm.internal.ArrayIteratorsKt
 com.th3rdwave.safeareacontext.R$string
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$Package$Builder:
@@ -31068,6 +31483,7 @@ kotlin.jvm.JvmPackageName
 com.google.zxing.datamatrix.encoder.EncoderContext:
     public char getCurrent()
 org.jetbrains.annotations.PropertyKey
+androidx.browser.trusted.splashscreens.SplashScreenParamKey
 com.facebook.common.internal.Preconditions:
     private void <init>()
     public static varargs void checkState(boolean,java.lang.String,java.lang.Object[])
@@ -31086,6 +31502,7 @@ com.google.zxing.qrcode.decoder.DecodedBitStreamParser$1
 com.google.android.gms.internal.firebase-auth-api.zzgw:
     static void <clinit>()
     static final synthetic int[] zza
+androidx.concurrent.futures.CallbackToFutureAdapter$SafeFuture
 com.facebook.react.uimanager.ThemedReactContext:
     public void <init>(com.facebook.react.bridge.ReactApplicationContext,android.content.Context)
     public java.lang.String getSurfaceID()
@@ -31325,6 +31742,27 @@ com.facebook.internal.logging.LoggingCache:
 kotlin.sequences.SequencesKt___SequencesKt$filterIndexed$2
 org.apache.commons.io.input.CharSequenceInputStream
 kotlin.UByteKt
+com.dooboolab.RNIap.DoobooUtils:
+    public com.facebook.react.bridge.WritableMap convertJsonToMap(org.json.JSONObject)
+    public com.facebook.react.bridge.WritableArray convertJsonToArray(org.json.JSONArray)
+    public org.json.JSONObject convertMapToJson(com.facebook.react.bridge.ReadableMap)
+    public org.json.JSONArray convertArrayToJson(com.facebook.react.bridge.ReadableArray)
+    private static final java.lang.String TAG
+    public static final java.lang.String E_UNKNOWN
+    public static final java.lang.String E_NOT_PREPARED
+    public static final java.lang.String E_NOT_ENDED
+    public static final java.lang.String E_USER_CANCELLED
+    public static final java.lang.String E_ITEM_UNAVAILABLE
+    public static final java.lang.String E_NETWORK_ERROR
+    public static final java.lang.String E_SERVICE_ERROR
+    public static final java.lang.String E_ALREADY_OWNED
+    public static final java.lang.String E_REMOTE_ERROR
+    public static final java.lang.String E_USER_ERROR
+    public static final java.lang.String E_DEVELOPER_ERROR
+    public static final java.lang.String E_BILLING_RESPONSE_JSON_PARSE_ERROR
+    public static final java.lang.String APPSTORE_UNKNOWN
+    public static final java.lang.String APPSTORE_GOOGLE
+    public static final java.lang.String APPSTORE_AMAZON
 androidx.legacy.coreutils.R$string
 com.google.zxing.datamatrix.DataMatrixReader
 androidx.core.widget.AutoScrollHelper:
@@ -31367,6 +31805,7 @@ com.google.android.gms.common.api.Api$BaseClientBuilder:
     public static final int API_PRIORITY_OTHER
 com.th3rdwave.safeareacontext.SafeAreaUtils:
     void <init>()
+androidx.browser.trusted.TrustedWebActivityServiceConnection$NotificationsEnabledArgs
 com.theartofdev.edmodo.cropper.R$menu:
     private void <init>()
 com.google.android.play.core.splitcompat.b
@@ -31415,6 +31854,8 @@ kotlin.comparisons.ComparisonsKt__ComparisonsKt:
     public void <init>()
 android.support.v4.media.session.MediaSessionCompat$Callback$StubApi24
 org.unimodules.interfaces.facedetector.FaceDetector
+com.amazon.device.iap.internal.b.c:
+    public void a(android.content.Context,android.content.Intent)
 com.facebook.soloader.NoopSoSource
 kotlin.coroutines.jvm.internal.ModuleNameRetriever
 com.bumptech.glide.load.engine.bitmap_recycle.SizeStrategy$Key
@@ -31445,6 +31886,7 @@ androidx.appcompat.widget.AppCompatRatingBar:
     public void <init>(android.content.Context)
 com.facebook.core.R
 android.support.customtabs.IPostMessageService$Stub
+com.reactcommunity.rndatetimepicker.R$color
 com.facebook.drawee.drawable.MatrixDrawable:
     public void <init>(android.graphics.drawable.Drawable,android.graphics.Matrix)
     public android.graphics.Matrix getMatrix()
@@ -31542,9 +31984,9 @@ org.unimodules.core.ModuleRegistryProvider:
     public java.util.Collection createSingletonModules(android.content.Context)
 androidx.appcompat.app.ActionBarDrawerToggleHoneycomb$SetIndicatorInfo
 com.bebrandd.branddot.R$string
+com.facebook.infer.annotation.PrivacySource
 androidx.lifecycle.ComputableLiveData$1
 android.support.v4.media.session.MediaSessionCompat$MediaSessionImplApi18$1
-com.facebook.infer.annotation.PrivacySource
 com.google.firebase.auth.FirebaseAuthMultiFactorException:
     public com.google.firebase.auth.MultiFactorResolver getResolver()
 com.google.android.gms.internal.common.zzl
@@ -31694,6 +32136,7 @@ com.facebook.drawee.backends.pipeline.DraweeConfig:
     private final com.facebook.drawee.backends.pipeline.info.ImagePerfDataListener mImagePerfDataListener
 org.unimodules.interfaces.facedetector.BuildConfig
 bolts.Task$15
+android.support.customtabs.IPostMessageService$Default
 kotlin.coroutines.experimental.SequenceBuilderKt
 com.google.android.material.resources.TextAppearance:
     private static final java.lang.String TAG
@@ -32042,6 +32485,9 @@ com.facebook.appevents.ml.ModelManager$TaskHandler$1$1:
     final synthetic com.facebook.appevents.ml.ModelManager$TaskHandler$1 this$0
 com.google.android.gms.internal.firebase-auth-api.zzdd:
     final synthetic com.google.android.gms.internal.firebase-auth-api.zzde zza
+com.amazon.device.iap.internal.b.g.b:
+    private final java.lang.String a
+    private final com.amazon.device.iap.model.FulfillmentResult b
 expo.modules.location.services.LocationTaskService$ServiceBinder:
     final synthetic expo.modules.location.services.LocationTaskService this$0
 com.facebook.common.internal.Suppliers:
@@ -32123,6 +32569,8 @@ androidx.core.app.NotificationManagerCompat:
     private static final java.lang.Object sLock
 com.facebook.appevents.aam.MetadataRule:
     private static final java.lang.String TAG
+com.amazon.device.iap.internal.b.b.a:
+    private static final java.lang.String d
 com.google.android.gms.internal.location.zzc:
     private static final java.lang.ClassLoader zzd
 com.facebook.imagepipeline.producers.HttpUrlConnectionNetworkFetcher$2:
@@ -32554,6 +33002,8 @@ com.google.android.gms.safetynet.SafetyNetApi
 com.google.android.gms.common.api.zac:
     private static final java.util.Map zacm
     private static final java.lang.Object sLock
+com.dooboolab.RNIap.RNIapModule$12:
+    final synthetic com.dooboolab.RNIap.RNIapModule this$0
 com.google.android.gms.common.util.zzb:
     private static java.util.regex.Pattern zzhn
 com.facebook.react.animated.NativeAnimatedModule$14:
@@ -32717,6 +33167,8 @@ androidx.arch.core.executor.DefaultTaskExecutor$1:
     final synthetic androidx.arch.core.executor.DefaultTaskExecutor this$0
 com.google.android.gms.internal.firebase-auth-api.zzy:
     final synthetic com.google.android.gms.internal.firebase-auth-api.zzz zza
+com.amazon.device.iap.internal.b.c.b:
+    private static final java.lang.String b
 com.swmansion.reanimated.ReanimatedModule$3:
     final synthetic com.swmansion.reanimated.ReanimatedModule this$0
 org.unimodules.core.ViewManager$PropSetterInfo:
@@ -32746,6 +33198,8 @@ kotlin.reflect.jvm.internal.impl.types.error.ErrorSimpleFunctionDescriptorImpl:
 com.google.android.gms.internal.firebase-auth-api.zzhi
 kotlin.reflect.jvm.internal.KTypeImpl:
     private final kotlin.reflect.jvm.internal.ReflectProperties$LazySoftVal arguments$delegate
+com.dooboolab.RNIap.RNIapAmazonListener:
+    final java.lang.String TAG
 kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancementInfoKt$$special$$inlined$enhancement$lambda$26:
     final synthetic kotlin.reflect.jvm.internal.impl.load.kotlin.SignatureBuildingComponents $this_signatures$inlined
     final synthetic java.lang.String $JFConsumer$inlined
@@ -32771,6 +33225,8 @@ kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancement
     final synthetic java.lang.String $JFBiConsumer$inlined
     final synthetic java.lang.String $JFBiFunction$inlined
     final synthetic java.lang.String $JUOptional$inlined
+com.amazon.device.iap.internal.b.c.c:
+    protected final java.util.Set a
 androidx.transition.ChangeBounds$10:
     final synthetic androidx.transition.ChangeBounds this$0
 com.google.android.play.core.assetpacks.AssetPackException:
@@ -32898,6 +33354,9 @@ com.facebook.react.modules.statusbar.StatusBarModule$2:
     final synthetic com.facebook.react.modules.statusbar.StatusBarModule this$0
 com.facebook.react.ReactInstanceManager$6:
     final synthetic com.facebook.react.ReactInstanceManager this$0
+com.amazon.device.iap.PurchasingService:
+    private void <init>()
+    private static final java.lang.String TAG
 com.facebook.internal.FetchedAppSettings:
     private java.lang.String smartLoginBookmarkIconURL
     private java.lang.String smartLoginMenuIconURL
@@ -32945,6 +33404,8 @@ kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancement
 com.google.android.gms.internal.firebase-auth-api.zzkt
 expo.modules.location.taskConsumers.LocationTaskConsumer:
     public static int VERSION
+com.amazon.device.iap.internal.b.c.a:
+    private static final java.lang.String b
 com.facebook.react.animated.NativeAnimatedModule$21:
     final synthetic com.facebook.react.animated.NativeAnimatedModule this$0
 com.swmansion.reanimated.ReanimatedModule$4:
@@ -33010,6 +33471,8 @@ com.facebook.react.fabric.Binding:
 com.google.android.gms.common.internal.zzh:
     private final boolean zzeu
 com.reactnativecommunity.webview.events.TopShouldStartLoadWithRequestEvent$Companion
+com.amazon.device.iap.internal.b.e.b:
+    protected static final java.lang.String a
 com.bumptech.glide.load.engine.executor.GlideExecutor$UncaughtThrowableStrategy$3
 com.facebook.appevents.SessionEventsState:
     private final int MAX_ACCUMULATED_LOG_EVENTS
@@ -33050,6 +33513,14 @@ kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancement
     final synthetic java.lang.String $JFFunction$inlined
 com.google.android.gms.internal.firebase-auth-api.zzji:
     private static final com.google.android.gms.internal.firebase-auth-api.zzaag zzg
+com.amazon.device.iap.internal.b.i:
+    private final java.lang.String d
+    private final java.lang.String e
+    private boolean h
+    private com.amazon.device.iap.internal.b.i i
+    private com.amazon.device.iap.internal.b.i j
+    private boolean k
+    private static final java.lang.String a
 kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancementInfoKt$$special$$inlined$enhancement$lambda$8:
     final synthetic kotlin.reflect.jvm.internal.impl.load.kotlin.SignatureBuildingComponents $this_signatures$inlined
     final synthetic java.lang.String $JFConsumer$inlined
@@ -33095,6 +33566,8 @@ kotlin.text.MatcherMatchResult$groups$1$iterator$1
 androidx.transition.Slide:
     private int mSlideEdge
 com.bumptech.glide.load.engine.DiskCacheStrategy$4
+com.amazon.device.iap.internal.b.e.c:
+    private static final java.lang.String b
 com.google.android.gms.internal.firebase-auth-api.zzbt:
     final synthetic com.google.android.gms.internal.firebase-auth-api.zzbu zza
 kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf$VersionRequirement$Level$1
@@ -33156,6 +33629,8 @@ com.google.android.gms.dynamite.DynamiteModule:
     public static final com.google.android.gms.dynamite.DynamiteModule$VersionPolicy PREFER_HIGHEST_OR_LOCAL_VERSION_NO_FORCE_STAGING
     public static final com.google.android.gms.dynamite.DynamiteModule$VersionPolicy PREFER_HIGHEST_OR_REMOTE_VERSION
     private static final com.google.android.gms.dynamite.DynamiteModule$VersionPolicy zzjb
+com.google.android.gms.internal.play_billing.zze:
+    private static com.google.android.gms.internal.play_billing.zzg zza
 kotlin.reflect.jvm.internal.impl.metadata.jvm.deserialization.JvmMetadataVersion:
     public static final kotlin.reflect.jvm.internal.impl.metadata.jvm.deserialization.JvmMetadataVersion INVALID_VERSION
     public static final kotlin.reflect.jvm.internal.impl.metadata.jvm.deserialization.JvmMetadataVersion$Companion Companion
@@ -33299,6 +33774,8 @@ kotlin.reflect.jvm.internal.impl.descriptors.impl.VariableDescriptorWithInitiali
 kotlin.text.ScreenFloatValueRegEx:
     private void <init>()
     public static final kotlin.text.ScreenFloatValueRegEx INSTANCE
+com.amazon.device.iap.internal.b.h:
+    static final synthetic boolean b
 kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancementInfoKt$$special$$inlined$enhancement$lambda$7:
     final synthetic kotlin.reflect.jvm.internal.impl.load.kotlin.SignatureBuildingComponents $this_signatures$inlined
     final synthetic java.lang.String $JFConsumer$inlined
@@ -33312,6 +33789,7 @@ kotlin.reflect.jvm.internal.impl.load.java.typeEnhancement.PredefinedEnhancement
 com.facebook.login.widget.LoginButton:
     private static final java.lang.String TAG
 kotlin.reflect.jvm.internal.impl.types.checker.NewTypeVariableConstructor
+com.google.android.gms.internal.play_billing.zzg
 com.google.android.gms.internal.firebase-auth-api.zzyr
 kotlin.reflect.jvm.internal.impl.utils.FunctionsKt:
     private static final kotlin.jvm.functions.Function1 IDENTITY
@@ -33337,6 +33815,9 @@ com.facebook.imagepipeline.producers.SwallowResultProducer$1:
 com.google.firebase.platforminfo.DefaultUserAgentPublisher:
     private final java.lang.String javaSDKVersionUserAgent
     private final com.google.firebase.platforminfo.GlobalLibraryVersionRegistrar gamesSDKRegistrar
+com.amazon.device.iap.internal.b.d.d:
+    private static final java.lang.String b
+    private static final java.util.Date c
 kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation:
     public static final enum kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation FROM_IDE
     public static final enum kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation FROM_TEST
@@ -33352,6 +33833,8 @@ kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation:
     public static final enum kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation WHEN_FIND_BY_FQNAME
     public static final enum kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation WHEN_GET_COMPANION_OBJECT
     public static final enum kotlin.reflect.jvm.internal.impl.incremental.components.NoLookupLocation FOR_DEFAULT_IMPORTS
+com.amazon.device.iap.internal.model.a:
+    private static final synthetic com.amazon.device.iap.internal.model.a[] c
 com.google.android.gms.internal.auth.zzc:
     private static final java.lang.ClassLoader zzd
 com.google.android.gms.internal.firebase-auth-api.zzib:
@@ -33608,6 +34091,10 @@ kotlin.reflect.jvm.internal.impl.descriptors.ConstUtil:
     public static final kotlin.reflect.jvm.internal.impl.descriptors.ConstUtil INSTANCE
 kotlin.reflect.jvm.internal.impl.descriptors.impl.PropertyAccessorDescriptorImpl:
     static final synthetic boolean $assertionsDisabled
+com.amazon.device.iap.internal.b.d.b:
+    protected final boolean a
+com.amazon.device.iap.model.Receipt:
+    private static final java.util.Date DATE_CANCELED
 com.facebook.imageformat.ImageFormat:
     private final java.lang.String mFileExtension
 kotlin.reflect.jvm.internal.impl.utils.ReportLevel:
@@ -33671,6 +34158,8 @@ com.google.android.gms.location.DetectedActivity:
     private static final int[] zzr
 com.facebook.soloader.UnpackingSoSource:
     private java.lang.String[] mAbis
+com.amazon.device.iap.internal.b.d.c:
+    private static final java.lang.String b
 com.facebook.imagepipeline.cache.CountingMemoryCache:
     final java.util.Map mOtherEntries
     private final com.facebook.imagepipeline.cache.CountingMemoryCache$CacheTrimStrategy mCacheTrimStrategy
@@ -33801,6 +34290,8 @@ com.facebook.cache.disk.SettableCacheEvent:
     private com.facebook.cache.common.CacheEventListener$EvictionReason mEvictionReason
 kotlin.jvm.internal.PackageReference:
     private final java.lang.String moduleName
+androidx.browser.customtabs.CustomTabsClient:
+    private final android.content.Context mApplicationContext
 com.facebook.react.modules.core.DeviceEventManagerModule$1:
     final synthetic com.facebook.react.modules.core.DeviceEventManagerModule this$0
 com.facebook.react.modules.camera.ImageEditingManager$CleanTask$1:
@@ -33884,6 +34375,8 @@ io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider:
     private android.content.BroadcastReceiver activityReceiver
 com.facebook.imagepipeline.core.ImagePipeline$4:
     final synthetic com.facebook.imagepipeline.core.ImagePipeline this$0
+com.dooboolab.RNIap.RNIapModule$3:
+    final synthetic com.dooboolab.RNIap.RNIapModule this$0
 com.facebook.react.views.view.ReactViewManager$1:
     final synthetic com.facebook.react.views.view.ReactViewManager this$0
 com.facebook.AccessTokenManager$2:
@@ -33973,6 +34466,8 @@ expo.modules.filesystem.FileSystemModule$4:
     final synthetic expo.modules.filesystem.FileSystemModule this$0
 com.swmansion.reanimated.NodesManager$NativeUpdateOperation:
     final synthetic com.swmansion.reanimated.NodesManager this$0
+com.dooboolab.RNIap.RNIapModule$4:
+    final synthetic com.dooboolab.RNIap.RNIapModule this$0
 android.support.v4.media.session.MediaControllerCompat$PlaybackInfo:
     private final int mPlaybackType
     private final int mAudioStream
@@ -34024,6 +34519,8 @@ com.google.android.gms.internal.firebase-auth-api.zzcp:
     final synthetic com.google.android.gms.internal.firebase-auth-api.zzcq zza
 com.facebook.react.views.textinput.ReactTextInputManager$2:
     final synthetic com.facebook.react.views.textinput.ReactTextInputManager this$0
+com.android.billingclient.api.BillingClientImpl:
+    private android.content.Context zze
 kotlin.reflect.jvm.internal.impl.metadata.jvm.deserialization.BitEncoding:
     private void <init>()
     private static final boolean FORCE_8TO7_ENCODING
@@ -34084,6 +34581,8 @@ kotlin.reflect.jvm.internal.impl.builtins.jvm.JvmBuiltInsSettings$createMockJava
     final synthetic kotlin.reflect.jvm.internal.impl.builtins.jvm.JvmBuiltInsSettings this$0
 com.reactnativecommunity.webview.events.TopLoadingErrorEvent:
     public static final com.reactnativecommunity.webview.events.TopLoadingErrorEvent$Companion Companion
+com.google.android.gms.internal.play_billing.zzh:
+    private static final java.lang.ClassLoader zza
 com.google.android.play.core.common.PlayCoreVersion:
     private static final java.util.Set a
     private static final java.util.Set b
@@ -34119,10 +34618,10 @@ org.apache.commons.io.Charsets:
     public static final java.nio.charset.Charset UTF_16BE
     public static final java.nio.charset.Charset UTF_16LE
     public static final java.nio.charset.Charset UTF_8
-com.facebook.imagepipeline.core.ImagePipeline$7:
-    final synthetic com.facebook.imagepipeline.core.ImagePipeline this$0
 androidx.lifecycle.MethodCallsLogger:
     private java.util.Map mCalledMethods
+com.facebook.imagepipeline.core.ImagePipeline$7:
+    final synthetic com.facebook.imagepipeline.core.ImagePipeline this$0
 com.facebook.internal.logging.monitor.Monitor:
     private static final java.util.Random random
     private static java.lang.Integer defaultSamplingRate
@@ -34214,6 +34713,8 @@ com.facebook.RequestProgress$1:
     final synthetic com.facebook.RequestProgress this$0
 com.google.firebase.components.RestrictedComponentContainer:
     private final java.util.Set allowedDeferredInterfaces
+com.amazon.device.iap.internal.b.e.d:
+    private static final java.lang.String b
 androidx.appcompat.app.AlertController$4:
     final synthetic androidx.appcompat.app.AlertController this$0
 expo.modules.location.LocationModule$8:
@@ -34246,6 +34747,12 @@ com.bumptech.glide.load.engine.executor.GlideExecutor$UncaughtThrowableStrategy$
 com.facebook.react.modules.network.ForwardingCookieHandler$4:
     final synthetic com.facebook.react.modules.network.ForwardingCookieHandler this$0
 com.bumptech.glide.module.AppliesOptions
+com.android.billingclient.api.zzak:
+    static final com.android.billingclient.api.BillingResult zzi
+    private static final com.android.billingclient.api.BillingResult zzt
+    static final com.android.billingclient.api.BillingResult zzm
+    private static final com.android.billingclient.api.BillingResult zzu
+    static final com.android.billingclient.api.BillingResult zzs
 com.google.android.gms.auth.api.signin.internal.zzg
 kotlin.reflect.jvm.internal.impl.protobuf.WireFormat:
     static final int MESSAGE_SET_ITEM_TAG

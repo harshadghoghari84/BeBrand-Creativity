@@ -219,9 +219,9 @@ class DesignStore {
 
   changeDesignByLanguage = () => {
     const currDesignCode = toJS(this.designLang);
-    console.log("currDesignCode", currDesignCode);
+
     const designAfter = toJS(this.globleUserSubCategoriesAfter);
-    console.log("____After >", designAfter);
+
     const userDesignAfter = designAfter.map((ele, index) => {
       if (
         ele.designs !== undefined &&
@@ -236,7 +236,6 @@ class DesignStore {
       return ele;
     });
     const designBefore = toJS(this.globleUserSubCategoriesBefore);
-    console.log("____Before >", designBefore);
 
     const userDesignBefore = designBefore.map((ele, index) => {
       if (

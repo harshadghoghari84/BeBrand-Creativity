@@ -11,12 +11,22 @@ module.exports = {
   titleCart: "titleCart",
   titleNotification: "titleNotification",
   titleProfile: "titleProfile",
+  titlePostProfile: "titlePostProfile",
   titlePackage: "titlePackage",
   titleWhatsAppUpdates: "titleWhatsAppUpdates",
   titReferandEarn: "titReferandEarn",
   titLegal: "titLegal",
   titSignOut: "titSignOut",
   titSignIn: "titSignIn",
+  titMadeWithLoveInIndia: "titMadeWithLoveInIndia",
+  titleAddReffercode: "titleAddReffercode",
+
+  // user Profile
+  labUser: "labUser",
+  labDob: "labDob",
+  labAvDate: "labAvDate",
+  labState: "labState",
+  labCity: "labCity",
 
   // user screen
   labMobile: "labMobile",
@@ -27,13 +37,21 @@ module.exports = {
   labVarifyOTP: "labVarifyOTP",
   labAnOtpSent: "labAnOtpSent",
   labConfirmPassword: "labConfirmPassword",
+  labReferralcode: "labReferralcode",
   labAlreadyAcc: "labAlreadyAcc",
   labNothaveAcc: "labNothaveAcc",
   labForgetPassword: "labForgetPassword",
+  labForgotPass: "labForgotPass",
   labSignin: "labSignin",
+  labWelcomeBack: "labWelcomeBack",
+  labGetStarted: "labGetStarted",
   labSignup: "labSignup",
+  labSignInWithGoogle: "labSignInWithGoogle",
+  labSignInWithFacebook: "labSignInWithFacebook",
   txtWelcome: "txtWelcome",
   txtCreateAccount: "txtCreateAccount",
+  labUploadingImage: "labUploadingImage",
+  labsSaving: "labsSaving",
 
   // error validator messages
   errorMobileNo: "errorMobileNo",
@@ -46,6 +64,7 @@ module.exports = {
 
   // Home ItemSubCategory screen
   labAll: "labAll",
+  labNoDesignAvailable: "labNoDesignAvailable",
 
   //Design Screen
   labFollowUs: "labFollowUs",
@@ -85,7 +104,45 @@ module.exports = {
 
   // modal text
   modalTxtPlaceHolder: "modalTxtPlaceHolder",
+  modalRefferCode: "modalRefferCode",
+  labSelecteLang: "labSelecteLang",
+  labClose: "labClose",
+  labSubmit: "labSubmit",
+  labPurchase: "labPurchase",
+  labPurchasePremiumPkg: "labPurchasePremiumPkg",
+  labFree: "labFree",
+  labPremium: "labPremium",
 
   // signin
   labLoading: "labLoading",
+  //
+  titPersonalProfile: "titPersonalProfile",
+  titBussinessProfile: "titBussinessProfile",
+
+  // package screen
+  labfreeFeature: "labfreeFeature",
+  labPremiumFeature: "labPremiumFeature",
+  labDescription: "labDescription",
+
+  //
+  labInStock: "labInStock",
+  labOutOfStock: "labOutOfStock",
+
+  // select language
+  titSetLanguage: "titSetLanguage",
+  titSelectPreferdLanguage: "titSelectPreferdLanguage",
+
+  // otp screen
+  labOtpVarification: "labOtpVarification",
+  labEnterOtp: "labEnterOtp",
+  labDidnotReciveOtp: "labDidnotReciveOtp",
+  labResend: "labResend",
+
+  // notification
+  labToday: "labToday",
+  labEarl: "labEarl",
+  lab1pkg: "lab1pkg",
+  lab2pkg: "lab2pkg",
+
+  //
 };

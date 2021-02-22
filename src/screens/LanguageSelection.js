@@ -12,6 +12,7 @@ import Common from "../utils/Common";
 import Button from "../components/Button";
 import Constant from "../utils/Constant";
 import Color from "../utils/Color";
+import LangKey from "../utils/LangKey";
 
 const lang = [
   { code: "en", name: "English" },
@@ -31,7 +32,9 @@ const LanguageSelection = ({ navigation }) => {
   return (
     <View style={styles.MainContainer}>
       <View style={{ marginTop: 60 }}>
-        <Text style={styles.textHeading}>Please Select Preferred Language</Text>
+        <Text style={styles.textHeading}>
+          {Common.getTranslation(LangKey.titSelectPreferdLanguage)}
+        </Text>
       </View>
       <ScrollView style={{ flex: 1, marginTop: 30, width: "50%" }}>
         {lang.map((item, key) => (
@@ -63,7 +66,7 @@ const LanguageSelection = ({ navigation }) => {
         labelColor={Color.white}
         onPress={onBtnPress}
       >
-        Set Language
+        {Common.getTranslation(LangKey.titSetLanguage)}
       </Button>
     </View>
   );

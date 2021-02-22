@@ -12,6 +12,7 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.6}
       key={index}
       style={styles.mainContainer}
       onPress={() => {
@@ -23,9 +24,9 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
       }}
     >
       <View style={styles.container}>
-        {item.id !== Constant.defHomeSubCategory && (
-          <Text style={{ ...styles.name, color: color }}>{item.name}</Text>
-        )}
+        {/* {item.id !== Constant.defHomeSubCategory && (
+           // <Text style={{ ...styles.name, color: color }}>{item.name}</Text>
+        )} */}
         {item.id === Constant.defHomeSubCategory ? (
           <View style={styles.allNameContainer}>
             <Text style={{ ...styles.allName, color: color }}>
@@ -63,8 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 75,
-    height: 55,
+    width: 100,
+    height: 70,
     borderRadius: 5,
     alignItems: "center",
     alignSelf: "center",

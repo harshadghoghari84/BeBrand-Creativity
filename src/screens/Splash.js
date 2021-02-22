@@ -12,47 +12,50 @@ import * as SplashScreen from "expo-splash-screen";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import Color from "../utils/Color";
+import client from "../utils/ApolloClient";
 
 const Splash = ({ navigation, userStore }) => {
-  const [getUserData, { loading, data, error }] = useLazyQuery(
-    GraphqlQuery.user,
-    {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    }
-  );
-
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
+  let loading = false;
   useEffect(() => {
-    async () => {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-      } catch (e) {
-        console.warn(e);
-      }
-    };
-    AsyncStorage.getItem(Constant.prfUserToken).then((token) => {
-      token && getUserData();
+    loading = true;
+    SplashScreen.preventAutoHideAsync()
+      .then((result) => {})
+      .catch((err) => {});
+    AsyncStorage.getItem(Constant.prfUserToken).then(async (token) => {
+      token &&
+        client
+          .query({
+            query: GraphqlQuery.user,
+            errorPolicy: {
+              errorPolicy: "all",
+            },
+          })
+          .then(async ({ data, errors }) => {
+            !errors && data?.user && userStore.setUser(data.user);
+            loading = false;
+            !isTimerRunning && (await openScreen());
+          })
+          .catch((err) => (loading = false));
       startWithDelay();
     });
   }, []);
   const startWithDelay = () => {
     setTimeout(async () => {
       setIsTimerRunning(false);
-      await SplashScreen.hideAsync();
-      !loading && openScreen();
+      !loading && (await openScreen());
     }, Constant.splashTime);
   };
-  const openScreen = () => {
-    !error && data?.user && userStore.setUser(data.user);
+  const openScreen = async () => {
+    await SplashScreen.hideAsync();
     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
   };
   !loading && isTimerRunning === false && openScreen();
 
   const renderSplash = () => {
     return (
-      <View>
+      <>
         <View style={styles.round} />
         <FastImage
           source={require("../assets/DFS.png")}
@@ -68,12 +71,20 @@ const Splash = ({ navigation, userStore }) => {
           animating={true}
           color={Color.white}
         />
-      </View>
+      </>
     );
   };
 
   const renderMainView = () => {
-    return <View style={styles.container}>{renderSplash()}</View>;
+    return (
+      <View style={styles.container}>
+        <FastImage
+          source={require("../assets/splash.jpg")}
+          style={styles.logoImg}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+      </View>
+    );
   };
 
   return renderMainView();
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Color.primary,
+    backgroundColor: Color.transparent,
   },
   round: {
     height: 800,
@@ -94,11 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 400,
   },
   logoImg: {
-    width: "70%",
-    height: "20%",
-    alignSelf: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: 320,
+    width: "100%",
+    height: "100%",
   },
 });

@@ -21,7 +21,8 @@ import { inject, observer } from "mobx-react";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import * as Sharing from "expo-sharing";
-
+import { ColorPicker, TriangleColorPicker } from "react-native-color-picker";
+// relative path
 import Icon from "../components/svgIcons";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
@@ -43,9 +44,6 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const { designs: designsArr, curDesign } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
 
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
   /*
   ..######..########....###....########.########
   .##....##....##......##.##......##....##......
@@ -64,6 +62,12 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
   };
+  const [visiblePicker, setVisiblePicker] = useState(false);
+
+  const toggleVisibleColorPicker = () => {
+    return setVisiblePicker(!visiblePicker);
+  };
+
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
@@ -127,23 +131,25 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   }, [currentDesign, selectedTab]);
 
   useEffect(() => {
-    let filterArr = [];
-    if (selectedTab === 0)
-      filterArr = designsArr.filter(
-        (ele) =>
-          ele.designType !== null &&
-          (ele.designType === Constant.designTypeALL ||
-            ele.designType === Constant.designTypePERSONAL)
-      );
-    else if (selectedTab === 1)
-      filterArr = designsArr.filter(
-        (ele) =>
-          ele.designType !== null &&
-          (ele.designType === Constant.designTypeALL ||
-            ele.designType === Constant.designTypeBUSINESS)
-      );
+    if (isMountedRef.current) {
+      let filterArr = [];
+      if (selectedTab === 0)
+        filterArr = designsArr.filter(
+          (ele) =>
+            ele.designType !== null &&
+            (ele.designType === Constant.designTypePERSONAL ||
+              ele.designType === Constant.designTypeALL)
+        );
+      else if (selectedTab === 1)
+        filterArr = designsArr.filter(
+          (ele) =>
+            ele.designType !== null &&
+            (ele.designType === Constant.designTypeBUSINESS ||
+              ele.designType === Constant.designTypeALL)
+        );
 
-    setDesigns(filterArr);
+      setDesigns(filterArr);
+    }
   }, [selectedTab]);
 
   useEffect(() => {
@@ -286,42 +292,28 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   const takeDesignShot = async () => {
     const currentDesignCredit = toJS(userStore.currentDesignCredit);
-    if (currentDesignCredit.length > 0) {
-      const { data, errors } = await addUserDesign({
-        variables: { designId: currentDesign.id },
-      });
+    // if (currentDesignCredit.length > 0) {
+    //   const { data, errors } = await addUserDesign({
+    //     variables: { designId: currentDesign.id },
+    //   });
 
-      if (data !== null && !errors) {
-        userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
-      } else {
-      }
+    //   if (data !== null && !errors) {
+    //     userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
+    //   } else {
+    //   }
 
-      const uri = await viewRef.current.capture();
+    const uri = await viewRef.current.capture();
 
-      // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
+    // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
+    //   .then((res) => console.log("res: ", res))
+    //   .catch((err) => console.log("err: ", err));
+
+    if (Platform.OS === "android") {
+      // await MediaLibrary.saveToLibraryAsync(uri)
       //   .then((res) => console.log("res: ", res))
       //   .catch((err) => console.log("err: ", err));
-
-      if (Platform.OS === "android") {
-        // await MediaLibrary.saveToLibraryAsync(uri)
-        //   .then((res) => console.log("res: ", res))
-        //   .catch((err) => console.log("err: ", err));
-        const asset = await MediaLibrary.createAssetAsync(uri);
-        if (asset && asset !== null) {
-          const album = await MediaLibrary.getAlbumAsync(
-            Constant.designAlbumName
-          );
-          album && album !== null
-            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-            : await MediaLibrary.createAlbumAsync(
-                Constant.designAlbumName,
-                asset,
-                false
-              );
-        }
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
-      } else {
-        const asset = await MediaLibrary.createAssetAsync(uri);
+      const asset = await MediaLibrary.createAssetAsync(uri);
+      if (asset && asset !== null) {
         const album = await MediaLibrary.getAlbumAsync(
           Constant.designAlbumName
         );
@@ -332,16 +324,34 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               asset,
               false
             );
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
       }
-
-      if (isShareClick === true) {
-        isShareClick = false;
-        await openShareDialogAsync(uri);
-      }
+      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
     } else {
-      setVisibleModal(true);
+      const asset = await MediaLibrary.createAssetAsync(uri);
+
+      const album = await MediaLibrary.getAlbumAsync(Constant.designAlbumName);
+      console.log("scb", album);
+
+      album && album !== null
+        ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+        : await MediaLibrary.createAlbumAsync(
+            Constant.designAlbumName,
+            asset,
+            false
+          )
+            .then((res) => console.log("res: ", res))
+            .catch((err) => console.log("err: ", err));
+
+      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
     }
+
+    if (isShareClick === true) {
+      isShareClick = false;
+      await openShareDialogAsync(uri);
+    }
+    // } else {
+    //   setVisibleModal(true);
+    // }
   };
 
   let openShareDialogAsync = async (localUri) => {
@@ -358,6 +368,32 @@ const Design = ({ route, designStore, userStore, navigation }) => {
       dialogTitle: "share-dialog title", // Android and Web
       UTI: "image/jpeg", // iOS
     });
+  };
+
+  const plusBTN = () => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => setVisiblePicker(true)}
+        style={{
+          marginTop: 10,
+          marginLeft: 10,
+          padding: 5,
+          backgroundColor: Color.txtIntxtcolor,
+          borderRadius: 50,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
+      >
+        <Icon name="plus" fill={Color.white} height={15} width={15} />
+      </TouchableOpacity>
+    );
   };
 
   // key extractors
@@ -382,6 +418,12 @@ const Design = ({ route, designStore, userStore, navigation }) => {
           toggleVisible={toggleVisible}
           isPurchased={true}
         />
+        <PopUp
+          visible={visiblePicker}
+          setPickerColor={setFooterColor}
+          toggleVisibleColorPicker={toggleVisibleColorPicker}
+          isPicker={true}
+        />
         <View style={styles.container}>
           <FlatList
             horizontal
@@ -395,6 +437,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               );
               return (
                 <TouchableOpacity
+                  activeOpacity={0.6}
                   style={styles.listDesignView}
                   onPress={() => {
                     if (
@@ -532,6 +575,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             style={styles.flatlist}
             renderItem={({ item }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 key={item.id}
                 style={styles.listLayoutView}
                 onPress={() => {
@@ -581,11 +625,16 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
             horizontal
             showsHorizontalScrollIndicator={false}
+            ListFooterComponent={plusBTN()}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 key={index}
-                style={{ ...styles.colorCode, backgroundColor: item.code }}
+                style={{
+                  ...styles.colorCode,
+                  backgroundColor: item.code,
+                }}
                 onPress={() => {
                   setFooterColor(item.code);
                   item.isLight == true
@@ -597,11 +646,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   <View
                     style={[
                       {
-                        backgroundColor: Color.white,
-                        opacity: 0.5,
-                        position: "absolute",
-                        height: 25,
-                        width: 25,
+                        borderColor: Color.primary,
+                        borderWidth: 2,
+                        margin: 10,
+                        height: 33,
+                        width: 33,
                         borderRadius: 20,
                       },
                     ]}
@@ -619,6 +668,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 style={{
                   height: 40,
                   width: 40,
@@ -687,7 +737,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
-                onPress={() => navigation.navigate(Constant.navProfile)}
+                onPress={() =>
+                  navigation.navigate(Constant.navProfile, {
+                    title: Constant.titPersonalProfile,
+                  })
+                }
                 icon={
                   <Icon name="edit" height={15} width={15} fill={Color.white} />
                 }
@@ -719,6 +773,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
+                icon={
+                  <Icon
+                    name="share"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
                 onPress={onClickShare}
               >
                 {Common.getTranslation(LangKey.txtShare)}
@@ -727,6 +789,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
+                icon={
+                  <Icon
+                    name="download"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
                 onPress={onClickDownload}
               >
                 {Common.getTranslation(LangKey.txtDownload)}
@@ -757,6 +827,12 @@ const Design = ({ route, designStore, userStore, navigation }) => {
           toggleVisible={toggleVisible}
           isPurchased={true}
         />
+        <PopUp
+          visible={visiblePicker}
+          setPickerColor={setFooterColor}
+          toggleVisibleColorPicker={toggleVisibleColorPicker}
+          isPicker={true}
+        />
         <View style={styles.container}>
           <FlatList
             horizontal
@@ -770,6 +846,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               );
               return (
                 <TouchableOpacity
+                  activeOpacity={0.6}
                   style={styles.listDesignView}
                   onPress={() => {
                     if (
@@ -905,6 +982,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             style={styles.flatlist}
             renderItem={({ item }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 key={item.id}
                 style={styles.listLayoutView}
                 onPress={() => {
@@ -948,14 +1026,17 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               </TouchableOpacity>
             )}
           />
+
           <FlatList
             style={styles.colorCodeList}
             data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
             horizontal
             showsHorizontalScrollIndicator={false}
+            ListFooterComponent={plusBTN()}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 key={index}
                 style={{ ...styles.colorCode, backgroundColor: item.code }}
                 onPress={() => {
@@ -969,11 +1050,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
                   <View
                     style={[
                       {
-                        backgroundColor: Color.white,
-                        opacity: 0.5,
-                        position: "absolute",
-                        height: 25,
-                        width: 25,
+                        borderColor: Color.primary,
+                        borderWidth: 2,
+                        margin: 10,
+                        height: 33,
+                        width: 33,
                         borderRadius: 20,
                       },
                     ]}
@@ -991,6 +1072,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity
+                activeOpacity={0.6}
                 style={{
                   height: 40,
                   width: 40,
@@ -1057,7 +1139,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
-                onPress={() => navigation.navigate(Constant.navProfile)}
+                onPress={() =>
+                  navigation.navigate(Constant.navProfile, {
+                    title: Constant.titBusinessProfile,
+                  })
+                }
                 icon={
                   <Icon name="edit" height={15} width={15} fill={Color.white} />
                 }
@@ -1089,6 +1175,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
+                icon={
+                  <Icon
+                    name="share"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
                 onPress={onClickShare}
               >
                 {Common.getTranslation(LangKey.txtShare)}
@@ -1097,6 +1191,14 @@ const Design = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
+                icon={
+                  <Icon
+                    name="download"
+                    height={15}
+                    width={15}
+                    fill={Color.white}
+                  />
+                }
                 onPress={onClickDownload}
               >
                 {Common.getTranslation(LangKey.txtDownload)}
@@ -1120,8 +1222,8 @@ const Design = ({ route, designStore, userStore, navigation }) => {
           currentDesign.designType === Constant.designTypeBUSINESS ? 1 : 0
         }
         onTabChange={(val) => setSelectedTab(val)}
-        txt1="Personal"
-        txt2="Bussiness"
+        txt1={Common.getTranslation(LangKey.titPersonalProfile)}
+        txt2={Common.getTranslation(LangKey.titBussinessProfile)}
         child1={Personal()}
         child2={bussiness()}
       />
@@ -1175,16 +1277,17 @@ const styles = StyleSheet.create({
   },
   designView: { marginTop: 10, width: width - 20, height: width - 20 },
   colorCodeList: {
-    marginTop: 15,
-    marginRight: 15,
+    marginVertical: 10,
   },
   colorCode: {
-    marginLeft: 10,
     height: 25,
     width: 25,
     borderRadius: 20,
-    elevation: 5,
     marginVertical: 10,
+    marginHorizontal: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
   },
   socialIconList: {
     marginTop: 15,

@@ -10,8 +10,11 @@ import {
 } from "react-native";
 
 import Color from "../utils/Color";
+import Common from "../utils/Common";
 
 const TopTabBar = ({ arr, navigation, navigationState }) => {
+  const isMountedRef = Common.useIsMountedRef();
+
   const [data, setData] = useState(navigationState.routeNames);
   const [active, setActive] = useState(0);
   const [xTab, setxTab] = useState([]);
@@ -22,7 +25,9 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
   }, []);
 
   useEffect(() => {
-    changeTab(navigationState.index);
+    if (isMountedRef.current) {
+      changeTab(navigationState.index);
+    }
   }, [navigationState.index]);
 
   const changeTab = (currantIndex) => {
@@ -75,6 +80,9 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
                   const currentTab = xTab;
                   currentTab[index] = event.nativeEvent.layout.x;
                   setxTab(currentTab);
+                  navigationState?.index > 0 &&
+                    navigationState?.index === index &&
+                    changeTab(index);
                 }}
                 onPress={() =>
                   navigation.navigate(navigationState.routeNames[index])

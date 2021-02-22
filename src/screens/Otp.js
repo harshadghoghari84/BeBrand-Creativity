@@ -8,8 +8,9 @@ import {
   StatusBar,
   Keyboard,
   TouchableOpacity,
+  Text,
 } from "react-native";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 
 import Color from "../utils/Color";
@@ -21,6 +22,7 @@ import Icon from "../components/svgIcons";
 import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
+import FastImage from "react-native-fast-image";
 
 const Otp = ({ route, navigation, userStore }) => {
   // state for textInput
@@ -31,6 +33,27 @@ const Otp = ({ route, navigation, userStore }) => {
   const [fiveVal, setFiveVal] = useState("");
   const [sixVal, setSixVal] = useState("");
 
+  const [minutes, setMinutes] = useState(2);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(myInterval);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
   // refes for textInput
   const firstRef = useRef(null);
   const secondRef = useRef(null);
@@ -41,6 +64,13 @@ const Otp = ({ route, navigation, userStore }) => {
 
   const { mobile, password } = route.params;
 
+  const [sendUserOtp, { loading: otpLoading, data: otpData }] = useMutation(
+    GraphqlQuery.sendUserOtp,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
   const [verifyUserOtp, { loading, data, error }] = useLazyQuery(
     password ? GraphqlQuery.resetUserPassword : GraphqlQuery.verifyUserOtp,
     {
@@ -54,7 +84,6 @@ const Otp = ({ route, navigation, userStore }) => {
 
   const getFullOtp = () => {
     const otp = `${firstVal}${secondVal}${thirdVal}${fourVal}${fiveVal}${sixVal}`;
-
     return otp;
   };
 
@@ -96,8 +125,6 @@ const Otp = ({ route, navigation, userStore }) => {
         password !== null &&
         password !== "" &&
         (data.password = password);
-
-      console.log("chk obj", data);
       verifyUserOtp({
         variables: data,
       });
@@ -108,6 +135,23 @@ const Otp = ({ route, navigation, userStore }) => {
 
   const dismissKeyboard = () => {
     Keyboard.dismiss();
+  };
+
+  const onResendOTP = () => {
+    sendUserOtp({
+      variables: {
+        mobile: mobile,
+      },
+    })
+      .then(({ data, errors }) => {
+        if (data && data !== null) {
+          console.log("data", data);
+        }
+        if (errors && errors !== null) {
+          console.log("error", errors);
+        }
+      })
+      .catch((err) => console.log("catch er", err));
   };
 
   return (
@@ -128,11 +172,30 @@ const Otp = ({ route, navigation, userStore }) => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={[styles.container, { alignItems: "center" }]}
-          // onPress={() => dismissKeyboard()}
-        >
-          <View style={styles.container}>
+        <View style={[styles.container, { alignItems: "center" }]}>
+          <View style={[styles.container, { marginTop: 50 }]}>
+            <View style={{ alignSelf: "center", marginVertical: 40 }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "700",
+                  color: Color.darkBlue,
+                }}
+              >
+                {Common.getTranslation(LangKey.labOtpVarification)}
+              </Text>
+            </View>
+            <View style={{ alignSelf: "center", marginBottom: 20 }}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: Color.darkBlue,
+                }}
+              >
+                {Common.getTranslation(LangKey.labEnterOtp)}
+                {mobile}
+              </Text>
+            </View>
             <View style={styles.otpContainer}>
               <TextInput
                 style={styles.textInput}
@@ -254,6 +317,42 @@ const Otp = ({ route, navigation, userStore }) => {
               />
             </View>
 
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginVertical: 30,
+                flexDirection: "row",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: Color.darkBlue,
+                }}
+              >
+                {Common.getTranslation(LangKey.labDidnotReciveOtp)}
+              </Text>
+
+              {minutes === 0 && seconds === 0 ? (
+                <TouchableOpacity onPress={() => onResendOTP()}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "700",
+                      color: Color.primary,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labResend)}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <Text style={{ color: Color.red }}>
+                  {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                </Text>
+              )}
+            </View>
+
             <Button
               style={styles.btn}
               normal="normal"
@@ -264,6 +363,11 @@ const Otp = ({ route, navigation, userStore }) => {
               {Common.getTranslation(LangKey.labVarifyOTP)}
             </Button>
           </View>
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
+            source={require("../assets/bdt.png")}
+            style={styles.image}
+          />
         </View>
       </SafeAreaView>
     </>
@@ -282,7 +386,7 @@ const getStatusBarHeight = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   otpContainer: {
     // marginTop: 50 + getStatusBarHeight(),
@@ -293,7 +397,8 @@ const styles = StyleSheet.create({
   textInput: {
     width: 45,
     height: 45,
-    backgroundColor: Color.txtIntxtcolor,
+    borderColor: Color.darkBlue,
+    borderWidth: 2,
     borderRadius: 10,
     justifyContent: "center",
     textAlign: "center",
@@ -314,5 +419,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+  },
+  image: {
+    width: "100%",
+    height: 60,
+    marginTop: 30,
+    marginBottom: 12,
   },
 });

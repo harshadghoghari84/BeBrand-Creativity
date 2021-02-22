@@ -4,10 +4,6 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_legacy.json"
     },
     {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xhdpi_src_assets_arrow_back.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xhdpi/src_assets_arrow_back.png"
-    },
-    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
     },
@@ -32,6 +28,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_entypo.json"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_foreground.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
     },
@@ -42,6 +42,10 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable_splashscreen_image.jpg.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splashscreen_image.jpg"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_splash.jpg.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_splash.jpg"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_syntaxes.json.flat",
@@ -66,6 +70,10 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_rating.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_rating.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_ionicons.json.flat",
@@ -172,6 +180,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_bdt.png"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativecolorpicker_resources_colorcircle.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativecolorpicker_resources_colorcircle.png"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf"
     },
@@ -184,8 +196,8 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_dfs.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_dfs.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativecolorpicker_resources_hsv_triangle_mask.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativecolorpicker_resources_hsv_triangle_mask.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_src_languages_en.json.flat",
@@ -238,10 +250,6 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
-    },
-    {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_arrow_back.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_arrow_back.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontisto.json.flat",
@@ -310,6 +318,10 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_logo2.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_logo2.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialcommunityicons.ttf.flat",

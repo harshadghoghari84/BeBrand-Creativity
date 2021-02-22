@@ -2,6 +2,7 @@ import { Colors } from "react-native-paper";
 
 export default {
   primary: "#FF8200",
+
   secondary: "#FBBF17",
   accent: "#545454",
 
@@ -16,6 +17,7 @@ export default {
   dividerColor: "#d4d4d4",
 
   borderColor: "#545454",
+  btnborder: "#adadad",
 
   black: "#000000",
   grey: "#4a4a4a",
@@ -33,4 +35,6 @@ export default {
   txtInBgColor: "#E6E6E6",
   txtIntxtcolor: "#9C9C9C",
   transparent: "transparent",
+  layerColor: "#e8e8e8",
+  blackTrans: "rgba(0,0,0,0.3)",
 };

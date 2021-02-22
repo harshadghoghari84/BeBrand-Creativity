@@ -8,6 +8,8 @@ import {
   ToastAndroid,
   Image,
   TextInput as TEXTINPUT,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import * as Animatable from "react-native-animatable";
@@ -22,12 +24,7 @@ import {
   GraphRequestManager,
   LoginManager,
 } from "react-native-fbsdk";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
 import { paperTheme as theme } from "../utils/Theme";
 import {
   mobileValidator,
@@ -44,6 +41,9 @@ import { inject, observer } from "mobx-react";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
+import Button from "../components/Button";
+import Logo from "../components/Logo";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -55,6 +55,7 @@ const RegisterScreen = ({ userStore }) => {
     value: "",
     error: "",
   });
+  const [referrCode, setReferrCode] = useState("");
   const [otp, setOtp] = useState("");
   const [otpVisible, setOtpVisible] = useState(false);
 
@@ -190,7 +191,7 @@ const RegisterScreen = ({ userStore }) => {
     }
   };
 
-  const _onSignUpPressed = async () => {
+  const _onSendOtp = async () => {
     const mobileError = mobileValidator(mobileNo.value);
     const passwordError = passwordValidator(password.value);
     const confirmPasswordError = confirmPasswordValidator(
@@ -213,6 +214,7 @@ const RegisterScreen = ({ userStore }) => {
         },
       }).then((result) => {
         const data = result.data;
+        console.log("data", data);
         if (data !== null) {
           // const token = data.userSignup.token;
           // console.log(data.userSignup.token);
@@ -320,101 +322,121 @@ const RegisterScreen = ({ userStore }) => {
   };
 
   const fadeInDown = makeFadeInTranslation("translateY", -30);
+
+  const onLegal = () => {
+    Common.openWeb();
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-      <ProgressDialog
-        color={Color.white}
-        visible={loader ? loader : mutLoading ? mutLoading : loading}
-        dismissable={false}
-        message={Common.getTranslation(LangKey.labLoading)}
-      />
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <ProgressDialog
+          color={Color.white}
+          visible={loader ? loader : mutLoading ? mutLoading : loading}
+          dismissable={false}
+          message={Common.getTranslation(LangKey.labLoading)}
+        />
+        <Logo />
 
-      <TouchableOpacity
-        onPress={() => onGoogleLogin()}
-        style={styles.socialBTNView}
-      >
-        <View
-          style={{
-            backgroundColor: Color.txtIntxtcolor,
-            height: 30,
-            width: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 50,
-            marginHorizontal: 8,
-          }}
+        <View style={{ flex: 1 }}>
+          {/* <TouchableOpacity
+          onPress={() => onGoogleLogin()}
+          style={styles.socialBTNView}
         >
-          <Icon name="google" fill={Color.white} height={"60%"} width={"60%"} />
-        </View>
-        <Text
-          style={{
-            fontSize: 13,
-            fontWeight: "700",
-            color: Color.txtIntxtcolor,
-          }}
+          <View
+            style={{
+              backgroundColor: Color.txtIntxtcolor,
+              height: 30,
+              width: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 50,
+              marginHorizontal: 8,
+            }}
+          >
+            <Icon
+              name="google"
+              fill={Color.white}
+              height={"60%"}
+              width={"60%"}
+            />
+          </View>
+          <Text
+            style={{
+              fontSize: 13,
+              fontWeight: "700",
+              color: Color.txtIntxtcolor,
+            }}
+          >
+            {Common.getTranslation(LangKey.labSignInWithGoogle)}
+          </Text>
+        </TouchableOpacity> */}
+          {/* <TouchableOpacity
+          onPress={() => onFaceBookLogin()}
+          style={styles.socialBTNView}
         >
-          Sign in With Google
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => onFaceBookLogin()}
-        style={styles.socialBTNView}
-      >
-        <View
-          style={{
-            backgroundColor: Color.txtIntxtcolor,
-            height: 30,
-            width: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 50,
-            marginHorizontal: 8,
-          }}
-        >
-          <Icon
-            name="facebook"
-            fill={Color.white}
-            height={"60%"}
-            width={"60%"}
+          <View
+            style={{
+              backgroundColor: Color.txtIntxtcolor,
+              height: 30,
+              width: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 50,
+              marginHorizontal: 8,
+            }}
+          >
+            <Icon
+              name="facebook"
+              fill={Color.white}
+              height={"60%"}
+              width={"60%"}
+            />
+          </View>
+          <Text
+            style={{
+              fontSize: 13,
+              fontWeight: "700",
+              color: Color.txtIntxtcolor,
+            }}
+          >
+            {Common.getTranslation(LangKey.labSignInWithFacebook)}
+          </Text>
+        </TouchableOpacity> */}
+          {/* <View style={styles.sapratorView}>
+          <View style={styles.sapratorLines} />
+          <View style={styles.orView}>
+            <Text style={styles.orTXT}>or</Text>
+          </View>
+          <View style={styles.sapratorLines} />
+        </View> */}
+          <Text
+            style={{
+              marginLeft: 30,
+              fontSize: 18,
+              fontWeight: "700",
+              marginBottom: 20,
+            }}
+          >
+            {Common.getTranslation(LangKey.labGetStarted)}
+          </Text>
+
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labMobile)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="next"
+            iconName="phone"
+            value={mobileNo.value}
+            onChangeText={(text) => setMobileNo({ value: text, error: "" })}
+            error={!!mobileNo.error}
+            errorText={mobileNo.error}
+            autoCapitalize="none"
+            keyboardType="numeric"
           />
-        </View>
-        <Text
-          style={{
-            fontSize: 13,
-            fontWeight: "700",
-            color: Color.txtIntxtcolor,
-          }}
-        >
-          Sign in With FaceBook
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.sapratorView}>
-        <View style={styles.sapratorLines} />
-        <View style={styles.orView}>
-          <Text style={styles.orTXT}>or</Text>
-        </View>
-        <View style={styles.sapratorLines} />
-      </View>
 
-      <TextInput
-        placeholder={Common.getTranslation(LangKey.labMobile)}
-        placeholderTextColor={Color.txtIntxtcolor}
-        returnKeyType="next"
-        iconName="phone"
-        value={mobileNo.value}
-        onChangeText={(text) => setMobileNo({ value: text, error: "" })}
-        error={!!mobileNo.error}
-        errorText={mobileNo.error}
-        autoCapitalize="none"
-        keyboardType="numeric"
-      />
-
-      {mobileNo.value.length > 9 && (
-        <Animatable.View
-          animation={fadeInDown}
-          direction="normal"
-          duration={500}
-        >
           <TextInput
             placeholder={Common.getTranslation(LangKey.labPassword)}
             placeholderTextColor={Color.txtIntxtcolor}
@@ -426,14 +448,7 @@ const RegisterScreen = ({ userStore }) => {
             errorText={password.error}
             secureTextEntry
           />
-        </Animatable.View>
-      )}
-      {password.value.length > 0 && (
-        <Animatable.View
-          animation={fadeInDown}
-          direction="normal"
-          duration={500}
-        >
+
           <TextInput
             placeholder={Common.getTranslation(LangKey.labConfirmPassword)}
             placeholderTextColor={Color.txtIntxtcolor}
@@ -447,85 +462,185 @@ const RegisterScreen = ({ userStore }) => {
             errorText={confirmPassword.error}
             secureTextEntry
           />
-        </Animatable.View>
-      )}
-      {otpVisible && (
-        <Animatable.View
-          animation={fadeInDown}
-          direction="normal"
-          duration={500}
-          style={{
-            width: "95%",
-            alignItems: "center",
-            justifyContent: "center",
-            alignSelf: "center",
-          }}
-        >
-          <View
-            style={[
-              styles.socialBTNView,
-              {
-                width: "50%",
-                alignItems: "center",
-                justifyContent: "center",
-              },
-            ]}
-          >
-            <TEXTINPUT
-              style={[
-                styles.socialTXT,
-                {
-                  width: "100%",
-                  textAlign: "center",
-                  letterSpacing: 5,
-                },
-              ]}
-              placeholder="______"
-              placeholderTextColor={Color.txtIntxtcolor}
-              keyboardType="number-pad"
-              maxLength={6}
-              value={otp}
-              onChangeText={(val) => setOtp(val)}
-            />
-          </View>
-          <Text
-            style={{
-              alignSelf: "center",
-              color: Color.darkBlue,
-              fontSize: 12,
-              paddingVertical: 8,
-            }}
-          >
-            {Common.getTranslation(LangKey.labAnOtpSent)}
-          </Text>
-        </Animatable.View>
-      )}
-      {password.value.length > 0 ? (
-        <>
-          {otp !== null && otp.length > 5 ? (
-            <TouchableOpacity
-              style={styles.btnLoginView}
-              onPress={() => verifyOtp()}
-            >
-              <Text style={styles.txtSignin}>
-                {Common.getTranslation(LangKey.labSignup)}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.btnLoginView}
-              onPress={() => _onSignUpPressed()}
-              loading={loading}
+          <TextInput
+            placeholder={Common.getTranslation(LangKey.labReferralcode)}
+            placeholderTextColor={Color.txtIntxtcolor}
+            returnKeyType="done"
+            iconName="refferfilld"
+            value={referrCode}
+            onChangeText={(text) => setReferrCode(text)}
+            // error={!!confirmPassword.error}
+            // errorText={confirmPassword.error}
+          />
+
+          <View style={{ marginVertical: 20 }}>
+            <Button
+              normal={true}
+              onPress={() => _onSendOtp()}
               disabled={loading}
             >
-              <Text style={styles.txtSignin}>
-                {Common.getTranslation(LangKey.labSendOTP)}
+              {Common.getTranslation(LangKey.labSendOTP)}
+            </Button>
+          </View>
+
+          <View
+            style={{
+              alignSelf: "center",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text>Already have an Account ! </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(Constant.navSignIn)}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "700",
+                  color: Color.primary,
+                }}
+              >
+                {Common.getTranslation(LangKey.labSignin)}
               </Text>
             </TouchableOpacity>
-          )}
-        </>
-      ) : null}
-    </View>
+          </View>
+
+          {/* {otpVisible && (
+            <Animatable.View
+              animation={fadeInDown}
+              direction="normal"
+              duration={500}
+              style={{
+                width: "95%",
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "center",
+              }}
+            >
+              <View
+                style={[
+                  styles.socialBTNView,
+                  {
+                    width: "50%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  },
+                ]}
+              >
+                <TEXTINPUT
+                  style={[
+                    styles.socialTXT,
+                    {
+                      width: "100%",
+                      textAlign: "center",
+                      letterSpacing: 5,
+                    },
+                  ]}
+                  placeholder="______"
+                  placeholderTextColor={Color.txtIntxtcolor}
+                  keyboardType="number-pad"
+                  maxLength={6}
+                  value={otp}
+                  onChangeText={(val) => setOtp(val)}
+                />
+              </View>
+              <Text
+                style={{
+                  alignSelf: "center",
+                  color: Color.darkBlue,
+                  fontSize: 12,
+                  paddingVertical: 8,
+                }}
+              >
+                {Common.getTranslation(LangKey.labAnOtpSent)}
+              </Text>
+            </Animatable.View>
+          )} */}
+          {/* {password.value.length > 0 ? (
+            <>
+              {otp !== null && otp.length > 5 ? (
+                <Button
+                  normal={true}
+                  onPress={() => verifyOtp()}
+                  disabled={loading}
+                >
+                  {Common.getTranslation(LangKey.labSignup)}
+                </Button>
+              ) : (
+                <Button
+                  normal={true}
+                  onPress={() => _onSignUpPressed()}
+                  disabled={loading}
+                >
+                  {Common.getTranslation(LangKey.labSendOTP)}
+                </Button>
+              )}
+            </>
+          ) : null} */}
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            paddingBottom: 20,
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Color.txtIntxtcolor }}>
+              By Signing Up You Accept The
+            </Text>
+            <TouchableOpacity activeOpacity={0.6} onPress={() => onLegal()}>
+              <Text
+                style={{
+                  color: Color.accent,
+                  textDecorationLine: "underline",
+                }}
+              >
+                Terms &
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity activeOpacity={0.6} onPress={() => onLegal()}>
+              <Text
+                style={{
+                  color: Color.accent,
+                  textDecorationLine: "underline",
+                }}
+              >
+                Condition
+              </Text>
+            </TouchableOpacity>
+
+            <Text
+              style={{
+                color: Color.txtIntxtcolor,
+                marginHorizontal: 5,
+              }}
+            >
+              and
+            </Text>
+            <TouchableOpacity activeOpacity={0.6} onPress={() => onLegal()}>
+              <Text
+                style={{
+                  color: Color.accent,
+                  textDecorationLine: "underline",
+                }}
+              >
+                Privacy Policy
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

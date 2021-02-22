@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Color from "../utils/Color";
+import Common from "../utils/Common";
+import LangKey from "../utils/LangKey";
 
 const ListTags = ({ item }) => (
   <View style={styles.imgTagContainer}>
@@ -11,11 +13,15 @@ const ListTags = ({ item }) => (
     </View>
     {item.status == 0 ? (
       <View style={styles.greenTagContainer}>
-        <Text style={styles.greenTagText}>In Stock</Text>
+        <Text style={styles.greenTagText}>
+          {Common.getTranslation(LangKey.labInStock)}
+        </Text>
       </View>
     ) : (
       <View style={styles.grayTagContainer}>
-        <Text style={styles.grayTagText}>Out of Stock</Text>
+        <Text style={styles.grayTagText}>
+          {Common.getTranslation(LangKey.labOutOfStock)}
+        </Text>
       </View>
     )}
   </View>

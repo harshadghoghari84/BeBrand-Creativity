@@ -22,6 +22,7 @@ const ItemDesign = ({
 }) => (
   <>
     <TouchableOpacity
+      activeOpacity={0.6}
       style={styles.container}
       onPress={() => onDesignClick(packageType, design)}
     >

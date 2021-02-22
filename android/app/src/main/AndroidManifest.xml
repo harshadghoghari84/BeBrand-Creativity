@@ -4,6 +4,7 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+  <uses-permission android:name="com.android.vending.BILLING" />
 
   <application android:name="com.bebrandd.branddot.MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/AppTheme" android:requestLegacyExternalStorage="true">
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="38.0.0" />

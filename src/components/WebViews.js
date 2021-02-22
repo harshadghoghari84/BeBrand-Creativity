@@ -1,17 +1,18 @@
-import React, { Component, memo, useEffect } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React from "react";
+import { ActivityIndicator, View } from "react-native";
 import { WebView } from "react-native-webview";
-import CustomHeader from "../screens/common/CustomHeader";
+import Color from "../utils/Color";
 
 const WebViews = (props) => {
-  useEffect(() => {
-    console.log("object", props.route.params.uri);
-  }, []);
+  if (props?.route?.params?.uri && props.route.params.uri !== null) {
+    return (
+      <WebView style={{ flex: 1 }} source={{ uri: props.route.params.uri }} />
+    );
+  }
   return (
-    // <View style={{ flex: 1 }}>
-    //   {/* <CustomHeader isBackVisible={true} /> */}
-    // </View>
-    <WebView source={{ uri: props.route.params.uri }} />
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <ActivityIndicator size={"large"} color={Color.primary} />
+    </View>
   );
 };
 

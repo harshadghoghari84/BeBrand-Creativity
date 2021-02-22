@@ -11,8 +11,8 @@ import Common from "./src/utils/Common";
 import { paperTheme } from "./src/utils/Theme";
 import UserStore from "./src/mobx/UserStore";
 import DesignStore from "./src/mobx/DesignStore";
-// import SplashScreen from "./src/screens/Splash";
-import SigninScreen from "./src/screens/Signin";
+import SplashScreen from "./src/screens/Splash";
+
 import SignupScreen from "./src/screens/Signup";
 import LanguageSelectionScreen from "./src/screens/LanguageSelection";
 import OtpScreen from "./src/screens/Otp";
@@ -22,9 +22,10 @@ import CustomDrawer from "./src/screens/common/CustomDrawer";
 import HomeStackComponent from "./src/stacks/HomeStack";
 import Login from "./src/screens/Login";
 import WebViews from "./src/components/WebViews";
-import * as SplashScreen from "expo-splash-screen";
+// import * as SplashScreen from "expo-splash-screen";
 import GraphqlQuery from "./src/utils/GraphqlQuery";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Signin from "./src/screens/Signin";
 
 Common.setTranslationInit();
 
@@ -42,43 +43,48 @@ const DrawerScreen = () => (
 );
 
 export default function App() {
-  const [isTimerRunning, setIsTimerRunning] = useState(true);
+  // const [isTimerRunning, setIsTimerRunning] = useState(true);
 
-  let Loading = false;
-  useEffect(() => {
-    SplashScreen.preventAutoHideAsync()
-      .then((result) => {})
-      .catch((err) => {});
-    AsyncStorage.getItem(Constant.prfUserToken).then(async (token) => {
-      token &&
-        client
-          .query({
-            query: GraphqlQuery.user,
-            errorPolicy: {
-              errorPolicy: "all",
-            },
-          })
-          .then(async (data, error) => {
-            Loading = true;
-            !error && data?.user && userStore.setUser(data.user);
-            !isTimerRunning && (await openScreen());
-          })
-          .catch((err) => (Loading = true));
-      startWithDelay();
-    });
-  }, []);
-  const startWithDelay = () => {
-    setTimeout(async () => {
-      setIsTimerRunning(false);
-      !Loading && (await openScreen());
-    }, Constant.splashTime);
-  };
-  const openScreen = async () => {
-    await SplashScreen.hideAsync();
+  // let loading = false;
+  // useEffect(() => {
+  //   loading = true;
+  //   SplashScreen.preventAutoHideAsync()
+  //     .then((result) => {})
+  //     .catch((err) => {});
+  //   AsyncStorage.getItem(Constant.prfUserToken).then(async (token) => {
+  //     console.log("==>toen", token);
+  //     token &&
+  //       client
+  //         .query({
+  //           query: GraphqlQuery.user,
+  //           errorPolicy: {
+  //             errorPolicy: "all",
+  //           },
+  //         })
+  //         .then(async ({ data, errors }) => {
+  //           console.log("data", data);
+  //           console.log("err", errors);
+  //           !errors && data?.user && userStore.setUser(data.user);
+  //           loading = false;
 
-    // navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-  };
-  !Loading && isTimerRunning === false && openScreen();
+  //           !isTimerRunning && (await openScreen());
+  //         })
+  //         .catch((err) => (loading = false));
+  //     startWithDelay();
+  //   });
+  // }, []);
+  // const startWithDelay = () => {
+  //   setTimeout(async () => {
+  //     setIsTimerRunning(false);
+  //     !loading && (await openScreen());
+  //   }, Constant.splashTime);
+  // };
+  // const openScreen = async () => {
+  //   await SplashScreen.hideAsync();
+
+  //   // navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+  // };
+  // !loading && isTimerRunning === false && openScreen();
 
   return (
     <Provider designStore={DesignStore} userStore={UserStore}>
@@ -87,22 +93,22 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
-              initialRouteName={Constant.navHomeStack}
+              initialRouteName={Constant.navSplash}
             >
-              {/* <Stack.Screen
-                  name={Constant.navSplash}
-                  component={SplashScreen}
-                /> */}
-              <Stack.Screen name={Constant.navLogin} component={Login} />
+              <Stack.Screen
+                name={Constant.navSplash}
+                component={SplashScreen}
+              />
+              <Stack.Screen name={Constant.navSignIn} component={Signin} />
               {/* <Stack.Screen name={Constant.navWebView} component={WebViews} /> */}
               <Stack.Screen
                 name="langaugeSelection"
                 component={LanguageSelectionScreen}
               />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name={Constant.navSignIn}
                 component={SigninScreen}
-              />
+              /> */}
               <Stack.Screen
                 name={Constant.navSignUp}
                 component={SignupScreen}

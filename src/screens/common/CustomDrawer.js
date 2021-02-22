@@ -38,10 +38,15 @@ class CustomDrawer extends Component {
     Activated: Constant.titAccount,
     modalVisible: false,
     modalVisibleforRating: false,
+    modalVisibleforreffer: false,
   };
 
   toggleVisible = () => {
     this.setState({ modalVisible: !this.state.modalVisible });
+  };
+  toggleVisibleforreffer = () => {
+    console.log("hello");
+    this.setState({ modalVisibleforreffer: !this.state.modalVisibleforreffer });
   };
   toggleVisibleforRating = () => {
     this.setState({ modalVisibleforRating: !this.state.modalVisibleforRating });
@@ -64,6 +69,11 @@ class CustomDrawer extends Component {
           toggleVisible={this.toggleVisible}
           toggle={true}
         />
+        <PopUp
+          visible={this.state.modalVisibleforreffer}
+          toggleVisible={this.toggleVisibleforreffer}
+          reffer={true}
+        />
         <Modal
           transparent={true}
           visible={this.state.modalVisibleforRating}
@@ -75,24 +85,24 @@ class CustomDrawer extends Component {
           }
         >
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, { height: 420 }]}>
               <View style={{ flex: 1 }}>
                 <TouchableOpacity
                   onPress={() =>
                     this.setState({ modalVisibleforRating: false })
                   }
                   style={{
-                    width: 30,
-                    height: 30,
+                    width: 25,
+                    height: 25,
                     margin: 10,
                     alignItems: "center",
                     justifyContent: "center",
                     alignSelf: "flex-end",
-                    backgroundColor: Color.primary,
-                    borderRadius: 13,
+
+                    borderRadius: 20,
                   }}
                 >
-                  <ICON name="close" size={20} color={Color.white} />
+                  <ICON name="close" size={22} color={Color.darkBlue} />
                 </TouchableOpacity>
                 <Ratings toggleforRating={this.toggleVisibleforRating} />
               </View>
@@ -311,36 +321,38 @@ class CustomDrawer extends Component {
                   {Common.getTranslation(LangKey.titleReportIssue)}
                 </Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity
-                onPress={() => this.setState({ modalVisible: true })}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Color.dividerColor,
-                }}
-              >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="request"
-                    fill={this.getColor(false)}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: this.getColor(false),
-                  }}
-                >
-                  {Constant.titRequestFeature}
-                </Text>
-              </TouchableOpacity> */}
             </View>
             <View>
               {this.props.userStore.user !== null && (
                 <View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ modalVisibleforreffer: true })
+                    }
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingVertical: 10,
+                      borderBottomWidth: 1,
+                      borderBottomColor: Color.dividerColor,
+                    }}
+                  >
+                    <View style={{ paddingHorizontal: 30 }}>
+                      <Icon
+                        name="reffer"
+                        fill={this.getColor(false)}
+                        height={20}
+                        width={20}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: this.getColor(false),
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.titleAddReffercode)}
+                    </Text>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
                       if (this.state.Activated === Constant.titAccount) {
@@ -401,11 +413,9 @@ class CustomDrawer extends Component {
                     <>
                       <TouchableOpacity
                         onPress={() =>
-                          // this.setState(
-                          //   { Activated: Constant.titProfile },
-                          //   () =>
-                          //   )
-                          this.props.navigation.navigate(Constant.navProfile)
+                          this.props.navigation.navigate(
+                            Constant.navProfileUser
+                          )
                         }
                         style={{
                           flexDirection: "row",
@@ -431,6 +441,36 @@ class CustomDrawer extends Component {
                           }}
                         >
                           {Common.getTranslation(LangKey.titleProfile)}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.navigate(Constant.navProfile)
+                        }
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          paddingVertical: 10,
+                        }}
+                      >
+                        <View style={{ paddingHorizontal: 30 }}>
+                          <Icon
+                            name="postprofile"
+                            fill={this.getColor(
+                              this.state.Activated === Constant.titProfile
+                            )}
+                            height={20}
+                            width={20}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            color: this.getColor(
+                              this.state.Activated === Constant.titProfile
+                            ),
+                          }}
+                        >
+                          {Common.getTranslation(LangKey.titlePostProfile)}
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -507,36 +547,38 @@ class CustomDrawer extends Component {
                   ) : null}
                 </View>
               )}
-              <TouchableOpacity
-                onPress={() => this.setState({ modalVisible: true })}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="whatsapp"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titWhatsAppUs
-                    )}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
+              {this.props.userStore.user !== null && (
+                <TouchableOpacity
+                  onPress={() => this.setState({ modalVisible: true })}
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titWhatsAppUs
-                    ),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingVertical: 10,
                   }}
                 >
-                  {Common.getTranslation(LangKey.titleWhatsAppUpdates)}
-                </Text>
-              </TouchableOpacity>
+                  <View style={{ paddingHorizontal: 30 }}>
+                    <Icon
+                      name="whatsapp"
+                      fill={this.getColor(
+                        this.state.Activated === Constant.titWhatsAppUs
+                      )}
+                      height={20}
+                      width={20}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      color: this.getColor(
+                        this.state.Activated === Constant.titWhatsAppUs
+                      ),
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.titleWhatsAppUpdates)}
+                  </Text>
+                </TouchableOpacity>
+              )}
 
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate(Constant.navReferandEarn)
                 }
@@ -567,7 +609,7 @@ class CustomDrawer extends Component {
                 >
                   {Common.getTranslation(LangKey.titReferandEarn)}
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate(Constant.navWebView, {
@@ -578,18 +620,16 @@ class CustomDrawer extends Component {
                   flexDirection: "row",
                   alignItems: "center",
                   paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Color.dividerColor,
                 }}
               >
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
-                    name="report"
+                    name="legal"
                     fill={this.getColor(
                       this.state.Activated === Constant.titLegal
                     )}
-                    height={20}
-                    width={20}
+                    height={22}
+                    width={22}
                   />
                 </View>
                 <Text
@@ -606,15 +646,19 @@ class CustomDrawer extends Component {
           </ScrollView>
         </View>
         <View>
-          <Text
-            style={{
-              alignSelf: "center",
-              paddingBottom: 10,
-              color: Color.grey,
-            }}
+          <View
+            style={{ borderTopColor: Color.dividerColor, borderTopWidth: 1 }}
           >
-            Made With <Text style={{ fontSize: 12 }}>❤️</Text> in India
-          </Text>
+            <Text
+              style={{
+                alignSelf: "center",
+                paddingVertical: 10,
+                color: Color.grey,
+              }}
+            >
+              {Common.getTranslation(LangKey.titMadeWithLoveInIndia)}
+            </Text>
+          </View>
           <View style={styles.bottomDrawerSection}>
             {user && user !== null ? (
               <TouchableOpacity
@@ -630,10 +674,10 @@ class CustomDrawer extends Component {
               >
                 <View style={{ marginLeft: 30 }}>
                   <Icon
-                    name="logout"
+                    name="signout"
                     fill={this.getColor(false)}
-                    height={20}
-                    width={20}
+                    height={22}
+                    width={22}
                   />
                 </View>
                 <Text
@@ -648,7 +692,7 @@ class CustomDrawer extends Component {
             ) : (
               <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate(Constant.navLogin)
+                  this.props.navigation.navigate(Constant.navSignIn)
                 }
                 style={{
                   flexDirection: "row",
@@ -658,10 +702,10 @@ class CustomDrawer extends Component {
               >
                 <View style={{ marginLeft: 30 }}>
                   <Icon
-                    name="logout"
+                    name="signin"
                     fill={this.getColor(false)}
-                    height={20}
-                    width={20}
+                    height={22}
+                    width={22}
                   />
                 </View>
                 <Text
@@ -735,7 +779,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    backgroundColor: Color.blackTransparant,
+    backgroundColor: Color.white,
     borderRadius: 20,
     height: 200,
     width: "80%",

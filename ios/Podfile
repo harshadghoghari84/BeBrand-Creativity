@@ -92,6 +92,7 @@ target 'myapp' do
   
 
   add_flipper_pods!({ 'Flipper-Folly' => '2.3.0' }) # update this part
+
  post_install do |installer|
    flipper_post_install(installer)
  end

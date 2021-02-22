@@ -12,7 +12,10 @@ import {
   Platform,
 } from "react-native";
 import Popover, { Rect, PopoverMode } from "react-native-popover-view";
+// relative Path
 import Color from "../utils/Color";
+import Common from "../utils/Common";
+import LangKey from "../utils/LangKey";
 
 const Modal = ({ visible, toggleVisible, designStore }) => {
   const [lang, setLang] = useState([
@@ -54,7 +57,7 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
     >
       <View style={{ height: 200, width: 150, backgroundColor: "white" }}>
         <View style={{ padding: 10 }}>
-          <Text>Select Language</Text>
+          <Text>{Common.getTranslation(LangKey.labSelecteLang)}</Text>
         </View>
         <FlatList
           data={lang}

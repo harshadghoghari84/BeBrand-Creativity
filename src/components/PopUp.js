@@ -18,22 +18,30 @@ import LangKey from "../utils/LangKey";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
+import Button from "./Button";
+import Icon from "./svgIcons";
+import { ColorPicker } from "react-native-color-picker";
 
 const PopUp = ({
   visible,
   toggleVisible,
   isPurchased,
   other,
+  isPicker,
+  toggleVisibleColorPicker,
+  setPickerColor,
+  reffer,
   isRating,
   toggle,
 }) => {
   const navigation = useNavigation();
-  const [feture, setFeture] = useState();
+  const [feture, setFeture] = useState("");
+  const [refferCode, setRefferCode] = useState("");
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const [userRequestFeture, { loading }] = useMutation(
+  const [userRequestFeture, { error }] = useMutation(
     GraphqlQuery.addRequestFeature,
     {
       errorPolicy: "all",
@@ -48,7 +56,13 @@ const PopUp = ({
     })
       .then((result) => {
         console.log("reslut", result);
-        toggleVisible();
+        if (result.errors) {
+        }
+        if (result.data) {
+          if (result.data !== null) {
+            toggleVisible();
+          }
+        }
       })
       .catch((error) => {
         console.log("error", error);
@@ -63,35 +77,79 @@ const PopUp = ({
       onRequestClose={() => toggleVisible()}
     >
       <KeyboardAvoidingView style={styles.centeredView}>
-        <View style={styles.modalView}>
-          {toggle && (
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              />
+        {toggle && (
+          <View style={[styles.modalView, { height: 250, width: "90%" }]}>
+            <View style={{ flex: 1 }}>
               <TouchableOpacity
                 onPress={() => toggleVisible()}
                 style={{
-                  ...styles.openButton,
-                  backgroundColor: Color.primary,
-                  marginHorizontal: 5,
+                  width: 25,
+                  height: 25,
+                  margin: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                  borderRadius: 20,
                 }}
               >
-                <Text style={styles.textStyle}>close</Text>
+                <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginHorizontal: 20,
+
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ paddingRight: 20 }}>
+                  <Icon
+                    name="whatsapp"
+                    height={50}
+                    width={50}
+                    fill={Color.green}
+                  />
+                </View>
+                <Text style={{ fontSize: 20, fontWeight: "700" }}>
+                  Know What’s Up{"\n"}
+                  on Brand Dot !
+                </Text>
+              </View>
+              <View style={{ alignItems: "center", marginVertical: 10 }}>
+                <Text>get all updates and Best offers on WhatsApp</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  marginVertical: 15,
+                }}
+              >
+                <Text style={{ fontWeight: "700" }}>
+                  Stay Update on Whatsapp
+                </Text>
+                <Switch
+                  trackColor={{ false: Color.grey, true: Color.darkBlue }}
+                  thumbColor={Color.white}
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                />
+              </View>
+              <Text
+                style={{
+                  color: Color.grey,
+                  alignSelf: "center",
+                }}
+              >
+                Unsubscribe to these notification any time.
+              </Text>
             </View>
-          )}
-          {other && (
+          </View>
+        )}
+        {other && (
+          <View style={styles.modalView}>
             <KeyboardAvoidingView
               style={{
                 flex: 1,
@@ -121,41 +179,173 @@ const PopUp = ({
                   justifyContent: "space-between",
                 }}
               >
-                <TouchableOpacity
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
                   onPress={() => toggleVisible()}
-                  style={{
-                    ...styles.openButton,
-                    backgroundColor: Color.primary,
-                    marginHorizontal: 5,
-                  }}
                 >
-                  <Text style={styles.textStyle}>close</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                  {Common.getTranslation(LangKey.labClose)}
+                </Button>
+                <Button
+                  disabled={feture == null || feture.length <= 0}
+                  style={{ margin: 5 }}
+                  normal={true}
                   onPress={() => onsubmit()}
-                  style={{
-                    ...styles.openButton,
-                    backgroundColor: Color.primary,
-                    marginHorizontal: 5,
-                  }}
                 >
-                  <Text style={styles.textStyle}>Submit</Text>
-                </TouchableOpacity>
+                  {Common.getTranslation(LangKey.labSubmit)}
+                </Button>
               </View>
             </KeyboardAvoidingView>
-          )}
-          {isPurchased && (
+          </View>
+        )}
+        {isPurchased && (
+          <View style={[styles.modalView, { height: 150 }]}>
+            <TouchableOpacity
+              onPress={() => toggleVisible()}
+              style={{
+                width: 25,
+                height: 25,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+                borderRadius: 20,
+              }}
+            >
+              <ICON name="close" size={22} color={Color.darkBlue} />
+            </TouchableOpacity>
             <View
               style={{
-                flex: 1,
-
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               <View>
-                <Text>please purchase primium package</Text>
+                <Text style={{ fontSize: 18, fontWeight: "700" }}>
+                  {Common.getTranslation(LangKey.labPurchasePremiumPkg)}
+                </Text>
               </View>
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    toggleVisible();
+                    navigation.navigate(Constant.navPro, {
+                      screen: Constant.titFree,
+                    });
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labFree)}
+                </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.navPro, {
+                      screen: Constant.titPrimium,
+                    });
+                    toggleVisible();
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labPremium)}
+                </Button>
+              </View>
+            </View>
+          </View>
+        )}
+        {isPicker && (
+          <View
+            style={[
+              styles.modalView,
+              { height: 300, backgroundColor: Color.blackTrans },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() => toggleVisibleColorPicker()}
+              style={{
+                width: 25,
+                height: 25,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+                borderRadius: 20,
+              }}
+            >
+              <ICON name="close" size={22} color={Color.white} />
+            </TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View style={{ height: 250, width: "90%" }}>
+                <ColorPicker
+                  onColorSelected={(color) => setPickerColor(color)}
+                  style={{ flex: 1 }}
+                />
+              </View>
+              <Text
+                style={{
+                  position: "absolute",
+                  bottom: 160,
+                  color: Color.white,
+                  fontWeight: "700",
+                  fontSize: 18,
+                }}
+              >
+                select
+              </Text>
+            </View>
+          </View>
+        )}
+        {reffer && (
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              onPress={() => toggleVisible()}
+              style={{
+                width: 25,
+                height: 25,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+                borderRadius: 20,
+              }}
+            >
+              <ICON name="close" size={22} color={Color.darkBlue} />
+            </TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TextInput
+                placeholder={Common.getTranslation(LangKey.titleAddReffercode)}
+                placeholderTextColor={Color.grey}
+                multiline={true}
+                value={refferCode}
+                onChangeText={(val) => setRefferCode(val)}
+                style={{
+                  // flex: 1,
+                  height: 50,
+                  width: "90%",
+                  borderRadius: 10,
+                  paddingHorizontal: 20,
+                  backgroundColor: Color.txtInBgColor,
+                }}
+              />
               <View
                 style={{
                   marginTop: 20,
@@ -163,33 +353,17 @@ const PopUp = ({
                   justifyContent: "space-between",
                 }}
               >
-                <TouchableOpacity
-                  onPress={() => {
-                    toggleVisible();
-                    navigation.navigate(Constant.navPro);
-                  }}
-                  style={{
-                    ...styles.openButton,
-                    backgroundColor: Color.primary,
-                    margin: 5,
-                  }}
-                >
-                  <Text style={styles.textStyle}>Purchase</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
                   onPress={() => toggleVisible()}
-                  style={{
-                    ...styles.openButton,
-                    backgroundColor: Color.primary,
-                    margin: 5,
-                  }}
                 >
-                  <Text style={styles.textStyle}>close</Text>
-                </TouchableOpacity>
+                  {Common.getTranslation(LangKey.labSubmit)}
+                </Button>
               </View>
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </KeyboardAvoidingView>
     </Modal>
   );
