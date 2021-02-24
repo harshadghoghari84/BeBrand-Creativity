@@ -11,6 +11,7 @@ class UserStore {
   currentDesignCredit = 0;
 
   setUser = (user) => {
+    console.log("new USER", user);
     this.user = user;
     let personalImageLimit = 0;
     let businessImageLimit = 0;
@@ -45,6 +46,7 @@ class UserStore {
           businessImageLimit = businessLimit;
         }
       });
+      this.designCraditsCalculate();
 
       this.personalImageLimit = personalImageLimit;
       this.businessImageLimit = businessImageLimit;
@@ -54,6 +56,7 @@ class UserStore {
   };
 
   setOnlyUserDetail = (user) => {
+    console.log("new user", user);
     this.user = user;
   };
 
@@ -61,13 +64,16 @@ class UserStore {
     const user = this.user;
     if (
       user?.userInfo?.personal?.image &&
-      Array.isArray(user.userInfo.personal.image)
+      Array.isArray(user.userInfo.personal.image) &&
+      user.userInfo.personal.image.length > 0
     ) {
+      console.log("inside if");
       user.userInfo.personal.image = [
         ...user.userInfo.personal.image,
-        { url: profileImage },
+        { url: profileImage, isDefault: false },
       ];
     } else {
+      console.log("inside else");
       const data = user?.userInfo?.personal ? user.userInfo.personal : {};
       user.userInfo = {
         ...user.userInfo,
@@ -85,11 +91,12 @@ class UserStore {
     const user = this.user;
     if (
       user?.userInfo?.business?.image &&
-      Array.isArray(user.userInfo.business.image)
+      Array.isArray(user.userInfo.business.image) &&
+      user.userInfo.business.image.length > 0
     ) {
       user.userInfo.business.image = [
         ...user.userInfo.business.image,
-        { url: profileImage },
+        { url: profileImage, isDefault: false },
       ];
     } else {
       const data = user?.userInfo?.business ? user.userInfo.business : {};

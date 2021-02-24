@@ -75,6 +75,7 @@ module.exports = {
   txtReset: "txtReset",
   msgPerchasePkg: "msgPerchasePkg",
   msgCreateAcc: "msgCreateAcc",
+  msgCreateAccForPKg: "msgCreateAccForPKg",
   msgDesignDownload: "msgDesignDownload",
   msgShareNotAvaillable: "msgShareNotAvaillable",
 
@@ -101,6 +102,7 @@ module.exports = {
 
   // Packages Screen
   labPerchase: "labPerchase",
+  labPerchaseFree: "labPerchaseFree",
 
   // modal text
   modalTxtPlaceHolder: "modalTxtPlaceHolder",
@@ -139,6 +141,7 @@ module.exports = {
   labResend: "labResend",
 
   // notification
+  labNew: "labNew",
   labToday: "labToday",
   labEarl: "labEarl",
   lab1pkg: "lab1pkg",

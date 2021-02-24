@@ -14,6 +14,8 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 import ItemDesign from "./common/ItemDesign";
 import Common from "../utils/Common";
 import Constant from "../utils/Constant";
+import ProgressDialog from "./common/ProgressDialog";
+import LangKey from "../utils/LangKey";
 
 const UserDesign = ({ navigation, designStore, userStore }) => {
   const [hasPro, sethasPro] = useState(false);
@@ -53,11 +55,17 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
       });
     }
   };
+  useEffect(() => {
+    console.log("data?.perchasedDesigns", data?.perchasedDesigns);
+  }, [data?.perchasedDesigns]);
 
   return (
     <View style={styles.container}>
-      {loading && <ActivityIndicator style={styles.loading} animating={true} />}
-
+      <ProgressDialog
+        visible={loading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
       <FlatList
         style={styles.listDesign}
         numColumns={2}

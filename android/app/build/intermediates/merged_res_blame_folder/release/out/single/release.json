@@ -320,6 +320,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_select.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_select.png"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_logo2.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_logo2.png"
     },

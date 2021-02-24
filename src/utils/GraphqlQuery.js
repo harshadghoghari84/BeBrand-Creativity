@@ -47,6 +47,9 @@ export default {
               id
               type
               name
+              image {
+                url
+              }
             }
             startDesignCredit
             currentDesignCredit
@@ -116,6 +119,9 @@ export default {
               id
               type
               name
+              image {
+                url
+              }
             }
             startDesignCredit
             currentDesignCredit
@@ -176,6 +182,9 @@ export default {
               id
               type
               name
+              image {
+                url
+              }
             }
             startDesignCredit
             currentDesignCredit
@@ -239,6 +248,9 @@ export default {
               id
               type
               name
+              image {
+                url
+              }
             }
             startDesignCredit
             currentDesignCredit
@@ -312,6 +324,9 @@ export default {
             id
             type
             name
+            image {
+              url
+            }
           }
           startDesignCredit
           currentDesignCredit
@@ -616,9 +631,8 @@ export default {
     }
   `,
   initPerchasedPackages: gql`
-    query PerchasedPackages($start: Int!) {
-      totalPerchasedPackages
-
+    query perchasedPackages($start: Int!) {
+      totalperchasedPackages
       perchasedPackages(start: $start) {
         id
         startDesignCredit
@@ -638,7 +652,7 @@ export default {
     }
   `,
   perchasedPackages: gql`
-    query PerchasedPackages($start: Int!) {
+    query perchasedPackages($start: Int!) {
       perchasedPackages(start: $start) {
         id
         startDesignCredit
@@ -694,6 +708,48 @@ export default {
       )
     }
   `,
+  addUserDesignPackage: gql`
+    mutation(
+      $packageId: String!
+      $androidPerchaseToken: String
+      $iosPerchaseReceipt: String
+    ) {
+      addUserDesignPackage(
+        packageId: $packageId
+        androidPerchaseToken: $androidPerchaseToken
+        iosPerchaseReceipt: $iosPerchaseReceipt
+      ) {
+        id
+        package {
+          id
+          name
+          description
+          type
+          actualPrice
+          discountPrice
+          designCredit
+          businessImageLimit
+          personalImageLimit
+          validity
+          image {
+            url
+          }
+          features
+          status
+          updatedAt
+          createdAt
+        }
+        startDesignCredit
+        currentDesignCredit
+        personalImageLimit
+        businessImageLimit
+        price
+        purchaseDate
+        expiryDate
+      }
+    }
+  `,
+
   updatePersonalUserInfo: gql`
     mutation(
       $name: String!

@@ -26,14 +26,19 @@ const Notification = () => {
   const [earlIndex, setEarlIndex] = useState("");
   const [layer, setLayer] = useState();
   const [id, setId] = useState([]);
-  const [loginTime, setLoginTime] = useState("");
+  const [loginTime, setLoginTime] = useState(new Date());
+
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then(async (res) => {
+        console.log("login time :", res);
         res && res !== null && setLoginTime(res);
         await AsyncStorage.setItem(Constant.prfUserloginTime, new Date());
       })
       .catch((err) => console.log("ERR", err));
+  }, []);
+
+  useEffect(() => {
     data &&
       data.notifications.some((item, index) => {
         const itemDate = new Date(item.updatedAt);
@@ -41,6 +46,11 @@ const Notification = () => {
         todayDate.setHours(0, 0, 0, 0);
 
         if (itemDate.getTime() < todayDate.getTime()) {
+          console.log("_____", item.updatedAt);
+          console.log(
+            "date comparision: ",
+            new Date(loginTime).getTime() > new Date(item.updatedAt).getTime()
+          );
           setEarlIndex(index);
           return true;
         }
@@ -74,7 +84,7 @@ const Notification = () => {
                       color: Color.grey,
                     }}
                   >
-                    {Common.getTranslation(LangKey.labToday)}
+                    {Common.getTranslation(LangKey.labNew)}
                   </Text>
                 ) : (
                   index === earlIndex && (
@@ -107,22 +117,13 @@ const Notification = () => {
                       alignItems: "center",
                     }}
                   >
-                    <View style={{ paddingHorizontal: 10 }}>
-                      {item.type === "NORMAL" ? (
-                        <Icon
-                          name="home"
-                          fill={Color.primary}
-                          height={20}
-                          width={20}
-                        />
-                      ) : (
-                        <Icon
-                          name="vip"
-                          fill={Color.primary}
-                          height={20}
-                          width={20}
-                        />
-                      )}
+                    <View style={{ paddingHorizontal: 20 }}>
+                      <Icon
+                        name={item.type}
+                        fill={Color.primary}
+                        height={20}
+                        width={20}
+                      />
                     </View>
                     <View>
                       <Text>{item.title}</Text>

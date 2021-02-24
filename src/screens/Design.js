@@ -254,10 +254,11 @@ const Design = ({ route, designStore, userStore, navigation }) => {
   };
 
   const saveDesign = async () => {
-    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    console.log("sts", status);
     if (status !== Permissions.PermissionStatus.GRANTED) {
       const { status: newStatus } = await Permissions.askAsync(
-        Permissions.CAMERA_ROLL
+        Permissions.MEDIA_LIBRARY
       );
       if (newStatus !== Permissions.PermissionStatus.GRANTED) {
         Common.showMessage(
@@ -292,66 +293,74 @@ const Design = ({ route, designStore, userStore, navigation }) => {
 
   const takeDesignShot = async () => {
     const currentDesignCredit = toJS(userStore.currentDesignCredit);
-    // if (currentDesignCredit.length > 0) {
-    //   const { data, errors } = await addUserDesign({
-    //     variables: { designId: currentDesign.id },
-    //   });
+    console.log("currentDesignCredit", currentDesignCredit);
+    if (currentDesignCredit > 0) {
+      const { data, errors } = await addUserDesign({
+        variables: { designId: currentDesign.id },
+      });
 
-    //   if (data !== null && !errors) {
-    //     userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
-    //   } else {
-    //   }
+      if (data !== null && !errors) {
+        userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
+      } else {
+      }
 
-    const uri = await viewRef.current.capture();
+      const uri = await viewRef.current.capture();
+      console.log("uri", uri);
 
-    // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
-    //   .then((res) => console.log("res: ", res))
-    //   .catch((err) => console.log("err: ", err));
-
-    if (Platform.OS === "android") {
-      // await MediaLibrary.saveToLibraryAsync(uri)
+      // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
       //   .then((res) => console.log("res: ", res))
       //   .catch((err) => console.log("err: ", err));
-      const asset = await MediaLibrary.createAssetAsync(uri);
-      if (asset && asset !== null) {
-        const album = await MediaLibrary.getAlbumAsync(
-          Constant.designAlbumName
-        );
-        album && album !== null
-          ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-          : await MediaLibrary.createAlbumAsync(
-              Constant.designAlbumName,
-              asset,
-              false
-            );
+
+      if (Platform.OS === "android") {
+        // await MediaLibrary.saveToLibraryAsync(uri)
+        //   .then((res) => console.log("res: ", res))
+        //   .catch((err) => console.log("err: ", err));
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        if (asset && asset !== null) {
+          const album = await MediaLibrary.getAlbumAsync(
+            Constant.designAlbumName
+          );
+          album && album !== null
+            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+            : await MediaLibrary.createAlbumAsync(
+                Constant.designAlbumName,
+                asset,
+                false
+              );
+        }
+        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+      } else {
+        try {
+          const asset = await MediaLibrary.createAssetAsync(uri);
+          console.log("assets", asset);
+          const album = await MediaLibrary.getAlbumAsync(
+            Constant.designAlbumName
+          );
+          console.log("scb", album);
+
+          album && album !== null
+            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+            : await MediaLibrary.createAlbumAsync(
+                Constant.designAlbumName,
+                asset,
+                false
+              )
+                .then((res) => console.log("res: ", res))
+                .catch((err) => console.log("err: ", err));
+        } catch (error) {
+          console.log("err", error);
+        }
+
+        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
       }
-      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+
+      if (isShareClick === true) {
+        isShareClick = false;
+        await openShareDialogAsync(uri);
+      }
     } else {
-      const asset = await MediaLibrary.createAssetAsync(uri);
-
-      const album = await MediaLibrary.getAlbumAsync(Constant.designAlbumName);
-      console.log("scb", album);
-
-      album && album !== null
-        ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-        : await MediaLibrary.createAlbumAsync(
-            Constant.designAlbumName,
-            asset,
-            false
-          )
-            .then((res) => console.log("res: ", res))
-            .catch((err) => console.log("err: ", err));
-
-      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+      setVisibleModal(true);
     }
-
-    if (isShareClick === true) {
-      isShareClick = false;
-      await openShareDialogAsync(uri);
-    }
-    // } else {
-    //   setVisibleModal(true);
-    // }
   };
 
   let openShareDialogAsync = async (localUri) => {
@@ -416,7 +425,7 @@ const Design = ({ route, designStore, userStore, navigation }) => {
         <PopUp
           visible={visibleModal}
           toggleVisible={toggleVisible}
-          isPurchased={true}
+          isfree={true}
         />
         <PopUp
           visible={visiblePicker}

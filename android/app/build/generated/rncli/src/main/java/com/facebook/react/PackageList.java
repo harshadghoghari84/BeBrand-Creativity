@@ -23,6 +23,8 @@ import org.reactnative.maskedview.RNCMaskedViewPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 // @react-native-firebase/auth
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
+// @react-native-firebase/messaging
+import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-fbsdk
@@ -31,6 +33,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-iap
 import com.dooboolab.RNIap.RNIapPackage;
+// react-native-push-notification
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 // react-native-rate
 import com.reactnativerate.RNRatePackage;
 // react-native-reanimated
@@ -98,10 +102,12 @@ public class PackageList {
       new RNCMaskedViewPackage(),
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
+      new ReactNativeFirebaseMessagingPackage(),
       new FastImageViewPackage(),
       new FBSDKPackage(),
       new RNGestureHandlerPackage(),
       new RNIapPackage(),
+      new ReactNativePushNotificationPackage(),
       new RNRatePackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),

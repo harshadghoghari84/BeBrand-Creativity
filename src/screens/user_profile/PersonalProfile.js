@@ -45,6 +45,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
 
   useEffect(() => {
+    console.log("this user", user);
     user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
       ? setDefaultImageUrl(
           user.userInfo.personal.image.find((item) => item.isDefault === true)
@@ -121,19 +122,18 @@ const PersonalProfile = ({ navigation, userStore }) => {
   };
 
   const onClickImageSelect = async () => {
-    const { status } = await ImagePicker.getCameraRollPermissionsAsync();
-    if (status !== ImagePicker.PermissionStatus.GRANTED) {
-      const {
-        status: newStatus,
-      } = await ImagePicker.requestCameraRollPermissionsAsync(
-        Permissions.CAMERA_ROLL
+    const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    if (status !== Permissions.PermissionStatus.GRANTED) {
+      const { status: newStatus } = await Permissions.askAsync(
+        Permissions.MEDIA_LIBRARY
       );
-
-      if (newStatus !== ImagePicker.PermissionStatus.GRANTED)
+      if (newStatus !== Permissions.PermissionStatus.GRANTED) {
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
-      else await pickImage();
+      } else {
+        await pickImage();
+      }
     } else {
       await pickImage();
     }
@@ -153,6 +153,10 @@ const PersonalProfile = ({ navigation, userStore }) => {
         const { data, errors } = await addPersonalImage({
           variables: { image: file },
         });
+
+        if (data) {
+          console.log("pick image data", data);
+        }
 
         if (!errors) {
           userStore.addPersonalImage(data.addPersonalImage);
@@ -177,9 +181,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
         variables: {
           name: userName,
           mobile: mobile,
-          email: email,
+          // email: email,
           designation: designation,
-          website: website,
+          // website: website,
           socialMediaId: socialMediaId,
           defaultImageUrl: defaultImageUrl,
         },
@@ -204,9 +208,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
                 personal: {
                   name: userName,
                   mobile: mobile,
-                  email: email,
+                  // email: email,
                   designation: designation,
-                  website: website,
+                  // website: website,
                   socialMediaId: socialMediaId,
                   image: newImage,
                 },
@@ -260,7 +264,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
         <View style={styles.containerTil}>
           <TextInput
-            placeholder={Common.getTranslation(LangKey.labUserName)}
+            placeholder={Common.getTranslation(LangKey.labUser)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             iconName="user"
@@ -331,6 +335,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingLeft: 20 }}
             data={
               Array.isArray(user?.userInfo?.personal?.image)
                 ? user.userInfo.personal.image

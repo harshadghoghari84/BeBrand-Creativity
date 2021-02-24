@@ -27,6 +27,10 @@ import GraphqlQuery from "./src/utils/GraphqlQuery";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Signin from "./src/screens/Signin";
 
+import { fcmService } from "./src/FCM/FCMService";
+import { localNotificationService } from "./src/FCM/LocalNotificationService";
+import { Platform } from "react-native";
+
 Common.setTranslationInit();
 
 const Stack = createStackNavigator();
@@ -86,6 +90,67 @@ export default function App() {
   // };
   // !loading && isTimerRunning === false && openScreen();
 
+  useEffect(() => {
+    fcmService.registerAppWithFCM();
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
+    localNotificationService.subscribeToTopics(Constant.Offer);
+    localNotificationService.subscribeToTopics(Constant.SpecialOffer);
+    localNotificationService.subscribeToTopics(Constant.Wishes);
+    localNotificationService.subscribeToTopics(Constant.Information);
+    function onRegister(token) {
+      console.log("[App] onRegister:", token);
+    }
+    function onNotification(remotMessage) {
+      console.log("[App] onNotification:", remotMessage);
+      console.log("chk ____:", remotMessage);
+
+      let notify = null;
+      if (Platform.OS === "ios") {
+        notify = remotMessage.data.notification;
+      } else {
+        notify = remotMessage.notification;
+      }
+      console.log("notify", notify);
+      const options = {
+        soundName: "default",
+        playSound: true,
+        bigPictureUrl: notify.android.imageUrl,
+      };
+
+      if (Platform.OS === "android") {
+        options.channelId = Constant.Default;
+        if (remotMessage.from.includes(Constant.topics)) {
+          if (remotMessage.from.includes(Constant.Offer)) {
+            options.channelId = Constant.Offer;
+          } else if (remotMessage.from.includes(Constant.SpecialOffer)) {
+            options.channelId = Constant.SpecialOffer;
+          } else if (remotMessage.from.includes(Constant.Wishes)) {
+            options.channelId = Constant.Wishes;
+          } else if (remotMessage.from.includes(Constant.Information)) {
+            options.channelId = Constant.Information;
+          }
+        }
+      }
+      console.log("options", options);
+      localNotificationService.showNotification(
+        0,
+        notify.title,
+        notify.body,
+        notify,
+        options
+      );
+    }
+    function onOpenNotification(notify) {
+      console.log("[App] onOpenNotification:", notify);
+      alert("[App] Open Notification:" + notify.body);
+    }
+    return () => {
+      console.log("[App] unRegister");
+      fcmService.unRegister();
+      localNotificationService.unregister();
+    };
+  }, []);
   return (
     <Provider designStore={DesignStore} userStore={UserStore}>
       <ApolloProvider client={client}>
@@ -100,9 +165,9 @@ export default function App() {
                 component={SplashScreen}
               />
               <Stack.Screen name={Constant.navSignIn} component={Signin} />
-              {/* <Stack.Screen name={Constant.navWebView} component={WebViews} /> */}
+
               <Stack.Screen
-                name="langaugeSelection"
+                name={Constant.navLangSelection}
                 component={LanguageSelectionScreen}
               />
               {/* <Stack.Screen
