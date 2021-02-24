@@ -39,19 +39,21 @@ class CustomDrawer extends Component {
     modalVisible: false,
     modalVisibleforRating: false,
     modalVisibleforreffer: false,
+    toggleVisibleImproved: false,
   };
 
   toggleVisible = () => {
     this.setState({ modalVisible: !this.state.modalVisible });
   };
   toggleVisibleforreffer = () => {
-    console.log("hello");
     this.setState({ modalVisibleforreffer: !this.state.modalVisibleforreffer });
   };
   toggleVisibleforRating = () => {
     this.setState({ modalVisibleforRating: !this.state.modalVisibleforRating });
   };
-
+  toggleVisibleforImprove = () => {
+    this.setState({ toggleVisibleImproved: !this.state.toggleVisibleImproved });
+  };
   getColor = (val) => {
     return val == true ? Color.primary : Color.grey;
   };
@@ -74,15 +76,16 @@ class CustomDrawer extends Component {
           toggleVisible={this.toggleVisibleforreffer}
           reffer={true}
         />
+        <PopUp
+          visible={this.state.toggleVisibleImproved}
+          toggleVisible={this.toggleVisibleforImprove}
+          other={true}
+        />
         <Modal
           transparent={true}
           visible={this.state.modalVisibleforRating}
           animationType="slide"
-          onRequestClose={() =>
-            this.setState({
-              modalVisibleforRating: !this.state.modalVisibleforRating,
-            })
-          }
+          onRequestClose={() => toggleVisibleforRating()}
         >
           <View style={styles.centeredView}>
             <View style={[styles.modalView, { height: 420 }]}>
@@ -104,7 +107,10 @@ class CustomDrawer extends Component {
                 >
                   <ICON name="close" size={22} color={Color.darkBlue} />
                 </TouchableOpacity>
-                <Ratings toggleforRating={this.toggleVisibleforRating} />
+                <Ratings
+                  toggleforRating={this.toggleVisibleforRating}
+                  toggleVisibleforImprove={this.toggleVisibleforImprove}
+                />
               </View>
             </View>
           </View>
@@ -329,7 +335,7 @@ class CustomDrawer extends Component {
             <View>
               {this.props.userStore.user !== null && (
                 <View>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() =>
                       this.setState({ modalVisibleforreffer: true })
                     }
@@ -356,7 +362,7 @@ class CustomDrawer extends Component {
                     >
                       {Common.getTranslation(LangKey.titleAddReffercode)}
                     </Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={() => {
                       if (this.state.Activated === Constant.titAccount) {
@@ -415,7 +421,7 @@ class CustomDrawer extends Component {
                   </TouchableOpacity>
                   {this.state.Activated === Constant.titAccount ? (
                     <>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={() =>
                           this.props.navigation.navigate(
                             Constant.navProfileUser
@@ -446,7 +452,7 @@ class CustomDrawer extends Component {
                         >
                           {Common.getTranslation(LangKey.titleProfile)}
                         </Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                       <TouchableOpacity
                         onPress={() =>
                           this.props.navigation.navigate(Constant.navProfile)
