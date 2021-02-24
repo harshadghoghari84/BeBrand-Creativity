@@ -30,6 +30,7 @@ const PopUp = ({
   other,
   isPicker,
   toggleVisibleColorPicker,
+  toggleVisibleforRating,
   setPickerColor,
   reffer,
   isRating,
@@ -62,7 +63,7 @@ const PopUp = ({
         }
         if (result.data) {
           if (result.data !== null) {
-            toggleVisible();
+            toggleVisibleforRating();
           }
         }
       })

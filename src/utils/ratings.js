@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,46 +16,7 @@ import Button from "../components/Button";
 import Icon from "../components/svgIcons";
 import FastImage from "react-native-fast-image";
 
-const Ratings = ({ toggleforRating }) => {
-  const [defaultRating, setDefaultRating] = useState(0);
-
-  const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
-
-  const [visible, setVisible] = useState(false);
-  const toggleVisible = () => {
-    setVisible(!visible);
-    toggleforRating();
-  };
-  const [rated, setRated] = useState(false);
-
-  const CustomRatingBar = () => {
-    return (
-      <View style={styles.container}>
-        {maxRating.map((item, key) => {
-          return (
-            <TouchableOpacity
-              key={item}
-              onPress={() => {
-                setDefaultRating(item);
-                item >= 4 ? open_Store() : null;
-                if (item <= 3) {
-                  setVisible(true);
-                  // toggleforRating();
-                }
-              }}
-            >
-              <Icon
-                name={item <= defaultRating ? "star" : "star-outline"}
-                size={32}
-                color={Color.primary}
-              />
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    );
-  };
-
+const Ratings = ({ toggleforRating, toggleVisibleforImprove }) => {
   const open_Store = () => {
     const options = {
       AppleAppID: Constant.titAppleIdForAppStore,
@@ -68,7 +29,6 @@ const Ratings = ({ toggleforRating }) => {
     };
     Rate.rate(options, (success) => {
       if (success) {
-        setRated(true);
         toggleforRating();
       }
     });
@@ -76,7 +36,6 @@ const Ratings = ({ toggleforRating }) => {
 
   return (
     <View style={{ flex: 1, marginHorizontal: 20 }}>
-      <PopUp visible={visible} toggleVisible={toggleVisible} other={true} />
       <View style={{ flex: 1 }}>
         <Text
           style={{
@@ -111,7 +70,13 @@ const Ratings = ({ toggleforRating }) => {
           <Button onPress={() => open_Store()} big={true}>
             I Love it!
           </Button>
-          <Button onPress={() => setVisible(true)} border={true}>
+          <Button
+            onPress={() => {
+              toggleforRating();
+              toggleVisibleforImprove();
+            }}
+            border={true}
+          >
             It needs to be improved
           </Button>
         </View>
