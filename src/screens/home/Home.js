@@ -312,6 +312,12 @@ const Home = ({ navigation, designStore, userStore }) => {
   .##....##.##.....##.##.....##.##........##.....##.##...###.##.....##.##...###....##...
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
+  useEffect(() => {
+    console.log(
+      "language wise designs",
+      userSubCategories[selectedSubCategory]
+    );
+  }, [userSubCategories[selectedSubCategory]]);
   return (
     <View style={styles.containerMain}>
       <ProgressDialog
@@ -392,14 +398,21 @@ const Home = ({ navigation, designStore, userStore }) => {
         </View>
         <View style={styles.containerDesignList}>
           {selectedSubCategory ===
-          Constant.defHomeSubCategory ? null : userSubCategories[ // /> //   }} //     ) : null; //       /> //         }} //           ); //             /> //               onDesignClick={onDesignClick} //               packageType={designPackage.type} //               design={design} //             <ItemDesign //           return ( //           ); //             (item) => item.id === design.package //           const designPackage = designPackages.find( //         renderItem={({ item: design }) => { //         windowSize={7} //         maxToRenderPerBatch={5} //         // onEndReached={() => loadMoreDesigns(item.id)} //         keyExtractor={keyExtractor} //         data={item.designs} //         style={styles.listHorizontalDesign} //         showsHorizontalScrollIndicator={false} //         horizontal //         key={index} //       <FlatList //     return item.designs.length > 0 ? ( //   renderItem={({ item, index }) => { //   windowSize={10} //   maxToRenderPerBatch={6} //   keyExtractor={keyExtractor} //   data={userSubCategoriesHome} //   style={styles.listAllDesign} // <FlatList
+          Constant.defHomeSubCategory ? null : userSubCategories[
               selectedSubCategory
-            ].totalDesign > 0 ? (
+            ].totalDesign > 0 &&
+            userSubCategories[selectedSubCategory].designs.length > 0 ? (
             <>
               <FlatList
                 key={2}
                 numColumns={2}
-                ListHeaderComponent={slider()}
+                ListHeaderComponent={
+                  imageData?.offers &&
+                  imageData?.offers !== null &&
+                  imageData?.offers.length > 0
+                    ? slider()
+                    : null
+                }
                 showsVerticalScrollIndicator={false}
                 style={styles.listSubCategoryDesign}
                 data={userSubCategories[selectedSubCategory].designs}

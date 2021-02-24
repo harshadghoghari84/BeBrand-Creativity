@@ -26,7 +26,7 @@ import { format } from "date-fns";
 
 const UserProfile = ({ userStore }) => {
   const user = toJS(userStore.user);
-  console.log("user", user);
+
   const [userName, setUserName] = useState(user?.name ? user.name : "");
   const [errorUserName, setErrorUserName] = useState("");
 
@@ -76,6 +76,17 @@ const UserProfile = ({ userStore }) => {
         }
         if (data && data && data !== null) {
           console.log("data", data);
+
+          const newUser = {
+            ...user,
+            name: userName,
+            mobile: mobile,
+            birthDate: birthDate,
+            anniversaryDate: avDate,
+            state: state,
+            city: city,
+          };
+          userStore.setOnlyUserDetail(newUser);
         }
       })
       .catch((err) => {
@@ -85,17 +96,16 @@ const UserProfile = ({ userStore }) => {
 
   const onChange = (event, selectedDate) => {
     console.log("object", selectedDate);
-    const currentDate = selectedDate || date;
+
+    const currentDate = selectedDate;
     if (showBD) {
-      // setShowBD(Platform.OS === "ios");
       setBirthDate(new Date(currentDate));
-      setShowBD(false);
+      // setShowBD(false);
     }
 
     if (showAD) {
-      // setShowAD(Platform.OS === "ios");
       setAvDate(new Date(currentDate));
-      setShowAD(false);
+      // setShowAD(false);
     }
   };
 
@@ -217,7 +227,6 @@ const UserProfile = ({ userStore }) => {
                   testID="dateTimePicker"
                   value={birthDate ? birthDate : todayDate}
                   mode={"date"}
-                  is24Hour={true}
                   display="spinner"
                   onChange={onChange}
                 />
@@ -299,11 +308,11 @@ const UserProfile = ({ userStore }) => {
                     borderRadius: 20,
                     overflow: "hidden",
                   }}
+                  onTouchCancel={false}
                   textColor={Color.darkBlue}
                   testID="dateTimePicker"
                   value={avDate ? avDate : todayDate}
                   mode={"date"}
-                  is24Hour={true}
                   display="spinner"
                   onChange={onChange}
                 />

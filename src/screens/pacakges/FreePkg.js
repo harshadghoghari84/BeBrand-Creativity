@@ -21,12 +21,23 @@ import Constant from "../../utils/Constant";
 import Icon from "../../components/svgIcons";
 import FastImage from "react-native-fast-image";
 import { SvgUri } from "react-native-svg";
+import { useMutation } from "@apollo/client";
+import GraphqlQuery from "../../utils/GraphqlQuery";
 
-const Packages = ({ navigation, designStore }) => {
+const Packages = ({ navigation, designStore, userStore }) => {
+  const user = toJS(userStore.user);
   const isMountedRef = Common.useIsMountedRef();
 
   const [filteredData, setFilteredData] = useState([]);
   const [currentItem, setCurrentItem] = useState();
+
+  const [addUserDesignPackage, { data, loading, error }] = useMutation(
+    GraphqlQuery.addUserDesignPackage,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -41,96 +52,126 @@ const Packages = ({ navigation, designStore }) => {
     }
   }, [designStore.designPackages]);
 
-  console.log("curr", currentItem);
-
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-  return (
-    <View style={styles.secondContainer}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <View>
-          {currentItem && currentItem !== null && (
-            <>
-              <Text style={styles.txtFeaturetitle}>
-                {Common.getTranslation(LangKey.labfreeFeature)}
-              </Text>
-              <ScrollView contentContainerStyle={styles.scrollView}>
-                {currentItem.features.map((i) => {
-                  return (
-                    <View style={styles.featureItems}>
-                      <View style={{ paddingHorizontal: 10 }}>
-                        <Icon name="bullatin" height={10} width={10} />
-                      </View>
-                      <Text style={styles.txtFeaturesList}>{i}</Text>
+  const onPurchase = (pkgId) => {
+    if (user && user !== null) {
+      addUserDesignPackage({
+        variables: {
+          packageId: pkgId,
+        },
+      })
+        .then(({ data, errors }) => {
+          if (errors && errors !== null) {
+            Common.showMessage(errors);
+          }
+          if (data && data !== null) {
+            console.log("DATA", data);
+            const newUser = {
+              ...user,
+              designPackage: data.addUserDesignPackage[0],
+            };
+            userStore.setUser(newUser);
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
+      Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
+    }
+  };
+
+  const headerComponant = () => {
+    return (
+      <>
+        {currentItem && currentItem !== null && (
+          <>
+            <Text style={styles.txtFeaturetitle}>
+              {Common.getTranslation(LangKey.labfreeFeature)}
+            </Text>
+            <ScrollView contentContainerStyle={styles.scrollView}>
+              {currentItem.features.map((i) => {
+                return (
+                  <View style={styles.featureItems}>
+                    <View style={{ paddingHorizontal: 10 }}>
+                      <Icon name="bullatin" height={10} width={10} />
                     </View>
-                  );
-                })}
-              </ScrollView>
-            </>
-          )}
-          <FlatList
-            data={filteredData}
-            keyExtractor={keyExtractor}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setCurrentItem(item);
-                  }}
-                  style={[
-                    styles.fltContainer,
-                    {
-                      backgroundColor:
-                        currentItem.id === item.id ? Color.primary : null,
-                    },
-                  ]}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    <SvgUri
-                      uri={item.image.url}
-                      width={32}
-                      height={32}
-                      fill={
-                        currentItem.id === item.id ? Color.white : Color.primary
-                      }
-                    />
-                    <View
-                      style={{
-                        flex: 1,
-                        paddingHorizontal: 10,
-                      }}
-                    >
-                      <View style={styles.innerfitContainer}>
-                        <Text style={styles.txtlable}>{item.name}</Text>
-                      </View>
-                      <View style={styles.innerfitContainer}>
-                        <Text style={styles.txtdes}>{item.description}</Text>
-                      </View>
-                    </View>
-                    <View style={styles.discountView}>
-                      <Text style={styles.txtdiscount}>₹ 0</Text>
-                    </View>
+                    <Text style={styles.txtFeaturesList}>{i}</Text>
                   </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-      </ScrollView>
+                );
+              })}
+            </ScrollView>
+          </>
+        )}
+      </>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={filteredData}
+        ListHeaderComponent={headerComponant()}
+        keyExtractor={keyExtractor}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                setCurrentItem(item);
+              }}
+              style={[
+                styles.fltContainer,
+                {
+                  backgroundColor:
+                    currentItem.id === item.id ? Color.primary : null,
+                },
+              ]}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginHorizontal: 10,
+                }}
+              >
+                <SvgUri
+                  uri={item.image.url}
+                  width={32}
+                  height={32}
+                  fill={
+                    currentItem.id === item.id ? Color.white : Color.primary
+                  }
+                />
+                <View
+                  style={{
+                    flex: 1,
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  <View style={styles.innerfitContainer}>
+                    <Text style={styles.txtlable}>{item.name}</Text>
+                  </View>
+                  <View style={styles.innerfitContainer}>
+                    <Text style={styles.txtdes}>{item.description}</Text>
+                  </View>
+                </View>
+                <View style={styles.discountView}>
+                  <Text style={styles.txtdiscount}>₹ 0</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
 
       <Button
-        style={{ marginTop: 0, marginBottom: Platform.OS === "ios" ? 10 : 0 }}
+        onPress={() => onPurchase(currentItem.id)}
+        style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
         normal={true}
       >
-        {Common.getTranslation(LangKey.labPerchase)}
+        {Common.getTranslation(LangKey.labPerchaseFree)}
       </Button>
     </View>
   );
@@ -139,8 +180,7 @@ const Packages = ({ navigation, designStore }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 10,
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
   secondContainer: {
     flex: 1,
@@ -236,4 +276,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject("designStore")(observer(Packages));
+export default inject("designStore", "userStore")(observer(Packages));

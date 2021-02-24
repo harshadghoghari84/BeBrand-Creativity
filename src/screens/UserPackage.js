@@ -18,6 +18,8 @@ import Color from "../utils/Color";
 import { color } from "react-native-reanimated";
 import LangKey from "../utils/LangKey";
 import FastImage from "react-native-fast-image";
+import ProgressDialog from "./common/ProgressDialog";
+import { SvgUri } from "react-native-svg";
 
 let isFirstTime = true;
 
@@ -65,9 +67,16 @@ const UserPackage = ({ navigation, designStore }) => {
       });
   };
 
+  useEffect(() => {
+    console.log("perchasedPackages", perchasedPackages);
+  }, [perchasedPackages]);
   return (
     <View style={styles.container}>
-      {loading && <ActivityIndicator style={styles.loading} animating={true} />}
+      <ProgressDialog
+        visible={loading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
 
       <FlatList
         style={styles.listDesign}
@@ -87,18 +96,12 @@ const UserPackage = ({ navigation, designStore }) => {
                 borderColor: Color.borderColor,
               }}
             >
-              <FastImage
-                source={{ uri: item?.package?.image?.url }}
-                resizeMode="contain"
-                style={{
-                  width: 70,
-                  height: 70,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginLeft: 15,
-                }}
+              <SvgUri
+                uri={item?.package?.image?.url}
+                width={50}
+                height={50}
+                fill={Color.primary}
               />
-
               <View
                 style={{
                   flex: 1,

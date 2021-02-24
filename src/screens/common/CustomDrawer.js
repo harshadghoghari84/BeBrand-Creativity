@@ -117,14 +117,18 @@ class CustomDrawer extends Component {
                 source={{
                   uri: user?.userInfo?.personal?.image[0]?.url
                     ? user.userInfo.personal?.image[0].url
-                    : "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png",
+                    : Constant.dummyUserImage,
                 }}
                 style={{ height: 60, width: 60, borderRadius: 50 }}
               />
               <View style={styles.containerSubUserDetails}>
                 <Text style={styles.txtUserName}>
-                  {user?.userInfo?.personal?.name
+                  {user?.name
+                    ? user.name
+                    : user?.userInfo?.personal?.name
                     ? user.userInfo.personal.name
+                    : user?.userInfo?.business?.name
+                    ? user.userInfo.business.name
                     : Constant.defUserName}
                 </Text>
                 <View style={{ width: "80%" }}>
@@ -142,7 +146,7 @@ class CustomDrawer extends Component {
               </View>
             </View>
           </SafeAreaView>
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
             <View>
               <TouchableOpacity
                 onPress={() =>
@@ -192,7 +196,7 @@ class CustomDrawer extends Component {
               >
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
-                    name="vip"
+                    name="Premium"
                     fill={this.getColor(
                       // this.state.Activated === Constant.titPro
                       true

@@ -16,7 +16,7 @@ export default {
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
-  splashTime: 1000,
+  splashTime: 500,
 
   defLangCode: "en",
   defUserName: "Guest",
@@ -26,6 +26,8 @@ export default {
 
   branddotLegalUrl: "https://branddot.in/?page_id=559",
 
+  dummyUserImage:
+    "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png",
   webClientId:
     "600189297260-84i8k158h4i6s8elhu4hh9pa4cdbpn8j.apps.googleusercontent.com",
   // navigation names
@@ -155,6 +157,7 @@ export default {
   // design pkg type
   free: "FREE",
   vip: "VIP",
+
   // Rating POPup
   titAppleIdForAppStore: "2193813192",
   titPkgnameForAndroidPlayStore: "com.bebrandd.branddot",
@@ -164,4 +167,12 @@ export default {
   // pkg name
   titFree: "free",
   titPrimium: "Premium",
+
+  // Topics and Channels for notification
+  topics: "topics",
+  Default: "Default",
+  Offer: "Offer",
+  SpecialOffer: "SpecialOffer",
+  Wishes: "Wishes",
+  Information: "Information",
 };

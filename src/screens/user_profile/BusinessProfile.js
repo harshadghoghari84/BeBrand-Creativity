@@ -121,19 +121,18 @@ const BusinessProfile = ({ userStore }) => {
   };
 
   const onClickImageSelect = async () => {
-    const { status } = await ImagePicker.getCameraRollPermissionsAsync();
-    if (status !== ImagePicker.PermissionStatus.GRANTED) {
-      const {
-        status: newStatus,
-      } = await ImagePicker.requestCameraRollPermissionsAsync(
-        Permissions.CAMERA_ROLL
+    const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    if (status !== Permissions.PermissionStatus.GRANTED) {
+      const { status: newStatus } = await Permissions.askAsync(
+        Permissions.MEDIA_LIBRARY
       );
-
-      if (newStatus !== ImagePicker.PermissionStatus.GRANTED)
+      if (newStatus !== Permissions.PermissionStatus.GRANTED) {
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
-      else await pickImage();
+      } else {
+        await pickImage();
+      }
     } else {
       await pickImage();
     }
@@ -164,10 +163,10 @@ const BusinessProfile = ({ userStore }) => {
   const onClickSave = () => {
     try {
       // check and add all variables
-      if (emptyValidator(userName)) {
-        setErrorUserName(Common.getTranslation(LangKey.errUserName));
-        return;
-      }
+      // if (emptyValidator(userName)) {
+      //   setErrorUserName(Common.getTranslation(LangKey.errUserName));
+      //   return;
+      // }
 
       updateBusinessUserInfo({
         variables: {
@@ -181,6 +180,7 @@ const BusinessProfile = ({ userStore }) => {
         },
       })
         .then(({ data, errors }) => {
+          console.log("data", data);
           if (data) {
             let newImage = [];
             if (defaultImageUrl && defaultImageUrl !== "") {
@@ -198,10 +198,10 @@ const BusinessProfile = ({ userStore }) => {
               userInfo: {
                 ...user?.userInfo,
                 business: {
-                  name: userName,
+                  // name: userName,
                   mobile: mobile,
                   email: email,
-                  address: address,
+                  // address: address,
                   website: website,
                   socialMediaId: socialMediaId,
                   image: newImage,
@@ -247,9 +247,10 @@ const BusinessProfile = ({ userStore }) => {
               {defaultImageUrl &&
                 defaultImageUrl !== null &&
                 defaultImageUrl !== "" && (
-                  <Image
-                    source={{ uri: defaultImageUrl, width: 100, height: 100 }}
-                    resizeMode="contain"
+                  <FastImage
+                    style={{ width: 100, height: 100 }}
+                    source={{ uri: defaultImageUrl }}
+                    resizeMode={FastImage.resizeMode.cover}
                   />
                 )}
             </View>
@@ -329,6 +330,7 @@ const BusinessProfile = ({ userStore }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingLeft: 20 }}
             data={
               Array.isArray(user?.userInfo?.business?.image)
                 ? user.userInfo.business.image
@@ -411,6 +413,7 @@ const styles = StyleSheet.create({
   toProfileImage: {
     width: 80,
     height: 95,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,

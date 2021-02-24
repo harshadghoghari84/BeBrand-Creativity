@@ -21,8 +21,15 @@ const Splash = ({ navigation, userStore }) => {
   useEffect(() => {
     loading = true;
     SplashScreen.preventAutoHideAsync()
-      .then((result) => {})
+      .then((result) => {
+        startWithDelay();
+      })
       .catch((err) => {});
+
+    getUserData();
+  }, []);
+
+  const getUserData = () => {
     AsyncStorage.getItem(Constant.prfUserToken).then(async (token) => {
       token &&
         client
@@ -34,24 +41,27 @@ const Splash = ({ navigation, userStore }) => {
           })
           .then(async ({ data, errors }) => {
             !errors && data?.user && userStore.setUser(data.user);
-            loading = false;
-            !isTimerRunning && (await openScreen());
+            // loading = false;
+            // !isTimerRunning && (await openScreen());
           })
-          .catch((err) => (loading = false));
-      startWithDelay();
+          .catch((err) => {
+            loading = false;
+          });
     });
-  }, []);
+  };
+
   const startWithDelay = () => {
     setTimeout(async () => {
       setIsTimerRunning(false);
-      !loading && (await openScreen());
+      // !loading && (await openScreen());
+      await openScreen();
     }, Constant.splashTime);
   };
   const openScreen = async () => {
-    await SplashScreen.hideAsync();
     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+    await SplashScreen.hideAsync();
   };
-  !loading && isTimerRunning === false && openScreen();
+  // !loading && isTimerRunning === false && openScreen();
 
   const renderSplash = () => {
     return (

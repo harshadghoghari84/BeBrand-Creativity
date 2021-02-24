@@ -66,6 +66,7 @@
   "txtDownload": "Download",
   "msgPerchasePkg": "Please perchase any package to use pro content",
   "msgCreateAcc": "Please login or create account to get these design",
+  "msgCreateAccForPKg": "Please login or create account to get Package",
   "msgDesignDownload": "Your design downloaded successfully",
   "msgShareNotAvaillable": "Uh oh, sharing isn't available on your platform",
 
@@ -90,6 +91,7 @@
   "txtEdit": "edit",
   "txtReset": "reset",
   "labPerchase": "Purchase",
+  "labPerchaseFree": "Get",
   "modalTxtPlaceHolder":"write here...",
   "labLoading":"Loading...",
   "labConfirmPassword":"Confirm Password",
@@ -113,6 +115,7 @@
   "labEnterOtp":"Enter OTP sent  to ",
   "labDidnotReciveOtp":"Didn't Recive OTP ? ",
   "labResend":" Resend OTP",
+  "labNew":"New",
   "labToday":"Today",
   "labEarl":"Earlier",
   "titleAddReffercode":"Add Referral Code",

@@ -21,6 +21,7 @@ import Constant from "../utils/Constant";
 import Button from "./Button";
 import Icon from "./svgIcons";
 import { ColorPicker } from "react-native-color-picker";
+import FastImage from "react-native-fast-image";
 
 const PopUp = ({
   visible,
@@ -33,6 +34,7 @@ const PopUp = ({
   reffer,
   isRating,
   toggle,
+  isfree,
 }) => {
   const navigation = useNavigation();
   const [feture, setFeture] = useState("");
@@ -131,7 +133,7 @@ const PopUp = ({
                   Stay Update on Whatsapp
                 </Text>
                 <Switch
-                  trackColor={{ false: Color.grey, true: Color.darkBlue }}
+                  trackColor={{ false: Color.grey, true: Color.primary }}
                   thumbColor={Color.white}
                   onValueChange={toggleSwitch}
                   value={isEnabled}
@@ -198,8 +200,8 @@ const PopUp = ({
             </KeyboardAvoidingView>
           </View>
         )}
-        {isPurchased && (
-          <View style={[styles.modalView, { height: 150 }]}>
+        {isfree && (
+          <View style={[styles.modalView, { height: 250 }]}>
             <TouchableOpacity
               onPress={() => toggleVisible()}
               style={{
@@ -221,10 +223,21 @@ const PopUp = ({
               }}
             >
               <View>
-                <Text style={{ fontSize: 18, fontWeight: "700" }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "700",
+                    marginBottom: 10,
+                  }}
+                >
                   {Common.getTranslation(LangKey.labPurchasePremiumPkg)}
                 </Text>
               </View>
+              <FastImage
+                source={require("../assets/Select.png")}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{ height: 100, width: 100 }}
+              />
               <View
                 style={{
                   marginTop: 10,
@@ -244,6 +257,79 @@ const PopUp = ({
                 >
                   {Common.getTranslation(LangKey.labFree)}
                 </Button>
+                {/* <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.navPro, {
+                      screen: Constant.titPrimium,
+                    });
+                    toggleVisible();
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labPremium)}
+                </Button> */}
+              </View>
+            </View>
+          </View>
+        )}
+        {isPurchased && (
+          <View style={[styles.modalView, { height: 250 }]}>
+            <TouchableOpacity
+              onPress={() => toggleVisible()}
+              style={{
+                width: 25,
+                height: 25,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+                borderRadius: 20,
+              }}
+            >
+              <ICON name="close" size={22} color={Color.darkBlue} />
+            </TouchableOpacity>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "700",
+                    marginBottom: 10,
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labPurchasePremiumPkg)}
+                </Text>
+              </View>
+              <FastImage
+                source={require("../assets/Select.png")}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{ height: 100, width: 100 }}
+              />
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    toggleVisible();
+                    navigation.navigate(Constant.navPro, {
+                      screen: Constant.titFree,
+                    });
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labFree)}
+                </Button> */}
                 <Button
                   style={{ margin: 5 }}
                   normal={true}

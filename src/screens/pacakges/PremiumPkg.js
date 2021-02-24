@@ -34,8 +34,12 @@ import Constant from "../../utils/Constant";
 import Icon from "../../components/svgIcons";
 import FastImage from "react-native-fast-image";
 import { SvgUri } from "react-native-svg";
+import { useMutation } from "@apollo/client";
+import GraphqlQuery from "../../utils/GraphqlQuery";
 
-const Packages = ({ navigation, designStore }) => {
+const Packages = ({ navigation, designStore, userStore }) => {
+  const user = toJS(userStore.user);
+
   let itemSkus = {};
   const isMountedRef = Common.useIsMountedRef();
 
@@ -43,6 +47,14 @@ const Packages = ({ navigation, designStore }) => {
   const [currentItem, setCurrentItem] = useState();
   const [recipt, setRecipt] = useState();
   const [productList, setProductList] = useState([]);
+
+  const [addUserDesignPackage, { data, loading, error }] = useMutation(
+    GraphqlQuery.addUserDesignPackage,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -60,12 +72,7 @@ const Packages = ({ navigation, designStore }) => {
 
       itemSkus = Platform.select({
         ios: filterId,
-        android: [
-          "android.test.purchased",
-          "android.test.canceled",
-          "android.test.refunded",
-          "android.test.item_unavailable",
-        ],
+        android: filterId,
       });
 
       console.log("itemSkus", itemSkus);
@@ -139,14 +146,42 @@ const Packages = ({ navigation, designStore }) => {
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const requestSubscription = async (sku) => {
-    try {
-      RNIap.requestSubscription(sku)
-        .then((res) => {
-          console.log("RESPONSE", res);
-        })
-        .catch((err) => Common.showMessage(err.message));
-    } catch (err) {
-      Alert.alert("error", err.message);
+    if (user && user !== null) {
+      try {
+        RNIap.requestSubscription(sku)
+          .then((res) => {
+            console.log("RESPONSE", res);
+            if (res && res !== null) {
+              addUserDesignPackage({
+                variables: {
+                  packageId: sku,
+                  androidPerchaseToken: res.purchaseToken,
+                },
+              })
+                .then(({ data, errors }) => {
+                  if (errors && errors !== null) {
+                    Common.showMessage(errors);
+                  }
+                  if (data && data !== null) {
+                    console.log("DATA", data);
+                    const newUser = {
+                      ...user,
+                      designPackage: data.addUserDesignPackage[0],
+                    };
+                    userStore.setUser(newUser);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => Common.showMessage(err.message));
+      } catch (err) {
+        Alert.alert("err", err.message);
+      }
+    } else {
+      Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
     }
   };
   const prodId =
@@ -156,126 +191,134 @@ const Packages = ({ navigation, designStore }) => {
 
   console.log("prodId", prodId);
 
+  const headerComponant = () => {
+    return (
+      <>
+        {currentItem && currentItem !== null && (
+          <>
+            <Text style={styles.txtFeaturetitle}>
+              {Common.getTranslation(LangKey.labPremiumFeature)}
+            </Text>
+            <ScrollView contentContainerStyle={styles.scrollView}>
+              {currentItem.features.map((i) => {
+                return (
+                  <View style={styles.featureItems}>
+                    <View style={{ paddingHorizontal: 10 }}>
+                      <Icon name="bullatin" height={10} width={10} />
+                    </View>
+                    <Text style={styles.txtFeaturesList}>{i}</Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </>
+        )}
+      </>
+    );
+  };
+  const footerComponant = () => {
+    return (
+      <View
+        style={{
+          marginTop: 10,
+          marginHorizontal: 20,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            textTransform: "capitalize",
+            textAlign: "justify",
+            fontSize: 9,
+            color: Color.accent,
+          }}
+        >
+          {/* {Common.getTranslation(LangKey.lab1pkg)} */}
+          Payment will be charged to your Store at confirmation of Purchase
+          subscriptions will autometically renew unless Auto renew is turn off
+          atlist 24 hours before the end of currant period.
+        </Text>
+        <Text
+          style={{
+            textTransform: "capitalize",
+            textAlign: "justify",
+            marginTop: 10,
+            fontSize: 9,
+            color: Color.accent,
+          }}
+        >
+          {/* {Common.getTranslation(LangKey.lab1pkg)} */}
+          your account will be charged according to your Plan for renewal within
+          24 hours Prior to the end of the currant period you can manage or turn
+          off auto-renew in your account settings at any time after purchase.
+        </Text>
+      </View>
+    );
+  };
   return (
     <View style={styles.mainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <View style={{ flex: 1 }}>
-          {currentItem && currentItem !== null && (
-            <>
-              <Text style={styles.txtFeaturetitle}>
-                {Common.getTranslation(LangKey.labPremiumFeature)}
-              </Text>
-              <ScrollView contentContainerStyle={styles.scrollView}>
-                {currentItem.features.map((i) => {
-                  return (
-                    <View style={styles.featureItems}>
-                      <View style={{ paddingHorizontal: 10 }}>
-                        <Icon name="bullatin" height={10} width={10} />
-                      </View>
-                      <Text style={styles.txtFeaturesList}>{i}</Text>
-                    </View>
-                  );
-                })}
-              </ScrollView>
-            </>
-          )}
-          <FlatList
-            data={filteredData}
-            keyExtractor={keyExtractor}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={() => {
-                    setCurrentItem(item);
-                  }}
-                  style={[
-                    styles.fltContainer,
-                    {
-                      backgroundColor:
-                        currentItem.id === item.id
-                          ? Color.primary
-                          : Color.txtInBgColor,
-                    },
-                  ]}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    <SvgUri
-                      uri={item.image.url}
-                      width={32}
-                      height={32}
-                      fill={
-                        currentItem.id === item.id ? Color.white : Color.primary
-                      }
-                    />
-                    <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                      <View style={styles.innerfitContainer}>
-                        <Text style={styles.txtlable}>{item.name}</Text>
-                      </View>
-                      <View style={styles.innerfitContainer}>
-                        <Text style={styles.txtdes}>{item.description}</Text>
-                      </View>
-                    </View>
-                    <View style={styles.discountView}>
-                      <Text style={styles.txtdiscount}>
-                        ₹ {item.discountPrice}
-                      </Text>
-                    </View>
+      <FlatList
+        data={filteredData}
+        contentContainerStyle={{ paddingBottom: 10 }}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={headerComponant()}
+        ListFooterComponent={footerComponant()}
+        keyExtractor={keyExtractor}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                setCurrentItem(item);
+              }}
+              style={[
+                styles.fltContainer,
+                {
+                  backgroundColor:
+                    currentItem.id === item.id
+                      ? Color.primary
+                      : Color.txtInBgColor,
+                },
+              ]}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginHorizontal: 10,
+                }}
+              >
+                <SvgUri
+                  uri={item.image.url}
+                  width={32}
+                  height={32}
+                  fill={
+                    currentItem.id === item.id ? Color.white : Color.primary
+                  }
+                />
+                <View style={{ flex: 1, paddingHorizontal: 10 }}>
+                  <View style={styles.innerfitContainer}>
+                    <Text style={styles.txtlable}>{item.name}</Text>
                   </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
-          <View style={{ marginVertical: 20 }}></View>
-          <View
-            style={{
-              marginHorizontal: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                textTransform: "capitalize",
-                textAlign: "justify",
-                fontSize: 9,
-                color: Color.accent,
-              }}
-            >
-              {/* {Common.getTranslation(LangKey.lab1pkg)} */}
-              Payment will be charged to your Store at confirmation of Purchase
-              subscriptions will autometically renew unless Auto renew is turn
-              off atlist 24 hours before the end of currant period
-            </Text>
-            <Text
-              style={{
-                textTransform: "capitalize",
-                textAlign: "justify",
-                marginTop: 10,
-                fontSize: 9,
-                color: Color.accent,
-              }}
-            >
-              {/* {Common.getTranslation(LangKey.lab1pkg)} */}
-              your account will be charged according to your Plan for renewal
-              within 24 hours Prior to the end of the currant period you can
-              manage or turn off auto-renew in your account settings at any time
-              after purchase
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
+                  <View style={styles.innerfitContainer}>
+                    <Text style={styles.txtdes}>{item.description}</Text>
+                  </View>
+                </View>
+                <View style={styles.discountView}>
+                  <Text style={styles.txtdiscount}>₹ {item.discountPrice}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+
       <Button
-        style={{ marginTop: 0, marginBottom: Platform.OS === "ios" ? 10 : 0 }}
+        style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
         normal={true}
-        onPress={() => requestSubscription("android.test.purchased")}
+        onPress={() => requestSubscription(currentItem.id)}
       >
         {Common.getTranslation(LangKey.labPerchase)}
       </Button>
@@ -286,11 +329,6 @@ const Packages = ({ navigation, designStore }) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingBottom: 10,
-  },
-  container: {
-    flex: 1,
-    marginBottom: 10,
     paddingHorizontal: 10,
   },
 
@@ -387,4 +425,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject("designStore")(observer(Packages));
+export default inject("designStore", "userStore")(observer(Packages));
