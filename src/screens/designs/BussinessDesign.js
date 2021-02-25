@@ -246,7 +246,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
       if (data !== null && !errors) {
         userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
-      } else {
+      } else if (errors && errors !== null && errors.length > 0) {
+        Common.showMessage(errors[0].message);
+        return;
       }
 
       const uri = await viewRef.current.capture();

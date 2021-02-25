@@ -1140,4 +1140,29 @@ export default {
     style:
       "shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd",
   },
+  /*
+  .##..........###....##....##..#######..##.....##.########..######.
+  .##.........##.##....##..##..##.....##.##.....##....##....##....##
+  .##........##...##....####...##.....##.##.....##....##....##......
+  .##.......##.....##....##....##.....##.##.....##....##.....######.
+  .##.......#########....##....##.....##.##.....##....##..........##
+  .##.......##.....##....##....##.....##.##.....##....##....##....##
+  .########.##.....##....##.....#######...#######.....##.....######.
+  */
+  footerLayout1: {
+    svg: (
+      <G
+        transform="translate(0.000000,397.000000) scale(0.100000,-0.100000)"
+        stroke="none"
+      >
+        <Path d="M0 2108 l0 -33 7500 -4 7500 -4 0 37 0 36 -7500 0 -7500 0 0 -32z" />
+        <Path d="M0 1005 l0 -1005 7500 0 7500 0 0 1005 0 1005 -7500 0 -7500 0 0 -1005z" />
+      </G>
+    ),
+    viewBox: "0 0 1500.000000 397.000000",
+    width: "397.000000pt",
+    height: "1500.000000pt",
+    style:
+      "shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd",
+  },
 };
