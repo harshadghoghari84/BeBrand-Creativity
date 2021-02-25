@@ -1,9 +1,21 @@
 import React, { memo } from "react";
-import { View, StyleSheet, Text, TextInput as Input } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput as Input,
+  TouchableOpacity,
+} from "react-native";
 import Color from "../utils/Color";
 import Icon from "./svgIcons";
 
-const TextInput = ({ iconName, errorText, ...props }) => (
+const TextInput = ({
+  iconName,
+  eyeOn,
+  toggleSecureText,
+  errorText,
+  ...props
+}) => (
   <>
     <View style={styles.socialBTNView}>
       <View style={styles.filedsIcon}>
@@ -15,6 +27,9 @@ const TextInput = ({ iconName, errorText, ...props }) => (
         />
       </View>
       <Input style={styles.input} {...props} />
+      <TouchableOpacity onPress={() => toggleSecureText()}>
+        <Icon name={eyeOn} fill={Color.primary} height={15} width={15} />
+      </TouchableOpacity>
     </View>
     {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
   </>
@@ -32,6 +47,7 @@ const styles = StyleSheet.create({
     color: Color.darkBlue,
     fontWeight: "700",
     width: "80%",
+    // backgroundColor: "pink",
   },
   error: {
     fontSize: 14,

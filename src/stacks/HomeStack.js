@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Constant from "../utils/Constant";
 import HomeScreen from "../screens/home/Home";
 import CustomHeader from "../screens/common/CustomHeader";
-import DesignScreen from "../screens/Design";
+import DesignScreen from "../screens/designs/index";
 // import CarouselSample from "../screens/sample/CarouselSample";
 import UserDesign from "../screens/UserDesign";
 import UserPackage from "../screens/UserPackage";

@@ -42,11 +42,16 @@ import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
+import { tr } from "date-fns/locale";
 
 const SignInScreen = ({ userStore }) => {
   const navigation = useNavigation();
 
   const [loader, setLoader] = useState(false);
+  const [secureText, setSecureText] = useState(true);
+  const toggleSecureText = () => {
+    setSecureText(!secureText);
+  };
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [userNotVerify, setUserNotVerify] = useState(false);
@@ -371,11 +376,15 @@ const SignInScreen = ({ userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="done"
             iconName="lock"
+            eyeOn={
+              isForgotPass ? null : secureText === true ? "Premium" : "reset"
+            }
             value={password.value}
             onChangeText={(text) => setPassword({ value: text, error: "" })}
             error={!!password.error}
             errorText={password.error}
-            secureTextEntry
+            secureTextEntry={secureText}
+            toggleSecureText={toggleSecureText}
           />
 
           {isForgotPass && (
@@ -401,6 +410,7 @@ const SignInScreen = ({ userStore }) => {
                   //   return;
                   // }
                   setIsForgotPass(true);
+                  setPassword({ value: "", error: "" });
                 }}
               >
                 <Text style={styles.label}>
@@ -456,6 +466,7 @@ const SignInScreen = ({ userStore }) => {
                 onPress={() => {
                   navigation.navigate(Constant.navSignIn);
                   setIsForgotPass(false);
+                  setPassword({ value: "", error: "" });
                 }}
               >
                 <Text

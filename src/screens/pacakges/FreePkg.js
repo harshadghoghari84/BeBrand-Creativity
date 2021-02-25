@@ -57,27 +57,33 @@ const Packages = ({ navigation, designStore, userStore }) => {
 
   const onPurchase = (pkgId) => {
     if (user && user !== null) {
-      addUserDesignPackage({
-        variables: {
-          packageId: pkgId,
-        },
-      })
-        .then(({ data, errors }) => {
-          if (errors && errors !== null) {
-            Common.showMessage(errors);
-          }
-          if (data && data !== null) {
-            console.log("DATA", data);
-            const newUser = {
-              ...user,
-              designPackage: data.addUserDesignPackage[0],
-            };
-            userStore.setUser(newUser);
-          }
+      try {
+        addUserDesignPackage({
+          variables: {
+            packageId: pkgId,
+          },
         })
-        .catch((err) => {
-          console.log("err", err);
-        });
+          .then(({ data, errors }) => {
+            if (errors && errors !== null) {
+              Common.showMessage(errors[0].message);
+            }
+            if (data && data !== null) {
+              console.log("DATA", data);
+              const newUser = {
+                ...user,
+                designPackage: data.addUserDesignPackage
+                  ? data.addUserDesignPackage
+                  : user.designPackage,
+              };
+              userStore.setUser(newUser);
+            }
+          })
+          .catch((err) => {
+            console.log("err", err);
+          });
+      } catch (error) {
+        Common.showMessage(error.message);
+      }
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
     }

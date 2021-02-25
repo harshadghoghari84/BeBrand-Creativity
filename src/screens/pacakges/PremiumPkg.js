@@ -160,13 +160,15 @@ const Packages = ({ navigation, designStore, userStore }) => {
               })
                 .then(({ data, errors }) => {
                   if (errors && errors !== null) {
-                    Common.showMessage(errors);
+                    Common.showMessage(errors[0].message);
                   }
                   if (data && data !== null) {
                     console.log("DATA", data);
                     const newUser = {
                       ...user,
-                      designPackage: data.addUserDesignPackage[0],
+                      designPackage: data.addUserDesignPackage
+                        ? data.addUserDesignPackage
+                        : user.designPackage,
                     };
                     userStore.setUser(newUser);
                   }
