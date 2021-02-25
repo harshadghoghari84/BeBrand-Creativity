@@ -23,7 +23,7 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
     { code: "en", name: "English", isSelected: false },
     { code: "hi", name: "हिन्दी", isSelected: false },
     { code: "gu", name: "ગુજરાતી", isSelected: false },
-    { code: "ma", name: "मराठी", isSelected: false },
+    // { code: "ma", name: "मराठी", isSelected: false },
   ]);
   const selectLanguage = (currantIndex, langcode) => {
     let tmpArr = lang;
@@ -55,7 +55,7 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
       placement="bottom"
       onRequestClose={() => toggleVisible()}
     >
-      <View style={{ height: 200, width: 150, backgroundColor: "white" }}>
+      <View style={{ height: 200, width: 150, backgroundColor: Color.white }}>
         <View style={{ padding: 10 }}>
           <Text>{Common.getTranslation(LangKey.labSelecteLang)}</Text>
         </View>

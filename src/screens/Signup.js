@@ -462,7 +462,7 @@ const RegisterScreen = ({ userStore }) => {
             errorText={confirmPassword.error}
             secureTextEntry
           />
-          <TextInput
+          {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labReferralcode)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="done"
@@ -471,7 +471,7 @@ const RegisterScreen = ({ userStore }) => {
             onChangeText={(text) => setReferrCode(text)}
             // error={!!confirmPassword.error}
             // errorText={confirmPassword.error}
-          />
+          /> */}
 
           <View style={{ marginVertical: 20 }}>
             <Button

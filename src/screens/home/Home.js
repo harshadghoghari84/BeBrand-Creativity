@@ -312,12 +312,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   .##....##.##.....##.##.....##.##........##.....##.##...###.##.....##.##...###....##...
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
-  useEffect(() => {
-    console.log(
-      "language wise designs",
-      userSubCategories[selectedSubCategory]
-    );
-  }, [userSubCategories[selectedSubCategory]]);
   return (
     <View style={styles.containerMain}>
       <ProgressDialog
