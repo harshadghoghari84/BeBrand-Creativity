@@ -178,40 +178,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     }
   }, [userStore.user]);
 
-  //setting layoutFields to JSX object
-  const objFooter = currentLayout?.layoutFields?.footer
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.footer)
-    : undefined;
-  const objName = currentLayout?.layoutFields?.name
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.name)
-    : undefined;
-  const objMobile = currentLayout?.layoutFields?.mobile
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.mobile)
-    : undefined;
-  const objDesignation = currentLayout?.layoutFields?.designation
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.designation)
-    : undefined;
-  const objAddress = currentLayout?.layoutFields?.address
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.address)
-    : undefined;
-  const objImage = currentLayout?.layoutFields?.image
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.image)
-    : undefined;
-  const objSocialMediaView = currentLayout?.layoutFields?.socialMediaView
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaView)
-    : undefined;
-  const objSocialMediaLabel = currentLayout?.layoutFields?.socialMediaLabel
-    ? Common.convertStringToObject(
-        currentLayout?.layoutFields?.socialMediaLabel
-      )
-    : undefined;
-  const objSocialMediaName = currentLayout?.layoutFields?.socialMediaName
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaName)
-    : undefined;
-  const objSocialIcon = currentLayout?.layoutFields?.socialIcon
-    ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
-    : undefined;
-
   const viewRef = useRef(null);
 
   const pixels = Common.getPixels(Constant.designPixel);
@@ -553,7 +519,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ]}
       >
         {userDataPersonal.designation}
-      </Text>   
+      </Text>
 
       <View
         style={[
@@ -649,7 +615,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ]}
       >
         {userDataPersonal.designation}
-      </Text>   
+      </Text>
 
       <View
         style={[
@@ -700,7 +666,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         <PopUp
           visible={visibleModal}
           toggleVisible={toggleVisible}
-          isfree={true}
+          isPurchased={true}
         />
         <PopUp
           visible={visiblePicker}
