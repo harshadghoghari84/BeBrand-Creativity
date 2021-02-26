@@ -4,15 +4,12 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Dimensions,
-  ImageBackground,
   ToastAndroid,
   Platform,
   FlatList,
   ScrollView,
   TouchableOpacity,
-  PermissionsAndroid,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
@@ -31,7 +28,6 @@ import Button from "../../components/Button";
 import LangKey from "../../utils/LangKey";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
-import TabsAnimation from "../../components/TabsAnimation";
 import FastImage from "react-native-fast-image";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
@@ -503,6 +499,198 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
+  const getLayout2 = () => (
+    <View
+      style={{
+        width: "100%",
+        height: "10.50%",
+        bottom: 0,
+        position: "absolute",
+      }}
+    >
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <FastImage
+        source={{ uri: userDataPersonal.image }}
+        style={{
+          left: "1.93%",
+          position: "absolute",
+          bottom: 0,
+          width: "16.67%",
+          height: "160%",
+        }}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text
+        style={[
+          {
+            fontSize: 12,
+            left: "21%",
+            position: "absolute",
+            top: "18%",
+          },
+          { color: footerTextColor },
+        ]}
+      >
+        {userDataPersonal.name}
+      </Text>
+
+      <Text
+        style={[
+          {
+            fontSize: 9,
+            left: "21%",
+            position: "absolute",
+            bottom: "10%",
+          },
+          { color: footerTextColor },
+        ]}
+      >
+        {userDataPersonal.designation}
+      </Text>   
+
+      <View
+        style={[
+          {
+            bottom: "9%",
+            right: "2.50%",
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          },
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              marginRight: 2,
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={8}
+              width={8}
+              fill={footerTextColor}
+            />
+          </View>
+        ))}
+
+        <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
+  const getLayout3 = () => (
+    <View
+      style={{
+        width: "100%",
+        height: "10.50%",
+        bottom: 0,
+        position: "absolute",
+      }}
+    >
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <FastImage
+        source={{ uri: userDataPersonal.image }}
+        style={{
+          right: "1.93%",
+          position: "absolute",
+          bottom: 0,
+          width: "16.67%",
+          height: "160%",
+        }}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text
+        style={[
+          {
+            fontSize: 12,
+            right: "21%",
+            position: "absolute",
+            top: "18%",
+          },
+          { color: footerTextColor },
+        ]}
+      >
+        {userDataPersonal.name}
+      </Text>
+
+      <Text
+        style={[
+          {
+            fontSize: 9,
+            right: "21%",
+            position: "absolute",
+            bottom: "10%",
+          },
+          { color: footerTextColor },
+        ]}
+      >
+        {userDataPersonal.designation}
+      </Text>   
+
+      <View
+        style={[
+          {
+            bottom: "9%",
+            left: "2.50%",
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          },
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              marginRight: 2,
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={8}
+              width={8}
+              fill={footerTextColor}
+            />
+          </View>
+        ))}
+
+        <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -595,7 +783,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 style={{ flex: 1 }}
               >
-                {currentLayout && getLayout1()}
+                {currentLayout && getLayout2()}
               </FastImage>
             </View>
           </ViewShot>
