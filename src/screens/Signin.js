@@ -216,8 +216,10 @@ const SignInScreen = ({ userStore }) => {
     const mobileError = mobileValidator(mobileNo.value);
     const passwordError = passwordValidator(password.value);
 
-    if (mobileError || passwordError) {
+    if (mobileError) {
       setMobileNo({ ...mobileNo, error: mobileError });
+      return;
+    } else if (passwordError) {
       setPassword({ ...password, error: passwordError });
       return;
     }
@@ -276,9 +278,13 @@ const SignInScreen = ({ userStore }) => {
       reTypePass.value
     );
 
-    if (mobileError || passwordError || reTypePassError) {
+    if (mobileError) {
       setMobileNo({ ...mobileNo, error: mobileError });
+      return;
+    } else if (passwordError) {
       setPassword({ ...password, error: passwordError });
+      return;
+    } else if (reTypePassError) {
       setreTypePass({ ...reTypePass, error: reTypePassError });
       return;
     }

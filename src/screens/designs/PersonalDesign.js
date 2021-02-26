@@ -173,7 +173,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     ).url
                   : null,
             }
-          : Constant.dummyUserData[0]
+          : Constant.dummyUserData[1]
       );
     }
   }, [userStore.user]);
@@ -334,14 +334,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   */
 
   const getLayout1 = () => (
-    <View
-      style={{
-        width: "100%",
-        height: "14.70%",
-        bottom: 0,
-        position: "absolute",
-      }}
-    >
+    <View style={styles.lay1ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout1}
         width="100%"
@@ -349,77 +342,63 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
 
-      <View
-        style={{
-          left: "2.50%",
-          position: "absolute",
-          top: "10%",
-          flexDirection: "row",
-          alignItems: "baseline",
-        }}
-      >
-        <Text style={[{ fontSize: 12 }, { color: footerTextColor }]}>
+      <View style={styles.lay1ViewName}>
+        <Text style={[styles.lay1TxtName, { color: footerTextColor }]}>
           {userDataPersonal.name}
         </Text>
 
-        <Text style={[{ fontSize: 9, left: 5 }, { color: footerTextColor }]}>
+        <Text style={[styles.lay1TxtDesignation, { color: footerTextColor }]}>
           {userDataPersonal.designation}
         </Text>
       </View>
 
-      <View
-        style={{
-          position: "absolute",
-          top: "42%",
-          left: "2.50%",
-          width: "95%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Icon name="website" height={9} width={9} fill={footerTextColor} />
-          <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+      <View style={styles.lay1ViewWebsiteEmail}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="website"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.website}
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Icon name="email" height={9} width={9} fill={footerTextColor} />
-          <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="email"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.email}
           </Text>
         </View>
       </View>
 
-      <View
-        style={{
-          position: "absolute",
-          left: "2.50%",
-          bottom: "9%",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Icon name="phone" height={9} width={9} fill={footerTextColor} />
+      <View style={styles.lay1ViewMobile}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
 
-          <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.mobile}
           </Text>
         </View>
@@ -427,38 +406,29 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
       <View
         style={[
-          {
-            bottom: "9%",
-            right: "2.50%",
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-          },
+          styles.lay1ViewSocialMedia,
           {
             color: footerTextColor,
           },
         ]}
       >
         {socialIconList.map((item) => (
-          <View
-            style={{
-              marginRight: 2,
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Icon
-              key={item}
-              name={item}
-              height={8}
-              width={8}
-              fill={footerTextColor}
-            />
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
           </View>
         ))}
 
-        <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
         </Text>
       </View>
@@ -466,14 +436,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   );
 
   const getLayout2 = () => (
-    <View
-      style={{
-        width: "100%",
-        height: "10.50%",
-        bottom: 0,
-        position: "absolute",
-      }}
-    >
+    <View style={styles.lay2ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
         width="100%"
@@ -483,54 +446,21 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
       <FastImage
         source={{ uri: userDataPersonal.image }}
-        style={{
-          left: "1.93%",
-          position: "absolute",
-          bottom: 0,
-          width: "16.67%",
-          height: "160%",
-        }}
+        style={styles.lay2ImgUser}
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text
-        style={[
-          {
-            fontSize: 12,
-            left: "21%",
-            position: "absolute",
-            top: "18%",
-          },
-          { color: footerTextColor },
-        ]}
-      >
+      <Text style={[styles.lay2TxtName, { color: footerTextColor }]}>
         {userDataPersonal.name}
       </Text>
 
-      <Text
-        style={[
-          {
-            fontSize: 9,
-            left: "21%",
-            position: "absolute",
-            bottom: "10%",
-          },
-          { color: footerTextColor },
-        ]}
-      >
+      <Text style={[styles.lay2TxtDesignation, { color: footerTextColor }]}>
         {userDataPersonal.designation}
       </Text>
 
       <View
         style={[
-          {
-            bottom: "9%",
-            right: "2.50%",
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-          },
+          styles.lay2ViewSocialMedia,
           {
             color: footerTextColor,
           },
@@ -749,7 +679,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 style={{ flex: 1 }}
               >
-                {currentLayout && getLayout2()}
+                {currentLayout && getLayout1()}
               </FastImage>
             </View>
           </ViewShot>
@@ -1080,5 +1010,63 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+
+  //common personal layout styles
+  layViewIconRoot: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  layViewIcon: {
+    padding: Constant.layIconViewPadding,
+    borderRadius: Constant.layIconViewBorderRadius,
+    overflow: "hidden",
+  },
+  layTxtIcon: { fontSize: Constant.laySmallFontSize, left: 3 },
+  layViewSocialIconRoot: {
+    marginRight: 2,
+    alignContent: "center",
+    alignItems: "center",
+  },
+
+  // layout 1 styles
+  lay1ViewFooter: {
+    width: "100%",
+    height: "14.70%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay1ViewName: {
+    left: "2.50%",
+    position: "absolute",
+    top: "10%",
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  lay1TxtName: { fontSize: Constant.layBigFontSize },
+  lay1TxtDesignation: { fontSize: Constant.laySmallFontSize, left: 5 },
+  lay1ViewWebsiteEmail: {
+    position: "absolute",
+    top: "42%",
+    left: "2.50%",
+    width: "95%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  lay1ViewMobile: {
+    position: "absolute",
+    left: "2.50%",
+    bottom: "9%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  lay1ViewSocialMedia: {
+    bottom: "9%",
+    right: "2.50%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });

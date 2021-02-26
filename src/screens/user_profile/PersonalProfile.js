@@ -26,7 +26,7 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { emptyValidator } from "../../utils/Validator";
+import { emptyValidator, nameValidator } from "../../utils/Validator";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -45,7 +45,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
 
   useEffect(() => {
-    console.log("this user", user);
     user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
       ? setDefaultImageUrl(
           user.userInfo.personal.image.find((item) => item.isDefault === true)
@@ -166,13 +165,14 @@ const PersonalProfile = ({ navigation, userStore }) => {
   };
 
   const onClickSave = () => {
-    try {
-      // check and add all variables
-      if (emptyValidator(userName)) {
-        setErrorUserName(Common.getTranslation(LangKey.errUserName));
-        return;
-      }
+    // check and add all variables
+    const errUserName = nameValidator(userName);
+    if (errUserName) {
+      setErrorUserName(errUserName);
+      return;
+    }
 
+    try {
       updatePersonalUserInfo({
         variables: {
           name: userName,
@@ -331,7 +331,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingLeft: 20 }}
             data={
               Array.isArray(user?.userInfo?.personal?.image)
                 ? user.userInfo.personal.image
