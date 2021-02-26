@@ -154,14 +154,10 @@ const PersonalProfile = ({ navigation, userStore }) => {
           variables: { image: file },
         });
 
-        if (data) {
-          console.log("pick image data", data);
-        }
-
         if (!errors) {
           userStore.addPersonalImage(data.addPersonalImage);
         } else {
-          console.log("=============>", errors);
+          Common.showMessage(errors[0].message);
         }
       }
     } catch (error) {
@@ -181,9 +177,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
         variables: {
           name: userName,
           mobile: mobile,
-          // email: email,
+          email: email,
           designation: designation,
-          // website: website,
+          website: website,
           socialMediaId: socialMediaId,
           defaultImageUrl: defaultImageUrl,
         },
@@ -208,9 +204,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
                 personal: {
                   name: userName,
                   mobile: mobile,
-                  // email: email,
+                  email: email,
                   designation: designation,
-                  // website: website,
+                  website: website,
                   socialMediaId: socialMediaId,
                   image: newImage,
                 },
@@ -286,7 +282,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
           />
 
-          {/* <TextInput
+          <TextInput
             placeholder={Common.getTranslation(LangKey.labEmail)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -294,7 +290,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             autoCapitalize="none"
-          /> */}
+          />
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labDesignation)}
@@ -316,7 +312,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
           />
 
-          {/* <TextInput
+          <TextInput
             placeholder={Common.getTranslation(LangKey.labWebsite)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -324,7 +320,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={website}
             onChangeText={(text) => setWebsite(text)}
             autoCapitalize="none"
-          /> */}
+          />
         </View>
         <View style={styles.containerProfile}>
           {personalImageLimit > 0 &&

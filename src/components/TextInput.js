@@ -12,6 +12,7 @@ import Icon from "./svgIcons";
 const TextInput = ({
   iconName,
   eyeOn,
+  marked,
   toggleSecureText,
   errorText,
   ...props
@@ -27,6 +28,7 @@ const TextInput = ({
         />
       </View>
       <Input style={styles.input} {...props} />
+      <Icon name={marked} fill={Color.green} height={15} width={15} />
       <TouchableOpacity onPress={() => toggleSecureText()}>
         <Icon name={eyeOn} fill={Color.primary} height={15} width={15} />
       </TouchableOpacity>

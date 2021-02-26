@@ -162,11 +162,11 @@ const BusinessProfile = ({ userStore }) => {
 
   const onClickSave = () => {
     try {
-      // check and add all variables
-      // if (emptyValidator(userName)) {
-      //   setErrorUserName(Common.getTranslation(LangKey.errUserName));
-      //   return;
-      // }
+      //check and add all variables
+      if (emptyValidator(userName)) {
+        setErrorUserName(Common.getTranslation(LangKey.errUserName));
+        return;
+      }
 
       updateBusinessUserInfo({
         variables: {
@@ -198,10 +198,10 @@ const BusinessProfile = ({ userStore }) => {
               userInfo: {
                 ...user?.userInfo,
                 business: {
-                  // name: userName,
+                  name: userName,
                   mobile: mobile,
                   email: email,
-                  // address: address,
+                  address: address,
                   website: website,
                   socialMediaId: socialMediaId,
                   image: newImage,
@@ -257,7 +257,7 @@ const BusinessProfile = ({ userStore }) => {
           </TouchableOpacity>
         )}
         <View style={styles.containerTil}>
-          {/* <TextInput
+          <TextInput
             placeholder={Common.getTranslation(LangKey.labUserName)}
             placeholderTextColor={Color.txtIntxtcolor}
             iconName="user"
@@ -267,7 +267,7 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorUserName}
             errorText={errorUserName}
-          /> */}
+          />
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labMobile)}
@@ -290,7 +290,7 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
           />
 
-          {/* <TextInput
+          <TextInput
             placeholder={Common.getTranslation(LangKey.labAddress)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
@@ -298,7 +298,7 @@ const BusinessProfile = ({ userStore }) => {
             value={address}
             onChangeText={(text) => setAddress(text)}
             autoCapitalize="none"
-          /> */}
+          />
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labSocialMediaId)}

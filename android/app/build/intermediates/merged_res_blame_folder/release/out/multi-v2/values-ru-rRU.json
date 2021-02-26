@@ -4,7 +4,7 @@
             "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-ru-rRU/values-ru-rRU.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/6df3fb6117797ad258f4b99bdb4922ed/transformed/jetified-android-image-cropper-2.7.0/res/values-ru-rRU/values-ru-rRU.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/0b5668577604af6592a66c2495917328/transformed/jetified-android-image-cropper-2.7.0/res/values-ru-rRU/values-ru-rRU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",

@@ -101,44 +101,41 @@ const Packages = ({ navigation, designStore, userStore }) => {
       (async () => {
         try {
           const result = await RNIap.initConnection();
-          await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+          await RNIap.consumeAllItemsAndroid();
           console.log("result", result);
         } catch (err) {
           console.warn(err.code, err.message);
         }
-        purchaseUpdateSubscription = purchaseUpdatedListener(
-          async (purchase) => {
-            console.log("purchase listner", purchase);
-            const receipt = purchase.transactionReceipt;
-            console.log("recipts", receipt);
-            if (receipt) {
-              try {
-                if (Platform.OS === "ios") {
-                  finishTransactionIOS(purchase.transactionId);
-                } else if (Platform.OS === "android") {
-                  // If consumable (can be purchased again)
-                  consumePurchaseAndroid(purchase.purchaseToken);
-                  // If not consumable
-                  acknowledgePurchaseAndroid(purchase.purchaseToken);
-                }
-                const ackResult = await finishTransaction(purchase);
-              } catch (ackErr) {
-                console.warn("ackErr", ackErr);
-              }
-              setRecipt(receipt), () => goNext();
-            }
-          }
-        );
-
-        purchaseErrorSubscription = purchaseErrorListener((error) => {
-          console.log("purchaseErrorListener", error);
-          Alert.alert("purchase error", JSON.stringify(error));
-        });
-        return (
-          purchaseUpdateSubscription.remove(),
-          purchaseErrorSubscription.remove()
-        );
       })();
+      purchaseUpdateSubscription = purchaseUpdatedListener(async (purchase) => {
+        console.log("purchase listner", purchase);
+        const receipt = purchase.transactionReceipt;
+        console.log("recipts", receipt);
+        if (receipt) {
+          try {
+            if (Platform.OS === "ios") {
+              finishTransactionIOS(purchase.transactionId);
+            } else if (Platform.OS === "android") {
+              // If consumable (can be purchased again)
+              // consumePurchaseAndroid(purchase.purchaseToken);
+              await RNIap.consumeAllItemsAndroid();
+              // // If not consumable
+              // acknowledgePurchaseAndroid(purchase.purchaseToken);
+              await finishTransaction(purchase);
+            }
+          } catch (ackErr) {
+            console.warn("ackErr", ackErr);
+          }
+          setRecipt(receipt), () => goNext();
+        }
+      });
+
+      purchaseErrorSubscription = purchaseErrorListener((error) => {
+        console.log("purchaseErrorListener", error);
+      });
+      return () => {
+        purchaseUpdateSubscription.remove(), purchaseErrorSubscription.remove();
+      };
     }
   }, []);
 
@@ -161,8 +158,11 @@ const Packages = ({ navigation, designStore, userStore }) => {
                 .then(({ data, errors }) => {
                   if (errors && errors !== null) {
                     Common.showMessage(errors[0].message);
-                  }
-                  if (data && data !== null) {
+                  } else if (
+                    data.addUserDesignPackage &&
+                    data.addUserDesignPackage !== null &&
+                    Array.isArray(data.addUserDesignPackage)
+                  ) {
                     console.log("DATA", data);
                     const newUser = {
                       ...user,

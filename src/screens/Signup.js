@@ -447,6 +447,7 @@ const RegisterScreen = ({ userStore }) => {
             error={!!password.error}
             errorText={password.error}
             secureTextEntry
+            marked={!passwordValidator(password.value) && "rate"}
           />
 
           <TextInput
@@ -461,6 +462,12 @@ const RegisterScreen = ({ userStore }) => {
             error={!!confirmPassword.error}
             errorText={confirmPassword.error}
             secureTextEntry
+            marked={
+              !confirmPasswordValidator(
+                password.value,
+                confirmPassword.value
+              ) && "rate"
+            }
           />
           {/* <TextInput
             placeholder={Common.getTranslation(LangKey.labReferralcode)}

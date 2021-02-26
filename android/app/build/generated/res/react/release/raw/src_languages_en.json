@@ -2,7 +2,7 @@
   "titleHome": "Home",
   "titleBePremium": "Be Premium",
   "titleRateUs": "Rate App",
-  "titleShareApp": "Share And Earn",
+  "titleShareApp": "Share App",
   "titleReportIssue": "Report Issue",
   "titleAccount": "Account",
   "titlePackage": "Package",
@@ -66,6 +66,7 @@
   "txtDownload": "Download",
   "msgPerchasePkg": "Please perchase any package to use pro content",
   "msgCreateAcc": "Please login or create account to get these design",
+  "msgCreateAccForPKg": "Please login or create account to get Package",
   "msgDesignDownload": "Your design downloaded successfully",
   "msgShareNotAvaillable": "Uh oh, sharing isn't available on your platform",
 

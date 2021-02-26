@@ -206,6 +206,8 @@ const Home = ({ navigation, designStore, userStore }) => {
   );
 
   const onDesignClick = (packageType, design) => {
+    console.log("packageType", packageType);
+    console.log("hasPro", hasPro);
     if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
       setmodalVisible(true);
     } else {
