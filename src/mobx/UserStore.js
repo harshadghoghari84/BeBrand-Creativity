@@ -24,7 +24,7 @@ class UserStore {
     ) {
       user.designPackage.forEach((item) => {
         if (
-          item.package.type === Constant.typeDesignPackagePro &&
+          item.package.type === Constant.typeDesignPackageVip &&
           this.hasPro === false
         ) {
           this.hasPro = true;
@@ -141,6 +141,8 @@ decorate(UserStore, {
   hasPro: observable,
   startDesignCredit: observable,
   currentDesignCredit: observable,
+  personalImageLimit: observable,
+  businessImageLimit: observable,
   setUser: action,
   setOnlyUserDetail: action,
   addPersonalImage: action,
