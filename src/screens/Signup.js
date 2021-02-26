@@ -24,6 +24,10 @@ import {
   GraphRequestManager,
   LoginManager,
 } from "react-native-fbsdk";
+import { inject, observer } from "mobx-react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import auth from "@react-native-firebase/auth";
+// Relative path
 import TextInput from "../components/TextInput";
 import { paperTheme as theme } from "../utils/Theme";
 import {
@@ -36,14 +40,10 @@ import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
 import Common from "../utils/Common";
 import Color from "../utils/Color";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { inject, observer } from "mobx-react";
 import Icon from "../components/svgIcons";
-import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -216,15 +216,6 @@ const RegisterScreen = ({ userStore }) => {
         const data = result.data;
         console.log("data", data);
         if (data !== null) {
-          // const token = data.userSignup.token;
-          // console.log(data.userSignup.token);
-          // AsyncStorage.setItem(
-          //   Constant.prfUserToken,
-          //   token
-          // ).then(() => {
-          // navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
-          // navigation.navigate(Constant.navHome);
-          // });
           navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
         } else {
           const errorMsg = result.errors[0].message;
@@ -342,77 +333,6 @@ const RegisterScreen = ({ userStore }) => {
         <Logo />
 
         <View style={{ flex: 1 }}>
-          {/* <TouchableOpacity
-          onPress={() => onGoogleLogin()}
-          style={styles.socialBTNView}
-        >
-          <View
-            style={{
-              backgroundColor: Color.txtIntxtcolor,
-              height: 30,
-              width: 30,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 50,
-              marginHorizontal: 8,
-            }}
-          >
-            <Icon
-              name="google"
-              fill={Color.white}
-              height={"60%"}
-              width={"60%"}
-            />
-          </View>
-          <Text
-            style={{
-              fontSize: 13,
-              fontWeight: "700",
-              color: Color.txtIntxtcolor,
-            }}
-          >
-            {Common.getTranslation(LangKey.labSignInWithGoogle)}
-          </Text>
-        </TouchableOpacity> */}
-          {/* <TouchableOpacity
-          onPress={() => onFaceBookLogin()}
-          style={styles.socialBTNView}
-        >
-          <View
-            style={{
-              backgroundColor: Color.txtIntxtcolor,
-              height: 30,
-              width: 30,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 50,
-              marginHorizontal: 8,
-            }}
-          >
-            <Icon
-              name="facebook"
-              fill={Color.white}
-              height={"60%"}
-              width={"60%"}
-            />
-          </View>
-          <Text
-            style={{
-              fontSize: 13,
-              fontWeight: "700",
-              color: Color.txtIntxtcolor,
-            }}
-          >
-            {Common.getTranslation(LangKey.labSignInWithFacebook)}
-          </Text>
-        </TouchableOpacity> */}
-          {/* <View style={styles.sapratorView}>
-          <View style={styles.sapratorLines} />
-          <View style={styles.orView}>
-            <Text style={styles.orTXT}>or</Text>
-          </View>
-          <View style={styles.sapratorLines} />
-        </View> */}
           <Text
             style={{
               marginLeft: 30,

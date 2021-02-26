@@ -12,7 +12,7 @@ export default {
     },
     {
       name: "1234567890123456789012345",
-      designation: "123456789012345678901234567890",
+      designation: "1234567890123456789012345",
       mobile: "9876543210",
       email: "123456789012345678901234567890",
       website: "123456789012345678901234567890",
@@ -187,4 +187,12 @@ export default {
   SpecialOffer: "SpecialOffer",
   Wishes: "Wishes",
   Information: "Information",
+
+  // personalDesign.js constants
+  layIconViewPadding: 1,
+  layIconViewBorderRadius: 2,
+  layIconHeight: 9,
+  layIconWidth: 9,
+  layBigFontSize: 12,
+  laySmallFontSize: 9,
 };

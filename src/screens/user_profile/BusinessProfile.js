@@ -330,7 +330,6 @@ const BusinessProfile = ({ userStore }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingLeft: 20 }}
             data={
               Array.isArray(user?.userInfo?.business?.image)
                 ? user.userInfo.business.image
