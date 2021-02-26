@@ -1,10 +1,22 @@
 export default {
   dummyUserData: [
     {
-      name: "Narendra Modi",
+      name: "NARENDRA MODI",
       designation: "Prime Minister of India",
-      mobile: "+919876543210",
+      mobile: "9876543210",
+      email: "narendramodi@gmail.com",
+      website: "narendramodi.com",
       socialMedia: "@narendramodi",
+      image:
+        "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
+    },
+    {
+      name: "1234567890123456789012345",
+      designation: "123456789012345678901234567890",
+      mobile: "9876543210",
+      email: "123456789012345678901234567890",
+      website: "123456789012345678901234567890",
+      socialMedia: "@1234567890123456789012345",
       image:
         "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
     },

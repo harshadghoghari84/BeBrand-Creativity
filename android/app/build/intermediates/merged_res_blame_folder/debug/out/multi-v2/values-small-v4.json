@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-small-v4/values-small-v4.xml",
+            "outputFile": "/Users/saurabhramani/Documents/Projects/react/BeBrand/native/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-small-v4/values-small-v4.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/f014ba11c6c0bc5dcab00c8346f2649f/transformed/material-1.1.0/res/values-small-v4/values-small-v4.xml",
+                    "source": "/Users/saurabhramani/.gradle/caches/transforms-3/1a0245b80bcb43206861625e1ef7defa/transformed/material-1.1.0/res/values-small-v4/values-small-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
