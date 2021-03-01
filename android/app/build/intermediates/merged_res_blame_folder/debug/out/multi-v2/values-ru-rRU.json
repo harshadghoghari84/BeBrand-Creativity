@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/saurabhramani/Documents/Projects/react/BeBrand/native/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ru-rRU/values-ru-rRU.xml",
+            "outputFile": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ru-rRU/values-ru-rRU.xml",
             "map": [
                 {
-                    "source": "/Users/saurabhramani/.gradle/caches/transforms-3/b785dd1d80ba2dce37fb42d984ede569/transformed/jetified-android-image-cropper-2.7.0/res/values-ru-rRU/values-ru-rRU.xml",
+                    "source": "/Users/bebrandd03/.gradle/caches/transforms-3/af73aef2e6767638c5bb247b37a0acca/transformed/jetified-android-image-cropper-2.7.0/res/values-ru-rRU/values-ru-rRU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",

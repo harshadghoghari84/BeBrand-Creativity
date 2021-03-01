@@ -1,3 +1,8 @@
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 export default {
   dummyUserData: [
     {
@@ -11,14 +16,35 @@ export default {
         "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
     },
     {
+      name: "ABCDEFGHJKLMNOPQRSTUVWXYZ",
+      designation: "ABCDEFGHJKLMNOPQRSTU",
+      mobile: "9876543210",
+      email: "123456789012345678901234567890",
+      website: "123456789012345678901234567890",
+      socialMedia: "@ABCDEFGHJKLMNOPQRSTU",
+      image:
+        "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
+    },
+  ],
+
+  dummyCompnyData: [
+    {
+      name: "HARSHADHGHOGHARIANDCOMPANYZXCVBNMLKJHGFDS",
+      address: "84,KANTARESHWERSOC-1,LALITACHOWK,KATARGAM,SURAT,GUJRAT,INDIA",
+      mobile: "9876543210",
+      email: "HARSHADHGHOGHARI1234@GMAIL.COM",
+      website: "HARSHADHGHOGHARI1234MYWEBGG.COM",
+      socialMedia: "@HARSHADGHOGHARIAKAGHOGHS",
+      image: "http://assets.stickpng.com/images/580b57fcd9996e24bc43c521.png",
+    },
+    {
       name: "1234567890123456789012345",
-      designation: "1234567890123456789012345",
+      address: "3rd Floor, Soham Apartments,Hirabaug, Surat 395 004",
       mobile: "9876543210",
       email: "123456789012345678901234567890",
       website: "123456789012345678901234567890",
       socialMedia: "@1234567890123456789012345",
-      image:
-        "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
+      image: "http://assets.stickpng.com/images/580b57fcd9996e24bc43c521.png",
     },
   ],
 
@@ -189,10 +215,10 @@ export default {
   Information: "Information",
 
   // personalDesign.js constants
-  layIconViewPadding: 1,
+  layIconViewPadding: wp(0.3),
   layIconViewBorderRadius: 2,
-  layIconHeight: 9,
-  layIconWidth: 9,
-  layBigFontSize: 12,
-  laySmallFontSize: 9,
+  layIconHeight: wp(2.2),
+  layIconWidth: wp(2.2),
+  layBigFontSize: wp(3),
+  laySmallFontSize: wp(2.2),
 };
