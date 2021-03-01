@@ -16,12 +16,16 @@ import {
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
-import { SvgUri } from "react-native-svg";
+import { SvgCss, SvgUri } from "react-native-svg";
 import { inject, observer } from "mobx-react";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import * as Sharing from "expo-sharing";
-import { ColorPicker, TriangleColorPicker } from "react-native-color-picker";
+import { useMutation } from "@apollo/client";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -29,12 +33,10 @@ import Common from "../../utils/Common";
 import Constant from "../../utils/Constant";
 import Button from "../../components/Button";
 import LangKey from "../../utils/LangKey";
-import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
-import TabsAnimation from "../../components/TabsAnimation";
 import FastImage from "react-native-fast-image";
 import PopUp from "../../components/PopUp";
-
+import SvgConstant from "../../utils/SvgConstant";
 const { width } = Dimensions.get("window");
 let isShareClick = false;
 
@@ -72,6 +74,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [userDataBussiness, setUserDataBussiness] = useState({});
 
   const [layouts, setLayouts] = useState([]);
 
@@ -175,26 +178,65 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
     : undefined;
 
-  const userDataBussiness =
-    user && user != null
-      ? {
-          name: user?.userInfo?.business && user.userInfo.business.name,
+  useEffect(() => {
+    if (isMountedRef.current) {
+      console.log("user", user);
+      setUserDataBussiness(
+        user && user != null
+          ? {
+              name:
+                user?.userInfo?.business?.name && user.userInfo.business.name,
 
-          mobile: user?.userInfo?.business && user.userInfo.business.mobile,
+              mobile:
+                user?.userInfo?.business?.mobile &&
+                user.userInfo.business.mobile,
 
-          address: user?.userInfo?.business && user.userInfo.business.address,
+              address:
+                user?.userInfo?.business?.address &&
+                user.userInfo.business.address,
 
-          socialMedia:
-            user?.userInfo?.business && user.userInfo.business.socialMediaId,
+              email:
+                user?.userInfo?.business?.email && user.userInfo.business.email,
 
-          image:
-            user?.userInfo?.business?.image.length > 0
-              ? user?.userInfo?.business?.image.find(
-                  (item) => item.isDefault === true
-                ).url
-              : null,
-        }
-      : Constant.dummyUserData[0];
+              website:
+                user?.userInfo?.business?.website &&
+                user.userInfo.business.website,
+
+              socialMedia:
+                user?.userInfo?.business?.socialMediaId &&
+                user.userInfo.business.socialMediaId,
+
+              image:
+                user?.userInfo?.business.image.length > 0
+                  ? user?.userInfo?.business.image.find(
+                      (item) => item.isDefault === true
+                    ).url
+                  : null,
+            }
+          : Constant.dummyCompnyData[0]
+      );
+    }
+  }, [userStore.user]);
+  // const userDataBussiness =
+  //   user && user != null
+  //     ? {
+  //         name: user?.userInfo?.business && user.userInfo.business.name,
+
+  //         mobile: user?.userInfo?.business && user.userInfo.business.mobile,
+
+  //         address: user?.userInfo?.business && user.userInfo.business.address,
+
+  //         socialMedia:
+  //           user?.userInfo?.business && user.userInfo.business.socialMediaId,
+
+  //         image:
+  //           user?.userInfo?.business?.image.length > 0
+  //             ? user?.userInfo?.business?.image.find(
+  //                 (item) => item.isDefault === true
+  //               ).url
+  //             : null,
+  //       }
+  //     : Constant.dummyUserData[0];
 
   const viewRef = useRef(null);
 
@@ -254,14 +296,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       const uri = await viewRef.current.capture();
       console.log("uri", uri);
 
-      // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
-      //   .then((res) => console.log("res: ", res))
-      //   .catch((err) => console.log("err: ", err));
-
       if (Platform.OS === "android") {
-        // await MediaLibrary.saveToLibraryAsync(uri)
-        //   .then((res) => console.log("res: ", res))
-        //   .catch((err) => console.log("err: ", err));
         const asset = await MediaLibrary.createAssetAsync(uri);
         if (asset && asset !== null) {
           const album = await MediaLibrary.getAlbumAsync(
@@ -337,6 +372,863 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </TouchableOpacity>
     );
   };
+
+  /*
+  .##..........###....##....##..#######..##.....##.########..######.
+  .##.........##.##....##..##..##.....##.##.....##....##....##....##
+  .##........##...##....####...##.....##.##.....##....##....##......
+  .##.......##.....##....##....##.....##.##.....##....##.....######.
+  .##.......#########....##....##.....##.##.....##....##..........##
+  .##.......##.....##....##....##.....##.##.....##....##....##....##
+  .########.##.....##....##.....#######...#######.....##.....######.
+  */
+
+  const getLayout1 = () => (
+    <View style={styles.lay1ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout1}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <FastImage
+        source={{ uri: userDataBussiness.image }}
+        style={styles.lay1ImgLogo}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text
+        style={[
+          styles.lay1TxtName,
+          {
+            color: footerTextColor,
+            position: "absolute",
+            left: "24.67%",
+            top: "23%",
+          },
+        ]}
+      >
+        {userDataBussiness.name}
+      </Text>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          top: "45%",
+          left: "24.67%",
+          width: "70%",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="lock"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay1TxtAddress,
+            { color: footerTextColor, lineHeight: 10 },
+          ]}
+        >
+          {userDataBussiness.address}
+        </Text>
+      </View>
+
+      {/* <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: "42%",
+          left: "24.67%",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay1TxtMobile,
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View> */}
+      {/* <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          left: "24.67%",
+          bottom: "8.47%",
+          width: "40%",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="lock"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text style={[styles.lay1TxtAddress, { color: footerTextColor }]}>
+          {userDataBussiness.address}
+        </Text>
+      </View> */}
+
+      {/* <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          top: "40.62%",
+          right: "2%",
+          position: "absolute",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay1TxtMobile,
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View> */}
+      {/* <View
+        style={[
+          styles.lay1ViewSocialMedia,
+          {
+            color: footerTextColor,
+            bottom: "8.47%",
+            right: "2%",
+            position: "absolute",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View> */}
+    </View>
+  );
+  const getLayout2 = () => (
+    <View style={styles.lay2ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          top: "30%",
+          left: "2%",
+          position: "absolute",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay2TxtName,
+            { color: footerTextColor, paddingLeft: wp(2) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.lay2ViewSocialMedia,
+          {
+            color: footerTextColor,
+            bottom: "18%",
+            left: "2%",
+            position: "absolute",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View>
+
+      <Text
+        style={[
+          styles.lay2TxtName,
+          {
+            color: footerTextColor,
+            right: "30%",
+            position: "absolute",
+            top: "25%",
+          },
+        ]}
+      >
+        {userDataBussiness.name}
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          right: "30%",
+          position: "absolute",
+          bottom: "18%",
+          maxWidth: wp(40),
+        }}
+      >
+        <Text style={[styles.lay2TxtAddress, { color: footerTextColor }]}>
+          {userDataBussiness.address}
+        </Text>
+        <View
+          style={[
+            styles.layViewIcon,
+            { backgroundColor: footerTextColor, marginLeft: 5 },
+          ]}
+        >
+          <Icon
+            name="lock"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+      </View>
+
+      <FastImage
+        source={{ uri: userDataBussiness.image }}
+        style={styles.lay2ImgLogo}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    </View>
+  );
+
+  const getLayout3 = () => (
+    <View style={styles.lay3ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout3}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <Text
+        style={[
+          styles.lay3TxtName,
+          {
+            color: footerTextColor,
+            position: "absolute",
+            left: "2%",
+            top: "18%",
+          },
+        ]}
+      >
+        {userDataBussiness.name}
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          left: "2%",
+          position: "absolute",
+          bottom: "14%",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="website"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text style={[styles.lay3TxtWebsite, { color: footerTextColor }]}>
+          {userDataBussiness.website}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          top: "18%",
+          right: "2%",
+          position: "absolute",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay3TxtMobile,
+            { color: footerTextColor, paddingLeft: wp(2) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.lay3ViewSocialMedia,
+          {
+            color: footerTextColor,
+            bottom: "14%",
+            right: "2%",
+            position: "absolute",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+  const getLayout4 = () => (
+    <View style={styles.lay4ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout4}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <Text
+        style={[
+          styles.lay4TxtName,
+          {
+            color: footerTextColor,
+            position: "absolute",
+            left: "2%",
+            top: "22%",
+          },
+        ]}
+      >
+        {userDataBussiness.name}
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          left: "2%",
+          bottom: "14%",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="website"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.lay4TxtWebsite, { color: footerTextColor }]}>
+            {userDataBussiness.website}
+          </Text>
+        </View>
+        <View
+          style={{
+            marginLeft: wp(2),
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="email"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.lay4TxtEmail, { color: footerTextColor }]}>
+            {userDataBussiness.email}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          top: "22%",
+          right: "2%",
+          position: "absolute",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay4TxtMobile,
+            { color: footerTextColor, paddingLeft: wp(2) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.lay4ViewSocialMedia,
+          {
+            color: footerTextColor,
+            bottom: "14%",
+            right: "2%",
+            position: "absolute",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+  const getLayout5 = () => (
+    <View style={styles.lay5ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout5}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <Text
+        style={[
+          styles.lay5TxtName,
+          {
+            color: footerTextColor,
+            left: "2%",
+            position: "absolute",
+            top: "20%",
+          },
+        ]}
+      >
+        {userDataBussiness.name}
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          left: "2%",
+          bottom: "12%",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="email"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text style={[styles.lay5TxtEmail, { color: footerTextColor }]}>
+          {userDataBussiness.email}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          position: "absolute",
+          top: "22%",
+          right: "2%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="phone"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text
+          style={[
+            styles.lay5TxtName,
+            { color: footerTextColor, paddingLeft: wp(2) },
+          ]}
+        >
+          {userDataBussiness.mobile}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.lay5ViewSocialMedia,
+          {
+            color: footerTextColor,
+            position: "absolute",
+            bottom: "12%",
+            right: "2%",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+  const getLayout6 = () => (
+    <View style={styles.lay6ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerBusinessLayout6}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View
+        style={{
+          left: "2%",
+          position: "absolute",
+          top: "12%",
+          flexDirection: "row",
+          width: wp(55),
+          justifyContent: "space-between",
+          backgroundColor: "red",
+        }}
+      >
+        <Text
+          style={[
+            styles.lay5TxtName,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {userDataBussiness.name}
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text
+            style={[
+              styles.lay5TxtName,
+              { color: footerTextColor, paddingLeft: wp(2) },
+            ]}
+          >
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          left: "2%",
+          bottom: "8.47%",
+          width: wp(40),
+          backgroundColor: "green",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="lock"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text style={[styles.lay1TxtAddress, { color: footerTextColor }]}>
+          {userDataBussiness.address}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          right: "2%",
+          top: "20%",
+          position: "absolute",
+        }}
+      >
+        <View
+          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+        >
+          <Icon
+            name="website"
+            height={Constant.layIconHeight}
+            width={Constant.layIconWidth}
+            fill={footerColor}
+          />
+        </View>
+        <Text style={[styles.lay3TxtWebsite, { color: footerTextColor }]}>
+          {userDataBussiness.website}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.lay5ViewSocialMedia,
+          {
+            color: footerTextColor,
+            position: "absolute",
+            bottom: "12%",
+            right: "2%",
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View
+            style={{
+              padding: Constant.layIconViewPadding,
+              borderRadius: Constant.layIconViewBorderRadius,
+              marginRight: wp(0.5),
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: footerTextColor,
+            }}
+          >
+            <Icon
+              key={item}
+              name={item}
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+        ))}
+
+        <Text
+          style={[
+            { fontSize: wp(2.5) },
+            { color: footerTextColor, paddingLeft: wp(1) },
+          ]}
+        >
+          {userDataBussiness.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
@@ -431,70 +1323,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 style={{ flex: 1 }}
               >
-                {objFooter && (
-                  <View style={{ ...objFooter }}>
-                    <SvgUri
-                      uri={currentLayout.footerImage.url}
-                      width="100%"
-                      height="100%"
-                      fill={footerColor}
-                    />
-
-                    <Text style={{ ...objName, color: footerTextColor }}>
-                      {userDataBussiness.name}
-                    </Text>
-                    <Text style={{ ...objAddress, color: footerTextColor }}>
-                      {userDataBussiness.address}
-                    </Text>
-                    <Text style={{ ...objMobile, color: footerTextColor }}>
-                      {userDataBussiness.mobile}
-                    </Text>
-
-                    <View
-                      style={{
-                        ...objSocialMediaView,
-                        color: footerTextColor,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          ...objSocialMediaLabel,
-                          color: footerTextColor,
-                        }}
-                      >
-                        {Common.getTranslation(LangKey.labFollowUs)}
-                      </Text>
-                      {socialIconList.map((item) => (
-                        <Icon
-                          key={item}
-                          name={item}
-                          height={12}
-                          width={12}
-                          size={currentLayout.socialIconSize}
-                          fill={footerTextColor}
-                          style={{ ...objSocialIcon }}
-                        />
-                      ))}
-
-                      <Text
-                        style={{
-                          ...objSocialMediaName,
-                          color: footerTextColor,
-                        }}
-                      >
-                        {userDataBussiness.socialMedia}
-                      </Text>
-                    </View>
-
-                    {userDataBussiness?.image && (
-                      <FastImage
-                        source={{ uri: userDataBussiness.image }}
-                        style={{ ...objImage }}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                    )}
-                  </View>
-                )}
+                {currentLayout && getLayout1()}
               </FastImage>
             </View>
           </ViewShot>
@@ -781,7 +1610,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
   },
-  designView: { marginTop: 10, width: width - 20, height: width - 20 },
+  designView: { marginTop: 10, width: width, height: width },
   colorCodeList: {
     marginVertical: 10,
   },
@@ -822,5 +1651,192 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  //common personal layout styles
+  layViewIconRoot: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  layViewIcon: {
+    padding: Constant.layIconViewPadding,
+    borderRadius: Constant.layIconViewBorderRadius,
+    // overflow: "hidden",
+  },
+  layTxtIcon: { fontSize: Constant.laySmallFontSize, left: 3 },
+  layViewSocialIconRoot: {
+    marginRight: 2,
+    alignContent: "center",
+    alignItems: "center",
+  },
+
+  // layout 1 styles
+  lay1ViewFooter: {
+    width: "100%",
+    height: "20%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay1ImgLogo: {
+    left: "4%",
+    width: "16.67%",
+    height: "83.34%",
+    position: "absolute",
+    bottom: "4.62%",
+  },
+  lay1TxtName: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay1TxtMobile: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay1TxtAddress: {
+    fontSize: Constant.laySmallFontSize,
+    maxHeight: wp(5),
+    paddingLeft: wp(1),
+  },
+  lay1ViewName: {
+    left: "2.50%",
+    position: "absolute",
+    top: "10%",
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+
+  lay1TxtDesignation: { fontSize: Constant.laySmallFontSize, left: 5 },
+  lay1ViewWebsiteEmail: {
+    position: "absolute",
+    top: "42%",
+    left: "2.50%",
+    width: "95%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  lay1ViewMobile: {
+    position: "absolute",
+    left: "2.50%",
+    bottom: "9%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  lay1ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  //  layout 2
+  lay2ViewFooter: {
+    width: "100%",
+    height: "17.34%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay2ImgLogo: {
+    right: "4%",
+    width: "16.67%",
+    height: "83.34%",
+    position: "absolute",
+    bottom: "4.62%",
+  },
+  lay2TxtName: {
+    fontSize: Constant.layBigFontSize,
+    textAlign: "right",
+  },
+  lay2TxtAddress: {
+    fontSize: Constant.laySmallFontSize,
+    maxHeight: wp(5),
+    textAlign: "right",
+  },
+  lay2ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  // layout 3 styles
+  lay3ViewFooter: {
+    width: "100%",
+    height: "11%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay3TxtWebsite: {
+    fontSize: Constant.laySmallFontSize,
+    paddingLeft: wp(2),
+  },
+  lay3TxtName: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay3TxtMobile: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay3ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  // layout 4 styles
+  lay4ViewFooter: {
+    width: "100%",
+    height: "11%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay4TxtWebsite: {
+    fontSize: Constant.laySmallFontSize,
+    paddingLeft: wp(2),
+  },
+  lay4TxtEmail: {
+    fontSize: Constant.laySmallFontSize,
+    paddingLeft: wp(2),
+  },
+  lay4TxtName: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay4TxtMobile: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay4ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  // layout 5 styles
+  lay5ViewFooter: {
+    width: "100%",
+    height: "11%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay5TxtEmail: {
+    fontSize: Constant.laySmallFontSize,
+    paddingLeft: 5,
+  },
+  lay5TxtName: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay5ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  // layout 6 styles
+  lay6ViewFooter: {
+    width: "100%",
+    height: "11%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay5TxtEmail: {
+    fontSize: Constant.laySmallFontSize,
+    paddingLeft: 5,
+  },
+  lay5TxtName: {
+    fontSize: Constant.layBigFontSize,
+  },
+  lay5ViewSocialMedia: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });

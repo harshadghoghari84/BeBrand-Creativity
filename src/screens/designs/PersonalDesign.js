@@ -10,15 +10,18 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  PixelRatio,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
-import Svg, { G, Path, SvgCss, SvgUri, SvgXml } from "react-native-svg";
+import { SvgCss } from "react-native-svg";
 import { inject, observer } from "mobx-react";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import * as Sharing from "expo-sharing";
 import { ColorPicker, TriangleColorPicker } from "react-native-color-picker";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -467,24 +470,22 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ]}
       >
         {socialIconList.map((item) => (
-          <View
-            style={{
-              marginRight: 2,
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Icon
-              key={item}
-              name={item}
-              height={8}
-              width={8}
-              fill={footerTextColor}
-            />
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
           </View>
         ))}
 
-        <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
         </Text>
       </View>
@@ -492,14 +493,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   );
 
   const getLayout3 = () => (
-    <View
-      style={{
-        width: "100%",
-        height: "10.50%",
-        bottom: 0,
-        position: "absolute",
-      }}
-    >
+    <View style={styles.lay3ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
         width="100%"
@@ -509,78 +503,327 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
       <FastImage
         source={{ uri: userDataPersonal.image }}
-        style={{
-          right: "1.93%",
-          position: "absolute",
-          bottom: 0,
-          width: "16.67%",
-          height: "160%",
-        }}
+        style={styles.lay3ImgUser}
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text
-        style={[
-          {
-            fontSize: 12,
-            right: "21%",
-            position: "absolute",
-            top: "18%",
-          },
-          { color: footerTextColor },
-        ]}
-      >
+      <Text style={[styles.lay3TxtName, { color: footerTextColor }]}>
         {userDataPersonal.name}
       </Text>
 
-      <Text
-        style={[
-          {
-            fontSize: 9,
-            right: "21%",
-            position: "absolute",
-            bottom: "10%",
-          },
-          { color: footerTextColor },
-        ]}
-      >
+      <Text style={[styles.lay3TxtDesignation, { color: footerTextColor }]}>
         {userDataPersonal.designation}
       </Text>
 
       <View
         style={[
-          {
-            bottom: "9%",
-            left: "2.50%",
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-          },
+          styles.lay3ViewSocialMedia,
           {
             color: footerTextColor,
           },
         ]}
       >
         {socialIconList.map((item) => (
-          <View
-            style={{
-              marginRight: 2,
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Icon
-              key={item}
-              name={item}
-              height={8}
-              width={8}
-              fill={footerTextColor}
-            />
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
           </View>
         ))}
 
-        <Text style={[{ fontSize: 9, left: 3 }, { color: footerTextColor }]}>
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
+  const getLayout4 = () => (
+    <View style={styles.lay4ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View style={styles.lay4ViewNameDesignation}>
+        <Text style={[styles.lay4TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
+        </Text>
+
+        <Text style={[styles.lay4TxtDesignation, { color: footerTextColor }]}>
+          {userDataPersonal.designation}
+        </Text>
+      </View>
+
+      <View style={styles.lay4ViewWebsite}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="website"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.website}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={[
+          styles.lay4ViewSocialMedia,
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          </View>
+        ))}
+
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
+  const getLayout5 = () => (
+    <View style={styles.lay4ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View style={styles.lay4ViewNameDesignation}>
+        <Text style={[styles.lay4TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
+        </Text>
+
+        <Text style={[styles.lay4TxtDesignation, { color: footerTextColor }]}>
+          {userDataPersonal.designation}
+        </Text>
+      </View>
+
+      <View style={styles.lay4ViewWebsite}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="email"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.email}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={[
+          styles.lay4ViewSocialMedia,
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          </View>
+        ))}
+
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
+  const getLayout6 = () => (
+    <View style={styles.lay2ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <FastImage
+        source={{ uri: userDataPersonal.image }}
+        style={styles.lay2ImgUser}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text style={[styles.lay2TxtName, { color: footerTextColor }]}>
+        {userDataPersonal.name}
+      </Text>
+
+      <Text style={[styles.lay2TxtDesignation, { color: footerTextColor }]}>
+        {userDataPersonal.designation}
+      </Text>
+
+      <View style={styles.lay6ViewMobile}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+
+          <Text style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.mobile}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={[
+          styles.lay2ViewSocialMedia,
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          </View>
+        ))}
+
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          {userDataPersonal.socialMedia}
+        </Text>
+      </View>
+    </View>
+  );
+
+  const getLayout7 = () => (
+    <View style={styles.lay3ViewFooter}>
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+      <FastImage
+        source={{ uri: userDataPersonal.image }}
+        style={styles.lay3ImgUser}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+
+      <Text
+        style={[styles.lay3TxtName, { color: footerTextColor }]}
+        adjustsFontSizeToFit
+      >
+        {userDataPersonal.name}
+      </Text>
+      <Text
+        style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
+        adjustsFontSizeToFit
+      >
+        {userDataPersonal.designation}
+      </Text>
+      <View style={styles.lay7ViewMobile}>
+        <View style={styles.layViewIconRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+
+          <Text style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.mobile}
+          </Text>
+        </View>
+      </View>
+      <View
+        style={[
+          styles.lay3ViewSocialMedia,
+          {
+            color: footerTextColor,
+          },
+        ]}
+      >
+        {socialIconList.map((item) => (
+          <View style={styles.layViewSocialIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          </View>
+        ))}
+
+        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
         </Text>
       </View>
@@ -679,7 +922,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 style={{ flex: 1 }}
               >
-                {currentLayout && getLayout1()}
+                {currentLayout && getLayout4()}
               </FastImage>
             </View>
           </ViewShot>
@@ -927,6 +1170,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 };
 export default inject("designStore", "userStore")(observer(PersonalDesign));
 
+function actuatedNormalize(size) {
+  const scale = width / 320;
+  const newSize = size * scale;
+  if (Platform.OS === "ios") {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -1022,14 +1275,23 @@ const styles = StyleSheet.create({
     borderRadius: Constant.layIconViewBorderRadius,
     overflow: "hidden",
   },
-  layTxtIcon: { fontSize: Constant.laySmallFontSize, left: 3 },
+  layTxtIcon: {
+    fontSize: Constant.laySmallFontSize,
+    left: wp(0.5),
+    fontFamily: "Mukta-SemiBold",
+  },
+  layBigTxtIcon: {
+    fontSize: Constant.layBigFontSize,
+    left: wp(0.5),
+    fontFamily: "Mukta-SemiBold",
+  },
   layViewSocialIconRoot: {
-    marginRight: 2,
+    marginRight: wp(0.5),
     alignContent: "center",
     alignItems: "center",
   },
 
-  // layout 1 styles
+  // layout-1 styles
   lay1ViewFooter: {
     width: "100%",
     height: "14.70%",
@@ -1068,5 +1330,129 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+
+  //layout-2 styles
+  lay2ViewFooter: {
+    width: "100%",
+    height: "10.50%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay2ImgUser: {
+    left: "1.93%",
+    position: "absolute",
+    bottom: 0,
+    width: "16.67%",
+    height: "160%",
+  },
+  lay2TxtName: {
+    fontSize: Constant.layBigFontSize,
+    left: "21%",
+    position: "absolute",
+    top: "15%",
+  },
+  lay2TxtDesignation: {
+    fontSize: Constant.laySmallFontSize,
+    left: "21%",
+    position: "absolute",
+    bottom: "7%",
+  },
+  lay2ViewSocialMedia: {
+    bottom: "7%",
+    right: "2.50%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  // layout-3 styles
+  lay3ViewFooter: {
+    width: "100%",
+    height: "10.50%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay3ImgUser: {
+    right: "1.93%",
+    position: "absolute",
+    bottom: 0,
+    width: "16.67%",
+    height: "160%",
+  },
+  lay3TxtName: {
+    fontSize: Constant.layBigFontSize,
+    fontFamily: "Mukta-SemiBold",
+    right: "21%",
+    position: "absolute",
+    top: "15%",
+  },
+  lay3TxtDesignation: {
+    fontSize: Constant.laySmallFontSize,
+    fontFamily: "Mukta-SemiBold",
+    right: "21%",
+    position: "absolute",
+    bottom: "7%",
+  },
+  lay3ViewSocialMedia: {
+    bottom: "7%",
+    left: "2.50%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  //layout-4 styles
+  lay4ViewFooter: {
+    width: "100%",
+    height: "10.50%",
+    bottom: 0,
+    position: "absolute",
+  },
+  lay4ViewNameDesignation: {
+    width: "100%",
+    position: "absolute",
+    top: "10%",
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "center",
+  },
+  lay4TxtName: { fontSize: Constant.layBigFontSize },
+  lay4TxtDesignation: { fontSize: Constant.laySmallFontSize, left: wp(1.35) },
+  lay4ViewWebsite: {
+    bottom: "9%",
+    left: "2.50%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  lay4ViewSocialMedia: {
+    bottom: "9%",
+    right: "2.50%",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
+  // layout-6 styles other styles same as layout-2
+  lay6ViewMobile: {
+    position: "absolute",
+    right: "2.50%",
+    top: "15%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  // layout-7 styles other styles same as layout-3
+  lay7ViewMobile: {
+    position: "absolute",
+    left: "2.50%",
+    top: "15%",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
