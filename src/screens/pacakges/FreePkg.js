@@ -67,7 +67,11 @@ const Packages = ({ navigation, designStore, userStore }) => {
             if (errors && errors !== null) {
               Common.showMessage(errors[0].message);
             }
-            if (data && data !== null) {
+            if (
+              data.addUserDesignPackage &&
+              data.addUserDesignPackage !== null &&
+              Array.isArray(data.addUserDesignPackage)
+            ) {
               console.log("DATA", data);
               const newUser = {
                 ...user,
