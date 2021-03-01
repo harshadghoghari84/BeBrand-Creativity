@@ -367,7 +367,7 @@ const RegisterScreen = ({ userStore }) => {
             error={!!password.error}
             errorText={password.error}
             secureTextEntry
-            marked={!passwordValidator(password.value) && "rate"}
+            marked={!passwordValidator(password.value) && "mark"}
           />
 
           <TextInput
@@ -386,7 +386,7 @@ const RegisterScreen = ({ userStore }) => {
               !confirmPasswordValidator(
                 password.value,
                 confirmPassword.value
-              ) && "rate"
+              ) && "mark"
             }
           />
           {/* <TextInput

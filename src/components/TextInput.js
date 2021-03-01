@@ -14,6 +14,7 @@ const TextInput = ({
   eyeOn,
   marked,
   toggleSecureText,
+  secureTextEntry,
   errorText,
   ...props
 }) => (
@@ -27,10 +28,19 @@ const TextInput = ({
           width={iconName === "refferfilld" ? 22 : 15}
         />
       </View>
-      <Input style={styles.input} {...props} />
+      <Input
+        style={styles.input}
+        secureTextEntry={secureTextEntry}
+        {...props}
+      />
       <Icon name={marked} fill={Color.green} height={15} width={15} />
       <TouchableOpacity onPress={() => toggleSecureText()}>
-        <Icon name={eyeOn} fill={Color.primary} height={15} width={15} />
+        <Icon
+          name={eyeOn}
+          fill={secureTextEntry ? Color.grey : Color.primary}
+          height={15}
+          width={15}
+        />
       </TouchableOpacity>
     </View>
     {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
