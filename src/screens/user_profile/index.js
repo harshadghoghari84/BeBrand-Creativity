@@ -21,7 +21,7 @@ const UserProfile = ({ route }) => {
             ? route.params.title
             : Constant.titPersonalProfile
         }
-        tabBar={(props) => <TopTabBar {...props} arr={2} />}
+        tabBar={(props) => <TopTabBar {...props} />}
       >
         <Tab.Screen
           name={Constant.titPersonalProfile}

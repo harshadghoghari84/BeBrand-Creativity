@@ -28758,6 +28758,29 @@
 			};
 			name = Debug;
 		};
+		1C262A9D8F445EF226BEBF24F1FFF25E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A766077C527C00223AB5642031ECA1D /* libwebp.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/libwebp/libwebp-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = libwebp;
+				PRODUCT_NAME = libwebp;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		1C5EC1CA8BAFCBC4E396547BA5DD0757 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5D1B07753ACA02DABBCD128B4BD82396 /* UMFaceDetectorInterface.release.xcconfig */;
@@ -31923,29 +31946,6 @@
 			};
 			name = Release;
 		};
-		B7F84776CC631A15B74BDC8FE76070C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A766077C527C00223AB5642031ECA1D /* libwebp.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/libwebp/libwebp-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = libwebp;
-				PRODUCT_NAME = libwebp;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		B874B0449106EE85D5A0F34E2414BF16 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D79AED1CC89B41669536D25636BC9D8B /* UMAppLoader.debug.xcconfig */;
@@ -32649,6 +32649,30 @@
 			};
 			name = Release;
 		};
+		D9F0ACC6DB24785EE1A08A43208C439E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94DACD84BC9A44B8D23ADB482F82DC2E /* libwebp.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/libwebp/libwebp-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = libwebp;
+				PRODUCT_NAME = libwebp;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		DBF2DE1195D142EAB63FA1CE6472A497 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A154CF411AA9C118BD8C858515EDD13 /* RNFBMessaging.debug.xcconfig */;
@@ -33262,30 +33286,6 @@
 			};
 			name = Release;
 		};
-		F41A111E1735854F16257263A7B41684 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94DACD84BC9A44B8D23ADB482F82DC2E /* libwebp.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/libwebp/libwebp-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = libwebp;
-				PRODUCT_NAME = libwebp;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		FAFCEF3C9548E47843B1F6B96C18990F /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 672FFE7C993B84FD4B5440212E1369C4 /* EXApplication.release.xcconfig */;
@@ -33824,8 +33824,8 @@
 		7056F68F1FED0314F3FA92F98167CEC2 /* Build configuration list for PBXNativeTarget "libwebp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B7F84776CC631A15B74BDC8FE76070C4 /* Debug */,
-				F41A111E1735854F16257263A7B41684 /* Release */,
+				1C262A9D8F445EF226BEBF24F1FFF25E /* Debug */,
+				D9F0ACC6DB24785EE1A08A43208C439E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

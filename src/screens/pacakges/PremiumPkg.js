@@ -10,6 +10,7 @@ import {
   ScrollView,
   Platform,
   Linking,
+  Alert,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -18,11 +19,15 @@ import RNIap, {
   PurchaseError,
   SubscriptionPurchase,
   acknowledgePurchaseAndroid,
-  consumePurchaseAndroid,
   finishTransaction,
   finishTransactionIOS,
   purchaseErrorListener,
   purchaseUpdatedListener,
+  initConnection,
+  getProducts as rnIapProducts,
+  flushFailedPurchasesCachedAsPendingAndroid,
+  consumePurchaseAndroid,
+  requestSubscription as rnIapRequestSubscription,
 } from "react-native-iap";
 
 // Relative Path
@@ -88,11 +93,11 @@ const Packages = ({ navigation, designStore, userStore }) => {
 
   const getProducts = async () => {
     try {
-      const products = await RNIap.getProducts(itemSkus);
+      const products = await rnIapProducts(itemSkus);
       console.log("Products", products);
       setProductList(products);
     } catch (err) {
-      console.log("error", err.code, err.message);
+      console.log("error=>", err.message);
     }
   };
 
@@ -100,8 +105,8 @@ const Packages = ({ navigation, designStore, userStore }) => {
     if (isMountedRef.current) {
       (async () => {
         try {
-          const result = await RNIap.initConnection();
-          await RNIap.consumeAllItemsAndroid();
+          const result = await initConnection();
+          await flushFailedPurchasesCachedAsPendingAndroid();
           console.log("result", result);
         } catch (err) {
           console.warn(err.code, err.message);
@@ -118,7 +123,10 @@ const Packages = ({ navigation, designStore, userStore }) => {
             } else if (Platform.OS === "android") {
               // If consumable (can be purchased again)
               // consumePurchaseAndroid(purchase.purchaseToken);
-              await RNIap.consumeAllItemsAndroid();
+              await consumePurchaseAndroid(
+                purchase.purchaseToken,
+                purchase.developerPayloadAndroid
+              );
               // // If not consumable
               // acknowledgePurchaseAndroid(purchase.purchaseToken);
               await finishTransaction(purchase);
@@ -145,7 +153,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
   const requestSubscription = async (sku) => {
     if (user && user !== null) {
       try {
-        RNIap.requestSubscription(sku)
+        rnIapRequestSubscription(sku)
           .then((res) => {
             console.log("RESPONSE", res);
             if (res && res !== null) {
