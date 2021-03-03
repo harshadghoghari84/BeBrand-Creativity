@@ -586,6 +586,7 @@ export default {
         design {
           id
           layouts
+          designType
           subCategory
           package
           thumbImage {
@@ -612,9 +613,13 @@ export default {
         design {
           id
           layouts
+          designType
           subCategory
           package
           thumbImage {
+            url
+          }
+          designImage {
             url
           }
           colorCodes {

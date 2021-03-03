@@ -36,6 +36,11 @@ const PopUp = ({
   isRating,
   toggle,
   isfree,
+  isLayout,
+  isLayoutBussiness,
+  msg,
+  toggleVisibleMsg,
+  toggleVisibleMsgBussiness,
 }) => {
   const navigation = useNavigation();
   const [feture, setFeture] = useState("");
@@ -149,6 +154,90 @@ const PopUp = ({
                 Unsubscribe to these notification any time.
               </Text>
             </View>
+          </View>
+        )}
+        {isLayout && (
+          <View style={[styles.modalView]}>
+            <KeyboardAvoidingView
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View style={{ marginHorizontal: 20 }}>
+                <Text style={{ textAlign: "center" }}>{msg}</Text>
+              </View>
+              <View
+                style={{
+                  marginTop: 5,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => toggleVisibleMsg()}
+                >
+                  {Common.getTranslation(LangKey.labClose)}
+                </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titPersonalProfile,
+                    });
+                    toggleVisibleMsg();
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labEdit)}
+                </Button>
+              </View>
+            </KeyboardAvoidingView>
+          </View>
+        )}
+        {isLayoutBussiness && (
+          <View style={[styles.modalView]}>
+            <KeyboardAvoidingView
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View style={{ marginHorizontal: 20 }}>
+                <Text style={{ textAlign: "center" }}>{msg}</Text>
+              </View>
+              <View
+                style={{
+                  marginTop: 5,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => toggleVisibleMsgBussiness()}
+                >
+                  {Common.getTranslation(LangKey.labClose)}
+                </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titBusinessProfile,
+                    });
+                    toggleVisibleMsgBussiness();
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labEdit)}
+                </Button>
+              </View>
+            </KeyboardAvoidingView>
           </View>
         )}
         {other && (
@@ -478,6 +567,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   openButton: {
     borderRadius: 20,
     paddingHorizontal: 30,

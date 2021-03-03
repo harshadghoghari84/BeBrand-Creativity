@@ -22,12 +22,26 @@ const MyTabs = ({ route }) => {
       <Tab.Screen
         name={Constant.navPersonalProfile}
         component={PersonalDesign}
-        initialParams={{ designs: designs, curDesign: curDesign }}
+        initialParams={{
+          designs: designs,
+          curDesign: curDesign,
+          curScreen:
+            curDesign.designType === Constant.designTypeBUSINESS
+              ? Constant.navBusinessProfile
+              : Constant.navPersonalProfile,
+        }}
       />
       <Tab.Screen
         name={Constant.navBusinessProfile}
         component={BussinessDesign}
-        initialParams={{ designs: designs, curDesign: curDesign }}
+        initialParams={{
+          designs: designs,
+          curDesign: curDesign,
+          curScreen:
+            curDesign.designType === Constant.designTypeBUSINESS
+              ? Constant.navBusinessProfile
+              : Constant.navPersonalProfile,
+        }}
       />
     </Tab.Navigator>
   );

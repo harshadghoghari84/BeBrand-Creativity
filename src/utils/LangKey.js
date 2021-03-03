@@ -78,6 +78,7 @@ module.exports = {
   msgCreateAccForPKg: "msgCreateAccForPKg",
   msgDesignDownload: "msgDesignDownload",
   msgShareNotAvaillable: "msgShareNotAvaillable",
+  msgSelectLayout: "msgSelectLayout",
 
   //UserPackage Screen
   txtDesignCredit: "txtDesignCredit",
@@ -110,6 +111,7 @@ module.exports = {
   labSelecteLang: "labSelecteLang",
   labClose: "labClose",
   labSubmit: "labSubmit",
+  labEdit: "labEdit",
   labPurchase: "labPurchase",
   labPurchasePremiumPkg: "labPurchasePremiumPkg",
   labFree: "labFree",
@@ -147,5 +149,26 @@ module.exports = {
   lab1pkg: "lab1pkg",
   lab2pkg: "lab2pkg",
 
-  //
+  // layout popup messages
+  nolayout: "nolayout",
+  nolayoutBussiness: "nolayoutBussiness",
+
+  personalLay1Msg: "personalLay1Msg",
+  personalLay2Msg: "personalLay2Msg",
+  personalLay3Msg: "personalLay3Msg",
+  personalLay4Msg: "personalLay4Msg",
+  personalLay5Msg: "personalLay5Msg",
+  personalLay6Msg: "personalLay6Msg",
+  personalLay7Msg: "personalLay7Msg",
+  // bussiness
+  businessLay1Msg: "businessLay1Msg",
+  businessLay2Msg: "businessLay2Msg",
+  businessLay3Msg: "businessLay3Msg",
+  businessLay4Msg: "businessLay4Msg",
+  businessLay5Msg: "businessLay5Msg",
+  businessLay6Msg: "businessLay6Msg",
+  businessLay7Msg: "businessLay7Msg",
+  businessLay8Msg: "businessLay8Msg",
+  businessLay9Msg: "businessLay9Msg",
+  businessLay10Msg: "businessLay10Msg",
 };

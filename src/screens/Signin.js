@@ -110,7 +110,7 @@ const SignInScreen = ({ userStore }) => {
           })
             .then(({ data, errors }) => {
               if (errors && errors.length > 0) {
-                const errorMsg = data.errors[0].message;
+                const errorMsg = errors[0].message;
                 Common.showMessage(errorMsg);
               }
 

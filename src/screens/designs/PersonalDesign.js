@@ -34,14 +34,21 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import FastImage from "react-native-fast-image";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
+import MuktaText from "../../components/MuktaText";
 
 const { width } = Dimensions.get("window");
 let isShareClick = false;
-
-const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
+let msg = "";
+const PersonalDesign = ({
+  route,
+  designStore,
+  userStore,
+  navigation,
+  navigationState,
+}) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
-  const { designs: designsArr, curDesign } = route.params;
+  const { designs: designsArr, curDesign, curScreen } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
 
   /*
@@ -62,6 +69,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
   };
+  const [visibleModalMsg, setVisibleModalMsg] = useState(false);
+  const toggleVisibleMsg = () => {
+    setVisibleModalMsg(!visibleModalMsg);
+  };
   const [visiblePicker, setVisiblePicker] = useState(false);
 
   const toggleVisibleColorPicker = () => {
@@ -71,7 +82,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
-  const [selectedTab, setSelectedTab] = useState(0);
 
   const [layouts, setLayouts] = useState([]);
 
@@ -84,31 +94,25 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
 
-  const [userDataPersonal, setUserDataPersonal] = useState({});
+  const [userDataPersonal, setUserDataPersonal] = useState();
 
   const isMountedRef = Common.useIsMountedRef();
 
-  const onReset = () => {
-    let filterArr = allLayouts.filter((item) =>
-      currentDesign.layouts.includes(item.id)
-    );
-
-    filterArr = filterArr.filter(
+  const fiilterLayouts = () => {
+    let filterArr = allLayouts.filter(
       (item) =>
         item.layoutType === Constant.layoutTypePERSONAL ||
         item.layoutType === Constant.layoutTypeALL
     );
 
     setLayouts(filterArr);
-    setCurrentLayout(
-      filterArr.length > 0
-        ? hasPro === true
-          ? filterArr[0]
-          : filterArr.find(
-              (item) => item.package.type === Constant.typeDesignPackageFree
-            )
-        : null
-    );
+
+    checkLayout(filterArr);
+  };
+  const onReset = () => {
+    // let filterArr = allLayouts.filter((item) =>
+    //   currentDesign.layouts.includes(item.id)
+    // );
 
     if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
       setFooterColor(currentDesign.colorCodes[0].code);
@@ -143,7 +147,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      const user = toJS(user);
+      console.log("user", user);
       setUserDataPersonal(
         user && user != null
           ? {
@@ -181,13 +185,21 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     }
   }, [userStore.user]);
 
+  useEffect(() => {
+    fiilterLayouts();
+  }, [userDataPersonal]);
+
   const viewRef = useRef(null);
 
   const pixels = Common.getPixels(Constant.designPixel);
 
   const onClickDownload = async () => {
     if (user && user !== null) {
-      await saveDesign();
+      if (currentLayout && currentLayout !== null) {
+        await saveDesign();
+      } else {
+        Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
+      }
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
@@ -323,6 +335,283 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     );
   };
 
+  const checkLayout = (layouts) => {
+    if (userDataPersonal) {
+      let isSet = false;
+      layouts.some((layout) => {
+        switch (layout.id) {
+          case Constant.personalLay1Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.website &&
+              userDataPersonal.website !== "" &&
+              userDataPersonal.email &&
+              userDataPersonal.email !== "" &&
+              userDataPersonal.mobile &&
+              userDataPersonal.mobile !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay2Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay3Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+            }
+            break;
+          case Constant.personalLay4Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.website &&
+              userDataPersonal.website !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay5Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.email &&
+              userDataPersonal.email !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay6Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.mobile &&
+              userDataPersonal.mobile !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay7Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== "" &&
+              userDataPersonal.mobile &&
+              userDataPersonal.mobile !== "" &&
+              userDataPersonal.socialMedia &&
+              userDataPersonal.socialMedia !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+        }
+      });
+
+      if (isSet == false && curScreen === Constant.navPersonalProfile) {
+        msg = Common.getTranslation(LangKey.nolayout);
+        setVisibleModalMsg(true);
+      }
+    }
+  };
+  const checkAndSetLayout = (layout) => {
+    console.log("layout_id", layout.id);
+    switch (layout.id) {
+      case Constant.personalLay1Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.website ||
+          userDataPersonal.website === "" ||
+          !userDataPersonal.email ||
+          userDataPersonal.email === "" ||
+          !userDataPersonal.mobile ||
+          userDataPersonal.mobile === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay1Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay2Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay2Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay3Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay3Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay4Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.website ||
+          userDataPersonal.website === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay4Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay5Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.email ||
+          userDataPersonal.email === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay5Msg);
+          setVisibleModalMsg(true);
+        } else {
+          msg = "";
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay6Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.mobile ||
+          userDataPersonal.mobile === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay6Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay7Id:
+        if (
+          !userDataPersonal.name ||
+          userDataPersonal.name === "" ||
+          !userDataPersonal.designation ||
+          userDataPersonal.designation === "" ||
+          !userDataPersonal.mobile ||
+          userDataPersonal.mobile === "" ||
+          !userDataPersonal.socialMedia ||
+          userDataPersonal.socialMedia === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay7Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+    }
+  };
+
+  const getLayout = () => {
+    switch (currentLayout.id) {
+      case Constant.personalLay1Id:
+        return getLayout1();
+        break;
+      case Constant.personalLay2Id:
+        return getLayout2();
+        break;
+      case Constant.personalLay3Id:
+        return getLayout3();
+        break;
+      case Constant.personalLay4Id:
+        return getLayout4();
+        break;
+      case Constant.personalLay5Id:
+        return getLayout5();
+        break;
+      case Constant.personalLay6Id:
+        return getLayout6();
+        break;
+      case Constant.personalLay7Id:
+        return getLayout7();
+        break;
+    }
+  };
+
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
@@ -346,13 +635,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay1ViewName}>
-        <Text style={[styles.lay1TxtName, { color: footerTextColor }]}>
+        <MuktaText style={[styles.lay1TxtName, { color: footerTextColor }]}>
           {userDataPersonal.name}
-        </Text>
+        </MuktaText>
 
-        <Text style={[styles.lay1TxtDesignation, { color: footerTextColor }]}>
+        <MuktaText
+          style={[styles.lay1TxtDesignation, { color: footerTextColor }]}
+        >
           {userDataPersonal.designation}
-        </Text>
+        </MuktaText>
       </View>
 
       <View style={styles.lay1ViewWebsiteEmail}>
@@ -367,9 +658,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               fill={footerColor}
             />
           </View>
-          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.website}
-          </Text>
+          </MuktaText>
         </View>
         <View style={styles.layViewIconRoot}>
           <View
@@ -382,9 +673,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               fill={footerColor}
             />
           </View>
-          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.email}
-          </Text>
+          </MuktaText>
         </View>
       </View>
 
@@ -401,9 +692,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             />
           </View>
 
-          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.mobile}
-          </Text>
+          </MuktaText>
         </View>
       </View>
 
@@ -431,9 +722,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -453,13 +744,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text style={[styles.lay2TxtName, { color: footerTextColor }]}>
+      <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
         {userDataPersonal.name}
-      </Text>
+      </MuktaText>
 
-      <Text style={[styles.lay2TxtDesignation, { color: footerTextColor }]}>
+      <MuktaText
+        style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
+      >
         {userDataPersonal.designation}
-      </Text>
+      </MuktaText>
 
       <View
         style={[
@@ -485,9 +778,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -507,13 +800,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text style={[styles.lay3TxtName, { color: footerTextColor }]}>
+      <MuktaText style={[styles.lay3TxtName, { color: footerTextColor }]}>
         {userDataPersonal.name}
-      </Text>
+      </MuktaText>
 
-      <Text style={[styles.lay3TxtDesignation, { color: footerTextColor }]}>
+      <MuktaText
+        style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
+      >
         {userDataPersonal.designation}
-      </Text>
+      </MuktaText>
 
       <View
         style={[
@@ -539,9 +834,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -556,13 +851,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay4ViewNameDesignation}>
-        <Text style={[styles.lay4TxtName, { color: footerTextColor }]}>
+        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
           {userDataPersonal.name}
-        </Text>
+        </MuktaText>
 
-        <Text style={[styles.lay4TxtDesignation, { color: footerTextColor }]}>
+        <MuktaText
+          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+        >
           {userDataPersonal.designation}
-        </Text>
+        </MuktaText>
       </View>
 
       <View style={styles.lay4ViewWebsite}>
@@ -577,9 +874,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               fill={footerColor}
             />
           </View>
-          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.website}
-          </Text>
+          </MuktaText>
         </View>
       </View>
 
@@ -607,9 +904,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -624,13 +921,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay4ViewNameDesignation}>
-        <Text style={[styles.lay4TxtName, { color: footerTextColor }]}>
+        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
           {userDataPersonal.name}
-        </Text>
+        </MuktaText>
 
-        <Text style={[styles.lay4TxtDesignation, { color: footerTextColor }]}>
+        <MuktaText
+          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+        >
           {userDataPersonal.designation}
-        </Text>
+        </MuktaText>
       </View>
 
       <View style={styles.lay4ViewWebsite}>
@@ -645,9 +944,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               fill={footerColor}
             />
           </View>
-          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.email}
-          </Text>
+          </MuktaText>
         </View>
       </View>
 
@@ -675,9 +974,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -697,13 +996,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text style={[styles.lay2TxtName, { color: footerTextColor }]}>
+      <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
         {userDataPersonal.name}
-      </Text>
+      </MuktaText>
 
-      <Text style={[styles.lay2TxtDesignation, { color: footerTextColor }]}>
+      <MuktaText
+        style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
+      >
         {userDataPersonal.designation}
-      </Text>
+      </MuktaText>
 
       <View style={styles.lay6ViewMobile}>
         <View style={styles.layViewIconRoot}>
@@ -718,9 +1019,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             />
           </View>
 
-          <Text style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.mobile}
-          </Text>
+          </MuktaText>
         </View>
       </View>
 
@@ -748,9 +1049,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
@@ -769,18 +1070,18 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text
+      <MuktaText
         style={[styles.lay3TxtName, { color: footerTextColor }]}
         adjustsFontSizeToFit
       >
         {userDataPersonal.name}
-      </Text>
-      <Text
+      </MuktaText>
+      <MuktaText
         style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
         adjustsFontSizeToFit
       >
         {userDataPersonal.designation}
-      </Text>
+      </MuktaText>
       <View style={styles.lay7ViewMobile}>
         <View style={styles.layViewIconRoot}>
           <View
@@ -794,9 +1095,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             />
           </View>
 
-          <Text style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
+          <MuktaText style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
             {userDataPersonal.mobile}
-          </Text>
+          </MuktaText>
         </View>
       </View>
       <View
@@ -823,13 +1124,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           </View>
         ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
-        </Text>
+        </MuktaText>
       </View>
     </View>
   );
-
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -846,6 +1146,13 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setPickerColor={setFooterColor}
           toggleVisibleColorPicker={toggleVisibleColorPicker}
           isPicker={true}
+        />
+
+        <PopUp
+          visible={visibleModalMsg}
+          toggleVisibleMsg={toggleVisibleMsg}
+          isLayout={true}
+          msg={msg}
         />
         <View style={styles.container}>
           <FlatList
@@ -922,7 +1229,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 style={{ flex: 1 }}
               >
-                {currentLayout && getLayout4()}
+                {currentLayout && getLayout()}
               </FastImage>
             </View>
           </ViewShot>
@@ -931,6 +1238,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={layouts}
+            contentContainerStyle={{ paddingHorizontal: 5 }}
             keyExtractor={keyExtractor}
             style={styles.flatlist}
             renderItem={({ item }) => (
@@ -945,7 +1253,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                   ) {
                     setVisibleModal(true);
                   } else {
-                    setCurrentLayout(item);
+                    checkAndSetLayout(item);
+                    // setCurrentLayout(item);
                   }
                 }}
               >
@@ -954,7 +1263,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     source={{ uri: item.layoutImage.url }}
                     style={{ width: 75, height: 75 }}
                   />
-                  {item.id === currentLayout.id && (
+                  {currentLayout && item.id === currentLayout.id && (
                     <View
                       style={[
                         styles.icnCheck,
@@ -1118,6 +1427,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                   } else {
                     setCurrentDesign(curDesign);
                   }
+                  fiilterLayouts();
                 }}
                 icon={
                   <Icon
@@ -1130,7 +1440,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               >
                 {Common.getTranslation(LangKey.txtReset)}
               </Button>
-              <Button
+              {/* <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
                 icon={
@@ -1144,7 +1454,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 onPress={onClickShare}
               >
                 {Common.getTranslation(LangKey.txtShare)}
-              </Button>
+              </Button> */}
 
               <Button
                 disable={designs == null || designs == undefined}
@@ -1222,7 +1532,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
   },
-  designView: { marginTop: 10, width: width, height: width },
+  designView: { marginTop: 10, width: width - 10, height: width - 10 },
   colorCodeList: {
     marginVertical: 10,
   },
@@ -1277,13 +1587,11 @@ const styles = StyleSheet.create({
   },
   layTxtIcon: {
     fontSize: Constant.laySmallFontSize,
-    left: wp(0.5),
-    fontFamily: "Mukta-SemiBold",
+    paddingLeft: wp(0.5),
   },
   layBigTxtIcon: {
     fontSize: Constant.layBigFontSize,
-    left: wp(0.5),
-    fontFamily: "Mukta-SemiBold",
+    marginLeft: wp(0.5),
   },
   layViewSocialIconRoot: {
     marginRight: wp(0.5),
@@ -1299,17 +1607,21 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   lay1ViewName: {
-    left: "2.50%",
+    width: "100%",
     position: "absolute",
     top: "10%",
+    justifyContent: "center",
     flexDirection: "row",
     alignItems: "baseline",
   },
   lay1TxtName: { fontSize: Constant.layBigFontSize },
-  lay1TxtDesignation: { fontSize: Constant.laySmallFontSize, left: 5 },
+  lay1TxtDesignation: {
+    fontSize: Constant.laySmallFontSize,
+    marginLeft: wp(1.35),
+  },
   lay1ViewWebsiteEmail: {
     position: "absolute",
-    top: "42%",
+    top: "41%",
     left: "2.50%",
     width: "95%",
     flexDirection: "row",
@@ -1319,12 +1631,12 @@ const styles = StyleSheet.create({
   lay1ViewMobile: {
     position: "absolute",
     left: "2.50%",
-    bottom: "9%",
+    bottom: "7%",
     flexDirection: "row",
     alignItems: "center",
   },
   lay1ViewSocialMedia: {
-    bottom: "9%",
+    bottom: "7%",
     right: "2.50%",
     position: "absolute",
     alignItems: "center",
@@ -1363,7 +1675,6 @@ const styles = StyleSheet.create({
     right: "2.50%",
     position: "absolute",
     alignItems: "center",
-    justifyContent: "center",
     flexDirection: "row",
   },
 
@@ -1383,14 +1694,12 @@ const styles = StyleSheet.create({
   },
   lay3TxtName: {
     fontSize: Constant.layBigFontSize,
-    fontFamily: "Mukta-SemiBold",
     right: "21%",
     position: "absolute",
     top: "15%",
   },
   lay3TxtDesignation: {
     fontSize: Constant.laySmallFontSize,
-    fontFamily: "Mukta-SemiBold",
     right: "21%",
     position: "absolute",
     bottom: "7%",
@@ -1420,7 +1729,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   lay4TxtName: { fontSize: Constant.layBigFontSize },
-  lay4TxtDesignation: { fontSize: Constant.laySmallFontSize, left: wp(1.35) },
+  lay4TxtDesignation: {
+    fontSize: Constant.laySmallFontSize,
+    marginLeft: wp(1.35),
+  },
   lay4ViewWebsite: {
     bottom: "9%",
     left: "2.50%",
