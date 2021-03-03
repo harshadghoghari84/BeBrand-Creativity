@@ -90,9 +90,7 @@ const Home = ({ navigation, designStore, userStore }) => {
     setTotalUserSubCategoriesBefore,
   ] = useState(0);
 
-  const [selectedSubCategory, setSelectedSubCategory] = useState(
-    Constant.defHomeSubCategory
-  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState();
 
   const refCategoryList = useRef(null);
   const isMountedRef = Common.useIsMountedRef();
@@ -393,11 +391,10 @@ const Home = ({ navigation, designStore, userStore }) => {
           />
         </View>
         <View style={styles.containerDesignList}>
-          {selectedSubCategory ===
-          Constant.defHomeSubCategory ? null : userSubCategories[
-              selectedSubCategory
-            ].totalDesign > 0 &&
-            userSubCategories[selectedSubCategory].designs.length > 0 ? (
+          {userSubCategories &&
+          selectedSubCategory &&
+          userSubCategories[selectedSubCategory].totalDesign > 0 &&
+          userSubCategories[selectedSubCategory].designs.length > 0 ? (
             <>
               <FlatList
                 key={2}
@@ -447,7 +444,18 @@ const Home = ({ navigation, designStore, userStore }) => {
             </>
           ) : (
             <View style={styles.containerNoDesign}>
-              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+              {designStore.udLoading ? (
+                <>
+                  <ActivityIndicator size={25} color={Color.primary} />
+                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                    {Common.getTranslation(LangKey.labLoading)}
+                  </Text>
+                </>
+              ) : (
+                <Text>
+                  {Common.getTranslation(LangKey.labNoDesignAvailable)}
+                </Text>
+              )}
             </View>
           )}
         </View>
