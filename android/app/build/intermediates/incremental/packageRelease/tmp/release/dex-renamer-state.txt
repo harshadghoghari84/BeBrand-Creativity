@@ -1,4 +1,4 @@
-#Wed Mar 03 16:07:37 IST 2021
+#Wed Mar 03 17:07:26 IST 2021
 base.0=/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
 path.1=classes2.dex
 renamed.1=classes2.dex

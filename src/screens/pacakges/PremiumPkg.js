@@ -42,6 +42,8 @@ import { SvgUri } from "react-native-svg";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 
+let isGetProducts = false;
+
 const Packages = ({ navigation, designStore, userStore }) => {
   const user = toJS(userStore.user);
 
@@ -67,7 +69,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
       const filterData = designPackages.filter(
         (ele) => ele.type === Constant.vip
       );
-      console.log("filterData", filterData);
+
       setFilteredData(filterData);
       filterData.length > 0
         ? setCurrentItem(filterData[0])
@@ -93,11 +95,15 @@ const Packages = ({ navigation, designStore, userStore }) => {
 
   const getProducts = async () => {
     try {
-      const products = await rnIapProducts(itemSkus);
-      console.log("Products", products);
-      setProductList(products);
+      rnIapProducts(itemSkus)
+        .then((res) => {
+          isGetProducts = true;
+        })
+        .catch((err) => {
+          isGetProducts = false;
+        });
     } catch (err) {
-      console.log("error=>", err.message);
+      isGetProducts = false;
     }
   };
 
@@ -152,6 +158,10 @@ const Packages = ({ navigation, designStore, userStore }) => {
 
   const requestSubscription = async (sku) => {
     if (user && user !== null) {
+      if (isGetProducts === false) {
+        const res = await rnIapProducts(itemSkus);
+      }
+
       try {
         rnIapRequestSubscription(sku)
           .then((res) => {
@@ -326,6 +336,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
       />
 
       <Button
+        // disabled={isGetProducts}
         style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
         normal={true}
         onPress={() => requestSubscription(currentItem.id)}
