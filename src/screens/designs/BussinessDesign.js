@@ -3,15 +3,12 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
-  Image,
   Dimensions,
-  ImageBackground,
   ToastAndroid,
   Platform,
   FlatList,
   ScrollView,
   TouchableOpacity,
-  PermissionsAndroid,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
@@ -25,6 +22,9 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import FastImage from "react-native-fast-image";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -33,11 +33,9 @@ import Constant from "../../utils/Constant";
 import Button from "../../components/Button";
 import LangKey from "../../utils/LangKey";
 import GraphqlQuery from "../../utils/GraphqlQuery";
-import FastImage from "react-native-fast-image";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
 import Text from "../../components/MuktaText";
-import { el } from "date-fns/locale";
 
 const { width } = Dimensions.get("window");
 let isShareClick = false;
@@ -74,10 +72,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     return setVisiblePicker(!visiblePicker);
   };
 
-  // const [visibleModalMsg, setVisibleModalMsg] = useState(false);
-  // const toggleVisibleMsg = () => {
-  //   setVisibleModalMsg(!visibleModalMsg);
-  // };
   const [visibleModalMsgbussiness, setVisibleModalMsgbussiness] = useState(
     false
   );
@@ -88,7 +82,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
-  const [selectedTab, setSelectedTab] = useState(0);
   const [userDataBussiness, setUserDataBussiness] = useState();
 
   const [layouts, setLayouts] = useState([]);
@@ -111,10 +104,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         item.layoutType === Constant.layoutTypeALL
     );
 
-    console.log("filterArr", filterArr);
     setLayouts(filterArr);
     checkLayout(filterArr);
   };
+
   const onReset = () => {
     // let filterArr = allLayouts.filter((item) =>
     //   currentDesign.layouts.includes(item.id)
@@ -126,6 +119,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         : setFooterTextColor(currentDesign.lightTextColor);
     }
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem(Constant.prfIcons)
+      .then((res) => {
+        if (res && res !== null) {
+          setSocialIconList(JSON.parse(res));
+        }
+      })
+      .catch((err) => {});
+  }, []);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -151,40 +154,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
   }, [userStore.hasPro]);
-
-  //setting layoutFields to JSX object
-  // const objFooter = currentLayout?.layoutFields?.footer
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.footer)
-  //   : undefined;
-  // const objName = currentLayout?.layoutFields?.name
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.name)
-  //   : undefined;
-  // const objMobile = currentLayout?.layoutFields?.mobile
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.mobile)
-  //   : undefined;
-  // const objDesignation = currentLayout?.layoutFields?.designation
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.designation)
-  //   : undefined;
-  // const objAddress = currentLayout?.layoutFields?.address
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.address)
-  //   : undefined;
-  // const objImage = currentLayout?.layoutFields?.image
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.image)
-  //   : undefined;
-  // const objSocialMediaView = currentLayout?.layoutFields?.socialMediaView
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaView)
-  //   : undefined;
-  // const objSocialMediaLabel = currentLayout?.layoutFields?.socialMediaLabel
-  //   ? Common.convertStringToObject(
-  //       currentLayout?.layoutFields?.socialMediaLabel
-  //     )
-  //   : undefined;
-  // const objSocialMediaName = currentLayout?.layoutFields?.socialMediaName
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaName)
-  //   : undefined;
-  // const objSocialIcon = currentLayout?.layoutFields?.socialIcon
-  //   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
-  //   : undefined;
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -787,17 +756,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         resizeMode={FastImage.resizeMode.contain}
       />
 
-      <Text
-        style={[
-          styles.lay1TxtName,
-          {
-            color: footerTextColor,
-            position: "absolute",
-            left: "23%",
-            top: "22%",
-          },
-        ]}
-      >
+      <Text style={[styles.lay1TxtName, { color: footerTextColor }]}>
         {userDataBussiness.name}
       </Text>
 
@@ -821,7 +780,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             fill={footerColor}
           />
         </View>
-        <Text style={[styles.lay1TxtAddress, { color: footerTextColor }]}>
+        <Text
+          style={[
+            {
+              fontSize: Constant.laySmallFontSize,
+              maxHeight: "100%",
+              paddingLeft: wp(1),
+            },
+            { color: footerTextColor },
+          ]}
+        >
           {userDataBussiness.address}
         </Text>
       </View>
@@ -973,7 +941,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay2TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1057,7 +1025,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           alignItems: "center",
           left: "2%",
           position: "absolute",
-          bottom: "5%",
+          top: "45%",
         }}
       >
         <View
@@ -1080,7 +1048,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          top: "45%",
+          bottom: "5%",
           left: "2%",
           position: "absolute",
         }}
@@ -1098,7 +1066,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay3TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1288,7 +1256,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           alignItems: "center",
           position: "absolute",
           left: "2%",
-          bottom: "5%",
+          top: "45%",
         }}
       >
         <View
@@ -1309,7 +1277,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       <View
         style={{
           position: "absolute",
-          top: "45%",
+          bottom: "5%",
           left: "2%",
           flexDirection: "row",
           alignItems: "center",
@@ -1329,7 +1297,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay5TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1458,7 +1426,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay6TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1795,17 +1763,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
 
-      <Text
-        style={[
-          styles.lay9TxtName,
-          {
-            color: footerTextColor,
-            right: "25%",
-            position: "absolute",
-            top: "28%",
-          },
-        ]}
-      >
+      <Text style={[styles.lay9TxtName, { color: footerTextColor }]}>
         {userDataBussiness.name}
       </Text>
 
@@ -1813,7 +1771,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          right: "25%",
+          right: "24%",
           top: "53%",
           position: "absolute",
         }}
@@ -1856,7 +1814,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay9TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1868,7 +1826,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           {
             color: footerTextColor,
             bottom: "5%",
-            right: "25%",
+            right: "24%",
             position: "absolute",
           },
         ]}
@@ -1925,9 +1883,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           styles.lay9TxtName,
           {
             color: footerTextColor,
-            right: "25%",
-            position: "absolute",
-            top: "28%",
           },
         ]}
       >
@@ -1957,7 +1912,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         <Text
           style={[
             styles.lay9TxtMobile,
-            { color: footerTextColor, paddingLeft: wp(2) },
+            { color: footerTextColor, paddingLeft: wp(1) },
           ]}
         >
           {userDataBussiness.mobile}
@@ -1969,7 +1924,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           {
             color: footerTextColor,
             bottom: "5%",
-            right: "25%",
+            right: "24%",
             position: "absolute",
           },
         ]}
@@ -2009,7 +1964,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          right: "25%",
+          right: "24%",
           top: "53%",
           position: "absolute",
         }}
@@ -2039,6 +1994,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
+
+  /*
+  ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
+  .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
+  .##.......##.....##.####.####.##.....##.##.....##.####..##.##.......####..##....##....##......
+  .##.......##.....##.##.###.##.########..##.....##.##.##.##.######...##.##.##....##.....######.
+  .##.......##.....##.##.....##.##........##.....##.##..####.##.......##..####....##..........##
+  .##....##.##.....##.##.....##.##........##.....##.##...###.##.......##...###....##....##....##
+  ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
+  */
+
   const bussiness = () => {
     return (
       <ScrollView
@@ -2250,12 +2216,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onPress={() => {
+                onPress={async () => {
+                  let addIcons = [];
                   if (socialIconList.indexOf(item) >= 0) {
+                    addIcons = socialIconList.filter((val) => val !== item);
                     setSocialIconList(
                       socialIconList.filter((val) => val !== item)
                     );
                   } else if (socialIconList.length < Constant.socialIconLimit) {
+                    addIcons.push(...socialIconList, item);
                     setSocialIconList([...socialIconList, item]);
                   } else {
                     Platform.OS == "android"
@@ -2267,6 +2236,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                           Common.getTranslation(LangKey.msgSocialIconLimit)
                         );
                   }
+                  await AsyncStorage.setItem(
+                    Constant.prfIcons,
+                    JSON.stringify(addIcons)
+                  );
                 }}
               >
                 <View
@@ -2307,11 +2280,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
-                onPress={() =>
-                  navigation.navigate(Constant.navProfile, {
-                    title: Constant.titBusinessProfile,
-                  })
-                }
+                onPress={() => {
+                  if (user && user !== null) {
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titBusinessProfile,
+                    });
+                  } else {
+                    Common.showMessage(
+                      Common.getTranslation(LangKey.msgCreateAccEdit)
+                    );
+                  }
+                }}
                 icon={
                   <Icon name="edit" height={15} width={15} fill={Color.white} />
                 }
@@ -2382,6 +2361,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   return <View style={{ flex: 1 }}>{bussiness()}</View>;
 };
 export default inject("designStore", "userStore")(observer(BussinessDesign));
+
+/*
+..######..########.##....##.##.......########..######.
+.##....##....##.....##..##..##.......##.......##....##
+.##..........##......####...##.......##.......##......
+..######.....##.......##....##.......######....######.
+.......##....##.......##....##.......##.............##
+.##....##....##.......##....##.......##.......##....##
+..######.....##.......##....########.########..######.
+*/
 
 const styles = StyleSheet.create({
   container: {
@@ -2501,6 +2490,9 @@ const styles = StyleSheet.create({
   },
   lay1TxtName: {
     fontSize: Constant.layBigFontSize,
+    position: "absolute",
+    left: "23%",
+    top: "22%",
   },
   lay1TxtMobile: {
     fontSize: Constant.laySmallFontSize,
@@ -2565,8 +2557,7 @@ const styles = StyleSheet.create({
   },
   lay2TxtAddress: {
     fontSize: Constant.laySmallFontSize,
-    maxWidth: wp(70),
-    lineHeight: 10,
+    maxWidth: "100%",
     textAlign: "right",
   },
   lay2ViewSocialMedia: {
@@ -2583,7 +2574,7 @@ const styles = StyleSheet.create({
   },
   lay3TxtWebsite: {
     fontSize: Constant.laySmallFontSize,
-    paddingLeft: wp(2),
+    paddingLeft: wp(1),
   },
   lay3TxtName: {
     fontSize: Constant.layBigFontSize,
@@ -2605,11 +2596,11 @@ const styles = StyleSheet.create({
   },
   lay4TxtWebsite: {
     fontSize: Constant.laySmallFontSize,
-    paddingLeft: wp(2),
+    paddingLeft: wp(1),
   },
   lay4TxtEmail: {
     fontSize: Constant.laySmallFontSize,
-    paddingLeft: wp(2),
+    paddingLeft: wp(1),
   },
   lay4TxtName: {
     fontSize: Constant.layBigFontSize,
@@ -2755,20 +2746,23 @@ const styles = StyleSheet.create({
   //  layout 9
   lay9ViewFooter: {
     width: "100%",
-    height: "17.34%",
+    height: "18%",
     bottom: 0,
     position: "absolute",
   },
   lay9ImgLogo: {
-    right: "5.5%",
+    right: "4%",
     width: "16.67%",
     height: "83.34%",
     position: "absolute",
-    bottom: "7%",
+    bottom: "4.62%",
   },
   lay9TxtName: {
     fontSize: Constant.layBigFontSize,
     textAlign: "right",
+    position: "absolute",
+    right: "24%",
+    top: "28%",
   },
   lay9TxtMobile: {
     fontSize: Constant.laySmallFontSize,
@@ -2790,13 +2784,13 @@ const styles = StyleSheet.create({
   //  layout 10
   lay10ViewFooter: {
     width: "100%",
-    height: "17.34%",
+    height: "18%",
     bottom: 0,
     position: "absolute",
   },
   lay10ImgLogo: {
-    right: "4%",
-    width: "16.67%",
+    right: "5.2%",
+    width: "17.50%",
     height: "83.34%",
     position: "absolute",
     bottom: "4.62%",
@@ -2824,3 +2818,37 @@ const styles = StyleSheet.create({
     paddingLeft: wp(0.5),
   },
 });
+
+//setting layoutFields to JSX object
+// const objFooter = currentLayout?.layoutFields?.footer
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.footer)
+//   : undefined;
+// const objName = currentLayout?.layoutFields?.name
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.name)
+//   : undefined;
+// const objMobile = currentLayout?.layoutFields?.mobile
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.mobile)
+//   : undefined;
+// const objDesignation = currentLayout?.layoutFields?.designation
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.designation)
+//   : undefined;
+// const objAddress = currentLayout?.layoutFields?.address
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.address)
+//   : undefined;
+// const objImage = currentLayout?.layoutFields?.image
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.image)
+//   : undefined;
+// const objSocialMediaView = currentLayout?.layoutFields?.socialMediaView
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaView)
+//   : undefined;
+// const objSocialMediaLabel = currentLayout?.layoutFields?.socialMediaLabel
+//   ? Common.convertStringToObject(
+//       currentLayout?.layoutFields?.socialMediaLabel
+//     )
+//   : undefined;
+// const objSocialMediaName = currentLayout?.layoutFields?.socialMediaName
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaName)
+//   : undefined;
+// const objSocialIcon = currentLayout?.layoutFields?.socialIcon
+//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
+//   : undefined;

@@ -17,10 +17,10 @@ export default {
     },
     {
       name: "ABCDEFGHJKLMNOPQRSTUVWXYZ",
-      designation: "ABCDEFGHJKLMNOPQRSTU",
+      designation: "ABCDEFGHJKLMNOPQRS",
       mobile: "9876543210",
-      email: "ABCDEFGHJKLMNOPQRSTUVWXYZAB",
-      website: "ABCDEFGHJKLMNOPQRSTUVWXYZAB",
+      email: "ABCDEFGHJKLMNOPQRSTUVWXYZZ",
+      website: "ABCDEFGHJKLMNOPQRSTUVWXYZZ",
       socialMedia: "ABCDEFGHJKLMNOPQRSTU",
       image:
         "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
@@ -29,13 +29,13 @@ export default {
 
   dummyCompnyData: [
     {
-      name: "HARSHADHGHOGHARIANDCOMPANYZXCVBNMLKJHGFDS",
-      address: "84,KANTARESHWERSOC-1,LALITACHOWK,KATARGAM,SURAT,GUJRAT,INDIA",
+      name: "HARSHADHGHOGHARIANDCOMPANYZXCVBNMLK",
+      address: "HARSHADHGHOGHARIANDCOMPANYZXCVHARSHADHGHA",
       mobile: "9876543210",
       email: "HARSHADHGHOGHARI1234@GMAIL.COM",
-      website: "HARSHADHGHOGHARI1234MYWEBGG.COM",
-      socialMedia: "@HARSHADGHOGHARIAKAGHOGHS",
-      image: "http://assets.stickpng.com/images/580b57fcd9996e24bc43c521.png",
+      website: "HARSHADHGHOGHARI1234MYWE",
+      socialMedia: "@HARSHADGHOGHARIAKAG",
+      image: "https://image.flaticon.com/icons/png/512/174/174855.png",
     },
     {
       name: "1234567890123456789012345",
@@ -61,6 +61,7 @@ export default {
   prfUserToken: "userToken",
   prfUserloginTime: "userLoginTime",
   prfLangCode: "langCode",
+  prfIcons: "setSocialIcons",
 
   branddotLegalUrl: "https://branddot.in/?page_id=559",
 
@@ -215,10 +216,10 @@ export default {
   Information: "Information",
 
   // personalDesign.js constants
-  layIconViewPadding: wp(0.3),
+  layIconViewPadding: wp(0.22),
   layIconViewBorderRadius: 2,
-  layIconHeight: wp(2.2),
-  layIconWidth: wp(2.2),
+  layIconHeight: wp(2),
+  layIconWidth: wp(2),
   layBigFontSize: wp(3),
   laySmallFontSize: wp(2.2),
   personalLay1Id: "601283dce5dffb0b08a1bd6b",

@@ -76,6 +76,7 @@ module.exports = {
   msgPerchasePkg: "msgPerchasePkg",
   msgCreateAcc: "msgCreateAcc",
   msgCreateAccForPKg: "msgCreateAccForPKg",
+  msgCreateAccEdit: "msgCreateAccEdit",
   msgDesignDownload: "msgDesignDownload",
   msgShareNotAvaillable: "msgShareNotAvaillable",
   msgSelectLayout: "msgSelectLayout",

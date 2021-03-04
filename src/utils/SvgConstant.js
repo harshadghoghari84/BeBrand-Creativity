@@ -30,16 +30,17 @@ viewBox="0 0 1500 270"
 </svg>
   `,
   footerBusinessLayout2: `
-  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="5in" height="0.862827in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 844.95 145.81"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
-    <g id="Layer_x0020_1">
-        <metadata id="CorelCorpID_0Corel-Layer"/>
-        <g id="_1826205469904">
-            <polygon class="fil0" points="-0,32.59 844.95,32.59 844.95,145.81 -0,145.81 "/>
-            <path class="fil0" d="M671.03 0l54.45 0 54.45 0c37.83,0 20.48,26.53 59.46,48.91 0,0 0,0 0,0 0,26.9 -20.16,48.91 -44.81,48.91l-69.09 0 -69.09 0c-24.65,0 -44.81,-22.01 -44.81,-48.91 0,0 0,0 0,0 38.97,-22.38 21.63,-48.91 59.46,-48.91z"/>
-        </g>
-    </g>
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="5.00044in" height="0.9in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 688.02 123.83"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2588428981616">
+   <polygon class="fil0" points="-0,27.68 687.96,27.68 687.96,123.83 -0,123.83 "/>
+   <path class="fil0" d="M561.58 0l40.89 0 40.89 0c28.41,0 15.38,22.53 44.66,41.54 0,0 0,0 0,0 0,22.85 -15.15,41.54 -33.66,41.54l-51.89 0 -51.89 0c-18.51,0 -33.66,-18.69 -33.66,-41.54 0,0 0,-0 0,-0 29.27,-19.01 16.25,-41.54 44.66,-41.54z"/>
+  </g>
+ </g>
 </svg>
   `,
   footerBusinessLayout3: `<svg
