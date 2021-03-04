@@ -34,12 +34,15 @@ const TextInput = ({
         {...props}
       />
       <Icon name={marked} fill={Color.green} height={15} width={15} />
-      <TouchableOpacity onPress={() => toggleSecureText()}>
+      <TouchableOpacity
+        style={styles.iconView}
+        onPress={() => toggleSecureText()}
+      >
         <Icon
           name={eyeOn}
           fill={secureTextEntry ? Color.grey : Color.primary}
-          height={15}
-          width={15}
+          height={18}
+          width={18}
         />
       </TouchableOpacity>
     </View>
@@ -55,11 +58,9 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 13,
-    borderRadius: 50,
     color: Color.darkBlue,
     fontWeight: "700",
-    width: "80%",
-    // backgroundColor: "pink",
+    flex: 1,
   },
   error: {
     fontSize: 14,
@@ -77,13 +78,15 @@ const styles = StyleSheet.create({
   },
   filedsIcon: {
     marginHorizontal: 5,
-    marginRight: 10,
     backgroundColor: Color.txtIntxtcolor,
     width: 30,
     height: 30,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+  },
+  iconView: {
+    paddingRight: 15,
   },
 });
 
