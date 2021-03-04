@@ -382,7 +382,9 @@ const SignInScreen = ({ userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="done"
             iconName="lock"
-            eyeOn={isForgotPass ? null : secureText === true ? "eye" : "eye"}
+            eyeOn={
+              isForgotPass ? null : secureText === true ? "eyeclose" : "eye"
+            }
             value={password.value}
             onChangeText={(text) => setPassword({ value: text, error: "" })}
             error={!!password.error}
