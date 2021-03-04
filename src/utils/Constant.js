@@ -48,7 +48,7 @@ export default {
     },
   ],
 
-  // ServerUrl: "http://192.168.0.104:5000/graphql",
+  // ServerUrl: "192.168.0.222:5000/gql",
   serverUrl: "https://admin.branddot.in/gql",
   // ServerUrl: "http://192.168.100.4:5000/graphql",
 

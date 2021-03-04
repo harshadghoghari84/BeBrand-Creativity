@@ -5,7 +5,7 @@ import FastImage from "react-native-fast-image";
 const Logo = () => (
   <FastImage
     resizeMode={FastImage.resizeMode.contain}
-    source={require("../assets/bdt.png")}
+    source={require("../assets/img/bdt.png")}
     style={styles.image}
   />
 );

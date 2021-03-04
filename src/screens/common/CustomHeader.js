@@ -62,7 +62,7 @@ const CustomHeader = ({
           </View>
 
           <FastImage
-            source={require("../../assets/LOGO2.png")}
+            source={require("../../assets/img/LOGO2.png")}
             resizeMode={FastImage.resizeMode.contain}
             style={styles.companyLogo}
           />

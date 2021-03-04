@@ -324,7 +324,7 @@ const PopUp = ({
                 </Text>
               </View>
               <FastImage
-                source={require("../assets/Select.png")}
+                source={require("../assets/img/Select.png")}
                 resizeMode={FastImage.resizeMode.contain}
                 style={{ height: 100, width: 100 }}
               />
@@ -397,7 +397,7 @@ const PopUp = ({
                 </Text>
               </View>
               <FastImage
-                source={require("../assets/Select.png")}
+                source={require("../assets/img/Select.png")}
                 resizeMode={FastImage.resizeMode.contain}
                 style={{ height: 100, width: 100 }}
               />
