@@ -12,15 +12,17 @@ import {
   TouchableOpacity,
   PixelRatio,
 } from "react-native";
-// import Icon from "react-native-vector-icons/Ionicons";
+
 import ViewShot from "react-native-view-shot";
 import { SvgCss } from "react-native-svg";
 import { inject, observer } from "mobx-react";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import * as Sharing from "expo-sharing";
-import { ColorPicker, TriangleColorPicker } from "react-native-color-picker";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { useMutation } from "@apollo/client";
+import FastImage from "react-native-fast-image";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -29,9 +31,7 @@ import Common from "../../utils/Common";
 import Constant from "../../utils/Constant";
 import Button from "../../components/Button";
 import LangKey from "../../utils/LangKey";
-import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
-import FastImage from "react-native-fast-image";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
 import MuktaText from "../../components/MuktaText";
@@ -39,13 +39,7 @@ import MuktaText from "../../components/MuktaText";
 const { width } = Dimensions.get("window");
 let isShareClick = false;
 let msg = "";
-const PersonalDesign = ({
-  route,
-  designStore,
-  userStore,
-  navigation,
-  navigationState,
-}) => {
+const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
   const { designs: designsArr, curDesign, curScreen } = route.params;
@@ -90,6 +84,16 @@ const PersonalDesign = ({
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
+
+  useEffect(() => {
+    AsyncStorage.getItem(Constant.prfIcons)
+      .then((res) => {
+        if (res && res !== null) {
+          setSocialIconList(JSON.parse(res));
+        }
+      })
+      .catch((err) => console.log("async err", err));
+  }, []);
 
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
@@ -174,8 +178,8 @@ const PersonalDesign = ({
                 user.userInfo.personal.socialMediaId,
 
               image:
-                user?.userInfo?.personal.image.length > 0
-                  ? user?.userInfo?.personal.image.find(
+                user?.userInfo?.personal?.image.length > 0
+                  ? user?.userInfo?.personal?.image.find(
                       (item) => item.isDefault === true
                     ).url
                   : null,
@@ -706,21 +710,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -762,21 +770,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -818,21 +830,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -888,21 +904,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -958,21 +978,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -1033,21 +1057,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -1108,21 +1136,25 @@ const PersonalDesign = ({
           },
         ]}
       >
-        {socialIconList.map((item) => (
-          <View style={styles.layViewSocialIconRoot}>
-            <View
-              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-            >
-              <Icon
-                key={item}
-                name={item}
-                height={Constant.layIconHeight}
-                width={Constant.layIconWidth}
-                fill={footerColor}
-              />
+        {socialIconList &&
+          socialIconList.map((item) => (
+            <View style={styles.layViewSocialIconRoot}>
+              <View
+                style={[
+                  styles.layViewIcon,
+                  { backgroundColor: footerTextColor },
+                ]}
+              >
+                <Icon
+                  key={item}
+                  name={item}
+                  height={Constant.layIconHeight}
+                  width={Constant.layIconWidth}
+                  fill={footerColor}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
         <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
           {userDataPersonal.socialMedia}
@@ -1130,6 +1162,17 @@ const PersonalDesign = ({
       </View>
     </View>
   );
+
+  /*
+..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
+.##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
+.##.......##.....##.####.####.##.....##.##.....##.####..##.##.......####..##....##....##......
+.##.......##.....##.##.###.##.########..##.....##.##.##.##.######...##.##.##....##.....######.
+.##.......##.....##.##.....##.##........##.....##.##..####.##.......##..####....##..........##
+.##....##.##.....##.##.....##.##........##.....##.##...###.##.......##...###....##....##....##
+..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
+*/
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -1347,13 +1390,20 @@ const PersonalDesign = ({
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onPress={() => {
+                onPress={async () => {
+                  let addIcons = [];
                   if (socialIconList.indexOf(item) >= 0) {
+                    addIcons = socialIconList.filter((val) => val !== item);
+                    console.log("remove icons", addIcons);
+
                     setSocialIconList(
                       socialIconList.filter((val) => val !== item)
                     );
                   } else if (socialIconList.length < Constant.socialIconLimit) {
+                    addIcons.push(...socialIconList, item);
+
                     setSocialIconList([...socialIconList, item]);
+                    console.log("add icons", addIcons);
                   } else {
                     Platform.OS == "android"
                       ? ToastAndroid.show(
@@ -1364,6 +1414,10 @@ const PersonalDesign = ({
                           Common.getTranslation(LangKey.msgSocialIconLimit)
                         );
                   }
+                  await AsyncStorage.setItem(
+                    Constant.prfIcons,
+                    JSON.stringify(addIcons)
+                  );
                 }}
               >
                 <View
@@ -1371,7 +1425,9 @@ const PersonalDesign = ({
                     height: 45,
                     width: 45,
                     backgroundColor:
-                      socialIconList.indexOf(item) < 0 ? null : Color.white,
+                      socialIconList && socialIconList.indexOf(item) < 0
+                        ? null
+                        : Color.white,
                     opacity: 0.3,
                     position: "absolute",
                   }}
@@ -1406,11 +1462,17 @@ const PersonalDesign = ({
               <Button
                 disable={designs == null || designs == undefined}
                 style={{ margin: 5 }}
-                onPress={() =>
-                  navigation.navigate(Constant.navProfile, {
-                    title: Constant.titPersonalProfile,
-                  })
-                }
+                onPress={() => {
+                  if (user && user !== null) {
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titPersonalProfile,
+                    });
+                  } else {
+                    Common.showMessage(
+                      Common.getTranslation(LangKey.msgCreateAccEdit)
+                    );
+                  }
+                }}
                 icon={
                   <Icon name="edit" height={15} width={15} fill={Color.white} />
                 }
@@ -1489,6 +1551,16 @@ function actuatedNormalize(size) {
     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
   }
 }
+
+/*
+..######..########.##....##.##.......########..######.
+.##....##....##.....##..##..##.......##.......##....##
+.##..........##......####...##.......##.......##......
+..######.....##.......##....##.......######....######.
+.......##....##.......##....##.......##.............##
+.##....##....##.......##....##.......##.......##....##
+..######.....##.......##....########.########..######.
+*/
 
 const styles = StyleSheet.create({
   container: {
