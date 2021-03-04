@@ -365,7 +365,7 @@ const Otp = ({ route, navigation, userStore }) => {
           </View>
           <FastImage
             resizeMode={FastImage.resizeMode.contain}
-            source={require("../assets/bdt.png")}
+            source={require("../assets/img/bdt.png")}
             style={styles.image}
           />
         </View>

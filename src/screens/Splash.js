@@ -68,7 +68,7 @@ const Splash = ({ navigation, userStore }) => {
       <>
         <View style={styles.round} />
         <FastImage
-          source={require("../assets/DFS.png")}
+          source={require("../assets/img/DFS.png")}
           style={styles.logoImg}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -89,7 +89,7 @@ const Splash = ({ navigation, userStore }) => {
     return (
       <View style={styles.container}>
         <FastImage
-          source={require("../assets/splash.jpg")}
+          source={require("../assets/img/splash.jpg")}
           style={styles.logoImg}
           resizeMode={FastImage.resizeMode.cover}
         />

@@ -61,7 +61,7 @@ const Ratings = ({ toggleforRating, toggleVisibleforImprove }) => {
 
         <View style={{ alignItems: "center" }}>
           <FastImage
-            source={require("../assets/Rating.png")}
+            source={require("../assets/img/Rating.png")}
             resizeMode={FastImage.resizeMode.contain}
             style={{ height: 200, width: "70%" }}
           />

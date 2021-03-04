@@ -96,12 +96,26 @@ const UserPackage = ({ navigation, designStore }) => {
                 borderColor: Color.borderColor,
               }}
             >
-              <SvgUri
-                uri={item?.package?.image?.url}
-                width={50}
-                height={50}
-                fill={Color.primary}
-              />
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {curDate > expDate || item.currentDesignCredit <= 0 ? (
+                  <Text style={styles.txtExpired}>Expired</Text>
+                ) : (
+                  <Text style={styles.txtActive}>Active</Text>
+                )}
+                <SvgUri
+                  uri={item?.package?.image?.url}
+                  width={50}
+                  height={50}
+                  fill={Color.primary}
+                  style={{ marginHorizontal: 20, marginTop: 10 }}
+                />
+              </View>
+
               <View
                 style={{
                   flex: 1,
@@ -138,12 +152,6 @@ const UserPackage = ({ navigation, designStore }) => {
 
               {item?.package?.type === Constant.typeDesignPackagePro && (
                 <Text style={styles.tagPro}>{item.package.type}</Text>
-              )}
-
-              {curDate > expDate || item.currentDesignCredit <= 0 ? (
-                <Text style={styles.txtExpired}>Expired</Text>
-              ) : (
-                <Text style={styles.txtActive}>Active</Text>
               )}
             </View>
           );
@@ -193,9 +201,9 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   txtActive: {
-    position: "absolute",
-    top: 0,
-    left: 10,
+    // position: "absolute",
+    // top: 0,
+    // left: 10,
     paddingHorizontal: 10,
     fontSize: 15,
     fontWeight: "bold",

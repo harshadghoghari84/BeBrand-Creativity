@@ -6,7 +6,7 @@ import { createUploadLink } from "apollo-upload-client";
 import Constant from "./Constant";
 
 const httpLink = createUploadLink({
-  uri: Constant.serverUrl,
+  uri: Constant.ServerUrl,
 });
 
 const authLink = setContext(async (_, { headers }) => {
