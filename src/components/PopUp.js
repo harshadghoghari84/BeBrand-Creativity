@@ -48,6 +48,7 @@ const PopUp = ({
 }) => {
   const navigation = useNavigation();
   const [feture, setFeture] = useState("");
+  const [mobile, setMobile] = useState("");
   const [refferCode, setRefferCode] = useState("");
 
   const [isEnabled, setIsEnabled] = useState(true);
@@ -351,6 +352,7 @@ const PopUp = ({
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
+
               <TextInput
                 placeholder={Common.getTranslation(LangKey.modalTxtPlaceHolder)}
                 placeholderTextColor={Color.grey}
