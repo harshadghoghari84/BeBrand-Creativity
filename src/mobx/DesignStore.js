@@ -141,7 +141,7 @@ class DesignStore {
   loaduserDesigns = (subCategory, start, type, hasPro) => {
     this.udLoading = true;
     ApolloClient.query({
-      query: hasPro ? GraphqlQuery.userDesignsP : GraphqlQuery.userDesignsF,
+      query: GraphqlQuery.userDesignsP,
       variables: { subCategory: subCategory, start: parseInt(start) },
       fetchPolicy: "cache-first",
       errorPolicy: "all",
@@ -155,7 +155,7 @@ class DesignStore {
           //   this.designPackages
           // );
 
-          const ud = hasPro ? data.userDesignsP : data.userDesignsF;
+          const ud = data.userDesignsP;
           if (ud.length > 0) {
             const globleUserSubCategoriesAfter = toJS(
               this.globleUserSubCategoriesAfter

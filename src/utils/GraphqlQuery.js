@@ -696,6 +696,16 @@ export default {
       addRequestFeature(feature: $feature)
     }
   `,
+  deletePersonalImage: gql`
+    mutation($image: String!) {
+      deletePersonalImage(image: $image)
+    }
+  `,
+  deleteBusinessImage: gql`
+    mutation($image: String!) {
+      deleteBusinessImage(image: $image)
+    }
+  `,
   updateUserProfile: gql`
     mutation(
       $name: String!

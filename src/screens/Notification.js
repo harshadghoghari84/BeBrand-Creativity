@@ -6,8 +6,10 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { format } from "date-fns";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // relative path
 import Icon from "../components/svgIcons";
@@ -16,8 +18,10 @@ import Common from "../utils/Common";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constant from "../utils/Constant";
+import PopUp from "../components/PopUp";
+
+let notiMsgItem = {};
 const Notification = () => {
   const { loading, data, error } = useQuery(GraphqlQuery.notifications, {
     errorPolicy: "all",
@@ -27,6 +31,11 @@ const Notification = () => {
   const [layer, setLayer] = useState();
   const [id, setId] = useState([]);
   const [loginTime, setLoginTime] = useState(new Date());
+
+  const [visibleModalMsg, setVisibleModalMsg] = useState(false);
+  const toggleVisibleMsg = () => {
+    setVisibleModalMsg(!visibleModalMsg);
+  };
 
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
@@ -62,6 +71,12 @@ const Notification = () => {
   const renderNotifications = () => {
     return (
       <View style={{ flex: 1 }}>
+        <PopUp
+          visible={visibleModalMsg}
+          toggleVisibleMsg={toggleVisibleMsg}
+          isNotiMsg={true}
+          msgItm={notiMsgItem}
+        />
         <ProgressDialog
           visible={loading}
           dismissable={false}
@@ -100,7 +115,12 @@ const Notification = () => {
                   )
                 )}
                 <TouchableOpacity
-                  onPress={() => setId([...id, item.id])}
+                  activeOpacity={0.6}
+                  onPress={() => {
+                    setId([...id, item.id]);
+                    notiMsgItem = item;
+                    setVisibleModalMsg(true);
+                  }}
                   style={{
                     height: 65,
                     backgroundColor:

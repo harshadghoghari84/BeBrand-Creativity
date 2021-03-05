@@ -444,7 +444,7 @@ const Home = ({ navigation, designStore, userStore }) => {
             </>
           ) : (
             <View style={styles.containerNoDesign}>
-              {designStore.udLoading ? (
+              {homeDataLoading ? null : designStore.udLoading ? (
                 <>
                   <ActivityIndicator size={25} color={Color.primary} />
                   <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>

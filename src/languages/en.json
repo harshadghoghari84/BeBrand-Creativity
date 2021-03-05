@@ -65,6 +65,7 @@
   "txtShare": "Share",
   "txtDownload": "Download",
   "msgPerchasePkg": "Please perchase any package to use pro content",
+  "msgPkgPurchaseSucess": "Your Package purchased Sucessfully",
   "msgCreateAcc": "Please login or create account to get these design",
   "msgCreateAccForPKg": "Please login or create account to get Package",
   "msgCreateAccEdit": "Please login or create account to edit profiles",
@@ -73,6 +74,7 @@
   "msgSelectLayout": "select Layout first",
 
   "labNoDesignAvailable":"No Designs Availlable",
+  "labNoPkgAvailable":"No Package Availlable",
   "txtDesignCredit": "Design Credit",
   "txtRemainingCredit": "Remaining Credit",
   "txtPerchsedAt": "Perchased At",
@@ -101,6 +103,7 @@
   "labSelecteLang":"Select Language",
   "labClose":"Close",
   "labSubmit":"Submit",
+  "labSubmitSucess":"Submit Sucessfully",
   "labEdit":"edit",
   "labPurchase":"Purchase",
   "labPurchasePremiumPkg":"Select your Package First",
@@ -124,28 +127,43 @@
   "titleAddReffercode":"Add Referral Code",
   "labFree":"free",
   "labPremium":"Primium",
+  "labActive":"Active",
+  "labExpired":"Expired",
 
   "nolayout":"you need to fill your Personal PostProfile to get this Layouts",
   "nolayoutBussiness":"you need to fill your Business PostProfile to get this Layouts",
 
   "personalLay1Msg":"you need to fill name,designation,website,email,mobile,socialmediaid to get this layout.",
-  "personalLay2Msg":"you need to fill name,designation,socialmediaid to get this layout.",
-  "personalLay3Msg":"you need to fill name,designation,socialmediaid to get this layout.",
+  "personalLay2Msg":"you need to fill name,designation,socialmediaid,image to get this layout.",
+  "personalLay3Msg":"you need to fill name,designation,socialmediaid,image to get this layout.",
   "personalLay4Msg":"you need to fill name,designation,website,socialmediaid to get this layout.",
   "personalLay5Msg":"you need to fill name,designation,email,socialmediaid to get this layout.",
-  "personalLay6Msg":"you need to fill name,designation,mobile,socialmediaid to get this layout.",
-  "personalLay7Msg":"you need to fill name,designation,mobile,socialmediaid to get this layout.",
+  "personalLay6Msg":"you need to fill name,designation,mobile,socialmediaid,image to get this layout.",
+  "personalLay7Msg":"you need to fill name,designation,mobile,socialmediaid,image to get this layout.",
 
-  "businessLay1Msg":"you need to fill name,address,website,email,mobile,socialmediaid to get this layout.",
-  "businessLay2Msg":"you need to fill name,address,socialmediaid to get this layout.",
+  "businessLay1Msg":"you need to fill name,address,website,email,mobile,socialmediaid,image to get this layout.",
+  "businessLay2Msg":"you need to fill name,address,socialmediaid,image to get this layout.",
   "businessLay3Msg":"you need to fill name,address,socialmediaid to get this layout.",
   "businessLay4Msg":"you need to fill name,address,website,socialmediaid to get this layout.",
   "businessLay5Msg":"you need to fill name,address,email,socialmediaid to get this layout.",
   "businessLay6Msg":"you need to fill name,address,mobile,socialmediaid to get this layout.",
-  "businessLay7Msg":"you need to fill name,address,mobile,socialmediaid to get this layout.",
-  "businessLay8Msg":"you need to fill name,address,mobile,socialmediaid to get this layout.",
-  "businessLay9Msg":"you need to fill name,address,mobile,socialmediaid to get this layout.",
-  "businessLay10Msg":"you need to fill name,address,mobile,socialmediaid to get this layout."
- 
+  "businessLay7Msg":"you need to fill name,address,mobile,socialmediaid,image to get this layout.",
+  "businessLay8Msg":"you need to fill name,address,mobile,socialmediaid,image to get this layout.",
+  "businessLay9Msg":"you need to fill name,address,mobile,socialmediaid,image to get this layout.",
+  "businessLay10Msg":"you need to fill name,address,mobile,socialmediaid,image to get this layout.",
+
+  "personalUserNameErr":"name can't be empty and you can enter maximum 25 characters",
+  "personalMobileErr":"mobile can't be empty it must be valid and you can enter 10 characters only",
+  "personalEmailErr":"email can't be empty it must be valid and you can enter maximum 26 characters",
+  "personalDesignationErr":"designation can't be empty and you can enter maximum 18 characters",
+  "personalSocialMediaIdErr":"socailmediaid can't be empty and you can enter maximum 20 characters",
+  "personalWebsiteErr":"website can't be empty and you can enter maximum 26 characters",
+
+  "bussinessUserNameErr":"name can't be empty and you can enter maximum 35 characters",
+  "bussinessMobileErr":"mobile can't be empty it must be valid and you can enter 10 characters only",
+  "bussinessEmailErr":"email can't be empty it must be valid and you can enter maximum 26 characters",
+  "bussinessAddressErr":"Address can't be empty and you can enter maximum 41 characters",
+  "bussinessSocialMediaIdErr":"socailmediaid can't be empty and you can enter maximum 20 characters",
+  "bussinessWebsiteErr":"website can't be empty and you can enter maximum 26 characters"
  
 }

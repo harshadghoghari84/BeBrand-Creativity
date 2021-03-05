@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Switch,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Color from "../utils/Color";
@@ -23,6 +24,7 @@ import Icon from "./svgIcons";
 import { ColorPicker } from "react-native-color-picker";
 import FastImage from "react-native-fast-image";
 
+const { height, width } = Dimensions.get("screen");
 const PopUp = ({
   visible,
   toggleVisible,
@@ -41,6 +43,8 @@ const PopUp = ({
   msg,
   toggleVisibleMsg,
   toggleVisibleMsgBussiness,
+  isNotiMsg,
+  msgItm,
 }) => {
   const navigation = useNavigation();
   const [feture, setFeture] = useState("");
@@ -68,7 +72,10 @@ const PopUp = ({
         }
         if (result.data) {
           if (result.data !== null) {
-            toggleVisibleforRating();
+            console.log("result.data", result.data);
+            Common.showMessage(Common.getTranslation(LangKey.labSubmitSucess));
+            setFeture("");
+            toggleVisible();
           }
         }
       })
@@ -156,8 +163,61 @@ const PopUp = ({
             </View>
           </View>
         )}
+        {isNotiMsg && (
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <KeyboardAvoidingView
+              style={{
+                padding: 10,
+                backgroundColor: Color.white,
+                borderRadius: 20,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                marginHorizontal: 20,
+                minHeight: 100,
+                minWidth: "80%",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text style={{ marginLeft: 10 }}>{msgItm.title}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => toggleVisibleMsg()}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ICON name="close" size={22} color={Color.darkBlue} />
+                </TouchableOpacity>
+              </View>
+
+              <Text style={{ paddingHorizontal: 10 }}>{msgItm.body}</Text>
+            </KeyboardAvoidingView>
+          </View>
+        )}
         {isLayout && (
-          <View style={[styles.modalView]}>
+          <View style={[styles.modalView, { height: 160 }]}>
             <KeyboardAvoidingView
               style={{
                 flex: 1,
@@ -165,6 +225,20 @@ const PopUp = ({
                 justifyContent: "center",
               }}
             >
+              <TouchableOpacity
+                onPress={() => toggleVisibleMsg()}
+                style={{
+                  width: 25,
+                  height: 25,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                  borderRadius: 20,
+                  marginRight: 5,
+                }}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
               <View style={{ marginHorizontal: 20 }}>
                 <Text style={{ textAlign: "center" }}>{msg}</Text>
               </View>
@@ -177,29 +251,29 @@ const PopUp = ({
               >
                 <Button
                   style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => toggleVisibleMsg()}
-                >
-                  {Common.getTranslation(LangKey.labClose)}
-                </Button>
-                <Button
-                  style={{ margin: 5 }}
-                  normal={true}
                   onPress={() => {
                     navigation.navigate(Constant.navProfile, {
                       title: Constant.titPersonalProfile,
                     });
                     toggleVisibleMsg();
                   }}
+                  icon={
+                    <Icon
+                      name="edit"
+                      height={15}
+                      width={15}
+                      fill={Color.white}
+                    />
+                  }
                 >
-                  {Common.getTranslation(LangKey.labEdit)}
+                  {Common.getTranslation(LangKey.txtEdit)}
                 </Button>
               </View>
             </KeyboardAvoidingView>
           </View>
         )}
         {isLayoutBussiness && (
-          <View style={[styles.modalView]}>
+          <View style={[styles.modalView, { height: 160 }]}>
             <KeyboardAvoidingView
               style={{
                 flex: 1,
@@ -207,6 +281,20 @@ const PopUp = ({
                 justifyContent: "center",
               }}
             >
+              <TouchableOpacity
+                onPress={() => toggleVisibleMsgBussiness()}
+                style={{
+                  width: 25,
+                  height: 25,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                  borderRadius: 20,
+                  marginRight: 5,
+                }}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
               <View style={{ marginHorizontal: 20 }}>
                 <Text style={{ textAlign: "center" }}>{msg}</Text>
               </View>
@@ -219,20 +307,20 @@ const PopUp = ({
               >
                 <Button
                   style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => toggleVisibleMsgBussiness()}
-                >
-                  {Common.getTranslation(LangKey.labClose)}
-                </Button>
-                <Button
-                  style={{ margin: 5 }}
-                  normal={true}
                   onPress={() => {
                     navigation.navigate(Constant.navProfile, {
                       title: Constant.titBusinessProfile,
                     });
                     toggleVisibleMsgBussiness();
                   }}
+                  icon={
+                    <Icon
+                      name="edit"
+                      height={15}
+                      width={15}
+                      fill={Color.white}
+                    />
+                  }
                 >
                   {Common.getTranslation(LangKey.labEdit)}
                 </Button>
@@ -241,7 +329,7 @@ const PopUp = ({
           </View>
         )}
         {other && (
-          <View style={styles.modalView}>
+          <View style={[styles.modalView, { height: 190 }]}>
             <KeyboardAvoidingView
               style={{
                 flex: 1,
@@ -249,6 +337,20 @@ const PopUp = ({
                 justifyContent: "center",
               }}
             >
+              <TouchableOpacity
+                onPress={() => toggleVisible()}
+                style={{
+                  width: 25,
+                  height: 25,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                  borderRadius: 20,
+                  marginRight: 5,
+                }}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
               <TextInput
                 placeholder={Common.getTranslation(LangKey.modalTxtPlaceHolder)}
                 placeholderTextColor={Color.grey}
@@ -271,13 +373,6 @@ const PopUp = ({
                   justifyContent: "space-between",
                 }}
               >
-                <Button
-                  style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => toggleVisible()}
-                >
-                  {Common.getTranslation(LangKey.labClose)}
-                </Button>
                 <Button
                   disabled={feture == null || feture.length <= 0}
                   style={{ margin: 5 }}
@@ -553,11 +648,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    backgroundColor: "white",
-    borderRadius: 20,
     height: 200,
     width: "80%",
     // alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

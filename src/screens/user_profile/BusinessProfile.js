@@ -16,6 +16,7 @@ import * as Permissions from "expo-permissions";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
 import FastImage from "react-native-fast-image";
+import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -45,6 +46,7 @@ const BusinessProfile = ({ userStore }) => {
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
 
   useEffect(() => {
+    console.log("object", user?.userInfo?.business?.image);
     user?.userInfo?.business?.image && user.userInfo.business.image.length > 0
       ? setDefaultImageUrl(
           user.userInfo.business.image.find((item) => item.isDefault === true)
@@ -54,6 +56,12 @@ const BusinessProfile = ({ userStore }) => {
   }, [user?.userInfo?.business?.image]);
 
   const [errorUserName, setErrorUserName] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorAddress, setErrorAddress] = useState("");
+  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
+  const [errorWebsite, setErrorWebsite] = useState("");
+
   const [userName, setUserName] = useState(
     user?.userInfo?.business?.name ? user.userInfo.business.name : ""
   );
@@ -88,6 +96,13 @@ const BusinessProfile = ({ userStore }) => {
 
   const [addBusinessImage, { loading: loadingUserImage }] = useMutation(
     GraphqlQuery.addBusinessImage,
+    {
+      errorPolicy: "all",
+    }
+  );
+
+  const [deleteBusinessImage, { loading: loadingDeleteImage }] = useMutation(
+    GraphqlQuery.deleteBusinessImage,
     {
       errorPolicy: "all",
     }
@@ -161,13 +176,60 @@ const BusinessProfile = ({ userStore }) => {
   };
 
   const onClickSave = () => {
-    try {
-      //check and add all variables
-      if (emptyValidator(userName)) {
-        setErrorUserName(Common.getTranslation(LangKey.errUserName));
-        return;
-      }
+    //  validation
+    if (!userName || userName.length <= 0 || userName.length > 35) {
+      setErrorUserName(Common.getTranslation(LangKey.bussinessUserNameErr));
+      return;
+    }
 
+    setErrorUserName("");
+    const reMobile = /^[0]?[6789]\d{9}$/;
+    if (
+      !mobile ||
+      !reMobile.test(mobile) ||
+      mobile.length <= 0 ||
+      mobile.length > 10
+    ) {
+      setErrorMobile(Common.getTranslation(LangKey.bussinessMobileErr));
+      return;
+    }
+
+    setErrorMobile("");
+    const re = /\S+@\S+\.\S+/;
+    if (!email || !re.test(email) || email.length <= 0 || email.length > 26) {
+      setErrorEmail(Common.getTranslation(LangKey.bussinessEmailErr));
+      return;
+    }
+
+    setErrorEmail("");
+
+    if (!address || address.length <= 0 || address.length > 41) {
+      setErrorAddress(Common.getTranslation(LangKey.bussinessAddressErr));
+      return;
+    }
+
+    setErrorAddress("");
+
+    if (
+      !socialMediaId ||
+      socialMediaId.length <= 0 ||
+      socialMediaId.length > 20
+    ) {
+      setErrorSocailMediaId(
+        Common.getTranslation(LangKey.bussinessSocialMediaIdErr)
+      );
+      return;
+    }
+
+    setErrorSocailMediaId("");
+
+    if (!website || website.length <= 0 || website.length > 26) {
+      setErrorWebsite(Common.getTranslation(LangKey.bussinessWebsiteErr));
+      return;
+    }
+    setErrorWebsite("");
+
+    try {
       updateBusinessUserInfo({
         variables: {
           name: userName,
@@ -185,7 +247,7 @@ const BusinessProfile = ({ userStore }) => {
             let newImage = [];
             if (defaultImageUrl && defaultImageUrl !== "") {
               newImage = user?.userInfo?.business?.image.map((item) => {
-                if (item.url === defaultImageUrl) {
+                if (item.url == defaultImageUrl) {
                   item.isDefault = true;
                 } else {
                   item.isDefault = false;
@@ -224,6 +286,43 @@ const BusinessProfile = ({ userStore }) => {
     }
   };
 
+  const onCloseBTN = (curUrl) => {
+    console.log("curUrl", curUrl);
+    deleteBusinessImage({
+      variables: {
+        image: curUrl,
+      },
+    })
+      .then(({ data, errors }) => {
+        if (errors && errors !== null) {
+          Common.showMessage(errors[0].message);
+        } else {
+          console.log("data", data.deleteBusinessImage);
+          let imgArr = [];
+          imgArr = user?.userInfo?.business?.image.filter(
+            (val) => val.url !== curUrl
+          );
+
+          console.log("imgArr", imgArr);
+
+          const newUser = {
+            ...user,
+            userInfo: {
+              ...user?.userInfo,
+              business: {
+                ...user?.userInfo.business,
+                image: imgArr,
+              },
+            },
+          };
+          userStore.setOnlyUserDetail(newUser);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // key extractors
   const keyExtractor = useCallback((item, index) => index.toString(), []);
 
@@ -241,7 +340,12 @@ const BusinessProfile = ({ userStore }) => {
           dismissable={false}
           message={Common.getTranslation(LangKey.labsSaving)}
         />
-        {businessImageLimit > 0 && (
+        <ProgressDialog
+          visible={loadingDeleteImage}
+          dismissable={false}
+          message={Common.getTranslation(LangKey.labLoading)}
+        />
+        {/* {businessImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
             <View>
               {defaultImageUrl &&
@@ -255,7 +359,7 @@ const BusinessProfile = ({ userStore }) => {
                 )}
             </View>
           </TouchableOpacity>
-        )}
+        )} */}
         <View style={styles.containerTil}>
           <TextInput
             placeholder={Common.getTranslation(LangKey.labUserName)}
@@ -278,6 +382,8 @@ const BusinessProfile = ({ userStore }) => {
             keyboardType="phone-pad"
             onChangeText={(text) => setMobile(text)}
             autoCapitalize="none"
+            error={!!errorMobile}
+            errorText={errorMobile}
           />
 
           <TextInput
@@ -288,16 +394,20 @@ const BusinessProfile = ({ userStore }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             autoCapitalize="none"
+            error={!!errorEmail}
+            errorText={errorEmail}
           />
 
           <TextInput
             placeholder={Common.getTranslation(LangKey.labAddress)}
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
-            iconName="designation"
+            iconName="location"
             value={address}
             onChangeText={(text) => setAddress(text)}
             autoCapitalize="none"
+            error={!!errorAddress}
+            errorText={errorAddress}
           />
 
           <TextInput
@@ -308,6 +418,8 @@ const BusinessProfile = ({ userStore }) => {
             value={socialMediaId}
             onChangeText={(text) => setSocialMediaId(text)}
             autoCapitalize="none"
+            error={!!errorSocialMediaId}
+            errorText={errorSocialMediaId}
           />
 
           <TextInput
@@ -318,17 +430,21 @@ const BusinessProfile = ({ userStore }) => {
             value={website}
             onChangeText={(text) => setWebsite(text)}
             autoCapitalize="none"
+            error={!!errorWebsite}
+            errorText={errorWebsite}
           />
         </View>
 
         <View style={styles.containerProfile}>
-          {businessImageLimit > 0 &&
-            (Array.isArray(user?.userInfo?.business?.image)
-              ? user.userInfo.business.image.length < businessImageLimit &&
-                getImagePickerView()
-              : getImagePickerView())}
           <FlatList
             horizontal
+            ListHeaderComponent={
+              businessImageLimit > 0 &&
+              (Array.isArray(user?.userInfo?.business?.image)
+                ? user.userInfo.business.image.length < businessImageLimit &&
+                  getImagePickerView()
+                : getImagePickerView())
+            }
             showsHorizontalScrollIndicator={false}
             data={
               Array.isArray(user?.userInfo?.business?.image)
@@ -363,6 +479,13 @@ const BusinessProfile = ({ userStore }) => {
                       ]}
                     />
                   )}
+                  <TouchableOpacity
+                    onPress={() => onCloseBTN(item.url)}
+                    activeOpacity={0.6}
+                    style={styles.closeBtn}
+                  >
+                    <ICON name="close" size={18} color={Color.darkBlue} />
+                  </TouchableOpacity>
                 </TouchableOpacity>
               );
             }}
@@ -405,9 +528,6 @@ const styles = StyleSheet.create({
   },
   containerProfile: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
   },
   toProfileImage: {
     width: 80,
@@ -439,12 +559,30 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginRight: 10,
     backgroundColor: Color.txtIntxtcolor,
-    // paddingVertical: 8,
-    // paddingHorizontal: 8,
     width: 30,
     height: 30,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
+  },
+  closeBtn: {
+    position: "absolute",
+    width: 20,
+    height: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    top: 0,
+    right: 0,
+    margin: 3,
+    borderRadius: 20,
+    backgroundColor: Color.white,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });

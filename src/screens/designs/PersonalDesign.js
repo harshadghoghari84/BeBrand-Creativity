@@ -11,6 +11,7 @@ import {
   ScrollView,
   TouchableOpacity,
   PixelRatio,
+  ActivityIndicator,
 } from "react-native";
 
 import ViewShot from "react-native-view-shot";
@@ -39,6 +40,7 @@ import MuktaText from "../../components/MuktaText";
 const { width } = Dimensions.get("window");
 let isShareClick = false;
 let msg = "";
+
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
@@ -73,6 +75,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     return setVisiblePicker(!visiblePicker);
   };
 
+  const [loadingImage, setLoadingImage] = useState(false);
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
@@ -241,66 +244,44 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     const currentDesignCredit = toJS(userStore.currentDesignCredit);
     console.log("currentDesignCredit", currentDesignCredit);
     if (currentDesignCredit > 0) {
-      const { data, errors } = await addUserDesign({
+      const { data, errors, loading } = await addUserDesign({
         variables: { designId: currentDesign.id },
       });
 
       if (data !== null && !errors) {
+        setLoadingImage(true);
         userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
       } else if (errors && errors !== null && errors.length > 0) {
+        setLoadingImage(false);
         Common.showMessage(errors[0].message);
         return;
       }
 
       const uri = await viewRef.current.capture();
       console.log("uri", uri);
-
-      // await CameraRoll.save(uri, { type: "photo", album: "Brand Dot" })
-      //   .then((res) => console.log("res: ", res))
-      //   .catch((err) => console.log("err: ", err));
-
-      if (Platform.OS === "android") {
-        // await MediaLibrary.saveToLibraryAsync(uri)
-        //   .then((res) => console.log("res: ", res))
-        //   .catch((err) => console.log("err: ", err));
+      try {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        if (asset && asset !== null) {
-          const album = await MediaLibrary.getAlbumAsync(
-            Constant.designAlbumName
-          );
-          album && album !== null
-            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-            : await MediaLibrary.createAlbumAsync(
-                Constant.designAlbumName,
-                asset,
-                false
-              );
-        }
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
-      } else {
-        try {
-          const asset = await MediaLibrary.createAssetAsync(uri);
-          console.log("assets", asset);
-          const album = await MediaLibrary.getAlbumAsync(
-            Constant.designAlbumName
-          );
-          console.log("scb", album);
+        console.log("assets", asset);
+        const album = await MediaLibrary.getAlbumAsync(
+          Constant.designAlbumName
+        );
+        console.log("scb", album);
 
-          album && album !== null
-            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-            : await MediaLibrary.createAlbumAsync(
-                Constant.designAlbumName,
-                asset,
-                false
-              )
-                .then((res) => console.log("res: ", res))
-                .catch((err) => console.log("err: ", err));
-        } catch (error) {
-          console.log("err", error);
-        }
-
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+        album && album !== null
+          ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+          : await MediaLibrary.createAlbumAsync(
+              Constant.designAlbumName,
+              asset,
+              false
+            )
+              .then((res) => console.log("res: ", res))
+              .catch((err) => console.log("err: ", err));
+      } catch (error) {
+        console.log("err", error);
       }
+
+      setLoadingImage(false);
+      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
 
       if (isShareClick === true) {
         isShareClick = false;
@@ -341,6 +322,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const checkLayout = (layouts) => {
     if (userDataPersonal) {
+      console.log("userDataPersonal", userDataPersonal);
       let isSet = false;
       layouts.some((layout) => {
         switch (layout.id) {
@@ -371,7 +353,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.designation &&
               userDataPersonal.designation !== "" &&
               userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              userDataPersonal.socialMedia !== "" &&
+              userDataPersonal.image &&
+              userDataPersonal.image !== "" &&
+              userDataPersonal.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -385,7 +370,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.designation &&
               userDataPersonal.designation !== "" &&
               userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              userDataPersonal.socialMedia !== "" &&
+              userDataPersonal.image &&
+              userDataPersonal.image !== "" &&
+              userDataPersonal.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -432,7 +420,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.mobile &&
               userDataPersonal.mobile !== "" &&
               userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              userDataPersonal.socialMedia !== "" &&
+              userDataPersonal.image &&
+              userDataPersonal.image !== "" &&
+              userDataPersonal.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -448,7 +439,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.mobile &&
               userDataPersonal.mobile !== "" &&
               userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              userDataPersonal.socialMedia !== "" &&
+              userDataPersonal.image &&
+              userDataPersonal.image !== "" &&
+              userDataPersonal.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -495,7 +489,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataPersonal.designation ||
           userDataPersonal.designation === "" ||
           !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
+          userDataPersonal.socialMedia === "" ||
+          !userDataPersonal.image ||
+          userDataPersonal.image === "" ||
+          userDataPersonal.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.personalLay2Msg);
           setVisibleModalMsg(true);
@@ -510,7 +507,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataPersonal.designation ||
           userDataPersonal.designation === "" ||
           !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
+          userDataPersonal.socialMedia === "" ||
+          !userDataPersonal.image ||
+          userDataPersonal.image === "" ||
+          userDataPersonal.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.personalLay3Msg);
           setVisibleModalMsg(true);
@@ -562,7 +562,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataPersonal.mobile ||
           userDataPersonal.mobile === "" ||
           !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
+          userDataPersonal.socialMedia === "" ||
+          !userDataPersonal.image ||
+          userDataPersonal.image === "" ||
+          userDataPersonal.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.personalLay6Msg);
           setVisibleModalMsg(true);
@@ -579,7 +582,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataPersonal.mobile ||
           userDataPersonal.mobile === "" ||
           !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
+          userDataPersonal.socialMedia === "" ||
+          !userDataPersonal.image ||
+          userDataPersonal.image === "" ||
+          userDataPersonal.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.personalLay7Msg);
           setVisibleModalMsg(true);
@@ -1337,7 +1343,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
             horizontal
             showsHorizontalScrollIndicator={false}
-            ListFooterComponent={plusBTN()}
+            // ListFooterComponent={plusBTN()}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity
@@ -1519,7 +1525,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               </Button> */}
 
               <Button
-                disable={designs == null || designs == undefined}
+                disable={loadingImage}
                 style={{ margin: 5 }}
                 icon={
                   <Icon
@@ -1531,7 +1537,11 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }
                 onPress={onClickDownload}
               >
-                {Common.getTranslation(LangKey.txtDownload)}
+                {loadingImage ? (
+                  <ActivityIndicator color={Color.white} size={15} />
+                ) : (
+                  Common.getTranslation(LangKey.txtDownload)
+                )}
               </Button>
             </View>
           </ScrollView>
