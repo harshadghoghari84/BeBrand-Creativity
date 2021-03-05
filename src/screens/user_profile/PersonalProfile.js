@@ -16,6 +16,7 @@ import * as Permissions from "expo-permissions";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
 import FastImage from "react-native-fast-image";
+import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -26,7 +27,12 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { emptyValidator, nameValidator } from "../../utils/Validator";
+import {
+  emailValidator,
+  emptyValidator,
+  mobileValidator,
+  nameValidator,
+} from "../../utils/Validator";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -54,6 +60,12 @@ const PersonalProfile = ({ navigation, userStore }) => {
   }, [toJS(userStore.user)]);
 
   const [errorUserName, setErrorUserName] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorDesignation, setErrorDesignation] = useState("");
+  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
+  const [errorWebsite, setErrorWebsite] = useState("");
+
   const [userName, setUserName] = useState(
     user?.userInfo?.personal?.name ? user.userInfo.personal.name : ""
   );
@@ -94,25 +106,19 @@ const PersonalProfile = ({ navigation, userStore }) => {
       errorPolicy: "all",
     }
   );
+  const [deletePersonalImage, { loading: loadingDeleteImage }] = useMutation(
+    GraphqlQuery.deletePersonalImage,
+    {
+      errorPolicy: "all",
+    }
+  );
 
   const getImagePickerView = () => {
     return (
       <View style={styles.toProfileImage}>
         <TouchableOpacity
           onPress={() => onClickImageSelect()}
-          style={{
-            padding: 10,
-            backgroundColor: Color.txtIntxtcolor,
-            borderRadius: 50,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
+          style={styles.plusBtn}
         >
           <Icon name="plus" fill={Color.white} height={25} width={25} />
         </TouchableOpacity>
@@ -165,12 +171,61 @@ const PersonalProfile = ({ navigation, userStore }) => {
   };
 
   const onClickSave = () => {
-    // check and add all variables
-    const errUserName = nameValidator(userName);
-    if (errUserName) {
-      setErrorUserName(errUserName);
+    //  validation
+    console.log("userName.length", userName.length);
+    if (!userName || userName.length <= 0 || userName.length > 25) {
+      setErrorUserName(Common.getTranslation(LangKey.personalUserNameErr));
       return;
     }
+
+    setErrorUserName("");
+    const reMobile = /^[0]?[6789]\d{9}$/;
+    if (
+      !mobile ||
+      !reMobile.test(mobile) ||
+      mobile.length <= 0 ||
+      mobile.length > 10
+    ) {
+      setErrorMobile(Common.getTranslation(LangKey.personalMobileErr));
+      return;
+    }
+
+    setErrorMobile("");
+    const re = /\S+@\S+\.\S+/;
+    if (!email || !re.test(email) || email.length <= 0 || email.length > 26) {
+      setErrorEmail(Common.getTranslation(LangKey.personalEmailErr));
+      return;
+    }
+
+    setErrorEmail("");
+
+    if (!designation || designation.length <= 0 || designation.length > 18) {
+      setErrorDesignation(
+        Common.getTranslation(LangKey.personalDesignationErr)
+      );
+      return;
+    }
+
+    setErrorDesignation("");
+
+    if (
+      !socialMediaId ||
+      socialMediaId.length <= 0 ||
+      socialMediaId.length > 20
+    ) {
+      setErrorSocailMediaId(
+        Common.getTranslation(LangKey.personalSocialMediaIdErr)
+      );
+      return;
+    }
+
+    setErrorSocailMediaId("");
+
+    if (!website || website.length <= 0 || website.length > 26) {
+      setErrorWebsite(Common.getTranslation(LangKey.personalWebsiteErr));
+      return;
+    }
+    setErrorWebsite("");
 
     try {
       updatePersonalUserInfo({
@@ -189,7 +244,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             let newImage = [];
             if (defaultImageUrl && defaultImageUrl !== "") {
               newImage = user?.userInfo?.personal?.image.map((item) => {
-                if (item.url === defaultImageUrl) {
+                if (item.url == defaultImageUrl) {
                   item.isDefault = true;
                 } else {
                   item.isDefault = false;
@@ -226,8 +281,49 @@ const PersonalProfile = ({ navigation, userStore }) => {
     }
   };
 
+  const onCloseBTN = (curUrl) => {
+    console.log("curUrl", curUrl);
+    deletePersonalImage({
+      variables: {
+        image: curUrl,
+      },
+    })
+      .then(({ data, errors }) => {
+        if (errors && errors !== null) {
+          Common.showMessage(errors[0].message);
+        }
+
+        if (data && data !== null) {
+          console.log("data", data.deletePersonalImage);
+          let imgArr = [];
+          imgArr = user?.userInfo?.personal?.image.filter(
+            (val) => val.url !== curUrl
+          );
+
+          console.log("imgArr", imgArr);
+
+          const newUser = {
+            ...user,
+            userInfo: {
+              ...user?.userInfo,
+              personal: {
+                ...user?.userInfo.personal,
+                image: imgArr,
+              },
+            },
+          };
+          userStore.setOnlyUserDetail(newUser);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // key extractors
   const keyExtractor = useCallback((item, index) => index.toString(), []);
+
+  console.log("loadingDeleteImage", loadingDeleteImage);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
@@ -242,7 +338,12 @@ const PersonalProfile = ({ navigation, userStore }) => {
           dismissable={false}
           message={Common.getTranslation(LangKey.labsSaving)}
         />
-        {personalImageLimit > 0 && (
+        <ProgressDialog
+          visible={loadingDeleteImage}
+          dismissable={true}
+          message={Common.getTranslation(LangKey.labLoading)}
+        />
+        {/* {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
             <View>
               {defaultImageUrl &&
@@ -256,7 +357,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
                 )}
             </View>
           </TouchableOpacity>
-        )}
+        )} */}
 
         <View style={styles.containerTil}>
           <TextInput
@@ -280,6 +381,8 @@ const PersonalProfile = ({ navigation, userStore }) => {
             keyboardType="phone-pad"
             onChangeText={(text) => setMobile(text)}
             autoCapitalize="none"
+            error={!!errorMobile}
+            errorText={errorMobile}
           />
 
           <TextInput
@@ -290,6 +393,8 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             autoCapitalize="none"
+            error={!!errorEmail}
+            errorText={errorEmail}
           />
 
           <TextInput
@@ -300,6 +405,8 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={designation}
             onChangeText={(text) => setDesignation(text)}
             autoCapitalize="none"
+            error={!!errorDesignation}
+            errorText={errorDesignation}
           />
 
           <TextInput
@@ -310,6 +417,8 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={socialMediaId}
             onChangeText={(text) => setSocialMediaId(text)}
             autoCapitalize="none"
+            error={!!errorSocialMediaId}
+            errorText={errorSocialMediaId}
           />
 
           <TextInput
@@ -320,16 +429,20 @@ const PersonalProfile = ({ navigation, userStore }) => {
             value={website}
             onChangeText={(text) => setWebsite(text)}
             autoCapitalize="none"
+            error={!!errorWebsite}
+            errorText={errorWebsite}
           />
         </View>
         <View style={styles.containerProfile}>
-          {personalImageLimit > 0 &&
-            (Array.isArray(user?.userInfo?.personal?.image)
-              ? user.userInfo.personal.image.length < personalImageLimit &&
-                getImagePickerView()
-              : getImagePickerView())}
           <FlatList
             horizontal
+            ListHeaderComponent={
+              personalImageLimit > 0 &&
+              (Array.isArray(user?.userInfo?.personal?.image)
+                ? user.userInfo.personal.image.length < personalImageLimit &&
+                  getImagePickerView()
+                : getImagePickerView())
+            }
             showsHorizontalScrollIndicator={false}
             data={
               Array.isArray(user?.userInfo?.personal?.image)
@@ -359,11 +472,18 @@ const PersonalProfile = ({ navigation, userStore }) => {
                         {
                           backgroundColor: Color.blackTransparant,
                           position: "absolute",
-                          opacity: 0.5,
+                          opacity: 0.3,
                         },
                       ]}
                     />
                   )}
+                  <TouchableOpacity
+                    onPress={() => onCloseBTN(item.url)}
+                    activeOpacity={0.6}
+                    style={styles.closeBtn}
+                  >
+                    <ICON name="close" size={18} color={Color.darkBlue} />
+                  </TouchableOpacity>
                 </TouchableOpacity>
               );
             }}
@@ -406,9 +526,6 @@ const styles = StyleSheet.create({
   },
   containerProfile: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
   },
   toProfileImage: {
     width: 80,
@@ -445,5 +562,38 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
+  },
+  plusBtn: {
+    padding: 10,
+    backgroundColor: Color.txtIntxtcolor,
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  closeBtn: {
+    position: "absolute",
+    width: 20,
+    height: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    top: 0,
+    right: 0,
+    margin: 3,
+    borderRadius: 20,
+    backgroundColor: Color.white,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });

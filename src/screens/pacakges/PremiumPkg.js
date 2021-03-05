@@ -41,6 +41,7 @@ import FastImage from "react-native-fast-image";
 import { SvgUri } from "react-native-svg";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
+import ProgressDialog from "../common/ProgressDialog";
 
 let isGetProducts = false;
 
@@ -198,7 +199,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
           })
           .catch((err) => Common.showMessage(err.message));
       } catch (err) {
-        Alert.alert("err", err.message);
+        Common.showMessage(err.message);
       }
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
@@ -278,6 +279,11 @@ const Packages = ({ navigation, designStore, userStore }) => {
   };
   return (
     <View style={styles.mainContainer}>
+      <ProgressDialog
+        visible={loading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
       <FlatList
         data={filteredData}
         contentContainerStyle={{ paddingBottom: 10 }}

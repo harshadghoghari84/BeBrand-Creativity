@@ -16,6 +16,7 @@ const TextInput = ({
   toggleSecureText,
   secureTextEntry,
   errorText,
+  setError,
   ...props
 }) => (
   <>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   error: {
-    fontSize: 14,
+    fontSize: 12,
     color: Color.red,
     paddingLeft: 30,
   },

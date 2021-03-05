@@ -65,6 +65,7 @@ module.exports = {
   // Home ItemSubCategory screen
   labAll: "labAll",
   labNoDesignAvailable: "labNoDesignAvailable",
+  labNoPkgAvailable: "labNoPkgAvailable",
 
   //Design Screen
   labFollowUs: "labFollowUs",
@@ -74,6 +75,7 @@ module.exports = {
   txtEdit: "txtEdit",
   txtReset: "txtReset",
   msgPerchasePkg: "msgPerchasePkg",
+  msgPkgPurchaseSucess: "msgPkgPurchaseSucess",
   msgCreateAcc: "msgCreateAcc",
   msgCreateAccForPKg: "msgCreateAccForPKg",
   msgCreateAccEdit: "msgCreateAccEdit",
@@ -97,14 +99,33 @@ module.exports = {
   txtSave: "txtSave",
   errUserName: "errUserName",
 
+  personalUserNameErr: "personalUserNameErr",
+  personalMobileErr: "personalMobileErr",
+  personalEmailErr: "personalEmailErr",
+  personalDesignationErr: "personalDesignationErr",
+  personalSocialMediaIdErr: "personalSocialMediaIdErr",
+  personalWebsiteErr: "personalWebsiteErr",
+
   //BusinessProfile Screen
   labCompanyName: "labCompanyName",
   labAddress: "labAddress",
   errCompanyName: "errCompanyName",
 
+  bussinessUserNameErr: "bussinessUserNameErr",
+  bussinessMobileErr: "bussinessMobileErr",
+  bussinessEmailErr: "bussinessEmailErr",
+  bussinessAddressErr: "bussinessAddressErr",
+  bussinessSocialMediaIdErr: "bussinessSocialMediaIdErr",
+  bussinessWebsiteErr: "bussinessWebsiteErr",
+
   // Packages Screen
   labPerchase: "labPerchase",
   labPerchaseFree: "labPerchaseFree",
+
+  // userPackage.js
+
+  labActive: "labActive",
+  labExpired: "labExpired",
 
   // modal text
   modalTxtPlaceHolder: "modalTxtPlaceHolder",
@@ -112,6 +133,7 @@ module.exports = {
   labSelecteLang: "labSelecteLang",
   labClose: "labClose",
   labSubmit: "labSubmit",
+  labSubmitSucess: "labSubmitSucess",
   labEdit: "labEdit",
   labPurchase: "labPurchase",
   labPurchasePremiumPkg: "labPurchasePremiumPkg",

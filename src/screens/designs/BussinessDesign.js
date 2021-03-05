@@ -352,7 +352,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.mobile &&
               userDataBussiness.mobile !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -368,7 +371,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.mobile &&
               userDataBussiness.mobile !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -451,7 +457,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.website &&
               userDataBussiness.website !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -467,7 +476,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.email &&
               userDataBussiness.email !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -483,7 +495,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.mobile &&
               userDataBussiness.mobile !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -499,7 +514,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               userDataBussiness.mobile &&
               userDataBussiness.mobile !== "" &&
               userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              userDataBussiness.socialMedia !== "" &&
+              userDataBussiness.image &&
+              userDataBussiness.image !== "" &&
+              userDataBussiness.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -528,7 +546,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.mobile ||
           userDataBussiness.mobile === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay1Msg);
           setVisibleModalMsgbussiness(true);
@@ -545,7 +566,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.mobile ||
           userDataBussiness.mobile === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay2Msg);
           setVisibleModalMsgbussiness(true);
@@ -634,7 +658,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.website ||
           userDataBussiness.website === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay7Msg);
           setVisibleModalMsgbussiness(true);
@@ -651,7 +678,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.email ||
           userDataBussiness.email === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay8Msg);
           setVisibleModalMsgbussiness(true);
@@ -668,7 +698,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.website ||
           userDataBussiness.website === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay9Msg);
           setVisibleModalMsgbussiness(true);
@@ -685,7 +718,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           !userDataBussiness.email ||
           userDataBussiness.email === "" ||
           !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          userDataBussiness.socialMedia === "" ||
+          !userDataBussiness.image ||
+          userDataBussiness.image === "" ||
+          userDataBussiness.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay10Msg);
           setVisibleModalMsgbussiness(true);
@@ -1755,7 +1791,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
             horizontal
             showsHorizontalScrollIndicator={false}
-            ListFooterComponent={plusBTN()}
+            // ListFooterComponent={plusBTN()}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <TouchableOpacity

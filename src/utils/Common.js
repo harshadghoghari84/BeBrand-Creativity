@@ -75,7 +75,7 @@ const getPixels = (targetPixelCount) => {
 const showMessage = (message) => {
   Platform.OS == "android"
     ? ToastAndroid.show(message, ToastAndroid.LONG)
-    : Alert.alert(message);
+    : Alert.alert(JSON.stringify(message));
 };
 
 const onShare = async () => {

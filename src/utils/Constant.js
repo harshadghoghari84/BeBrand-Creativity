@@ -48,9 +48,8 @@ export default {
     },
   ],
 
-  // ServerUrl: "192.168.0.222:5000/gql",
+  // serverUrl: "https://192.168.0.222:5000/gql",
   serverUrl: "https://admin.branddot.in/gql",
-  // ServerUrl: "http://192.168.100.4:5000/graphql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",

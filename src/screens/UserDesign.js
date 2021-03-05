@@ -9,6 +9,7 @@ import {
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
+import { StackActions } from "@react-navigation/native";
 
 import GraphqlQuery from "../utils/GraphqlQuery";
 import ItemDesign from "./common/ItemDesign";
@@ -16,6 +17,7 @@ import Common from "../utils/Common";
 import Constant from "../utils/Constant";
 import ProgressDialog from "./common/ProgressDialog";
 import LangKey from "../utils/LangKey";
+import Color from "../utils/Color";
 
 const UserDesign = ({ navigation, designStore, userStore }) => {
   const [hasPro, sethasPro] = useState(false);
@@ -49,42 +51,52 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
       const designs = data?.perchasedDesigns.map((item) => {
         return item.design;
       });
-      navigation.navigate(Constant.navDesign, {
-        designs: designs,
-        curDesign: design,
-      });
+      navigation.dispatch(
+        StackActions.replace(Constant.navDesign, {
+          designs: designs,
+          curDesign: design,
+        })
+      );
     }
   };
-  useEffect(() => {
-    console.log("data?.perchasedDesigns", data?.perchasedDesigns);
-  }, [data?.perchasedDesigns]);
 
   return (
     <View style={styles.container}>
-      <ProgressDialog
-        visible={loading}
-        dismissable={false}
-        message={Common.getTranslation(LangKey.labLoading)}
-      />
-      <FlatList
-        style={styles.listDesign}
-        numColumns={2}
-        data={data?.perchasedDesigns ? data.perchasedDesigns : []}
-        keyExtractor={keyExtractor}
-        renderItem={({ item, index }) => {
-          const designPackage = designPackages.find(
-            (pkg) => pkg.id === item.design.package
-          );
-          return (
-            <ItemDesign
-              design={item.design}
-              packageType={designPackage.type}
-              onDesignClick={onDesignClick}
-              designDate={Common.convertIsoToDate(item.purchaseDate)}
+      {data?.perchasedDesigns && data?.perchasedDesigns.length > 0 ? (
+        <FlatList
+          style={styles.listDesign}
+          numColumns={2}
+          data={data?.perchasedDesigns ? data.perchasedDesigns : []}
+          keyExtractor={keyExtractor}
+          renderItem={({ item, index }) => {
+            const designPackage = designPackages.find(
+              (pkg) => pkg.id === item.design.package
+            );
+            return (
+              <ItemDesign
+                design={item.design}
+                packageType={designPackage.type}
+                onDesignClick={onDesignClick}
+                designDate={Common.convertIsoToDate(item.purchaseDate)}
+              />
+            );
+          }}
+        />
+      ) : (
+        <>
+          {loading ? (
+            <ProgressDialog
+              visible={loading}
+              dismissable={false}
+              message={Common.getTranslation(LangKey.labLoading)}
             />
-          );
-        }}
-      />
+          ) : (
+            <View style={styles.containerNoDesign}>
+              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+            </View>
+          )}
+        </>
+      )}
     </View>
   );
 };
@@ -98,6 +110,12 @@ const styles = StyleSheet.create({
   },
   listDesign: {
     marginTop: 10,
+  },
+  containerNoDesign: {
+    flex: 1,
+    backgroundColor: Color.white,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

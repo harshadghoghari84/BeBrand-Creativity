@@ -67,96 +67,109 @@ const UserPackage = ({ navigation, designStore }) => {
       });
   };
 
-  useEffect(() => {
-    console.log("perchasedPackages", perchasedPackages);
-  }, [perchasedPackages]);
   return (
     <View style={styles.container}>
-      <ProgressDialog
-        visible={loading}
-        dismissable={false}
-        message={Common.getTranslation(LangKey.labLoading)}
-      />
-
-      <FlatList
-        style={styles.listDesign}
-        data={perchasedPackages}
-        keyExtractor={keyExtractor}
-        onEndReached={() => loadMoreUserPackages()}
-        renderItem={({ item }) => {
-          const curDate = new Date().getTime();
-          const expDate = new Date(item.expiryDate).getTime();
-          return (
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: 10,
-                paddingBottom: 10,
-                borderBottomWidth: 1,
-                borderColor: Color.borderColor,
-              }}
-            >
+      {perchasedPackages &&
+      perchasedPackages !== null &&
+      perchasedPackages.length > 0 ? (
+        <FlatList
+          style={styles.listDesign}
+          data={perchasedPackages}
+          keyExtractor={keyExtractor}
+          onEndReached={() => loadMoreUserPackages()}
+          renderItem={({ item }) => {
+            const curDate = new Date().getTime();
+            const expDate = new Date(item.expiryDate).getTime();
+            return (
               <View
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {curDate > expDate || item.currentDesignCredit <= 0 ? (
-                  <Text style={styles.txtExpired}>Expired</Text>
-                ) : (
-                  <Text style={styles.txtActive}>Active</Text>
-                )}
-                <SvgUri
-                  uri={item?.package?.image?.url}
-                  width={50}
-                  height={50}
-                  fill={Color.primary}
-                  style={{ marginHorizontal: 20, marginTop: 10 }}
-                />
-              </View>
-
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text>{`${Common.getTranslation(LangKey.txtDesignCredit)}: ${
-                  item.startDesignCredit
-                }`}</Text>
-                <Text>{`${Common.getTranslation(LangKey.txtRemainingCredit)}: ${
-                  item.currentDesignCredit
-                }`}</Text>
-                <Text>{`${Common.getTranslation(
-                  LangKey.txtPerchsedAt
-                )}: ${Common.convertIsoToDate(item.purchaseDate)}`}</Text>
-                <Text>{`${Common.getTranslation(
-                  LangKey.txtExpiredAt
-                )}: ${Common.convertIsoToDate(item.expiryDate)}`}</Text>
-              </View>
-
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
                   flexDirection: "row",
-                  paddingHorizontal: 10,
+                  marginTop: 10,
+                  paddingBottom: 10,
+                  borderBottomWidth: 1,
+                  borderColor: Color.borderColor,
                 }}
               >
-                <Text style={styles.txtPrice}>₹</Text>
-                <Text style={styles.txtPrice}>{item.price}</Text>
-              </View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {curDate > expDate || item.currentDesignCredit <= 0 ? (
+                    <Text style={styles.txtExpired}>
+                      {Common.getTranslation(LangKey.labExpired)}
+                    </Text>
+                  ) : (
+                    <Text style={styles.txtActive}>
+                      {Common.getTranslation(LangKey.labActive)}
+                    </Text>
+                  )}
+                  <SvgUri
+                    uri={item?.package?.image?.url}
+                    width={50}
+                    height={50}
+                    fill={Color.primary}
+                    style={{ marginHorizontal: 20, marginTop: 10 }}
+                  />
+                </View>
 
-              {item?.package?.type === Constant.typeDesignPackagePro && (
-                <Text style={styles.tagPro}>{item.package.type}</Text>
-              )}
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text>{`${Common.getTranslation(LangKey.txtDesignCredit)}: ${
+                    item.startDesignCredit
+                  }`}</Text>
+                  <Text>{`${Common.getTranslation(
+                    LangKey.txtRemainingCredit
+                  )}: ${item.currentDesignCredit}`}</Text>
+                  <Text>{`${Common.getTranslation(
+                    LangKey.txtPerchsedAt
+                  )}: ${Common.convertIsoToDate(item.purchaseDate)}`}</Text>
+                  <Text>{`${Common.getTranslation(
+                    LangKey.txtExpiredAt
+                  )}: ${Common.convertIsoToDate(item.expiryDate)}`}</Text>
+                </View>
+
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  <Text style={styles.txtPrice}>₹</Text>
+                  <Text style={styles.txtPrice}>{item.price}</Text>
+                </View>
+
+                {item?.package?.type === Constant.typeDesignPackagePro && (
+                  <Text style={styles.tagPro}>{item.package.type}</Text>
+                )}
+              </View>
+            );
+          }}
+        />
+      ) : (
+        <>
+          {loading ? (
+            <ProgressDialog
+              visible={loading}
+              dismissable={false}
+              message={Common.getTranslation(LangKey.labLoading)}
+            />
+          ) : (
+            <View style={styles.containerNoDesign}>
+              <Text>{Common.getTranslation(LangKey.labNoPkgAvailable)}</Text>
             </View>
-          );
-        }}
-      />
+          )}
+        </>
+      )}
     </View>
   );
 };
@@ -189,9 +202,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   txtExpired: {
-    position: "absolute",
-    top: 0,
-    left: 10,
     paddingHorizontal: 10,
     fontSize: 15,
     fontWeight: "bold",
@@ -201,9 +211,6 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   txtActive: {
-    // position: "absolute",
-    // top: 0,
-    // left: 10,
     paddingHorizontal: 10,
     fontSize: 15,
     fontWeight: "bold",
@@ -211,6 +218,12 @@ const styles = StyleSheet.create({
     color: Color.white,
     overflow: "hidden",
     borderRadius: 7,
+  },
+  containerNoDesign: {
+    flex: 1,
+    backgroundColor: Color.white,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
