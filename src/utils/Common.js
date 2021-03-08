@@ -83,8 +83,8 @@ const onShare = async () => {
     const result = await Share.share(
       {
         title: "App link",
-        message: "Please install this app and stay safe , AppLink :",
-        url: Platform.OS === "ios" ? null : Constant.playStoreURL,
+        message: `Please install this app and stay safe , AppLink :${Constant.androidPlaystoreLink}`,
+        url: Constant.androidPlaystoreLink,
       },
       {
         excludedActivityTypes: [

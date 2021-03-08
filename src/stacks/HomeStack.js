@@ -36,9 +36,7 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navPro}
         component={MyTabs}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
 
@@ -46,9 +44,7 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navWebView}
         component={WebViews}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
 
@@ -56,9 +52,7 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navDesigns}
         component={UserDesign}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
 
@@ -66,9 +60,7 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navPackage}
         component={UserPackage}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
 
@@ -76,9 +68,7 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navDesign}
         component={DesignScreen}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
 
@@ -86,18 +76,14 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navProfile}
         component={UserProfile}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
       <HomeStack.Screen
         name={Constant.navProfileUser}
         component={ProfileUser}
         options={{
-          header: (props) => (
-            <CustomHeader isBackVisible={true} notification={true} {...props} />
-          ),
+          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
         }}
       />
       <HomeStack.Screen

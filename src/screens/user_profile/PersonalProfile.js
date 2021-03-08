@@ -27,12 +27,16 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
+import PopUp from "../../components/PopUp";
 import {
-  emailValidator,
-  emptyValidator,
-  mobileValidator,
-  nameValidator,
+  nameValidatorPro,
+  mobileValidatorPro,
+  emailValidatorPro,
+  designationValidatorPro,
+  SocailMediaValidatorPro,
+  websiteValidatorPro,
 } from "../../utils/Validator";
+import Constant from "../../utils/Constant";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -49,6 +53,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const personalImageLimit = userStore.personalImageLimit;
 
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
+  const [isFirstTime, setIsFirstTime] = useState(true);
 
   useEffect(() => {
     user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
@@ -57,7 +62,23 @@ const PersonalProfile = ({ navigation, userStore }) => {
             .url
         )
       : setDefaultImageUrl(null);
+
+    console.log("user?.designPackage", user?.designPackage && user);
+    if (
+      user?.designPackage &&
+      user.designPackage !== null &&
+      user.designPackage.length > 0
+    ) {
+      setIsFirstTime(false);
+    } else {
+      setIsFirstTime(true);
+    }
   }, [toJS(userStore.user)]);
+
+  const [modalVisible, setmodalVisible] = useState(false);
+  const toggleVisible = () => {
+    setmodalVisible(!modalVisible);
+  };
 
   const [errorUserName, setErrorUserName] = useState("");
   const [errorMobile, setErrorMobile] = useState("");
@@ -117,7 +138,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
     return (
       <View style={styles.toProfileImage}>
         <TouchableOpacity
-          onPress={() => onClickImageSelect()}
+          onPress={() => {
+            if (personalImageLimit > 0) {
+              onClickImageSelect();
+            } else {
+              setmodalVisible(true);
+            }
+          }}
           style={styles.plusBtn}
         >
           <Icon name="plus" fill={Color.white} height={25} width={25} />
@@ -172,57 +199,40 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
   const onClickSave = () => {
     //  validation
-    console.log("userName.length", userName.length);
-    if (!userName || userName.length <= 0 || userName.length > 25) {
-      setErrorUserName(Common.getTranslation(LangKey.personalUserNameErr));
+    let type = Constant.titPersonalProfile;
+    const errUserName = nameValidatorPro(userName, type);
+    if (errUserName) {
+      setErrorUserName(errUserName);
       return;
     }
-
     setErrorUserName("");
-    const reMobile = /^[0]?[6789]\d{9}$/;
-    if (
-      !mobile ||
-      !reMobile.test(mobile) ||
-      mobile.length <= 0 ||
-      mobile.length > 10
-    ) {
-      setErrorMobile(Common.getTranslation(LangKey.personalMobileErr));
+    const errMobile = mobileValidatorPro(mobile, type);
+    if (errMobile) {
+      setErrorMobile(errMobile);
       return;
     }
-
     setErrorMobile("");
-    const re = /\S+@\S+\.\S+/;
-    if (!email || !re.test(email) || email.length <= 0 || email.length > 26) {
-      setErrorEmail(Common.getTranslation(LangKey.personalEmailErr));
+    const errEmail = emailValidatorPro(email, type);
+    if (errEmail) {
+      setErrorEmail(errEmail);
       return;
     }
-
     setErrorEmail("");
-
-    if (!designation || designation.length <= 0 || designation.length > 18) {
-      setErrorDesignation(
-        Common.getTranslation(LangKey.personalDesignationErr)
-      );
+    const errDesignation = designationValidatorPro(designation, type);
+    if (errDesignation) {
+      setErrorDesignation(errDesignation);
       return;
     }
-
     setErrorDesignation("");
-
-    if (
-      !socialMediaId ||
-      socialMediaId.length <= 0 ||
-      socialMediaId.length > 20
-    ) {
-      setErrorSocailMediaId(
-        Common.getTranslation(LangKey.personalSocialMediaIdErr)
-      );
+    const errSocailMediaId = SocailMediaValidatorPro(socialMediaId, type);
+    if (errSocailMediaId) {
+      setErrorSocailMediaId(errSocailMediaId);
       return;
     }
-
     setErrorSocailMediaId("");
-
-    if (!website || website.length <= 0 || website.length > 26) {
-      setErrorWebsite(Common.getTranslation(LangKey.personalWebsiteErr));
+    const errWebsite = websiteValidatorPro(website, type);
+    if (errWebsite) {
+      setErrorWebsite(errWebsite);
       return;
     }
     setErrorWebsite("");
@@ -282,7 +292,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
   };
 
   const onCloseBTN = (curUrl) => {
-    console.log("curUrl", curUrl);
     deletePersonalImage({
       variables: {
         image: curUrl,
@@ -320,10 +329,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
       });
   };
 
+  console.log("personalImageLimit", personalImageLimit);
   // key extractors
   const keyExtractor = useCallback((item, index) => index.toString(), []);
-
-  console.log("loadingDeleteImage", loadingDeleteImage);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
@@ -342,6 +350,11 @@ const PersonalProfile = ({ navigation, userStore }) => {
           visible={loadingDeleteImage}
           dismissable={true}
           message={Common.getTranslation(LangKey.labLoading)}
+        />
+        <PopUp
+          visible={modalVisible}
+          toggleVisible={toggleVisible}
+          isPurchased={true}
         />
         {/* {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
@@ -366,10 +379,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="user"
             value={userName}
-            onChangeText={(text) => setUserName(text)}
+            onChangeText={(text) => {
+              setUserName(text), setErrorUserName("");
+            }}
             autoCapitalize="none"
-            error={!!errorUserName}
+            // error={!!errorUserName}
             errorText={errorUserName}
+            marked={!nameValidatorPro(userName) && "mark"}
           />
 
           <TextInput
@@ -379,10 +395,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
             iconName="phone"
             value={mobile}
             keyboardType="phone-pad"
-            onChangeText={(text) => setMobile(text)}
+            onChangeText={(text) => {
+              setMobile(text), setErrorMobile("");
+            }}
             autoCapitalize="none"
             error={!!errorMobile}
             errorText={errorMobile}
+            marked={!mobileValidatorPro(mobile) && "mark"}
           />
 
           <TextInput
@@ -391,10 +410,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="email"
             value={email}
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => {
+              setEmail(text), setErrorEmail("");
+            }}
             autoCapitalize="none"
             error={!!errorEmail}
             errorText={errorEmail}
+            marked={!emailValidatorPro(email) && "mark"}
           />
 
           <TextInput
@@ -403,10 +425,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="designation"
             value={designation}
-            onChangeText={(text) => setDesignation(text)}
+            onChangeText={(text) => {
+              setDesignation(text), setErrorDesignation("");
+            }}
             autoCapitalize="none"
             error={!!errorDesignation}
             errorText={errorDesignation}
+            marked={!designationValidatorPro(designation) && "mark"}
           />
 
           <TextInput
@@ -415,10 +440,13 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="social_id"
             value={socialMediaId}
-            onChangeText={(text) => setSocialMediaId(text)}
+            onChangeText={(text) => {
+              setSocialMediaId(text), setErrorSocailMediaId("");
+            }}
             autoCapitalize="none"
             error={!!errorSocialMediaId}
             errorText={errorSocialMediaId}
+            marked={!SocailMediaValidatorPro(socialMediaId) && "mark"}
           />
 
           <TextInput
@@ -427,67 +455,75 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="website"
             value={website}
-            onChangeText={(text) => setWebsite(text)}
+            onChangeText={(text) => {
+              setWebsite(text), setErrorWebsite("");
+            }}
             autoCapitalize="none"
             error={!!errorWebsite}
             errorText={errorWebsite}
+            marked={!websiteValidatorPro(website) && "mark"}
           />
         </View>
         <View style={styles.containerProfile}>
-          <FlatList
-            horizontal
-            ListHeaderComponent={
-              personalImageLimit > 0 &&
-              (Array.isArray(user?.userInfo?.personal?.image)
-                ? user.userInfo.personal.image.length < personalImageLimit &&
-                  getImagePickerView()
-                : getImagePickerView())
-            }
-            showsHorizontalScrollIndicator={false}
-            data={
-              Array.isArray(user?.userInfo?.personal?.image)
-                ? user.userInfo.personal.image
-                : []
-            }
-            keyExtractor={keyExtractor}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  style={styles.toProfileImage}
-                  onPress={() => {
-                    setDefaultImageUrl(item.url);
-                  }}
-                >
-                  {item.url && item.url !== "" && (
-                    <FastImage
-                      source={{ uri: item.url, width: 100, height: 100 }}
-                      style={styles.toProfileImage}
-                    />
-                  )}
-
-                  {defaultImageUrl === item.url && (
-                    <View
-                      style={[
-                        styles.toProfileImage,
-                        {
-                          backgroundColor: Color.blackTransparant,
-                          position: "absolute",
-                          opacity: 0.3,
-                        },
-                      ]}
-                    />
-                  )}
+          {personalImageLimit > 0 ? (
+            <FlatList
+              horizontal
+              ListHeaderComponent={
+                isFirstTime
+                  ? getImagePickerView()
+                  : personalImageLimit > 0 &&
+                    Array.isArray(user?.userInfo?.personal?.image) &&
+                    user.userInfo.personal.image.length < personalImageLimit &&
+                    getImagePickerView()
+              }
+              showsHorizontalScrollIndicator={false}
+              data={
+                Array.isArray(user?.userInfo?.personal?.image)
+                  ? user.userInfo.personal.image
+                  : []
+              }
+              keyExtractor={keyExtractor}
+              renderItem={({ item }) => {
+                return (
                   <TouchableOpacity
-                    onPress={() => onCloseBTN(item.url)}
-                    activeOpacity={0.6}
-                    style={styles.closeBtn}
+                    style={styles.toProfileImage}
+                    onPress={() => {
+                      setDefaultImageUrl(item.url);
+                    }}
                   >
-                    <ICON name="close" size={18} color={Color.darkBlue} />
+                    {item.url && item.url !== "" && (
+                      <FastImage
+                        source={{ uri: item.url, width: 100, height: 100 }}
+                        style={styles.toProfileImage}
+                      />
+                    )}
+
+                    {defaultImageUrl === item.url && (
+                      <View
+                        style={[
+                          styles.toProfileImage,
+                          {
+                            backgroundColor: Color.blackTransparant,
+                            position: "absolute",
+                            opacity: 0.3,
+                          },
+                        ]}
+                      />
+                    )}
+                    <TouchableOpacity
+                      onPress={() => onCloseBTN(item.url)}
+                      activeOpacity={0.6}
+                      style={styles.closeBtn}
+                    >
+                      <ICON name="close" size={18} color={Color.darkBlue} />
+                    </TouchableOpacity>
                   </TouchableOpacity>
-                </TouchableOpacity>
-              );
-            }}
-          />
+                );
+              }}
+            />
+          ) : (
+            getImagePickerView()
+          )}
         </View>
         <Button
           loading={loading}

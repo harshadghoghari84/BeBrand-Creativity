@@ -27,7 +27,17 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { emptyValidator } from "../../utils/Validator";
+import { AddressValidatorPro, emptyValidator } from "../../utils/Validator";
+import PopUp from "../../components/PopUp";
+import {
+  nameValidatorPro,
+  mobileValidatorPro,
+  emailValidatorPro,
+  designationValidatorPro,
+  SocailMediaValidatorPro,
+  websiteValidatorPro,
+} from "../../utils/Validator";
+import Constant from "../../utils/Constant";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -39,12 +49,14 @@ const generateRNFile = (uri, name) => {
     : null;
 };
 
+let isFirstTime = true;
+
 const BusinessProfile = ({ userStore }) => {
   const user = toJS(userStore.user);
   const businessImageLimit = userStore.businessImageLimit;
 
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
-
+  const [isFirstTime, setIsFirstTime] = useState(true);
   useEffect(() => {
     console.log("object", user?.userInfo?.business?.image);
     user?.userInfo?.business?.image && user.userInfo.business.image.length > 0
@@ -53,7 +65,21 @@ const BusinessProfile = ({ userStore }) => {
             .url
         )
       : setDefaultImageUrl(null);
+    if (
+      user?.designPackage &&
+      user.designPackage !== null &&
+      user.designPackage.length > 0
+    ) {
+      setIsFirstTime(false);
+    } else {
+      setIsFirstTime(true);
+    }
   }, [user?.userInfo?.business?.image]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const toggleVisible = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const [errorUserName, setErrorUserName] = useState("");
   const [errorMobile, setErrorMobile] = useState("");
@@ -113,21 +139,14 @@ const BusinessProfile = ({ userStore }) => {
       <View style={styles.toProfileImage}>
         <TouchableOpacity
           style={styles.toProfileImage}
-          onPress={onClickImageSelect}
-          style={{
-            padding: 10,
-            backgroundColor: Color.txtIntxtcolor,
-            borderRadius: 50,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+          onPress={() => {
+            if (businessImageLimit > 0) {
+              onClickImageSelect();
+            } else {
+              setModalVisible(true);
+            }
           }}
+          style={styles.plusBtn}
         >
           <Icon name="plus" fill={Color.white} height={25} width={25} />
         </TouchableOpacity>
@@ -177,54 +196,42 @@ const BusinessProfile = ({ userStore }) => {
 
   const onClickSave = () => {
     //  validation
-    if (!userName || userName.length <= 0 || userName.length > 35) {
-      setErrorUserName(Common.getTranslation(LangKey.bussinessUserNameErr));
+
+    let type = Constant.titBusinessProfile;
+
+    const errUserName = nameValidatorPro(userName, type);
+    if (errUserName) {
+      setErrorUserName(errUserName);
       return;
     }
-
     setErrorUserName("");
-    const reMobile = /^[0]?[6789]\d{9}$/;
-    if (
-      !mobile ||
-      !reMobile.test(mobile) ||
-      mobile.length <= 0 ||
-      mobile.length > 10
-    ) {
-      setErrorMobile(Common.getTranslation(LangKey.bussinessMobileErr));
+    const errMobile = mobileValidatorPro(mobile, type);
+    if (errMobile) {
+      setErrorMobile(errMobile);
       return;
     }
-
     setErrorMobile("");
-    const re = /\S+@\S+\.\S+/;
-    if (!email || !re.test(email) || email.length <= 0 || email.length > 26) {
-      setErrorEmail(Common.getTranslation(LangKey.bussinessEmailErr));
+    const errEmail = emailValidatorPro(email, type);
+    if (errEmail) {
+      setErrorEmail(errEmail);
       return;
     }
-
     setErrorEmail("");
-
-    if (!address || address.length <= 0 || address.length > 41) {
-      setErrorAddress(Common.getTranslation(LangKey.bussinessAddressErr));
+    const errAddress = AddressValidatorPro(address, type);
+    if (errAddress) {
+      setErrorAddress(errAddress);
       return;
     }
-
     setErrorAddress("");
-
-    if (
-      !socialMediaId ||
-      socialMediaId.length <= 0 ||
-      socialMediaId.length > 20
-    ) {
-      setErrorSocailMediaId(
-        Common.getTranslation(LangKey.bussinessSocialMediaIdErr)
-      );
+    const errSocailMediaId = SocailMediaValidatorPro(socialMediaId, type);
+    if (errSocailMediaId) {
+      setErrorSocailMediaId(errSocailMediaId);
       return;
     }
-
     setErrorSocailMediaId("");
-
-    if (!website || website.length <= 0 || website.length > 26) {
-      setErrorWebsite(Common.getTranslation(LangKey.bussinessWebsiteErr));
+    const errWebsite = websiteValidatorPro(website, type);
+    if (errWebsite) {
+      setErrorWebsite(errWebsite);
       return;
     }
     setErrorWebsite("");
@@ -345,6 +352,11 @@ const BusinessProfile = ({ userStore }) => {
           dismissable={false}
           message={Common.getTranslation(LangKey.labLoading)}
         />
+        <PopUp
+          visible={modalVisible}
+          toggleVisible={toggleVisible}
+          isPurchased={true}
+        />
         {/* {businessImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
             <View>
@@ -367,10 +379,13 @@ const BusinessProfile = ({ userStore }) => {
             iconName="user"
             returnKeyType="next"
             value={userName}
-            onChangeText={(text) => setUserName(text)}
+            onChangeText={(text) => {
+              setUserName(text), setErrorUserName("");
+            }}
             autoCapitalize="none"
             error={!!errorUserName}
             errorText={errorUserName}
+            marked={!nameValidatorPro(userName) && "mark"}
           />
 
           <TextInput
@@ -380,10 +395,13 @@ const BusinessProfile = ({ userStore }) => {
             iconName="phone"
             value={mobile}
             keyboardType="phone-pad"
-            onChangeText={(text) => setMobile(text)}
+            onChangeText={(text) => {
+              setMobile(text), setErrorMobile("");
+            }}
             autoCapitalize="none"
             error={!!errorMobile}
             errorText={errorMobile}
+            marked={!mobileValidatorPro(mobile) && "mark"}
           />
 
           <TextInput
@@ -392,10 +410,13 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="email"
             value={email}
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => {
+              setEmail(text), setErrorEmail("");
+            }}
             autoCapitalize="none"
             error={!!errorEmail}
             errorText={errorEmail}
+            marked={!emailValidatorPro(email) && "mark"}
           />
 
           <TextInput
@@ -404,10 +425,13 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="location"
             value={address}
-            onChangeText={(text) => setAddress(text)}
+            onChangeText={(text) => {
+              setAddress(text), setErrorAddress("");
+            }}
             autoCapitalize="none"
             error={!!errorAddress}
             errorText={errorAddress}
+            marked={!AddressValidatorPro(address) && "mark"}
           />
 
           <TextInput
@@ -416,10 +440,13 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="social_id"
             value={socialMediaId}
-            onChangeText={(text) => setSocialMediaId(text)}
+            onChangeText={(text) => {
+              setSocialMediaId(text), setErrorSocailMediaId("");
+            }}
             autoCapitalize="none"
             error={!!errorSocialMediaId}
             errorText={errorSocialMediaId}
+            marked={!SocailMediaValidatorPro(socialMediaId) && "mark"}
           />
 
           <TextInput
@@ -428,68 +455,76 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="website"
             value={website}
-            onChangeText={(text) => setWebsite(text)}
+            onChangeText={(text) => {
+              setWebsite(text), setErrorWebsite("");
+            }}
             autoCapitalize="none"
             error={!!errorWebsite}
             errorText={errorWebsite}
+            marked={!websiteValidatorPro(website) && "mark"}
           />
         </View>
 
         <View style={styles.containerProfile}>
-          <FlatList
-            horizontal
-            ListHeaderComponent={
-              businessImageLimit > 0 &&
-              (Array.isArray(user?.userInfo?.business?.image)
-                ? user.userInfo.business.image.length < businessImageLimit &&
-                  getImagePickerView()
-                : getImagePickerView())
-            }
-            showsHorizontalScrollIndicator={false}
-            data={
-              Array.isArray(user?.userInfo?.business?.image)
-                ? user.userInfo.business.image
-                : []
-            }
-            keyExtractor={keyExtractor}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  style={styles.toProfileImage}
-                  onPress={() => {
-                    setDefaultImageUrl(item.url);
-                  }}
-                >
-                  {item.url && item.url !== "" && (
-                    <FastImage
-                      source={{ uri: item.url, width: 100, height: 100 }}
-                      style={styles.toProfileImage}
-                    />
-                  )}
-
-                  {defaultImageUrl === item.url && (
-                    <View
-                      style={[
-                        styles.toProfileImage,
-                        {
-                          backgroundColor: Color.blackTransparant,
-                          position: "absolute",
-                          opacity: 0.5,
-                        },
-                      ]}
-                    />
-                  )}
+          {businessImageLimit > 0 ? (
+            <FlatList
+              horizontal
+              ListHeaderComponent={
+                isFirstTime
+                  ? getImagePickerView()
+                  : businessImageLimit > 0 &&
+                    Array.isArray(user?.userInfo?.business?.image) &&
+                    user.userInfo.business.image.length < businessImageLimit &&
+                    getImagePickerView()
+              }
+              showsHorizontalScrollIndicator={false}
+              data={
+                Array.isArray(user?.userInfo?.business?.image)
+                  ? user.userInfo.business.image
+                  : []
+              }
+              keyExtractor={keyExtractor}
+              renderItem={({ item }) => {
+                return (
                   <TouchableOpacity
-                    onPress={() => onCloseBTN(item.url)}
-                    activeOpacity={0.6}
-                    style={styles.closeBtn}
+                    style={styles.toProfileImage}
+                    onPress={() => {
+                      setDefaultImageUrl(item.url);
+                    }}
                   >
-                    <ICON name="close" size={18} color={Color.darkBlue} />
+                    {item.url && item.url !== "" && (
+                      <FastImage
+                        source={{ uri: item.url, width: 100, height: 100 }}
+                        style={styles.toProfileImage}
+                      />
+                    )}
+
+                    {defaultImageUrl === item.url && (
+                      <View
+                        style={[
+                          styles.toProfileImage,
+                          {
+                            backgroundColor: Color.blackTransparant,
+                            position: "absolute",
+                            opacity: 0.5,
+                          },
+                        ]}
+                      />
+                    )}
+                    <TouchableOpacity
+                      onPress={() => onCloseBTN(item.url)}
+                      activeOpacity={0.6}
+                      style={styles.closeBtn}
+                    >
+                      <ICON name="close" size={18} color={Color.darkBlue} />
+                    </TouchableOpacity>
                   </TouchableOpacity>
-                </TouchableOpacity>
-              );
-            }}
-          />
+                );
+              }}
+            />
+          ) : (
+            getImagePickerView()
+          )}
         </View>
         <Button
           loading={loading}
@@ -576,6 +611,19 @@ const styles = StyleSheet.create({
     margin: 3,
     borderRadius: 20,
     backgroundColor: Color.white,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  plusBtn: {
+    padding: 10,
+    backgroundColor: Color.txtIntxtcolor,
+    borderRadius: 50,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -85,6 +85,7 @@ const Notification = () => {
         />
         <FlatList
           data={data && data.notifications}
+          showsVerticalScrollIndicator={false}
           keyExtractor={keyExtractor}
           renderItem={({ item, index }) => {
             const itemDate = new Date(item.updatedAt);
@@ -123,6 +124,8 @@ const Notification = () => {
                   }}
                   style={{
                     height: 65,
+                    borderBottomWidth: 1,
+                    borderBottomColor: Color.txtInBgColor,
                     backgroundColor:
                       id.includes(item.id) ||
                       new Date(loginTime).getTime() >

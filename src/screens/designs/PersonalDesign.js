@@ -45,6 +45,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
   const { designs: designsArr, curDesign, curScreen } = route.params;
+
   const allLayouts = toJS(designStore.designLayouts);
 
   /*
@@ -100,6 +101,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
+  const [selected, setSelected] = useState(0);
 
   const [userDataPersonal, setUserDataPersonal] = useState();
 
@@ -154,7 +156,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      console.log("user", user);
       setUserDataPersonal(
         user && user != null
           ? {
@@ -322,7 +323,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const checkLayout = (layouts) => {
     if (userDataPersonal) {
-      console.log("userDataPersonal", userDataPersonal);
       let isSet = false;
       layouts.some((layout) => {
         switch (layout.id) {
@@ -1179,6 +1179,185 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
 */
 
+  const layout = () => {
+    return (
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={layouts}
+        contentContainerStyle={{ paddingHorizontal: 5 }}
+        keyExtractor={keyExtractor}
+        style={styles.flatlist}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            key={item.id}
+            style={styles.listLayoutView}
+            onPress={() => {
+              if (
+                item.package.type === Constant.typeDesignPackageVip &&
+                hasPro === false
+              ) {
+                setVisibleModal(true);
+              } else {
+                checkAndSetLayout(item);
+                // setCurrentLayout(item);
+              }
+            }}
+          >
+            <>
+              <FastImage
+                source={{ uri: item.layoutImage.url }}
+                style={{
+                  width: width / 2.5,
+                  height: 40,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              {currentLayout && item.id === currentLayout.id && (
+                <View
+                  style={[
+                    styles.icnCheck,
+                    {
+                      backgroundColor: Color.blackTransparant,
+                      opacity: 0.5,
+                    },
+                  ]}
+                />
+              )}
+
+              {item.package.type === Constant.typeDesignPackageVip && (
+                <Icon
+                  style={styles.tagPro}
+                  name="Premium"
+                  height={18}
+                  width={10}
+                  fill={Color.primary}
+                />
+              )}
+            </>
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
+  const colorCode = () => {
+    return (
+      <FlatList
+        style={styles.colorCodeList}
+        data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        ListFooterComponent={plusBTN()}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            key={index}
+            style={{
+              ...styles.colorCode,
+              backgroundColor: item.code,
+            }}
+            onPress={() => {
+              setFooterColor(item.code);
+              item.isLight == true
+                ? setFooterTextColor(currentDesign.darkTextColor)
+                : setFooterTextColor(currentDesign.lightTextColor);
+            }}
+          >
+            {item.code === footerColor ? (
+              <View
+                style={[
+                  {
+                    borderColor: Color.primary,
+                    borderWidth: 2,
+                    margin: 10,
+                    height: 33,
+                    width: 33,
+                    borderRadius: 20,
+                  },
+                ]}
+              />
+            ) : null}
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
+  const socialIcons = () => {
+    return (
+      <FlatList
+        style={styles.socialIconList}
+        data={Constant.socialIconList}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={{
+              height: 40,
+              width: 40,
+              margin: 3,
+              backgroundColor: Color.darkBlue,
+              borderRadius: 50,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={async () => {
+              let addIcons = [];
+              if (socialIconList.indexOf(item) >= 0) {
+                addIcons = socialIconList.filter((val) => val !== item);
+                console.log("remove icons", addIcons);
+
+                setSocialIconList(socialIconList.filter((val) => val !== item));
+              } else if (socialIconList.length < Constant.socialIconLimit) {
+                addIcons.push(...socialIconList, item);
+
+                setSocialIconList([...socialIconList, item]);
+                console.log("add icons", addIcons);
+              } else {
+                Platform.OS == "android"
+                  ? ToastAndroid.show(
+                      Common.getTranslation(LangKey.msgSocialIconLimit),
+                      ToastAndroid.LONG
+                    )
+                  : alert(Common.getTranslation(LangKey.msgSocialIconLimit));
+              }
+              await AsyncStorage.setItem(
+                Constant.prfIcons,
+                JSON.stringify(addIcons)
+              );
+            }}
+          >
+            <View
+              style={{
+                height: 45,
+                width: 45,
+                backgroundColor:
+                  socialIconList && socialIconList.indexOf(item) < 0
+                    ? null
+                    : Color.white,
+                opacity: 0.3,
+                position: "absolute",
+              }}
+            />
+
+            <Icon
+              name={item}
+              height={25}
+              width={25}
+              fill={Color.white}
+              key={index}
+            />
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -1233,6 +1412,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     <FastImage
                       source={{ uri: item.thumbImage.url }}
                       style={{ width: 75, height: 75 }}
+                      resizeMode={FastImage.resizeMode.contain}
                     />
 
                     {item.id === currentDesign.id && (
@@ -1242,6 +1422,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                           {
                             backgroundColor: Color.blackTransparant,
                             opacity: 0.6,
+                            width: 75,
+                            height: 75,
                           },
                         ]}
                       />
@@ -1282,173 +1464,63 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               </FastImage>
             </View>
           </ViewShot>
+          <View style={{ height: 80 }}>
+            {selected == 0 && layout()}
+            {selected == 1 && colorCode()}
+            {selected == 2 && socialIcons()}
+          </View>
 
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={layouts}
-            contentContainerStyle={{ paddingHorizontal: 5 }}
-            keyExtractor={keyExtractor}
-            style={styles.flatlist}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                key={item.id}
-                style={styles.listLayoutView}
-                onPress={() => {
-                  if (
-                    item.package.type === Constant.typeDesignPackageVip &&
-                    hasPro === false
-                  ) {
-                    setVisibleModal(true);
-                  } else {
-                    checkAndSetLayout(item);
-                    // setCurrentLayout(item);
-                  }
-                }}
-              >
-                <View>
-                  <FastImage
-                    source={{ uri: item.layoutImage.url }}
-                    style={{ width: 75, height: 75 }}
-                  />
-                  {currentLayout && item.id === currentLayout.id && (
-                    <View
-                      style={[
-                        styles.icnCheck,
-                        {
-                          backgroundColor: Color.blackTransparant,
-                          opacity: 0.5,
-                        },
-                      ]}
-                    />
-                  )}
-
-                  {item.package.type === Constant.typeDesignPackageVip && (
-                    <Icon
-                      style={styles.tagPro}
-                      name="Premium"
-                      height={18}
-                      width={10}
-                      fill={Color.primary}
-                    />
-                  )}
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-
-          <FlatList
-            style={styles.colorCodeList}
-            data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            // ListFooterComponent={plusBTN()}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                key={index}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "90%",
+            }}
+          >
+            <TouchableOpacity onPress={() => setSelected(0)}>
+              <Text
                 style={{
-                  ...styles.colorCode,
-                  backgroundColor: item.code,
-                }}
-                onPress={() => {
-                  setFooterColor(item.code);
-                  item.isLight == true
-                    ? setFooterTextColor(currentDesign.darkTextColor)
-                    : setFooterTextColor(currentDesign.lightTextColor);
-                }}
-              >
-                {item.code === footerColor ? (
-                  <View
-                    style={[
-                      {
-                        borderColor: Color.primary,
-                        borderWidth: 2,
-                        margin: 10,
-                        height: 33,
-                        width: 33,
-                        borderRadius: 20,
-                      },
-                    ]}
-                  />
-                ) : null}
-              </TouchableOpacity>
-            )}
-          />
-
-          <FlatList
-            style={styles.socialIconList}
-            data={Constant.socialIconList}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                style={{
-                  height: 40,
-                  width: 40,
-                  margin: 3,
-                  backgroundColor: Color.darkBlue,
+                  backgroundColor:
+                    selected === 0 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 0 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
                   borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={async () => {
-                  let addIcons = [];
-                  if (socialIconList.indexOf(item) >= 0) {
-                    addIcons = socialIconList.filter((val) => val !== item);
-                    console.log("remove icons", addIcons);
-
-                    setSocialIconList(
-                      socialIconList.filter((val) => val !== item)
-                    );
-                  } else if (socialIconList.length < Constant.socialIconLimit) {
-                    addIcons.push(...socialIconList, item);
-
-                    setSocialIconList([...socialIconList, item]);
-                    console.log("add icons", addIcons);
-                  } else {
-                    Platform.OS == "android"
-                      ? ToastAndroid.show(
-                          Common.getTranslation(LangKey.msgSocialIconLimit),
-                          ToastAndroid.LONG
-                        )
-                      : alert(
-                          Common.getTranslation(LangKey.msgSocialIconLimit)
-                        );
-                  }
-                  await AsyncStorage.setItem(
-                    Constant.prfIcons,
-                    JSON.stringify(addIcons)
-                  );
                 }}
               >
-                <View
-                  style={{
-                    height: 45,
-                    width: 45,
-                    backgroundColor:
-                      socialIconList && socialIconList.indexOf(item) < 0
-                        ? null
-                        : Color.white,
-                    opacity: 0.3,
-                    position: "absolute",
-                  }}
-                />
-
-                <Icon
-                  name={item}
-                  height={25}
-                  width={25}
-                  fill={Color.white}
-                  key={index}
-                />
-              </TouchableOpacity>
-            )}
-          />
+                {Common.getTranslation(LangKey.labLayouts)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelected(1)}>
+              <Text
+                style={{
+                  backgroundColor:
+                    selected === 1 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 1 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
+                  borderRadius: 50,
+                }}
+              >
+                {Common.getTranslation(LangKey.labColorCodeList)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelected(2)}>
+              <Text
+                style={{
+                  backgroundColor:
+                    selected === 2 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 2 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
+                  borderRadius: 50,
+                }}
+              >
+                {Common.getTranslation(LangKey.labSocialMediaIcons)}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           <ScrollView
             horizontal
@@ -1579,7 +1651,7 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     height: 85,
-
+    alignSelf: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -1611,10 +1683,14 @@ const styles = StyleSheet.create({
   },
   icnCheck: {
     position: "absolute",
-    width: 75,
-    height: 75,
+    width: width / 2.5,
+    height: 40,
   },
-  designView: { marginTop: 10, width: width - 10, height: width - 10 },
+  designView: {
+    marginTop: 10,
+    width: width,
+    height: width,
+  },
   colorCodeList: {
     marginVertical: 10,
   },

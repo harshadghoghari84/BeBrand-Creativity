@@ -252,10 +252,9 @@ const Home = ({ navigation, designStore, userStore }) => {
         dotsLength={imageData?.offers ? imageData.offers.length : 0}
         activeDotIndex={activeSlide}
         containerStyle={{
-          position: "absolute",
           alignSelf: "center",
-          bottom: 0,
-          paddingVertical: 10,
+          paddingTop: 5,
+          paddingBottom: 10,
         }}
         dotStyle={{
           width: 7,
@@ -264,7 +263,7 @@ const Home = ({ navigation, designStore, userStore }) => {
           backgroundColor: Color.primary,
         }}
         inactiveDotStyle={{
-          backgroundColor: Color.white,
+          backgroundColor: Color.txtIntxtcolor,
         }}
         inactiveDotOpacity={0.6}
         inactiveDotScale={0.8}
@@ -274,32 +273,29 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   const slider = () => {
     return (
-      <View
-        style={{
-          marginBottom: 10,
-        }}
-      >
-        <Carousel
-          data={imageData?.offers}
-          renderItem={renderImages}
-          sliderWidth={SLIDER_WIDTH}
-          itemWidth={SLIDER_WIDTH}
-          autoplay={true}
-          loop
-          onSnapToItem={(index) => setActiveSlide(index)}
-          inactiveSlideScale={1}
-        />
+      <>
+        <View
+          style={{
+            marginVertical: 5,
+            marginHorizontal: 10,
+            height: 80,
+            borderRadius: 5,
+            overflow: "hidden",
+          }}
+        >
+          <Carousel
+            data={imageData?.offers}
+            renderItem={renderImages}
+            sliderWidth={SLIDER_WIDTH - 20}
+            itemWidth={SLIDER_WIDTH}
+            autoplay={true}
+            loop
+            onSnapToItem={(index) => setActiveSlide(index)}
+            inactiveSlideScale={1}
+          />
+        </View>
         {pagination()}
-        {/* <FlatListSlider
-          data={data}
-          timer={5000}
-          height={130}
-          onPress={(item) => alert(JSON.stringify(item))}
-          indicatorContainerStyle={{ position: "absolute", bottom: 8 }}
-          indicatorActiveColor={Color.primary}
-          animation
-        /> */}
-      </View>
+      </>
     );
   };
 
@@ -390,6 +386,7 @@ const Home = ({ navigation, designStore, userStore }) => {
             )}
           />
         </View>
+
         <View style={styles.containerDesignList}>
           {userSubCategories &&
           selectedSubCategory &&

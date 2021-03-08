@@ -10,7 +10,7 @@ import {
   Switch,
   Dimensions,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import Color from "../utils/Color";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import Ratings from "../utils/ratings";
@@ -94,19 +94,11 @@ const PopUp = ({
     >
       <KeyboardAvoidingView style={styles.centeredView}>
         {toggle && (
-          <View style={[styles.modalView, { height: 250, width: "90%" }]}>
-            <View style={{ flex: 1 }}>
+          <View style={styles.mainView}>
+            <View style={styles.innerView}>
               <TouchableOpacity
                 onPress={() => toggleVisible()}
-                style={{
-                  width: 25,
-                  height: 25,
-                  margin: 10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "flex-end",
-                  borderRadius: 20,
-                }}
+                style={styles.btnClose}
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
@@ -114,7 +106,6 @@ const PopUp = ({
                 style={{
                   flexDirection: "row",
                   marginHorizontal: 20,
-
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -165,31 +156,8 @@ const PopUp = ({
           </View>
         )}
         {isNotiMsg && (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <KeyboardAvoidingView
-              style={{
-                padding: 10,
-                backgroundColor: Color.white,
-                borderRadius: 20,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                marginHorizontal: 20,
-                minHeight: 100,
-                minWidth: "80%",
-              }}
-            >
+          <View style={styles.mainView}>
+            <KeyboardAvoidingView style={styles.innerView}>
               <View
                 style={{
                   flexDirection: "row",
@@ -202,12 +170,7 @@ const PopUp = ({
                 </View>
                 <TouchableOpacity
                   onPress={() => toggleVisibleMsg()}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                  style={styles.btnClose}
                 >
                   <ICON name="close" size={22} color={Color.darkBlue} />
                 </TouchableOpacity>
@@ -218,25 +181,11 @@ const PopUp = ({
           </View>
         )}
         {isLayout && (
-          <View style={[styles.modalView, { height: 160 }]}>
-            <KeyboardAvoidingView
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+          <View style={styles.mainView}>
+            <KeyboardAvoidingView style={styles.innerView}>
               <TouchableOpacity
                 onPress={() => toggleVisibleMsg()}
-                style={{
-                  width: 25,
-                  height: 25,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "flex-end",
-                  borderRadius: 20,
-                  marginRight: 5,
-                }}
+                style={styles.btnClose}
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
@@ -246,16 +195,17 @@ const PopUp = ({
               <View
                 style={{
                   marginTop: 5,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  alignSelf: "center",
                 }}
               >
                 <Button
                   style={{ margin: 5 }}
                   onPress={() => {
-                    navigation.navigate(Constant.navProfile, {
-                      title: Constant.titPersonalProfile,
-                    });
+                    navigation.dispatch(
+                      StackActions.replace(Constant.navProfile, {
+                        title: Constant.titPersonalProfile,
+                      })
+                    );
                     toggleVisibleMsg();
                   }}
                   icon={
@@ -274,25 +224,11 @@ const PopUp = ({
           </View>
         )}
         {isLayoutBussiness && (
-          <View style={[styles.modalView, { height: 160 }]}>
-            <KeyboardAvoidingView
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+          <View style={styles.mainView}>
+            <KeyboardAvoidingView style={styles.innerView}>
               <TouchableOpacity
                 onPress={() => toggleVisibleMsgBussiness()}
-                style={{
-                  width: 25,
-                  height: 25,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "flex-end",
-                  borderRadius: 20,
-                  marginRight: 5,
-                }}
+                style={styles.btnClose}
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
@@ -302,16 +238,17 @@ const PopUp = ({
               <View
                 style={{
                   marginTop: 5,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  alignSelf: "center",
                 }}
               >
                 <Button
                   style={{ margin: 5 }}
                   onPress={() => {
-                    navigation.navigate(Constant.navProfile, {
-                      title: Constant.titBusinessProfile,
-                    });
+                    navigation.dispatch(
+                      StackActions.replace(Constant.navProfile, {
+                        title: Constant.titBusinessProfile,
+                      })
+                    );
                     toggleVisibleMsgBussiness();
                   }}
                   icon={
@@ -330,25 +267,11 @@ const PopUp = ({
           </View>
         )}
         {other && (
-          <View style={[styles.modalView, { height: 190 }]}>
-            <KeyboardAvoidingView
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+          <View style={styles.mainView}>
+            <KeyboardAvoidingView style={styles.innerView}>
               <TouchableOpacity
                 onPress={() => toggleVisible()}
-                style={{
-                  width: 25,
-                  height: 25,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "flex-end",
-                  borderRadius: 20,
-                  marginRight: 5,
-                }}
+                style={styles.btnClose}
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
               </TouchableOpacity>
@@ -360,9 +283,7 @@ const PopUp = ({
                 value={feture}
                 onChangeText={(val) => setFeture(val)}
                 style={{
-                  // flex: 1,
                   height: 100,
-                  width: "90%",
                   borderRadius: 10,
                   paddingHorizontal: 20,
                   backgroundColor: Color.txtInBgColor,
@@ -371,8 +292,7 @@ const PopUp = ({
               <View
                 style={{
                   marginTop: 5,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  alignSelf: "center",
                 }}
               >
                 <Button
@@ -388,18 +308,16 @@ const PopUp = ({
           </View>
         )}
         {isfree && (
-          <View style={[styles.modalView, { height: 250 }]}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <TouchableOpacity
               onPress={() => toggleVisible()}
-              style={{
-                width: 25,
-                height: 25,
-                margin: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "flex-end",
-                borderRadius: 20,
-              }}
+              style={styles.btnClose}
             >
               <ICON name="close" size={22} color={Color.darkBlue} />
             </TouchableOpacity>
@@ -444,91 +362,62 @@ const PopUp = ({
                 >
                   {Common.getTranslation(LangKey.labFree)}
                 </Button>
-                {/* <Button
-                  style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => {
-                    navigation.navigate(Constant.navPro, {
-                      screen: Constant.titPrimium,
-                    });
-                    toggleVisible();
-                  }}
-                >
-                  {Common.getTranslation(LangKey.labPremium)}
-                </Button> */}
               </View>
             </View>
           </View>
         )}
         {isPurchased && (
-          <View style={[styles.modalView, { height: 250 }]}>
-            <TouchableOpacity
-              onPress={() => toggleVisible()}
-              style={{
-                width: 25,
-                height: 25,
-                margin: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "flex-end",
-                borderRadius: 20,
-              }}
-            >
-              <ICON name="close" size={22} color={Color.darkBlue} />
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <View>
+          <View style={styles.mainView}>
+            <View style={styles.innerView}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 18,
                     fontWeight: "700",
-                    marginBottom: 10,
+                    paddingLeft: 20,
                   }}
                 >
                   {Common.getTranslation(LangKey.labPurchasePremiumPkg)}
                 </Text>
+                <TouchableOpacity
+                  onPress={() => toggleVisible()}
+                  style={styles.btnClose}
+                >
+                  <ICON name="close" size={22} color={Color.darkBlue} />
+                </TouchableOpacity>
               </View>
-              <FastImage
-                source={require("../assets/img/Select.png")}
-                resizeMode={FastImage.resizeMode.contain}
-                style={{ height: 100, width: 100 }}
-              />
-              <View
-                style={{
-                  marginTop: 10,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                {/* <Button
-                  style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => {
-                    toggleVisible();
-                    navigation.navigate(Constant.navPro, {
-                      screen: Constant.titFree,
-                    });
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <FastImage
+                  source={require("../assets/img/Select.png")}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={{ height: 100, width: 100, margin: 10 }}
+                />
+                <View
+                  style={{
+                    marginTop: 10,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
                 >
-                  {Common.getTranslation(LangKey.labFree)}
-                </Button> */}
-                <Button
-                  style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => {
-                    navigation.navigate(Constant.navPro, {
-                      screen: Constant.titPrimium,
-                    });
-                    toggleVisible();
-                  }}
-                >
-                  {Common.getTranslation(LangKey.labPremium)}
-                </Button>
+                  <Button
+                    style={{ margin: 5 }}
+                    normal={true}
+                    onPress={() => {
+                      navigation.navigate(Constant.navPro, {
+                        screen: Constant.titPrimium,
+                      });
+                      toggleVisible();
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labPremium)}
+                  </Button>
+                </View>
               </View>
             </View>
           </View>
@@ -542,15 +431,7 @@ const PopUp = ({
           >
             <TouchableOpacity
               onPress={() => toggleVisibleColorPicker()}
-              style={{
-                width: 25,
-                height: 25,
-                margin: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "flex-end",
-                borderRadius: 20,
-              }}
+              style={styles.btnClose}
             >
               <ICON name="close" size={22} color={Color.white} />
             </TouchableOpacity>
@@ -585,15 +466,7 @@ const PopUp = ({
           <View style={styles.modalView}>
             <TouchableOpacity
               onPress={() => toggleVisible()}
-              style={{
-                width: 25,
-                height: 25,
-                margin: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "flex-end",
-                borderRadius: 20,
-              }}
+              style={styles.btnClose}
             >
               <ICON name="close" size={22} color={Color.darkBlue} />
             </TouchableOpacity>
@@ -648,6 +521,34 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  mainView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  innerView: {
+    padding: 10,
+    backgroundColor: Color.white,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginHorizontal: 20,
+    minHeight: 100,
+    minWidth: "80%",
+  },
+  btnClose: {
+    width: 25,
+    height: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-end",
   },
   modalView: {
     height: 200,
