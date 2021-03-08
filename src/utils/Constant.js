@@ -202,6 +202,10 @@ export default {
   OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
   fallbackPlatformURL: "http://www.mywebsite.com/myapp.html",
 
+  // share App
+  androidPlaystoreLink:
+    "https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en",
+
   // pkg name
   titFree: "free",
   titPrimium: "Premium",

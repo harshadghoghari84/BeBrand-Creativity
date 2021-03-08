@@ -488,6 +488,7 @@ export default {
           layouts
           subCategory
           package
+          designType
           thumbImage {
             url
           }
@@ -559,6 +560,7 @@ export default {
         layouts
         subCategory
         package
+        designType
         language {
           code
         }

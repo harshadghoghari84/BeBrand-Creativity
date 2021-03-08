@@ -15,8 +15,17 @@ import Constant from "./Constant";
 import Button from "../components/Button";
 import Icon from "../components/svgIcons";
 import FastImage from "react-native-fast-image";
+import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
 
-const Ratings = ({ toggleforRating, toggleVisibleforImprove }) => {
+const Ratings = ({
+  toggleforRating,
+  toggleVisibleforImprove,
+  userStore,
+  designStore,
+}) => {
+  const user = toJS(userStore.user);
+
   const open_Store = () => {
     const options = {
       AppleAppID: Constant.titAppleIdForAppStore,
@@ -35,41 +44,41 @@ const Ratings = ({ toggleforRating, toggleVisibleforImprove }) => {
   };
 
   return (
-    <View style={{ flex: 1, marginHorizontal: 20 }}>
-      <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontWeight: "700",
-            fontSize: 18,
-            color: Color.darkBlue,
-            marginVertical: 5,
-          }}
-        >
-          Share Your Experiance
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontWeight: "700",
-            fontSize: 15,
-            color: Color.darkBlue,
-          }}
-        >
-          we love to here from you !
-        </Text>
+    <View style={{ marginHorizontal: 10 }}>
+      <Text
+        style={{
+          alignSelf: "center",
+          fontWeight: "700",
+          fontSize: 18,
+          color: Color.darkBlue,
+          marginVertical: 5,
+        }}
+      >
+        Share Your Experiance
+      </Text>
+      <Text
+        style={{
+          alignSelf: "center",
+          fontWeight: "700",
+          fontSize: 15,
+          color: Color.darkBlue,
+        }}
+      >
+        we love to here from you !
+      </Text>
 
-        <View style={{ alignItems: "center" }}>
-          <FastImage
-            source={require("../assets/img/Rating.png")}
-            resizeMode={FastImage.resizeMode.contain}
-            style={{ height: 200, width: "70%" }}
-          />
-        </View>
-        <View style={{ marginBottom: 10 }}>
-          <Button onPress={() => open_Store()} big={true}>
-            I Love it!
-          </Button>
+      <View style={{ alignItems: "center" }}>
+        <FastImage
+          source={require("../assets/img/Rating.png")}
+          resizeMode={FastImage.resizeMode.contain}
+          style={{ height: 200, width: "70%" }}
+        />
+      </View>
+      <View style={{ marginBottom: 10 }}>
+        <Button onPress={() => open_Store()} big={true}>
+          I Love it!
+        </Button>
+        {user && user !== null && (
           <Button
             onPress={() => {
               toggleforRating();
@@ -79,13 +88,14 @@ const Ratings = ({ toggleforRating, toggleVisibleforImprove }) => {
           >
             It needs to be improved
           </Button>
-        </View>
+        )}
       </View>
     </View>
   );
 };
 
-export default Ratings;
+// export default Ratings;
+export default inject("designStore", "userStore")(observer(Ratings));
 
 const styles = StyleSheet.create({
   container: {

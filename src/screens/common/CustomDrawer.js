@@ -88,30 +88,42 @@ class CustomDrawer extends Component {
           onRequestClose={() => toggleVisibleforRating()}
         >
           <View style={styles.centeredView}>
-            <View style={[styles.modalView, { height: 420 }]}>
-              <View style={{ flex: 1 }}>
-                <TouchableOpacity
-                  onPress={() =>
-                    this.setState({ modalVisibleforRating: false })
-                  }
-                  style={{
-                    width: 25,
-                    height: 25,
-                    margin: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    alignSelf: "flex-end",
+            <View
+              style={{
+                padding: 10,
+                backgroundColor: Color.white,
+                borderRadius: 20,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                marginHorizontal: 20,
+                minWidth: "80%",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => this.setState({ modalVisibleforRating: false })}
+                style={{
+                  width: 25,
+                  height: 25,
+                  margin: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
 
-                    borderRadius: 20,
-                  }}
-                >
-                  <ICON name="close" size={22} color={Color.darkBlue} />
-                </TouchableOpacity>
-                <Ratings
-                  toggleforRating={this.toggleVisibleforRating}
-                  toggleVisibleforImprove={this.toggleVisibleforImprove}
-                />
-              </View>
+                  borderRadius: 20,
+                }}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
+              <Ratings
+                toggleforRating={this.toggleVisibleforRating}
+                toggleVisibleforImprove={this.toggleVisibleforImprove}
+              />
             </View>
           </View>
         </Modal>

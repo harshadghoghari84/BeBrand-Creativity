@@ -94,7 +94,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
-
+  const [selected, setSelected] = useState(0);
   const isMountedRef = Common.useIsMountedRef();
 
   const fiilterLayouts = () => {
@@ -1629,6 +1629,171 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
   */
 
+  const layout = () => {
+    return (
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={layouts}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={{ paddingHorizontal: 5 }}
+        style={styles.flatlist}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            key={item.id}
+            style={styles.listLayoutView}
+            onPress={() => {
+              if (
+                item.package.type === Constant.typeDesignPackageVip &&
+                hasPro === false
+              ) {
+                setVisibleModal(true);
+              } else {
+                checkAndSetLayout(item);
+                // setCurrentLayout(item);
+              }
+            }}
+          >
+            <View>
+              <FastImage
+                source={{ uri: item.layoutImage.url }}
+                style={{ width: width / 2.5, height: 40 }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              {currentLayout && item.id === currentLayout.id && (
+                <View
+                  style={[
+                    styles.icnCheck,
+                    {
+                      backgroundColor: Color.blackTransparant,
+                      opacity: 0.6,
+                    },
+                  ]}
+                />
+              )}
+
+              {item.package.type === Constant.typeDesignPackageVip && (
+                <Icon
+                  style={styles.tagPro}
+                  name="Premium"
+                  height={18}
+                  width={10}
+                  fill={Color.primary}
+                />
+              )}
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
+  const colorCode = () => {
+    return (
+      <FlatList
+        style={styles.colorCodeList}
+        data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        // ListFooterComponent={plusBTN()}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            key={index}
+            style={{ ...styles.colorCode, backgroundColor: item.code }}
+            onPress={() => {
+              setFooterColor(item.code);
+              item.isLight == true
+                ? setFooterTextColor(currentDesign.darkTextColor)
+                : setFooterTextColor(currentDesign.lightTextColor);
+            }}
+          >
+            {item.code === footerColor ? (
+              <View
+                style={[
+                  {
+                    borderColor: Color.primary,
+                    borderWidth: 2,
+                    margin: 10,
+                    height: 33,
+                    width: 33,
+                    borderRadius: 20,
+                  },
+                ]}
+              />
+            ) : null}
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+  const socialIcon = () => {
+    return (
+      <FlatList
+        style={styles.socialIconList}
+        data={Constant.socialIconList}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={{
+              height: 40,
+              width: 40,
+              margin: 3,
+              backgroundColor: Color.darkBlue,
+              borderRadius: 50,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={async () => {
+              let addIcons = [];
+              if (socialIconList.indexOf(item) >= 0) {
+                addIcons = socialIconList.filter((val) => val !== item);
+                setSocialIconList(socialIconList.filter((val) => val !== item));
+              } else if (socialIconList.length < Constant.socialIconLimit) {
+                addIcons.push(...socialIconList, item);
+                setSocialIconList([...socialIconList, item]);
+              } else {
+                Platform.OS == "android"
+                  ? ToastAndroid.show(
+                      Common.getTranslation(LangKey.msgSocialIconLimit),
+                      ToastAndroid.LONG
+                    )
+                  : alert(Common.getTranslation(LangKey.msgSocialIconLimit));
+              }
+              await AsyncStorage.setItem(
+                Constant.prfIcons,
+                JSON.stringify(addIcons)
+              );
+            }}
+          >
+            <View
+              style={{
+                height: 45,
+                width: 45,
+                backgroundColor:
+                  socialIconList.indexOf(item) < 0 ? null : Color.white,
+                opacity: 0.3,
+                position: "absolute",
+              }}
+            />
+            <Icon
+              name={item}
+              height={25}
+              width={25}
+              fill={Color.white}
+              key={index}
+            />
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
   const bussiness = () => {
     return (
       <ScrollView
@@ -1731,162 +1896,64 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               </FastImage>
             </View>
           </ViewShot>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={layouts}
-            keyExtractor={keyExtractor}
-            contentContainerStyle={{ paddingHorizontal: 5 }}
-            style={styles.flatlist}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                key={item.id}
-                style={styles.listLayoutView}
-                onPress={() => {
-                  if (
-                    item.package.type === Constant.typeDesignPackageVip &&
-                    hasPro === false
-                  ) {
-                    setVisibleModal(true);
-                  } else {
-                    checkAndSetLayout(item);
-                    // setCurrentLayout(item);
-                  }
-                }}
-              >
-                <View>
-                  <FastImage
-                    source={{ uri: item.layoutImage.url }}
-                    style={{ width: 75, height: 75 }}
-                  />
-                  {currentLayout && item.id === currentLayout.id && (
-                    <View
-                      style={[
-                        styles.icnCheck,
-                        {
-                          backgroundColor: Color.blackTransparant,
-                          opacity: 0.6,
-                        },
-                      ]}
-                    />
-                  )}
+          <View style={{ height: 80 }}>
+            {selected == 0 && layout()}
+            {selected == 1 && colorCode()}
+            {selected == 2 && socialIcon()}
+          </View>
 
-                  {item.package.type === Constant.typeDesignPackageVip && (
-                    <Icon
-                      style={styles.tagPro}
-                      name="Premium"
-                      height={18}
-                      width={10}
-                      fill={Color.primary}
-                    />
-                  )}
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-
-          <FlatList
-            style={styles.colorCodeList}
-            data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            // ListFooterComponent={plusBTN()}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                key={index}
-                style={{ ...styles.colorCode, backgroundColor: item.code }}
-                onPress={() => {
-                  setFooterColor(item.code);
-                  item.isLight == true
-                    ? setFooterTextColor(currentDesign.darkTextColor)
-                    : setFooterTextColor(currentDesign.lightTextColor);
-                }}
-              >
-                {item.code === footerColor ? (
-                  <View
-                    style={[
-                      {
-                        borderColor: Color.primary,
-                        borderWidth: 2,
-                        margin: 10,
-                        height: 33,
-                        width: 33,
-                        borderRadius: 20,
-                      },
-                    ]}
-                  />
-                ) : null}
-              </TouchableOpacity>
-            )}
-          />
-
-          <FlatList
-            style={styles.socialIconList}
-            data={Constant.socialIconList}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "90%",
+            }}
+          >
+            <TouchableOpacity onPress={() => setSelected(0)}>
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  margin: 3,
-                  backgroundColor: Color.darkBlue,
+                  backgroundColor:
+                    selected === 0 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 0 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
                   borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={async () => {
-                  let addIcons = [];
-                  if (socialIconList.indexOf(item) >= 0) {
-                    addIcons = socialIconList.filter((val) => val !== item);
-                    setSocialIconList(
-                      socialIconList.filter((val) => val !== item)
-                    );
-                  } else if (socialIconList.length < Constant.socialIconLimit) {
-                    addIcons.push(...socialIconList, item);
-                    setSocialIconList([...socialIconList, item]);
-                  } else {
-                    Platform.OS == "android"
-                      ? ToastAndroid.show(
-                          Common.getTranslation(LangKey.msgSocialIconLimit),
-                          ToastAndroid.LONG
-                        )
-                      : alert(
-                          Common.getTranslation(LangKey.msgSocialIconLimit)
-                        );
-                  }
-                  await AsyncStorage.setItem(
-                    Constant.prfIcons,
-                    JSON.stringify(addIcons)
-                  );
                 }}
               >
-                <View
-                  style={{
-                    height: 45,
-                    width: 45,
-                    backgroundColor:
-                      socialIconList.indexOf(item) < 0 ? null : Color.white,
-                    opacity: 0.3,
-                    position: "absolute",
-                  }}
-                />
-                <Icon
-                  name={item}
-                  height={25}
-                  width={25}
-                  fill={Color.white}
-                  key={index}
-                />
-              </TouchableOpacity>
-            )}
-          />
+                {Common.getTranslation(LangKey.labLayouts)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelected(1)}>
+              <Text
+                style={{
+                  backgroundColor:
+                    selected === 1 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 1 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
+                  borderRadius: 50,
+                }}
+              >
+                {Common.getTranslation(LangKey.labColorCodeList)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelected(2)}>
+              <Text
+                style={{
+                  backgroundColor:
+                    selected === 2 ? Color.darkBlue : Color.txtInBgColor,
+                  color: selected === 2 ? Color.white : Color.darkBlue,
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
+                  borderRadius: 50,
+                }}
+              >
+                {Common.getTranslation(LangKey.labSocialMediaIcons)}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -2036,8 +2103,8 @@ const styles = StyleSheet.create({
   },
   icnCheck: {
     position: "absolute",
-    width: 75,
-    height: 75,
+    width: width / 2.5,
+    height: 40,
   },
   designView: { marginTop: 10, width: width, height: width },
   colorCodeList: {
