@@ -3185,6 +3185,11 @@ colorette@^1.0.7, colorette@^1.2.1:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
   integrity sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
 
+colorsys@^1.0.17:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/colorsys/-/colorsys-1.0.22.tgz#e08459b297de7d4da4a53c26c3555f5a9609ad88"
+  integrity sha512-KCqF23oqkOD0IUCTLCl0obwGIMyeGFlNWuJ4oRRVKmawvKQeb3x5UvajVeH9AShZWU9hNaIhjXeTGw3iPNtl/Q==
+
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -7162,6 +7167,18 @@ react-native-color-picker@^0.6.0:
     prop-types "^15.5.10"
     tinycolor2 "^1.4.1"
 
+react-native-color-wheel@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-color-wheel/-/react-native-color-wheel-0.1.7.tgz#21c61faad37518abc2f534b50b67c435e523cdaa"
+  integrity sha512-LxkRHRpRZvjZag24lIFRNCczoUTIY0xCQgB54LEjrh0oeM0CvBq3LGx4vnT39n5tSbvBbXS2rkJxFcVn2HVKrQ==
+  dependencies:
+    colorsys "^1.0.17"
+
+react-native-elevation@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-elevation/-/react-native-elevation-1.0.0.tgz#2a091c688290ac9b08b5842d1a8e8a00fc84233e"
+  integrity sha512-BWIKcEYtzjRV6GpkX0Km5/w2E7fgIcywiQOT7JZTc5NSbv/YI9kpFinB9lRFsOoRVGmiqq/O3VfP/oH2clIiBA==
+
 react-native-fast-image@^8.3.4:
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.4.tgz#79edca177e30311b19d59ff335625bcbe22650d7"
@@ -7361,6 +7378,13 @@ react-native-webview@11.0.0:
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
+
+react-native-wheel-color-picker@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-color-picker/-/react-native-wheel-color-picker-1.0.2.tgz#bc99fb427ce32c00a9fa39df48b3ec688a1ad027"
+  integrity sha512-rFcpgogKQbUeCyH/bf5FLz6XnHmhR2PMmBrVZpXuDQPgsorHAxJffQgYj7gg6IxrkpXd7OEDXr7ieIoykUH0xw==
+  dependencies:
+    react-native-elevation "^1.0.0"
 
 react-native@0.63.4:
   version "0.63.4"

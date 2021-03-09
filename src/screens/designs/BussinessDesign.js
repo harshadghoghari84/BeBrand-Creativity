@@ -92,6 +92,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     Constant.defSocialIconList
   );
 
+  const [selectedPicker, setSelectedPicker] = useState(false);
+
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
   const [selected, setSelected] = useState(0);
@@ -326,15 +328,42 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     });
   };
 
+  // const plusBTN = () => {
+  //   return (
+  //     <TouchableOpacity
+  //       activeOpacity={0.6}
+  //       onPress={() => setVisiblePicker(true)}
+  //       style={styles.plusButton}
+  //     >
+  //       <Icon name="plus" fill={Color.white} height={15} width={15} />
+  //     </TouchableOpacity>
+  //   );
+  // };
   const plusBTN = () => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => setVisiblePicker(true)}
-        style={styles.plusButton}
+      <View
+        style={[
+          styles.plusButton,
+          {
+            borderColor: selectedPicker ? Color.primary : null,
+            borderWidth: selectedPicker ? 2 : null,
+          },
+        ]}
       >
-        <Icon name="plus" fill={Color.white} height={15} width={15} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => {
+            setVisiblePicker(true);
+          }}
+          style={{
+            backgroundColor: Color.txtIntxtcolor,
+            padding: 5,
+            borderRadius: 20,
+          }}
+        >
+          <Icon name="plus" fill={Color.white} height={13} width={13} />
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -1027,12 +1056,35 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
+      <View
+        style={{
+          position: "absolute",
+          left: "2%",
+          top: "12%",
+          width: wp(96),
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: Constant.layBigFontSize,
+            color: footerTextColor,
+          }}
+        >
+          {userDataBussiness.name}
+        </Text>
+      </View>
 
-      <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layFlatRoot}>
+      <View
+        style={[
+          styles.layFlatRoot,
+          {
+            width: wp(96),
+            justifyContent: "space-between",
+          },
+        ]}
+      >
         <View style={styles.layViewIconRoot}>
           <View
             style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
@@ -1048,7 +1100,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             {userDataBussiness.website}
           </Text>
         </View>
-        <View style={[styles.layViewIconRoot, { marginLeft: wp(3) }]}>
+        <View style={[styles.layViewIconRoot]}>
           <View
             style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
@@ -1465,6 +1517,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </Text>
 
       <View style={styles.layRightRoot}>
+        <Text
+          style={[
+            styles.layTxtIcon,
+            { color: footerTextColor, marginRight: wp(1.5) },
+          ]}
+        >
+          {userDataBussiness.website}
+        </Text>
         <View
           style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
         >
@@ -1475,9 +1535,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             fill={footerColor}
           />
         </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.website}
-        </Text>
       </View>
 
       <View style={styles.layRightBottom}>
@@ -1547,6 +1604,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </Text>
 
       <View style={styles.layRightRoot}>
+        <Text
+          style={[
+            styles.layTxtIcon,
+            { color: footerTextColor, marginRight: wp(1.5) },
+          ]}
+        >
+          {userDataBussiness.email}
+        </Text>
         <View
           style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
         >
@@ -1557,9 +1622,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             fill={footerColor}
           />
         </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.email}
-        </Text>
       </View>
 
       <View style={styles.layRightBottom}>
@@ -1637,7 +1699,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         data={layouts}
         keyExtractor={keyExtractor}
         contentContainerStyle={{ paddingHorizontal: 5 }}
-        style={styles.flatlist}
+        contentContainerStyle={styles.flatlist}
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.6}
@@ -1691,48 +1753,124 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const colorCode = () => {
     return (
-      <FlatList
-        style={styles.colorCodeList}
-        data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        // ListFooterComponent={plusBTN()}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            activeOpacity={0.6}
-            key={index}
-            style={{ ...styles.colorCode, backgroundColor: item.code }}
-            onPress={() => {
-              setFooterColor(item.code);
-              item.isLight == true
-                ? setFooterTextColor(currentDesign.darkTextColor)
-                : setFooterTextColor(currentDesign.lightTextColor);
+      <>
+        <FlatList
+          contentContainerStyle={styles.colorCodeList}
+          data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          ListFooterComponent={plusBTN()}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              key={index}
+              style={{ ...styles.colorCode, backgroundColor: item.code }}
+              onPress={() => {
+                setSelectedPicker(false);
+                setFooterColor(item.code);
+                item.isLight == true
+                  ? setFooterTextColor(currentDesign.darkTextColor)
+                  : setFooterTextColor(currentDesign.lightTextColor);
+              }}
+            >
+              {item.code === footerColor ? (
+                <View
+                  style={[
+                    {
+                      borderColor: Color.primary,
+                      borderWidth: 2,
+                      margin: 10,
+                      height: 33,
+                      width: 33,
+                      borderRadius: 20,
+                    },
+                  ]}
+                />
+              ) : null}
+            </TouchableOpacity>
+          )}
+        />
+        {selectedPicker && (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "60%",
+              paddingBottom: 10,
             }}
           >
-            {item.code === footerColor ? (
-              <View
-                style={[
-                  {
-                    borderColor: Color.primary,
-                    borderWidth: 2,
-                    margin: 10,
-                    height: 33,
-                    width: 33,
-                    borderRadius: 20,
+            <View
+              style={{
+                height: 28,
+                width: 28,
+                borderRadius: 20,
+                borderColor:
+                  footerTextColor === Color.black ? Color.primary : null,
+                borderWidth: footerTextColor === Color.black ? 2 : null,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  height: 20,
+                  width: 20,
+                  borderRadius: 20,
+                  backgroundColor: Color.black,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
                   },
-                ]}
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+                onPress={() => setFooterTextColor(Color.black)}
               />
-            ) : null}
-          </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                height: 28,
+                width: 28,
+                borderRadius: 20,
+                borderColor:
+                  footerTextColor === Color.white ? Color.primary : null,
+                borderWidth: footerTextColor === Color.white ? 2 : null,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  height: 20,
+                  width: 20,
+                  borderRadius: 20,
+                  backgroundColor: Color.white,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+                onPress={() => setFooterTextColor(Color.white)}
+              />
+            </View>
+          </View>
         )}
-      />
+      </>
     );
   };
   const socialIcon = () => {
     return (
       <FlatList
-        style={styles.socialIconList}
+        contentContainerStyle={styles.socialIconList}
         data={Constant.socialIconList}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -1807,7 +1945,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         />
         <PopUp
           visible={visiblePicker}
+          initialColor={footerColor}
           setPickerColor={setFooterColor}
+          setSelectedPicker={setSelectedPicker}
           toggleVisibleColorPicker={toggleVisibleColorPicker}
           isPicker={true}
         />
@@ -1824,7 +1964,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             showsHorizontalScrollIndicator={false}
             data={designs}
             keyExtractor={keyExtractor}
-            style={styles.flatlist}
+            contentContainerStyle={styles.flatlist}
             renderItem={({ item }) => {
               const designPackage = designPackages.find(
                 (pkg) => pkg.id === item.package
@@ -1896,7 +2036,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               </FastImage>
             </View>
           </ViewShot>
-          <View style={{ height: 80 }}>
+          <View style={{ height: 80, marginTop: 10 }}>
             {selected == 0 && layout()}
             {selected == 1 && colorCode()}
             {selected == 2 && socialIcon()}
@@ -1918,7 +2058,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   color: selected === 0 ? Color.white : Color.darkBlue,
                   paddingHorizontal: 20,
                   paddingVertical: 5,
-                  borderRadius: 50,
+                  borderRadius: 15,
+                  overflow: "hidden",
                 }}
               >
                 {Common.getTranslation(LangKey.labLayouts)}
@@ -1932,7 +2073,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   color: selected === 1 ? Color.white : Color.darkBlue,
                   paddingHorizontal: 20,
                   paddingVertical: 5,
-                  borderRadius: 50,
+                  borderRadius: 15,
+                  overflow: "hidden",
                 }}
               >
                 {Common.getTranslation(LangKey.labColorCodeList)}
@@ -1946,7 +2088,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   color: selected === 2 ? Color.white : Color.darkBlue,
                   paddingHorizontal: 20,
                   paddingVertical: 5,
-                  borderRadius: 50,
+                  borderRadius: 15,
+                  overflow: "hidden",
                 }}
               >
                 {Common.getTranslation(LangKey.labSocialMediaIcons)}
@@ -2066,19 +2209,10 @@ export default inject("designStore", "userStore")(observer(BussinessDesign));
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
   },
   flatlist: {
-    height: 85,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    alignSelf: "center",
   },
   listLayoutView: {
     marginLeft: 5,
@@ -2106,9 +2240,29 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     height: 40,
   },
-  designView: { marginTop: 10, width: width, height: width },
+  designView: {
+    marginTop: 10,
+    width: width - 15,
+    height: width - 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   colorCodeList: {
-    marginVertical: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   colorCode: {
     height: 25,
@@ -2136,17 +2290,10 @@ const styles = StyleSheet.create({
   plusButton: {
     marginTop: 10,
     marginLeft: 10,
-    padding: 5,
-    backgroundColor: Color.txtIntxtcolor,
+    padding: 2,
     borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   //common personal layout styles
   layViewIconRoot: {

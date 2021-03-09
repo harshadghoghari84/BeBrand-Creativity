@@ -164,6 +164,10 @@
   "bussinessEmailErr":"email can't be empty it must be valid and you can enter maximum 26 characters",
   "bussinessAddressErr":"Address can't be empty and you can enter maximum 41 characters",
   "bussinessSocialMediaIdErr":"socailmediaid can't be empty and you can enter maximum 20 characters",
-  "bussinessWebsiteErr":"website can't be empty and you can enter maximum 26 characters"
+  "bussinessWebsiteErr":"website can't be empty and you can enter maximum 26 characters",
+  
+  "labLayouts":"Layouts",
+  "labColorCodeList":"ColorCodes",
+  "labSocialMediaIcons":"SocialIcons"
  
 }

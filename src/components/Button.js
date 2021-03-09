@@ -1,5 +1,11 @@
 import React, { memo } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import Color from "../utils/Color";
 
@@ -61,11 +67,14 @@ const styles = StyleSheet.create({
   smallbutton: {
     marginVertical: 10,
     borderRadius: 50,
+    maxHeight: Platform.OS === "ios" ? 30 : null,
+    alignItems: "center",
+    justifyContent: "center",
   },
   smalltext: {
     fontWeight: "bold",
     fontSize: 12,
-    paddingLeft: 5,
+    paddingHorizontal: 10,
     textTransform: "capitalize",
     color: Color.white,
   },

@@ -21,7 +21,7 @@ const UserProfile = ({ route }) => {
             ? route.params.title
             : Constant.titPersonalProfile
         }
-        tabBar={(props) => <TopTabBar {...props} />}
+        tabBar={(props) => <TopTabBar {...props} isShadow={true} />}
       >
         <Tab.Screen
           name={Constant.titPersonalProfile}
