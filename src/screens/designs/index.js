@@ -5,6 +5,7 @@ import Constant from "../../utils/Constant";
 import PersonalDesign from "./PersonalDesign";
 import BussinessDesign from "./BussinessDesign";
 import TopTabBar from "../../components/TopTabBar";
+import CustomHeader from "../common/CustomHeader";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -17,7 +18,7 @@ const MyTabs = ({ route }) => {
           ? Constant.navBusinessProfile
           : Constant.navPersonalProfile
       }
-      tabBar={(props) => <TopTabBar {...props} />}
+      tabBar={(props) => <TopTabBar {...props} isShadow={true} />}
     >
       <Tab.Screen
         name={Constant.navPersonalProfile}

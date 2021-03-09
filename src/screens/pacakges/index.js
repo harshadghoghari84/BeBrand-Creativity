@@ -18,7 +18,7 @@ const MyTabs = ({ route }) => {
           ? route.params.title
           : Constant.titFree
       }
-      tabBar={(props) => <TopTabBar {...props} arr={2} />}
+      tabBar={(props) => <TopTabBar {...props} arr={2} isShadow={true} />}
     >
       <Tab.Screen name={Constant.titFree} component={FreePkg} />
       <Tab.Screen name={Constant.titPrimium} component={PremiumPkg} />

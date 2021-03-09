@@ -8,11 +8,13 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import Color from "../utils/Color";
 import Common from "../utils/Common";
 
-const TopTabBar = ({ arr, navigation, navigationState }) => {
+const TopTabBar = ({ arr, navigation, navigationState, isShadow }) => {
+  console.log("isShadow", isShadow);
   const isMountedRef = Common.useIsMountedRef();
 
   const [data, setData] = useState(navigationState.routeNames);
@@ -50,67 +52,78 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
   */
   const renderTop = () => {
     return (
-      <View
-        style={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          backgroundColor: Color.txtInBgColor,
-          padding: 3,
-          borderRadius: 50,
-          marginTop: 10,
-          marginBottom: 5,
-        }}
-      >
-        <View style={styles.selecteTabs}>
-          <Animated.View
+      <View style={{ overflow: "hidden", paddingBottom: 5 }}>
+        <View
+          style={[
+            isShadow ? styles.shadow : null,
+            {
+              height: 50,
+            },
+          ]}
+        >
+          <View
             style={{
-              position: "absolute",
-              width: "50%",
-              height: "100%",
-              backgroundColor: Color.darkBlue,
+              marginLeft: "auto",
+              marginRight: "auto",
+              backgroundColor: Color.txtInBgColor,
+              padding: 3,
               borderRadius: 50,
-              transform: [{ translateX }],
+              marginTop: 10,
+              marginBottom: 5,
             }}
-          />
-          {data.map((item, index) => {
-            return (
-              <TouchableOpacity
-                disabled={navigationState.index == index}
-                onLayout={(event) => {
-                  const currentTab = xTab;
-                  currentTab[index] = event.nativeEvent.layout.x;
-                  setxTab(currentTab);
-                  navigationState?.index > 0 &&
-                    navigationState?.index === index &&
-                    changeTab(index);
-                }}
-                onPress={() =>
-                  navigation.navigate(navigationState.routeNames[index])
-                }
+          >
+            <View style={styles.selecteTabs}>
+              <Animated.View
                 style={{
-                  flexDirection: "row",
+                  position: "absolute",
                   width: "50%",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  height: "100%",
+                  backgroundColor: Color.darkBlue,
                   borderRadius: 50,
+                  transform: [{ translateX }],
                 }}
-              >
-                <Text
-                  style={{
-                    color:
-                      navigationState.index === index
-                        ? Color.white
-                        : Color.darkBlue,
-                    fontSize: 15,
-                    textTransform: "capitalize",
-                    fontWeight: "700",
-                  }}
-                >
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+              />
+              {data.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    disabled={navigationState.index == index}
+                    onLayout={(event) => {
+                      const currentTab = xTab;
+                      currentTab[index] = event.nativeEvent.layout.x;
+                      setxTab(currentTab);
+                      navigationState?.index > 0 &&
+                        navigationState?.index === index &&
+                        changeTab(index);
+                    }}
+                    onPress={() =>
+                      navigation.navigate(navigationState.routeNames[index])
+                    }
+                    style={{
+                      flexDirection: "row",
+                      width: "50%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 50,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color:
+                          navigationState.index === index
+                            ? Color.white
+                            : Color.darkBlue,
+                        fontSize: 15,
+                        textTransform: "capitalize",
+                        fontWeight: "700",
+                      }}
+                    >
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -124,6 +137,9 @@ const TopTabBar = ({ arr, navigation, navigationState }) => {
 };
 
 const styles = StyleSheet.create({
+  mainView: {
+    width: "100%",
+  },
   bottomStyle: {
     flexDirection: "row",
     alignItems: "center",
@@ -143,6 +159,19 @@ const styles = StyleSheet.create({
     color: Color.white,
     fontSize: 15,
     fontWeight: "700",
+  },
+  shadow: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 60,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
 });
 export default TopTabBar;

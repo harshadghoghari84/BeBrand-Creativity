@@ -320,142 +320,140 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisible={toggleVisible}
         isPurchased={true}
       />
-      <View style={styles.containerSub}>
-        <View
-          style={{
-            borderBottomColor: Color.dividerColor,
-            borderBottomWidth: 5,
-          }}
-        >
-          {/* 
-            <ItemSubCategory
-              item={{ id: Constant.defHomeSubCategory }}
-              isSelectedId={selectedSubCategory}
-              index={Constant.defHomeSubCategory}
-              onSelect={(itemId) => setSelectedSubCategory(itemId)}
-            />
-          </View> */}
-          <FlatList
-            horizontal
-            ref={refCategoryList}
-            data={userSubCategories}
-            extraData={selectedSubCategory}
-            showsHorizontalScrollIndicator={false}
-            ListFooterComponent={
-              designStore.ahdLoading ? (
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <ActivityIndicator size={20} color={Color.primary} />
-                </View>
-              ) : null
-            }
-            contentContainerStyle={{
-              paddingHorizontal: 10,
-            }}
-            onEndReached={() => loadMoreAfterSubCategories()}
-            keyExtractor={keyExtractor}
-            onContentSizeChange={() => {
-              if (isFirstTimeListLoad) {
-                isFirstTimeListLoad = false;
-                setSubCategoryindex();
-              }
-            }}
-            onLayout={() => {
-              if (isFirstTimeListLoad === false) {
-                setSubCategoryindex();
-              }
-            }}
-            getItemLayout={getItemLayoutsCategory}
-            renderItem={({ item, index }) => (
-              <ItemSubCategory
-                item={item}
-                index={index}
-                isSelectedId={selectedSubCategory}
-                onSelect={(itemId) => {
-                  setSelectedSubCategory(itemId);
-                  item.totalDesign > 0 &&
-                    item.designs.length === 0 &&
-                    loadMoreDesigns(item.id);
-                }}
-              />
-            )}
-          />
-        </View>
 
-        <View style={styles.containerDesignList}>
-          {userSubCategories &&
-          selectedSubCategory &&
-          userSubCategories[selectedSubCategory].totalDesign > 0 &&
-          userSubCategories[selectedSubCategory].designs.length > 0 ? (
-            <>
-              <FlatList
-                key={2}
-                numColumns={2}
-                ListHeaderComponent={
-                  imageData?.offers &&
-                  imageData?.offers !== null &&
-                  imageData?.offers.length > 0
-                    ? slider()
-                    : null
-                }
-                showsVerticalScrollIndicator={false}
-                style={styles.listSubCategoryDesign}
-                data={userSubCategories[selectedSubCategory].designs}
-                keyExtractor={keyExtractor}
-                maxToRenderPerBatch={6}
-                windowSize={10}
-                onEndReached={() =>
-                  loadMoreDesigns(userSubCategories[selectedSubCategory].id)
-                }
-                renderItem={({ item: design, index: desIndex }) => {
-                  const designPackage = designPackages.find(
-                    (item) => item.id === design.package
-                  );
-                  return (
-                    <ItemDesign
-                      design={design}
-                      packageType={designPackage.type}
-                      onDesignClick={onDesignClick}
-                    />
-                  );
+      <View
+        style={{
+          marginBottom: 5,
+          backgroundColor: "#fff",
+          width: "100%",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
+      >
+        <FlatList
+          horizontal
+          ref={refCategoryList}
+          data={userSubCategories}
+          extraData={selectedSubCategory}
+          showsHorizontalScrollIndicator={false}
+          ListFooterComponent={
+            designStore.ahdLoading ? (
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
-              {designStore.udLoading ? (
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center",
-                  }}
-                >
-                  <ActivityIndicator size={25} color={Color.primary} />
-                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
-                    {Common.getTranslation(LangKey.labLoading)}
-                  </Text>
-                </View>
-              ) : null}
-            </>
-          ) : (
-            <View style={styles.containerNoDesign}>
-              {homeDataLoading ? null : designStore.udLoading ? (
-                <>
-                  <ActivityIndicator size={25} color={Color.primary} />
-                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
-                    {Common.getTranslation(LangKey.labLoading)}
-                  </Text>
-                </>
-              ) : (
-                <Text>
-                  {Common.getTranslation(LangKey.labNoDesignAvailable)}
-                </Text>
-              )}
-            </View>
+              >
+                <ActivityIndicator size={20} color={Color.primary} />
+              </View>
+            ) : null
+          }
+          contentContainerStyle={{
+            paddingHorizontal: 10,
+          }}
+          onEndReached={() => loadMoreAfterSubCategories()}
+          keyExtractor={keyExtractor}
+          onContentSizeChange={() => {
+            if (isFirstTimeListLoad) {
+              isFirstTimeListLoad = false;
+              setSubCategoryindex();
+            }
+          }}
+          onLayout={() => {
+            if (isFirstTimeListLoad === false) {
+              setSubCategoryindex();
+            }
+          }}
+          getItemLayout={getItemLayoutsCategory}
+          renderItem={({ item, index }) => (
+            <ItemSubCategory
+              item={item}
+              index={index}
+              isSelectedId={selectedSubCategory}
+              onSelect={(itemId) => {
+                setSelectedSubCategory(itemId);
+                item.totalDesign > 0 &&
+                  item.designs.length === 0 &&
+                  loadMoreDesigns(item.id);
+              }}
+            />
           )}
-        </View>
+        />
+      </View>
+
+      <View style={styles.containerDesignList}>
+        {userSubCategories &&
+        selectedSubCategory &&
+        userSubCategories[selectedSubCategory].totalDesign > 0 &&
+        userSubCategories[selectedSubCategory].designs.length > 0 ? (
+          <>
+            <FlatList
+              key={2}
+              numColumns={2}
+              ListHeaderComponent={
+                imageData?.offers &&
+                imageData?.offers !== null &&
+                imageData?.offers.length > 0
+                  ? slider()
+                  : null
+              }
+              showsVerticalScrollIndicator={false}
+              style={styles.listSubCategoryDesign}
+              data={userSubCategories[selectedSubCategory].designs}
+              keyExtractor={keyExtractor}
+              maxToRenderPerBatch={6}
+              windowSize={10}
+              onEndReached={() =>
+                loadMoreDesigns(userSubCategories[selectedSubCategory].id)
+              }
+              renderItem={({ item: design, index: desIndex }) => {
+                const designPackage = designPackages.find(
+                  (item) => item.id === design.package
+                );
+                return (
+                  <ItemDesign
+                    design={design}
+                    packageType={designPackage.type}
+                    onDesignClick={onDesignClick}
+                  />
+                );
+              }}
+            />
+            {designStore.udLoading ? (
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator size={25} color={Color.primary} />
+                <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                  {Common.getTranslation(LangKey.labLoading)}
+                </Text>
+              </View>
+            ) : null}
+          </>
+        ) : (
+          <View style={styles.containerNoDesign}>
+            {homeDataLoading ? null : designStore.udLoading ? (
+              <>
+                <ActivityIndicator size={25} color={Color.primary} />
+                <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                  {Common.getTranslation(LangKey.labLoading)}
+                </Text>
+              </>
+            ) : (
+              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+            )}
+          </View>
+        )}
       </View>
     </View>
   );
@@ -468,7 +466,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white,
   },
   containerSub: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: Color.white,
   },
   containerDesignList: {

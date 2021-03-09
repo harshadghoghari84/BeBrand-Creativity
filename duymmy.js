@@ -549,7 +549,23 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView
+      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+    >
+      <View style={{ overflow: "hidden", paddingBottom: 5 }}>
+        <View
+          style={{
+            backgroundColor: "#fff",
+            height: 100,
+            width: 200,
+            shadowColor: "#000",
+            shadowOffset: { width: 1, height: 1 },
+            shadowOpacity: 0.4,
+            shadowRadius: 3,
+            elevation: 5,
+          }}
+        />
+      </View>
       <View>
         <Button onPress={showDatepicker} title="Show date picker!" />
       </View>

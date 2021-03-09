@@ -128,6 +128,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_select.png"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_round.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
     },
@@ -180,10 +184,6 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativecolorpicker_resources_colorcircle.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativecolorpicker_resources_colorcircle.png"
-    },
-    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf"
     },
@@ -194,10 +194,6 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf"
-    },
-    {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativecolorpicker_resources_hsv_triangle_mask.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativecolorpicker_resources_hsv_triangle_mask.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_src_languages_en.json.flat",
@@ -272,6 +268,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_csstree_package.json.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_csstree_package.json"
     },
@@ -306,6 +306,10 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_entypo.ttf.flat",

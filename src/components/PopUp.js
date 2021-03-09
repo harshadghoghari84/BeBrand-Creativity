@@ -21,7 +21,9 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import Button from "./Button";
 import Icon from "./svgIcons";
-import { ColorPicker } from "react-native-color-picker";
+// import { ColorPicker } from "react-native-color-picker";
+// import ColorWheel from "react-native-color-wheel";
+import ColorPicker from "react-native-wheel-color-picker";
 import FastImage from "react-native-fast-image";
 
 const { height, width } = Dimensions.get("screen");
@@ -31,9 +33,11 @@ const PopUp = ({
   isPurchased,
   other,
   isPicker,
+  initialColor,
   toggleVisibleColorPicker,
   toggleVisibleforRating,
   setPickerColor,
+  setSelectedPicker,
   reffer,
   isRating,
   toggle,
@@ -423,42 +427,24 @@ const PopUp = ({
           </View>
         )}
         {isPicker && (
-          <View
-            style={[
-              styles.modalView,
-              { height: 300, backgroundColor: Color.blackTrans },
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => toggleVisibleColorPicker()}
-              style={styles.btnClose}
-            >
-              <ICON name="close" size={22} color={Color.white} />
-            </TouchableOpacity>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <View style={{ height: 250, width: "90%" }}>
+          <View style={styles.mainView}>
+            <View style={styles.innerView}>
+              <TouchableOpacity
+                onPress={() => toggleVisibleColorPicker()}
+                style={styles.btnClose}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
+              <View style={{ height: 300, width: "90%" }}>
                 <ColorPicker
-                  onColorSelected={(color) => setPickerColor(color)}
-                  style={{ flex: 1 }}
+                  color={initialColor}
+                  onColorChange={(color) => {
+                    setPickerColor(color), setSelectedPicker(true);
+                  }}
+                  thumbSize={30}
+                  sliderSize={40}
                 />
               </View>
-              <Text
-                style={{
-                  position: "absolute",
-                  bottom: 160,
-                  color: Color.white,
-                  fontWeight: "700",
-                  fontSize: 18,
-                }}
-              >
-                select
-              </Text>
             </View>
           </View>
         )}
