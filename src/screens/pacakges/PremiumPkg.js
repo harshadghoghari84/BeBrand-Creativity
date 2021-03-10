@@ -11,6 +11,7 @@ import {
   Platform,
   Linking,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -55,6 +56,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
   const [currentItem, setCurrentItem] = useState();
   const [recipt, setRecipt] = useState();
   const [productList, setProductList] = useState([]);
+  const [isFetching, setIsFetching] = useState(0);
 
   const [addUserDesignPackage, { data, loading, error }] = useMutation(
     GraphqlQuery.addUserDesignPackage,
@@ -98,9 +100,11 @@ const Packages = ({ navigation, designStore, userStore }) => {
     try {
       rnIapProducts(itemSkus)
         .then((res) => {
+          setIsFetching(1);
           isGetProducts = true;
         })
         .catch((err) => {
+          setIsFetching(2);
           isGetProducts = false;
         });
     } catch (err) {
@@ -159,8 +163,8 @@ const Packages = ({ navigation, designStore, userStore }) => {
 
   const requestSubscription = async (sku) => {
     if (user && user !== null) {
-      if (isGetProducts === false) {
-        const res = await rnIapProducts(itemSkus);
+      if (isFetching === 2) {
+        await rnIapProducts(itemSkus);
       }
 
       try {
@@ -190,6 +194,9 @@ const Packages = ({ navigation, designStore, userStore }) => {
                         : user.designPackage,
                     };
                     userStore.setUser(newUser);
+                    Common.showMessage(
+                      Common.getTranslation(LangKey.msgPkgPurchaseSucess)
+                    );
                   }
                 })
                 .catch((err) => {
@@ -342,12 +349,16 @@ const Packages = ({ navigation, designStore, userStore }) => {
       />
 
       <Button
-        // disabled={isGetProducts}
+        disabled={isFetching === 0}
         style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
         normal={true}
         onPress={() => requestSubscription(currentItem.id)}
       >
-        {Common.getTranslation(LangKey.labPerchase)}
+        {isFetching === 0 ? (
+          <ActivityIndicator size={18} />
+        ) : (
+          Common.getTranslation(LangKey.labPerchase)
+        )}
       </Button>
     </View>
   );

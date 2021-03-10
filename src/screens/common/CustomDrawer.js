@@ -60,6 +60,7 @@ class CustomDrawer extends Component {
 
   render() {
     const user = toJS(this.props.userStore.user);
+    console.log("useruseruser", user?.whatsappNo);
     const startDesignCredit = toJS(this.props.userStore.startDesignCredit);
     const currentDesignCredit = toJS(this.props.userStore.currentDesignCredit);
     const calculate = 100 - (currentDesignCredit * 100) / startDesignCredit;
@@ -69,6 +70,7 @@ class CustomDrawer extends Component {
         <PopUp
           visible={this.state.modalVisible}
           toggleVisible={this.toggleVisible}
+          wpNum={user?.whatsappNo && user.whatsappNo}
           toggle={true}
         />
         <PopUp
