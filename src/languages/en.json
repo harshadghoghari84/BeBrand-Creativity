@@ -125,6 +125,7 @@
   "labToday":"Today",
   "labEarl":"Earlier",
   "titleAddReffercode":"Add Referral Code",
+  "labEnterMobile":"Enter Mobile Number",
   "labFree":"free",
   "labPremium":"Primium",
   "labActive":"Active",
@@ -168,6 +169,11 @@
   
   "labLayouts":"Layouts",
   "labColorCodeList":"ColorCodes",
-  "labSocialMediaIcons":"SocialIcons"
+  "labSocialMediaIcons":"SocialIcons",
+
+  "labWhatsApp":"Know What’s Up\non Brand Dot !",
+  "labUpdateWhatsApp":"get all updates and Best offers on WhatsApp",
+  "labStayonWp":"Stay Update on Whatsapp",
+  "labUnsubscribeNoti":"Unsubscribe to these notification any time."
  
 }

@@ -10,6 +10,8 @@ export default {
           id
           name
           mobile
+          whatsappNo
+          isWhatsappUpdateEnable
           birthDate
           anniversaryDate
           state
@@ -82,6 +84,8 @@ export default {
           id
           name
           mobile
+          whatsappNo
+          isWhatsappUpdateEnable
           birthDate
           anniversaryDate
           state
@@ -145,6 +149,8 @@ export default {
           id
           name
           mobile
+          whatsappNo
+          isWhatsappUpdateEnable
           birthDate
           anniversaryDate
           state
@@ -211,6 +217,8 @@ export default {
           id
           name
           mobile
+          whatsappNo
+          isWhatsappUpdateEnable
           birthDate
           anniversaryDate
           state
@@ -287,6 +295,8 @@ export default {
         id
         name
         mobile
+        whatsappNo
+        isWhatsappUpdateEnable
         birthDate
         anniversaryDate
         state
@@ -708,20 +718,16 @@ export default {
       deleteBusinessImage(image: $image)
     }
   `,
-  updateUserProfile: gql`
-    mutation(
-      $name: String!
-      $birthDate: String!
-      $anniversaryDate: String
-      $state: String!
-      $city: String!
-    ) {
-      updateUserProfile(
-        name: $name
-        birthDate: $birthDate
-        anniversaryDate: $anniversaryDate
-        state: $state
-        city: $city
+  deleteBusinessImage: gql`
+    mutation($image: String!) {
+      deleteBusinessImage(image: $image)
+    }
+  `,
+  updateWhatsappInfo: gql`
+    mutation($whatsappNo: String!, $isUpdateEnable: Boolean!) {
+      updateWhatsappInfo(
+        whatsappNo: $whatsappNo
+        isUpdateEnable: $isUpdateEnable
       )
     }
   `,

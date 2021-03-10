@@ -129,6 +129,7 @@ module.exports = {
 
   // modal text
   modalTxtPlaceHolder: "modalTxtPlaceHolder",
+  labEnterMobile: "labEnterMobile",
   modalRefferCode: "modalRefferCode",
   labSelecteLang: "labSelecteLang",
   labClose: "labClose",
@@ -139,6 +140,10 @@ module.exports = {
   labPurchasePremiumPkg: "labPurchasePremiumPkg",
   labFree: "labFree",
   labPremium: "labPremium",
+  labWhatsApp: "labWhatsApp",
+  labUpdateWhatsApp: "labUpdateWhatsApp",
+  labStayonWp: "labStayonWp",
+  labUnsubscribeNoti: "labUnsubscribeNoti",
 
   // signin
   labLoading: "labLoading",

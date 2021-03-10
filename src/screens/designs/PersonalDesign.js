@@ -323,6 +323,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ]}
       >
         <TouchableOpacity
+          disabled={currentLayout == null}
           activeOpacity={0.6}
           onPress={() => {
             setVisiblePicker(true);
@@ -1556,7 +1557,11 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               height: pixels,
             }}
           >
-            <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
               <FastImage
                 source={{
                   uri: currentDesign.designImage.url,
@@ -1567,6 +1572,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               </FastImage>
             </View>
           </ViewShot>
+
           <View
             style={{
               height: 80,
@@ -1761,6 +1767,14 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   listLayoutView: {
     marginLeft: 5,
@@ -1788,17 +1802,18 @@ const styles = StyleSheet.create({
     height: 40,
   },
   designView: {
-    marginTop: 10,
+    margin: 10,
     width: width - 15,
     height: width - 15,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    backgroundColor: Color.white,
   },
   colorCodeList: {
     alignItems: "center",

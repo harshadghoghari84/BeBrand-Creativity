@@ -379,13 +379,16 @@ const BusinessProfile = ({ userStore }) => {
             iconName="user"
             returnKeyType="next"
             value={userName}
+            maxLength={35}
             onChangeText={(text) => {
               setUserName(text), setErrorUserName("");
             }}
             autoCapitalize="none"
             error={!!errorUserName}
             errorText={errorUserName}
-            marked={!nameValidatorPro(userName) && "mark"}
+            marked={
+              !nameValidatorPro(userName, Constant.titBusinessProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -394,6 +397,7 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="phone"
             value={mobile}
+            maxLength={10}
             keyboardType="phone-pad"
             onChangeText={(text) => {
               setMobile(text), setErrorMobile("");
@@ -401,7 +405,9 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorMobile}
             errorText={errorMobile}
-            marked={!mobileValidatorPro(mobile) && "mark"}
+            marked={
+              !mobileValidatorPro(mobile, Constant.titBusinessProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -409,6 +415,7 @@ const BusinessProfile = ({ userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             iconName="email"
+            maxLength={26}
             value={email}
             onChangeText={(text) => {
               setEmail(text), setErrorEmail("");
@@ -416,7 +423,9 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorEmail}
             errorText={errorEmail}
-            marked={!emailValidatorPro(email) && "mark"}
+            marked={
+              !emailValidatorPro(email, Constant.titBusinessProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -425,13 +434,17 @@ const BusinessProfile = ({ userStore }) => {
             returnKeyType="next"
             iconName="location"
             value={address}
+            maxLength={41}
             onChangeText={(text) => {
               setAddress(text), setErrorAddress("");
             }}
             autoCapitalize="none"
             error={!!errorAddress}
             errorText={errorAddress}
-            marked={!AddressValidatorPro(address) && "mark"}
+            marked={
+              !AddressValidatorPro(address, Constant.titBusinessProfile) &&
+              "mark"
+            }
           />
 
           <TextInput
@@ -439,6 +452,7 @@ const BusinessProfile = ({ userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             iconName="social_id"
+            maxLength={20}
             value={socialMediaId}
             onChangeText={(text) => {
               setSocialMediaId(text), setErrorSocailMediaId("");
@@ -446,7 +460,12 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorSocialMediaId}
             errorText={errorSocialMediaId}
-            marked={!SocailMediaValidatorPro(socialMediaId) && "mark"}
+            marked={
+              !SocailMediaValidatorPro(
+                socialMediaId,
+                Constant.titBusinessProfile
+              ) && "mark"
+            }
           />
 
           <TextInput
@@ -454,6 +473,7 @@ const BusinessProfile = ({ userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             iconName="website"
+            maxLength={26}
             value={website}
             onChangeText={(text) => {
               setWebsite(text), setErrorWebsite("");
@@ -461,7 +481,10 @@ const BusinessProfile = ({ userStore }) => {
             autoCapitalize="none"
             error={!!errorWebsite}
             errorText={errorWebsite}
-            marked={!websiteValidatorPro(website) && "mark"}
+            marked={
+              !websiteValidatorPro(website, Constant.titBusinessProfile) &&
+              "mark"
+            }
           />
         </View>
 

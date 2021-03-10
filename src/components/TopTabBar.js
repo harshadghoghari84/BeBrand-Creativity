@@ -161,17 +161,17 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   shadow: {
-    backgroundColor: "#fff",
+    backgroundColor: Color.white,
     width: "100%",
     height: 60,
-    shadowColor: "#000",
+    shadowColor: Color.black,
     shadowOffset: {
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
 });
 export default TopTabBar;

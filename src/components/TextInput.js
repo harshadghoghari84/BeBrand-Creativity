@@ -64,9 +64,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   error: {
+    marginHorizontal: 30,
     fontSize: 12,
     color: Color.red,
-    paddingLeft: 30,
+    textAlign: "left",
   },
   socialBTNView: {
     height: 40,

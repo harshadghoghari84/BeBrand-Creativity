@@ -86,8 +86,7 @@ export const nameValidatorPro = (name, type) => {
   if (
     !name ||
     name.length <= 0 ||
-    name.length > 25 ||
-    (type === Constant.titBusinessProfile && name.length > 35)
+    (type === Constant.titBusinessProfile ? name.length > 35 : name.length > 25)
   ) {
     return type === Constant.titPersonalProfile
       ? Common.getTranslation(LangKey.personalUserNameErr)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,22 +9,26 @@ import {
   TextInput,
   Switch,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { StackActions, useNavigation } from "@react-navigation/native";
-import Color from "../utils/Color";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
+import ColorPicker from "react-native-wheel-color-picker";
+import FastImage from "react-native-fast-image";
+import { useMutation } from "@apollo/client";
+// relative path
+import Color from "../utils/Color";
 import Ratings from "../utils/ratings";
 import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
-import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import Button from "./Button";
 import Icon from "./svgIcons";
-// import { ColorPicker } from "react-native-color-picker";
-// import ColorWheel from "react-native-color-wheel";
-import ColorPicker from "react-native-wheel-color-picker";
-import FastImage from "react-native-fast-image";
+import TxtInput from "../components/TextInput";
+import { mobileValidatorPro } from "../utils/Validator";
+import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
 
 const { height, width } = Dimensions.get("screen");
 const PopUp = ({
@@ -49,17 +53,43 @@ const PopUp = ({
   toggleVisibleMsgBussiness,
   isNotiMsg,
   msgItm,
+  userStore,
+  wpNum,
 }) => {
+  // const user = toJS(userStore.user);
   const navigation = useNavigation();
+  const [user, setUser] = useState();
   const [feture, setFeture] = useState("");
   const [mobile, setMobile] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
   const [refferCode, setRefferCode] = useState("");
-
   const [isEnabled, setIsEnabled] = useState(true);
+
+  useEffect(() => {
+    const user = toJS(userStore.user);
+    setUser(user);
+    setMobile(user?.whatsappNo ? user.whatsappNo : "");
+    if (
+      user &&
+      user !== null &&
+      user.isWhatsappUpdateEnable !== undefined &&
+      user.isWhatsappUpdateEnable !== null
+    ) {
+      setIsEnabled(user.isWhatsappUpdateEnable);
+    }
+
+    console.log(" user?.isWhatsappUpdateEnable", user?.isWhatsappUpdateEnable);
+  }, [userStore.user]);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const [userRequestFeture, { error }] = useMutation(
     GraphqlQuery.addRequestFeature,
+    {
+      errorPolicy: "all",
+    }
+  );
+  const [updateWhatsappInfo, { loading }] = useMutation(
+    GraphqlQuery.updateWhatsappInfo,
     {
       errorPolicy: "all",
     }
@@ -87,6 +117,45 @@ const PopUp = ({
       .catch((error) => {
         console.log("error", error);
       });
+  };
+
+  const onWhatsappSubmit = () => {
+    const errMobile = mobileValidatorPro(mobile, Constant.titPersonalProfile);
+    if (errMobile) {
+      setErrorMobile(errMobile);
+      return;
+    }
+    setErrorMobile("");
+
+    try {
+      updateWhatsappInfo({
+        variables: {
+          whatsappNo: mobile,
+          isUpdateEnable: isEnabled,
+        },
+      })
+        .then((result) => {
+          if (result.errors) {
+            Common.showMessage(result.errors[0].message);
+          }
+          if (result.data && result.data !== null) {
+            const newUser = {
+              ...user,
+              whatsappNo: mobile,
+              isWhatsappUpdateEnable: isEnabled,
+            };
+
+            userStore.setOnlyUserDetail(newUser);
+            Common.showMessage(Common.getTranslation(LangKey.labSubmitSucess));
+            toggleVisible();
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -123,13 +192,30 @@ const PopUp = ({
                   />
                 </View>
                 <Text style={{ fontSize: 20, fontWeight: "700" }}>
-                  Know What’s Up{"\n"}
-                  on Brand Dot !
+                  {Common.getTranslation(LangKey.labWhatsApp)}
                 </Text>
               </View>
               <View style={{ alignItems: "center", marginVertical: 10 }}>
-                <Text>get all updates and Best offers on WhatsApp</Text>
+                <Text>{Common.getTranslation(LangKey.labUpdateWhatsApp)}</Text>
               </View>
+              <TxtInput
+                placeholder={Common.getTranslation(LangKey.labMobile)}
+                placeholderTextColor={Color.txtIntxtcolor}
+                returnKeyType="next"
+                iconName="phone"
+                value={mobile}
+                maxLength={10}
+                keyboardType="phone-pad"
+                onChangeText={(text) => {
+                  setMobile(text), setErrorMobile("");
+                }}
+                autoCapitalize="none"
+                errorText={errorMobile}
+                marked={
+                  !mobileValidatorPro(mobile, Constant.titPersonalProfile) &&
+                  "mark"
+                }
+              />
               <View
                 style={{
                   flexDirection: "row",
@@ -139,7 +225,7 @@ const PopUp = ({
                 }}
               >
                 <Text style={{ fontWeight: "700" }}>
-                  Stay Update on Whatsapp
+                  {Common.getTranslation(LangKey.labStayonWp)}
                 </Text>
                 <Switch
                   trackColor={{ false: Color.grey, true: Color.primary }}
@@ -154,8 +240,20 @@ const PopUp = ({
                   alignSelf: "center",
                 }}
               >
-                Unsubscribe to these notification any time.
+                {Common.getTranslation(LangKey.labUnsubscribeNoti)}
               </Text>
+              <Button
+                style={{ margin: 5 }}
+                normal={true}
+                onPress={() => onWhatsappSubmit()}
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
+                {loading ? (
+                  <ActivityIndicator size={18} color={Color.white} />
+                ) : (
+                  Common.getTranslation(LangKey.labSubmit)
+                )}
+              </Button>
             </View>
           </View>
         )}
@@ -501,7 +599,9 @@ const PopUp = ({
   );
 };
 
-export default PopUp;
+// export default PopUp;
+export default inject("userStore")(observer(PopUp));
+
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

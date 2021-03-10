@@ -63,7 +63,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
         )
       : setDefaultImageUrl(null);
 
-    console.log("user?.designPackage", user?.designPackage && user);
     if (
       user?.designPackage &&
       user.designPackage !== null &&
@@ -329,7 +328,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
       });
   };
 
-  console.log("personalImageLimit", personalImageLimit);
   // key extractors
   const keyExtractor = useCallback((item, index) => index.toString(), []);
 
@@ -379,13 +377,17 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="user"
             value={userName}
+            maxLength={25}
             onChangeText={(text) => {
-              setUserName(text), setErrorUserName("");
+              setUserName(text);
+              setErrorUserName("");
             }}
             autoCapitalize="none"
             // error={!!errorUserName}
             errorText={errorUserName}
-            marked={!nameValidatorPro(userName) && "mark"}
+            marked={
+              !nameValidatorPro(userName, Constant.titPersonalProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -394,6 +396,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="phone"
             value={mobile}
+            maxLength={10}
             keyboardType="phone-pad"
             onChangeText={(text) => {
               setMobile(text), setErrorMobile("");
@@ -401,7 +404,9 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
             error={!!errorMobile}
             errorText={errorMobile}
-            marked={!mobileValidatorPro(mobile) && "mark"}
+            marked={
+              !mobileValidatorPro(mobile, Constant.titPersonalProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -410,13 +415,16 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="email"
             value={email}
+            maxLength={26}
             onChangeText={(text) => {
               setEmail(text), setErrorEmail("");
             }}
             autoCapitalize="none"
             error={!!errorEmail}
             errorText={errorEmail}
-            marked={!emailValidatorPro(email) && "mark"}
+            marked={
+              !emailValidatorPro(email, Constant.titPersonalProfile) && "mark"
+            }
           />
 
           <TextInput
@@ -425,13 +433,19 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="designation"
             value={designation}
+            maxLength={18}
             onChangeText={(text) => {
               setDesignation(text), setErrorDesignation("");
             }}
             autoCapitalize="none"
             error={!!errorDesignation}
             errorText={errorDesignation}
-            marked={!designationValidatorPro(designation) && "mark"}
+            marked={
+              !designationValidatorPro(
+                designation,
+                Constant.titPersonalProfile
+              ) && "mark"
+            }
           />
 
           <TextInput
@@ -439,6 +453,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             placeholderTextColor={Color.txtIntxtcolor}
             returnKeyType="next"
             iconName="social_id"
+            maxLength={20}
             value={socialMediaId}
             onChangeText={(text) => {
               setSocialMediaId(text), setErrorSocailMediaId("");
@@ -446,7 +461,12 @@ const PersonalProfile = ({ navigation, userStore }) => {
             autoCapitalize="none"
             error={!!errorSocialMediaId}
             errorText={errorSocialMediaId}
-            marked={!SocailMediaValidatorPro(socialMediaId) && "mark"}
+            marked={
+              !SocailMediaValidatorPro(
+                socialMediaId,
+                Constant.titPersonalProfile
+              ) && "mark"
+            }
           />
 
           <TextInput
@@ -455,13 +475,17 @@ const PersonalProfile = ({ navigation, userStore }) => {
             returnKeyType="next"
             iconName="website"
             value={website}
+            maxLength={26}
             onChangeText={(text) => {
               setWebsite(text), setErrorWebsite("");
             }}
             autoCapitalize="none"
             error={!!errorWebsite}
             errorText={errorWebsite}
-            marked={!websiteValidatorPro(website) && "mark"}
+            marked={
+              !websiteValidatorPro(website, Constant.titPersonalProfile) &&
+              "mark"
+            }
           />
         </View>
         <View style={styles.containerProfile}>
