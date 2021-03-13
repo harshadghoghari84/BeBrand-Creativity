@@ -23,6 +23,7 @@ import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
 import FastImage from "react-native-fast-image";
+import Logo from "../components/Logo";
 
 const Otp = ({ route, navigation, userStore }) => {
   // state for textInput
@@ -96,6 +97,8 @@ const Otp = ({ route, navigation, userStore }) => {
     if (data != null) {
       // set user to userStore
       if (password) {
+        data?.resetUserPassword?.msg &&
+          Common.showMessage(data.resetUserPassword.msg);
         data?.resetUserPassword?.user &&
           userStore.setUser(data.resetUserPassword.user);
 
@@ -104,6 +107,7 @@ const Otp = ({ route, navigation, userStore }) => {
           navigation.navigate(Constant.navHome);
         });
       } else {
+        data?.verifyUserOtp?.msg && Common.showMessage(data.verifyUserOtp.msg);
         data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
         const token = data.verifyUserOtp.token;
         AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
@@ -145,9 +149,12 @@ const Otp = ({ route, navigation, userStore }) => {
     })
       .then(({ data, errors }) => {
         if (data && data !== null) {
+          Common.showMessage(data.sendUserOtp);
           console.log("data", data);
         }
         if (errors && errors !== null) {
+          Common.showMessage(errors[0].message);
+
           console.log("error", errors);
         }
       })
@@ -363,11 +370,7 @@ const Otp = ({ route, navigation, userStore }) => {
               {Common.getTranslation(LangKey.labVarifyOTP)}
             </Button>
           </View>
-          <FastImage
-            resizeMode={FastImage.resizeMode.contain}
-            source={require("../assets/img/bdt.png")}
-            style={styles.image}
-          />
+          <Logo />
         </View>
       </SafeAreaView>
     </>

@@ -49,13 +49,57 @@ const generateRNFile = (uri, name) => {
 };
 
 const PersonalProfile = ({ navigation, userStore }) => {
-  const user = toJS(userStore.user);
   const personalImageLimit = userStore.personalImageLimit;
 
+  const [user, setUser] = useState();
+  const [userName, setUserName] = useState();
+  const [mobile, setMobile] = useState();
+  const [email, setEmail] = useState();
+  const [designation, setDesignation] = useState();
+  const [website, setWebsite] = useState();
+  const [socialMediaId, setSocialMediaId] = useState();
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
   const [isFirstTime, setIsFirstTime] = useState(true);
+  const [modalVisible, setmodalVisible] = useState(false);
+
+  const [errorUserName, setErrorUserName] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorDesignation, setErrorDesignation] = useState("");
+  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
+  const [errorWebsite, setErrorWebsite] = useState("");
 
   useEffect(() => {
+    const user = toJS(userStore.user);
+    console.log("user", user);
+    setUser(user);
+    setUserName(
+      user?.userInfo?.personal?.name ? user.userInfo.personal.name : ""
+    );
+    setMobile(
+      user?.userInfo?.personal?.mobile
+        ? user.userInfo.personal.mobile
+        : user?.mobile
+        ? user.mobile
+        : ""
+    );
+    setEmail(
+      user?.userInfo?.personal?.email ? user.userInfo.personal.email : ""
+    );
+    setDesignation(
+      user?.userInfo?.personal?.designation
+        ? user.userInfo.personal.designation
+        : ""
+    );
+    setWebsite(
+      user?.userInfo?.personal?.website ? user.userInfo.personal.website : ""
+    );
+    setSocialMediaId(
+      user?.userInfo?.personal?.socialMediaId
+        ? user.userInfo.personal.socialMediaId
+        : ""
+    );
+
     user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
       ? setDefaultImageUrl(
           user.userInfo.personal.image.find((item) => item.isDefault === true)
@@ -72,46 +116,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
     } else {
       setIsFirstTime(true);
     }
-  }, [toJS(userStore.user)]);
-
-  const [modalVisible, setmodalVisible] = useState(false);
-  const toggleVisible = () => {
-    setmodalVisible(!modalVisible);
-  };
-
-  const [errorUserName, setErrorUserName] = useState("");
-  const [errorMobile, setErrorMobile] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorDesignation, setErrorDesignation] = useState("");
-  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
-  const [errorWebsite, setErrorWebsite] = useState("");
-
-  const [userName, setUserName] = useState(
-    user?.userInfo?.personal?.name ? user.userInfo.personal.name : ""
-  );
-  const [mobile, setMobile] = useState(
-    user?.userInfo?.personal?.mobile
-      ? user.userInfo.personal.mobile
-      : user?.mobile
-      ? user.mobile
-      : ""
-  );
-  const [email, setEmail] = useState(
-    user?.userInfo?.personal?.email ? user.userInfo.personal.email : ""
-  );
-  const [designation, setDesignation] = useState(
-    user?.userInfo?.personal?.designation
-      ? user.userInfo.personal.designation
-      : ""
-  );
-  const [website, setWebsite] = useState(
-    user?.userInfo?.personal?.website ? user.userInfo.personal.website : ""
-  );
-  const [socialMediaId, setSocialMediaId] = useState(
-    user?.userInfo?.personal?.socialMediaId
-      ? user.userInfo.personal.socialMediaId
-      : ""
-  );
+  }, [userStore.user]);
 
   const [updatePersonalUserInfo, { loading }] = useMutation(
     GraphqlQuery.updatePersonalUserInfo,
@@ -126,12 +131,17 @@ const PersonalProfile = ({ navigation, userStore }) => {
       errorPolicy: "all",
     }
   );
+
   const [deletePersonalImage, { loading: loadingDeleteImage }] = useMutation(
     GraphqlQuery.deletePersonalImage,
     {
       errorPolicy: "all",
     }
   );
+
+  const toggleVisible = () => {
+    setmodalVisible(!modalVisible);
+  };
 
   const getImagePickerView = () => {
     return (
@@ -186,6 +196,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         });
 
         if (!errors) {
+          console.log("data", data);
           userStore.addPersonalImage(data.addPersonalImage);
         } else {
           Common.showMessage(errors[0].message);
@@ -278,6 +289,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
             };
 
             userStore.setOnlyUserDetail(newUser);
+            Common.showMessage(data.updatePersonalUserInfo);
           } else {
             Common.showMessage(errors[0].message);
           }

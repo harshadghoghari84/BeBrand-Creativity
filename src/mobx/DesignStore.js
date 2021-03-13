@@ -26,7 +26,7 @@ const assignPackageToDesign = (designArray, packageArray) => {
 };
 
 class DesignStore {
-  hdLoading = false;
+  hdLoading = true;
   ahdLoading = false;
   bhdLoading = false;
   designLang = Constant.designLangCodeAll;

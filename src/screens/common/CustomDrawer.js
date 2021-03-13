@@ -60,10 +60,24 @@ class CustomDrawer extends Component {
 
   render() {
     const user = toJS(this.props.userStore.user);
-    console.log("useruseruser", user?.whatsappNo);
-    const startDesignCredit = toJS(this.props.userStore.startDesignCredit);
-    const currentDesignCredit = toJS(this.props.userStore.currentDesignCredit);
-    const calculate = 100 - (currentDesignCredit * 100) / startDesignCredit;
+    console.log("user", user);
+
+    const startDesignCreditFree = toJS(
+      this.props.userStore.startFreeDesignCredit
+    );
+    const startDesignCreditPro = toJS(
+      this.props.userStore.startProDesignCredit
+    );
+    const currentDesignCreditFree = toJS(
+      this.props.userStore.currentFreeDesignCredit
+    );
+    const currentDesignCreditPro = toJS(
+      this.props.userStore.currentProDesignCredit
+    );
+    const calculate =
+      100 -
+      ((currentDesignCreditFree + currentDesignCreditPro) * 100) /
+        (startDesignCreditFree + startDesignCreditPro);
     const progressLimit = calculate / 100;
     return (
       <View style={styles.container}>

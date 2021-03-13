@@ -6,14 +6,13 @@ import {
 export default {
   dummyUserData: [
     {
-      name: "NARENDRA MODI",
-      designation: "Prime Minister of India",
-      mobile: "9876543210",
-      email: "narendramodi@gmail.com",
-      website: "narendramodi.com",
-      socialMedia: "@narendramodi",
-      image:
-        "https://www.freepnglogos.com/uploads/modi-png/texas-india-forum-howdy-modi-23.png",
+      name: "DHAVAL PATEL",
+      designation: "DIRECTOR OF BE BRANDD",
+      mobile: "0000000000",
+      email: "dhavalpatel@gmail.com",
+      website: "www.dhavalpatel.com",
+      socialMedia: "dhavalpatel",
+      image: "https://admin.branddot.in/images/app/dummy_user.png",
     },
     {
       name: "ABCDEFGHJKLMNOPQRSTUVWXYZ",
@@ -29,13 +28,13 @@ export default {
 
   dummyCompnyData: [
     {
-      name: "HARSHADHGHOGHARIANDCOMPANYZXCVBNMLK",
-      address: "HARSHADHGHOGHARIANDCOMPANYZXCVHARSHADHGHA",
-      mobile: "9876543210",
-      email: "HARSHADHGHOGHARI1234@GMAIL.COM",
-      website: "HARSHADHGHOGHARI1234MYWE",
-      socialMedia: "@HARSHADGHOGHARIAKAG",
-      image: "https://image.flaticon.com/icons/png/512/174/174855.png",
+      name: "BE BRAND",
+      address: "3rd Floor, Soham Apartments, Hirabaug, Surat 395 004",
+      mobile: "0000000000",
+      email: "bebrandd@gmail.com",
+      website: "www.bebrandd.com",
+      socialMedia: "@bebrandd",
+      image: "https://admin.branddot.in/images/app/bebrandd_logo.png",
     },
     {
       name: "1234567890123456789012345",
@@ -44,7 +43,7 @@ export default {
       email: "123456789012345678901234567890",
       website: "123456789012345678901234567890",
       socialMedia: "@1234567890123456789012345",
-      image: "http://assets.stickpng.com/images/580b57fcd9996e24bc43c521.png",
+      image: "https://admin.branddot.in/images/app/bebrandd_logo.png",
     },
   ],
 
@@ -217,6 +216,8 @@ export default {
   SpecialOffer: "SpecialOffer",
   Wishes: "Wishes",
   Information: "Information",
+
+  userDesignExits: "USER_DESIGN_EXIST",
 
   // personalDesign.js constants
   layIconViewPadding: wp(0.22),

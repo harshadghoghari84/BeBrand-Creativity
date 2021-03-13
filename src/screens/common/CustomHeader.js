@@ -23,16 +23,18 @@ const CustomHeader = ({
   search = false,
   notification = false,
   empty = false,
+  menu = false,
+  isTtileImage = false,
+  ScreenTitle,
+  isShadow = false,
 }) => {
-  // const { backKey } = route.params;
-
   const [visibleModal, setVisibleModal] = useState(false);
 
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isShadow && styles.shadow]}>
       <StatusBar
         barStyle="light-content"
         backgroundColor={Color.primary}
@@ -41,7 +43,11 @@ const CustomHeader = ({
       <Modal visible={visibleModal} toggleVisible={toggleVisible} />
       <SafeAreaView style={styles.safeArea}>
         <View style={{ ...styles.header }}>
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
             {isBackVisible === true && (
               <TouchableOpacity
                 style={styles.icons}
@@ -50,22 +56,32 @@ const CustomHeader = ({
                 <Icon name="back" fill={Color.white} height={20} width={20} />
               </TouchableOpacity>
             )}
-
-            <TouchableOpacity
-              style={{
-                ...styles.icons,
-              }}
-              onPress={() => navigation.openDrawer()}
-            >
-              <Icon name="menu" fill={Color.white} height={20} width={20} />
-            </TouchableOpacity>
+            {menu === true && (
+              <TouchableOpacity
+                style={[styles.icons, { paddingLeft: 10 }]}
+                onPress={() => navigation.openDrawer()}
+              >
+                <Icon name="menu" fill={Color.white} height={20} width={20} />
+              </TouchableOpacity>
+            )}
           </View>
+          {isTtileImage === true ? (
+            <FastImage
+              source={require("../../assets/img/LOGO2.png")}
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.companyLogo}
+            />
+          ) : (
+            <Text
+              style={{
+                fontSize: 18,
+                color: Color.white,
+              }}
+            >
+              {ScreenTitle}
+            </Text>
+          )}
 
-          <FastImage
-            source={require("../../assets/img/LOGO2.png")}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.companyLogo}
-          />
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
             {search === true && (
               <View style={styles.icons}>
@@ -82,7 +98,7 @@ const CustomHeader = ({
             {notification === true && (
               <TouchableOpacity
                 onPress={() => navigation.navigate(Constant.navNotification)}
-                style={styles.icons}
+                style={[styles.icons, { paddingRight: 10 }]}
               >
                 <Icon
                   name="notification"
@@ -93,7 +109,7 @@ const CustomHeader = ({
               </TouchableOpacity>
             )}
             {langauge === true && (
-              <View style={styles.icons}>
+              <View style={[styles.icons, { paddingRight: 10 }]}>
                 <TouchableOpacity
                   onPress={() => {
                     setVisibleModal(true);
@@ -115,7 +131,7 @@ const CustomHeader = ({
                   name="notification"
                   fill={"transparent"}
                   height={20}
-                  width={20}
+                  width={30}
                 />
               </View>
             )}
@@ -131,16 +147,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 3,
     backgroundColor: Color.primary,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    elevation: 7,
   },
   safeArea: {
     backgroundColor: Color.primary,
   },
   header: {
     height: 50,
-    marginTop: Platform.OS === "ios" ? StatusBar.currentHeight : 0,
     paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "space-between",
@@ -151,9 +163,18 @@ const styles = StyleSheet.create({
     height: 18,
   },
   icons: {
-    paddingHorizontal: 10,
+    paddingLeft: 5,
   },
-  searchIcon: {},
+  shadow: {
+    shadowColor: Color.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+  },
 });
 
 export default CustomHeader;

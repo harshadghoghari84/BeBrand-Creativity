@@ -27,7 +27,13 @@ const HomeStackComponent = ({ navigation }) => {
         component={HomeScreen}
         options={{
           header: (props) => (
-            <CustomHeader langauge={true} notification={true} {...props} />
+            <CustomHeader
+              langauge={true}
+              notification={true}
+              menu={true}
+              isTtileImage={true}
+              {...props}
+            />
           ),
         }}
       />
@@ -36,7 +42,15 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navPro}
         component={MyTabs}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              ScreenTitle={"Packages"}
+              {...props}
+            />
+          ),
         }}
       />
 
@@ -44,7 +58,14 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navWebView}
         component={WebViews}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              empty={true}
+              ScreenTitle={"Legal"}
+              {...props}
+            />
+          ),
         }}
       />
 
@@ -52,7 +73,16 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navDesigns}
         component={UserDesign}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={"User Design"}
+              {...props}
+            />
+          ),
         }}
       />
 
@@ -60,7 +90,16 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navPackage}
         component={UserPackage}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={"User Package"}
+              {...props}
+            />
+          ),
         }}
       />
 
@@ -68,7 +107,15 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navDesign}
         component={DesignScreen}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              ScreenTitle={"Designs"}
+              {...props}
+            />
+          ),
         }}
       />
 
@@ -76,14 +123,30 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navProfile}
         component={UserProfile}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              empty={true}
+              menu={true}
+              // isShadow={true}
+              ScreenTitle={"PostProfile"}
+              {...props}
+            />
+          ),
         }}
       />
       <HomeStack.Screen
         name={Constant.navProfileUser}
         component={ProfileUser}
         options={{
-          header: (props) => <CustomHeader isBackVisible={true} {...props} />,
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              empty={true}
+              ScreenTitle={"ProfileUser"}
+              {...props}
+            />
+          ),
         }}
       />
       <HomeStack.Screen
@@ -91,7 +154,13 @@ const HomeStackComponent = ({ navigation }) => {
         component={Notification}
         options={{
           header: (props) => (
-            <CustomHeader isBackVisible={true} empty={true} {...props} />
+            <CustomHeader
+              isBackVisible={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={"Notification"}
+              {...props}
+            />
           ),
         }}
       />
@@ -100,7 +169,13 @@ const HomeStackComponent = ({ navigation }) => {
         component={ReferAndEarn}
         options={{
           header: (props) => (
-            <CustomHeader isBackVisible={true} empty={true} {...props} />
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              ScreenTitle={"Reffer & Earn"}
+              {...props}
+            />
           ),
         }}
       />

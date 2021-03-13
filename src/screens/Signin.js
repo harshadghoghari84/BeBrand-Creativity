@@ -234,6 +234,7 @@ const SignInScreen = ({ userStore }) => {
         const data = result.data;
         console.log("result", result);
         if (data != null) {
+          data?.userLogin?.msg && Common.showMessage(data.userLogin.msg);
           // set user to userStore
           data?.userLogin?.user && userStore.setUser(data.userLogin.user);
 
@@ -248,8 +249,7 @@ const SignInScreen = ({ userStore }) => {
             Common.showMessage(result.errors[0].message);
             setUserNotVerify(true);
           } else {
-            const errorMsg = result.errors[0].message;
-            Common.showMessage(errorMsg);
+            Common.showMessage(result.errors[0].message);
           }
         }
       });
@@ -264,9 +264,16 @@ const SignInScreen = ({ userStore }) => {
         mobile: mobileNo.value,
       },
     }).then(({ data, errors }) => {
-      navigation.navigate(Constant.navOtp, {
-        mobile: mobileNo.value,
-      });
+      if (errors && errors.length > 0) {
+        const errorMsg = errors[0].message;
+        Common.showMessage(errorMsg);
+      }
+      if (data.sendUserOtp && data.sendUserOtp !== null) {
+        Common.showMessage(data.sendUserOtp);
+        navigation.navigate(Constant.navOtp, {
+          mobile: mobileNo.value,
+        });
+      }
     });
   };
 
@@ -300,6 +307,7 @@ const SignInScreen = ({ userStore }) => {
           Common.showMessage(errorMsg);
         }
         if (data.sendUserOtp && data.sendUserOtp !== null) {
+          Common.showMessage(data.sendUserOtp);
           navigation.navigate(Constant.navOtp, {
             mobile: mobileNo.value,
             password: reTypePass.value,

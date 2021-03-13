@@ -18,7 +18,9 @@ const MyTabs = ({ route }) => {
           ? Constant.navBusinessProfile
           : Constant.navPersonalProfile
       }
-      tabBar={(props) => <TopTabBar {...props} isShadow={true} />}
+      tabBar={(props) => (
+        <TopTabBar {...props} isShadow={true} isBgcColor={true} />
+      )}
     >
       <Tab.Screen
         name={Constant.navPersonalProfile}

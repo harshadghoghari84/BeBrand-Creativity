@@ -29,6 +29,7 @@ import TxtInput from "../components/TextInput";
 import { mobileValidatorPro } from "../utils/Validator";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
+import { format } from "date-fns";
 
 const { height, width } = Dimensions.get("screen");
 const PopUp = ({
@@ -53,8 +54,9 @@ const PopUp = ({
   toggleVisibleMsgBussiness,
   isNotiMsg,
   msgItm,
+  itmDate,
+  iconName,
   userStore,
-  wpNum,
 }) => {
   // const user = toJS(userStore.user);
   const navigation = useNavigation();
@@ -77,12 +79,10 @@ const PopUp = ({
     ) {
       setIsEnabled(user.isWhatsappUpdateEnable);
     }
-
-    console.log(" user?.isWhatsappUpdateEnable", user?.isWhatsappUpdateEnable);
   }, [userStore.user]);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const [userRequestFeture, { error }] = useMutation(
+  const [userRequestFeture, { loading: rFLoading }] = useMutation(
     GraphqlQuery.addRequestFeature,
     {
       errorPolicy: "all",
@@ -170,7 +170,18 @@ const PopUp = ({
           <View style={styles.mainView}>
             <View style={styles.innerView}>
               <TouchableOpacity
-                onPress={() => toggleVisible()}
+                onPress={() => {
+                  setMobile(user?.whatsappNo ? user.whatsappNo : "");
+                  if (
+                    user &&
+                    user !== null &&
+                    user.isWhatsappUpdateEnable !== undefined &&
+                    user.isWhatsappUpdateEnable !== null
+                  ) {
+                    setIsEnabled(user.isWhatsappUpdateEnable);
+                  }
+                  toggleVisible();
+                }}
                 style={styles.btnClose}
               >
                 <ICON name="close" size={22} color={Color.darkBlue} />
@@ -186,12 +197,12 @@ const PopUp = ({
                 <View style={{ paddingRight: 20 }}>
                   <Icon
                     name="whatsapp"
-                    height={50}
-                    width={50}
+                    height={35}
+                    width={35}
                     fill={Color.green}
                   />
                 </View>
-                <Text style={{ fontSize: 20, fontWeight: "700" }}>
+                <Text style={{ fontSize: 18, fontWeight: "700" }}>
                   {Common.getTranslation(LangKey.labWhatsApp)}
                 </Text>
               </View>
@@ -259,7 +270,9 @@ const PopUp = ({
         )}
         {isNotiMsg && (
           <View style={styles.mainView}>
-            <KeyboardAvoidingView style={styles.innerView}>
+            <KeyboardAvoidingView
+              style={[styles.innerView, { minWidth: "60%" }]}
+            >
               <View
                 style={{
                   flexDirection: "row",
@@ -267,18 +280,55 @@ const PopUp = ({
                   alignItems: "center",
                 }}
               >
-                <View style={{ flex: 1 }}>
-                  <Text style={{ marginLeft: 10 }}>{msgItm.title}</Text>
-                </View>
+                <View />
+                <Icon
+                  name={iconName}
+                  fill={Color.primary}
+                  height={30}
+                  width={30}
+                />
                 <TouchableOpacity
                   onPress={() => toggleVisibleMsg()}
-                  style={styles.btnClose}
+                  style={[styles.btnClose, { alignSelf: "flex-start" }]}
                 >
                   <ICON name="close" size={22} color={Color.darkBlue} />
                 </TouchableOpacity>
               </View>
 
-              <Text style={{ paddingHorizontal: 10 }}>{msgItm.body}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flex: 1, marginTop: 10 }}>
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontSize: 18,
+                      fontWeight: "800",
+                      color: Color.black,
+                    }}
+                  >
+                    {msgItm.title}
+                  </Text>
+                </View>
+              </View>
+
+              <Text style={{ paddingHorizontal: 10, color: Color.grey }}>
+                {msgItm.body}
+              </Text>
+              <Text
+                style={{
+                  color: Color.txtIntxtcolor,
+                  fontSize: 10,
+                  paddingHorizontal: 10,
+                  paddingVertical: 5,
+                }}
+              >
+                {itmDate}
+              </Text>
             </KeyboardAvoidingView>
           </View>
         )}
@@ -403,7 +453,11 @@ const PopUp = ({
                   normal={true}
                   onPress={() => onsubmit()}
                 >
-                  {Common.getTranslation(LangKey.labSubmit)}
+                  {rFLoading ? (
+                    <ActivityIndicator size={18} color={Color.white} />
+                  ) : (
+                    Common.getTranslation(LangKey.labSubmit)
+                  )}
                 </Button>
               </View>
             </KeyboardAvoidingView>
@@ -616,7 +670,10 @@ const styles = StyleSheet.create({
   innerView: {
     padding: 10,
     backgroundColor: Color.white,
-    borderRadius: 20,
+    borderRadius: 8,
+    marginHorizontal: 20,
+    minHeight: 100,
+    minWidth: "80%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -625,9 +682,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginHorizontal: 20,
-    minHeight: 100,
-    minWidth: "80%",
   },
   btnClose: {
     width: 25,

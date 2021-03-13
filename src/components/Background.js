@@ -5,26 +5,10 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Color from "../utils/Color";
 
 const Background = ({ children }) => (
   <SafeAreaView style={{ flex: 1 }}>
-    {/* <ImageBackground
-      source={require("../assets/background_dot.png")}
-      resizeMode="repeat"
-      style={styles.background}
-    >
-      </ImageBackground> */}
-    {/* <KeyboardAwareScrollView
-        style={styles.container}
-        // contentContainerStyle={{}}
-        showsVerticalScrollIndicator={false}
-        behavior="padding"
-      >
-        {children}
-      </KeyboardAwareScrollView> */}
-
     <ScrollView style={styles.container}>{children}</ScrollView>
   </SafeAreaView>
 );

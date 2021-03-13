@@ -87,6 +87,7 @@ module.exports = {
   txtDesignCredit: "txtDesignCredit",
   txtRemainingCredit: "txtRemainingCredit",
   txtPerchsedAt: "txtPerchsedAt",
+  txtExpiredAtFree: "txtExpiredAtFree",
   txtExpiredAt: "txtExpiredAt",
 
   //UserProfile Screen

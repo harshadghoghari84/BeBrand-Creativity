@@ -24,6 +24,7 @@ import ProgressDialog from "../common/ProgressDialog";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import LangKey from "../../utils/LangKey";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
@@ -240,7 +241,7 @@ const Home = ({ navigation, designStore, userStore }) => {
     return (
       <FastImage
         source={{ uri: item.image.url }}
-        style={{ height: 110 }}
+        style={{ height: wp(25) }}
         resizeMode={FastImage.resizeMode.cover}
       />
     );
@@ -276,9 +277,9 @@ const Home = ({ navigation, designStore, userStore }) => {
       <>
         <View
           style={{
-            marginVertical: 5,
+            marginVertical: 10,
             marginHorizontal: 10,
-            height: 80,
+            height: wp(25),
             borderRadius: 5,
             overflow: "hidden",
           }}
@@ -286,7 +287,7 @@ const Home = ({ navigation, designStore, userStore }) => {
           <Carousel
             data={imageData?.offers}
             renderItem={renderImages}
-            sliderWidth={SLIDER_WIDTH - 20}
+            sliderWidth={SLIDER_WIDTH}
             itemWidth={SLIDER_WIDTH}
             autoplay={true}
             loop
@@ -323,17 +324,16 @@ const Home = ({ navigation, designStore, userStore }) => {
 
       <View
         style={{
-          marginBottom: 5,
-          backgroundColor: "#fff",
+          backgroundColor: Color.white,
           width: "100%",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 1,
           },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
+          shadowOpacity: 0.22,
+          shadowRadius: 2.22,
+          elevation: 3,
         }}
       >
         <FlatList
@@ -463,19 +463,19 @@ export default inject("designStore", "userStore")(observer(Home));
 const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.bgcColor,
   },
   containerSub: {
     // flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.bgcColor,
   },
   containerDesignList: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.bgcColor,
   },
   containerNoDesign: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.bgcColor,
 
     justifyContent: "center",
     alignItems: "center",

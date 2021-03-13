@@ -13,8 +13,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
 
-const TopTabBar = ({ arr, navigation, navigationState, isShadow }) => {
-  console.log("isShadow", isShadow);
+const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
   const isMountedRef = Common.useIsMountedRef();
 
   const [data, setData] = useState(navigationState.routeNames);
@@ -52,79 +51,90 @@ const TopTabBar = ({ arr, navigation, navigationState, isShadow }) => {
   */
   const renderTop = () => {
     return (
-      <View style={{ overflow: "hidden", paddingBottom: 5 }}>
-        <View
+      <View
+        style={{
+          overflow: "hidden",
+          height: 50,
+          backgroundColor: isBgcColor ? Color.white : Color.white,
+          shadowColor: Color.black,
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.22,
+          shadowRadius: 2.22,
+          elevation: 3,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* <View
           style={[
             isShadow ? styles.shadow : null,
             {
-              height: 50,
+              // backgroundColor: Color.bgcColor,
             },
           ]}
+        > */}
+        <View
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            backgroundColor: Color.txtInBgColor,
+            padding: 3,
+            borderRadius: 50,
+          }}
         >
-          <View
-            style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              backgroundColor: Color.txtInBgColor,
-              padding: 3,
-              borderRadius: 50,
-              marginTop: 10,
-              marginBottom: 5,
-            }}
-          >
-            <View style={styles.selecteTabs}>
-              <Animated.View
-                style={{
-                  position: "absolute",
-                  width: "50%",
-                  height: "100%",
-                  backgroundColor: Color.darkBlue,
-                  borderRadius: 50,
-                  transform: [{ translateX }],
-                }}
-              />
-              {data.map((item, index) => {
-                return (
-                  <TouchableOpacity
-                    disabled={navigationState.index == index}
-                    onLayout={(event) => {
-                      const currentTab = xTab;
-                      currentTab[index] = event.nativeEvent.layout.x;
-                      setxTab(currentTab);
-                      navigationState?.index > 0 &&
-                        navigationState?.index === index &&
-                        changeTab(index);
-                    }}
-                    onPress={() =>
-                      navigation.navigate(navigationState.routeNames[index])
-                    }
+          <View style={styles.selecteTabs}>
+            <Animated.View
+              style={{
+                position: "absolute",
+                width: "50%",
+                height: "100%",
+                backgroundColor: Color.white,
+                borderRadius: 50,
+                transform: [{ translateX }],
+              }}
+            />
+            {data.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  disabled={navigationState.index == index}
+                  onLayout={(event) => {
+                    const currentTab = xTab;
+                    currentTab[index] = event.nativeEvent.layout.x;
+                    setxTab(currentTab);
+                    navigationState?.index > 0 &&
+                      navigationState?.index === index &&
+                      changeTab(index);
+                  }}
+                  onPress={() =>
+                    navigation.navigate(navigationState.routeNames[index])
+                  }
+                  style={{
+                    flexDirection: "row",
+                    width: "50%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 50,
+                  }}
+                >
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      width: "50%",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: 50,
+                      color: Color.darkBlue,
+                      fontSize: 15,
+                      textTransform: "capitalize",
+                      fontWeight: "700",
                     }}
                   >
-                    <Text
-                      style={{
-                        color:
-                          navigationState.index === index
-                            ? Color.white
-                            : Color.darkBlue,
-                        fontSize: 15,
-                        textTransform: "capitalize",
-                        fontWeight: "700",
-                      }}
-                    >
-                      {item}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
+        {/* </View> */}
       </View>
     );
   };
@@ -163,15 +173,15 @@ const styles = StyleSheet.create({
   shadow: {
     backgroundColor: Color.white,
     width: "100%",
-    height: 60,
-    shadowColor: Color.black,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
+    // height: 50,
+    // shadowColor: Color.black,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.22,
+    // elevation: 3,
   },
 });
 export default TopTabBar;

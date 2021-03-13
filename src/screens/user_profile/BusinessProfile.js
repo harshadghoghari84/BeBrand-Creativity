@@ -49,22 +49,62 @@ const generateRNFile = (uri, name) => {
     : null;
 };
 
-let isFirstTime = true;
-
 const BusinessProfile = ({ userStore }) => {
-  const user = toJS(userStore.user);
   const businessImageLimit = userStore.businessImageLimit;
 
+  const [user, setUser] = useState();
+  const [userName, setUserName] = useState();
+  const [mobile, setMobile] = useState();
+  const [email, setEmail] = useState();
+  const [address, setAddress] = useState();
+  const [website, setWebsite] = useState();
+  const [socialMediaId, setSocialMediaId] = useState();
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
   const [isFirstTime, setIsFirstTime] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [errorUserName, setErrorUserName] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorAddress, setErrorAddress] = useState("");
+  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
+  const [errorWebsite, setErrorWebsite] = useState("");
+
   useEffect(() => {
-    console.log("object", user?.userInfo?.business?.image);
+    const user = toJS(userStore.user);
+    setUser(user);
+    setUserName(
+      user?.userInfo?.business?.name ? user.userInfo.business.name : ""
+    );
+    setMobile(
+      user?.userInfo?.business?.mobile
+        ? user.userInfo.business.mobile
+        : user?.mobile
+        ? user.mobile
+        : ""
+    );
+    setEmail(
+      user?.userInfo?.business?.email ? user.userInfo.business.email : ""
+    );
+    setAddress(
+      user?.userInfo?.business?.address ? user.userInfo.business.address : ""
+    );
+    setWebsite(
+      user?.userInfo?.business?.website ? user.userInfo.business.website : ""
+    );
+    setSocialMediaId(
+      user?.userInfo?.business?.socialMediaId
+        ? user.userInfo.business.socialMediaId
+        : ""
+    );
+
     user?.userInfo?.business?.image && user.userInfo.business.image.length > 0
       ? setDefaultImageUrl(
           user.userInfo.business.image.find((item) => item.isDefault === true)
             .url
         )
       : setDefaultImageUrl(null);
+
     if (
       user?.designPackage &&
       user.designPackage !== null &&
@@ -74,44 +114,7 @@ const BusinessProfile = ({ userStore }) => {
     } else {
       setIsFirstTime(true);
     }
-  }, [user?.userInfo?.business?.image]);
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const toggleVisible = () => {
-    setModalVisible(!modalVisible);
-  };
-
-  const [errorUserName, setErrorUserName] = useState("");
-  const [errorMobile, setErrorMobile] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorAddress, setErrorAddress] = useState("");
-  const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
-  const [errorWebsite, setErrorWebsite] = useState("");
-
-  const [userName, setUserName] = useState(
-    user?.userInfo?.business?.name ? user.userInfo.business.name : ""
-  );
-  const [mobile, setMobile] = useState(
-    user?.userInfo?.business?.mobile
-      ? user.userInfo.business.mobile
-      : user?.mobile
-      ? user.mobile
-      : ""
-  );
-  const [email, setEmail] = useState(
-    user?.userInfo?.business?.email ? user.userInfo.business.email : ""
-  );
-  const [address, setAddress] = useState(
-    user?.userInfo?.business?.address ? user.userInfo.business.address : ""
-  );
-  const [website, setWebsite] = useState(
-    user?.userInfo?.business?.website ? user.userInfo.business.website : ""
-  );
-  const [socialMediaId, setSocialMediaId] = useState(
-    user?.userInfo?.business?.socialMediaId
-      ? user.userInfo.business.socialMediaId
-      : ""
-  );
+  }, [userStore.user]);
 
   const [updateBusinessUserInfo, { loading }] = useMutation(
     GraphqlQuery.updateBusinessUserInfo,
@@ -133,6 +136,10 @@ const BusinessProfile = ({ userStore }) => {
       errorPolicy: "all",
     }
   );
+
+  const toggleVisible = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const getImagePickerView = () => {
     return (
@@ -249,7 +256,6 @@ const BusinessProfile = ({ userStore }) => {
         },
       })
         .then(({ data, errors }) => {
-          console.log("data", data);
           if (data) {
             let newImage = [];
             if (defaultImageUrl && defaultImageUrl !== "") {
@@ -281,6 +287,7 @@ const BusinessProfile = ({ userStore }) => {
             console.log("===> user :", newUser);
 
             userStore.setOnlyUserDetail(newUser);
+            Common.showMessage(data.updateBusinessUserInfo);
           } else {
             Common.showMessage(errors[0].message);
           }

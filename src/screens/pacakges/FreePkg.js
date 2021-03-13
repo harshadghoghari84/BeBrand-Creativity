@@ -26,22 +26,16 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
 
 const Packages = ({ navigation, designStore, userStore }) => {
-  const user = toJS(userStore.user);
   const isMountedRef = Common.useIsMountedRef();
 
+  const [user, setUser] = useState();
   const [filteredData, setFilteredData] = useState([]);
   const [currentItem, setCurrentItem] = useState();
 
-  const [addUserDesignPackage, { data, loading, error }] = useMutation(
-    GraphqlQuery.addUserDesignPackage,
-    {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    }
-  );
-
   useEffect(() => {
     if (isMountedRef.current) {
+      const user = toJS(userStore.user);
+      setUser(user);
       const designPackages = toJS(designStore.designPackages);
       const filterData = designPackages.filter(
         (ele) => ele.type === Constant.free
@@ -52,6 +46,14 @@ const Packages = ({ navigation, designStore, userStore }) => {
         : setCurrentItem(null);
     }
   }, [designStore.designPackages]);
+
+  const [addUserDesignPackage, { data, loading, error }] = useMutation(
+    GraphqlQuery.addUserDesignPackage,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
@@ -122,6 +124,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
       </>
     );
   };
+
   return (
     <View style={styles.container}>
       <ProgressDialog
@@ -249,7 +252,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   innerfitContainer: {
-    marginVertical: 3,
     paddingHorizontal: 3,
   },
   txtlable: {

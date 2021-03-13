@@ -132,7 +132,7 @@ export default function App() {
           }
         }
       }
-      console.log("options", options);
+
       localNotificationService.showNotification(
         0,
         notify.title,
