@@ -43,6 +43,7 @@ import { SvgUri } from "react-native-svg";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
+import { color } from "react-native-reanimated";
 
 let isGetProducts = false;
 
@@ -256,30 +257,22 @@ const Packages = ({ navigation, designStore, userStore }) => {
       >
         <Text
           style={{
-            textTransform: "capitalize",
             textAlign: "justify",
             fontSize: 9,
             color: Color.accent,
           }}
         >
-          {/* {Common.getTranslation(LangKey.lab1pkg)} */}
-          Payment will be charged to your Store at confirmation of Purchase
-          subscriptions will autometically renew unless Auto renew is turn off
-          atlist 24 hours before the end of currant period.
+          {Common.getTranslation(LangKey.lab1pkg)}
         </Text>
         <Text
           style={{
-            textTransform: "capitalize",
             textAlign: "justify",
             marginTop: 10,
             fontSize: 9,
             color: Color.accent,
           }}
         >
-          {/* {Common.getTranslation(LangKey.lab1pkg)} */}
-          your account will be charged according to your Plan for renewal within
-          24 hours Prior to the end of the currant period you can manage or turn
-          off auto-renew in your account settings at any time after purchase.
+          {Common.getTranslation(LangKey.lab2pkg)}
         </Text>
       </View>
     );
@@ -355,7 +348,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
         onPress={() => requestSubscription(currentItem.id)}
       >
         {isFetching === 0 ? (
-          <ActivityIndicator size={18} />
+          <ActivityIndicator size={18} color={Color.white} />
         ) : (
           Common.getTranslation(LangKey.labPerchase)
         )}
@@ -418,7 +411,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   innerfitContainer: {
-    marginVertical: 5,
+    // marginVertical: 5,
   },
   txtlable: {
     fontSize: 18,

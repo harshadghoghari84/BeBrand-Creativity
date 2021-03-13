@@ -34,13 +34,13 @@ const TextInput = ({
         secureTextEntry={secureTextEntry}
         {...props}
       />
-      <Icon name={marked} fill={Color.green} height={15} width={15} />
+      <Icon name={`${marked}`} fill={Color.green} height={15} width={15} />
       <TouchableOpacity
         style={styles.iconView}
         onPress={() => toggleSecureText()}
       >
         <Icon
-          name={eyeOn}
+          name={`${eyeOn}`}
           fill={secureTextEntry ? Color.grey : Color.primary}
           height={18}
           width={18}

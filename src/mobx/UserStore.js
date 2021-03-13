@@ -1,5 +1,5 @@
 import "mobx-react/batchingForReactNative";
-import { observable, action, decorate } from "mobx";
+import { observable, action, decorate, toJS } from "mobx";
 import Constant from "../utils/Constant";
 
 class UserStore {
@@ -7,14 +7,33 @@ class UserStore {
   hasPro = false;
   personalImageLimit = 0;
   businessImageLimit = 0;
-  startDesignCredit = 0;
-  currentDesignCredit = 0;
+  // startDesignCredit = 0;
+  // currentDesignCredit = 0;
+  startFreeDesignCredit = 0;
+  currentFreeDesignCredit = 0;
+  startProDesignCredit = 0;
+  currentProDesignCredit = 0;
+
+  setToDefault = () => {
+    this.hasPro = false;
+    this.personalImageLimit = 0;
+    this.businessImageLimit = 0;
+    // this.startDesignCredit = 0;
+    // this.currentDesignCredit = 0;
+    this.startFreeDesignCredit = 0;
+    this.currentFreeDesignCredit = 0;
+    this.startProDesignCredit = 0;
+    this.currentProDesignCredit = 0;
+  };
 
   setUser = (user) => {
-    console.log("new USER", user);
     this.user = user;
     let personalImageLimit = 0;
     let businessImageLimit = 0;
+
+    if (!user || user == undefined) {
+      this.setToDefault();
+    }
 
     if (
       user &&
@@ -57,11 +76,15 @@ class UserStore {
 
   setOnlyUserDetail = (user) => {
     console.log("new user", user);
+
+    if (!user || user == undefined) {
+      this.setToDefault();
+    }
     this.user = user;
   };
 
   addPersonalImage = (profileImage) => {
-    const user = this.user;
+    const user = toJS(this.user);
     if (
       user?.userInfo?.personal?.image &&
       Array.isArray(user.userInfo.personal.image) &&
@@ -88,7 +111,7 @@ class UserStore {
   };
 
   addBusinessImage = (profileImage) => {
-    const user = this.user;
+    const user = toJS(this.user);
     if (
       user?.userInfo?.business?.image &&
       Array.isArray(user.userInfo.business.image) &&
@@ -113,34 +136,49 @@ class UserStore {
   };
   designCraditsCalculate = () => {
     try {
-      var val =
-        this.user?.designPackage &&
-        this.user.designPackage.reduce(function (previousValue, currentValue) {
-          return {
-            startDesignCredit:
-              previousValue.startDesignCredit + currentValue.startDesignCredit,
-            currentDesignCredit:
-              previousValue.currentDesignCredit +
-              currentValue.currentDesignCredit,
-          };
+      let startFreeDesignCredit = 0;
+      let currentFreeDesignCredit = 0;
+      let startProDesignCredit = 0;
+      let currentProDesignCredit = 0;
+
+      this.user?.designPackage &&
+        this.user.designPackage.forEach((item) => {
+          if (item.package.type === Constant.typeDesignPackageFree) {
+            startFreeDesignCredit += item.startDesignCredit;
+            currentFreeDesignCredit += item.currentDesignCredit;
+          } else {
+            startProDesignCredit += item.startDesignCredit;
+            currentProDesignCredit += item.currentDesignCredit;
+          }
         });
-      this.startDesignCredit = val.startDesignCredit;
-      this.currentDesignCredit = val.currentDesignCredit;
+
+      this.startFreeDesignCredit = startFreeDesignCredit;
+      this.currentFreeDesignCredit = currentFreeDesignCredit;
+      this.startProDesignCredit = startProDesignCredit;
+      this.currentProDesignCredit = currentProDesignCredit;
     } catch (error) {
       console.log(error);
     }
   };
 
-  updateCurrantDesignCredit = (updatedCredit) => {
-    this.currentDesignCredit = updatedCredit;
+  updateCurrantDesignCreditFree = (updatedCredit) => {
+    this.currentFreeDesignCredit = updatedCredit;
+  };
+  updateCurrantDesignCreditPro = (updatedCredit) => {
+    if (updatedCredit <= 0) {
+      this.hasPro = false;
+    }
+    this.currentProDesignCredit = updatedCredit;
   };
 }
 
 decorate(UserStore, {
   user: observable,
   hasPro: observable,
-  startDesignCredit: observable,
-  currentDesignCredit: observable,
+  startFreeDesignCredit: observable,
+  startProDesignCredit: observable,
+  currentFreeDesignCredit: observable,
+  currentProDesignCredit: observable,
   personalImageLimit: observable,
   businessImageLimit: observable,
   setUser: action,

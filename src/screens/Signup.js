@@ -216,6 +216,7 @@ const RegisterScreen = ({ userStore }) => {
         const data = result.data;
         console.log("data", data);
         if (data !== null) {
+          Common.showMessage(data.userSignup);
           navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });
         } else {
           const errorMsg = result.errors[0].message;
@@ -350,11 +351,13 @@ const RegisterScreen = ({ userStore }) => {
             returnKeyType="next"
             iconName="phone"
             value={mobileNo.value}
+            maxLength={10}
             onChangeText={(text) => setMobileNo({ value: text, error: "" })}
             error={!!mobileNo.error}
             errorText={mobileNo.error}
             autoCapitalize="none"
             keyboardType="numeric"
+            marked={!mobileValidator(mobileNo.value) && "mark"}
           />
 
           <TextInput

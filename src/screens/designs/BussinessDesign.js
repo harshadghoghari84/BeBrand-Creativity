@@ -9,6 +9,7 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
@@ -91,9 +92,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
-
+  const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
+  const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
-
+  const [loadingImage, setLoadingImage] = useState(false);
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
   const [selected, setSelected] = useState(0);
@@ -246,18 +248,37 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const takeDesignShot = async () => {
-    const currentDesignCredit = toJS(userStore.currentDesignCredit);
-    console.log("currentDesignCredit", currentDesignCredit);
+    const currentDesignCreditFree = toJS(userStore.currentFreeDesignCredit);
+    const currentDesignCreditPro = toJS(userStore.currentProDesignCredit);
+
+    const designPackage = designPackages.find(
+      (pkg) => pkg.id === currentDesign.package
+    );
+
+    let currentDesignCredit = currentDesignCreditFree;
+    if (designPackage.type === Constant.typeDesignPackageVip) {
+      currentDesignCredit = currentDesignCreditPro;
+    }
     if (currentDesignCredit > 0) {
       const { data, errors } = await addUserDesign({
         variables: { designId: currentDesign.id },
       });
 
       if (data !== null && !errors) {
-        userStore.updateCurrantDesignCredit(currentDesignCredit - 1);
+        setLoadingImage(true);
+        if (designPackage.type === Constant.typeDesignPackageFree) {
+          userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1);
+        } else {
+          userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
+        }
       } else if (errors && errors !== null && errors.length > 0) {
-        Common.showMessage(errors[0].message);
-        return;
+        if (errors[0].extensions.code === Constant.userDesignExits) {
+          setLoadingImage(true);
+        } else {
+          setLoadingImage(false);
+          Common.showMessage(errors[0].message);
+          return;
+        }
       }
 
       const uri = await viewRef.current.capture();
@@ -299,7 +320,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         } catch (error) {
           console.log("err", error);
         }
-
+        setLoadingImage(false);
         Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
       }
 
@@ -816,6 +837,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -867,6 +890,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       >
         {socialIconList.map((item) => (
           <View
+            key={item}
             style={[
               styles.layLeftSocialIconView,
               { backgroundColor: footerTextColor },
@@ -964,6 +988,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1348,6 +1374,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1430,6 +1458,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1584,6 +1614,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1671,6 +1703,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
+        onLoadStart={() => setIsUserDesignImageLoad(true)}
+        onLoadEnd={() => setIsUserDesignImageLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1758,8 +1792,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           contentContainerStyle={styles.colorCodeList}
           data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
           horizontal
+          keyExtractor={keyExtractor}
           showsHorizontalScrollIndicator={false}
-          ListFooterComponent={plusBTN()}
+          ListHeaderComponent={plusBTN()}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <TouchableOpacity
@@ -1879,8 +1914,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           <TouchableOpacity
             activeOpacity={0.6}
             style={{
-              height: 40,
-              width: 40,
+              height: 35,
+              width: 35,
               margin: 3,
               backgroundColor: Color.darkBlue,
               borderRadius: 50,
@@ -1911,12 +1946,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           >
             <View
               style={{
-                height: 45,
-                width: 45,
+                height: 35,
+                width: 35,
                 backgroundColor:
                   socialIconList.indexOf(item) < 0 ? null : Color.white,
                 opacity: 0.3,
                 position: "absolute",
+                borderRadius: 50,
               }}
             />
             <Icon
@@ -1934,176 +1970,240 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const bussiness = () => {
     return (
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Color.bgcColor,
+        }}
       >
-        <PopUp
-          visible={visibleModal}
-          toggleVisible={toggleVisible}
-          isPurchased={true}
-        />
-        <PopUp
-          visible={visiblePicker}
-          initialColor={footerColor}
-          setPickerColor={setFooterColor}
-          setSelectedPicker={setSelectedPicker}
-          toggleVisibleColorPicker={toggleVisibleColorPicker}
-          isPicker={true}
-        />
-
-        <PopUp
-          visible={visibleModalMsgbussiness}
-          toggleVisibleMsgBussiness={toggleVisibleMsgBussiness}
-          isLayoutBussiness={true}
-          msg={msg}
-        />
-        <View style={styles.container}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={designs}
-            keyExtractor={keyExtractor}
-            contentContainerStyle={styles.flatlist}
-            renderItem={({ item }) => {
-              const designPackage = designPackages.find(
-                (pkg) => pkg.id === item.package
-              );
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  style={styles.listDesignView}
-                  onPress={() => {
-                    if (
-                      designPackage.type === Constant.typeDesignPackageVip &&
-                      hasPro === false
-                    ) {
-                      setVisibleModal(true);
-                    } else {
-                      setCurrentDesign(item);
-                    }
-                  }}
-                >
-                  <View>
-                    <FastImage
-                      source={{ uri: item.thumbImage.url }}
-                      style={{ width: 75, height: 75 }}
-                    />
-                    {item.id === currentDesign.id && (
-                      <View
-                        style={[
-                          styles.icnCheck,
-                          {
-                            backgroundColor: Color.blackTransparant,
-                            opacity: 0.6,
-                          },
-                        ]}
-                      />
-                    )}
-                    {designPackage.type === Constant.typeDesignPackageVip && (
-                      <Icon
-                        style={styles.tagPro}
-                        name="Premium"
-                        height={18}
-                        width={10}
-                        fill={Color.primary}
-                      />
-                    )}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <PopUp
+            visible={visibleModal}
+            toggleVisible={toggleVisible}
+            isPurchased={true}
+          />
+          <PopUp
+            visible={visiblePicker}
+            initialColor={footerColor}
+            setPickerColor={setFooterColor}
+            setSelectedPicker={setSelectedPicker}
+            toggleVisibleColorPicker={toggleVisibleColorPicker}
+            isPicker={true}
           />
 
-          <ViewShot
-            style={styles.designView}
-            ref={viewRef}
-            options={{
-              format: "jpg",
-              quality: 1,
-              width: pixels,
-              height: pixels,
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <FastImage
-                source={{
-                  uri: currentDesign.designImage.url,
+          <PopUp
+            visible={visibleModalMsgbussiness}
+            toggleVisibleMsgBussiness={toggleVisibleMsgBussiness}
+            isLayoutBussiness={true}
+            msg={msg}
+          />
+          <View style={styles.container}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={designs}
+              keyExtractor={keyExtractor}
+              contentContainerStyle={styles.flatlist}
+              renderItem={({ item }) => {
+                const designPackage = designPackages.find(
+                  (pkg) => pkg.id === item.package
+                );
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.6}
+                    style={styles.listDesignView}
+                    onPress={() => {
+                      if (
+                        designPackage.type === Constant.typeDesignPackageVip &&
+                        hasPro === false
+                      ) {
+                        setVisibleModal(true);
+                      } else {
+                        setCurrentDesign(item);
+                      }
+                    }}
+                  >
+                    <View>
+                      <FastImage
+                        source={{ uri: item.thumbImage.url }}
+                        style={{ width: 75, height: 75 }}
+                      />
+                      {item.id === currentDesign.id && (
+                        <View
+                          style={[
+                            styles.icnCheck,
+                            {
+                              backgroundColor: Color.blackTransparant,
+                              opacity: 0.6,
+                              width: 75,
+                              height: 75,
+                            },
+                          ]}
+                        />
+                      )}
+                      {designPackage.type === Constant.typeDesignPackageVip && (
+                        <Icon
+                          style={styles.tagPro}
+                          name="Premium"
+                          height={18}
+                          width={10}
+                          fill={Color.primary}
+                        />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+
+            <View
+              style={{
+                height: 1,
+                width: "95%",
+                backgroundColor: Color.txtIntxtcolor,
+                marginVertical: 10,
+              }}
+            />
+
+            <ViewShot
+              style={styles.designView}
+              ref={viewRef}
+              options={{
+                format: "jpg",
+                quality: 1,
+                width: pixels,
+                height: pixels,
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <FastImage
+                  onLoadStart={() => setIsdesignImageLoad(true)}
+                  onLoadEnd={() => setIsdesignImageLoad(false)}
+                  source={{
+                    uri: currentDesign.designImage.url,
+                  }}
+                  style={{ flex: 1 }}
+                >
+                  {currentLayout && getLayout()}
+                </FastImage>
+              </View>
+            </ViewShot>
+
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: Color.bgcColor,
+                marginBottom: 10,
+                marginTop: 10,
+                borderTopWidth: 5,
+                borderTopColor: Color.txtIntxtcolor,
+              }}
+            >
+              <View style={{ height: 80, marginTop: 10 }}>
+                {selected == 0 && layout()}
+                {selected == 1 && colorCode()}
+                {selected == 2 && socialIcon()}
+              </View>
+              <View
+                style={{
+                  backgroundColor: Color.txtIntxtcolor,
+                  height: 1,
+                  width: wp(90),
+                  marginBottom: 15,
                 }}
-                style={{ flex: 1 }}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                  width: "100%",
+                }}
               >
-                {currentLayout && getLayout()}
-              </FastImage>
+                <TouchableOpacity onPress={() => setSelected(0)}>
+                  <Text
+                    style={{
+                      backgroundColor:
+                        selected === 0 ? Color.txtIntxtcolor : null,
+                      // borderColor: Color.txtIntxtcolor,
+                      // borderWidth: 2,
+                      color: selected === 0 ? Color.white : Color.txtIntxtcolor,
+                      borderRadius: Platform.OS === "ios" ? 16 : 20,
+                      overflow: "hidden",
+                      paddingHorizontal: 20,
+                      paddingVertical: 5,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labLayouts)}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSelected(1)}>
+                  <Text
+                    style={{
+                      backgroundColor:
+                        selected === 1 ? Color.txtIntxtcolor : null,
+                      // borderColor: Color.txtIntxtcolor,
+                      // borderWidth: 2,
+                      color: selected === 1 ? Color.white : Color.txtIntxtcolor,
+                      borderRadius: Platform.OS === "ios" ? 16 : 20,
+                      overflow: "hidden",
+                      paddingHorizontal: 20,
+                      paddingVertical: 5,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labColorCodeList)}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSelected(2)}>
+                  <Text
+                    style={{
+                      backgroundColor:
+                        selected === 2 ? Color.txtIntxtcolor : null,
+                      // borderColor: Color.txtIntxtcolor,
+                      // borderWidth: 2,
+                      color: selected === 2 ? Color.white : Color.txtIntxtcolor,
+                      borderRadius: Platform.OS === "ios" ? 16 : 20,
+                      overflow: "hidden",
+                      paddingHorizontal: 20,
+                      paddingVertical: 5,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labSocialMediaIcons)}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </ViewShot>
-          <View style={{ height: 80, marginTop: 10 }}>
-            {selected == 0 && layout()}
-            {selected == 1 && colorCode()}
-            {selected == 2 && socialIcon()}
           </View>
+        </ScrollView>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            borderTopColor: Color.txtIntxtcolor,
+            borderTopWidth: 1,
+            backgroundColor: Color.white,
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "90%",
-            }}
-          >
-            <TouchableOpacity onPress={() => setSelected(0)}>
-              <Text
-                style={{
-                  backgroundColor:
-                    selected === 0 ? Color.darkBlue : Color.txtInBgColor,
-                  color: selected === 0 ? Color.white : Color.darkBlue,
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                  borderRadius: 15,
-                  overflow: "hidden",
-                }}
-              >
-                {Common.getTranslation(LangKey.labLayouts)}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelected(1)}>
-              <Text
-                style={{
-                  backgroundColor:
-                    selected === 1 ? Color.darkBlue : Color.txtInBgColor,
-                  color: selected === 1 ? Color.white : Color.darkBlue,
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                  borderRadius: 15,
-                  overflow: "hidden",
-                }}
-              >
-                {Common.getTranslation(LangKey.labColorCodeList)}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelected(2)}>
-              <Text
-                style={{
-                  backgroundColor:
-                    selected === 2 ? Color.darkBlue : Color.txtInBgColor,
-                  color: selected === 2 ? Color.white : Color.darkBlue,
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                  borderRadius: 15,
-                  overflow: "hidden",
-                }}
-              >
-                {Common.getTranslation(LangKey.labSocialMediaIcons)}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
+            // shadowColor: "#000",
+            // shadowOffset: {
+            //   width: 0,
+            //   height: 1,
+            // },
+            // shadowOpacity: 0.18,
+            // shadowRadius: 1.0,
+            // elevation: 1,
+          }}
+        >
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{
-              marginHorizontal: 10,
-              marginVertical: 10,
-              marginBottom: 10,
+            contentContainerStyle={{
+              marginBottom: Platform.OS === "ios" ? 10 : 0,
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <View
@@ -2114,7 +2214,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             >
               <Button
                 disable={designs == null || designs == undefined}
-                style={{ margin: 5 }}
+                style={{ margin: 5, backgroundColor: Color.transparent }}
                 onPress={() => {
                   if (user && user !== null) {
                     navigation.navigate(Constant.navProfile, {
@@ -2127,15 +2227,21 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   }
                 }}
                 icon={
-                  <Icon name="edit" height={15} width={15} fill={Color.white} />
+                  <Icon
+                    name="edit"
+                    height={15}
+                    width={15}
+                    fill={Color.darkBlue}
+                  />
                 }
+                textColor={true}
               >
                 {Common.getTranslation(LangKey.txtEdit)}
               </Button>
 
               <Button
                 disable={designs == null || designs == undefined}
-                style={{ margin: 5 }}
+                style={{ margin: 5, backgroundColor: Color.transparent }}
                 onPress={() => {
                   if (currentDesign.id === curDesign.id) {
                     onReset();
@@ -2149,47 +2255,66 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                     name="reset"
                     height={15}
                     width={15}
-                    fill={Color.white}
+                    fill={Color.darkBlue}
                   />
                 }
+                textColor={true}
               >
                 {Common.getTranslation(LangKey.txtReset)}
               </Button>
               {/* <Button
-                disable={designs == null || designs == undefined}
-                style={{ margin: 5 }}
-                icon={
-                  <Icon
-                    name="share"
-                    height={15}
-                    width={15}
-                    fill={Color.white}
-                  />
-                }
-                onPress={onClickShare}
-              >
-                {Common.getTranslation(LangKey.txtShare)}
-              </Button> */}
+          disable={designs == null || designs == undefined}
+          style={{ margin: 5 }}
+          icon={
+            <Icon
+              name="share"
+              height={15}
+              width={15}
+              fill={Color.white}
+            />
+          }
+          onPress={onClickShare}
+        >
+          {Common.getTranslation(LangKey.txtShare)}
+        </Button> */}
 
               <Button
-                disable={designs == null || designs == undefined}
-                style={{ margin: 5 }}
+                disable={
+                  isdesignImageLoad
+                    ? isdesignImageLoad
+                    : isUserDesignImageLoad
+                    ? isUserDesignImageLoad
+                    : loadingImage
+                }
+                style={{
+                  margin: 5,
+                  backgroundColor: Color.transparent,
+                }}
                 icon={
                   <Icon
                     name="download"
                     height={15}
                     width={15}
-                    fill={Color.white}
+                    fill={Color.darkBlue}
                   />
                 }
+                textColor={true}
                 onPress={onClickDownload}
               >
-                {Common.getTranslation(LangKey.txtDownload)}
+                {isdesignImageLoad ? (
+                  isdesignImageLoad
+                ) : isUserDesignImageLoad ? (
+                  isUserDesignImageLoad
+                ) : loadingImage ? (
+                  <ActivityIndicator color={Color.darkBlue} size={15} />
+                ) : (
+                  Common.getTranslation(LangKey.txtDownload)
+                )}
               </Button>
             </View>
           </ScrollView>
         </View>
-      </ScrollView>
+      </View>
     );
   };
 
@@ -2210,9 +2335,18 @@ export default inject("designStore", "userStore")(observer(BussinessDesign));
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginTop: 10,
   },
   flatlist: {
     alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   listLayoutView: {
     marginLeft: 5,
@@ -2241,17 +2375,18 @@ const styles = StyleSheet.create({
     height: 40,
   },
   designView: {
-    marginTop: 10,
-    width: width - 15,
-    height: width - 15,
+    margin: 10,
+    width: width - 25,
+    height: width - 25,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.5,
+    shadowRadius: 1.22,
+    elevation: 2,
+    backgroundColor: Color.white,
   },
   colorCodeList: {
     alignItems: "center",
@@ -2288,8 +2423,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   plusButton: {
-    marginTop: 10,
-    marginLeft: 10,
+    marginRight: 10,
     padding: 2,
     borderRadius: 50,
     alignItems: "center",

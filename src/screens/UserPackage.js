@@ -20,6 +20,7 @@ import LangKey from "../utils/LangKey";
 import FastImage from "react-native-fast-image";
 import ProgressDialog from "./common/ProgressDialog";
 import { SvgUri } from "react-native-svg";
+import { format } from "date-fns";
 
 let isFirstTime = true;
 
@@ -59,7 +60,6 @@ const UserPackage = ({ navigation, designStore }) => {
 
   //loadMore UserPackages
   const loadMoreUserPackages = () => {
-    console.log("totalPerchasedPackages: ", totalPerchasedPackages);
     loading === false &&
       totalPerchasedPackages > perchasedPackages.length &&
       fetchPerchasedPackages({
@@ -73,29 +73,175 @@ const UserPackage = ({ navigation, designStore }) => {
       perchasedPackages !== null &&
       perchasedPackages.length > 0 ? (
         <FlatList
-          style={styles.listDesign}
+          contentContainerStyle={styles.listDesign}
           data={perchasedPackages}
           keyExtractor={keyExtractor}
           onEndReached={() => loadMoreUserPackages()}
           renderItem={({ item }) => {
+            console.log("item", item);
             const curDate = new Date().getTime();
             const expDate = new Date(item.expiryDate).getTime();
             return (
               <View
                 style={{
-                  flexDirection: "row",
                   marginTop: 10,
-                  paddingBottom: 10,
-                  borderBottomWidth: 1,
-                  borderColor: Color.borderColor,
+                  marginBottom: 5,
+                  borderRadius: 15,
+                  backgroundColor: Color.white,
+                  marginHorizontal: 5,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.22,
+                  shadowRadius: 2.22,
+                  elevation: 3,
                 }}
               >
                 <View
                   style={{
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: Color.bgcColor,
+                    width: "100%",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    paddingVertical: 3,
+                    borderTopLeftRadius: 15,
+                    borderTopRightRadius: 15,
                   }}
                 >
+                  <Text style={{ paddingLeft: 10 }}>{item.package.name}</Text>
+                  {curDate > expDate || item.currentDesignCredit <= 0 ? (
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <View
+                        style={{
+                          height: 10,
+                          width: 10,
+                          borderRadius: 5,
+                          backgroundColor: Color.red,
+                        }}
+                      />
+                      <Text style={styles.txtExpired}>
+                        {Common.getTranslation(LangKey.labExpired)}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <View
+                        style={{
+                          height: 10,
+                          width: 10,
+                          borderRadius: 5,
+                          backgroundColor: Color.green,
+                        }}
+                      />
+                      <Text style={styles.txtExpired}>
+                        {Common.getTranslation(LangKey.labActive)}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <View
+                  style={{
+                    marginVertical: 15,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <View style={{ marginHorizontal: 10 }}>
+                    <SvgUri
+                      uri={item?.package?.image?.url}
+                      width={32}
+                      height={32}
+                      fill={Color.primary}
+                    />
+                  </View>
+                  <View style={{ width: "80%" }}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        borderBottomColor: Color.grey,
+                        borderBottomWidth: 1,
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                        paddingBottom: 5,
+                      }}
+                    >
+                      <Text
+                        style={{ fontSize: 12, color: Color.grey }}
+                      >{`${Common.getTranslation(LangKey.txtDesignCredit)} : ${
+                        item.startDesignCredit
+                      }`}</Text>
+                      <Text
+                        style={{ fontSize: 12, color: Color.grey }}
+                      >{`${Common.getTranslation(
+                        LangKey.txtRemainingCredit
+                      )} : ${item.currentDesignCredit}`}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        paddingTop: 5,
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {item.package.type === Constant.typeDesignPackageFree ? (
+                        <Text style={{ fontSize: 12, color: Color.grey }}>
+                          {`${Common.getTranslation(
+                            LangKey.txtExpiredAtFree
+                          )} ${format(
+                            new Date(item.purchaseDate),
+                            "dd MMM yyyy"
+                          )} To ${format(
+                            new Date(item.expiryDate),
+                            "dd MMM yyyy"
+                          )}`}
+                        </Text>
+                      ) : (
+                        <Text
+                          style={{ fontSize: 12, color: Color.grey }}
+                        >{`${Common.getTranslation(
+                          LangKey.txtExpiredAt
+                        )}`}</Text>
+                      )}
+                    </View>
+                  </View>
+                </View>
+
+                {/* <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "pink",
+                  }}
+                >
+                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
+                    LangKey.txtDesignCredit
+                  )} ${item.startDesignCredit}`}</Text>
+                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
+                    LangKey.txtRemainingCredit
+                  )} ${item.currentDesignCredit}`}</Text>
+                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
+                    LangKey.txtPerchsedAt
+                  )} ${Common.convertIsoToDate(item.purchaseDate)}`}</Text>
+                  {item.package.type === Constant.typeDesignPackageFree ? (
+                    <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
+                      LangKey.txtExpiredAtFree
+                    )} ${Common.convertIsoToDate(item.expiryDate)}`}</Text>
+                  ) : (
+                    <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
+                      LangKey.txtExpiredAt
+                    )}`}</Text>
+                  )}
+                </View> */}
+                {/* <View>
                   {curDate > expDate || item.currentDesignCredit <= 0 ? (
                     <Text style={styles.txtExpired}>
                       {Common.getTranslation(LangKey.labExpired)}
@@ -105,52 +251,33 @@ const UserPackage = ({ navigation, designStore }) => {
                       {Common.getTranslation(LangKey.labActive)}
                     </Text>
                   )}
-                  <SvgUri
-                    uri={item?.package?.image?.url}
-                    width={50}
-                    height={50}
-                    fill={Color.primary}
-                    style={{ marginHorizontal: 20, marginTop: 10 }}
-                  />
-                </View>
+                  <View
+                    style={{
+                      minWidth: 80,
+                      height: 50,
+                      backgroundColor: Color.white,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      borderRadius: 10,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                    }}
+                  >
+                    <Text style={styles.txtPrice}>₹{item.price}</Text>
+                  </View>
+                </View> */}
 
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text>{`${Common.getTranslation(LangKey.txtDesignCredit)}: ${
-                    item.startDesignCredit
-                  }`}</Text>
-                  <Text>{`${Common.getTranslation(
-                    LangKey.txtRemainingCredit
-                  )}: ${item.currentDesignCredit}`}</Text>
-                  <Text>{`${Common.getTranslation(
-                    LangKey.txtPerchsedAt
-                  )}: ${Common.convertIsoToDate(item.purchaseDate)}`}</Text>
-                  <Text>{`${Common.getTranslation(
-                    LangKey.txtExpiredAt
-                  )}: ${Common.convertIsoToDate(item.expiryDate)}`}</Text>
-                </View>
-
-                <View
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexDirection: "row",
-                    paddingHorizontal: 10,
-                  }}
-                >
-                  <Text style={styles.txtPrice}>₹</Text>
-                  <Text style={styles.txtPrice}>{item.price}</Text>
-                </View>
-
-                {item?.package?.type === Constant.typeDesignPackagePro && (
+                {/* {item?.package?.type === Constant.typeDesignPackagePro && (
                   <Text style={styles.tagPro}>{item.package.type}</Text>
-                )}
+                )} */}
               </View>
             );
           }}
@@ -183,6 +310,7 @@ const styles = StyleSheet.create({
   },
   listDesign: {
     marginTop: 10,
+    marginHorizontal: 10,
   },
   txtPrice: {
     fontSize: 18,
@@ -205,19 +333,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 15,
     fontWeight: "bold",
-    backgroundColor: Color.red,
-    color: Color.white,
-    overflow: "hidden",
-    borderRadius: 7,
+    color: Color.txtIntxtcolor,
   },
   txtActive: {
     paddingHorizontal: 10,
     fontSize: 15,
     fontWeight: "bold",
-    backgroundColor: Color.green,
-    color: Color.white,
-    overflow: "hidden",
-    borderRadius: 7,
+    color: Color.txtIntxtcolor,
   },
   containerNoDesign: {
     flex: 1,

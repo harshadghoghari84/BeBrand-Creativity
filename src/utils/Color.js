@@ -2,11 +2,14 @@ import { Colors } from "react-native-paper";
 
 export default {
   primary: "#FF8200",
+  lightOrange: "#FFA13E",
 
   secondary: "#FBBF17",
   accent: "#545454",
 
   drawerTextColor: "white",
+
+  bgcColor: "#e9e4de",
 
   tagColor: "#FBBF17",
   tagTextColor: "#545454",
@@ -26,12 +29,13 @@ export default {
   green: "#388e3c",
 
   lightGrey: "#e0e0e0",
-
+  lightwhite: "#FFFEF7",
   lightTextColor: "#ffffff",
   darkTextColor: "#000000",
   darkBlue: "#23234F",
   black: "#000000",
   blackTransparant: "#E3E3E3",
+  offWhite: "#f2f2f2",
   txtInBgColor: "#E6E6E6",
   txtIntxtcolor: "#9C9C9C",
   transparent: "transparent",

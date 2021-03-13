@@ -22,6 +22,8 @@ import Constant from "../utils/Constant";
 import PopUp from "../components/PopUp";
 
 let notiMsgItem = {};
+let iconName = {};
+let itmDate = {};
 const Notification = () => {
   const { loading, data, error } = useQuery(GraphqlQuery.notifications, {
     errorPolicy: "all",
@@ -30,6 +32,7 @@ const Notification = () => {
   const [earlIndex, setEarlIndex] = useState("");
   const [layer, setLayer] = useState();
   const [id, setId] = useState([]);
+  console.log("id", id);
   const [loginTime, setLoginTime] = useState(new Date());
 
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
@@ -75,6 +78,8 @@ const Notification = () => {
           visible={visibleModalMsg}
           toggleVisibleMsg={toggleVisibleMsg}
           isNotiMsg={true}
+          iconName={iconName}
+          itmDate={itmDate}
           msgItm={notiMsgItem}
         />
         <ProgressDialog
@@ -93,26 +98,36 @@ const Notification = () => {
             return (
               <View style={styles.itemContainer}>
                 {index === 0 && index !== earlIndex ? (
-                  <Text
-                    style={{
-                      marginLeft: 10,
-                      marginVertical: 10,
-                      color: Color.grey,
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.labNew)}
-                  </Text>
-                ) : (
-                  index === earlIndex && (
+                  <>
                     <Text
                       style={{
                         marginLeft: 10,
-                        marginVertical: 10,
-                        color: Color.grey,
+                        paddingVertical: 10,
+                        color: Color.black,
                       }}
                     >
-                      {Common.getTranslation(LangKey.labEarl)}
+                      {Common.getTranslation(LangKey.labNew)}
                     </Text>
+                  </>
+                ) : (
+                  index === earlIndex && (
+                    <>
+                      <View
+                        style={{
+                          height: 5,
+                          backgroundColor: Color.txtIntxtcolor,
+                        }}
+                      />
+                      <Text
+                        style={{
+                          marginLeft: 10,
+                          marginVertical: 10,
+                          color: Color.black,
+                        }}
+                      >
+                        {Common.getTranslation(LangKey.labEarl)}
+                      </Text>
+                    </>
                   )
                 )}
                 <TouchableOpacity
@@ -120,10 +135,11 @@ const Notification = () => {
                   onPress={() => {
                     setId([...id, item.id]);
                     notiMsgItem = item;
+                    itmDate = formattedDate;
+                    iconName = item.type;
                     setVisibleModalMsg(true);
                   }}
                   style={{
-                    height: 65,
                     borderBottomWidth: 1,
                     borderBottomColor: Color.txtInBgColor,
                     backgroundColor:
@@ -148,12 +164,14 @@ const Notification = () => {
                         width={20}
                       />
                     </View>
-                    <View>
-                      <Text>{item.title}</Text>
-                      <Text>{item.body}</Text>
-                      <Text
-                        style={{ color: Color.txtIntxtcolor, fontSize: 12 }}
-                      >
+                    <View style={{ width: "80%" }}>
+                      <Text style={{ color: Color.black, fontSize: 15 }}>
+                        {item.title}
+                      </Text>
+                      <Text style={{ fontSize: 13, lineHeight: 14 }}>
+                        {item.body}
+                      </Text>
+                      <Text style={{ color: Color.txtIntxtcolor, fontSize: 9 }}>
                         {formattedDate}
                       </Text>
                     </View>

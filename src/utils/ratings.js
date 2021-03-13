@@ -54,7 +54,7 @@ const Ratings = ({
           marginVertical: 5,
         }}
       >
-        Share Your Experiance
+        Share your experience
       </Text>
       <Text
         style={{
@@ -64,7 +64,7 @@ const Ratings = ({
           color: Color.darkBlue,
         }}
       >
-        we love to here from you !
+        we love to hear from you !!
       </Text>
 
       <View style={{ alignItems: "center" }}>
@@ -76,7 +76,7 @@ const Ratings = ({
       </View>
       <View style={{ marginBottom: 10 }}>
         <Button onPress={() => open_Store()} big={true}>
-          I Love it!
+          I love it !!
         </Button>
         {user && user !== null && (
           <Button

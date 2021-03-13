@@ -72,15 +72,6 @@ const Splash = ({ navigation, userStore }) => {
           style={styles.logoImg}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <ActivityIndicator
-          style={{
-            position: "absolute",
-            alignSelf: "center",
-            top: 500,
-          }}
-          animating={true}
-          color={Color.white}
-        />
       </>
     );
   };
@@ -90,6 +81,7 @@ const Splash = ({ navigation, userStore }) => {
       <View style={styles.container}>
         <FastImage
           source={require("../assets/img/splash.jpg")}
+          // source={require("../assets/img/splashscreen_image.gif")}
           style={styles.logoImg}
           resizeMode={FastImage.resizeMode.cover}
         />
