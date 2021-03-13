@@ -1832,7 +1832,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              width: "60%",
               paddingBottom: 10,
             }}
           >

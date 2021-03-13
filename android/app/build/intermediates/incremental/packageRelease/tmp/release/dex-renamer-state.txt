@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 #Sat Mar 13 19:31:52 IST 2021
 base.0=/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+=======
+#Sat Mar 13 17:01:39 IST 2021
+base.0=/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+>>>>>>> make changes
 path.1=classes2.dex
 renamed.1=classes2.dex
 path.0=classes.dex
