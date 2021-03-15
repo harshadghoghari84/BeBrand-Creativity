@@ -6,7 +6,8 @@ import { inject, observer } from "mobx-react";
 import { StackActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FastImage from "react-native-fast-image";
-import * as SplashScreen from "expo-splash-screen";
+import SplashScreen from "react-native-splash-screen";
+// import * as SplashScreen from "expo-splash-screen";
 
 // relative
 import GraphqlQuery from "../utils/GraphqlQuery";
@@ -19,12 +20,15 @@ const Splash = ({ navigation, userStore }) => {
 
   let loading = false;
   useEffect(() => {
+    console.log("useEffect splash called");
     loading = true;
-    SplashScreen.preventAutoHideAsync()
-      .then((result) => {
-        startWithDelay();
-      })
-      .catch((err) => {});
+    // SplashScreen.preventAutoHideAsync()
+    //   .then((result) => {
+    //     startWithDelay();
+    //   })
+    //   .catch((err) => {});
+
+    startWithDelay();
 
     getUserData();
   }, []);
@@ -59,7 +63,9 @@ const Splash = ({ navigation, userStore }) => {
   };
   const openScreen = async () => {
     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-    await SplashScreen.hideAsync();
+    // await SplashScreen.hideAsync();
+    console.log("openScreen ");
+    SplashScreen.hide();
   };
   // !loading && isTimerRunning === false && openScreen();
 
@@ -79,12 +85,12 @@ const Splash = ({ navigation, userStore }) => {
   const renderMainView = () => {
     return (
       <View style={styles.container}>
-        <FastImage
+        {/* <FastImage
           source={require("../assets/img/splash.jpg")}
           // source={require("../assets/img/splashscreen_image.gif")}
           style={styles.logoImg}
           resizeMode={FastImage.resizeMode.cover}
-        />
+        /> */}
       </View>
     );
   };

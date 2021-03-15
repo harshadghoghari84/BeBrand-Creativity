@@ -132,27 +132,27 @@
   "labActive":"Active",
   "labExpired":"Expired",
 
-  "nolayout":"Please enter all required details to get this lauout .",
-  "nolayoutBussiness":"Please enter all required details to get this lauout .",
+  "nolayout":"Please enter all required details to get this layout .",
+  "nolayoutBussiness":"Please enter all required details to get this layout .",
 
-  "personalLay1Msg":"Please enter all required details to get this lauout .",
-  "personalLay2Msg":"Please enter all required details to get this lauout .",
-  "personalLay3Msg":"Please enter all required details to get this lauout .",
-  "personalLay4Msg":"Please enter all required details to get this lauout .",
-  "personalLay5Msg":"Please enter all required details to get this lauout .",
-  "personalLay6Msg":"Please enter all required details to get this lauout .",
-  "personalLay7Msg":"Please enter all required details to get this lauout .",
+  "personalLay1Msg":"Please enter all required details to get this layout .",
+  "personalLay2Msg":"Please enter all required details to get this layout .",
+  "personalLay3Msg":"Please enter all required details to get this layout .",
+  "personalLay4Msg":"Please enter all required details to get this layout .",
+  "personalLay5Msg":"Please enter all required details to get this layout .",
+  "personalLay6Msg":"Please enter all required details to get this layout .",
+  "personalLay7Msg":"Please enter all required details to get this layout .",
 
-  "businessLay1Msg":"Please enter all required details to get this lauout .",
-  "businessLay2Msg":"Please enter all required details to get this lauout .",
-  "businessLay3Msg":"Please enter all required details to get this lauout .",
-  "businessLay4Msg":"Please enter all required details to get this lauout .",
-  "businessLay5Msg":"Please enter all required details to get this lauout .",
-  "businessLay6Msg":"Please enter all required details to get this lauout .",
-  "businessLay7Msg":"Please enter all required details to get this lauout .",
-  "businessLay8Msg":"Please enter all required details to get this lauout .",
-  "businessLay9Msg":"Please enter all required details to get this lauout .",
-  "businessLay10Msg":"Please enter all required details to get this lauout .",
+  "businessLay1Msg":"Please enter all required details to get this layout .",
+  "businessLay2Msg":"Please enter all required details to get this layout .",
+  "businessLay3Msg":"Please enter all required details to get this layout .",
+  "businessLay4Msg":"Please enter all required details to get this layout .",
+  "businessLay5Msg":"Please enter all required details to get this layout .",
+  "businessLay6Msg":"Please enter all required details to get this layout .",
+  "businessLay7Msg":"Please enter all required details to get this layout .",
+  "businessLay8Msg":"Please enter all required details to get this layout .",
+  "businessLay9Msg":"Please enter all required details to get this layout .",
+  "businessLay10Msg":"Please enter all required details to get this layout .",
 
   "personalUserNameErr":"name can't be empty and you can enter maximum 25 characters",
   "personalMobileErr":"mobile can't be empty it must be valid and you can enter 10 characters only",
@@ -172,9 +172,11 @@
   "labColorCodeList":"Color code",
   "labSocialMediaIcons":"Social icon",
 
-  "labWhatsApp":"Know What’s Up\non Brand Dot !",
-  "labUpdateWhatsApp":"get all updates and Best offers on WhatsApp",
-  "labStayonWp":"Stay Update on Whatsapp",
-  "labUnsubscribeNoti":"Unsubscribe to these notification any time."
- 
+  "labWhatsApp":"Know What’s Up on Brand Dot !",
+  "labUpdateWhatsApp":"Get all updates and best offers on WhatsApp",
+  "labStayonWp":"Stay update on Whatsapp",
+  "labUnsubscribeNoti":"Unsubscribe to these notification any time.",
+
+  "lab1pkg":"Payment will be charged to your store at confirmation of purchase subscriptions will automatically renew unless auto renew is turn off at least 24 hours before the end of currant period.",
+  "lab2pkg":"Your account will be charged according to your plan for renewal within 24 hours prior to the end of the currant period you can manage or turn off auto-renew in your account settings at any time after purchase."
 }
