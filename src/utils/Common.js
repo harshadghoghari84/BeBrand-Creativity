@@ -6,11 +6,13 @@ import {
   Linking,
   PixelRatio,
   Platform,
-  Share,
   ToastAndroid,
 } from "react-native";
 import {} from "react-native-vector-icons/";
+import Share from "react-native-share";
+
 import Constant from "./Constant";
+import { image1 } from "../assets/img/ImageBase64";
 
 const useIsMountedRef = () => {
   const isMountedRef = useRef(null);
@@ -79,46 +81,19 @@ const showMessage = (message) => {
 };
 
 const onShare = async () => {
+  const options = {
+    title: "App link",
+    message: `${Constant.whatsAppShareMsg} Applink : ${
+      Platform.OS === "ios"
+        ? Constant.titAppleIdForAppStore
+        : Constant.androidPlaystoreLink
+    }`,
+    url: image1,
+  };
   try {
-    const result = await Share.share(
-      {
-        title: "App link",
-        message: `Please install this app and stay safe , AppLink :${Constant.androidPlaystoreLink}`,
-        url: Constant.androidPlaystoreLink,
-      },
-      {
-        excludedActivityTypes: [
-          "com.apple.UIKit.activity.Print",
-          "com.apple.UIKit.activity.Message",
-          "com.apple.UIKit.activity.CopyToPasteboard",
-          "com.apple.UIKit.activity.AssignToContact",
-          "com.apple.UIKit.activity.SaveToCameraRoll",
-          "com.apple.UIKit.activity.AddToReadingList",
-          "com.apple.UIKit.activity.PostToFlickr",
-          "com.apple.UIKit.activity.PostToVimeo",
-          "com.apple.UIKit.activity.PostToTencentWeibo",
-          "com.apple.UIKit.activity.AirDrop",
-          "com.apple.UIKit.activity.OpenInIBooks",
-          "com.apple.UIKit.activity.MarkupAsPDF",
-          // "com.apple.reminders.RemindersEditorExtension",
-          "com.apple.mobilenotes.SharingExtension",
-          "com.apple.mobileslideshow.StreamShareService",
-          "com.linkedin.LinkedIn.ShareExtension",
-          "pinterest.ShareExtension",
-          "com.google.GooglePlus.ShareExtension",
-          "com.tumblr.tumblr.Share-With-Tumblr",
-          "net.whatsapp.WhatsApp.ShareExtension", //WhatsApp
-          "com.apple.UIKit.activity.PostToFacebook", //FaceBook
-          "com.apple.UIKit.activity.PostToTwitter", //Twitter
-        ],
-      }
-    );
-    if (result.action === Share.sharedAction) {
-      if (result.activityType) {
-      } else {
-      }
-    } else if (result.action === Share.dismissedAction) {
-    }
+    const result = await Share.open(options);
+
+    console.log("result", result);
   } catch (error) {
     showMessage(error.message);
   }

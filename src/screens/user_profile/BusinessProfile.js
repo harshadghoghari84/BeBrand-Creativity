@@ -49,6 +49,8 @@ const generateRNFile = (uri, name) => {
     : null;
 };
 
+let isUpdated = false;
+
 const BusinessProfile = ({ userStore }) => {
   const businessImageLimit = userStore.businessImageLimit;
 
@@ -71,32 +73,46 @@ const BusinessProfile = ({ userStore }) => {
   const [errorWebsite, setErrorWebsite] = useState("");
 
   useEffect(() => {
+    isUpdated = true;
+  }, []);
+
+  useEffect(() => {
     const user = toJS(userStore.user);
     setUser(user);
-    setUserName(
-      user?.userInfo?.business?.name ? user.userInfo.business.name : ""
-    );
-    setMobile(
-      user?.userInfo?.business?.mobile
-        ? user.userInfo.business.mobile
-        : user?.mobile
-        ? user.mobile
-        : ""
-    );
-    setEmail(
-      user?.userInfo?.business?.email ? user.userInfo.business.email : ""
-    );
-    setAddress(
-      user?.userInfo?.business?.address ? user.userInfo.business.address : ""
-    );
-    setWebsite(
-      user?.userInfo?.business?.website ? user.userInfo.business.website : ""
-    );
-    setSocialMediaId(
-      user?.userInfo?.business?.socialMediaId
-        ? user.userInfo.business.socialMediaId
-        : ""
-    );
+    if (user?.userInfo?.business) {
+      if (isUpdated && isUpdated === true) {
+        setUserName(
+          user?.userInfo?.business?.name ? user.userInfo.business.name : ""
+        );
+        setMobile(
+          user?.userInfo?.business?.mobile
+            ? user.userInfo.business.mobile
+            : user?.mobile
+            ? user.mobile
+            : ""
+        );
+        setEmail(
+          user?.userInfo?.business?.email ? user.userInfo.business.email : ""
+        );
+        setAddress(
+          user?.userInfo?.business?.address
+            ? user.userInfo.business.address
+            : ""
+        );
+        setWebsite(
+          user?.userInfo?.business?.website
+            ? user.userInfo.business.website
+            : ""
+        );
+        setSocialMediaId(
+          user?.userInfo?.business?.socialMediaId
+            ? user.userInfo.business.socialMediaId
+            : ""
+        );
+      }
+    }
+
+    isUpdated = false;
 
     user?.userInfo?.business?.image && user.userInfo.business.image.length > 0
       ? setDefaultImageUrl(
@@ -362,7 +378,7 @@ const BusinessProfile = ({ userStore }) => {
         <PopUp
           visible={modalVisible}
           toggleVisible={toggleVisible}
-          isPurchased={true}
+          isfree={true}
         />
         {/* {businessImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>

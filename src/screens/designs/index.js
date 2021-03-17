@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import { View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 // relative path
 import Constant from "../../utils/Constant";
@@ -11,6 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = ({ route }) => {
   const { designs, curDesign } = route.params;
+
   return (
     <Tab.Navigator
       initialRouteName={
@@ -19,7 +21,13 @@ const MyTabs = ({ route }) => {
           : Constant.navPersonalProfile
       }
       tabBar={(props) => (
-        <TopTabBar {...props} isShadow={true} isBgcColor={true} />
+        <TopTabBar
+          {...props}
+          isShadow={true}
+          isBgcColor={true}
+          isDownload={true}
+          isBackVisible={true}
+        />
       )}
     >
       <Tab.Screen

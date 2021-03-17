@@ -26,6 +26,8 @@ const assignPackageToDesign = (designArray, packageArray) => {
 };
 
 class DesignStore {
+  isDownloadStartedPersonal = false;
+  isDownloadStartedBusiness = false;
   hdLoading = true;
   ahdLoading = false;
   bhdLoading = false;
@@ -39,6 +41,9 @@ class DesignStore {
   totalUserSubCategoriesBefore = 0;
   designLayouts = [];
   designPackages = [];
+  isNewNotification = false;
+  lastNotificationTime = undefined;
+  userNotificationTime = new Date();
 
   udLoading = false;
   userDesignsF = [];
@@ -68,6 +73,8 @@ class DesignStore {
           this.designLayouts = data.designLayouts;
           this.totalUserSubCategoriesAfter = data.totalUserSubCategoriesAfter;
           this.totalUserSubCategoriesBefore = data.totalUserSubCategoriesBefore;
+          this.lastNotificationTime = new Date(data.lastNotificationTime);
+          this.calcualteNotificationTime();
         }
       })
       .catch((error) => {
@@ -254,9 +261,32 @@ class DesignStore {
     this.userSubCategoriesAfter = [...userDesignAfter];
     this.userSubCategoriesBefore = [...userDesignBefore];
   };
+
+  setIsDownloadStartedPersonal = (val) => {
+    this.isDownloadStartedPersonal = val;
+  };
+  setIsDownloadStartedBusiness = (val) => {
+    this.isDownloadStartedBusiness = val;
+  };
+
+  setUserNotificationTime = (val) => {
+    this.userNotificationTime = new Date(val);
+
+    if (this.lastNotificationTime && this.lastNotificationTime !== null) {
+      this.calcualteNotificationTime();
+    }
+  };
+
+  calcualteNotificationTime = () => {
+    this.isNewNotification =
+      this.userNotificationTime.getTime() < this.lastNotificationTime.getTime();
+  };
 }
 
 decorate(DesignStore, {
+  isDownloadStartedPersonal: observable,
+  isDownloadStartedBusiness: observable,
+  isNewNotification: observable,
   hdLoading: observable,
   ahdLoading: observable,
   bhdLoading: observable,
@@ -275,6 +305,9 @@ decorate(DesignStore, {
   loaduserDesigns: action,
   setDesignLang: action,
   changeDesignByLanguage: action,
+  setIsDownloadStartedPersonal: action,
+  setIsDownloadStartedBusiness: action,
+  setUserNotificationTime: action,
 });
 
 export default new DesignStore();

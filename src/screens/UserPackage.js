@@ -86,7 +86,7 @@ const UserPackage = ({ navigation, designStore }) => {
                 style={{
                   marginTop: 10,
                   marginBottom: 5,
-                  borderRadius: 15,
+                  borderRadius: 13,
                   backgroundColor: Color.white,
                   marginHorizontal: 5,
                   shadowColor: "#000",
@@ -106,8 +106,8 @@ const UserPackage = ({ navigation, designStore }) => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     paddingVertical: 3,
-                    borderTopLeftRadius: 15,
-                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 13,
+                    borderTopRightRadius: 13,
                   }}
                 >
                   <Text style={{ paddingLeft: 10 }}>{item.package.name}</Text>
@@ -292,7 +292,12 @@ const UserPackage = ({ navigation, designStore }) => {
             />
           ) : (
             <View style={styles.containerNoDesign}>
-              <Text>{Common.getTranslation(LangKey.labNoPkgAvailable)}</Text>
+              <FastImage
+                source={require("../assets/img/NotAvailable.png")}
+                style={{ height: "80%", width: "80%" }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              {/* <Text>{Common.getTranslation(LangKey.labNoPkgAvailable)}</Text> */}
             </View>
           )}
         </>

@@ -108,6 +108,7 @@ class UserStore {
     }
 
     this.user = user;
+    console.log("user chk else", this.user);
   };
 
   addBusinessImage = (profileImage) => {
@@ -132,6 +133,7 @@ class UserStore {
       };
     }
 
+    console.log("user chk else", user);
     this.user = user;
   };
   designCraditsCalculate = () => {

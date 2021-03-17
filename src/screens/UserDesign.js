@@ -18,6 +18,8 @@ import Constant from "../utils/Constant";
 import ProgressDialog from "./common/ProgressDialog";
 import LangKey from "../utils/LangKey";
 import Color from "../utils/Color";
+import FastImage from "react-native-fast-image";
+import PopUp from "../components/PopUp";
 
 const UserDesign = ({ navigation, designStore, userStore }) => {
   const [hasPro, sethasPro] = useState(false);
@@ -25,6 +27,10 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
 
   const isMountedRef = Common.useIsMountedRef();
 
+  const [modalVisible, setmodalVisible] = useState(false);
+  const toggleVisible = () => {
+    setmodalVisible(!modalVisible);
+  };
   const [perchasedDesigns, { loading, data, error }] = useLazyQuery(
     GraphqlQuery.perchasedDesigns,
     {
@@ -45,8 +51,8 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const onDesignClick = (packageType, design) => {
-    if (packageType === Constant.typeDesignPackagePro && hasPro === false) {
-      // show popup to user for pro
+    if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
+      setmodalVisible(true);
     } else {
       const designs = data?.perchasedDesigns.map((item) => {
         return item.design;
@@ -62,9 +68,15 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
 
   return (
     <View style={styles.container}>
+      <PopUp
+        visible={modalVisible}
+        toggleVisible={toggleVisible}
+        isPurchased={true}
+      />
       {data?.perchasedDesigns && data?.perchasedDesigns.length > 0 ? (
         <FlatList
           style={styles.listDesign}
+          showsVerticalScrollIndicator={false}
           numColumns={2}
           data={data?.perchasedDesigns ? data.perchasedDesigns : []}
           keyExtractor={keyExtractor}
@@ -92,7 +104,12 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
             />
           ) : (
             <View style={styles.containerNoDesign}>
-              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+              <FastImage
+                source={require("../assets/img/NotAvailable.png")}
+                style={{ height: "80%", width: "80%" }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              {/* <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text> */}
             </View>
           )}
         </>

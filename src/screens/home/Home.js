@@ -9,6 +9,7 @@ import {
   Dimensions,
   Text,
   Animated,
+  SafeAreaView,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { useLazyQuery, useQuery } from "@apollo/client";
@@ -25,6 +26,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import LangKey from "../../utils/LangKey";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { SvgCss } from "react-native-svg";
+import SvgConstant from "../../utils/SvgConstant";
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
@@ -58,11 +61,13 @@ const Home = ({ navigation, designStore, userStore }) => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then((res) => {
         if (res && res !== null) {
-          console.log("already have ");
+          designStore.setUserNotificationTime(res);
           return;
         } else {
-          AsyncStorage.setItem(Constant.prfUserloginTime, new Date())
-            .then(() => {})
+          AsyncStorage.setItem(Constant.prfUserloginTime, new Date().toString())
+            .then(() => {
+              designStore.setUserNotificationTime(new Date().toString());
+            })
             .catch((err) => console.log("err", err));
         }
       })
@@ -310,11 +315,11 @@ const Home = ({ navigation, designStore, userStore }) => {
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
   return (
-    <View style={styles.containerMain}>
+    <SafeAreaView style={styles.containerMain}>
       <ProgressDialog
         visible={homeDataLoading}
         dismissable={false}
-        message="Loading..."
+        message={Common.getTranslation(LangKey.labLoading)}
       />
       <PopUp
         visible={modalVisible}
@@ -450,12 +455,18 @@ const Home = ({ navigation, designStore, userStore }) => {
                 </Text>
               </>
             ) : (
-              <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+              <FastImage
+                source={require("../../assets/img/NotAvailable.png")}
+                style={{ height: "80%", width: "80%" }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              // <SvgCss xml={SvgConstant.noContent} width="100%" height="100%" />
+              // <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
             )}
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default inject("designStore", "userStore")(observer(Home));

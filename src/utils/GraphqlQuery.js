@@ -458,6 +458,8 @@ export default {
           url
         }
       }
+
+      lastNotificationTime
     }
   `,
   offers: gql`

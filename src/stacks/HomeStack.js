@@ -21,7 +21,10 @@ const HomeStack = createStackNavigator();
 
 const HomeStackComponent = ({ navigation }) => {
   return (
-    <HomeStack.Navigator initialRouteName={Constant.navHome}>
+    <HomeStack.Navigator
+      headerMode="screen"
+      initialRouteName={Constant.navHome}
+    >
       <HomeStack.Screen
         name={Constant.navHome}
         component={HomeScreen}
@@ -107,15 +110,16 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navDesign}
         component={DesignScreen}
         options={{
-          header: (props) => (
-            <CustomHeader
-              isBackVisible={true}
-              menu={true}
-              empty={true}
-              ScreenTitle={"Designs"}
-              {...props}
-            />
-          ),
+          headerShown: false,
+          // header: (props) => (
+          //   <CustomHeader
+          //     isBackVisible={true}
+          //     menu={true}
+          //     empty={true}
+          //     ScreenTitle={"Designs"}
+          //     {...props}
+          //   />
+          // ),
         }}
       />
 
@@ -156,7 +160,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              empty={true}
+              // empty={true}
               isShadow={true}
               ScreenTitle={"Notification"}
               {...props}

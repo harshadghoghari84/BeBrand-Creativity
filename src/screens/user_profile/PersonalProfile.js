@@ -48,6 +48,8 @@ const generateRNFile = (uri, name) => {
     : null;
 };
 
+let isUpdated = false;
+
 const PersonalProfile = ({ navigation, userStore }) => {
   const personalImageLimit = userStore.personalImageLimit;
 
@@ -70,35 +72,46 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const [errorWebsite, setErrorWebsite] = useState("");
 
   useEffect(() => {
+    isUpdated = true;
+  }, []);
+
+  useEffect(() => {
     const user = toJS(userStore.user);
     console.log("user", user);
     setUser(user);
-    setUserName(
-      user?.userInfo?.personal?.name ? user.userInfo.personal.name : ""
-    );
-    setMobile(
-      user?.userInfo?.personal?.mobile
-        ? user.userInfo.personal.mobile
-        : user?.mobile
-        ? user.mobile
-        : ""
-    );
-    setEmail(
-      user?.userInfo?.personal?.email ? user.userInfo.personal.email : ""
-    );
-    setDesignation(
-      user?.userInfo?.personal?.designation
-        ? user.userInfo.personal.designation
-        : ""
-    );
-    setWebsite(
-      user?.userInfo?.personal?.website ? user.userInfo.personal.website : ""
-    );
-    setSocialMediaId(
-      user?.userInfo?.personal?.socialMediaId
-        ? user.userInfo.personal.socialMediaId
-        : ""
-    );
+    if (user?.userInfo?.personal) {
+      if (isUpdated && isUpdated === true) {
+        setUserName(
+          user?.userInfo?.personal?.name ? user.userInfo.personal.name : ""
+        );
+        setMobile(
+          user?.userInfo?.personal?.mobile
+            ? user.userInfo.personal.mobile
+            : user?.mobile
+            ? user.mobile
+            : ""
+        );
+        setEmail(
+          user?.userInfo?.personal?.email ? user.userInfo.personal.email : ""
+        );
+        setDesignation(
+          user?.userInfo?.personal?.designation
+            ? user.userInfo.personal.designation
+            : ""
+        );
+        setWebsite(
+          user?.userInfo?.personal?.website
+            ? user.userInfo.personal.website
+            : ""
+        );
+        setSocialMediaId(
+          user?.userInfo?.personal?.socialMediaId
+            ? user.userInfo.personal.socialMediaId
+            : ""
+        );
+      }
+    }
+    isUpdated = false;
 
     user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
       ? setDefaultImageUrl(
@@ -196,7 +209,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
         });
 
         if (!errors) {
-          console.log("data", data);
           userStore.addPersonalImage(data.addPersonalImage);
         } else {
           Common.showMessage(errors[0].message);
@@ -320,8 +332,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
             (val) => val.url !== curUrl
           );
 
-          console.log("imgArr", imgArr);
-
           const newUser = {
             ...user,
             userInfo: {
@@ -364,7 +374,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         <PopUp
           visible={modalVisible}
           toggleVisible={toggleVisible}
-          isPurchased={true}
+          isfree={true}
         />
         {/* {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>

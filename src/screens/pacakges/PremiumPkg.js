@@ -267,7 +267,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
         <Text
           style={{
             textAlign: "justify",
-            marginTop: 10,
+            marginTop: 5,
             fontSize: 9,
             color: Color.accent,
           }}
