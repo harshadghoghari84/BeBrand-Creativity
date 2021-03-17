@@ -52,12 +52,12 @@ export default {
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
-  splashTime: 500,
+  splashTime: 3000,
 
   defLangCode: "en",
   defUserName: "Guest",
   prfUserToken: "userToken",
-  prfUserloginTime: "userLoginTime",
+  prfUserloginTime: "notificationTime",
   prfLangCode: "langCode",
   prfIcons: "setSocialIcons",
 
@@ -78,6 +78,7 @@ export default {
   navHomeStack: "homeStack",
   navHome: "home",
   navDesign: "design",
+  navStackDesign: "designStack",
   navPro: "bePro",
   navNotification: "notifications",
   navWishlist: "wishlist",
@@ -195,16 +196,22 @@ export default {
   free: "FREE",
   vip: "VIP",
 
+  // whatsappReportMsg
+
+  whatsAppNumber: "7069587069",
+
   // Rating POPup
-  titAppleIdForAppStore: "2193813192",
+  titAppleIdForAppStore:
+    "https://apps.apple.com/us/app/su-yao/id1166499145?ls=1",
   titPkgnameForAndroidPlayStore: "com.bebrandd.branddot",
   OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
-  fallbackPlatformURL: "http://www.mywebsite.com/myapp.html",
+  fallbackPlatformURL: "https://branddot.in/",
 
   // share App
   androidPlaystoreLink:
-    "https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en",
-
+    "https://play.google.com/store/apps/details?id=com.bebrandd.branddot",
+  whatsAppShareMsg:
+    "Hey, Want to create your brand designs in single click??Social media branding made easy with BrandDot, Check It out, Download Now and get your brand Designs free forever.",
   // pkg name
   titFree: "free",
   titPrimium: "Premium",

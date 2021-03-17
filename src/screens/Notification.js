@@ -20,13 +20,15 @@ import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
 import Constant from "../utils/Constant";
 import PopUp from "../components/PopUp";
+import { inject, observer } from "mobx-react";
 
 let notiMsgItem = {};
 let iconName = {};
 let itmDate = {};
-const Notification = () => {
+const Notification = ({ designStore }) => {
   const { loading, data, error } = useQuery(GraphqlQuery.notifications, {
     errorPolicy: "all",
+    fetchPolicy: "no-cache",
   });
 
   const [earlIndex, setEarlIndex] = useState("");
@@ -44,8 +46,12 @@ const Notification = () => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then(async (res) => {
         console.log("login time :", res);
-        res && res !== null && setLoginTime(res);
-        await AsyncStorage.setItem(Constant.prfUserloginTime, new Date());
+        res && res !== null && setLoginTime(new Date(res));
+        await AsyncStorage.setItem(
+          Constant.prfUserloginTime,
+          new Date().toString()
+        );
+        designStore.setUserNotificationTime(new Date().toString());
       })
       .catch((err) => console.log("ERR", err));
   }, []);
@@ -54,21 +60,17 @@ const Notification = () => {
     data &&
       data.notifications.some((item, index) => {
         const itemDate = new Date(item.updatedAt);
-        const todayDate = new Date();
-        todayDate.setHours(0, 0, 0, 0);
+
+        const todayDate = new Date(loginTime);
 
         if (itemDate.getTime() < todayDate.getTime()) {
-          console.log("_____", item.updatedAt);
-          console.log(
-            "date comparision: ",
-            new Date(loginTime).getTime() > new Date(item.updatedAt).getTime()
-          );
           setEarlIndex(index);
           return true;
         }
       });
-  }, [data]);
+  }, [data, loginTime]);
 
+  console.log("ear inedx", earlIndex ? earlIndex : "hello");
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
   const renderNotifications = () => {
@@ -112,12 +114,14 @@ const Notification = () => {
                 ) : (
                   index === earlIndex && (
                     <>
-                      <View
-                        style={{
-                          height: 5,
-                          backgroundColor: Color.txtIntxtcolor,
-                        }}
-                      />
+                      {index !== 0 && (
+                        <View
+                          style={{
+                            height: 5,
+                            backgroundColor: Color.txtIntxtcolor,
+                          }}
+                        />
+                      )}
                       <Text
                         style={{
                           marginLeft: 10,
@@ -139,43 +143,99 @@ const Notification = () => {
                     iconName = item.type;
                     setVisibleModalMsg(true);
                   }}
-                  style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: Color.txtInBgColor,
-                    backgroundColor:
-                      id.includes(item.id) ||
-                      new Date(loginTime).getTime() >
-                        new Date(item.updatedAt).getTime()
-                        ? null
-                        : Color.layerColor,
-                  }}
+                  // style={{
+                  //   backgroundColor:
+                  //     id.includes(item.id) ||
+                  //     new Date(loginTime).getTime() >
+                  //       new Date(item.updatedAt).getTime()
+                  //       ? null
+                  //       : Color.layerColor,
+                  // }}
                 >
                   <View
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <View style={{ paddingHorizontal: 20 }}>
+                    <View
+                      style={{
+                        paddingHorizontal: 20,
+                        alignSelf: "flex-start",
+                        paddingTop: 5,
+                      }}
+                    >
                       <Icon
                         name={item.type}
                         fill={Color.primary}
-                        height={20}
-                        width={20}
+                        height={15}
+                        width={15}
                       />
                     </View>
-                    <View style={{ width: "80%" }}>
-                      <Text style={{ color: Color.black, fontSize: 15 }}>
+                    <View style={{ width: "75%" }}>
+                      <Text style={{ color: Color.black, fontSize: 14 }}>
                         {item.title}
                       </Text>
-                      <Text style={{ fontSize: 13, lineHeight: 14 }}>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: Color.grey,
+                          fontFamily: "Nunito-Regular",
+                        }}
+                      >
                         {item.body}
                       </Text>
-                      <Text style={{ color: Color.txtIntxtcolor, fontSize: 9 }}>
+                      <Text
+                        style={{
+                          color: Color.grey,
+                          fontSize: 9,
+                          paddingVertical: 5,
+                          paddingBottom: 10,
+                          fontFamily: "Nunito-Light",
+                        }}
+                      >
                         {formattedDate}
                       </Text>
                     </View>
+                    <View
+                      style={{
+                        height: 10,
+                        width: 10,
+                        borderRadius: 5,
+                        backgroundColor:
+                          id.includes(item.id) ||
+                          new Date(loginTime).getTime() >
+                            new Date(item.updatedAt).getTime()
+                            ? null
+                            : Color.darkBlue,
+                      }}
+                    />
                   </View>
+                  {earlIndex !== 0
+                    ? index !== earlIndex - 1 &&
+                      index !== data.notifications.length - 1 && (
+                        <View
+                          style={{
+                            height: 1,
+                            width: "85%",
+                            alignSelf: "center",
+                            backgroundColor: Color.btnborder,
+                            opacity: 0.3,
+                          }}
+                        />
+                      )
+                    : index !== data.notifications.length - 1 && (
+                        <View
+                          style={{
+                            height: 1,
+                            width: "85%",
+                            alignSelf: "center",
+                            backgroundColor: Color.btnborder,
+                            opacity: 0.3,
+                          }}
+                        />
+                      )}
                 </TouchableOpacity>
               </View>
             );
@@ -190,10 +250,12 @@ const Notification = () => {
   return renderMainView();
 };
 
-export default Notification;
+export default inject("designStore", "userStore")(observer(Notification));
 
 const styles = StyleSheet.create({
   itemContainer: {
+    paddingVertical: 5,
+
     // marginHorizontal: 10,
     // marginVertical: 10,
     // paddingVertical: 10,

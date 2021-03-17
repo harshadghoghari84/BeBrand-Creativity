@@ -25,6 +25,9 @@ import {
 } from "react-native-responsive-screen";
 import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import BottomSheet from "reanimated-bottom-sheet";
+import Animated from "react-native-reanimated";
+import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -37,6 +40,7 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
 import Text from "../../components/MuktaText";
+import { StackActions } from "@react-navigation/routers";
 
 const { width } = Dimensions.get("window");
 let isShareClick = false;
@@ -123,6 +127,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         : setFooterTextColor(currentDesign.lightTextColor);
     }
   };
+
+  useEffect(() => {
+    const isDownloadStartedBusiness = toJS(
+      designStore.isDownloadStartedBusiness
+    );
+    if (isDownloadStartedBusiness && isDownloadStartedBusiness === true) {
+      onClickDownload();
+    }
+  }, [designStore.isDownloadStartedBusiness]);
 
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfIcons)
@@ -215,6 +228,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
       }
     } else {
+      designStore.setIsDownloadStartedBusiness(false);
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
   };
@@ -236,6 +250,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         Permissions.MEDIA_LIBRARY
       );
       if (newStatus !== Permissions.PermissionStatus.GRANTED) {
+        designStore.setIsDownloadStartedBusiness(false);
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
@@ -275,6 +290,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         if (errors[0].extensions.code === Constant.userDesignExits) {
           setLoadingImage(true);
         } else {
+          designStore.setIsDownloadStartedBusiness(false);
           setLoadingImage(false);
           Common.showMessage(errors[0].message);
           return;
@@ -284,51 +300,36 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       const uri = await viewRef.current.capture();
       console.log("uri", uri);
 
-      if (Platform.OS === "android") {
+      try {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        if (asset && asset !== null) {
-          const album = await MediaLibrary.getAlbumAsync(
-            Constant.designAlbumName
-          );
-          album && album !== null
-            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-            : await MediaLibrary.createAlbumAsync(
-                Constant.designAlbumName,
-                asset,
-                false
-              );
-        }
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
-      } else {
-        try {
-          const asset = await MediaLibrary.createAssetAsync(uri);
-          console.log("assets", asset);
-          const album = await MediaLibrary.getAlbumAsync(
-            Constant.designAlbumName
-          );
-          console.log("scb", album);
+        console.log("assets", asset);
+        const album = await MediaLibrary.getAlbumAsync(
+          Constant.designAlbumName
+        );
+        console.log("scb", album);
 
-          album && album !== null
-            ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
-            : await MediaLibrary.createAlbumAsync(
-                Constant.designAlbumName,
-                asset,
-                false
-              )
-                .then((res) => console.log("res: ", res))
-                .catch((err) => console.log("err: ", err));
-        } catch (error) {
-          console.log("err", error);
-        }
-        setLoadingImage(false);
-        Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+        album && album !== null
+          ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
+          : await MediaLibrary.createAlbumAsync(
+              Constant.designAlbumName,
+              asset,
+              false
+            )
+              .then((res) => console.log("res: ", res))
+              .catch((err) => console.log("err: ", err));
+      } catch (error) {
+        console.log("err", error);
       }
+      setLoadingImage(false);
+      Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
+      designStore.setIsDownloadStartedBusiness(false);
 
       if (isShareClick === true) {
         isShareClick = false;
         await openShareDialogAsync(uri);
       }
     } else {
+      designStore.setIsDownloadStartedBusiness(false);
       setVisibleModal(true);
     }
   };
@@ -1106,7 +1107,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         style={[
           styles.layFlatRoot,
           {
-            width: wp(96),
+            width: "96%",
             justifyContent: "space-between",
           },
         ]}
@@ -1732,7 +1733,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         showsHorizontalScrollIndicator={false}
         data={layouts}
         keyExtractor={keyExtractor}
-        contentContainerStyle={{ paddingHorizontal: 5 }}
+        contentContainerStyle={{}}
         contentContainerStyle={styles.flatlist}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -1787,7 +1788,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const colorCode = () => {
     return (
-      <>
+      <View style={{ width: "95%" }}>
         <FlatList
           contentContainerStyle={styles.colorCodeList}
           data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
@@ -1809,20 +1810,24 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   : setFooterTextColor(currentDesign.lightTextColor);
               }}
             >
-              {item.code === footerColor ? (
-                <View
-                  style={[
-                    {
-                      borderColor: Color.primary,
-                      borderWidth: 2,
-                      margin: 10,
-                      height: 33,
-                      width: 33,
-                      borderRadius: 20,
-                    },
-                  ]}
-                />
-              ) : null}
+              {selectedPicker !== true && (
+                <>
+                  {item.code === footerColor ? (
+                    <View
+                      style={[
+                        {
+                          borderColor: Color.primary,
+                          borderWidth: 2,
+                          margin: 10,
+                          height: 33,
+                          width: 33,
+                          borderRadius: 20,
+                        },
+                      ]}
+                    />
+                  ) : null}
+                </>
+              )}
             </TouchableOpacity>
           )}
         />
@@ -1832,7 +1837,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              width:"60%",
               paddingBottom: 10,
             }}
           >
@@ -1899,7 +1903,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             </View>
           </View>
         )}
-      </>
+      </View>
     );
   };
   const socialIcon = () => {
@@ -1968,353 +1972,440 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     );
   };
 
+  const layoutRef = React.useRef(null);
+  const colorRef = React.useRef(null);
+  const socialRef = React.useRef(null);
+  const fall = new Animated.Value(1);
+  const renderContentLayout = () => (
+    <View
+      style={{
+        backgroundColor: Color.white,
+        padding: 5,
+        height: 100,
+      }}
+    >
+      <TouchableOpacity
+        onPress={() => layoutRef.current.snapTo(2)}
+        style={styles.btnClose}
+      >
+        <ICON name="close" size={22} color={Color.darkBlue} />
+      </TouchableOpacity>
+      {layout()}
+    </View>
+  );
+  const renderContentColor = () => (
+    <View
+      style={{
+        backgroundColor: Color.white,
+        padding: 5,
+        height: 100,
+        flexDirection: "row",
+      }}
+    >
+      {colorCode()}
+      <TouchableOpacity
+        onPress={() => colorRef.current.snapTo(2)}
+        style={[styles.btnClose, { alignSelf: "flex-start" }]}
+      >
+        <ICON name="close" size={22} color={Color.darkBlue} />
+      </TouchableOpacity>
+    </View>
+  );
+  const renderContentSocial = () => (
+    <View
+      style={{
+        backgroundColor: Color.white,
+        padding: 5,
+        height: 100,
+      }}
+    >
+      <TouchableOpacity
+        onPress={() => socialRef.current.snapTo(2)}
+        style={styles.btnClose}
+      >
+        <ICON name="close" size={22} color={Color.darkBlue} />
+      </TouchableOpacity>
+      {socialIcon()}
+    </View>
+  );
+
   const bussiness = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: Color.bgcColor,
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <PopUp
-            visible={visibleModal}
-            toggleVisible={toggleVisible}
-            isPurchased={true}
-          />
-          <PopUp
-            visible={visiblePicker}
-            initialColor={footerColor}
-            setPickerColor={setFooterColor}
-            setSelectedPicker={setSelectedPicker}
-            toggleVisibleColorPicker={toggleVisibleColorPicker}
-            isPicker={true}
-          />
-
-          <PopUp
-            visible={visibleModalMsgbussiness}
-            toggleVisibleMsgBussiness={toggleVisibleMsgBussiness}
-            isLayoutBussiness={true}
-            msg={msg}
-          />
-          <View style={styles.container}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={designs}
-              keyExtractor={keyExtractor}
-              contentContainerStyle={styles.flatlist}
-              renderItem={({ item }) => {
-                const designPackage = designPackages.find(
-                  (pkg) => pkg.id === item.package
-                );
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={styles.listDesignView}
-                    onPress={() => {
-                      if (
-                        designPackage.type === Constant.typeDesignPackageVip &&
-                        hasPro === false
-                      ) {
-                        setVisibleModal(true);
-                      } else {
-                        setCurrentDesign(item);
-                      }
-                    }}
-                  >
-                    <View>
-                      <FastImage
-                        source={{ uri: item.thumbImage.url }}
-                        style={{ width: 75, height: 75 }}
-                      />
-                      {item.id === currentDesign.id && (
-                        <View
-                          style={[
-                            styles.icnCheck,
-                            {
-                              backgroundColor: Color.blackTransparant,
-                              opacity: 0.6,
-                              width: 75,
-                              height: 75,
-                            },
-                          ]}
-                        />
-                      )}
-                      {designPackage.type === Constant.typeDesignPackageVip && (
-                        <Icon
-                          style={styles.tagPro}
-                          name="Premium"
-                          height={18}
-                          width={10}
-                          fill={Color.primary}
-                        />
-                      )}
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
-
-            <View
-              style={{
-                height: 1,
-                width: "95%",
-                backgroundColor: Color.txtIntxtcolor,
-                marginVertical: 10,
-              }}
-            />
-
-            <ViewShot
-              style={styles.designView}
-              ref={viewRef}
-              options={{
-                format: "jpg",
-                quality: 1,
-                width: pixels,
-                height: pixels,
-              }}
-            >
-              <View style={{ flex: 1 }}>
-                <FastImage
-                  onLoadStart={() => setIsdesignImageLoad(true)}
-                  onLoadEnd={() => setIsdesignImageLoad(false)}
-                  source={{
-                    uri: currentDesign.designImage.url,
-                  }}
-                  style={{ flex: 1 }}
-                >
-                  {currentLayout && getLayout()}
-                </FastImage>
-              </View>
-            </ViewShot>
-
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: Color.bgcColor,
-                marginBottom: 10,
-                marginTop: 10,
-                borderTopWidth: 5,
-                borderTopColor: Color.txtIntxtcolor,
-              }}
-            >
-              <View style={{ height: 80, marginTop: 10 }}>
-                {selected == 0 && layout()}
-                {selected == 1 && colorCode()}
-                {selected == 2 && socialIcon()}
-              </View>
-              <View
-                style={{
-                  backgroundColor: Color.txtIntxtcolor,
-                  height: 1,
-                  width: wp(90),
-                  marginBottom: 15,
-                }}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                  width: "100%",
-                }}
-              >
-                <TouchableOpacity onPress={() => setSelected(0)}>
-                  <Text
-                    style={{
-                      backgroundColor:
-                        selected === 0 ? Color.txtIntxtcolor : null,
-                      // borderColor: Color.txtIntxtcolor,
-                      // borderWidth: 2,
-                      color: selected === 0 ? Color.white : Color.txtIntxtcolor,
-                      borderRadius: Platform.OS === "ios" ? 16 : 20,
-                      overflow: "hidden",
-                      paddingHorizontal: 20,
-                      paddingVertical: 5,
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.labLayouts)}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setSelected(1)}>
-                  <Text
-                    style={{
-                      backgroundColor:
-                        selected === 1 ? Color.txtIntxtcolor : null,
-                      // borderColor: Color.txtIntxtcolor,
-                      // borderWidth: 2,
-                      color: selected === 1 ? Color.white : Color.txtIntxtcolor,
-                      borderRadius: Platform.OS === "ios" ? 16 : 20,
-                      overflow: "hidden",
-                      paddingHorizontal: 20,
-                      paddingVertical: 5,
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.labColorCodeList)}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setSelected(2)}>
-                  <Text
-                    style={{
-                      backgroundColor:
-                        selected === 2 ? Color.txtIntxtcolor : null,
-                      // borderColor: Color.txtIntxtcolor,
-                      // borderWidth: 2,
-                      color: selected === 2 ? Color.white : Color.txtIntxtcolor,
-                      borderRadius: Platform.OS === "ios" ? 16 : 20,
-                      overflow: "hidden",
-                      paddingHorizontal: 20,
-                      paddingVertical: 5,
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.labSocialMediaIcons)}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
+      <>
+        <BottomSheet
+          ref={layoutRef}
+          snapPoints={[100, 100, 0]}
+          borderRadius={10}
+          initialSnap={2}
+          enabledInnerScrolling={true}
+          enabledGestureInteraction={false}
+          callbackNode={fall}
+          renderContent={renderContentLayout}
+        />
+        <BottomSheet
+          ref={colorRef}
+          snapPoints={[100, 100, 0]}
+          borderRadius={10}
+          initialSnap={2}
+          enabledGestureInteraction={false}
+          callbackNode={fall}
+          renderContent={renderContentColor}
+        />
+        <BottomSheet
+          ref={socialRef}
+          snapPoints={[100, 100, 0]}
+          borderRadius={10}
+          initialSnap={2}
+          enabledGestureInteraction={false}
+          callbackNode={fall}
+          renderContent={renderContentSocial}
+        />
         <View
           style={{
-            alignItems: "center",
-            justifyContent: "center",
-            borderTopColor: Color.txtIntxtcolor,
-            borderTopWidth: 1,
-            backgroundColor: Color.white,
-
-            // shadowColor: "#000",
-            // shadowOffset: {
-            //   width: 0,
-            //   height: 1,
-            // },
-            // shadowOpacity: 0.18,
-            // shadowRadius: 1.0,
-            // elevation: 1,
+            flex: 1,
+            backgroundColor: Color.bgcColor,
           }}
         >
           <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              marginBottom: Platform.OS === "ios" ? 10 : 0,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}
           >
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-              }}
-            >
-              <Button
-                disable={designs == null || designs == undefined}
-                style={{ margin: 5, backgroundColor: Color.transparent }}
-                onPress={() => {
-                  if (user && user !== null) {
-                    navigation.navigate(Constant.navProfile, {
-                      title: Constant.titBusinessProfile,
-                    });
-                  } else {
-                    Common.showMessage(
-                      Common.getTranslation(LangKey.msgCreateAccEdit)
-                    );
-                  }
-                }}
-                icon={
-                  <Icon
-                    name="edit"
-                    height={15}
-                    width={15}
-                    fill={Color.darkBlue}
-                  />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.txtEdit)}
-              </Button>
-
-              <Button
-                disable={designs == null || designs == undefined}
-                style={{ margin: 5, backgroundColor: Color.transparent }}
-                onPress={() => {
-                  if (currentDesign.id === curDesign.id) {
-                    onReset();
-                  } else {
-                    setCurrentDesign(curDesign);
-                  }
-                  fiilterLayouts();
-                }}
-                icon={
-                  <Icon
-                    name="reset"
-                    height={15}
-                    width={15}
-                    fill={Color.darkBlue}
-                  />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.txtReset)}
-              </Button>
-              {/* <Button
-          disable={designs == null || designs == undefined}
-          style={{ margin: 5 }}
-          icon={
-            <Icon
-              name="share"
-              height={15}
-              width={15}
-              fill={Color.white}
+            <PopUp
+              visible={visibleModal}
+              toggleVisible={toggleVisible}
+              isPurchased={true}
             />
-          }
-          onPress={onClickShare}
-        >
-          {Common.getTranslation(LangKey.txtShare)}
-        </Button> */}
+            <PopUp
+              visible={visiblePicker}
+              initialColor={footerColor}
+              setPickerColor={setFooterColor}
+              setSelectedPicker={setSelectedPicker}
+              toggleVisibleColorPicker={toggleVisibleColorPicker}
+              isPicker={true}
+            />
 
-              <Button
-                disable={
-                  isdesignImageLoad
-                    ? isdesignImageLoad
-                    : isUserDesignImageLoad
-                    ? isUserDesignImageLoad
-                    : loadingImage
-                }
-                style={{
-                  margin: 5,
-                  backgroundColor: Color.transparent,
+            <PopUp
+              visible={visibleModalMsgbussiness}
+              toggleVisibleMsgBussiness={toggleVisibleMsgBussiness}
+              isLayoutBussiness={true}
+              msg={msg}
+            />
+            <View style={styles.container}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={designs}
+                keyExtractor={keyExtractor}
+                contentContainerStyle={styles.flatlist}
+                renderItem={({ item }) => {
+                  const designPackage = designPackages.find(
+                    (pkg) => pkg.id === item.package
+                  );
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.6}
+                      style={styles.listDesignView}
+                      onPress={() => {
+                        if (
+                          designPackage.type ===
+                            Constant.typeDesignPackageVip &&
+                          hasPro === false
+                        ) {
+                          setVisibleModal(true);
+                        } else {
+                          setCurrentDesign(item);
+                        }
+                      }}
+                    >
+                      <View>
+                        <FastImage
+                          source={{ uri: item.thumbImage.url }}
+                          style={{ width: 75, height: 75 }}
+                        />
+                        {item.id === currentDesign.id && (
+                          <View
+                            style={[
+                              styles.icnCheck,
+                              {
+                                backgroundColor: Color.blackTransparant,
+                                opacity: 0.6,
+                                width: 75,
+                                height: 75,
+                              },
+                            ]}
+                          />
+                        )}
+                        {designPackage.type ===
+                          Constant.typeDesignPackageVip && (
+                          <Icon
+                            style={styles.tagPro}
+                            name="Premium"
+                            height={18}
+                            width={10}
+                            fill={Color.primary}
+                          />
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  );
                 }}
-                icon={
-                  <Icon
-                    name="download"
-                    height={15}
-                    width={15}
-                    fill={Color.darkBlue}
-                  />
-                }
-                textColor={true}
-                onPress={onClickDownload}
+              />
+
+              <View
+                style={{
+                  height: 1,
+                  width: "95%",
+                  backgroundColor: Color.txtIntxtcolor,
+                  marginVertical: 10,
+                }}
+              />
+
+              <ViewShot
+                style={styles.designView}
+                ref={viewRef}
+                options={{
+                  format: "jpg",
+                  quality: 1,
+                  width: pixels,
+                  height: pixels,
+                }}
               >
-                {isdesignImageLoad ? (
-                  isdesignImageLoad
-                ) : isUserDesignImageLoad ? (
-                  isUserDesignImageLoad
-                ) : loadingImage ? (
-                  <ActivityIndicator color={Color.darkBlue} size={15} />
-                ) : (
-                  Common.getTranslation(LangKey.txtDownload)
-                )}
-              </Button>
+                <View style={{ flex: 1 }}>
+                  <FastImage
+                    onLoadStart={() => setIsdesignImageLoad(true)}
+                    onLoadEnd={() => setIsdesignImageLoad(false)}
+                    source={{
+                      uri: currentDesign.designImage.url,
+                    }}
+                    style={{ flex: 1 }}
+                  >
+                    {currentLayout && getLayout()}
+                  </FastImage>
+                </View>
+              </ViewShot>
+
+              {/* <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: Color.bgcColor,
+                  marginBottom: 10,
+                  marginTop: 10,
+                  borderTopWidth: 5,
+                  borderTopColor: Color.txtIntxtcolor,
+                }}
+              >
+                <View style={{ height: 80, marginTop: 10 }}>
+                  {selected == 0 && layout()}
+                  {selected == 1 && colorCode()}
+                  {selected == 2 && socialIcon()}
+                </View>
+                <View
+                  style={{
+                    backgroundColor: Color.txtIntxtcolor,
+                    height: 1,
+                    width: wp(90),
+                    marginBottom: 15,
+                  }}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                    width: "100%",
+                  }}
+                >
+                  <TouchableOpacity onPress={() => setSelected(0)}>
+                    <Text
+                      style={{
+                        backgroundColor:
+                          selected === 0 ? Color.txtIntxtcolor : null,
+                        // borderColor: Color.txtIntxtcolor,
+                        // borderWidth: 2,
+                        color:
+                          selected === 0 ? Color.white : Color.txtIntxtcolor,
+                        borderRadius: Platform.OS === "ios" ? 16 : 20,
+                        overflow: "hidden",
+                        paddingHorizontal: 20,
+                        paddingVertical: 5,
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.labLayouts)}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setSelected(1)}>
+                    <Text
+                      style={{
+                        backgroundColor:
+                          selected === 1 ? Color.txtIntxtcolor : null,
+                        // borderColor: Color.txtIntxtcolor,
+                        // borderWidth: 2,
+                        color:
+                          selected === 1 ? Color.white : Color.txtIntxtcolor,
+                        borderRadius: Platform.OS === "ios" ? 16 : 20,
+                        overflow: "hidden",
+                        paddingHorizontal: 20,
+                        paddingVertical: 5,
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.labColorCodeList)}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setSelected(2)}>
+                    <Text
+                      style={{
+                        backgroundColor:
+                          selected === 2 ? Color.txtIntxtcolor : null,
+                        // borderColor: Color.txtIntxtcolor,
+                        // borderWidth: 2,
+                        color:
+                          selected === 2 ? Color.white : Color.txtIntxtcolor,
+                        borderRadius: Platform.OS === "ios" ? 16 : 20,
+                        overflow: "hidden",
+                        paddingHorizontal: 20,
+                        paddingVertical: 5,
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.labSocialMediaIcons)}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View> */}
             </View>
           </ScrollView>
+          <View
+            style={{
+              borderTopColor: Color.txtIntxtcolor,
+              borderTopWidth: 1,
+              backgroundColor: Color.white,
+            }}
+          >
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{
+                marginBottom: Platform.OS === "ios" ? 10 : 0,
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  flex: 1,
+                  marginHorizontal: 20,
+                }}
+              >
+                <Button
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  onPress={() => layoutRef.current.snapTo(0)}
+                  isVertical={true}
+                  icon={
+                    <Icon
+                      name="layout"
+                      height={14}
+                      width={14}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.labLayouts)}
+                </Button>
+                <Button
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  onPress={() => colorRef.current.snapTo(0)}
+                  isVertical={true}
+                  icon={
+                    <Icon
+                      name="color"
+                      height={15}
+                      width={15}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.labColorCodeList)}
+                </Button>
+                <Button
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  onPress={() => socialRef.current.snapTo(0)}
+                  isVertical={true}
+                  icon={
+                    <Icon
+                      name="socialicon"
+                      height={15}
+                      width={15}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.labSocialMediaIcons)}
+                </Button>
+                <Button
+                  disable={designs == null || designs == undefined}
+                  isVertical={true}
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  onPress={() => {
+                    if (user && user !== null) {
+                      navigation.dispatch(
+                        StackActions.replace(Constant.navProfile, {
+                          title: Constant.titBusinessProfile,
+                        })
+                      );
+                    } else {
+                      Common.showMessage(
+                        Common.getTranslation(LangKey.msgCreateAccEdit)
+                      );
+                    }
+                  }}
+                  icon={
+                    <Icon
+                      name="edit"
+                      height={14}
+                      width={14}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.txtEdit)}
+                </Button>
+
+                <Button
+                  disable={designs == null || designs == undefined}
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  isVertical={true}
+                  onPress={() => {
+                    if (currentDesign.id === curDesign.id) {
+                      onReset();
+                    } else {
+                      setCurrentDesign(curDesign);
+                    }
+                    fiilterLayouts();
+                  }}
+                  icon={
+                    <Icon
+                      name="reset"
+                      height={14}
+                      width={14}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.txtReset)}
+                </Button>
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      </>
     );
   };
 
@@ -2347,6 +2438,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+    paddingHorizontal: 5,
   },
   listLayoutView: {
     marginLeft: 5,
@@ -2390,6 +2482,7 @@ const styles = StyleSheet.create({
   },
   colorCodeList: {
     alignItems: "center",
+    justifyContent: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -2398,6 +2491,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    width: "100%",
   },
   colorCode: {
     height: 25,
@@ -2439,7 +2533,7 @@ const styles = StyleSheet.create({
     borderRadius: Constant.layIconViewBorderRadius,
     overflow: "hidden",
   },
-  layTxtIcon: { fontSize: Constant.laySmallFontSize, left: wp(1) },
+  layTxtIcon: { fontSize: Constant.laySmallFontSize, marginLeft: wp(1) },
   // common layout left
   layLeftViewFooter: {
     width: "100%",
@@ -2635,6 +2729,13 @@ const styles = StyleSheet.create({
     right: "2%",
     top: "16%",
   },
+  btnClose: {
+    width: 25,
+    height: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-end",
+  },
 });
 
 //setting layoutFields to JSX object
@@ -2670,3 +2771,57 @@ const styles = StyleSheet.create({
 // const objSocialIcon = currentLayout?.layoutFields?.socialIcon
 //   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
 //   : undefined;
+
+{
+  /* <Button
+          disable={designs == null || designs == undefined}
+          style={{ margin: 5 }}
+          icon={
+            <Icon
+              name="share"
+              height={15}
+              width={15}
+              fill={Color.white}
+            />
+          }
+          onPress={onClickShare}
+        >
+          {Common.getTranslation(LangKey.txtShare)}
+        </Button> */
+}
+
+{
+  /* <Button
+                disable={
+                  isdesignImageLoad
+                    ? isdesignImageLoad
+                    : isUserDesignImageLoad
+                    ? isUserDesignImageLoad
+                    : loadingImage
+                }
+                style={{
+                  margin: 5,
+                  backgroundColor: Color.transparent,
+                }}
+                icon={
+                  <Icon
+                    name="download"
+                    height={15}
+                    width={15}
+                    fill={Color.darkBlue}
+                  />
+                }
+                textColor={true}
+                onPress={onClickDownload}
+              >
+                {isdesignImageLoad ? (
+                  isdesignImageLoad
+                ) : isUserDesignImageLoad ? (
+                  isUserDesignImageLoad
+                ) : loadingImage ? (
+                  <ActivityIndicator color={Color.darkBlue} size={15} />
+                ) : (
+                  Common.getTranslation(LangKey.txtDownload)
+                )}
+              </Button> */
+}

@@ -3,18 +3,13 @@ import {
   View,
   StyleSheet,
   Text,
-  FlatList,
   TouchableOpacity,
   SafeAreaView,
-  StatusBar,
   ScrollView,
-  Animated,
-  Dimensions,
   Modal,
-  KeyboardAvoidingView,
 } from "react-native";
 
-import { Drawer, List, ProgressBar } from "react-native-paper";
+import { ProgressBar } from "react-native-paper";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
@@ -25,9 +20,7 @@ import { toJS } from "mobx";
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
 import Icon from "../../components/svgIcons";
-import WebViews from "../../components/WebViews";
 import PopUp from "../../components/PopUp";
-import RatingPop from "../../components/PopUp";
 import Common from "../../utils/Common";
 import Ratings from "../../utils/ratings";
 import LangKey from "../../utils/LangKey";
@@ -334,7 +327,7 @@ class CustomDrawer extends Component {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => Common.openWhatsApp(9726009509, "")}
+                onPress={() => Common.openWhatsApp(Constant.whatsAppNumber, "")}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",

@@ -19,6 +19,7 @@ const Button = ({
   children,
   icon,
   textColor,
+  isVertical,
   ...props
 }) => (
   <TouchableOpacity
@@ -37,33 +38,68 @@ const Button = ({
     ]}
     {...props}
   >
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: 15,
-        paddingVertical: 5,
-      }}
-    >
-      {icon && icon}
-      <Text
-        style={
-          border
-            ? styles.bordertext
-            : big
-            ? styles.bigtext
-            : normal
-            ? styles.normaltext
-            : [
-                styles.smalltext,
-                { color: textColor ? Color.darkBlue : Color.white },
-              ]
-        }
+    {isVertical === true ? (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          // paddingHorizontal: 5,
+        }}
       >
-        {children}
-      </Text>
-    </View>
+        {icon && icon}
+        <Text
+          style={
+            border
+              ? styles.bordertext
+              : big
+              ? styles.bigtext
+              : normal
+              ? styles.normaltext
+              : [
+                  styles.smalltext,
+                  {
+                    color: textColor ? Color.grey : Color.white,
+                    fontWeight: "normal",
+                    fontFamily: "Nunito-Light",
+                    fontSize: 14,
+                    paddingHorizontal: 0,
+                    paddingTop: 5,
+                  },
+                ]
+          }
+        >
+          {children}
+        </Text>
+      </View>
+    ) : (
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingHorizontal: 15,
+          paddingVertical: 5,
+        }}
+      >
+        {icon && icon}
+        <Text
+          style={
+            border
+              ? styles.bordertext
+              : big
+              ? styles.bigtext
+              : normal
+              ? styles.normaltext
+              : [
+                  styles.smalltext,
+                  { color: textColor ? Color.darkBlue : Color.white },
+                ]
+          }
+        >
+          {children}
+        </Text>
+      </View>
+    )}
   </TouchableOpacity>
 );
 

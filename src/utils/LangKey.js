@@ -140,6 +140,7 @@ module.exports = {
   labPurchase: "labPurchase",
   labPurchasePremiumPkg: "labPurchasePremiumPkg",
   labFree: "labFree",
+  labPackage: "labPackage",
   labPremium: "labPremium",
   labWhatsApp: "labWhatsApp",
   labUpdateWhatsApp: "labUpdateWhatsApp",

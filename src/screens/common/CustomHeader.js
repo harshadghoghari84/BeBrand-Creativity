@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,6 +15,8 @@ import Color from "../../utils/Color";
 import Modal from "../../components/modal";
 import Constant from "../../utils/Constant";
 import FastImage from "react-native-fast-image";
+import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
 
 const CustomHeader = ({
   langauge = false,
@@ -27,12 +29,20 @@ const CustomHeader = ({
   isTtileImage = false,
   ScreenTitle,
   isShadow = false,
+  designStore,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
+  const [isNewNotification, setIsNewNotification] = useState(false);
+
+  useEffect(() => {
+    const val = toJS(designStore.isNewNotification);
+    setIsNewNotification(val);
+  }, [designStore.isNewNotification]);
 
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
   };
+
   return (
     <View style={[styles.container, isShadow && styles.shadow]}>
       <StatusBar
@@ -53,7 +63,7 @@ const CustomHeader = ({
                 style={styles.icons}
                 onPress={() => navigation.goBack()}
               >
-                <Icon name="back" fill={Color.white} height={20} width={20} />
+                <Icon name="back" fill={Color.white} height={17} width={17} />
               </TouchableOpacity>
             )}
             {menu === true && (
@@ -61,7 +71,7 @@ const CustomHeader = ({
                 style={[styles.icons, { paddingLeft: 10 }]}
                 onPress={() => navigation.openDrawer()}
               >
-                <Icon name="menu" fill={Color.white} height={20} width={20} />
+                <Icon name="menu" fill={Color.white} height={17} width={17} />
               </TouchableOpacity>
             )}
           </View>
@@ -103,9 +113,24 @@ const CustomHeader = ({
                 <Icon
                   name="notification"
                   fill={Color.white}
-                  height={20}
-                  width={20}
+                  height={17}
+                  width={17}
                 />
+                {isNewNotification && (
+                  <View
+                    style={{
+                      height: 9,
+                      width: 9,
+                      backgroundColor: "red",
+                      borderRadius: 5,
+                      borderColor: "white",
+                      borderWidth: 1,
+                      position: "absolute",
+                      top: 0.5,
+                      left: 4,
+                    }}
+                  />
+                )}
               </TouchableOpacity>
             )}
             {langauge === true && (
@@ -118,8 +143,8 @@ const CustomHeader = ({
                   <Icon
                     name="language"
                     fill={Color.white}
-                    height={20}
-                    width={20}
+                    height={17}
+                    width={17}
                   />
                 </TouchableOpacity>
               </View>
@@ -144,8 +169,6 @@ const CustomHeader = ({
 
 const styles = StyleSheet.create({
   container: {
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 3,
     backgroundColor: Color.primary,
   },
   safeArea: {
@@ -177,4 +200,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomHeader;
+// export default CustomHeader;
+export default inject("designStore", "userStore")(observer(CustomHeader));

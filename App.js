@@ -5,14 +5,14 @@ import { ApolloProvider, useLazyQuery } from "@apollo/client";
 import { Provider } from "mobx-react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MenuProvider } from "react-native-popup-menu";
+import { Platform } from "react-native";
 
+// relative path
 import Common from "./src/utils/Common";
 import { paperTheme } from "./src/utils/Theme";
 import UserStore from "./src/mobx/UserStore";
 import DesignStore from "./src/mobx/DesignStore";
 import SplashScreen from "./src/screens/Splash";
-
 import SignupScreen from "./src/screens/Signup";
 import LanguageSelectionScreen from "./src/screens/LanguageSelection";
 import OtpScreen from "./src/screens/Otp";
@@ -20,16 +20,9 @@ import Constant from "./src/utils/Constant";
 import client from "./src/utils/ApolloClient";
 import CustomDrawer from "./src/screens/common/CustomDrawer";
 import HomeStackComponent from "./src/stacks/HomeStack";
-import Login from "./src/screens/Login";
-import WebViews from "./src/components/WebViews";
-// import * as SplashScreen from "expo-splash-screen";
-import GraphqlQuery from "./src/utils/GraphqlQuery";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Signin from "./src/screens/Signin";
-
 import { fcmService } from "./src/FCM/FCMService";
 import { localNotificationService } from "./src/FCM/LocalNotificationService";
-import { Platform } from "react-native";
 
 Common.setTranslationInit();
 
@@ -42,7 +35,7 @@ const DrawerScreen = () => (
       name={Constant.navHomeStack}
       component={HomeStackComponent}
     />
-    {/* <Drawer.Screen name={Constant.navDesign} component={DesignScreen} /> */}
+    {/* <Drawer.Screen name={Constant.navDesign} component={DesignStack} /> */}
   </Drawer.Navigator>
 );
 

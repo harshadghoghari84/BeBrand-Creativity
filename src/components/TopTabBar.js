@@ -1,3 +1,5 @@
+import { toJS } from "mobx";
+import { inject, observer } from "mobx-react";
 import React, { Component, useEffect, useState } from "react";
 import {
   Text,
@@ -7,19 +9,37 @@ import {
   Image,
   StyleSheet,
   Animated,
+  SafeAreaView,
+  ActivityIndicator,
+  StatusBar,
+  Platform,
 } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import Color from "../utils/Color";
 import Common from "../utils/Common";
+import Constant from "../utils/Constant";
+import Button from "./Button";
+import Icon from "./svgIcons";
 
-const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
+const TopTabBar = ({
+  navigation,
+  navigationState,
+  isShadow,
+  isBgcColor,
+  isDownload,
+  designStore,
+  isBackVisible,
+}) => {
   const isMountedRef = Common.useIsMountedRef();
 
   const [data, setData] = useState(navigationState.routeNames);
   const [active, setActive] = useState(0);
   const [xTab, setxTab] = useState([]);
   const [translateX, settranslateX] = useState(new Animated.Value(0));
+
+  const isDownloadingP = toJS(designStore.isDownloadStartedPersonal);
+  const isDownloadingB = toJS(designStore.isDownloadStartedBusiness);
 
   useEffect(() => {
     setxTab(navigationState.routeNames.map((item) => 0));
@@ -53,9 +73,11 @@ const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
     return (
       <View
         style={{
-          overflow: "hidden",
           height: 50,
-          backgroundColor: isBgcColor ? Color.white : Color.white,
+          backgroundColor: Color.white,
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
           shadowColor: Color.black,
           shadowOffset: {
             width: 0,
@@ -64,10 +86,18 @@ const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
           shadowOpacity: 0.22,
           shadowRadius: 2.22,
           elevation: 3,
-          alignItems: "center",
-          justifyContent: "center",
+          borderBottomColor: Color.txtIntxtcolor,
+          borderBottomWidth: 1,
         }}
       >
+        {isBackVisible === true && (
+          <TouchableOpacity
+            style={styles.icons}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+          </TouchableOpacity>
+        )}
         {/* <View
           style={[
             isShadow ? styles.shadow : null,
@@ -78,11 +108,12 @@ const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
         > */}
         <View
           style={{
-            marginLeft: "auto",
-            marginRight: "auto",
+            // marginLeft: "auto",
+            // marginRight: "auto",
             backgroundColor: Color.txtInBgColor,
             padding: 3,
             borderRadius: 50,
+            marginHorizontal: 100,
           }}
         >
           <View style={styles.selecteTabs}>
@@ -99,6 +130,7 @@ const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
             {data.map((item, index) => {
               return (
                 <TouchableOpacity
+                  key={index}
                   disabled={navigationState.index == index}
                   onLayout={(event) => {
                     const currentTab = xTab;
@@ -135,12 +167,53 @@ const TopTabBar = ({ navigation, navigationState, isShadow, isBgcColor }) => {
           </View>
         </View>
         {/* </View> */}
+
+        {isDownload && (
+          <TouchableOpacity
+            style={{ position: "absolute", right: 20 }}
+            onPress={() => {
+              if (data[navigationState.index] === Constant.navPersonalProfile) {
+                designStore.setIsDownloadStartedPersonal(true);
+              } else {
+                designStore.setIsDownloadStartedBusiness(true);
+              }
+            }}
+          >
+            {(isDownloadingP && isDownloadingP === true) ||
+            (isDownloadingB && isDownloadingB === true) ? (
+              <ActivityIndicator size={18} color={Color.darkBlue} />
+            ) : (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <Icon
+                  name="download"
+                  height={14}
+                  width={14}
+                  fill={Color.grey}
+                />
+                <Text style={{ color: Color.grey, fontFamily: "Nunito-Light" }}>
+                  save
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
 
   const renderMainview = () => {
-    return <View>{renderTop()}</View>;
+    return (
+      <SafeAreaView style={{ backgroundColor: Color.white }}>
+        {isDownload && (
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={Color.white}
+            translucent={Platform.OS === "ios" ? true : false}
+          />
+        )}
+        {renderTop()}
+      </SafeAreaView>
+    );
   };
 
   return renderMainview();
@@ -159,11 +232,10 @@ const styles = StyleSheet.create({
   },
   selecteTabs: {
     height: 30,
-    width: "50%",
+    // width: "50%",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 50,
-    position: "relative",
   },
   tabsView: {
     color: Color.white,
@@ -183,5 +255,10 @@ const styles = StyleSheet.create({
     // shadowRadius: 2.22,
     // elevation: 3,
   },
+  icons: {
+    position: "absolute",
+    left: 20,
+  },
 });
-export default TopTabBar;
+// export default TopTabBar;
+export default inject("designStore", "userStore")(observer(TopTabBar));

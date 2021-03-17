@@ -306,7 +306,7 @@ const PopUp = ({
                   <Text
                     style={{
                       marginLeft: 10,
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: "800",
                       color: Color.black,
                     }}
@@ -316,15 +316,23 @@ const PopUp = ({
                 </View>
               </View>
 
-              <Text style={{ paddingHorizontal: 10, color: Color.grey }}>
+              <Text
+                style={{
+                  paddingHorizontal: 10,
+                  color: Color.grey,
+                  fontSize: 12,
+                  fontFamily: "Nunito-Regular",
+                }}
+              >
                 {msgItm.body}
               </Text>
               <Text
                 style={{
-                  color: Color.txtIntxtcolor,
+                  color: Color.grey,
                   fontSize: 10,
                   paddingHorizontal: 10,
                   paddingVertical: 5,
+                  fontFamily: "Nunito-Light",
                 }}
               >
                 {itmDate}
@@ -464,60 +472,57 @@ const PopUp = ({
           </View>
         )}
         {isfree && (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => toggleVisible()}
-              style={styles.btnClose}
-            >
-              <ICON name="close" size={22} color={Color.darkBlue} />
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <View>
+          <View style={styles.mainView}>
+            <View style={styles.innerView}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 18,
                     fontWeight: "700",
-                    marginBottom: 10,
+                    paddingLeft: 20,
                   }}
                 >
                   {Common.getTranslation(LangKey.labPurchasePremiumPkg)}
                 </Text>
+                <TouchableOpacity
+                  onPress={() => toggleVisible()}
+                  style={styles.btnClose}
+                >
+                  <ICON name="close" size={22} color={Color.darkBlue} />
+                </TouchableOpacity>
               </View>
-              <FastImage
-                source={require("../assets/img/Select.png")}
-                resizeMode={FastImage.resizeMode.contain}
-                style={{ height: 100, width: 100 }}
-              />
-              <View
-                style={{
-                  marginTop: 10,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Button
-                  style={{ margin: 5 }}
-                  normal={true}
-                  onPress={() => {
-                    toggleVisible();
-                    navigation.navigate(Constant.navPro, {
-                      screen: Constant.titFree,
-                    });
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <FastImage
+                  source={require("../assets/img/Select.png")}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={{ height: 100, width: 100, margin: 10 }}
+                />
+                <View
+                  style={{
+                    marginTop: 10,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
                 >
-                  {Common.getTranslation(LangKey.labFree)}
-                </Button>
+                  <Button
+                    style={{ margin: 5 }}
+                    normal={true}
+                    onPress={() => {
+                      navigation.navigate(Constant.navPro, {
+                        screen: Constant.titFree,
+                      });
+                      toggleVisible();
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labPackage)}
+                  </Button>
+                </View>
               </View>
             </View>
           </View>

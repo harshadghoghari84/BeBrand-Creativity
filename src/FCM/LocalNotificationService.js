@@ -122,7 +122,7 @@ class LocalNotificationService {
       id: id,
       channelId: options.channelId,
       autoCancel: true,
-      largeIcon: "ic_launcher",
+      largeIcon: "",
       smallIcon: "ic_notification",
       bigPictureUrl: options.bigPictureUrl,
       bigText: message || "",
