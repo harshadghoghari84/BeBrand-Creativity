@@ -74,23 +74,7 @@ const TopTabBar = ({
   const renderTop = () => {
     return (
       <View
-        style={{
-          height: 50,
-          backgroundColor: Color.white,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-          shadowColor: Color.black,
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.22,
-          shadowRadius: 2.22,
-          elevation: 3,
-          borderBottomColor: Color.txtIntxtcolor,
-          borderBottomWidth: 1,
-        }}
+        style={[styles.container, Platform.OS === "android" && styles.shadow]}
       >
         {isBackVisible === true && (
           <TouchableOpacity
@@ -207,7 +191,12 @@ const TopTabBar = ({
 
   const renderMainview = () => {
     return (
-      <SafeAreaView style={{ backgroundColor: Color.white }}>
+      <SafeAreaView
+        style={[
+          { backgroundColor: Color.white },
+          Platform.OS === "ios" && styles.shadow,
+        ]}
+      >
         {isDownload && (
           <StatusBar
             barStyle="dark-content"
@@ -224,6 +213,15 @@ const TopTabBar = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    height: 50,
+    backgroundColor: Color.white,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    borderBottomColor: Color.txtIntxtcolor,
+    borderBottomWidth: 1,
+  },
   mainView: {
     width: "100%",
   },
@@ -247,17 +245,14 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   shadow: {
-    backgroundColor: Color.white,
-    width: "100%",
-    // height: 50,
-    // shadowColor: Color.black,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 1,
-    // },
-    // shadowOpacity: 0.22,
-    // shadowRadius: 2.22,
-    // elevation: 3,
+    shadowColor: Color.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   icons: {
     position: "absolute",

@@ -1788,7 +1788,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const colorCode = () => {
     return (
-      <View style={{ width: "95%" }}>
+      <View style={{ width: "94%" }}>
         <FlatList
           contentContainerStyle={styles.colorCodeList}
           data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
@@ -1841,7 +1841,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             }}
           >
             <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
-              {Common.getTranslation(LangKey.FooterColor)}
+              {Common.getTranslation(LangKey.FontColor)}
             </Text>
             <View
               style={{
@@ -2358,11 +2358,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => {
                     if (user && user !== null) {
-                      navigation.dispatch(
-                        StackActions.replace(Constant.navProfile, {
-                          title: Constant.titBusinessProfile,
-                        })
-                      );
+                      navigation.navigate(Constant.navProfile, {
+                        title: Constant.titBusinessProfile,
+                      });
                     } else {
                       Common.showMessage(
                         Common.getTranslation(LangKey.msgCreateAccEdit)
@@ -2387,12 +2385,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   isVertical={true}
                   onPress={() => {
-                    if (currentDesign.id === curDesign.id) {
-                      onReset();
-                    } else {
-                      setCurrentDesign(curDesign);
-                    }
+                    // if (currentDesign.id === curDesign.id) {
+                    //   onReset();
+                    // } else {
+                    //   setCurrentDesign(curDesign);
+                    // }
+                    onReset();
                     fiilterLayouts();
+                    setSelectedPicker(false);
                   }}
                   icon={
                     <Icon
