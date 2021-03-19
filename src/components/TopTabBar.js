@@ -40,6 +40,8 @@ const TopTabBar = ({
 
   const isDownloadingP = toJS(designStore.isDownloadStartedPersonal);
   const isDownloadingB = toJS(designStore.isDownloadStartedBusiness);
+  const isPersonalDesignLoad = toJS(designStore.isPersonalDesignLoad);
+  const isBusinessDesignLoad = toJS(designStore.isBusinessDesignLoad);
 
   useEffect(() => {
     setxTab(navigationState.routeNames.map((item) => 0));
@@ -180,7 +182,9 @@ const TopTabBar = ({
             }}
           >
             {(isDownloadingP && isDownloadingP === true) ||
-            (isDownloadingB && isDownloadingB === true) ? (
+            (isDownloadingB && isDownloadingB === true) ||
+            isPersonalDesignLoad === true ||
+            isBusinessDesignLoad === true ? (
               <ActivityIndicator size={18} color={Color.darkBlue} />
             ) : (
               <View style={{ alignItems: "center", justifyContent: "center" }}>

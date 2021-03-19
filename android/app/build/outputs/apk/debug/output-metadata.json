@@ -8,52 +8,11 @@
   "variantName": "processDebugResources",
   "elements": [
     {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86_64"
-        }
-      ],
-      "versionCode": 4194306,
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 2,
       "versionName": "1.0.1",
-      "outputFile": "app-x86_64-debug.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86"
-        }
-      ],
-      "versionCode": 2097154,
-      "versionName": "1.0.1",
-      "outputFile": "app-x86-debug.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "arm64-v8a"
-        }
-      ],
-      "versionCode": 3145730,
-      "versionName": "1.0.1",
-      "outputFile": "app-arm64-v8a-debug.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "armeabi-v7a"
-        }
-      ],
-      "versionCode": 1048578,
-      "versionName": "1.0.1",
-      "outputFile": "app-armeabi-v7a-debug.apk"
+      "outputFile": "app-debug.apk"
     }
   ]
 }

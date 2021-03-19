@@ -88,21 +88,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
   const [userDataBussiness, setUserDataBussiness] = useState();
-
   const [layouts, setLayouts] = useState([]);
-
   const [currentLayout, setCurrentLayout] = useState(null);
-
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
   const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
-  const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
-  const [selected, setSelected] = useState(0);
   const isMountedRef = Common.useIsMountedRef();
 
   const fiilterLayouts = () => {
@@ -163,7 +158,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           (ele.designType === Constant.designTypeBUSINESS ||
             ele.designType === Constant.designTypeALL)
       );
-
       setDesigns(filterArr);
     }
   }, []);
@@ -361,30 +355,36 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   //     </TouchableOpacity>
   //   );
   // };
+
   const plusBTN = () => {
     return (
-      <View
-        style={[
-          styles.plusButton,
-          {
-            borderColor: selectedPicker ? Color.primary : null,
-            borderWidth: selectedPicker ? 2 : null,
-          },
-        ]}
-      >
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => {
-            setVisiblePicker(true);
-          }}
-          style={{
-            backgroundColor: Color.txtIntxtcolor,
-            padding: 5,
-            borderRadius: 20,
-          }}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
+          {Common.getTranslation(LangKey.LayoutColor)}
+        </Text>
+        <View
+          style={[
+            styles.plusButton,
+            {
+              borderColor: selectedPicker ? Color.primary : null,
+              borderWidth: selectedPicker ? 2 : null,
+            },
+          ]}
         >
-          <Icon name="plus" fill={Color.white} height={13} width={13} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              setVisiblePicker(true);
+            }}
+            style={{
+              backgroundColor: Color.txtIntxtcolor,
+              padding: 5,
+              borderRadius: 20,
+            }}
+          >
+            <Icon name="plus" fill={Color.white} height={13} width={13} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -838,8 +838,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -989,8 +989,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1375,8 +1375,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1459,8 +1459,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layLeftImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1615,8 +1615,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1704,8 +1704,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
         source={{ uri: userDataBussiness.image }}
         style={styles.layRightImgLogo}
         resizeMode={FastImage.resizeMode.contain}
@@ -1840,6 +1840,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               paddingBottom: 10,
             }}
           >
+            <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
+              {Common.getTranslation(LangKey.FooterColor)}
+            </Text>
             <View
               style={{
                 height: 28,
@@ -2172,8 +2175,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               >
                 <View style={{ flex: 1 }}>
                   <FastImage
-                    onLoadStart={() => setIsdesignImageLoad(true)}
-                    onLoadEnd={() => setIsdesignImageLoad(false)}
+                    onLoadStart={() =>
+                      designStore.setIsBusinessDesignLoad(true)
+                    }
+                    onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
                     source={{
                       uri: currentDesign.designImage.url,
                     }}

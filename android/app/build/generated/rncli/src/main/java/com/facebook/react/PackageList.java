@@ -33,6 +33,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-iap
 import com.dooboolab.RNIap.RNIapPackage;
+// react-native-in-app-review
+import com.ibits.react_native_in_app_review.AppReviewPackage;
 // react-native-push-notification
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 // react-native-rate
@@ -111,6 +113,7 @@ public class PackageList {
       new FBSDKPackage(),
       new RNGestureHandlerPackage(),
       new RNIapPackage(),
+      new AppReviewPackage(),
       new ReactNativePushNotificationPackage(),
       new RNRatePackage(),
       new ReanimatedPackage(),

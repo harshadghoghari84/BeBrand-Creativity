@@ -37,6 +37,7 @@ import {
   websiteValidatorPro,
 } from "../../utils/Validator";
 import Constant from "../../utils/Constant";
+import { FileSystem } from "react-native-unimodules";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -201,21 +202,28 @@ const PersonalProfile = ({ navigation, userStore }) => {
       quality: 1,
     });
 
-    try {
-      if (!result.cancelled) {
-        const file = generateRNFile(result.uri, `${Date.now()}`);
-        const { data, errors } = await addPersonalImage({
-          variables: { image: file },
-        });
+    let fileInfo = await FileSystem.getInfoAsync(result.uri);
 
-        if (!errors) {
-          userStore.addPersonalImage(data.addPersonalImage);
-        } else {
-          Common.showMessage(errors[0].message);
+    if (fileInfo.size > Constant.profileImageSize) {
+      Common.showMessage(Common.getTranslation(LangKey.labProfileImageSize));
+    } else {
+      try {
+        if (!result.cancelled) {
+          const file = generateRNFile(result.uri, `${Date.now()}`);
+
+          const { data, errors } = await addPersonalImage({
+            variables: { image: file },
+          });
+
+          if (!errors) {
+            userStore.addPersonalImage(data.addPersonalImage);
+          } else {
+            Common.showMessage(errors[0].message);
+          }
         }
+      } catch (error) {
+        console.log("error", error);
       }
-    } catch (error) {
-      console.log("error", error);
     }
   };
 
@@ -375,6 +383,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
           visible={modalVisible}
           toggleVisible={toggleVisible}
           isfree={true}
+          isGoback={true}
         />
         {/* {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>

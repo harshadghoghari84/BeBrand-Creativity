@@ -6,7 +6,7 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
-
+import android.view.WindowManager;
 // import expo.modules.splashscreen.singletons.SplashScreen;
 // import expo.modules.splashscreen.SplashScreenImageResizeMode;
 
@@ -21,6 +21,7 @@ public class MainActivity extends ReactActivity {
 //    SplashScreen.show(this, SplashScreenImageResizeMode.COVER, false);
 //    SplashScreen.show(this, SplashScreenImageResizeMode.COVER, ReactRootView.class, false);
         SplashScreen.show(this, R.style.SplashScreenTheme);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
   }
 
 

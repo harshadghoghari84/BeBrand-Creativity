@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Platform } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
@@ -20,7 +20,8 @@ const Splash = ({ navigation, userStore }) => {
 
   let loading = false;
   useEffect(() => {
-    console.log("useEffect splash called");
+    Platform.OS === "ios" && SplashScreen.hide();
+
     loading = true;
     // SplashScreen.preventAutoHideAsync()
     //   .then((result) => {
@@ -65,7 +66,7 @@ const Splash = ({ navigation, userStore }) => {
     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
     // await SplashScreen.hideAsync();
     console.log("openScreen ");
-    SplashScreen.hide();
+    Platform.OS === "android" && SplashScreen.hide();
   };
   // !loading && isTimerRunning === false && openScreen();
 
@@ -85,12 +86,13 @@ const Splash = ({ navigation, userStore }) => {
   const renderMainView = () => {
     return (
       <View style={styles.container}>
-        {/* <FastImage
-          source={require("../assets/img/splash.jpg")}
-          // source={require("../assets/img/splashscreen_image.gif")}
-          style={styles.logoImg}
-          resizeMode={FastImage.resizeMode.cover}
-        /> */}
+        {Platform.OS === "ios" && (
+          <FastImage
+            source={require("../assets/img/splash_image.gif")}
+            style={styles.logoImg}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        )}
       </View>
     );
   };
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Color.transparent,
+    backgroundColor: Color.splashColor,
   },
   round: {
     height: 800,

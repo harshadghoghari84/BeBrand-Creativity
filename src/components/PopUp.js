@@ -57,6 +57,7 @@ const PopUp = ({
   itmDate,
   iconName,
   userStore,
+  isGoback,
 }) => {
   // const user = toJS(userStore.user);
   const navigation = useNavigation();
@@ -514,9 +515,11 @@ const PopUp = ({
                     style={{ margin: 5 }}
                     normal={true}
                     onPress={() => {
-                      navigation.navigate(Constant.navPro, {
+                      const obj = {
                         screen: Constant.titFree,
-                      });
+                      };
+                      isGoback && (obj.isGoback = true);
+                      navigation.navigate(Constant.navPro, obj);
                       toggleVisible();
                     }}
                   >

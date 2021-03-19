@@ -7,16 +7,19 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
-
-import PopUp from "../components/PopUp";
-import Color from "./Color";
 import Rate, { AndroidMarket } from "react-native-rate";
-import Constant from "./Constant";
-import Button from "../components/Button";
-import Icon from "../components/svgIcons";
 import FastImage from "react-native-fast-image";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
+import InAppReview from "react-native-in-app-review";
+
+// relative path
+
+import Color from "./Color";
+import Constant from "./Constant";
+import Button from "../components/Button";
+import Common from "./Common";
+import LangKey from "./LangKey";
 
 const Ratings = ({
   toggleforRating,
@@ -54,7 +57,7 @@ const Ratings = ({
           marginVertical: 5,
         }}
       >
-        Share your experience
+        {Common.getTranslation(LangKey.shareYourExperiance)}
       </Text>
       <Text
         style={{
@@ -64,7 +67,7 @@ const Ratings = ({
           color: Color.darkBlue,
         }}
       >
-        we love to hear from you !!
+        {Common.getTranslation(LangKey.weLoveToHearFromYou)}
       </Text>
 
       <View style={{ alignItems: "center" }}>
@@ -75,8 +78,17 @@ const Ratings = ({
         />
       </View>
       <View style={{ marginBottom: 10 }}>
-        <Button onPress={() => open_Store()} big={true}>
-          I love it !!
+        <Button
+          onPress={() => {
+            if (InAppReview.isAvailable()) {
+              InAppReview.RequestInAppReview();
+            }
+            toggleforRating();
+            //  open_Store()
+          }}
+          big={true}
+        >
+          {Common.getTranslation(LangKey.IloveIt)}
         </Button>
         {user && user !== null && (
           <Button
@@ -86,7 +98,7 @@ const Ratings = ({
             }}
             border={true}
           >
-            It needs to be improved
+            {Common.getTranslation(LangKey.itNeedsToBeImproved)}
           </Button>
         )}
       </View>

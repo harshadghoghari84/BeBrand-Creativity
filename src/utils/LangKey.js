@@ -27,6 +27,7 @@ module.exports = {
   labAvDate: "labAvDate",
   labState: "labState",
   labCity: "labCity",
+  labProfileImageSize: "labProfileImageSize",
 
   // user screen
   labMobile: "labMobile",
@@ -52,6 +53,8 @@ module.exports = {
   txtCreateAccount: "txtCreateAccount",
   labUploadingImage: "labUploadingImage",
   labsSaving: "labsSaving",
+  LayoutColor: "LayoutColor",
+  FooterColor: "FooterColor",
 
   // error validator messages
   errorMobileNo: "errorMobileNo",
@@ -146,6 +149,10 @@ module.exports = {
   labUpdateWhatsApp: "labUpdateWhatsApp",
   labStayonWp: "labStayonWp",
   labUnsubscribeNoti: "labUnsubscribeNoti",
+  shareYourExperiance: "shareYourExperiance",
+  weLoveToHearFromYou: "weLoveToHearFromYou",
+  IloveIt: "IloveIt",
+  itNeedsToBeImproved: "itNeedsToBeImproved",
 
   // signin
   labLoading: "labLoading",

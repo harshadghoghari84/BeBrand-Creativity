@@ -47,9 +47,9 @@ import { color } from "react-native-reanimated";
 
 let isGetProducts = false;
 
-const Packages = ({ navigation, designStore, userStore }) => {
+const Packages = ({ navigation, designStore, userStore, route }) => {
   const user = toJS(userStore.user);
-
+  const { isGoback } = route.params;
   let itemSkus = {};
   const isMountedRef = Common.useIsMountedRef();
 
@@ -198,6 +198,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
                     Common.showMessage(
                       Common.getTranslation(LangKey.msgPkgPurchaseSucess)
                     );
+                    isGoback && navigation.goBack();
                   }
                 })
                 .catch((err) => {

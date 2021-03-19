@@ -4,26 +4,14 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Platform,
-  ToastAndroid,
-  Image,
   TextInput as TEXTINPUT,
   ScrollView,
   SafeAreaView,
 } from "react-native";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
-import {
-  GoogleSignin,
-  statusCodes,
-} from "@react-native-community/google-signin";
-import {
-  AccessToken,
-  GraphRequest,
-  GraphRequestManager,
-  LoginManager,
-} from "react-native-fbsdk";
+import { GoogleSignin } from "@react-native-community/google-signin";
+import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { inject, observer } from "mobx-react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import auth from "@react-native-firebase/auth";
@@ -332,7 +320,12 @@ const RegisterScreen = ({ userStore }) => {
           message={Common.getTranslation(LangKey.labLoading)}
         />
         <Logo />
-
+        <TouchableOpacity
+          style={styles.icons}
+          onPress={() => navigation.goBack()}
+        >
+          <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+        </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <Text
             style={{
@@ -657,5 +650,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
+  },
+  icons: {
+    position: "absolute",
+    left: 25,
+    top: 20,
   },
 });

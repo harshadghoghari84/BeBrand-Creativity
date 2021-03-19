@@ -354,7 +354,14 @@ const SignInScreen = ({ userStore }) => {
           color={Color.white}
           message={Common.getTranslation(LangKey.labLoading)}
         />
+
         <Logo />
+        <TouchableOpacity
+          style={styles.icons}
+          onPress={() => navigation.goBack()}
+        >
+          <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+        </TouchableOpacity>
         <View style={{ flex: 1 }}>
           {!isForgotPass && (
             <Text
@@ -677,6 +684,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
+  },
+  icons: {
+    position: "absolute",
+    left: 25,
+    top: 20,
   },
 });
 

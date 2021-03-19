@@ -21,20 +21,20 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/res/values-it/values.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/res/values-it/values.xml",
                     "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "245,348,531,654,760,977,1103,1249,1378,1594,1699,1884,2009,2224,2431,2524,2611",
-                        "endColumns": "102,182,122,105,216,125,145,128,215,104,184,124,214,206,92,86,101",
-                        "endOffsets": "347,530,653,759,976,1102,1248,1377,1593,1698,1883,2008,2223,2430,2523,2610,2712"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "194",
+                        "endOffsets": "441"
                     },
                     "to": {
-                        "startLines": "52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,69",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "5389,5496,5679,5806,5916,6133,6263,6413,6741,6957,7066,7251,7380,7595,7806,7903,7994",
-                        "endColumns": "106,182,126,109,216,129,149,132,215,108,184,128,214,210,96,90,105",
-                        "endOffsets": "5491,5674,5801,5911,6128,6258,6408,6541,6952,7061,7246,7375,7590,7801,7898,7989,8095"
+                        "startLines": "60",
+                        "startColumns": "4",
+                        "startOffsets": "6546",
+                        "endColumns": "194",
+                        "endOffsets": "6736"
                     }
                 },
                 {
@@ -89,20 +89,20 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/res/values-it/values.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/res/values-it/values.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "194",
-                        "endOffsets": "441"
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "245,348,531,654,760,977,1103,1249,1378,1594,1699,1884,2009,2224,2431,2524,2611",
+                        "endColumns": "102,182,122,105,216,125,145,128,215,104,184,124,214,206,92,86,101",
+                        "endOffsets": "347,530,653,759,976,1102,1248,1377,1593,1698,1883,2008,2223,2430,2523,2610,2712"
                     },
                     "to": {
-                        "startLines": "60",
-                        "startColumns": "4",
-                        "startOffsets": "6546",
-                        "endColumns": "194",
-                        "endOffsets": "6736"
+                        "startLines": "52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,69",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "5389,5496,5679,5806,5916,6133,6263,6413,6741,6957,7066,7251,7380,7595,7806,7903,7994",
+                        "endColumns": "106,182,126,109,216,129,149,132,215,108,184,128,214,210,96,90,105",
+                        "endOffsets": "5491,5674,5801,5911,6128,6258,6408,6541,6952,7061,7246,7375,7590,7801,7898,7989,8095"
                     }
                 },
                 {
