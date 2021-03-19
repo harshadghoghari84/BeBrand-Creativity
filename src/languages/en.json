@@ -132,6 +132,12 @@
   "labPremium":"Premium",
   "labActive":"Active",
   "labExpired":"Expired",
+  "shareYourExperiance":"Share your experiance",
+  "weLoveToHearFromYou":"we love to hear from you !!",
+  "IloveIt":"I love it !!",
+  "LayoutColor":"Layout color",
+  "FooterColor":"Footer color",
+  "labProfileImageSize":"Please select less then 2mb size picture",
 
   "nolayout":"Please enter all required details to get this layout .",
   "nolayoutBussiness":"Please enter all required details to get this layout .",

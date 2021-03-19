@@ -25,8 +25,9 @@ import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
 
-const Packages = ({ navigation, designStore, userStore }) => {
+const Packages = ({ navigation, designStore, userStore, route }) => {
   const isMountedRef = Common.useIsMountedRef();
+  const { isGoback } = route.params;
 
   const [user, setUser] = useState();
   const [filteredData, setFilteredData] = useState([]);
@@ -86,6 +87,7 @@ const Packages = ({ navigation, designStore, userStore }) => {
               Common.showMessage(
                 Common.getTranslation(LangKey.msgPkgPurchaseSucess)
               );
+              isGoback && navigation.goBack();
             }
           })
           .catch((err) => {

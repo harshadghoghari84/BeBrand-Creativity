@@ -11,6 +11,12 @@ import Constant from "../../utils/Constant";
 const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = ({ route }) => {
+  console.log(
+    "route?.params?.title",
+    route?.params?.isGoback &&
+      route?.params?.isGoback !== null &&
+      route.params.isGoback
+  );
   return (
     <Tab.Navigator
       initialRouteName={
@@ -20,8 +26,26 @@ const MyTabs = ({ route }) => {
       }
       tabBar={(props) => <TopTabBar {...props} arr={2} isShadow={true} />}
     >
-      <Tab.Screen name={Constant.titFree} component={FreePkg} />
-      <Tab.Screen name={Constant.titPrimium} component={PremiumPkg} />
+      <Tab.Screen
+        name={Constant.titFree}
+        component={FreePkg}
+        initialParams={{
+          isGoback:
+            route?.params?.isGoback && route?.params?.isGoback !== null
+              ? route.params.isGoback
+              : null,
+        }}
+      />
+      <Tab.Screen
+        name={Constant.titPrimium}
+        component={PremiumPkg}
+        initialParams={{
+          isGoback:
+            route?.params?.isGoback && route?.params?.isGoback !== null
+              ? route.params.isGoback
+              : null,
+        }}
+      />
     </Tab.Navigator>
   );
 };

@@ -54,6 +54,7 @@ export default {
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
   splashTime: 3000,
 
+  profileImageSize: 2000000,
   defLangCode: "en",
   defUserName: "Guest",
   prfUserToken: "userToken",

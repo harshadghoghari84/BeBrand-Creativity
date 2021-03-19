@@ -55,24 +55,7 @@
                     }
                 },
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/res/values-sr/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "188",
-                        "endOffsets": "435"
-                    },
-                    "to": {
-                        "startLines": "37",
-                        "startColumns": "4",
-                        "startOffsets": "3984",
-                        "endColumns": "188",
-                        "endOffsets": "4168"
-                    }
-                },
-                {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/res/values-sr/values.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/res/values-sr/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -86,6 +69,23 @@
                         "startOffsets": "2833,2941,3129,3257,3369,3582,3711,3853,4173,4381,4490,4681,4810,5018,5190,5288,5383",
                         "endColumns": "107,187,127,111,212,128,141,130,207,108,190,128,207,171,97,94,108",
                         "endOffsets": "2936,3124,3252,3364,3577,3706,3848,3979,4376,4485,4676,4805,5013,5185,5283,5378,5487"
+                    }
+                },
+                {
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/res/values-sr/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "188",
+                        "endOffsets": "435"
+                    },
+                    "to": {
+                        "startLines": "37",
+                        "startColumns": "4",
+                        "startOffsets": "3984",
+                        "endColumns": "188",
+                        "endOffsets": "4168"
                     }
                 },
                 {

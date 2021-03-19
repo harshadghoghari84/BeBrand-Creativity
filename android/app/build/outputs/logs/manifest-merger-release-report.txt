@@ -4,6 +4,9 @@ ADDED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifes
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:1:1-45:12
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:1:1-45:12
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:1:1-45:12
+MERGED from [:react-native-in-app-review] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-in-app-review/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:2:1-19:12
 MERGED from [:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
 MERGED from [:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-45:12
 MERGED from [:react-native-firebase_app] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
@@ -21,7 +24,6 @@ MERGED from [:react-native-community_masked-view] /Users/bebrandd1/Desktop/bebra
 MERGED from [:react-native-fast-image] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-gesture-handler] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-push-notification] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-push-notification/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
-MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-reanimated] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-safe-area-context] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-screens/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
@@ -87,8 +89,8 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/bebra
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/fa980fc1eafc672c9d279bd98c5272e5/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.exifinterface:exifinterface:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/9e7a6df2a519ba61f8c79324e1b52085/transformed/exifinterface-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:17:1-40:12
-MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:17:1-83:12
 MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/00a7a79af36465789a1592f47b9f2461/transformed/jetified-play-services-location-16.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:17:1-83:12
 MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/ded7383ff8e959e2c01daeac15d99075/transformed/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/8a78c012632e7b2e3436b2dcdab51527/transformed/jetified-play-services-auth-api-phone-17.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/13d683647328fa40aabeefba28e78088/transformed/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:17:1-24:12
@@ -96,21 +98,21 @@ MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /Users/bebrandd1/
 MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/30839531f0666acdb7ffe88015d226cb/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:17:1-45:12
 MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/ce293c3630a611f69eea3816c44a3076/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:17:1-47:12
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/49965e5ed848777712923db24d29055e/transformed/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml:2:1-10:12
-MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/AndroidManifest.xml:17:1-31:12
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1bce2c0f267285657f95c62b50ef1aaa/transformed/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/659e5daea200e2507e15e116c291f20b/transformed/jetified-play-services-measurement-sdk-api-18.0.2/AndroidManifest.xml:17:1-27:12
 MERGED from [com.google.android.gms:play-services-measurement-base:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/27905fba9df9f374e37ab8282001b194/transformed/jetified-play-services-measurement-base-18.0.2/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/d37bc8863eb93b6dc2ce23d601000512/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:2:1-24:12
 MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:15:1-34:12
 MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:15:1-49:12
 MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/cf6845b3de65344a066a1f89d2bae5d8/transformed/jetified-firebase-installations-interop-16.0.1/AndroidManifest.xml:15:1-23:12
 MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/62aba2b0e973b26363b672c1df03f3e2/transformed/jetified-play-services-cloud-messaging-16.0.0/AndroidManifest.xml:2:1-13:12
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1ed0f3f5d48d9b960ef2ba30361b85fb/transformed/jetified-play-services-tasks-17.0.0/AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:17:1-25:12
-MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/9516e597869482e28c5f6a7dd8e63da9/transformed/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/659fa049c359da9137e59984686f1034/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment:1.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/53770c39bf4c2a88c480b0cc2f7f5f5c/transformed/fragment-1.2.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/4e2e8141e4406083452fd7b16347e62f/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -161,7 +163,6 @@ MERGED from [pl.droidsonroids.relinker:relinker:1.4.1] /Users/bebrandd1/.gradle/
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-3/d54b5d9e318a72d54d21e8a658ce66dd/transformed/jetified-installreferrer-1.0/AndroidManifest.xml:2:1-13:12
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:2:1-30:12
 MERGED from [me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:2:1-52:12
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:2:1-19:12
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/b2fc65399bf3e9bf6ab64856b2b00aa1/transformed/jetified-fbcore-2.0.0/AndroidManifest.xml:2:1-9:12
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:1:1-45:12
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:1:1-45:12
@@ -248,6 +249,8 @@ MERGED from [com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/c
 		ADDED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:7:20-62
 application
 ADDED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:9:3-44:17
+MERGED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:10:3-17:17
+MERGED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:10:3-17:17
 MERGED from [:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:5-43:19
 MERGED from [:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:5-43:19
 MERGED from [com.google.firebase:firebase-analytics:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/1ca3a20848c0b1ded028838d92adf5b2/transformed/jetified-firebase-analytics-18.0.2/AndroidManifest.xml:7:5-20
@@ -306,10 +309,10 @@ MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradl
 MERGED from [com.google.android.material:material:1.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/1a0245b80bcb43206861625e1ef7defa/transformed/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:22:5-38:19
 MERGED from [com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:22:5-38:19
-MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:26:5-81:19
-MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/00a7a79af36465789a1592f47b9f2461/transformed/jetified-play-services-location-16.0.0/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/00a7a79af36465789a1592f47b9f2461/transformed/jetified-play-services-location-16.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:26:5-81:19
+MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/13d683647328fa40aabeefba28e78088/transformed/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/13d683647328fa40aabeefba28e78088/transformed/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/487dd37747442c76d0fd91ac67db9d2e/transformed/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:7:5-8:19
@@ -320,8 +323,8 @@ MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/c
 MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/ce293c3630a611f69eea3816c44a3076/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:28:5-45:19
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/49965e5ed848777712923db24d29055e/transformed/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/49965e5ed848777712923db24d29055e/transformed/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
-MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/AndroidManifest.xml:28:5-29:19
 MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/AndroidManifest.xml:28:5-29:19
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1bce2c0f267285657f95c62b50ef1aaa/transformed/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
@@ -330,20 +333,20 @@ MERGED from [com.google.android.gms:play-services-measurement-base:18.0.2] /User
 MERGED from [com.google.android.gms:play-services-measurement-base:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/27905fba9df9f374e37ab8282001b194/transformed/jetified-play-services-measurement-base-18.0.2/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/d37bc8863eb93b6dc2ce23d601000512/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/d37bc8863eb93b6dc2ce23d601000512/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:14:5-22:19
 MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:14:5-22:19
 MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:24:5-32:19
 MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:24:5-32:19
 MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:25:5-47:19
 MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:25:5-47:19
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1ed0f3f5d48d9b960ef2ba30361b85fb/transformed/jetified-play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1ed0f3f5d48d9b960ef2ba30361b85fb/transformed/jetified-play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
-MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
-MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
-MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:22:5-26:19
-MERGED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/9516e597869482e28c5f6a7dd8e63da9/transformed/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/9516e597869482e28c5f6a7dd8e63da9/transformed/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:24:5-28:19
 MERGED from [androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:24:5-28:19
 MERGED from [androidx.core:core:1.3.0] /Users/bebrandd1/.gradle/caches/transforms-3/3f8f70787420a220a507c94d3ea5aeba/transformed/core-1.3.0/AndroidManifest.xml:24:5-89
@@ -362,8 +365,6 @@ MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.
 MERGED from [com.android.installreferrer:installreferrer:1.0] /Users/bebrandd1/.gradle/caches/transforms-3/d54b5d9e318a72d54d21e8a658ce66dd/transformed/jetified-installreferrer-1.0/AndroidManifest.xml:11:5-20
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:18:5-28:19
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:18:5-28:19
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:10:3-17:17
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:10:3-17:17
 	android:requestLegacyExternalStorage
 		ADDED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml:9:242-285
 	android:appComponentFactory
@@ -506,6 +507,12 @@ uses-sdk
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
+MERGED from [:react-native-in-app-review] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-in-app-review/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-in-app-review] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-in-app-review/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:4:3-70
+MERGED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:4:3-70
 MERGED from [:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
@@ -540,8 +547,6 @@ MERGED from [:react-native-gesture-handler] /Users/bebrandd1/Desktop/bebrandd/no
 MERGED from [:react-native-gesture-handler] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-push-notification] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-push-notification/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-push-notification] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-push-notification/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
-MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
-MERGED from [:react-native-rate] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-rate/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-reanimated] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-reanimated] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-safe-area-context] /Users/bebrandd1/Desktop/bebrandd/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/release/AndroidManifest.xml:5:5-7:41
@@ -672,10 +677,10 @@ MERGED from [androidx.exifinterface:exifinterface:1.0.0] /Users/bebrandd1/.gradl
 MERGED from [androidx.exifinterface:exifinterface:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/9e7a6df2a519ba61f8c79324e1b52085/transformed/exifinterface-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:21:5-44
-MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:21:5-44
 MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/00a7a79af36465789a1592f47b9f2461/transformed/jetified-play-services-location-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/00a7a79af36465789a1592f47b9f2461/transformed/jetified-play-services-location-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:20.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/AndroidManifest.xml:21:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/ded7383ff8e959e2c01daeac15d99075/transformed/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/ded7383ff8e959e2c01daeac15d99075/transformed/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/8a78c012632e7b2e3436b2dcdab51527/transformed/jetified-play-services-auth-api-phone-17.4.0/AndroidManifest.xml:5:5-44
@@ -690,8 +695,8 @@ MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/c
 MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/ce293c3630a611f69eea3816c44a3076/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/49965e5ed848777712923db24d29055e/transformed/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/49965e5ed848777712923db24d29055e/transformed/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1bce2c0f267285657f95c62b50ef1aaa/transformed/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
@@ -702,6 +707,10 @@ MERGED from [com.google.android.gms:play-services-measurement-base:18.0.2] /User
 MERGED from [com.google.android.gms:play-services-measurement-base:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/27905fba9df9f374e37ab8282001b194/transformed/jetified-play-services-measurement-base-18.0.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/d37bc8863eb93b6dc2ce23d601000512/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/d37bc8863eb93b6dc2ce23d601000512/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:6:5-8:41
 MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:6:5-8:41
 MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:19:5-21:41
@@ -712,14 +721,10 @@ MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/b
 MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/cf6845b3de65344a066a1f89d2bae5d8/transformed/jetified-firebase-installations-interop-16.0.1/AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/62aba2b0e973b26363b672c1df03f3e2/transformed/jetified-play-services-cloud-messaging-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/62aba2b0e973b26363b672c1df03f3e2/transformed/jetified-play-services-cloud-messaging-16.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1ed0f3f5d48d9b960ef2ba30361b85fb/transformed/jetified-play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/1ed0f3f5d48d9b960ef2ba30361b85fb/transformed/jetified-play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/8ff4612169d74fbe1a1c27eb41aeb52a/transformed/jetified-firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/30bea95c895536a2b25964b04ec9cc03/transformed/jetified-play-services-places-placereport-16.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/9516e597869482e28c5f6a7dd8e63da9/transformed/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/9516e597869482e28c5f6a7dd8e63da9/transformed/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/659fa049c359da9137e59984686f1034/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/659fa049c359da9137e59984686f1034/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/53770c39bf4c2a88c480b0cc2f7f5f5c/transformed/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
@@ -820,8 +825,6 @@ MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/ca
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:8:5-10:41
 MERGED from [me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:7:5-9:41
 MERGED from [me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:7:5-9:41
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:4:3-70
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:4:3-70
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/b2fc65399bf3e9bf6ab64856b2b00aa1/transformed/jetified-fbcore-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/b2fc65399bf3e9bf6ab64856b2b00aa1/transformed/jetified-fbcore-2.0.0/AndroidManifest.xml:5:5-7:41
 INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
@@ -834,6 +837,46 @@ INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidMani
 		INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
 		ADDED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/bebrandd1/Desktop/bebrandd/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:8:3-74
+MERGED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:5-77
+MERGED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:5-77
+	android:name
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:8:20-72
+activity#com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity
+ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:5-271
+	android:process
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:152-203
+	android:enabled
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:103-126
+	android:stateNotNeeded
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:240-269
+	android:launchMode
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:204-239
+	android:exported
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:127-151
+	android:name
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:15-102
+activity#com.google.android.play.core.common.PlayCoreDialogWrapperActivity
+ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:5-226
+	android:enabled
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:96-119
+	android:stateNotNeeded
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:145-174
+	android:exported
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:120-144
+	android:theme
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:175-224
+	android:name
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:15-95
+service#com.google.android.play.core.assetpacks.AssetPackExtractionService
+ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:5-145
+	android:enabled
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:96-119
+	android:exported
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:120-143
+	android:name
+		ADDED from [com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:14-95
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/release/AndroidManifest.xml:12:5-68
 MERGED from [:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:12:5-68
@@ -1018,12 +1061,6 @@ MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/ca
 MERGED from [io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:14:5-79
 	android:name
 		ADDED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:12:22-76
-uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:5-77
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:8:3-74
-MERGED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:8:3-74
-	android:name
-		ADDED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:22-74
 service#expo.modules.location.services.LocationTaskService
 ADDED from [:expo-location] /Users/bebrandd1/Desktop/bebrandd/node_modules/expo-location/android/build/intermediates/library_manifest/release/AndroidManifest.xml:16:9-18:40
 	android:exported
@@ -1229,13 +1266,13 @@ ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/ca
 	android:name
 		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/bebrandd1/.gradle/caches/transforms-3/ce293c3630a611f69eea3816c44a3076/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:38:13-78
 activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:23:9-26:75
 	android:exported
-		ADDED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:25:13-37
 	android:theme
-		ADDED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:26:13-72
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:17.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a4368b0fee1d3c1b7a997c51842665d1/transformed/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:24:13-79
 meta-data#com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar
 ADDED from [com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:18:13-20:85
 	android:value
@@ -1267,11 +1304,11 @@ ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle
 	android:name
 		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
 meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:23:9-25:69
+ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:23:9-25:69
 	android:value
-		ADDED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:25:13-66
+		ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:25:13-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:17.1.1] /Users/bebrandd1/.gradle/caches/transforms-3/ea58237203a60698b0b62c772b1a3b84/transformed/jetified-play-services-basement-17.1.1/AndroidManifest.xml:24:13-58
+		ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:24:13-58
 service#androidx.room.MultiInstanceInvalidationService
 ADDED from [androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
 	android:exported
@@ -1396,37 +1433,3 @@ uses-permission#me.everything.badger.permission.BADGE_COUNT_WRITE
 ADDED from [me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:50:5-89
 	android:name
 		ADDED from [me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:50:22-86
-activity#com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity
-ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:5-271
-	android:process
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:152-203
-	android:enabled
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:103-126
-	android:stateNotNeeded
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:240-269
-	android:launchMode
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:204-239
-	android:exported
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:127-151
-	android:name
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:12:15-102
-activity#com.google.android.play.core.common.PlayCoreDialogWrapperActivity
-ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:5-226
-	android:enabled
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:96-119
-	android:stateNotNeeded
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:145-174
-	android:exported
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:120-144
-	android:theme
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:175-224
-	android:name
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:13:15-95
-service#com.google.android.play.core.assetpacks.AssetPackExtractionService
-ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:16:5-145
-	android:enabled
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:16:96-119
-	android:exported
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:16:120-143
-	android:name
-		ADDED from [com.google.android.play:core:1.8.0] /Users/bebrandd1/.gradle/caches/transforms-3/c7e800e9a6464c332d6a90b3f888e6ff/transformed/jetified-core-1.8.0/AndroidManifest.xml:16:14-95

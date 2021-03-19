@@ -212,72 +212,6 @@ const UserPackage = ({ navigation, designStore }) => {
                     </View>
                   </View>
                 </View>
-
-                {/* <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "pink",
-                  }}
-                >
-                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
-                    LangKey.txtDesignCredit
-                  )} ${item.startDesignCredit}`}</Text>
-                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
-                    LangKey.txtRemainingCredit
-                  )} ${item.currentDesignCredit}`}</Text>
-                  <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
-                    LangKey.txtPerchsedAt
-                  )} ${Common.convertIsoToDate(item.purchaseDate)}`}</Text>
-                  {item.package.type === Constant.typeDesignPackageFree ? (
-                    <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
-                      LangKey.txtExpiredAtFree
-                    )} ${Common.convertIsoToDate(item.expiryDate)}`}</Text>
-                  ) : (
-                    <Text style={{ fontSize: 12 }}>{`${Common.getTranslation(
-                      LangKey.txtExpiredAt
-                    )}`}</Text>
-                  )}
-                </View> */}
-                {/* <View>
-                  {curDate > expDate || item.currentDesignCredit <= 0 ? (
-                    <Text style={styles.txtExpired}>
-                      {Common.getTranslation(LangKey.labExpired)}
-                    </Text>
-                  ) : (
-                    <Text style={styles.txtActive}>
-                      {Common.getTranslation(LangKey.labActive)}
-                    </Text>
-                  )}
-                  <View
-                    style={{
-                      minWidth: 80,
-                      height: 50,
-                      backgroundColor: Color.white,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      alignSelf: "center",
-                      justifyContent: "center",
-                      borderRadius: 10,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                        width: 0,
-                        height: 1,
-                      },
-                      shadowOpacity: 0.22,
-                      shadowRadius: 2.22,
-                      elevation: 3,
-                    }}
-                  >
-                    <Text style={styles.txtPrice}>₹{item.price}</Text>
-                  </View>
-                </View> */}
-
-                {/* {item?.package?.type === Constant.typeDesignPackagePro && (
-                  <Text style={styles.tagPro}>{item.package.type}</Text>
-                )} */}
               </View>
             );
           }}
@@ -314,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   listDesign: {
-    marginTop: 10,
+    paddingTop: 10,
     marginHorizontal: 10,
   },
   txtPrice: {

@@ -208,6 +208,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_splash_image.gif.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_splash_image.gif"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
     },

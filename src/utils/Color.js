@@ -2,6 +2,7 @@ import { Colors } from "react-native-paper";
 
 export default {
   primary: "#FF8200",
+  splashColor: "#F27C05",
   lightOrange: "#FFA13E",
 
   secondary: "#FBBF17",

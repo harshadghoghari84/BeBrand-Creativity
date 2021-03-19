@@ -38,6 +38,7 @@ import {
   websiteValidatorPro,
 } from "../../utils/Validator";
 import Constant from "../../utils/Constant";
+import { FileSystem } from "react-native-unimodules";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -203,16 +204,25 @@ const BusinessProfile = ({ userStore }) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      const file = generateRNFile(result.uri, `${Date.now()}`);
-      const { data, errors } = await addBusinessImage({
-        variables: { image: file },
-      });
+    let fileInfo = await FileSystem.getInfoAsync(result.uri);
+    if (fileInfo.size > Constant.profileImageSize) {
+      Common.showMessage(Common.getTranslation(LangKey.labProfileImageSize));
+    } else {
+      try {
+        if (!result.cancelled) {
+          const file = generateRNFile(result.uri, `${Date.now()}`);
+          const { data, errors } = await addBusinessImage({
+            variables: { image: file },
+          });
 
-      if (!errors) {
-        userStore.addBusinessImage(data.addBusinessImage);
-      } else {
-        console.error(errors);
+          if (!errors) {
+            userStore.addBusinessImage(data.addBusinessImage);
+          } else {
+            console.error(errors);
+          }
+        }
+      } catch (error) {
+        console.log("error", error);
       }
     }
   };

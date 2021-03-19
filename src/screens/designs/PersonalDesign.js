@@ -40,7 +40,6 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
 import MuktaText from "../../components/MuktaText";
-import { StackActions } from "@react-navigation/routers";
 
 const { width, height } = Dimensions.get("window");
 let isShareClick = false;
@@ -81,9 +80,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [selected, setSelected] = useState(0);
   const [userDataPersonal, setUserDataPersonal] = useState();
   const [loadingImage, setLoadingImage] = useState(false);
-  const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
-  const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
-  const [activeBtn, setActiveBtn] = useState();
 
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
@@ -345,29 +341,34 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const plusBTN = () => {
     return (
-      <View
-        style={[
-          styles.plusButton,
-          {
-            borderColor: selectedPicker ? Color.primary : null,
-            borderWidth: selectedPicker ? 2 : null,
-          },
-        ]}
-      >
-        <TouchableOpacity
-          disabled={currentLayout == null}
-          activeOpacity={0.6}
-          onPress={() => {
-            setVisiblePicker(true);
-          }}
-          style={{
-            backgroundColor: Color.txtIntxtcolor,
-            padding: 5,
-            borderRadius: 20,
-          }}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
+          {Common.getTranslation(LangKey.LayoutColor)}
+        </Text>
+        <View
+          style={[
+            styles.plusButton,
+            {
+              borderColor: selectedPicker ? Color.primary : null,
+              borderWidth: selectedPicker ? 2 : null,
+            },
+          ]}
         >
-          <Icon name="plus" fill={Color.white} height={13} width={13} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            disabled={currentLayout == null}
+            activeOpacity={0.6}
+            onPress={() => {
+              setVisiblePicker(true);
+            }}
+            style={{
+              backgroundColor: Color.txtIntxtcolor,
+              padding: 5,
+              borderRadius: 20,
+            }}
+          >
+            <Icon name="plus" fill={Color.white} height={13} width={13} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -805,8 +806,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
         source={{ uri: userDataPersonal.image }}
         style={styles.lay2ImgUser}
         resizeMode={FastImage.resizeMode.contain}
@@ -867,8 +868,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
         source={{ uri: userDataPersonal.image }}
         style={styles.lay3ImgUser}
         resizeMode={FastImage.resizeMode.contain}
@@ -1077,8 +1078,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
         source={{ uri: userDataPersonal.image }}
         style={styles.lay2ImgUser}
         resizeMode={FastImage.resizeMode.contain}
@@ -1157,8 +1158,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       <FastImage
-        onLoadStart={() => setIsUserDesignImageLoad(true)}
-        onLoadEnd={() => setIsUserDesignImageLoad(false)}
+        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
         source={{ uri: userDataPersonal.image }}
         style={styles.lay3ImgUser}
         resizeMode={FastImage.resizeMode.contain}
@@ -1360,6 +1361,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               paddingBottom: 10,
             }}
           >
+            <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
+              {Common.getTranslation(LangKey.FooterColor)}
+            </Text>
             <View
               style={{
                 height: 28,
@@ -1702,8 +1706,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <FastImage
-                  onLoadStart={() => setIsdesignImageLoad(true)}
-                  onLoadEnd={() => setIsdesignImageLoad(false)}
+                  onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+                  onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
                   source={{
                     uri: currentDesign.designImage.url,
                   }}
@@ -1713,98 +1717,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 </FastImage>
               </View>
             </ViewShot>
-
-            <View
-              style={{
-                width: "100%",
-                marginTop: 10,
-                backgroundColor: "pink",
-              }}
-            >
-              {/* {layout()}
-            {colorCode()}
-            {socialIcons()} */}
-            </View>
-
-            {/* <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: Color.bgcColor,
-              marginBottom: 10,
-              marginTop: 10,
-              borderTopWidth: 5,
-              borderTopColor: Color.txtIntxtcolor,
-            }}
-          > */}
-
-            {/* <View
-            style={{
-              backgroundColor: Color.txtIntxtcolor,
-              height: 1,
-              width: wp(90),
-              marginBottom: 15,
-            }}
-          /> */}
-            {/* <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              width: "100%",
-            }}
-          >
-            <TouchableOpacity onPress={() => setSelected(0)}>
-              <Text
-                style={{
-                  backgroundColor: selected === 0 ? Color.txtIntxtcolor : null,
-                  // borderColor: Color.txtIntxtcolor,
-                  // borderWidth: 2,
-                  color: selected === 0 ? Color.white : Color.txtIntxtcolor,
-                  borderRadius: Platform.OS === "ios" ? 16 : 20,
-                  overflow: "hidden",
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                }}
-              >
-                {Common.getTranslation(LangKey.labLayouts)}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelected(1)}>
-              <Text
-                style={{
-                  backgroundColor: selected === 1 ? Color.txtIntxtcolor : null,
-                  // borderColor: Color.txtIntxtcolor,
-                  // borderWidth: 2,
-                  color: selected === 1 ? Color.white : Color.txtIntxtcolor,
-                  borderRadius: Platform.OS === "ios" ? 16 : 20,
-                  overflow: "hidden",
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                }}
-              >
-                {Common.getTranslation(LangKey.labColorCodeList)}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelected(2)}>
-              <Text
-                style={{
-                  backgroundColor: selected === 2 ? Color.txtIntxtcolor : null,
-                  // borderColor: Color.txtIntxtcolor,
-                  // borderWidth: 2,
-                  color: selected === 2 ? Color.white : Color.txtIntxtcolor,
-                  borderRadius: Platform.OS === "ios" ? 16 : 20,
-                  overflow: "hidden",
-                  paddingHorizontal: 20,
-                  paddingVertical: 5,
-                }}
-              >
-                {Common.getTranslation(LangKey.labSocialMediaIcons)}
-              </Text>
-            </TouchableOpacity>
-          </View> */}
           </View>
-          {/* </View> */}
         </ScrollView>
         <View
           style={{

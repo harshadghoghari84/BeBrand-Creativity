@@ -15,6 +15,7 @@ import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { toJS } from "mobx";
+import InAppReview from "react-native-in-app-review";
 
 // Relative Path
 import Color from "../../utils/Color";
@@ -72,6 +73,7 @@ class CustomDrawer extends Component {
       ((currentDesignCreditFree + currentDesignCreditPro) * 100) /
         (startDesignCreditFree + startDesignCreditPro);
     const progressLimit = calculate / 100;
+
     return (
       <View style={styles.container}>
         <PopUp

@@ -28,6 +28,8 @@ const assignPackageToDesign = (designArray, packageArray) => {
 class DesignStore {
   isDownloadStartedPersonal = false;
   isDownloadStartedBusiness = false;
+  isPersonalDesignLoad = false;
+  isBusinessDesignLoad = false;
   hdLoading = true;
   ahdLoading = false;
   bhdLoading = false;
@@ -268,6 +270,12 @@ class DesignStore {
   setIsDownloadStartedBusiness = (val) => {
     this.isDownloadStartedBusiness = val;
   };
+  setIsPersonalDesignLoad = (val) => {
+    this.isPersonalDesignLoad = val;
+  };
+  setIsBusinessDesignLoad = (val) => {
+    this.isBusinessDesignLoad = val;
+  };
 
   setUserNotificationTime = (val) => {
     this.userNotificationTime = new Date(val);
@@ -286,6 +294,8 @@ class DesignStore {
 decorate(DesignStore, {
   isDownloadStartedPersonal: observable,
   isDownloadStartedBusiness: observable,
+  isPersonalDesignLoad: observable,
+  isBusinessDesignLoad: observable,
   isNewNotification: observable,
   hdLoading: observable,
   ahdLoading: observable,
@@ -307,6 +317,8 @@ decorate(DesignStore, {
   changeDesignByLanguage: action,
   setIsDownloadStartedPersonal: action,
   setIsDownloadStartedBusiness: action,
+  setIsPersonalDesignLoad: action,
+  setIsBusinessDesignLoad: action,
   setUserNotificationTime: action,
 });
 
