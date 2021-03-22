@@ -36,6 +36,7 @@ const PopUp = ({
   visible,
   toggleVisible,
   isPurchased,
+  isFirstPurchase,
   other,
   isPicker,
   initialColor,
@@ -362,11 +363,9 @@ const PopUp = ({
                 <Button
                   style={{ margin: 5 }}
                   onPress={() => {
-                    navigation.dispatch(
-                      StackActions.replace(Constant.navProfile, {
-                        title: Constant.titPersonalProfile,
-                      })
-                    );
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titPersonalProfile,
+                    });
                     toggleVisibleMsg();
                   }}
                   icon={
@@ -405,11 +404,9 @@ const PopUp = ({
                 <Button
                   style={{ margin: 5 }}
                   onPress={() => {
-                    navigation.dispatch(
-                      StackActions.replace(Constant.navProfile, {
-                        title: Constant.titBusinessProfile,
-                      })
-                    );
+                    navigation.navigate(Constant.navProfile, {
+                      title: Constant.titBusinessProfile,
+                    });
                     toggleVisibleMsgBussiness();
                   }}
                   icon={
@@ -507,7 +504,7 @@ const PopUp = ({
                 <View
                   style={{
                     marginTop: 10,
-                    flexDirection: "row",
+                    flexDirection: "column",
                     justifyContent: "space-between",
                   }}
                 >
@@ -515,15 +512,25 @@ const PopUp = ({
                     style={{ margin: 5 }}
                     normal={true}
                     onPress={() => {
-                      const obj = {
+                      navigation.navigate(Constant.navPro, {
                         screen: Constant.titFree,
-                      };
-                      isGoback && (obj.isGoback = true);
-                      navigation.navigate(Constant.navPro, obj);
+                      });
                       toggleVisible();
                     }}
                   >
-                    {Common.getTranslation(LangKey.labPackage)}
+                    {Common.getTranslation(LangKey.labFree)}
+                  </Button>
+                  <Button
+                    style={{ margin: 5 }}
+                    normal={true}
+                    onPress={() => {
+                      navigation.navigate(Constant.navPro, {
+                        screen: Constant.titPrimium,
+                      });
+                      toggleVisible();
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labPremium)}
                   </Button>
                 </View>
               </View>

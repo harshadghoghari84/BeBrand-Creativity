@@ -214,7 +214,7 @@ export default {
   whatsAppShareMsg:
     "Hey, Want to create your brand designs in single click ?? Social media branding made easy with BrandDot, Check It out. Download Now and get your brand Designs free forever.",
   // pkg name
-  titFree: "free",
+  titFree: "Free Forever",
   titPrimium: "Premium",
 
   // Topics and Channels for notification
@@ -241,6 +241,8 @@ export default {
   personalLay5Id: "603dc5e560fd045d1a40ee6f",
   personalLay6Id: "603dc5ea60fd045d1a40ee70",
   personalLay7Id: "603dc5ef60fd045d1a40ee71",
+  personalLay8Id: "60586ced3ec076f85eb61fc9",
+  personalLay9Id: "60586cf73ec076f85eb61fca",
 
   // bussinessDesign.js constants
   businessLay1Id: "603dd20160fd045d1a40ee72",
@@ -253,4 +255,5 @@ export default {
   businessLay8Id: "603dd21e60fd045d1a40ee79",
   businessLay9Id: "603dd22160fd045d1a40ee7a",
   businessLay10Id: "603dd22660fd045d1a40ee7b",
+  businessLay11Id: "60586d193ec076f85eb61fcb",
 };

@@ -64,6 +64,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   */
 
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
   const [visiblePicker, setVisiblePicker] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
@@ -84,6 +85,11 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
   };
+
+  const toggleFreeVisible = () => {
+    setVisibleFreeModal(!visibleFreeModal);
+  };
+
   const toggleVisibleMsg = () => {
     setVisibleModalMsg(!visibleModalMsg);
   };
@@ -209,6 +215,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       if (currentLayout && currentLayout !== null) {
         await saveDesign();
       } else {
+        designStore.setIsDownloadStartedPersonal(false);
         Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
       }
     } else {
@@ -317,7 +324,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     } else {
       designStore.setIsDownloadStartedPersonal(false);
 
-      setVisibleModal(true);
+      // setVisibleModal(true);
+      setVisibleFreeModal(true);
     }
   };
 
@@ -499,6 +507,22 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               return true;
             }
             break;
+          case Constant.personalLay8Id:
+            if (
+              userDataPersonal.name &&
+              userDataPersonal.name !== "" &&
+              userDataPersonal.designation &&
+              userDataPersonal.designation !== ""
+            ) {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
+          case Constant.personalLay9Id:
+            setCurrentLayout(layout);
+            isSet = true;
+            return true;
         }
       });
 
@@ -642,6 +666,22 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setCurrentLayout(layout);
         }
         break;
+      case Constant.personalLay8Id:
+        if (
+          !userDataPersonal.name &&
+          userDataPersonal.name === "" &&
+          !userDataPersonal.designation &&
+          userDataPersonal.designation === ""
+        ) {
+          msg = Common.getTranslation(LangKey.personalLay8Msg);
+          setVisibleModalMsg(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
+      case Constant.personalLay9Id:
+        setCurrentLayout(layout);
+        break;
     }
   };
 
@@ -649,25 +689,22 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     switch (currentLayout.id) {
       case Constant.personalLay1Id:
         return getLayout1();
-        break;
       case Constant.personalLay2Id:
         return getLayout2();
-        break;
       case Constant.personalLay3Id:
         return getLayout3();
-        break;
       case Constant.personalLay4Id:
         return getLayout4();
-        break;
       case Constant.personalLay5Id:
         return getLayout5();
-        break;
       case Constant.personalLay6Id:
         return getLayout6();
-        break;
       case Constant.personalLay7Id:
         return getLayout7();
-        break;
+      case Constant.personalLay8Id:
+        return getLayout8();
+      case Constant.personalLay9Id:
+        return <></>;
     }
   };
 
@@ -1227,6 +1264,34 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
+  const getLayout8 = () => (
+    <View
+      style={[
+        styles.lay4ViewFooter,
+        { justifyContent: "center", alignItems: "center" },
+      ]}
+    >
+      <SvgCss
+        xml={SvgConstant.footerPersonalLayout2}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View style={styles.lay8ViewNameDesignation}>
+        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
+        </MuktaText>
+
+        <MuktaText
+          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+        >
+          {userDataPersonal.designation}
+        </MuktaText>
+      </View>
+    </View>
+  );
+
   /*
 ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
 .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
@@ -1599,10 +1664,17 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <PopUp
+            visible={visibleFreeModal}
+            toggleVisible={toggleFreeVisible}
+            isfree={true}
+          />
+
+          <PopUp
             visible={visibleModal}
             toggleVisible={toggleVisible}
             isPurchased={true}
           />
+
           <PopUp
             visible={visiblePicker}
             initialColor={footerColor}
@@ -1691,8 +1763,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               options={{
                 format: "jpg",
                 quality: 1,
-                // width: pixels,
-                // height: pixels,
+                width: pixels,
+                height: pixels,
               }}
             >
               <View
@@ -2152,6 +2224,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
+  },
+
+  //layout-8 styles other styles same as layout-4
+  lay8ViewNameDesignation: {
+    width: "100%",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
 });
 

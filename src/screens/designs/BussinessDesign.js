@@ -13,7 +13,7 @@ import {
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
-import { SvgCss, SvgUri } from "react-native-svg";
+import { SvgCss } from "react-native-svg";
 import { inject, observer } from "mobx-react";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
@@ -68,8 +68,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   });
 
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
+  };
+  const toggleFreeVisible = () => {
+    setVisibleFreeModal(!visibleFreeModal);
   };
   const [visiblePicker, setVisiblePicker] = useState(false);
 
@@ -218,6 +222,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       if (currentLayout && currentLayout !== null) {
         await saveDesign();
       } else {
+        designStore.setIsDownloadStartedBusiness(false);
         Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
       }
     } else {
@@ -321,7 +326,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       }
     } else {
       designStore.setIsDownloadStartedBusiness(false);
-      setVisibleModal(true);
+      // setVisibleModal(true);
+      setVisibleFreeModal(true);
     }
   };
 
@@ -572,6 +578,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               return true;
             }
             break;
+          case Constant.businessLay11Id:
+            if (userDataBussiness.name && userDataBussiness.name !== "") {
+              setCurrentLayout(layout);
+              isSet = true;
+              return true;
+            }
+            break;
         }
       });
 
@@ -776,6 +789,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           setCurrentLayout(layout);
         }
         break;
+      case Constant.businessLay11Id:
+        if (!userDataBussiness.name || userDataBussiness.name === "") {
+          msg = Common.getTranslation(LangKey.businessLay11Msg);
+          setVisibleModalMsgbussiness(true);
+        } else {
+          setCurrentLayout(layout);
+        }
+        break;
     }
   };
 
@@ -783,34 +804,26 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     switch (currentLayout.id) {
       case Constant.businessLay1Id:
         return getLayout1();
-        break;
       case Constant.businessLay2Id:
         return getLayout2();
-        break;
       case Constant.businessLay3Id:
         return getLayout3();
-        break;
       case Constant.businessLay4Id:
         return getLayout4();
-        break;
       case Constant.businessLay5Id:
         return getLayout5();
-        break;
       case Constant.businessLay6Id:
         return getLayout6();
-        break;
       case Constant.businessLay7Id:
         return getLayout7();
-        break;
       case Constant.businessLay8Id:
         return getLayout8();
-        break;
       case Constant.businessLay9Id:
         return getLayout9();
-        break;
       case Constant.businessLay10Id:
         return getLayout10();
-        break;
+      case Constant.businessLay11Id:
+        return getLayout11();
     }
   };
 
@@ -1709,6 +1722,21 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
+  const getLayout11 = () => (
+    <View style={styles.layFlatSmallViewFooter}>
+      <SvgCss
+        xml={SvgConstant.flatFooterSmallLayout}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <Text style={[styles.lay11TxtName, { color: footerTextColor }]}>
+        {userDataBussiness.name}
+      </Text>
+    </View>
+  );
+
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
@@ -2069,6 +2097,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             contentContainerStyle={{ flexGrow: 1 }}
             showsVerticalScrollIndicator={false}
           >
+            <PopUp
+              visible={visibleFreeModal}
+              toggleVisible={toggleFreeVisible}
+              isfree={true}
+            />
+
             <PopUp
               visible={visibleModal}
               toggleVisible={toggleVisible}
@@ -2686,6 +2720,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: "absolute",
   },
+  layFlatSmallViewFooter: {
+    width: "100%",
+    height: "10.50%",
+    bottom: 0,
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   layFlatTxtName: {
     fontSize: Constant.layBigFontSize,
     position: "absolute",
@@ -2736,6 +2778,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
+  },
+  lay11TxtName: {
+    fontSize: Constant.layBigFontSize,
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

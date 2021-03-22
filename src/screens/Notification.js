@@ -21,6 +21,7 @@ import ProgressDialog from "./common/ProgressDialog";
 import Constant from "../utils/Constant";
 import PopUp from "../components/PopUp";
 import { inject, observer } from "mobx-react";
+import FastImage from "react-native-fast-image";
 
 let notiMsgItem = {};
 let iconName = {};
@@ -87,157 +88,176 @@ const Notification = ({ designStore }) => {
           color={Color.white}
           message={Common.getTranslation(LangKey.labLoading)}
         />
-        <FlatList
-          data={data && data.notifications}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={keyExtractor}
-          renderItem={({ item, index }) => {
-            const itemDate = new Date(item.updatedAt);
-            var formattedDate = format(itemDate, "dd MMM yyyy");
-            return (
-              <View style={styles.itemContainer}>
-                {index === 0 && index !== earlIndex ? (
-                  <>
-                    <Text
-                      style={{
-                        marginLeft: 10,
-                        paddingVertical: 10,
-                        color: Color.black,
-                      }}
-                    >
-                      {Common.getTranslation(LangKey.labNew)}
-                    </Text>
-                  </>
-                ) : (
-                  index === earlIndex && (
+        {data &&
+        data.notifications &&
+        Array.isArray(data.notification) &&
+        data.notification.length > 0 ? (
+          <FlatList
+            data={data && data.notifications}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={keyExtractor}
+            renderItem={({ item, index }) => {
+              const itemDate = new Date(item.updatedAt);
+              var formattedDate = format(itemDate, "dd MMM yyyy");
+              return (
+                <View style={styles.itemContainer}>
+                  {index === 0 && index !== earlIndex ? (
                     <>
-                      {index !== 0 && (
-                        <View
-                          style={{
-                            height: 5,
-                            backgroundColor: Color.txtIntxtcolor,
-                          }}
-                        />
-                      )}
                       <Text
                         style={{
                           marginLeft: 10,
-                          marginVertical: 10,
+                          paddingVertical: 10,
                           color: Color.black,
                         }}
                       >
-                        {Common.getTranslation(LangKey.labEarl)}
+                        {Common.getTranslation(LangKey.labNew)}
                       </Text>
                     </>
-                  )
-                )}
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={() => {
-                    setId([...id, item.id]);
-                    notiMsgItem = item;
-                    itmDate = formattedDate;
-                    iconName = item.type;
-                    setVisibleModalMsg(true);
-                  }}
-                  // style={{
-                  //   backgroundColor:
-                  //     id.includes(item.id) ||
-                  //     new Date(loginTime).getTime() >
-                  //       new Date(item.updatedAt).getTime()
-                  //       ? null
-                  //       : Color.layerColor,
-                  // }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
+                  ) : (
+                    index === earlIndex && (
+                      <>
+                        {index !== 0 && (
+                          <View
+                            style={{
+                              height: 5,
+                              backgroundColor: Color.txtIntxtcolor,
+                            }}
+                          />
+                        )}
+                        <Text
+                          style={{
+                            marginLeft: 10,
+                            marginVertical: 10,
+                            color: Color.black,
+                          }}
+                        >
+                          {Common.getTranslation(LangKey.labEarl)}
+                        </Text>
+                      </>
+                    )
+                  )}
+                  <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => {
+                      setId([...id, item.id]);
+                      notiMsgItem = item;
+                      itmDate = formattedDate;
+                      iconName = item.type;
+                      setVisibleModalMsg(true);
                     }}
+                    // style={{
+                    //   backgroundColor:
+                    //     id.includes(item.id) ||
+                    //     new Date(loginTime).getTime() >
+                    //       new Date(item.updatedAt).getTime()
+                    //       ? null
+                    //       : Color.layerColor,
+                    // }}
                   >
                     <View
                       style={{
-                        paddingHorizontal: 20,
-                        alignSelf: "flex-start",
-                        paddingTop: 5,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      <Icon
-                        name={item.type}
-                        fill={Color.primary}
-                        height={15}
-                        width={15}
+                      <View
+                        style={{
+                          paddingHorizontal: 20,
+                          alignSelf: "flex-start",
+                          paddingTop: 5,
+                        }}
+                      >
+                        <Icon
+                          name={item.type}
+                          fill={Color.primary}
+                          height={15}
+                          width={15}
+                        />
+                      </View>
+                      <View style={{ width: "75%" }}>
+                        <Text style={{ color: Color.black, fontSize: 14 }}>
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: Color.grey,
+                            fontFamily: "Nunito-Regular",
+                          }}
+                        >
+                          {item.body}
+                        </Text>
+                        <Text
+                          style={{
+                            color: Color.grey,
+                            fontSize: 9,
+                            paddingVertical: 5,
+                            paddingBottom: 10,
+                            fontFamily: "Nunito-Light",
+                          }}
+                        >
+                          {formattedDate}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          height: 10,
+                          width: 10,
+                          borderRadius: 5,
+                          backgroundColor:
+                            id.includes(item.id) ||
+                            new Date(loginTime).getTime() >
+                              new Date(item.updatedAt).getTime()
+                              ? null
+                              : Color.darkBlue,
+                        }}
                       />
                     </View>
-                    <View style={{ width: "75%" }}>
-                      <Text style={{ color: Color.black, fontSize: 14 }}>
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: Color.grey,
-                          fontFamily: "Nunito-Regular",
-                        }}
-                      >
-                        {item.body}
-                      </Text>
-                      <Text
-                        style={{
-                          color: Color.grey,
-                          fontSize: 9,
-                          paddingVertical: 5,
-                          paddingBottom: 10,
-                          fontFamily: "Nunito-Light",
-                        }}
-                      >
-                        {formattedDate}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        height: 10,
-                        width: 10,
-                        borderRadius: 5,
-                        backgroundColor:
-                          id.includes(item.id) ||
-                          new Date(loginTime).getTime() >
-                            new Date(item.updatedAt).getTime()
-                            ? null
-                            : Color.darkBlue,
-                      }}
-                    />
-                  </View>
-                  {earlIndex !== 0
-                    ? index !== earlIndex - 1 &&
-                      index !== data.notifications.length - 1 && (
-                        <View
-                          style={{
-                            height: 1,
-                            width: "85%",
-                            alignSelf: "center",
-                            backgroundColor: Color.btnborder,
-                            opacity: 0.3,
-                          }}
-                        />
-                      )
-                    : index !== data.notifications.length - 1 && (
-                        <View
-                          style={{
-                            height: 1,
-                            width: "85%",
-                            alignSelf: "center",
-                            backgroundColor: Color.btnborder,
-                            opacity: 0.3,
-                          }}
-                        />
-                      )}
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        />
+                    {earlIndex !== 0
+                      ? index !== earlIndex - 1 &&
+                        index !== data.notifications.length - 1 && (
+                          <View
+                            style={{
+                              height: 1,
+                              width: "85%",
+                              alignSelf: "center",
+                              backgroundColor: Color.btnborder,
+                              opacity: 0.3,
+                            }}
+                          />
+                        )
+                      : index !== data.notifications.length - 1 && (
+                          <View
+                            style={{
+                              height: 1,
+                              width: "85%",
+                              alignSelf: "center",
+                              backgroundColor: Color.btnborder,
+                              opacity: 0.3,
+                            }}
+                          />
+                        )}
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <FastImage
+              source={require("../assets/img/NotAvailable.png")}
+              style={{ height: "80%", width: "80%" }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+        )}
       </View>
     );
   };

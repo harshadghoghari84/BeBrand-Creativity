@@ -1,11 +1,9 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
   Text,
   View,
-  ToastAndroid,
-  Image,
   ScrollView,
   SafeAreaView,
 } from "react-native";
@@ -42,7 +40,6 @@ import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
-import { tr } from "date-fns/locale";
 
 const SignInScreen = ({ userStore }) => {
   const navigation = useNavigation();
@@ -205,6 +202,10 @@ const SignInScreen = ({ userStore }) => {
         .then((res) => {
           sendTokentoServer(res);
           setLoader(false);
+        })
+        .catch((err) => {
+          setLoader(false);
+          console.log("error: ", err);
         });
     } catch (error) {
       console.log(error);

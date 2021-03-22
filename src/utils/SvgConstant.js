@@ -50,6 +50,13 @@ viewBox="0 0 688.02 123.83"
   <path d="M 0 0.00390625 L 1500 0.00390625 L 1500 6.277344 L 0 6.277344 Z M 0 0.00390625 "/>
   </g>
   </svg>`,
+  flatFooterSmallLayout: `<svg
+  width="1500pt" height="157pt" viewBox="0 0 1500 157" >
+  <g id="surface1">
+  <path d="M 0 10.8125 L 1500 10.8125 L 1500 157.136719 L 0 157.136719 Z M 0 10.8125 "/>
+  <path d="M 0 0.00390625 L 1500 0.00390625 L 1500 6.277344 L 0 6.277344 Z M 0 0.00390625 "/>
+  </g>
+  </svg>`,
 
   noContent: `
   <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2.21872in" height="1.39897in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"

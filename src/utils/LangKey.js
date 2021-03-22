@@ -197,6 +197,8 @@ module.exports = {
   personalLay5Msg: "personalLay5Msg",
   personalLay6Msg: "personalLay6Msg",
   personalLay7Msg: "personalLay7Msg",
+  personalLay8Msg: "personalLay8Msg",
+
   labLayouts: "labLayouts",
   labColorCodeList: "labColorCodeList",
   labSocialMediaIcons: "labSocialMediaIcons",
@@ -211,4 +213,5 @@ module.exports = {
   businessLay8Msg: "businessLay8Msg",
   businessLay9Msg: "businessLay9Msg",
   businessLay10Msg: "businessLay10Msg",
+  businessLay11Msg: "businessLay11Msg",
 };
