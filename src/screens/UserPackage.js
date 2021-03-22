@@ -78,7 +78,6 @@ const UserPackage = ({ navigation, designStore }) => {
           keyExtractor={keyExtractor}
           onEndReached={() => loadMoreUserPackages()}
           renderItem={({ item }) => {
-            console.log("item", item);
             const curDate = new Date().getTime();
             const expDate = new Date(item.expiryDate).getTime();
             return (
@@ -196,10 +195,10 @@ const UserPackage = ({ navigation, designStore }) => {
                             LangKey.txtExpiredAtFree
                           )} ${format(
                             new Date(item.purchaseDate),
-                            "dd MMM yyyy"
-                          )} To ${format(
+                            "dd/MM/yyyy"
+                          )} to ${format(
                             new Date(item.expiryDate),
-                            "dd MMM yyyy"
+                            "dd/MM/yyyy"
                           )}`}
                         </Text>
                       ) : (

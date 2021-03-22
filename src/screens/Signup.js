@@ -202,7 +202,7 @@ const RegisterScreen = ({ userStore }) => {
         },
       }).then((result) => {
         const data = result.data;
-        console.log("data", data);
+
         if (data !== null) {
           Common.showMessage(data.userSignup);
           navigation.navigate(Constant.navOtp, { mobile: mobileNo.value });

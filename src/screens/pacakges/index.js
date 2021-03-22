@@ -11,12 +11,6 @@ import Constant from "../../utils/Constant";
 const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = ({ route }) => {
-  console.log(
-    "route?.params?.title",
-    route?.params?.isGoback &&
-      route?.params?.isGoback !== null &&
-      route.params.isGoback
-  );
   return (
     <Tab.Navigator
       initialRouteName={

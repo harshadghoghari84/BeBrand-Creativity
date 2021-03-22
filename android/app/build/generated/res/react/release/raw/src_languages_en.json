@@ -135,9 +135,10 @@
   "shareYourExperiance":"Share your experiance",
   "weLoveToHearFromYou":"we love to hear from you !!",
   "IloveIt":"I love it !!",
+  "itNeedsToBeImproved":"It Needs to be improved",
   "LayoutColor":"Layout color",
-  "FooterColor":"Footer color",
-  "labProfileImageSize":"Please select less then 2mb size picture",
+  "FontColor":"Font color",
+  "labProfileImageSize":"Max. upload file size : 2 MB",
 
   "nolayout":"Please enter all required details to get this layout .",
   "nolayoutBussiness":"Please enter all required details to get this layout .",

@@ -78,7 +78,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
   useEffect(() => {
     const user = toJS(userStore.user);
-    console.log("user", user);
+
     setUser(user);
     if (user?.userInfo?.personal) {
       if (isUpdated && isUpdated === true) {
@@ -334,7 +334,6 @@ const PersonalProfile = ({ navigation, userStore }) => {
         }
 
         if (data && data !== null) {
-          console.log("data", data.deletePersonalImage);
           let imgArr = [];
           imgArr = user?.userInfo?.personal?.image.filter(
             (val) => val.url !== curUrl

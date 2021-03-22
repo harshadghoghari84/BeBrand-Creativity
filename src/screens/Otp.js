@@ -150,12 +150,9 @@ const Otp = ({ route, navigation, userStore }) => {
       .then(({ data, errors }) => {
         if (data && data !== null) {
           Common.showMessage(data.sendUserOtp);
-          console.log("data", data);
         }
         if (errors && errors !== null) {
           Common.showMessage(errors[0].message);
-
-          console.log("error", errors);
         }
       })
       .catch((err) => console.log("catch er", err));

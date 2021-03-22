@@ -34,7 +34,6 @@ const Notification = ({ designStore }) => {
   const [earlIndex, setEarlIndex] = useState("");
   const [layer, setLayer] = useState();
   const [id, setId] = useState([]);
-  console.log("id", id);
   const [loginTime, setLoginTime] = useState(new Date());
 
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
@@ -45,7 +44,6 @@ const Notification = ({ designStore }) => {
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then(async (res) => {
-        console.log("login time :", res);
         res && res !== null && setLoginTime(new Date(res));
         await AsyncStorage.setItem(
           Constant.prfUserloginTime,
@@ -70,7 +68,6 @@ const Notification = ({ designStore }) => {
       });
   }, [data, loginTime]);
 
-  console.log("ear inedx", earlIndex ? earlIndex : "hello");
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
   const renderNotifications = () => {

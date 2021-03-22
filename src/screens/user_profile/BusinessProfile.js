@@ -310,8 +310,6 @@ const BusinessProfile = ({ userStore }) => {
               },
             };
 
-            console.log("===> user :", newUser);
-
             userStore.setOnlyUserDetail(newUser);
             Common.showMessage(data.updateBusinessUserInfo);
           } else {
@@ -327,7 +325,6 @@ const BusinessProfile = ({ userStore }) => {
   };
 
   const onCloseBTN = (curUrl) => {
-    console.log("curUrl", curUrl);
     deleteBusinessImage({
       variables: {
         image: curUrl,
@@ -337,13 +334,10 @@ const BusinessProfile = ({ userStore }) => {
         if (errors && errors !== null) {
           Common.showMessage(errors[0].message);
         } else {
-          console.log("data", data.deleteBusinessImage);
           let imgArr = [];
           imgArr = user?.userInfo?.business?.image.filter(
             (val) => val.url !== curUrl
           );
-
-          console.log("imgArr", imgArr);
 
           const newUser = {
             ...user,

@@ -212,7 +212,7 @@ export default {
   androidPlaystoreLink:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddot",
   whatsAppShareMsg:
-    "Hey, Want to create your brand designs in single click??Social media branding made easy with BrandDot, Check It out, Download Now and get your brand Designs free forever.",
+    "Hey, Want to create your brand designs in single click ?? Social media branding made easy with BrandDot, Check It out. Download Now and get your brand Designs free forever.",
   // pkg name
   titFree: "free",
   titPrimium: "Premium",

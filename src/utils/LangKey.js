@@ -54,7 +54,7 @@ module.exports = {
   labUploadingImage: "labUploadingImage",
   labsSaving: "labsSaving",
   LayoutColor: "LayoutColor",
-  FooterColor: "FooterColor",
+  FontColor: "FontColor",
 
   // error validator messages
   errorMobileNo: "errorMobileNo",

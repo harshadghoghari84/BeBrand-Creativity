@@ -228,7 +228,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const saveDesign = async () => {
     const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
-    console.log("sts", status);
+
     if (status !== Permissions.PermissionStatus.GRANTED) {
       const { status: newStatus } = await Permissions.askAsync(
         Permissions.MEDIA_LIBRARY
@@ -265,7 +265,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       });
 
       if (data !== null && !errors) {
-        console.log("data", data);
         setLoadingImage(true);
         if (designPackage.type === Constant.typeDesignPackageFree) {
           userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1);
@@ -285,14 +284,13 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       }
 
       const uri = await viewRef.current.capture();
-      console.log("uri", uri);
+
       try {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        console.log("assets", asset);
+
         const album = await MediaLibrary.getAlbumAsync(
           Constant.designAlbumName
         );
-        console.log("scb", album);
 
         album && album !== null
           ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
@@ -511,7 +509,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     }
   };
   const checkAndSetLayout = (layout) => {
-    console.log("layout_id", layout.id);
     switch (layout.id) {
       case Constant.personalLay1Id:
         if (
@@ -1306,7 +1303,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const colorCode = () => {
     return (
-      <View style={{ width: "95%" }}>
+      <View style={{ width: "94%" }}>
         <FlatList
           contentContainerStyle={styles.colorCodeList}
           data={currentDesign?.colorCodes ? currentDesign.colorCodes : []}
@@ -1362,7 +1359,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             }}
           >
             <Text style={{ paddingRight: 10, fontFamily: "Nunito-Regular" }}>
-              {Common.getTranslation(LangKey.FooterColor)}
+              {Common.getTranslation(LangKey.FontColor)}
             </Text>
             <View
               style={{
@@ -1455,14 +1452,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               let addIcons = [];
               if (socialIconList.indexOf(item) >= 0) {
                 addIcons = socialIconList.filter((val) => val !== item);
-                console.log("remove icons", addIcons);
 
                 setSocialIconList(socialIconList.filter((val) => val !== item));
               } else if (socialIconList.length < Constant.socialIconLimit) {
                 addIcons.push(...socialIconList, item);
 
                 setSocialIconList([...socialIconList, item]);
-                console.log("add icons", addIcons);
               } else {
                 Platform.OS == "android"
                   ? ToastAndroid.show(
@@ -1815,11 +1810,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 style={{ margin: 5, backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={() => {
-                  if (currentDesign.id === curDesign.id) {
-                    onReset();
-                  } else {
-                    setCurrentDesign(curDesign);
-                  }
+                  // if (currentDesign.id === curDesign.id) {
+                  //   onReset();
+                  // } else {
+                  //   setCurrentDesign(curDesign);
+                  // }
+                  onReset();
                   fiilterLayouts();
                   setSelectedPicker(false);
                 }}

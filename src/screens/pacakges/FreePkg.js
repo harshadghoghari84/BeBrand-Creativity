@@ -76,7 +76,6 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
               data.addUserDesignPackage !== null &&
               Array.isArray(data.addUserDesignPackage)
             ) {
-              console.log("DATA", data);
               const newUser = {
                 ...user,
                 designPackage: data.addUserDesignPackage
