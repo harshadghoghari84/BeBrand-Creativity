@@ -86,7 +86,6 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
         android: filterId,
       });
 
-      console.log("itemSkus", itemSkus);
       getProducts();
     }
   }, [designStore.designPackages]);
@@ -119,15 +118,13 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
         try {
           const result = await initConnection();
           await flushFailedPurchasesCachedAsPendingAndroid();
-          console.log("result", result);
         } catch (err) {
           console.warn(err.code, err.message);
         }
       })();
       purchaseUpdateSubscription = purchaseUpdatedListener(async (purchase) => {
-        console.log("purchase listner", purchase);
         const receipt = purchase.transactionReceipt;
-        console.log("recipts", receipt);
+
         if (receipt) {
           try {
             if (Platform.OS === "ios") {

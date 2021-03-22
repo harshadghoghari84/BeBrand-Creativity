@@ -78,7 +78,6 @@ const UserPackage = ({ navigation, designStore }) => {
           keyExtractor={keyExtractor}
           onEndReached={() => loadMoreUserPackages()}
           renderItem={({ item }) => {
-            console.log("item", item);
             const curDate = new Date().getTime();
             const expDate = new Date(item.expiryDate).getTime();
             return (

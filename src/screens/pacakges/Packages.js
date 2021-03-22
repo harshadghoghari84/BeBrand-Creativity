@@ -19,7 +19,6 @@ import Button from "../../components/Button";
 
 const Packages = ({ navigation, designStore }) => {
   const designPackages = toJS(designStore.designPackages);
-  console.log("designPackages: ", designPackages);
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);

@@ -129,9 +129,6 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      // console.log("updated");
-      // console.log("chk___before__", userSubCategoriesBefore);
-      // console.log("chk___After__", userSubCategoriesAfter);
       if (userSubCategoriesBefore) {
         setUserSubCategories([...userSubCategoriesBefore]);
       }
@@ -210,8 +207,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   );
 
   const onDesignClick = (packageType, design) => {
-    console.log("packageType", packageType);
-    console.log("hasPro", hasPro);
     if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
       setmodalVisible(true);
     } else {

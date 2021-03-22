@@ -54,7 +54,6 @@ class CustomDrawer extends Component {
 
   render() {
     const user = toJS(this.props.userStore.user);
-    console.log("user", user);
 
     const startDesignCreditFree = toJS(
       this.props.userStore.startFreeDesignCredit

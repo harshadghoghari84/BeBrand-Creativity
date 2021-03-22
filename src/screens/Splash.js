@@ -64,8 +64,7 @@ const Splash = ({ navigation, userStore }) => {
   };
   const openScreen = async () => {
     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-    // await SplashScreen.hideAsync();
-    console.log("openScreen ");
+
     Platform.OS === "android" && SplashScreen.hide();
   };
   // !loading && isTimerRunning === false && openScreen();

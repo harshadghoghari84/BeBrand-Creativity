@@ -121,7 +121,7 @@ const SignInScreen = ({ userStore }) => {
                     userStore.setUser(data.userSignupSocial.user);
 
                   const token = data.userSignupSocial.token;
-                  console.log("token", token);
+
                   AsyncStorage.setItem(Constant.prfUserToken, token).then(
                     () => {
                       navigation.navigate(Constant.navHome);
@@ -232,7 +232,6 @@ const SignInScreen = ({ userStore }) => {
         },
       }).then((result) => {
         const data = result.data;
-        console.log("result", result);
         if (data != null) {
           data?.userLogin?.msg && Common.showMessage(data.userLogin.msg);
           // set user to userStore

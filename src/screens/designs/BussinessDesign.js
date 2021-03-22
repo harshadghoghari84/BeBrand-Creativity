@@ -139,7 +139,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           setSocialIconList(JSON.parse(res));
         }
       })
-      .catch((err) => {});
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -168,7 +168,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      console.log("user", user);
       setUserDataBussiness(
         user && user != null
           ? {
@@ -238,7 +237,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const saveDesign = async () => {
     const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
-    console.log("sts", status);
+
     if (status !== Permissions.PermissionStatus.GRANTED) {
       const { status: newStatus } = await Permissions.askAsync(
         Permissions.MEDIA_LIBRARY
@@ -292,15 +291,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       }
 
       const uri = await viewRef.current.capture();
-      console.log("uri", uri);
 
       try {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        console.log("assets", asset);
+
         const album = await MediaLibrary.getAlbumAsync(
           Constant.designAlbumName
         );
-        console.log("scb", album);
 
         album && album !== null
           ? await MediaLibrary.addAssetsToAlbumAsync(asset, album, false)
@@ -586,7 +583,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const checkAndSetLayout = (layout) => {
-    console.log("layout_id", layout.id);
     switch (layout.id) {
       case Constant.businessLay1Id:
         if (
