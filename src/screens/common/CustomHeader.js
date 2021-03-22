@@ -127,7 +127,7 @@ const CustomHeader = ({
                       borderWidth: 1,
                       position: "absolute",
                       top: 0.5,
-                      left: 4,
+                      right: 10,
                     }}
                   />
                 )}

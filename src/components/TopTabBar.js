@@ -30,6 +30,7 @@ const TopTabBar = ({
   isDownload,
   designStore,
   isBackVisible,
+  isPackageScreen,
 }) => {
   const isMountedRef = Common.useIsMountedRef();
 
@@ -99,7 +100,7 @@ const TopTabBar = ({
             backgroundColor: Color.txtInBgColor,
             padding: 3,
             borderRadius: 50,
-            marginHorizontal: 100,
+            marginHorizontal: isPackageScreen ? 70 : 100,
           }}
         >
           <View style={styles.selecteTabs}>
