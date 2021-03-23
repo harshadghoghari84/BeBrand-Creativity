@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "PROCESSED_RES",
+    "kind": "Directory"
+  },
+  "applicationId": "com.bebrandd.branddot",
+  "variantName": "processReleaseResources",
+  "elements": [
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "versionCode": 4194309,
+      "versionName": "1.0.4",
+      "outputFile": "resources-x86_64Release.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "versionCode": 2097157,
+      "versionName": "1.0.4",
+      "outputFile": "resources-x86Release.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "versionCode": 1048581,
+      "versionName": "1.0.4",
+      "outputFile": "resources-armeabi-v7aRelease.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "versionCode": 3145733,
+      "versionName": "1.0.4",
+      "outputFile": "resources-arm64-v8aRelease.ap_"
+    }
+  ]
+}

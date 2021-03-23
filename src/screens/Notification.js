@@ -90,8 +90,8 @@ const Notification = ({ designStore }) => {
         />
         {data &&
         data.notifications &&
-        Array.isArray(data.notification) &&
-        data.notification.length > 0 ? (
+        Array.isArray(data.notifications) &&
+        data.notifications.length > 0 ? (
           <FlatList
             data={data && data.notifications}
             showsVerticalScrollIndicator={false}
@@ -243,7 +243,7 @@ const Notification = ({ designStore }) => {
               );
             }}
           />
-        ) : (
+        ) : loading ? null : (
           <View
             style={{
               flex: 1,
