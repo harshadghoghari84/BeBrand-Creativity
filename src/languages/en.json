@@ -59,7 +59,7 @@
   "cartEmpty": "Your cart is empty",
 
   "labAll": "All",
-
+  "free":"Free",
   "labFollowUs": "Follow Us On",
   "msgSocialIconLimit": "You can add maximum 4 social media icons",
   "txtShare": "Share",
@@ -181,6 +181,9 @@
   "labLayouts":"Layout",
   "labColorCodeList":"Color",
   "labSocialMediaIcons":"Social",
+  "adDesc":"You will get 100 posts every year.",
+  "Free forever":"Free forever.",
+
 
   "labWhatsApp":"Know What’s Up on Brand Dot !",
   "labUpdateWhatsApp":"Get all updates and best offers on WhatsApp",

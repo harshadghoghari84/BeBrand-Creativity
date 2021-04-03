@@ -27,7 +27,14 @@ import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
+import Animated, { event } from "react-native-reanimated";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  AdMobRewarded,
+  PublisherBanner,
+} from "react-native-admob";
+import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -44,13 +51,20 @@ import MuktaText from "../../components/MuktaText";
 const { width, height } = Dimensions.get("window");
 let isShareClick = false;
 let msg = "";
+let adAvilable = false;
 
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
   const designPackages = toJS(designStore.designPackages);
 
   const user = toJS(userStore.user);
-  const { designs: designsArr, curDesign, curScreen } = route.params;
+  const {
+    designs: designsArr,
+    curDesign,
+    curScreen,
+    curPackageType,
+    curItemIndex,
+  } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
 
   /*
@@ -66,6 +80,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
+  const [visibleModalAd, setVisibleModalAd] = useState(false);
   const [visiblePicker, setVisiblePicker] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
   const [hasPro, sethasPro] = useState(false);
@@ -76,6 +91,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
+
+  const [Pkgtype, setPkgType] = useState(curPackageType);
+  const [adReady, setAdReady] = useState(false);
+
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
   const [selected, setSelected] = useState(0);
@@ -98,12 +117,145 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     return setVisiblePicker(!visiblePicker);
   };
 
+  const toggleVisibleAd = (isDownload) => {
+    if (isDownload) {
+      setTimeout(() => {
+        googleShowAd();
+      }, 1000);
+    } else {
+      designStore.setIsDownloadStartedPersonal(false);
+    }
+    setVisibleModalAd(!visibleModalAd);
+  };
+
+  const scrollTodesign = () => {
+    designRef.current.scrollToIndex({
+      animated: true,
+      index: curItemIndex && curItemIndex,
+    });
+  };
+
+  const getItemLayoutsCategory = useCallback(
+    (data, index) => ({
+      length: 75,
+      offset: 85 * index,
+      index,
+    }),
+    []
+  );
+
+  const googleAdListners = () => {
+    AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
+
+    AdMobRewarded.setAdUnitID(Constant.rewardAdunitId);
+
+    AdMobRewarded.addEventListener("rewarded", (reward) =>
+      console.log("AdMobRewarded => rewarded", reward)
+    );
+    AdMobRewarded.addEventListener("adLoaded", () =>
+      console.log("AdMobRewarded adLoaded")
+    );
+    AdMobRewarded.addEventListener("adFailedToLoad", (error) =>
+      console.log("AdFailedToLoad", error)
+    );
+    AdMobRewarded.addEventListener("adOpened", () =>
+      console.log("AdMobRewarded => adOpened")
+    );
+
+    AdMobRewarded.addEventListener("videoStarted", () =>
+      console.log("AdMobRewarded => videoStarted")
+    );
+    AdMobRewarded.addEventListener("videoCompleted", () => {
+      console.log("AdMobRewarded => videoCompleted"), (adAvilable = true);
+    });
+
+    AdMobRewarded.addEventListener("adClosed", () => {
+      console.log("AdMobRewarded => adClosed");
+      console.log("adAvilable", adAvilable);
+      if (adAvilable) {
+        setAdReady(true);
+      } else {
+        designStore.setIsDownloadStartedPersonal(false);
+      }
+      AdMobRewarded.requestAd().catch((error) => console.warn(error));
+    });
+    AdMobRewarded.addEventListener("adLeftApplication", () =>
+      console.log("AdMobRewarded => adLeftApplication")
+    );
+    AdMobRewarded.requestAd().catch((error) => console.warn(error));
+  };
+
+  const fbAd = async () => {
+    AdSettings.setLogLevel("debug");
+    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    const requestedStatus = await AdSettings.requestTrackingPermission();
+    console.log(requestedStatus);
+    if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
+      AdSettings.setAdvertiserIDCollectionEnabled(true);
+
+      // Both calls are not related to each other
+      // FB won’t deliver any ads if this is set to false or not called at all.
+      AdSettings.setAdvertiserTrackingEnabled(true);
+    }
+  };
+
+  const fbShowAd = () => {
+    InterstitialAdManager.showAd(Constant.InterstitialAdPlacementIdVideo)
+      .then((res) => {
+        console.log("res", res);
+        setAdReady(true),
+          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      })
+      .catch((err) => {
+        console.log(err);
+        setAdReady(true),
+          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      });
+  };
+
+  const googleShowAd = () => {
+    AdMobRewarded.showAd().catch((error) => {
+      console.log("per err", error);
+      fbShowAd();
+    });
+  };
+
+  useEffect(() => {
+    googleAdListners();
+    return () => {
+      AdMobRewarded.removeAllListeners();
+    };
+  }, []);
+
+  useEffect(() => {
+    fbAd();
+    return () => {
+      AdSettings.clearTestDevices();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (adReady) {
+      setAdReady(false);
+      adAvilable = false;
+      if (designStore.isDownloadStartedPersonal === true) {
+        onClickDownload();
+      }
+    }
+  }, [adReady]);
+
   useEffect(() => {
     const isDownloadStartedPersonal = toJS(
       designStore.isDownloadStartedPersonal
     );
     if (isDownloadStartedPersonal && isDownloadStartedPersonal === true) {
-      onClickDownload();
+      if (hasPro === true) {
+        onClickDownload();
+      } else {
+        setVisibleModalAd(true);
+        //AdMobRewarded.showAd().catch((error) => console.warn(error));
+      }
     }
   }, [designStore.isDownloadStartedPersonal]);
 
@@ -262,7 +414,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       (pkg) => pkg.id === currentDesign.package
     );
 
-    let currentDesignCredit = currentDesignCreditFree;
+    let currentDesignCredit =
+      currentDesignCreditFree > 0
+        ? currentDesignCreditFree
+        : currentDesignCreditPro;
     if (designPackage.type === Constant.typeDesignPackageVip) {
       currentDesignCredit = currentDesignCreditPro;
     }
@@ -274,7 +429,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       if (data !== null && !errors) {
         setLoadingImage(true);
         if (designPackage.type === Constant.typeDesignPackageFree) {
-          userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1);
+          currentDesignCreditFree > 0
+            ? userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1)
+            : userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
         } else {
           userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
         }
@@ -1621,6 +1778,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
+  const designRef = useRef();
   return (
     <>
       <BottomSheet
@@ -1690,22 +1848,35 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             isLayout={true}
             msg={msg}
           />
+          <PopUp
+            visible={visibleModalAd}
+            toggleVisibleAd={toggleVisibleAd}
+            isVisibleAd={true}
+          />
+
           <View style={styles.container}>
             <FlatList
               horizontal
+              ref={designRef}
               showsHorizontalScrollIndicator={false}
               data={designs}
+              onContentSizeChange={() => {
+                scrollTodesign();
+              }}
+              getItemLayout={getItemLayoutsCategory}
               keyExtractor={keyExtractor}
               contentContainerStyle={styles.flatlist}
               renderItem={({ item }) => {
                 const designPackage = designPackages.find(
                   (pkg) => pkg.id === item.package
                 );
+
                 return (
                   <TouchableOpacity
                     activeOpacity={0.6}
                     style={styles.listDesignView}
                     onPress={() => {
+                      setPkgType(designPackage.type);
                       if (
                         designPackage.type === Constant.typeDesignPackageVip &&
                         hasPro === false
@@ -1735,7 +1906,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                           ]}
                         />
                       )}
-                      {designPackage.type === Constant.typeDesignPackageVip && (
+                      {designPackage.type === Constant.typeDesignPackageVip ? (
                         <Icon
                           style={styles.tagPro}
                           name="Premium"
@@ -1743,6 +1914,17 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                           width={10}
                           fill={Color.primary}
                         />
+                      ) : (
+                        <View style={styles.tagfree}>
+                          <Text
+                            style={{
+                              color: Color.white,
+                              fontSize: 6,
+                            }}
+                          >
+                            {Common.getTranslation(LangKey.free)}
+                          </Text>
+                        </View>
                       )}
                     </View>
                   </TouchableOpacity>
@@ -1968,6 +2150,7 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     height: 40,
   },
+
   designView: {
     margin: 10,
     width: width - 25,
@@ -2012,10 +2195,18 @@ const styles = StyleSheet.create({
   socialIcon: { marginLeft: 10 },
   tagPro: {
     paddingHorizontal: 4,
-    marginRight: 5,
     color: Color.tagTextColor,
     position: "absolute",
-    left: 5,
+    right: 5,
+    overflow: "hidden",
+  },
+  tagfree: {
+    paddingHorizontal: 3,
+    marginTop: 3,
+    backgroundColor: Color.blackTransTagFree,
+    position: "absolute",
+    right: 5,
+    borderRadius: 5,
     overflow: "hidden",
   },
   plusButton: {

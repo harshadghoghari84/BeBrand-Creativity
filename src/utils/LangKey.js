@@ -20,6 +20,7 @@ module.exports = {
   titSignIn: "titSignIn",
   titMadeWithLoveInIndia: "titMadeWithLoveInIndia",
   titleAddReffercode: "titleAddReffercode",
+  free: "free",
 
   // user Profile
   labUser: "labUser",
@@ -189,7 +190,8 @@ module.exports = {
   // layout popup messages
   nolayout: "nolayout",
   nolayoutBussiness: "nolayoutBussiness",
-
+  adDesc: "adDesc",
+  Freeforever: "Free forever",
   personalLay1Msg: "personalLay1Msg",
   personalLay2Msg: "personalLay2Msg",
   personalLay3Msg: "personalLay3Msg",

@@ -4,8 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>

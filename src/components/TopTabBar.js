@@ -157,6 +157,12 @@ const TopTabBar = ({
 
         {isDownload && (
           <TouchableOpacity
+            disabled={
+              (isDownloadingP && isDownloadingP === true) ||
+              (isDownloadingB && isDownloadingB === true) ||
+              isPersonalDesignLoad === true ||
+              isBusinessDesignLoad === true
+            }
             style={{ position: "absolute", right: 20 }}
             onPress={() => {
               if (data[navigationState.index] === Constant.navPersonalProfile) {

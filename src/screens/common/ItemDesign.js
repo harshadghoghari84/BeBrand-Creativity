@@ -11,6 +11,8 @@ import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
 import FastImage from "react-native-fast-image";
 import Icon from "../../components/svgIcons";
+import Common from "../../utils/Common";
+import LangKey from "../../utils/LangKey";
 const imgWidth = (Dimensions.get("window").width - 30) / 2;
 
 const ItemDesign = ({
@@ -19,12 +21,13 @@ const ItemDesign = ({
   design,
   onDesignClick,
   designDate,
+  desIndex,
 }) => (
   <>
     <TouchableOpacity
       activeOpacity={0.6}
       style={styles.container}
-      onPress={() => onDesignClick(packageType, design)}
+      onPress={() => onDesignClick(packageType, design, desIndex)}
     >
       <View style={styles.innContainer}>
         <FastImage
@@ -35,7 +38,7 @@ const ItemDesign = ({
           }}
         />
 
-        {packageType === Constant.typeDesignPackageVip && (
+        {packageType === Constant.typeDesignPackageVip ? (
           <Icon
             style={styles.tagPro}
             name="Premium"
@@ -43,6 +46,18 @@ const ItemDesign = ({
             width={10}
             fill={Color.primary}
           />
+        ) : (
+          <View style={styles.tagfree}>
+            <Text
+              style={{
+                color: Color.white,
+                fontSize: 11,
+                fontFamily: "Nunito-Regular",
+              }}
+            >
+              {Common.getTranslation(LangKey.free)}
+            </Text>
+          </View>
         )}
 
         {designDate && (
@@ -76,10 +91,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginRight: 5,
     marginTop: 5,
-    color: Color.tagTextColor,
+    color: Color.white,
     position: "absolute",
     right: 0,
     overflow: "hidden",
+  },
+
+  tagfree: {
+    paddingHorizontal: 5,
+    marginRight: 5,
+    marginTop: 5,
+    backgroundColor: Color.blackTransTagFree,
+    borderRadius: 5,
+    position: "absolute",
+    right: 0,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
   },
   txtDesignDate: {
     backgroundColor: Color.bkgDesignDate,

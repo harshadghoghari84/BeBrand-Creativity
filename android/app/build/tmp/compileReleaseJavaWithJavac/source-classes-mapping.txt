@@ -1,6 +1,7 @@
 com/bebrandd/branddot/MainActivity.java
  com.bebrandd.branddot.MainActivity
  com.bebrandd.branddot.MainActivity$1
+ com.bebrandd.branddot.MainActivity$2
 com/bebrandd/branddot/generated/BasePackageList.java
  com.bebrandd.branddot.generated.BasePackageList
 com/bebrandd/branddot/BuildConfig.java

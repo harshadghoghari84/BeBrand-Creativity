@@ -53,7 +53,7 @@ export default memo(ItemSubCategory);
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: Constant.homeItemSubCategoryHeight,
+    height: Constant.ItemSubCategoryWidth,
     marginHorizontal: 8,
     alignItems: "center",
     flexDirection: "column",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 100,
+    width: Constant.ItemSubCategoryWidth,
     height: 70,
     borderRadius: 5,
     alignItems: "center",

@@ -20,6 +20,7 @@ const Button = ({
   icon,
   textColor,
   isVertical,
+  txtSize = false,
   ...props
 }) => (
   <TouchableOpacity
@@ -89,7 +90,7 @@ const Button = ({
               : big
               ? styles.bigtext
               : normal
-              ? styles.normaltext
+              ? [styles.normaltext, { fontSize: txtSize ? 14 : 17 }]
               : [
                   styles.smalltext,
                   { color: textColor ? Color.darkBlue : Color.white },

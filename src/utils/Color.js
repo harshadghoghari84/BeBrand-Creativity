@@ -28,7 +28,7 @@ export default {
   white: "#ffffff",
   red: "#c62828",
   green: "#388e3c",
-
+  freetagColor: "#274C5E",
   lightGrey: "#e0e0e0",
   lightwhite: "#FFFEF7",
   lightTextColor: "#ffffff",
@@ -42,4 +42,5 @@ export default {
   transparent: "transparent",
   layerColor: "#e8e8e8",
   blackTrans: "rgba(0,0,0,0.3)",
+  blackTransTagFree: "rgba(0,0,0,0.5)",
 };

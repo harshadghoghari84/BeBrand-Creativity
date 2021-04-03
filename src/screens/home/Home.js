@@ -28,33 +28,19 @@ import LangKey from "../../utils/LangKey";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { SvgCss } from "react-native-svg";
 import SvgConstant from "../../utils/SvgConstant";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  AdMobRewarded,
+  PublisherBanner,
+} from "react-native-admob";
+import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
 
 let isFirstTimeListLoad = true;
-
-const data = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1584271854089-9bb3e5168e32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80",
-  },
-];
+let adCounter = 0;
 
 const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
@@ -116,31 +102,39 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     if (isMountedRef.current) {
       const afterCategory = toJS(designStore.userSubCategoriesAfter);
-      setUserSubCategoriesAfter(afterCategory);
+      if (userSubCategoriesAfter.length <= afterCategory.length) {
+        setUserSubCategoriesAfter(afterCategory);
+      }
     }
   }, [designStore.userSubCategoriesAfter]);
 
   useEffect(() => {
     if (isMountedRef.current) {
       const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
+
       setUserSubCategoriesBefore(beforeCatragory);
     }
   }, [designStore.userSubCategoriesBefore]);
 
   useEffect(() => {
     if (isMountedRef.current) {
-      if (userSubCategoriesBefore) {
-        setUserSubCategories([...userSubCategoriesBefore]);
-      }
-      if (userSubCategoriesAfter) {
-        setUserSubCategories([...userSubCategoriesAfter]);
-      }
-      if (userSubCategoriesBefore && userSubCategoriesAfter) {
-        setUserSubCategories([
-          ...userSubCategoriesBefore,
-          ...userSubCategoriesAfter,
-        ]);
-      }
+      setUserSubCategories([
+        ...userSubCategoriesBefore,
+        ...userSubCategoriesAfter,
+      ]);
+      // if (userSubCategoriesBefore && userSubCategoriesAfter) {
+      //   console.log("main if");
+      //   setUserSubCategories([
+      //     ...userSubCategoriesBefore,
+      //     ...userSubCategoriesAfter,
+      //   ]);
+      // } else if (userSubCategoriesBefore) {
+      //   console.log("else if 1");
+      //   setUserSubCategories([...userSubCategoriesBefore]);
+      // } else if (userSubCategoriesAfter) {
+      //   console.log("else if 2");
+      //   setUserSubCategories([...userSubCategoriesAfter]);
+      // }
     }
   }, [userSubCategoriesAfter, userSubCategoriesBefore]);
 
@@ -153,6 +147,67 @@ const Home = ({ navigation, designStore, userStore }) => {
     isMountedRef.current &&
       setTotalUserSubCategoriesBefore(designStore.totalUserSubCategoriesBefore);
   }, [designStore.totalUserSubCategoriesBefore]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+
+      AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
+      AdMobInterstitial.addEventListener("adLoaded", () =>
+        console.log("AdMobInterstitial adLoaded")
+      );
+      AdMobInterstitial.addEventListener("adFailedToLoad", (error) =>
+        console.log("adFailedToLoad err", error)
+      );
+      AdMobInterstitial.addEventListener("adOpened", () =>
+        console.log("AdMobInterstitial => adOpened")
+      );
+      AdMobInterstitial.addEventListener("adClosed", () => {
+        console.log("AdMobInterstitial => adClosed");
+        AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      });
+      AdMobInterstitial.addEventListener("adLeftApplication", () =>
+        console.log("AdMobInterstitial => adLeftApplication")
+      );
+      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      return () => {
+        console.log("removeHome");
+        AdMobInterstitial.removeAllListeners();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    fbAd();
+    return () => {
+      AdSettings.clearTestDevices();
+    };
+  }, []);
+
+  const fbAd = async () => {
+    AdSettings.setLogLevel("debug");
+    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    const requestedStatus = await AdSettings.requestTrackingPermission();
+    console.log(requestedStatus);
+    if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
+      AdSettings.setAdvertiserIDCollectionEnabled(true);
+
+      // Both calls are not related to each other
+      // FB won’t deliver any ads if this is set to false or not called at all.
+      AdSettings.setAdvertiserTrackingEnabled(true);
+    }
+  };
+
+  const fbShowAd = () => {
+    InterstitialAdManager.showAd(Constant.InterstitialAdPlacementId)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const onFetchMorePressed = async () => {
     designStore.loadHomeData();
@@ -176,13 +231,12 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const loadMoreDesigns = (subCategoryId) => {
+  const loadMoreDesigns = async (subCategoryId) => {
     const index = userSubCategories.findIndex(
       (item) => item.id === subCategoryId
     );
 
     const subCategory = userSubCategories[index];
-
     const type =
       index < userSubCategoriesBefore.length
         ? Constant.userSubCategoryTypeBefore
@@ -190,7 +244,12 @@ const Home = ({ navigation, designStore, userStore }) => {
 
     const designLen = subCategory.designs.length;
     subCategory.totalDesign > designLen &&
-      designStore.loaduserDesigns(subCategory.id, designLen, type, hasPro);
+      (await designStore.loaduserDesigns(
+        subCategory.id,
+        designLen,
+        type,
+        hasPro
+      ));
   };
 
   // key extractors
@@ -199,20 +258,32 @@ const Home = ({ navigation, designStore, userStore }) => {
   // getItemLayouts for flatlists
   const getItemLayoutsCategory = useCallback(
     (data, index) => ({
-      length: Constant.homeItemSubCategoryHeight,
-      offset: Constant.homeItemSubCategoryHeight * index,
+      length: Constant.homeItemSubCategoryWidth,
+      offset: Constant.homeItemSubCategoryWidth * index,
       index,
     }),
     []
   );
 
-  const onDesignClick = (packageType, design) => {
+  const showAd = () => {
+    if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
+      AdMobInterstitial.showAd().catch((error) => fbShowAd());
+      adCounter = 0;
+    }
+  };
+
+  const onDesignClick = async (packageType, design, desIndex) => {
+    packageType === Constant.typeDesignPackageFree && adCounter++;
     if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
       setmodalVisible(true);
     } else {
+      console.log("adCounter", adCounter);
+      showAd();
       navigation.navigate(Constant.navDesign, {
         designs: userSubCategories[selectedSubCategory].designs,
         curDesign: design,
+        curPackageType: packageType,
+        curItemIndex: desIndex,
       });
     }
   };
@@ -228,6 +299,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         userSubCategories.length > userSubCategoriesBefore.length
           ? userSubCategoriesBefore.length
           : userSubCategoriesBefore.length - 1;
+
       refCategoryList.current.scrollToIndex({
         index: index,
       });
@@ -378,19 +450,23 @@ const Home = ({ navigation, designStore, userStore }) => {
               index={index}
               isSelectedId={selectedSubCategory}
               onSelect={(itemId) => {
+                adCounter++;
                 setSelectedSubCategory(itemId);
                 item.totalDesign > 0 &&
                   item.designs.length === 0 &&
                   loadMoreDesigns(item.id);
+                designStore.setDesignLang(Constant.designLangCodeAll);
+                console.log("adCountersubcat", adCounter);
+
+                showAd();
               }}
             />
           )}
         />
       </View>
-
       <View style={styles.containerDesignList}>
         {userSubCategories &&
-        selectedSubCategory &&
+        selectedSubCategory !== undefined &&
         userSubCategories[selectedSubCategory].totalDesign > 0 &&
         userSubCategories[selectedSubCategory].designs.length > 0 ? (
           <>
@@ -410,9 +486,10 @@ const Home = ({ navigation, designStore, userStore }) => {
               keyExtractor={keyExtractor}
               maxToRenderPerBatch={6}
               windowSize={10}
-              onEndReached={() =>
-                loadMoreDesigns(userSubCategories[selectedSubCategory].id)
-              }
+              onEndReached={() => {
+                !designStore.udLoading &&
+                  loadMoreDesigns(userSubCategories[selectedSubCategory].id);
+              }}
               renderItem={({ item: design, index: desIndex }) => {
                 const designPackage = designPackages.find(
                   (item) => item.id === design.package
@@ -421,6 +498,7 @@ const Home = ({ navigation, designStore, userStore }) => {
                   <ItemDesign
                     design={design}
                     packageType={designPackage.type}
+                    desIndex={desIndex}
                     onDesignClick={onDesignClick}
                   />
                 );
@@ -451,7 +529,7 @@ const Home = ({ navigation, designStore, userStore }) => {
               </>
             ) : (
               <FastImage
-                source={require("../../assets/img/NotAvailable.png")}
+                source={require("../../assets/img/soon.png")}
                 style={{ height: "80%", width: "80%" }}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -514,3 +592,26 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
+
+// const data = [
+//   {
+//     image:
+//       "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+//   },
+//   {
+//     image:
+//       "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
+//   },
+//   {
+//     image:
+//       "https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+//   },
+//   {
+//     image:
+//       "https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+//   },
+//   {
+//     image:
+//       "https://images.unsplash.com/photo-1584271854089-9bb3e5168e32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80",
+//   },
+// ];

@@ -356,6 +356,10 @@ export default {
       $afterType: UserSubCategoryType!
       $beforeType: UserSubCategoryType!
     ) {
+      languages {
+        code
+        name
+      }
       userSubCategoriesAfter: userSubCategories(
         start: $afterStart
         type: $afterType
