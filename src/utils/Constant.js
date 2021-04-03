@@ -159,7 +159,24 @@ export default {
   defHomeSubCategory: "All",
 
   // Home ItemSubCategory
-  homeItemSubCategoryHeight: 100,
+  ItemSubCategoryWidth: 100,
+  homeItemSubCategoryWidth: 100 + 16.1,
+
+  // for ad
+
+  // rewardAdunitId: "ca-app-pub-1505061127299003/4315408477",
+  // interstitialAdunitId: "ca-app-pub-1505061127299003/3465538847",
+  // InterstitialAdPlacementId: "161899485797593_161899955797546",
+  // InterstitialAdPlacementIdVideo: "161899485797593_162546452399563",
+  addCounter: 4,
+
+  // testing
+
+  rewardAdunitId: "ca-app-pub-3940256099942544/5224354917",
+  interstitialAdunitId: "ca-app-pub-3940256099942544/1033173712",
+  InterstitialAdPlacementId: "328225604270934_328677554225739",
+  InterstitialAdPlacementIdVideo:
+    "VID_HD_9_16_39S_APP_INSTALL#328225604270934_328677554225739",
 
   // mobx/DesignStore constants
   designLangCodeAll: "all",

@@ -11,11 +11,12 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import ColorPicker from "react-native-wheel-color-picker";
 import FastImage from "react-native-fast-image";
 import { useMutation } from "@apollo/client";
+
 // relative path
 import Color from "../utils/Color";
 import Ratings from "../utils/ratings";
@@ -59,6 +60,8 @@ const PopUp = ({
   iconName,
   userStore,
   isGoback,
+  isVisibleAd,
+  toggleVisibleAd,
 }) => {
   // const user = toJS(userStore.user);
   const navigation = useNavigation();
@@ -68,6 +71,8 @@ const PopUp = ({
   const [errorMobile, setErrorMobile] = useState("");
   const [refferCode, setRefferCode] = useState("");
   const [isEnabled, setIsEnabled] = useState(true);
+
+  const isMountedRef = Common.useIsMountedRef();
 
   useEffect(() => {
     const user = toJS(userStore.user);
@@ -82,6 +87,7 @@ const PopUp = ({
       setIsEnabled(user.isWhatsappUpdateEnable);
     }
   }, [userStore.user]);
+
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const [userRequestFeture, { loading: rFLoading }] = useMutation(
@@ -165,7 +171,9 @@ const PopUp = ({
       transparent={true}
       visible={visible}
       animationType="slide"
-      onRequestClose={() => toggleVisible()}
+      onRequestClose={() => {
+        toggleVisible();
+      }}
     >
       <KeyboardAvoidingView style={styles.centeredView}>
         {toggle && (
@@ -537,6 +545,61 @@ const PopUp = ({
             </View>
           </View>
         )}
+        {isVisibleAd && (
+          <View style={[styles.mainView]}>
+            <View style={[styles.innerView]}>
+              <TouchableOpacity
+                onPress={() => toggleVisibleAd()}
+                style={styles.btnClose}
+              >
+                <ICON name="close" size={22} color={Color.darkBlue} />
+              </TouchableOpacity>
+
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <Text>{Common.getTranslation(LangKey.adDesc)}</Text>
+                <Text style={{ fontSize: 20 }}>
+                  {Common.getTranslation(LangKey.Freeforever)}
+                </Text>
+                <FastImage
+                  source={require("../assets/img/Ads.png")}
+                  style={{ height: 200, width: "50%" }}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    style={{ margin: 5 }}
+                    normal={true}
+                    txtSize={true}
+                    onPress={() => {
+                      navigation.navigate(Constant.navPro, {
+                        screen: Constant.titPrimium,
+                      });
+                      toggleVisibleAd();
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.titleBePremium)}
+                  </Button>
+                  <Button
+                    style={{ margin: 5 }}
+                    normal={true}
+                    txtSize={true}
+                    onPress={() => {
+                      toggleVisibleAd(true);
+                    }}
+                  >
+                    Watch ads
+                    {/* {Common.getTranslation(LangKey.labPremium)} */}
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
         {isPurchased && (
           <View style={styles.mainView}>
             <View style={styles.innerView}>
@@ -615,6 +678,7 @@ const PopUp = ({
             </View>
           </View>
         )}
+
         {reffer && (
           <View style={styles.modalView}>
             <TouchableOpacity

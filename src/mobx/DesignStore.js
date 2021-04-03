@@ -43,6 +43,7 @@ class DesignStore {
   totalUserSubCategoriesBefore = 0;
   designLayouts = [];
   designPackages = [];
+  languages = [];
   isNewNotification = false;
   lastNotificationTime = undefined;
   userNotificationTime = new Date();
@@ -76,6 +77,7 @@ class DesignStore {
           this.totalUserSubCategoriesAfter = data.totalUserSubCategoriesAfter;
           this.totalUserSubCategoriesBefore = data.totalUserSubCategoriesBefore;
           this.lastNotificationTime = new Date(data.lastNotificationTime);
+          this.languages = data.languages;
           this.calcualteNotificationTime();
         }
       })
@@ -105,7 +107,7 @@ class DesignStore {
           //   this.designPackages
           // );
           this.userSubCategoriesAfter = [
-            ...this.userSubCategoriesAfter,
+            ...toJS(this.userSubCategoriesAfter),
             ...data.userSubCategoriesAfter,
           ];
         }
@@ -147,121 +149,116 @@ class DesignStore {
       });
   };
 
-  loaduserDesigns = (subCategory, start, type, hasPro) => {
-    this.udLoading = true;
-    ApolloClient.query({
-      query: GraphqlQuery.userDesignsP,
-      variables: { subCategory: subCategory, start: parseInt(start) },
-      fetchPolicy: "cache-first",
-      errorPolicy: "all",
-    })
-      .then(({ data, error }) => {
-        this.udLoading = false;
+  loaduserDesigns = async (subCategory, start, type, hasPro) => {
+    if (!this.udLoading) {
+      this.udLoading = true;
+      ApolloClient.query({
+        query: GraphqlQuery.userDesignsP,
+        variables: { subCategory: subCategory, start: parseInt(start) },
+        fetchPolicy: "cache-first",
+        errorPolicy: "all",
+      })
+        .then(({ data, error }) => {
+          if (data) {
+            const ud = data.userDesignsP;
+            if (ud.length > 0) {
+              const globleUserSubCategoriesAfter = toJS(
+                this.globleUserSubCategoriesAfter
+              );
+              const globleUserSubCategoriesBefore = toJS(
+                this.globleUserSubCategoriesBefore
+              );
 
-        if (data) {
-          // const ud = assignPackageToDesign(
-          //   data.userDesignsF,
-          //   this.designPackages
-          // );
-
-          const ud = data.userDesignsP;
-          if (ud.length > 0) {
-            const globleUserSubCategoriesAfter = toJS(
-              this.globleUserSubCategoriesAfter
-            );
-            const globleUserSubCategoriesBefore = toJS(
-              this.globleUserSubCategoriesBefore
-            );
-            const userSubCategories =
-              type === Constant.userSubCategoryTypeAfter
-                ? globleUserSubCategoriesAfter
-                : globleUserSubCategoriesBefore;
-            const index = userSubCategories.findIndex(
-              (item) => item.id === subCategory
-            );
-            const filterUserSubCategories = userSubCategories;
-            const subItem = userSubCategories[index];
-
-            const tempArray = [...subItem.designs, ...ud];
-            if (tempArray.length <= subItem.totalDesign) {
-              subItem.designs = tempArray;
-
-              let filterSubItem = subItem;
-              if (this.designLang !== Constant.designLangCodeAll) {
-                filterSubItem.designs = tempArray.filter(
-                  (item) => item.language.code === this.designLang
-                );
+              let userSubCategories = [];
+              if (type === Constant.userSubCategoryTypeAfter) {
+                userSubCategories = globleUserSubCategoriesAfter;
+              } else {
+                userSubCategories = globleUserSubCategoriesBefore;
               }
 
-              userSubCategories[index] = subItem;
-              filterUserSubCategories[index] = filterSubItem;
+              const index = userSubCategories.findIndex(
+                (item) => item.id === subCategory
+              );
+              let subItem = userSubCategories[index];
 
-              type === Constant.globleuserSubCategoryTypeAfter
-                ? (this.globleUserSubCategoriesAfter = [...userSubCategories])
-                : (this.globleUserSubCategoriesBefore = [...userSubCategories]);
+              const tempArray = [...subItem.designs, ...ud];
 
-              type === Constant.userSubCategoryTypeAfter
-                ? (this.userSubCategoriesAfter = [...filterUserSubCategories])
-                : (this.userSubCategoriesBefore = [...filterUserSubCategories]);
+              if (tempArray.length <= subItem.totalDesign) {
+                subItem.designs = tempArray;
+
+                userSubCategories[index] = subItem;
+
+                type === Constant.globleuserSubCategoryTypeAfter
+                  ? (this.globleUserSubCategoriesAfter = [...userSubCategories])
+                  : (this.globleUserSubCategoriesBefore = [
+                      ...userSubCategories,
+                    ]);
+              }
             }
-          }
+            this.udLoading = false;
 
-          // if (ud.length > 0) {
-          //   this.userSubCategoriesAfter.map((item) => {
-          //     if (item.id === subCategory) {
-          //       item.designs = [...item.designs, ...ud];
-          //     }
-          //     return item;
-          //   });
-          // }
-        }
-      })
-      .catch((error) => {
-        this.udLoading = false;
-        console.error(error);
-      });
+            this.changeDesignByLanguage();
+
+            // if (ud.length > 0) {
+            //   this.userSubCategoriesAfter.map((item) => {
+            //     if (item.id === subCategory) {
+            //       item.designs = [...item.designs, ...ud];
+            //     }
+            //     return item;
+            //   });
+            // }
+          }
+        })
+        .catch((error) => {
+          this.udLoading = false;
+          console.error(error);
+        });
+    }
   };
 
   setDesignLang = (code) => {
     this.designLang = code;
+    this.changeDesignByLanguage();
   };
 
   changeDesignByLanguage = () => {
     const currDesignCode = toJS(this.designLang);
 
-    const designAfter = toJS(this.globleUserSubCategoriesAfter);
+    let designAfter = toJS(this.globleUserSubCategoriesAfter);
+    let designBefore = toJS(this.globleUserSubCategoriesBefore);
 
-    const userDesignAfter = designAfter.map((ele, index) => {
-      if (
-        ele.designs !== undefined &&
-        ele.designs !== null &&
-        currDesignCode !== Constant.designLangCodeAll &&
-        ele.designs.length > 0
-      ) {
-        ele.designs = ele.designs.filter(
-          (item) => item.language.code === currDesignCode
-        );
-      }
-      return ele;
-    });
-    const designBefore = toJS(this.globleUserSubCategoriesBefore);
+    if (currDesignCode !== Constant.designLangCodeAll) {
+      designAfter = designAfter.map((ele, index) => {
+        if (
+          ele.designs !== undefined &&
+          ele.designs !== null &&
+          currDesignCode !== Constant.designLangCodeAll &&
+          ele.designs.length > 0
+        ) {
+          ele.designs = ele.designs.filter(
+            (item) => item.language.code === currDesignCode
+          );
+        }
+        return ele;
+      });
 
-    const userDesignBefore = designBefore.map((ele, index) => {
-      if (
-        ele.designs !== undefined &&
-        ele.designs !== null &&
-        currDesignCode !== Constant.designLangCodeAll &&
-        ele.designs.length > 0
-      ) {
-        ele.designs = ele.designs.filter(
-          (item) => item.language.code === currDesignCode
-        );
-      }
-      return ele;
-    });
+      designBefore = designBefore.map((ele, index) => {
+        if (
+          ele.designs !== undefined &&
+          ele.designs !== null &&
+          currDesignCode !== Constant.designLangCodeAll &&
+          ele.designs.length > 0
+        ) {
+          ele.designs = ele.designs.filter(
+            (item) => item.language.code === currDesignCode
+          );
+        }
+        return ele;
+      });
+    }
 
-    this.userSubCategoriesAfter = [...userDesignAfter];
-    this.userSubCategoriesBefore = [...userDesignBefore];
+    this.userSubCategoriesAfter = [...designAfter];
+    this.userSubCategoriesBefore = [...designBefore];
   };
 
   setIsDownloadStartedPersonal = (val) => {
@@ -309,6 +306,7 @@ decorate(DesignStore, {
   globleUserSubCategoriesAfter: observable,
   globleUserSubCategoriesBefore: observable,
   designLayouts: observable,
+  languages: observable,
   loadHomeData: action,
   loadMoreAfterSubCategories: action,
   loadMoreBeforeSubCategories: action,

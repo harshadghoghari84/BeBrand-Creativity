@@ -20,6 +20,15 @@ import LangKey from "../utils/LangKey";
 import Color from "../utils/Color";
 import FastImage from "react-native-fast-image";
 import PopUp from "../components/PopUp";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  AdMobRewarded,
+  PublisherBanner,
+} from "react-native-admob";
+import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+
+let adCounter = 0;
 
 const UserDesign = ({ navigation, designStore, userStore }) => {
   const [hasPro, sethasPro] = useState(false);
@@ -44,23 +53,95 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   }, []);
 
   useEffect(() => {
+    if (isMountedRef.current) {
+      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+      AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitIdTest);
+
+      AdMobInterstitial.addEventListener("adLoaded", () =>
+        console.log("AdMobInterstitial adLoaded")
+      );
+      AdMobInterstitial.addEventListener("adFailedToLoad", (error) =>
+        console.warn(error)
+      );
+      AdMobInterstitial.addEventListener("adOpened", () =>
+        console.log("AdMobInterstitial => adOpened")
+      );
+      AdMobInterstitial.addEventListener("adClosed", () => {
+        console.log("AdMobInterstitial => adClosed");
+        AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      });
+      AdMobInterstitial.addEventListener("adLeftApplication", () =>
+        console.log("AdMobInterstitial => adLeftApplication")
+      );
+      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      return () => {
+        AdMobInterstitial.removeAllListeners();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    fbAd();
+    return () => {
+      AdSettings.clearTestDevices();
+    };
+  }, []);
+
+  const fbAd = async () => {
+    AdSettings.setLogLevel("debug");
+    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    const requestedStatus = await AdSettings.requestTrackingPermission();
+    console.log(requestedStatus);
+    if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
+      AdSettings.setAdvertiserIDCollectionEnabled(true);
+
+      // Both calls are not related to each other
+      // FB won’t deliver any ads if this is set to false or not called at all.
+      AdSettings.setAdvertiserTrackingEnabled(true);
+    }
+  };
+
+  const fbShowAd = () => {
+    InterstitialAdManager.showAd(Constant.InterstitialAdPlacementId)
+      .then((res) => {
+        console.log("res", res);
+        setAdReady(true),
+          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      })
+      .catch((err) => {
+        console.log(err);
+        setAdReady(true),
+          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      });
+  };
+
+  useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
   }, [userStore.hasPro]);
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-  const onDesignClick = (packageType, design) => {
+  const showAd = () => {
+    if (hasPro === false) {
+      AdMobInterstitial.showAd().catch((error) => fbShowAd());
+    }
+  };
+
+  const onDesignClick = (packageType, design, desIndex) => {
     if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
       setmodalVisible(true);
     } else {
       const designs = data?.perchasedDesigns.map((item) => {
         return item.design;
       });
+      showAd();
       navigation.dispatch(
         StackActions.replace(Constant.navDesign, {
           designs: designs,
           curDesign: design,
+          curItemIndex: desIndex,
         })
       );
     }
@@ -87,6 +168,7 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
             return (
               <ItemDesign
                 design={item.design}
+                desIndex={index}
                 packageType={designPackage.type}
                 onDesignClick={onDesignClick}
                 designDate={Common.convertIsoToDate(item.purchaseDate)}

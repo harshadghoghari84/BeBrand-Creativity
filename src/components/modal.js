@@ -1,3 +1,4 @@
+import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -17,28 +18,22 @@ import Color from "../utils/Color";
 import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
 
-const Modal = ({ visible, toggleVisible, designStore }) => {
-  const [lang, setLang] = useState([
-    { code: "all", name: "All", isSelected: true },
-    { code: "en", name: "English", isSelected: false },
-    { code: "hi", name: "हिन्दी", isSelected: false },
-    { code: "gu", name: "ગુજરાતી", isSelected: false },
-    // { code: "ma", name: "मराठी", isSelected: false },
-  ]);
-  const selectLanguage = (currantIndex, langcode) => {
-    let tmpArr = lang;
-    tmpArr.forEach((ele, index) => {
-      if (index == currantIndex) {
-        tmpArr[currantIndex].isSelected = true;
-      } else {
-        tmpArr[index].isSelected = false;
-      }
-    });
-    setLang(tmpArr);
+const lng = [{ code: "all", name: "All" }];
 
-    designStore.setDesignLang(langcode);
-    designStore.changeDesignByLanguage();
-  };
+const Modal = ({ visible, toggleVisible, designStore }) => {
+  const [lang, setLang] = useState(lng[0].code);
+  const [languages, setLanguages] = useState(lng);
+
+  useEffect(() => {
+    setLang(toJS(designStore.designLang));
+  }, [designStore.designLang]);
+
+  useEffect(() => {
+    const lData = toJS(designStore.languages);
+    if (lData && Array.isArray(lData) && lData.length > 0)
+      setLanguages([...lng, ...lData]);
+  }, [designStore.languages]);
+
   const animating = {
     duration: 300,
     easing: Easing.inOut(Easing.cubic),
@@ -60,13 +55,13 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
           <Text>{Common.getTranslation(LangKey.labSelecteLang)}</Text>
         </View>
         <FlatList
-          data={lang}
+          data={languages}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  selectLanguage(index, item.code);
+                  designStore.setDesignLang(item.code);
                   toggleVisible();
                 }}
               >
@@ -80,7 +75,8 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
                 >
                   <Text
                     style={{
-                      color: item.isSelected ? Color.primary : Color.darkBlue,
+                      color:
+                        item.code === lang ? Color.primary : Color.darkBlue,
                     }}
                   >
                     {item.name}

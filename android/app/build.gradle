@@ -93,14 +93,14 @@ apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gra
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = true
-//def enableSeparateBuildPerCPUArchitecture = false
+// def enableSeparateBuildPerCPUArchitecture = true
+def enableSeparateBuildPerCPUArchitecture = false
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = true
-//def enableProguardInReleaseBuilds = false
+//  def enableProguardInReleaseBuilds = true
+def enableProguardInReleaseBuilds = false
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -136,8 +136,8 @@ android {
         applicationId 'com.bebrandd.branddot'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 8
+        versionName "1.0.8"
         multiDexEnabled true
     }
     dexOptions {
@@ -208,6 +208,7 @@ android {
 dependencies {
     implementation "com.google.android.play:core:1.8.0"
     implementation "com.google.firebase:firebase-analytics:18.0.2"
+    implementation "androidx.multidex:multidex:2.0.1"
     implementation project(':react-native-iap')
     implementation 'com.facebook.android:facebook-android-sdk:7.1.0'
     implementation(project(":react-native-google-signin"))

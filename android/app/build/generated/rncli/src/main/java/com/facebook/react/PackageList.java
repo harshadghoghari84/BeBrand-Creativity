@@ -25,8 +25,12 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 // @react-native-firebase/messaging
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+// react-native-admob
+import com.sbugert.rnadmob.RNAdMobPackage;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
+// react-native-fbads
+import suraj.tiwari.reactnativefbads.FBAdsPackage;
 // react-native-fbsdk
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 // react-native-gesture-handler
@@ -109,7 +113,9 @@ public class PackageList {
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
       new ReactNativeFirebaseMessagingPackage(),
+      new RNAdMobPackage(),
       new FastImageViewPackage(),
+      new FBAdsPackage(),
       new FBSDKPackage(),
       new RNGestureHandlerPackage(),
       new RNIapPackage(),

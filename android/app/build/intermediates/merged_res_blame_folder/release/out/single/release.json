@@ -1,370 +1,378 @@
 [
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_properties.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_properties.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_legacy.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_legacy.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_domserializer_foreignnames.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_domserializer_foreignnames.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_octicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_octicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_foreground.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_brands.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_brands.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_entypo.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_entypo.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_entypo.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_entypo.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_notification.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxxhdpi/ic_notification.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable_splashscreen_image.jpg.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splashscreen_image.jpg"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_syntaxes.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_syntaxes.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_src_languages_hi.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/src_languages_hi.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/layout_launch_screen.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/layout/launch_screen.xml"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free_meta.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free_meta.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialcommunityicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialcommunityicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_octicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_octicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable_splashscreen_image.jpg.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/drawable/splashscreen_image.jpg"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_simplelineicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_simplelineicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/layout_launch_screen.xml.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/layout/launch_screen.xml"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xxxhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_rating.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_rating.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_notification.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-mdpi/ic_notification.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_ionicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_ionicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_notification.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-hdpi/ic_notification.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable_splashscreen.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splashscreen.xml"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_notification.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_notification.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_foundation.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_foundation.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_syntaxes.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_syntaxes.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free_meta.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free_meta.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_csstree_data_patch.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_csstree_data_patch.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_ionicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_ionicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable_splashscreen.xml.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/drawable/splashscreen.xml"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_ionicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_ionicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontisto.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontisto.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxxhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_foundation.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_foundation.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_notification.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_notification.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_notavailable.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_notavailable.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_xml.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_xml.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_bdt.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_bdt.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backiconmask.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_stack_src_views_assets_backiconmask.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_atrules.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_atrules.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontisto.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontisto.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_feather.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_feather.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable_splash_image.gif.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/drawable/splash_image.gif"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_feather.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_feather.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_select.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_select.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-hdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-hdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_domserializer_foreignnames.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_domserializer_foreignnames.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-hdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-hdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_antdesign.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_antdesign.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_src_languages_hi.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/src_languages_hi.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_simplelineicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_simplelineicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_zocial.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_zocial.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_solid.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_solid.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-hdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-hdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_decode.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_decode.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_decode.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_decode.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_reactnativemimetypes_node_modules_mimedb_db.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_reactnativemimetypes_node_modules_mimedb_db.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_colorwheel.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_regular.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_regular.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_foreground.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_zocial.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_zocial.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_cssselect_lib_procedure.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_cssselect_lib_procedure.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_ads.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_ads.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_evilicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_evilicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_foundation.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_foundation.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_antdesign.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_antdesign.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_zocial.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_zocial.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_evilicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_splash_image.gif.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_splash_image.gif"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_logo2.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_logo2.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontisto.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontisto.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_src_languages_en.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/src_languages_en.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable_splash_image.gif.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/drawable/splash_image.gif"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_reactnativemimetypes_node_modules_mimedb_db.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_reactnativemimetypes_node_modules_mimedb_db.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_csstree_package.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_csstree_package.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_xml.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_xml.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_notavailable.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_notavailable.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_soon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_soon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_properties.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_properties.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_brands.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_brands.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_feather.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_feather.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_select.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_select.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_notification.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_notification.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome5free.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_evilicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_evilicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_antdesign.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_antdesign.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_foundation.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_foundation.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_simplelineicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_simplelineicons.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_solid.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_solid.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_zocial.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_zocial.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_octicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_octicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_regular.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_fontawesome5_regular.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_notification.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_notification.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontisto.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontisto.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_octicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_octicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_entypo.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_entypo.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_entities.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_entities.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_mdndata_css_atrules.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_atrules.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable_ic_launcher_background.xml.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/drawable/ic_launcher_background.xml"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_csstree_data_patch.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_csstree_data_patch.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradient.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_src_languages_en.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/src_languages_en.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_csstree_package.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_csstree_package.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_ionicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_ionicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_simplelineicons.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_simplelineicons.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_feather.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_feather.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_bdt.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_bdt.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_splash_image.gif.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_splash_image.gif"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_cssselect_lib_procedure.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_cssselect_lib_procedure.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_notification.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xhdpi/ic_notification.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_antdesign.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_antdesign.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialicons.ttf"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_fontawesome.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_rating.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_rating.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_entities.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_entities.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backiconmask.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_stack_src_views_assets_backiconmask.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_glyphmaps_materialcommunityicons.json"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_notification.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxhdpi/ic_notification.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnativewheelcolorpicker_assets_graphics_ui_blackgradientrotated.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_legacy.json.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_legacy.json"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_entypo.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_entypo.ttf"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_logo2.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_logo2.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_foreground.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-hdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-hdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/Users/bebrandd03/Documents/projects/react/native/BeBrand-Creativity/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_notification.png.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/src/main/res/mipmap-hdpi/ic_notification.png"
+    },
+    {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/res/merged/release/raw_node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialcommunityicons.ttf.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/generated/res/react/release/raw/node_modules_expo_vectoricons_build_vendor_reactnativevectoricons_fonts_materialcommunityicons.ttf"
     }
 ]

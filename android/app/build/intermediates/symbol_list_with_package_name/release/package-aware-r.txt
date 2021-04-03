@@ -96,6 +96,9 @@ attr activityChooserViewStyle
 attr actualImageResource
 attr actualImageScaleType
 attr actualImageUri
+attr adSize
+attr adSizes
+attr adUnitId
 attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
 attr alertDialogStyle
@@ -760,7 +763,10 @@ attr yearTodayStyle
 bool abc_action_bar_embed_tabs
 bool abc_allow_stacked_button_bar
 bool abc_config_actionMenuItemAllCaps
+bool enable_system_alarm_service_default
+bool enable_system_job_service_default
 bool mtrl_btn_textappearance_all_caps
+bool workmanager_test_configuration
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
@@ -829,7 +835,9 @@ color catalyst_redbox_background
 color chartreuse
 color checkbox_themeable_attribute_color
 color chocolate
+color colorAccent
 color colorPrimary
+color colorPrimaryDark
 color com_facebook_blue
 color com_facebook_button_background_color
 color com_facebook_button_background_color_disabled
@@ -1682,11 +1690,13 @@ drawable redbox_top_border_background
 drawable splash_image
 drawable splashscreen
 drawable splashscreen_image
+drawable src_assets_img_ads
 drawable src_assets_img_bdt
 drawable src_assets_img_logo2
 drawable src_assets_img_notavailable
 drawable src_assets_img_rating
 drawable src_assets_img_select
+drawable src_assets_img_soon
 drawable src_assets_img_splash_image
 drawable test_custom_background
 drawable tooltip_frame_dark
@@ -2441,6 +2451,13 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
+string offline_notification_text
+string offline_notification_title
+string offline_opt_in_confirm
+string offline_opt_in_confirmation
+string offline_opt_in_decline
+string offline_opt_in_message
+string offline_opt_in_title
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -2451,6 +2468,13 @@ string progressbar_description
 string project_id
 string radiogroup_description
 string rn_tab_description
+string s1
+string s2
+string s3
+string s4
+string s5
+string s6
+string s7
 string scrollbar_description
 string search_description
 string search_menu_title
@@ -2908,6 +2932,7 @@ style Theme_Design_NoActionBar
 style Theme_FullScreenDialog
 style Theme_FullScreenDialogAnimatedFade
 style Theme_FullScreenDialogAnimatedSlide
+style Theme_IAPTheme
 style Theme_MaterialComponents
 style Theme_MaterialComponents_BottomSheetDialog
 style Theme_MaterialComponents_Bridge
@@ -3199,6 +3224,7 @@ styleable ActionMenuItemView android_minWidth
 styleable ActionMenuView
 styleable ActionMode background backgroundSplit closeItemLayout height subtitleTextStyle titleTextStyle
 styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivityCount
+styleable AdsAttrs adSize adSizes adUnitId
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
 styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable AnimatedStateListDrawableItem android_id android_drawable
