@@ -108,6 +108,8 @@
   "labEdit":"edit",
   "labPurchase":"Purchase",
   "labPurchasePremiumPkg":"Select your package first",
+  "labFreeDesignLimitOver":"Your daily free design limit is over",
+  "labDownloadMoreImage":"Take the premium package to download more images.",
   "titPersonalProfile":"Personal",
   "titBussinessProfile":"Bussiness",
   "labfreeFeature":"Free features you love :",
@@ -139,6 +141,7 @@
   "LayoutColor":"Layout color",
   "FontColor":"Font color",
   "labProfileImageSize":"Max. upload file size : 2 MB",
+  "labWatchAds":"Watch ads",
 
   "nolayout":"Please enter all required details to get this layout.",
   "nolayoutBussiness":"Please enter all required details to get this layout.",
@@ -181,7 +184,7 @@
   "labLayouts":"Layout",
   "labColorCodeList":"Color",
   "labSocialMediaIcons":"Social",
-  "adDesc":"You will get 100 posts every year.",
+  "adDesc":"You will get 2 posts every day.",
   "Free forever":"Free forever.",
 
 
@@ -191,5 +194,9 @@
   "labUnsubscribeNoti":"Unsubscribe to these notification any time.",
 
   "lab1pkg":"Payment will be charged to your store at confirmation of purchase subscriptions will automatically renew unless auto renew is turn off at least 24 hours before the end of currant period.",
-  "lab2pkg":"Your account will be charged according to your plan for renewal within 24 hours prior to the end of the currant period you can manage or turn off auto-renew in your account settings at any time after purchase."
+  "lab2pkg":"Your account will be charged according to your plan for renewal within 24 hours prior to the end of the currant period you can manage or turn off auto-renew in your account settings at any time after purchase.",
+  "lab1pkgAndroid":"Note : Two designs per day will be free from free design. More than two free designs will be deducted from premium package.",
+  "txtUploadPhotoHere":"Upload your photo here",
+  "txtUploadLogoHere":"Upload your logo here",
+  "txtUploadPNG":"Upload PNG images for better experience"
 }

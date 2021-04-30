@@ -1,0 +1,57 @@
+{
+  "products" : [
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "BB633F28",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "600fab766e24eb1ff001b7c2",
+      "referenceName" : "starter pack",
+      "type" : "Consumable"
+    }
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}

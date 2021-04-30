@@ -110,6 +110,8 @@ module.exports = {
   personalDesignationErr: "personalDesignationErr",
   personalSocialMediaIdErr: "personalSocialMediaIdErr",
   personalWebsiteErr: "personalWebsiteErr",
+  txtUploadPhotoHere: "txtUploadPhotoHere",
+  txtUploadPNG: "txtUploadPNG",
 
   //BusinessProfile Screen
   labCompanyName: "labCompanyName",
@@ -122,6 +124,7 @@ module.exports = {
   bussinessAddressErr: "bussinessAddressErr",
   bussinessSocialMediaIdErr: "bussinessSocialMediaIdErr",
   bussinessWebsiteErr: "bussinessWebsiteErr",
+  txtUploadLogoHere: "txtUploadLogoHere",
 
   // Packages Screen
   labPerchase: "labPerchase",
@@ -143,6 +146,8 @@ module.exports = {
   labEdit: "labEdit",
   labPurchase: "labPurchase",
   labPurchasePremiumPkg: "labPurchasePremiumPkg",
+  labFreeDesignLimitOver: "labFreeDesignLimitOver",
+  labDownloadMoreImage: "labDownloadMoreImage",
   labFree: "labFree",
   labPackage: "labPackage",
   labPremium: "labPremium",
@@ -154,6 +159,7 @@ module.exports = {
   weLoveToHearFromYou: "weLoveToHearFromYou",
   IloveIt: "IloveIt",
   itNeedsToBeImproved: "itNeedsToBeImproved",
+  labWatchAds: "labWatchAds",
 
   // signin
   labLoading: "labLoading",
@@ -185,6 +191,7 @@ module.exports = {
   labToday: "labToday",
   labEarl: "labEarl",
   lab1pkg: "lab1pkg",
+  lab1pkgAndroid: "lab1pkgAndroid",
   lab2pkg: "lab2pkg",
 
   // layout popup messages

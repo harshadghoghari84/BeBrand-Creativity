@@ -76,7 +76,6 @@ class LocalNotificationService {
     await PushNotification.channelExists(
       options.channelId,
       async function (exists) {
-        console.log("exists", exists);
         if (!exists) {
           await PushNotification.createChannel(
             {

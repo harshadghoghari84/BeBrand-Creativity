@@ -119,4 +119,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     overflow: "hidden",
   },
+  imghewi: {
+    height: 70,
+    width: "100%",
+  },
 });

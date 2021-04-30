@@ -47,6 +47,7 @@ class DesignStore {
   isNewNotification = false;
   lastNotificationTime = undefined;
   userNotificationTime = new Date();
+  modalOffers = [];
 
   udLoading = false;
   userDesignsF = [];
@@ -79,6 +80,7 @@ class DesignStore {
           this.lastNotificationTime = new Date(data.lastNotificationTime);
           this.languages = data.languages;
           this.calcualteNotificationTime();
+          this.modalOffers = data.modalOffers;
         }
       })
       .catch((error) => {
@@ -110,6 +112,10 @@ class DesignStore {
             ...toJS(this.userSubCategoriesAfter),
             ...data.userSubCategoriesAfter,
           ];
+          this.globleUserSubCategoriesAfter = [
+            ...toJS(this.globleUserSubCategoriesAfter),
+            ...data.userSubCategoriesAfter,
+          ];
         }
       })
       .catch((error) => {
@@ -139,6 +145,10 @@ class DesignStore {
           // );
           this.userSubCategoriesBefore = [
             ...this.userSubCategoriesBefore,
+            ...data.userSubCategoriesBefore,
+          ];
+          this.globleUserSubCategoriesBefore = [
+            ...this.globleUserSubCategoriesBefore,
             ...data.userSubCategoriesBefore,
           ];
         }
@@ -299,6 +309,7 @@ decorate(DesignStore, {
   bhdLoading: observable,
   udLoading: observable,
   designPackages: observable,
+  modalOffers: observable,
   userSubCategoriesAfter: observable,
   totalUserSubCategoriesAfter: observable,
   userSubCategoriesBefore: observable,

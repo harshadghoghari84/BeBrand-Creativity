@@ -464,6 +464,15 @@ export default {
       }
 
       lastNotificationTime
+      modalOffers {
+        id
+        width
+        height
+        image {
+          url
+        }
+        status
+      }
     }
   `,
   offers: gql`
@@ -676,7 +685,7 @@ export default {
   `,
   perchasedPackages: gql`
     query perchasedPackages($start: Int!) {
-      perchasedPackages(start: $start) {
+      perchasedPackagesV2(start: $start) {
         id
         startDesignCredit
         currentDesignCredit
@@ -696,17 +705,17 @@ export default {
   `,
   addUserDesign: gql`
     mutation AddUserDesign($designId: String!) {
-      addUserDesign(designId: $designId)
+      addUserDesignV2(designId: $designId)
     }
   `,
   addPersonalImage: gql`
     mutation($image: GraphQLUpload!) {
-      addPersonalImage(image: $image)
+      addPersonalImageV2(image: $image)
     }
   `,
   addBusinessImage: gql`
     mutation($image: GraphQLUpload!) {
-      addBusinessImage(image: $image)
+      addBusinessImageV2(image: $image)
     }
   `,
   addRequestFeature: gql`
@@ -729,6 +738,11 @@ export default {
       deleteBusinessImage(image: $image)
     }
   `,
+  addOrder: gql`
+    mutation($packageId: String!) {
+      addOrder(packageId: $packageId)
+    }
+  `,
   updateWhatsappInfo: gql`
     mutation($whatsappNo: String!, $isUpdateEnable: Boolean!) {
       updateWhatsappInfo(
@@ -747,6 +761,47 @@ export default {
         packageId: $packageId
         androidPerchaseToken: $androidPerchaseToken
         iosPerchaseReceipt: $iosPerchaseReceipt
+      ) {
+        id
+        package {
+          id
+          name
+          description
+          type
+          actualPrice
+          discountPrice
+          designCredit
+          businessImageLimit
+          personalImageLimit
+          validity
+          image {
+            url
+          }
+          features
+          status
+          updatedAt
+          createdAt
+        }
+        startDesignCredit
+        currentDesignCredit
+        personalImageLimit
+        businessImageLimit
+        price
+        purchaseDate
+        expiryDate
+      }
+    }
+  `,
+  addUserDesignPackageRzp: gql`
+    mutation(
+      $orderId: String!
+      $paymentId: String!
+      $paymentSignature: String!
+    ) {
+      addUserDesignPackageRzp(
+        orderId: $orderId
+        paymentId: $paymentId
+        paymentSignature: $paymentSignature
       ) {
         id
         package {

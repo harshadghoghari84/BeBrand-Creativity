@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { ApolloProvider, useLazyQuery } from "@apollo/client";
 import { Provider } from "mobx-react";
@@ -21,25 +21,29 @@ import client from "./src/utils/ApolloClient";
 import CustomDrawer from "./src/screens/common/CustomDrawer";
 import HomeStackComponent from "./src/stacks/HomeStack";
 import Signin from "./src/screens/Signin";
-import { fcmService } from "./src/FCM/FCMService";
-import { localNotificationService } from "./src/FCM/LocalNotificationService";
 
 Common.setTranslationInit();
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const DrawerScreen = () => {
+  return (
+    <Drawer.Navigator
+      // initialRouteName={initScreen}
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
+      <Drawer.Screen
+        name={Constant.navHomeStack}
+        component={HomeStackComponent}
+      />
+      {/* <Drawer.Screen name={Constant.navDesign} component={DesignStack} /> */}
+    </Drawer.Navigator>
+  );
+};
 
-const DrawerScreen = () => (
-  <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
-    <Drawer.Screen
-      name={Constant.navHomeStack}
-      component={HomeStackComponent}
-    />
-    {/* <Drawer.Screen name={Constant.navDesign} component={DesignStack} /> */}
-  </Drawer.Navigator>
-);
+const App = () => {
+  // const navigation = useNavigation();
 
-export default function App() {
   // const [isTimerRunning, setIsTimerRunning] = useState(true);
 
   // let loading = false;
@@ -83,67 +87,6 @@ export default function App() {
   // };
   // !loading && isTimerRunning === false && openScreen();
 
-  useEffect(() => {
-    fcmService.registerAppWithFCM();
-    fcmService.register(onRegister, onNotification, onOpenNotification);
-    localNotificationService.configure(onOpenNotification);
-    localNotificationService.subscribeToTopics(Constant.Offer);
-    localNotificationService.subscribeToTopics(Constant.SpecialOffer);
-    localNotificationService.subscribeToTopics(Constant.Wishes);
-    localNotificationService.subscribeToTopics(Constant.Information);
-    function onRegister(token) {
-      console.log("[App] onRegister:", token);
-    }
-    function onNotification(remotMessage) {
-      console.log("[App] onNotification:", remotMessage);
-      console.log("chk ____:", remotMessage);
-
-      let notify = null;
-      if (Platform.OS === "ios") {
-        notify = remotMessage.data.notification;
-      } else {
-        notify = remotMessage.notification;
-      }
-      console.log("notify", notify);
-      const options = {
-        soundName: "default",
-        playSound: true,
-        bigPictureUrl: notify.android.imageUrl,
-      };
-
-      if (Platform.OS === "android") {
-        options.channelId = Constant.Default;
-        if (remotMessage.from.includes(Constant.topics)) {
-          if (remotMessage.from.includes(Constant.Offer)) {
-            options.channelId = Constant.Offer;
-          } else if (remotMessage.from.includes(Constant.SpecialOffer)) {
-            options.channelId = Constant.SpecialOffer;
-          } else if (remotMessage.from.includes(Constant.Wishes)) {
-            options.channelId = Constant.Wishes;
-          } else if (remotMessage.from.includes(Constant.Information)) {
-            options.channelId = Constant.Information;
-          }
-        }
-      }
-
-      localNotificationService.showNotification(
-        0,
-        notify.title,
-        notify.body,
-        notify,
-        options
-      );
-    }
-    function onOpenNotification(notify) {
-      console.log("[App] onOpenNotification:", notify);
-      alert("[App] Open Notification:" + notify.body);
-    }
-    return () => {
-      console.log("[App] unRegister");
-      fcmService.unRegister();
-      localNotificationService.unregister();
-    };
-  }, []);
   return (
     <Provider designStore={DesignStore} userStore={UserStore}>
       <ApolloProvider client={client}>
@@ -183,4 +126,6 @@ export default function App() {
       </ApolloProvider>
     </Provider>
   );
-}
+};
+
+export default App;

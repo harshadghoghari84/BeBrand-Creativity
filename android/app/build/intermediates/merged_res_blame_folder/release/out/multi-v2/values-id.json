@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-id/values-id.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-id/values-id.xml",
             "map": [
                 {
                     "source": "/Users/bebrandd1/.gradle/caches/transforms-3/99ffbd7f50ce8c16b3cabf1f4d877d78/transformed/jetified-facebook-common-7.1.0/res/values-id/values-id.xml",

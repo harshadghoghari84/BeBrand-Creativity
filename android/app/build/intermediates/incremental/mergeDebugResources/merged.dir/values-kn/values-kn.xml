@@ -73,13 +73,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"ಬ್ರೌಸರ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"ಲಿಂಕ್ ಹಂಚಿರಿ"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"ಇತರೆ"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"ಜಾಹೀರಾತನ್ನು ತೆರೆಯಲು ಟ್ಯಾಪ್ ಮಾಡಿ"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"ನೀವು ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದಾಗ ನೀವು ಉಳಿಸಿದ ಜಾಹೀರಾತನ್ನು ವೀಕ್ಷಿಸಿ"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"ಸರಿ"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"ನೀವು ಆನ್‌ಲೈನ್‌ಗೆ ಹಿಂತಿರುಗಿದಾಗ ಲಿಂಕ್‌ನೊಂದಿಗೆ ಅಧಿಸೂಚನೆಯನ್ನು ಪಡೆಯುತ್ತೀರಿ"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"ಬೇಡ"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"ಜಾಹೀರಾತುದಾರರ ಸೈಟ್‌ಗೆ ಲಿಂಕ್‌ನೊಂದಿಗೆ ನಾವು ನಿಮಗೆ ಅಧಿಸೂಚನೆಯನ್ನು ಕಳುಹಿಸುತ್ತೇವೆ."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"ನೀವು ಆನ್‌ಲೈನ್‌ಗೆ ಹಿಂತಿರುಗಿದಾಗ ಜಾಹೀರಾತನ್ನು ತೆರೆಯಿರಿ."</string>
     <string msgid="368094699078615544" name="s1">"ಚಿತ್ರ ಉಳಿಸಿ"</string>
     <string msgid="4550830452390689489" name="s2">"ಚಿತ್ರದ ಗ್ಯಾಲರಿಯಲ್ಲಿ ಚಿತ್ರ ಸಂಗ್ರಹಿಸಿಡಲು ಜಾಹೀರಾತಿಗೆ ಅನುಮತಿಸುವುದೇ?"</string>
     <string msgid="2435407834265420668" name="s3">"ಸಮ್ಮತಿಸಿ"</string>

@@ -25,6 +25,8 @@ import ProgressDialog from "./common/ProgressDialog";
 import FastImage from "react-native-fast-image";
 import Logo from "../components/Logo";
 
+let myInterval;
+
 const Otp = ({ route, navigation, userStore }) => {
   // state for textInput
   const [firstVal, setFirstVal] = useState("");
@@ -34,27 +36,36 @@ const Otp = ({ route, navigation, userStore }) => {
   const [fiveVal, setFiveVal] = useState("");
   const [sixVal, setSixVal] = useState("");
 
-  const [minutes, setMinutes] = useState(2);
-  const [seconds, setSeconds] = useState(0);
+  const [time, setTime] = useState({ minutes: 2, seconds: 0 });
+
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(myInterval);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
+    startInterval();
+
+    return () => {
+      setTime({ seconds: 0, minutes: 0 });
+    };
+  }, []);
+  useEffect(() => {
+    if (time.minutes <= 2 && (time.seconds > 0 || time.minutes > 0)) {
+      console.log("inside");
+      startInterval();
+    }
+  }, [time.seconds, time.minutes]);
+
+  const startInterval = () => {
+    setTimeout(() => {
+      if (time.seconds > 0) {
+        setTime({ seconds: time.seconds - 1, minutes: time.minutes });
+      } else if (time.seconds === 0) {
+        if (time.minutes > 0) {
+          setTime({ minutes: time.minutes - 1, seconds: 59 });
         }
       }
     }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
-  });
+  };
+
   // refes for textInput
   const firstRef = useRef(null);
   const secondRef = useRef(null);
@@ -83,40 +94,62 @@ const Otp = ({ route, navigation, userStore }) => {
     firstRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      if (data != null) {
+        // set user to userStore
+        if (password) {
+          data?.resetUserPassword?.msg &&
+            Common.showMessage(data.resetUserPassword.msg);
+          data?.resetUserPassword?.user &&
+            userStore.setUser(data.resetUserPassword.user);
+
+          const token = data.resetUserPassword.token;
+          AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
+            navigation.navigate(Constant.navHome);
+          });
+        } else {
+          data?.verifyUserOtp?.msg &&
+            Common.showMessage(data.verifyUserOtp.msg);
+          data?.verifyUserOtp?.user &&
+            userStore.setUser(data.verifyUserOtp.user);
+          const token = data.verifyUserOtp.token;
+          AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
+            navigation.navigate(Constant.navHome);
+          });
+        }
+      } else {
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error && error.graphQLErrors.length > 0) {
+      const errorMsg = error.graphQLErrors[0].message;
+      Common.showMessage(errorMsg);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    chkOtp();
+  }, [firstVal, secondVal, thirdVal, fourVal, fiveVal, sixVal]);
+
+  const chkOtp = () => {
+    const otp = `${firstVal}${secondVal}${thirdVal}${fourVal}${fiveVal}${sixVal}`;
+    if (otp !== undefined && otp !== null) {
+      if (otp.length >= 6) {
+        if (disable === true) {
+          setDisable(false);
+        }
+      } else {
+        setDisable(true);
+      }
+    }
+  };
   const getFullOtp = () => {
     const otp = `${firstVal}${secondVal}${thirdVal}${fourVal}${fiveVal}${sixVal}`;
     return otp;
   };
-
-  if (error && error.graphQLErrors.length > 0) {
-    const errorMsg = error.graphQLErrors[0].message;
-    Common.showMessage(errorMsg);
-  }
-
-  if (data) {
-    if (data != null) {
-      // set user to userStore
-      if (password) {
-        data?.resetUserPassword?.msg &&
-          Common.showMessage(data.resetUserPassword.msg);
-        data?.resetUserPassword?.user &&
-          userStore.setUser(data.resetUserPassword.user);
-
-        const token = data.resetUserPassword.token;
-        AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
-          navigation.navigate(Constant.navHome);
-        });
-      } else {
-        data?.verifyUserOtp?.msg && Common.showMessage(data.verifyUserOtp.msg);
-        data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
-        const token = data.verifyUserOtp.token;
-        AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
-          navigation.navigate(Constant.navHome);
-        });
-      }
-    } else {
-    }
-  }
 
   const _onVerifyPressed = async () => {
     try {
@@ -148,11 +181,11 @@ const Otp = ({ route, navigation, userStore }) => {
       },
     })
       .then(({ data, errors }) => {
-        if (data && data !== null) {
-          Common.showMessage(data.sendUserOtp);
-        }
         if (errors && errors !== null) {
           Common.showMessage(errors[0].message);
+        } else if (data && data.sendUserOtp && data.sendUserOtp !== null) {
+          setTime({ seconds: 0, minutes: 2 });
+          Common.showMessage(data.sendUserOtp);
         }
       })
       .catch((err) => console.log("catch er", err));
@@ -338,8 +371,12 @@ const Otp = ({ route, navigation, userStore }) => {
                 {Common.getTranslation(LangKey.labDidnotReciveOtp)}
               </Text>
 
-              {minutes === 0 && seconds === 0 ? (
-                <TouchableOpacity onPress={() => onResendOTP()}>
+              {time.minutes === 0 && time.seconds === 0 ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    onResendOTP();
+                  }}
+                >
                   <Text
                     style={{
                       fontSize: 16,
@@ -352,20 +389,22 @@ const Otp = ({ route, navigation, userStore }) => {
                 </TouchableOpacity>
               ) : (
                 <Text style={{ color: Color.red }}>
-                  {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                  {time.minutes}:
+                  {time.seconds < 10 ? `0${time.seconds}` : time.seconds}
                 </Text>
               )}
             </View>
-
-            <Button
-              style={styles.btn}
-              normal="normal"
-              loading={loading}
-              disabled={loading}
-              onPress={_onVerifyPressed}
-            >
-              {Common.getTranslation(LangKey.labVarifyOTP)}
-            </Button>
+            {disable === false && (
+              <Button
+                style={styles.btn}
+                normal="normal"
+                loading={loading}
+                disabled={loading}
+                onPress={_onVerifyPressed}
+              >
+                {Common.getTranslation(LangKey.labVarifyOTP)}
+              </Button>
+            )}
           </View>
           <Logo />
         </View>

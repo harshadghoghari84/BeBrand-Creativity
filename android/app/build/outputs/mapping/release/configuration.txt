@@ -1,4 +1,4 @@
-# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/proguard-files/proguard-android.txt-4.1.2
+# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/proguard-files/proguard-android.txt-4.1.2
 # This is a configuration file for ProGuard.
 # http://proguard.sourceforge.net/index.html#manual/usage.html
 #
@@ -110,8 +110,8 @@
 # These classes are duplicated between android.jar and core-lambda-stubs.jar.
 -dontnote java.lang.invoke.**
 
-# End of content from /Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/proguard-files/proguard-android.txt-4.1.2
-# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd/android/app/proguard-rules.pro
+# End of content from /Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/proguard-files/proguard-android.txt-4.1.2
+# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd 2/android/app/proguard-rules.pro
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
 # in /usr/local/Cellar/android-sdk/24.3.3/tools/proguard/proguard-android.txt
@@ -124,20 +124,17 @@
 # Add any project specific keep options here:
 
 -keep public class com.horcrux.svg.** {*;}
-# End of content from /Users/bebrandd1/Desktop/bebrandd/android/app/proguard-rules.pro
-# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/aapt_proguard_file/release/aapt_rules.txt
+-keepattributes *Annotation*
+-dontwarn com.razorpay.**
+-keep class com.razorpay.** {*;}
+-optimizations !method/inlining/
+-keepclasseswithmembers class * {
+  public void onPayment*(...);
+}
+# End of content from /Users/bebrandd1/Desktop/bebrandd 2/android/app/proguard-rules.pro
+# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/aapt_proguard_file/release/aapt_rules.txt
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
--keep class androidx.work.impl.WorkManagerInitializer { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
--keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
--keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
 -keep class cl.json.RNShareFileProvider { <init>(); }
 -keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
 -keep class com.bebrandd.branddot.MainActivity { <init>(); }
@@ -173,6 +170,8 @@
 -keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
 -keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
 -keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+-keep class com.razorpay.CheckoutActivity { <init>(); }
+-keep class com.razorpay.RzpTokenReceiver { <init>(); }
 -keep class com.reactnativecommunity.webview.RNCWebViewFileProvider { <init>(); }
 -keep class expo.modules.filesystem.FileSystemFileProvider { <init>(); }
 -keep class expo.modules.imagepicker.ImagePickerFileProvider { <init>(); }
@@ -262,6 +261,8 @@
 
 -keep class com.google.android.material.textview.MaterialTextView { <init>(android.content.Context, android.util.AttributeSet); }
 
+-keep class com.razorpay.CircularProgressView { <init>(android.content.Context, android.util.AttributeSet); }
+
 -keep class com.theartofdev.edmodo.cropper.CropImageView { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class com.theartofdev.edmodo.cropper.CropOverlayView { <init>(android.content.Context, android.util.AttributeSet); }
@@ -269,7 +270,7 @@
 -keep class pl.droidsonroids.gif.GifImageView { <init>(android.content.Context, android.util.AttributeSet); }
 
 
-# End of content from /Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/aapt_proguard_file/release/aapt_rules.txt
+# End of content from /Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/aapt_proguard_file/release/aapt_rules.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/proguard.txt
 -keepnames class com.google.android.play.core.review.ReviewInfo
 
@@ -610,7 +611,7 @@
 -dontwarn androidx.annotation.**
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/cf0a65fc651c7c06205853e3d990f818/transformed/jetified-android-gif-drawable-1.2.22/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/core/android/build/intermediates/consumer_proguard_dir/release/lib0/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/core/android/build/intermediates/consumer_proguard_dir/release/lib0/proguard.txt
 
 -keepclassmembers class * {
   @org.unimodules.core.interfaces.ExpoProp *;
@@ -625,7 +626,7 @@
   @org.unimodules.core.interfaces.DoNotStrip *;
 }
 
-# End of content from /Users/bebrandd1/Desktop/bebrandd/node_modules/@unimodules/core/android/build/intermediates/consumer_proguard_dir/release/lib0/proguard.txt
+# End of content from /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/core/android/build/intermediates/consumer_proguard_dir/release/lib0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
@@ -661,7 +662,7 @@
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/proguard.txt
 -keep class com.android.vending.billing.**
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/bf9fece7b56e06cba806a2a4f0641e30/transformed/jetified-play-services-ads-19.8.0/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/ff55fa27f804fb6cfce154a3c693b0bb/transformed/jetified-play-services-ads-19.4.0/proguard.txt
 -keep public class com.google.android.gms.ads.internal.ClientApi {
   <init>();
 }
@@ -669,15 +670,15 @@
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.ads.zzena {
+-keepclassmembers class * extends com.google.android.gms.internal.ads.zzejz {
   <fields>;
 }
 
 # Auto-generated proguard rule with obfuscated symbol
--dontwarn com.google.android.gms.ads.internal.util.zzac
+-dontwarn com.google.android.gms.internal.ads.zzazk
 
 
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/bf9fece7b56e06cba806a2a4f0641e30/transformed/jetified-play-services-ads-19.8.0/proguard.txt
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/ff55fa27f804fb6cfce154a3c693b0bb/transformed/jetified-play-services-ads-19.4.0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/ff61e5a7128734ce9114f14560041087/transformed/jetified-facebook-places-7.1.0/proguard.txt
 # Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
 #
@@ -1036,7 +1037,7 @@
 }
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/bee3d0ae6c15b906684c664f8506a7cb/transformed/vectordrawable-animated-1.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/proguard.txt
 -dontwarn com.google.appengine.api.**
 -dontwarn okio.**
 -dontwarn org.apache.**
@@ -1056,18 +1057,11 @@
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.firebase-auth-api.zzaad {
+-keepclassmembers class * extends com.google.android.gms.internal.firebase-auth-api.zzaaa {
   <fields>;
 }
 
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/dfee2c3f0c0229a11435e75d56e98126/transformed/jetified-firebase-auth-20.0.2/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/30839531f0666acdb7ffe88015d226cb/transformed/jetified-firebase-messaging-21.0.1/proguard.txt
-# Analytics library is optional.
-# Access to this class is protected by try/catch(NoClassDefFoundError e)
-# b/35686744 Don't fail during proguard if the class is missing from the APK.
--dontwarn com.google.android.gms.measurement.AppMeasurement*
-
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/30839531f0666acdb7ffe88015d226cb/transformed/jetified-firebase-messaging-21.0.1/proguard.txt
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/proguard.txt
 # b/35135904 Ensure that proguard will not strip the mResultGuardian.
 -keepclassmembers class com.google.android.gms.common.api.internal.BasePendingResult {
@@ -1087,6 +1081,13 @@
 }
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/proguard.txt
+# Analytics library is optional.
+# Access to this class is protected by try/catch(NoClassDefFoundError e)
+# b/35686744 Don't fail during proguard if the class is missing from the APK.
+-dontwarn com.google.android.gms.measurement.AppMeasurement*
+
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
@@ -1096,16 +1097,16 @@
 }
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/ad3892cacbce2cdd0dd1cab928cc8282/transformed/jetified-play-services-measurement-impl-18.0.2/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/579130c8ef4b1c8417d123ebac28397a/transformed/jetified-play-services-gass-19.8.0/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/1e3c912821eecbefa40f9f6e355a9e36/transformed/jetified-play-services-gass-19.4.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.ads.zzena {
+-keepclassmembers class * extends com.google.android.gms.internal.ads.zzejz {
   <fields>;
 }
 
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/579130c8ef4b1c8417d123ebac28397a/transformed/jetified-play-services-gass-19.8.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/ccc3a012a1967ab8cabe597fe90125f3/transformed/jetified-play-services-ads-lite-19.8.0/proguard.txt
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/1e3c912821eecbefa40f9f6e355a9e36/transformed/jetified-play-services-gass-19.4.0/proguard.txt
+# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/proguard.txt
 # Keep implementations of the AdMob mediation adapter interfaces. Adapters for
 # third party ad networks implement these interfaces and are invoked by the
 # AdMob SDK via reflection.
@@ -1129,28 +1130,14 @@
   public *;
 }
 
-# Keep classes used for offline ads created by reflection. WorkManagerUtil is
-# created reflectively by callers within GMSCore and OfflineNotificationPoster
-# is created reflectively by WorkManager.
--keep class com.google.android.gms.ads.internal.util.WorkManagerUtil {
-  public *;
-}
--keep class com.google.android.gms.ads.internal.offline.buffering.OfflineNotificationPoster {
-  public *;
-}
--keep class com.google.android.gms.ads.internal.offline.buffering.OfflinePingSender {
-  public *;
-}
-
-
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.ads.zzena {
+-keepclassmembers class * extends com.google.android.gms.internal.ads.zzejz {
   <fields>;
 }
 
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/ccc3a012a1967ab8cabe597fe90125f3/transformed/jetified-play-services-ads-lite-19.8.0/proguard.txt
+# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/659e5daea200e2507e15e116c291f20b/transformed/jetified-play-services-measurement-sdk-api-18.0.2/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
@@ -1292,17 +1279,6 @@
 -keepattributes *Annotation*
 
 # End of content from /Users/bebrandd1/.gradle/caches/transforms-3/4e2e8141e4406083452fd7b16347e62f/transformed/coordinatorlayout-1.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/ea9aa4747a9981c8af73312168139c66/transformed/work-runtime-2.1.0/proguard.txt
--keep class * extends androidx.work.Worker
--keep class * extends androidx.work.InputMerger
-# Keep all constructors on ListenableWorker, Worker (also marked with @Keep)
--keep public class * extends androidx.work.ListenableWorker {
-    public <init>(...);
-}
-# We need to keep WorkerParameters for the ListenableWorker constructor
--keep class androidx.work.WorkerParameters
-
-# End of content from /Users/bebrandd1/.gradle/caches/transforms-3/ea9aa4747a9981c8af73312168139c66/transformed/work-runtime-2.1.0/proguard.txt
 # The proguard configuration file for the following section is /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/proguard.txt
 -keep class * extends androidx.room.RoomDatabase
 -dontwarn androidx.room.paging.**

@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   Modal,
+  Platform,
 } from "react-native";
 
 import { ProgressBar } from "react-native-paper";
@@ -68,9 +69,7 @@ class CustomDrawer extends Component {
       this.props.userStore.currentProDesignCredit
     );
     const calculate =
-      100 -
-      ((currentDesignCreditFree + currentDesignCreditPro) * 100) /
-        (startDesignCreditFree + startDesignCreditPro);
+      100 - (currentDesignCreditPro * 100) / startDesignCreditPro;
     const progressLimit = calculate / 100;
 
     return (
@@ -159,18 +158,22 @@ class CustomDrawer extends Component {
                     ? user.userInfo.business.name
                     : Constant.defUserName}
                 </Text>
-                <View style={{ width: "80%" }}>
-                  <ProgressBar
-                    progress={Math.abs(progressLimit)}
-                    color={Color.white}
-                    style={{
-                      height: 7,
-                      marginTop: 5,
-                      borderRadius: 5,
-                      overflow: "hidden",
-                    }}
-                  />
-                </View>
+                {user?.designPackage &&
+                  user.designPackage !== null &&
+                  user.designPackage.length > 0 && (
+                    <View style={{ width: "80%" }}>
+                      <ProgressBar
+                        progress={Math.abs(progressLimit)}
+                        color={Color.white}
+                        style={{
+                          height: 7,
+                          marginTop: 5,
+                          borderRadius: 5,
+                          overflow: "hidden",
+                        }}
+                      />
+                    </View>
+                  )}
               </View>
             </View>
           </SafeAreaView>
@@ -212,7 +215,11 @@ class CustomDrawer extends Component {
                 onPress={() =>
                   // this.setState({ Activated: Constant.titPro }, () =>
                   // )
-                  this.props.navigation.navigate(Constant.navPro)
+                  this.props.navigation.navigate(
+                    Platform.OS === "ios"
+                      ? Constant.titPrimiumIos
+                      : Constant.titPrimium
+                  )
                 }
                 style={{
                   flexDirection: "row",

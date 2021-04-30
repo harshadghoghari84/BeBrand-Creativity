@@ -1,15 +1,5 @@
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
--keep class androidx.work.impl.WorkManagerInitializer { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
--keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
--keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
 -keep class cl.json.RNShareFileProvider { <init>(); }
 -keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
 -keep class com.bebrandd.branddot.MainActivity { <init>(); }
@@ -45,6 +35,8 @@
 -keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
 -keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
 -keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+-keep class com.razorpay.CheckoutActivity { <init>(); }
+-keep class com.razorpay.RzpTokenReceiver { <init>(); }
 -keep class com.reactnativecommunity.webview.RNCWebViewFileProvider { <init>(); }
 -keep class expo.modules.filesystem.FileSystemFileProvider { <init>(); }
 -keep class expo.modules.imagepicker.ImagePickerFileProvider { <init>(); }
@@ -133,6 +125,8 @@
 -keep class com.google.android.material.textfield.TextInputLayout { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class com.google.android.material.textview.MaterialTextView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.razorpay.CircularProgressView { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class com.theartofdev.edmodo.cropper.CropImageView { <init>(android.content.Context, android.util.AttributeSet); }
 

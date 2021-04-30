@@ -25,8 +25,6 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 // @react-native-firebase/messaging
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
-// react-native-admob
-import com.sbugert.rnadmob.RNAdMobPackage;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-fbads
@@ -43,6 +41,8 @@ import com.ibits.react_native_in_app_review.AppReviewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 // react-native-rate
 import com.reactnativerate.RNRatePackage;
+// react-native-razorpay
+import com.razorpay.rn.RazorpayPackage;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -113,7 +113,6 @@ public class PackageList {
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
       new ReactNativeFirebaseMessagingPackage(),
-      new RNAdMobPackage(),
       new FastImageViewPackage(),
       new FBAdsPackage(),
       new FBSDKPackage(),
@@ -122,6 +121,7 @@ public class PackageList {
       new AppReviewPackage(),
       new ReactNativePushNotificationPackage(),
       new RNRatePackage(),
+      new RazorpayPackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),

@@ -11,8 +11,6 @@ import {
   ScrollView,
   TouchableOpacity,
   PixelRatio,
-  ActivityIndicator,
-  SafeAreaView,
 } from "react-native";
 
 import ViewShot from "react-native-view-shot";
@@ -27,13 +25,8 @@ import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import BottomSheet from "reanimated-bottom-sheet";
-import Animated, { event } from "react-native-reanimated";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  PublisherBanner,
-} from "react-native-admob";
+import Animated from "react-native-reanimated";
+import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 
 // relative path
@@ -52,6 +45,7 @@ const { width, height } = Dimensions.get("window");
 let isShareClick = false;
 let msg = "";
 let adAvilable = false;
+let adCounter = 0;
 
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
@@ -66,7 +60,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     curItemIndex,
   } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
+  const viewRef = useRef(null);
 
+  const pixels = Common.getPixels(Constant.designPixel);
   /*
   ..######..########....###....########.########
   .##....##....##......##.##......##....##......
@@ -78,6 +74,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   */
 
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
   const [visibleModalAd, setVisibleModalAd] = useState(false);
@@ -92,19 +89,27 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     Constant.defSocialIconList
   );
 
-  const [Pkgtype, setPkgType] = useState(curPackageType);
+  const [Pkgtype, setPkgType] = useState();
   const [adReady, setAdReady] = useState(false);
 
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
-  const [selected, setSelected] = useState(0);
+
   const [userDataPersonal, setUserDataPersonal] = useState();
-  const [loadingImage, setLoadingImage] = useState(false);
+
+  const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
+    errorPolicy: "all",
+  });
 
   const toggleVisible = () => {
+    designStore.setIsDownloadStartedPersonal(false);
     setVisibleModal(!visibleModal);
   };
 
+  const toggleVisibleForPkg = () => {
+    designStore.setIsDownloadStartedPersonal(false);
+    setVisibleModalForPkg(!visibleModalForPkg);
+  };
   const toggleFreeVisible = () => {
     setVisibleFreeModal(!visibleFreeModal);
   };
@@ -120,7 +125,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const toggleVisibleAd = (isDownload) => {
     if (isDownload) {
       setTimeout(() => {
-        googleShowAd();
+        AdMobRewarded.showAdAsync().catch((error) => {
+          fbShowAd();
+        });
       }, 1000);
     } else {
       designStore.setIsDownloadStartedPersonal(false);
@@ -145,31 +152,30 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   );
 
   const googleAdListners = () => {
-    AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
+    // AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
 
     AdMobRewarded.setAdUnitID(Constant.rewardAdunitId);
 
-    AdMobRewarded.addEventListener("rewarded", (reward) =>
-      console.log("AdMobRewarded => rewarded", reward)
+    AdMobRewarded.addEventListener(
+      "rewardedVideoUserDidEarnReward",
+      (reward) => {
+        console.log("AdMobRewarded => rewarded", reward);
+        adAvilable = true;
+      }
     );
-    AdMobRewarded.addEventListener("adLoaded", () =>
+    AdMobRewarded.addEventListener("rewardedVideoDidLoad", () =>
       console.log("AdMobRewarded adLoaded")
     );
-    AdMobRewarded.addEventListener("adFailedToLoad", (error) =>
+    AdMobRewarded.addEventListener("rewardedVideoDidFailToLoad", (error) =>
       console.log("AdFailedToLoad", error)
     );
-    AdMobRewarded.addEventListener("adOpened", () =>
+    AdMobRewarded.addEventListener("rewardedVideoDidPresent", () =>
       console.log("AdMobRewarded => adOpened")
     );
-
-    AdMobRewarded.addEventListener("videoStarted", () =>
-      console.log("AdMobRewarded => videoStarted")
+    AdMobRewarded.addEventListener("rewardedVideoDidFailToPresent", () =>
+      console.log("AdMobRewarded => FailToPresent")
     );
-    AdMobRewarded.addEventListener("videoCompleted", () => {
-      console.log("AdMobRewarded => videoCompleted"), (adAvilable = true);
-    });
-
-    AdMobRewarded.addEventListener("adClosed", () => {
+    AdMobRewarded.addEventListener("rewardedVideoDidDismiss", () => {
       console.log("AdMobRewarded => adClosed");
       console.log("adAvilable", adAvilable);
       if (adAvilable) {
@@ -177,18 +183,49 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       } else {
         designStore.setIsDownloadStartedPersonal(false);
       }
-      AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
     });
-    AdMobRewarded.addEventListener("adLeftApplication", () =>
-      console.log("AdMobRewarded => adLeftApplication")
-    );
-    AdMobRewarded.requestAd().catch((error) => console.warn(error));
+
+    AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
+  };
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      adsInterstitialListner();
+      return () => {
+        AdMobInterstitial.removeAllListeners();
+      };
+    }
+  }, []);
+
+  const adsInterstitialListner = () => {
+    // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+
+    AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
+    // AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+    //   console.log("AdMobInterstitial adLoaded")
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
+    //   console.log("adFailedToLoad err", error)
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+    //   console.log("AdMobInterstitial => adOpened")
+    // );
+    AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+      console.log("AdMobInterstitial => adClosed");
+      AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+    });
+    // AdMobInterstitial.addEventListener(
+    //   "interstitialWillLeaveApplication",
+    //   () => console.log("AdMobInterstitial => adLeftApplication")
+    // );
+    AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
   };
 
   const fbAd = async () => {
-    AdSettings.setLogLevel("debug");
-    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
-    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    // AdSettings.setLogLevel("debug");
+    // console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
     const requestedStatus = await AdSettings.requestTrackingPermission();
     console.log(requestedStatus);
     if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
@@ -205,22 +242,27 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       .then((res) => {
         console.log("res", res);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       })
       .catch((err) => {
         console.log(err);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       });
   };
 
-  const googleShowAd = () => {
-    AdMobRewarded.showAd().catch((error) => {
-      console.log("per err", error);
-      fbShowAd();
-    });
+  const showAd = () => {
+    if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
+      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
+      adCounter = 0;
+    }
   };
 
+  useEffect(() => {
+    if (isMountedRef.current) {
+      setPkgType(curPackageType);
+    }
+  }, []);
   useEffect(() => {
     googleAdListners();
     return () => {
@@ -249,11 +291,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     const isDownloadStartedPersonal = toJS(
       designStore.isDownloadStartedPersonal
     );
+
     if (isDownloadStartedPersonal && isDownloadStartedPersonal === true) {
       if (hasPro === true) {
         onClickDownload();
       } else {
-        setVisibleModalAd(true);
+        if (Pkgtype === Constant.typeDesignPackageVip) {
+          setVisibleModal(true);
+        } else {
+          setVisibleModalAd(true);
+        }
         //AdMobRewarded.showAd().catch((error) => console.warn(error));
       }
     }
@@ -335,10 +382,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     fiilterLayouts();
   }, [userDataPersonal]);
 
-  const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
-    errorPolicy: "all",
-  });
-
   const fiilterLayouts = () => {
     let filterArr = allLayouts.filter(
       (item) =>
@@ -357,10 +400,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         : setFooterTextColor(currentDesign.lightTextColor);
     }
   };
-
-  const viewRef = useRef(null);
-
-  const pixels = Common.getPixels(Constant.designPixel);
 
   const onClickDownload = async () => {
     if (user && user !== null) {
@@ -407,41 +446,38 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const takeDesignShot = async () => {
-    const currentDesignCreditFree = toJS(userStore.currentFreeDesignCredit);
+    // const currentDesignCreditFree = toJS(userStore.currentFreeDesignCredit);
     const currentDesignCreditPro = toJS(userStore.currentProDesignCredit);
 
     const designPackage = designPackages.find(
       (pkg) => pkg.id === currentDesign.package
     );
 
-    let currentDesignCredit =
-      currentDesignCreditFree > 0
-        ? currentDesignCreditFree
-        : currentDesignCreditPro;
-    if (designPackage.type === Constant.typeDesignPackageVip) {
-      currentDesignCredit = currentDesignCreditPro;
-    }
-    if (currentDesignCredit > 0) {
+    if (
+      designPackage.type !== Constant.typeDesignPackageVip ||
+      (designPackage.type === Constant.typeDesignPackageVip &&
+        currentDesignCreditPro > 0)
+    ) {
       const { data, errors, loading } = await addUserDesign({
         variables: { designId: currentDesign.id },
       });
 
       if (data !== null && !errors) {
-        setLoadingImage(true);
-        if (designPackage.type === Constant.typeDesignPackageFree) {
-          currentDesignCreditFree > 0
-            ? userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1)
-            : userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
-        } else {
-          userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
+        if (designPackage.type === Constant.typeDesignPackageVip) {
+          currentDesignCreditPro > 0 &&
+            userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         }
       } else if (errors && errors !== null && errors.length > 0) {
+        console.log("error", errors[0].extensions.code);
         if (errors[0].extensions.code === Constant.userDesignExits) {
-          setLoadingImage(true);
+        } else if (errors[0].extensions.code === Constant.userFreeDesignLimit) {
+          setVisibleModalForPkg(true);
+          return;
+        } else if (errors[0].extensions.code === Constant.userFreeDesignCut) {
+          userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         } else {
           designStore.setIsDownloadStartedPersonal(false);
 
-          setLoadingImage(false);
           Common.showMessage(errors[0].message);
           return;
         }
@@ -469,8 +505,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         console.log("err", error);
       }
 
-      setLoadingImage(false);
-
       Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
       designStore.setIsDownloadStartedPersonal(false);
 
@@ -481,8 +515,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     } else {
       designStore.setIsDownloadStartedPersonal(false);
 
-      // setVisibleModal(true);
-      setVisibleFreeModal(true);
+      setVisibleModal(true);
+      // setVisibleFreeModal(true);
     }
   };
 
@@ -963,7 +997,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           socialIconList.map((item) => (
             <View style={styles.layViewSocialIconRoot}>
               <View
-                key={item}
                 style={[
                   styles.layViewIcon,
                   { backgroundColor: footerTextColor },
@@ -1817,7 +1850,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       >
         <ScrollView
           contentContainerStyle={{
-            flexGrow: 1,
+            flex: 1,
           }}
           showsVerticalScrollIndicator={false}
         >
@@ -1831,6 +1864,11 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             visible={visibleModal}
             toggleVisible={toggleVisible}
             isPurchased={true}
+          />
+          <PopUp
+            visible={visibleModalForPkg}
+            toggleVisibleForPkgPrem={toggleVisibleForPkg}
+            isPurchasedPrem={true}
           />
 
           <PopUp
@@ -1876,15 +1914,19 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     activeOpacity={0.6}
                     style={styles.listDesignView}
                     onPress={() => {
+                      // designPackage.type === Constant.typeDesignPackageFree &&
+                      hasPro === false && adCounter++;
+                      console.log("adCounter", adCounter);
+                      showAd();
                       setPkgType(designPackage.type);
-                      if (
-                        designPackage.type === Constant.typeDesignPackageVip &&
-                        hasPro === false
-                      ) {
-                        setVisibleModal(true);
-                      } else {
-                        setCurrentDesign(item);
-                      }
+                      // if (
+                      //   designPackage.type === Constant.typeDesignPackageVip &&
+                      //   hasPro === false
+                      // ) {
+                      //   setVisibleModal(true);
+                      // } else {
+                      // }
+                      setCurrentDesign(item);
                     }}
                   >
                     <View>
@@ -1939,14 +1981,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 marginVertical: 10,
               }}
             />
+
             <ViewShot
               style={styles.designView}
               ref={viewRef}
               options={{
                 format: "jpg",
                 quality: 1,
-                width: pixels,
-                height: pixels,
+
+                // width: pixels,
+                // height: pixels,
               }}
             >
               <View

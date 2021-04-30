@@ -5,6 +5,7 @@
 #import <UserNotifications/UNUserNotificationCenter.h>
 #import <UMCore/UMAppDelegateWrapper.h>
 
+
 @interface AppDelegate : UMAppDelegateWrapper <RCTBridgeDelegate, EXUpdatesAppControllerDelegate,UNUserNotificationCenterDelegate>
 
 @end

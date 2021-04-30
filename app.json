@@ -13,6 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+ 
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -20,6 +21,9 @@
       "bundleIdentifier": "com.bebrandd.yourdesign",
       "buildNumber": "1.0.0",
       "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+      },
       "splash": {
         "image": "./assets/DFS.png",
         "resizeMode": "cover"
@@ -27,7 +31,10 @@
     },
     "android": {
       "package": "com.bebrandd.yourdesign",
-      "versionCode": 1
+      "versionCode": 1,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1505061127299003~6931615918" 
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

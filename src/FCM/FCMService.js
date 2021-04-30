@@ -110,7 +110,7 @@ class FcmService {
       if (remoteMessage) {
         let notification = null;
         if (Platform.OS === "ios") {
-          notification = remoteMessage.data.notification;
+          notification = remoteMessage;
         } else {
           notification = remoteMessage;
         }

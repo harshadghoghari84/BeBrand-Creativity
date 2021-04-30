@@ -50,13 +50,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Obre al navegador"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Comparteix l\'enllaç"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Altres"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"Toca per obrir l\'anunci"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"Mira l\'anunci que has desat sense connexió"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"D\'acord"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"Rebràs una notificació amb l\'enllaç quan tornis a tenir connexió"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"No, gràcies"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"T\'enviarem una notificació amb un enllaç al lloc web de l\'anunciant."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"Obre l\'anunci quan tornis a tenir connexió."</string>
     <string msgid="368094699078615544" name="s1">"Desa la imatge"</string>
     <string msgid="4550830452390689489" name="s2">"Vols permetre que l\'anunci desi imatges a la galeria d\'imatges?"</string>
     <string msgid="2435407834265420668" name="s3">"Accepta"</string>

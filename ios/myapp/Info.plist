@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app requires access to the photo library to save image.</string>
-		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>This app requires access to the photo library to save image.</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>en</string>
 		<key>CFBundleDisplayName</key>
@@ -55,6 +51,8 @@
 		<string>719753938932389</string>
 		<key>FacebookDisplayName</key>
 		<string>Brand Dot</string>
+		<key>GADApplicationIdentifier</key>
+		<string>ca-app-pub-3940256099942544~1458002511</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSAppTransportSecurity</key>
@@ -71,24 +69,13 @@
 			</dict>
 		</dict>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string/>
-		<key>UILaunchStoryboardName</key>
-		<string>SplashScreen</string>
-		<key>UIRequiredDeviceCapabilities</key>
-		<array>
-			<string>armv7</string>
-		</array>
-		<key>UIRequiresFullScreen</key>
-		<true/>
-		<key>UIStatusBarStyle</key>
-		<string>UIStatusBarStyleDefault</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
+		<string></string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>In the application, we have a custom section where the user can upload images from the gallery and save the image into the gallery. For that, we need gallery access in the app.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>In the application, we have a custom section where the user can upload images from the gallery and save the image into the gallery. For that, we need gallery access in the app.</string>
+		<key>NSUserTrackingUsageDescription</key>
+		<string>Testing purposes</string>
 		<key>UIAppFonts</key>
 		<array>
 			<string>Nunito-Black.ttf</string>
@@ -129,10 +116,32 @@
 			<string>SimpleLineIcons.ttf</string>
 			<string>Zocial.ttf</string>
 		</array>
-		<key>NSUserTrackingUsageDescription</key>
-		<string>Testing purposes</string>
-		<key>GADApplicationIdentifier</key>
-		<string>ca-app-pub-3940256099942544~1458002511</string>
-
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>processing</string>
+			<string>remote-notification</string>
+		</array>
+		<key>UILaunchStoryboardName</key>
+		<string>SplashScreen</string>
+		<key>UIRequiredDeviceCapabilities</key>
+		<array>
+			<string>armv7</string>
+		</array>
+		<key>UIRequiresFullScreen</key>
+		<true/>
+		<key>UIStatusBarStyle</key>
+		<string>UIStatusBarStyleDefault</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>BGTaskSchedulerPermittedIdentifiers</key>
+		<array>
+			<string>com.bebrandd.branddot</string>
+		</array>
 	</dict>
 </plist>

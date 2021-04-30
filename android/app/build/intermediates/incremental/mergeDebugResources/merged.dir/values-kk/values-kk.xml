@@ -50,13 +50,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Браузерден ашу"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Сілтемені бөлісу"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Өзге"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"Жарнаманы ашу үшін түртіңіз."</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"Офлайн режимге өткенде, сақталған жарнамаңызды көріңіз"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"Жарайды"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"Онлайн режимге оралғанда, сілтемесі бар хабарландыру аласыз."</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"Жоқ, рақмет"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"Сізге жарнама беруші сайтына сілтемесі бар хабарландыру жібереміз."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"Онлайн режимге оралғанда, жарнаманы ашыңыз"</string>
     <string msgid="368094699078615544" name="s1">"Кескінді сақтау"</string>
     <string msgid="4550830452390689489" name="s2">"Жарнамаға кескінді сурет галереясында сақтауға рұқсат берілсін бе?"</string>
     <string msgid="2435407834265420668" name="s3">"Қабылдау"</string>

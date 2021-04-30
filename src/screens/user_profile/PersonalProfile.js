@@ -79,6 +79,10 @@ const PersonalProfile = ({ navigation, userStore }) => {
   useEffect(() => {
     const user = toJS(userStore.user);
 
+    if (!user || user == null) {
+      navigation.goBack();
+    }
+
     setUser(user);
     if (user?.userInfo?.personal) {
       if (isUpdated && isUpdated === true) {
@@ -159,18 +163,14 @@ const PersonalProfile = ({ navigation, userStore }) => {
 
   const getImagePickerView = () => {
     return (
-      <View style={styles.toProfileImage}>
+      <View style={styles.addImage}>
         <TouchableOpacity
           onPress={() => {
-            if (personalImageLimit > 0) {
-              onClickImageSelect();
-            } else {
-              setmodalVisible(true);
-            }
+            onClickImageSelect();
           }}
-          style={styles.plusBtn}
+          // style={styles.plusBtn}
         >
-          <Icon name="plus" fill={Color.white} height={25} width={25} />
+          <Icon name="addImg" fill={Color.white} height={35} width={35} />
         </TouchableOpacity>
       </View>
     );
@@ -214,10 +214,11 @@ const PersonalProfile = ({ navigation, userStore }) => {
           const { data, errors } = await addPersonalImage({
             variables: { image: file },
           });
-
+          console.log("data", data);
           if (!errors) {
-            userStore.addPersonalImage(data.addPersonalImage);
+            userStore.addPersonalImage(data.addPersonalImageV2);
           } else {
+            console.log("error", errors);
             Common.showMessage(errors[0].message);
           }
         }
@@ -236,33 +237,40 @@ const PersonalProfile = ({ navigation, userStore }) => {
       return;
     }
     setErrorUserName("");
-    const errMobile = mobileValidatorPro(mobile, type);
-    if (errMobile) {
-      setErrorMobile(errMobile);
+    const re = /^[0]?[6789]\d{9}$/;
+    if (!mobile || mobile == null || mobile == "") {
+    } else if (mobile.length > 10 || !re.test(mobile)) {
+      setErrorMobile(Common.getTranslation(LangKey.personalMobileErr));
       return;
     }
     setErrorMobile("");
-    const errEmail = emailValidatorPro(email, type);
-    if (errEmail) {
-      setErrorEmail(errEmail);
+    const emailre = /\S+@\S+\.\S+/;
+
+    if (!email || email == null || email == "") {
+    } else if (!emailre.test(email) || email.length > 26) {
+      setErrorEmail(Common.getTranslation(LangKey.personalEmailErr));
       return;
     }
     setErrorEmail("");
-    const errDesignation = designationValidatorPro(designation, type);
-    if (errDesignation) {
-      setErrorDesignation(errDesignation);
+    if (!designation || designation == null || designation == "") {
+    } else if (designation.length > 18) {
+      setErrorDesignation(
+        Common.getTranslation(LangKey.personalDesignationErr)
+      );
       return;
     }
     setErrorDesignation("");
-    const errSocailMediaId = SocailMediaValidatorPro(socialMediaId, type);
-    if (errSocailMediaId) {
-      setErrorSocailMediaId(errSocailMediaId);
+    if (!socialMediaId || socialMediaId == null || socialMediaId == "") {
+    } else if (socialMediaId.length > 20) {
+      setErrorSocailMediaId(
+        Common.getTranslation(LangKey.personalSocialMediaIdErr)
+      );
       return;
     }
     setErrorSocailMediaId("");
-    const errWebsite = websiteValidatorPro(website, type);
-    if (errWebsite) {
-      setErrorWebsite(errWebsite);
+    if (!website || website == null || website == "") {
+    } else if (website.length > 26) {
+      setErrorWebsite(Common.getTranslation(LangKey.personalWebsiteErr));
       return;
     }
     setErrorWebsite("");
@@ -339,6 +347,14 @@ const PersonalProfile = ({ navigation, userStore }) => {
             (val) => val.url !== curUrl
           );
 
+          imgArr.forEach((val) => {
+            if (val.isDefault === true) {
+              imgArr[val];
+            } else {
+              imgArr[0].isDefault = true;
+            }
+          });
+
           const newUser = {
             ...user,
             userInfo: {
@@ -381,7 +397,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
         <PopUp
           visible={modalVisible}
           toggleVisible={toggleVisible}
-          isfree={true}
+          isPurchased={true}
           isGoback={true}
         />
         {/* {personalImageLimit > 0 && (
@@ -519,65 +535,76 @@ const PersonalProfile = ({ navigation, userStore }) => {
           />
         </View>
         <View style={styles.containerProfile}>
-          {personalImageLimit > 0 ? (
-            <FlatList
-              horizontal
-              ListHeaderComponent={
-                isFirstTime
-                  ? getImagePickerView()
-                  : personalImageLimit > 0 &&
-                    Array.isArray(user?.userInfo?.personal?.image) &&
-                    user.userInfo.personal.image.length < personalImageLimit &&
-                    getImagePickerView()
-              }
-              showsHorizontalScrollIndicator={false}
-              data={
-                Array.isArray(user?.userInfo?.personal?.image)
-                  ? user.userInfo.personal.image
-                  : []
-              }
-              keyExtractor={keyExtractor}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity
-                    style={styles.toProfileImage}
-                    onPress={() => {
-                      setDefaultImageUrl(item.url);
-                    }}
-                  >
-                    {item.url && item.url !== "" && (
-                      <FastImage
-                        source={{ uri: item.url, width: 100, height: 100 }}
-                        style={styles.toProfileImage}
-                      />
-                    )}
+          <FlatList
+            horizontal
+            contentContainerStyle={{ padding: 5, marginTop: 5 }}
+            ListHeaderComponent={
+              isFirstTime &&
+              user?.userInfo?.personal?.image &&
+              user.userInfo.personal.image.length <=
+                Constant.freeUserProfileImageLimit
+                ? getImagePickerView()
+                : personalImageLimit > 0 &&
+                  Array.isArray(user?.userInfo?.personal?.image) &&
+                  user.userInfo.personal.image.length < personalImageLimit &&
+                  getImagePickerView()
+            }
+            showsHorizontalScrollIndicator={false}
+            data={
+              Array.isArray(user?.userInfo?.personal?.image)
+                ? user.userInfo.personal.image
+                : []
+            }
+            keyExtractor={keyExtractor}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  style={styles.toProfileImage}
+                  onPress={() => {
+                    setDefaultImageUrl(item.url);
+                  }}
+                >
+                  {item.url && item.url !== "" && (
+                    <FastImage
+                      source={{ uri: item.url }}
+                      style={styles.toProfileImage}
+                    />
+                  )}
 
-                    {defaultImageUrl === item.url && (
-                      <View
-                        style={[
-                          styles.toProfileImage,
-                          {
-                            backgroundColor: Color.blackTransparant,
-                            position: "absolute",
-                            opacity: 0.3,
-                          },
-                        ]}
-                      />
-                    )}
-                    <TouchableOpacity
-                      onPress={() => onCloseBTN(item.url)}
-                      activeOpacity={0.6}
-                      style={styles.closeBtn}
-                    >
-                      <ICON name="close" size={18} color={Color.darkBlue} />
-                    </TouchableOpacity>
+                  {defaultImageUrl === item.url && (
+                    <View
+                      style={[
+                        styles.toProfileImage,
+                        {
+                          backgroundColor: Color.blackTransparant,
+                          position: "absolute",
+                          opacity: 0.3,
+                        },
+                      ]}
+                    />
+                  )}
+                  <TouchableOpacity
+                    onPress={() => onCloseBTN(item.url)}
+                    activeOpacity={0.6}
+                    style={styles.closeBtn}
+                  >
+                    <ICON name="close" size={18} color={Color.darkBlue} />
                   </TouchableOpacity>
-                );
-              }}
-            />
-          ) : (
-            getImagePickerView()
-          )}
+                </TouchableOpacity>
+              );
+            }}
+          />
+
+          <View style={styles.addimageContainer}>
+            <Text style={styles.txtUploadImage}>
+              {Common.getTranslation(LangKey.txtUploadPhotoHere)}
+            </Text>
+          </View>
+          <View style={styles.UploadPng}>
+            <Text style={styles.txtUploadImage1}>
+              {Common.getTranslation(LangKey.txtUploadPNG)}
+            </Text>
+          </View>
         </View>
         <Button
           loading={loading}
@@ -600,7 +627,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
   },
   toUserImage: {
     width: 100,
@@ -615,7 +642,11 @@ const styles = StyleSheet.create({
     color: Color.darkBlue,
   },
   containerProfile: {
+    marginTop: 20,
     flex: 1,
+    marginHorizontal: 20,
+    borderColor: Color.blackTransTagFree,
+    borderWidth: 2,
   },
   toProfileImage: {
     width: 80,
@@ -624,6 +655,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
+  },
+  addImage: {
+    width: 100,
+    height: 90,
+    borderRightColor: Color.blackTransTagFree,
+    borderRightWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
   },
   btnSave: {
     width: "30%",
@@ -686,4 +726,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  addimageContainer: { alignSelf: "center", position: "absolute", top: -10 },
+  txtUploadImage: {
+    paddingHorizontal: 20,
+    backgroundColor: Color.white,
+  },
+  txtUploadImage1: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: Color.white,
+  },
+  UploadPng: { alignSelf: "center" },
 });

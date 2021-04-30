@@ -73,13 +73,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"ব্রাউজারে খুলুন"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"লিঙ্ক শেয়ার করুন"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"বিবিধ"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"বিজ্ঞাপন খোলার জন্য ট্যাপ করুন"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"অফলাইন থাকাকালীন আপনার সেভ করা বিজ্ঞাপন দেখুন"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"বুঝেছি"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"আপনি আবার অনলাইন হলে লিঙ্ক সহ বিজ্ঞপ্তি পাবেন"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"না থাক"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"আমরা বিজ্ঞাপনদাতার সাইটে লিঙ্ক সহ একটি বিজ্ঞপ্তি পাঠাব।"</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"আপনি আবার যখন অনলাইন হবেন তখন বিজ্ঞাপনে ক্লিক করুন।"</string>
     <string msgid="368094699078615544" name="s1">"ছবি সেভ করুন"</string>
     <string msgid="4550830452390689489" name="s2">"বিজ্ঞাপনকে ছবির গ্যালারিতে ছবি সংরক্ষণ করার অনুমতি দেবেন?"</string>
     <string msgid="2435407834265420668" name="s3">"গ্রহণ করুন"</string>
