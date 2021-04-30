@@ -114,7 +114,7 @@
     <orderEntry type="library" name="Gradle: com.facebook.fresco:nativeimagefilters:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fresco:nativeimagetranscoder:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fresco:imagepipeline-base:2.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="org.unimodules.my-app.unimodules-permissions-interface" />
+    <orderEntry type="module" module-name="my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.unimodules-core" />
   </component>
 </module>

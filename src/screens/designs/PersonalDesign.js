@@ -46,6 +46,7 @@ let isShareClick = false;
 let msg = "";
 let adAvilable = false;
 let adCounter = 0;
+let setCurLayout = {};
 
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
@@ -114,7 +115,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     setVisibleFreeModal(!visibleFreeModal);
   };
 
-  const toggleVisibleMsg = () => {
+  const toggleVisibleMsg = (val) => {
+    if (val === true) {
+      setCurLayout !== undefined &&
+        setCurLayout !== null &&
+        setCurrentLayout(setCurLayout);
+    }
     setVisibleModalMsg(!visibleModalMsg);
   };
 
@@ -742,6 +748,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay1Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -760,6 +767,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay2Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -778,6 +786,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay3Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -795,6 +804,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay4Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -812,6 +822,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay5Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           msg = "";
           setCurrentLayout(layout);
@@ -833,6 +844,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay6Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -853,6 +865,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay7Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -866,6 +879,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.personalLay8Msg);
           setVisibleModalMsg(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -920,103 +934,111 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
       <View style={styles.lay1ViewName}>
-        <MuktaText style={[styles.lay1TxtName, { color: footerTextColor }]}>
-          {userDataPersonal.name}
-        </MuktaText>
-
-        <MuktaText
-          style={[styles.lay1TxtDesignation, { color: footerTextColor }]}
-        >
-          {userDataPersonal.designation}
-        </MuktaText>
+        {userDataPersonal.name ? (
+          <MuktaText style={[styles.lay1TxtName, { color: footerTextColor }]}>
+            {userDataPersonal.name}
+          </MuktaText>
+        ) : null}
+        {userDataPersonal.designation ? (
+          <MuktaText
+            style={[styles.lay1TxtDesignation, { color: footerTextColor }]}
+          >
+            {userDataPersonal.designation}
+          </MuktaText>
+        ) : null}
       </View>
 
       <View style={styles.lay1ViewWebsiteEmail}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="website"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
+        {userDataPersonal.website ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="website"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataPersonal.website}
+            </MuktaText>
           </View>
-          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.website}
-          </MuktaText>
-        </View>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="email"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
+        ) : null}
+        {userDataPersonal.email ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="email"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataPersonal.email}
+            </MuktaText>
           </View>
-          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.email}
-          </MuktaText>
-        </View>
+        ) : null}
       </View>
 
       <View style={styles.lay1ViewMobile}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="phone"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
-          </View>
+        {userDataPersonal.mobile ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="phone"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
 
+            <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataPersonal.mobile}
+            </MuktaText>
+          </View>
+        ) : null}
+      </View>
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay1ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
           <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.mobile}
+            {userDataPersonal.socialMedia}
           </MuktaText>
         </View>
-      </View>
-
-      <View
-        style={[
-          styles.lay1ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
-        </MuktaText>
-      </View>
+      ) : null}
     </View>
   );
 
@@ -1028,57 +1050,61 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <FastImage
-        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
-        source={{ uri: userDataPersonal.image }}
-        style={styles.lay2ImgUser}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
-        {userDataPersonal.name}
-      </MuktaText>
-
-      <MuktaText
-        style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
-      >
-        {userDataPersonal.designation}
-      </MuktaText>
-
-      <View
-        style={[
-          styles.lay2ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
+      {userDataPersonal.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          source={{ uri: userDataPersonal.image }}
+          style={styles.lay2ImgUser}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataPersonal.name ? (
+        <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
         </MuktaText>
-      </View>
+      ) : null}
+      {userDataPersonal.designation ? (
+        <MuktaText
+          style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
+        >
+          {userDataPersonal.designation}
+        </MuktaText>
+      ) : null}
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay2ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.socialMedia}
+          </MuktaText>
+        </View>
+      ) : null}
     </View>
   );
 
@@ -1091,56 +1117,61 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
 
-      <FastImage
-        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
-        source={{ uri: userDataPersonal.image }}
-        style={styles.lay3ImgUser}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <MuktaText style={[styles.lay3TxtName, { color: footerTextColor }]}>
-        {userDataPersonal.name}
-      </MuktaText>
-
-      <MuktaText
-        style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
-      >
-        {userDataPersonal.designation}
-      </MuktaText>
-
-      <View
-        style={[
-          styles.lay3ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
+      {userDataPersonal.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          source={{ uri: userDataPersonal.image }}
+          style={styles.lay3ImgUser}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataPersonal.name ? (
+        <MuktaText style={[styles.lay3TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
         </MuktaText>
-      </View>
+      ) : null}
+      {userDataPersonal.designation ? (
+        <MuktaText
+          style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
+        >
+          {userDataPersonal.designation}
+        </MuktaText>
+      ) : null}
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay3ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.socialMedia}
+          </MuktaText>
+        </View>
+      ) : null}
     </View>
   );
 
@@ -1154,67 +1185,73 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay4ViewNameDesignation}>
-        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
-          {userDataPersonal.name}
-        </MuktaText>
-
-        <MuktaText
-          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
-        >
-          {userDataPersonal.designation}
-        </MuktaText>
+        {userDataPersonal.name ? (
+          <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
+            {userDataPersonal.name}
+          </MuktaText>
+        ) : null}
+        {userDataPersonal.designation ? (
+          <MuktaText
+            style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+          >
+            {userDataPersonal.designation}
+          </MuktaText>
+        ) : null}
       </View>
 
       <View style={styles.lay4ViewWebsite}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="website"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
+        {userDataPersonal.website ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="website"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataPersonal.website}
+            </MuktaText>
           </View>
+        ) : null}
+      </View>
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay4ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
           <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.website}
+            {userDataPersonal.socialMedia}
           </MuktaText>
         </View>
-      </View>
-
-      <View
-        style={[
-          styles.lay4ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
-        </MuktaText>
-      </View>
+      ) : null}
     </View>
   );
 
@@ -1228,67 +1265,73 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay4ViewNameDesignation}>
-        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
-          {userDataPersonal.name}
-        </MuktaText>
-
-        <MuktaText
-          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
-        >
-          {userDataPersonal.designation}
-        </MuktaText>
+        {userDataPersonal.name ? (
+          <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
+            {userDataPersonal.name}
+          </MuktaText>
+        ) : null}
+        {userDataPersonal.designation ? (
+          <MuktaText
+            style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+          >
+            {userDataPersonal.designation}
+          </MuktaText>
+        ) : null}
       </View>
 
       <View style={styles.lay4ViewWebsite}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="email"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
+        {userDataPersonal.email ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="email"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataPersonal.email}
+            </MuktaText>
           </View>
+        ) : null}
+      </View>
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay4ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
           <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.email}
+            {userDataPersonal.socialMedia}
           </MuktaText>
         </View>
-      </View>
-
-      <View
-        style={[
-          styles.lay4ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
-        </MuktaText>
-      </View>
+      ) : null}
     </View>
   );
 
@@ -1300,76 +1343,84 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <FastImage
-        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
-        source={{ uri: userDataPersonal.image }}
-        style={styles.lay2ImgUser}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
-        {userDataPersonal.name}
-      </MuktaText>
-
-      <MuktaText
-        style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
-      >
-        {userDataPersonal.designation}
-      </MuktaText>
+      {userDataPersonal.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          source={{ uri: userDataPersonal.image }}
+          style={styles.lay2ImgUser}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataPersonal.name ? (
+        <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
+          {userDataPersonal.name}
+        </MuktaText>
+      ) : null}
+      {userDataPersonal.designation ? (
+        <MuktaText
+          style={[styles.lay2TxtDesignation, { color: footerTextColor }]}
+        >
+          {userDataPersonal.designation}
+        </MuktaText>
+      ) : null}
 
       <View style={styles.lay6ViewMobile}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="phone"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
-          </View>
+        {userDataPersonal.mobile ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="phone"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
 
-          <MuktaText style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.mobile}
+            <MuktaText
+              style={[styles.layBigTxtIcon, { color: footerTextColor }]}
+            >
+              {userDataPersonal.mobile}
+            </MuktaText>
+          </View>
+        ) : null}
+      </View>
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay2ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.socialMedia}
           </MuktaText>
         </View>
-      </View>
-
-      <View
-        style={[
-          styles.lay2ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
-        </MuktaText>
-      </View>
+      ) : null}
     </View>
   );
 
@@ -1381,76 +1432,88 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-      <FastImage
-        onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
-        source={{ uri: userDataPersonal.image }}
-        style={styles.lay3ImgUser}
-        resizeMode={FastImage.resizeMode.contain}
-      />
+      {userDataPersonal.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          source={{ uri: userDataPersonal.image }}
+          style={styles.lay3ImgUser}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataPersonal.name ? (
+        <MuktaText
+          style={[styles.lay3TxtName, { color: footerTextColor }]}
+          adjustsFontSizeToFit
+        >
+          {userDataPersonal.name}
+        </MuktaText>
+      ) : null}
+      {userDataPersonal.designation ? (
+        <MuktaText
+          style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
+          adjustsFontSizeToFit
+        >
+          {userDataPersonal.designation}
+        </MuktaText>
+      ) : null}
 
-      <MuktaText
-        style={[styles.lay3TxtName, { color: footerTextColor }]}
-        adjustsFontSizeToFit
-      >
-        {userDataPersonal.name}
-      </MuktaText>
-      <MuktaText
-        style={[styles.lay3TxtDesignation, { color: footerTextColor }]}
-        adjustsFontSizeToFit
-      >
-        {userDataPersonal.designation}
-      </MuktaText>
       <View style={styles.lay7ViewMobile}>
-        <View style={styles.layViewIconRoot}>
-          <View
-            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-          >
-            <Icon
-              name="phone"
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
-          </View>
+        {userDataPersonal.mobile ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="phone"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
 
-          <MuktaText style={[styles.layBigTxtIcon, { color: footerTextColor }]}>
-            {userDataPersonal.mobile}
+            <MuktaText
+              style={[styles.layBigTxtIcon, { color: footerTextColor }]}
+            >
+              {userDataPersonal.mobile}
+            </MuktaText>
+          </View>
+        ) : null}
+      </View>
+      {userDataPersonal.socialMedia ? (
+        <View
+          style={[
+            styles.lay3ViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList &&
+            socialIconList.map((item) => (
+              <View style={styles.layViewSocialIconRoot}>
+                <View
+                  style={[
+                    styles.layViewIcon,
+                    { backgroundColor: footerTextColor },
+                  ]}
+                >
+                  <Icon
+                    key={item}
+                    name={item}
+                    height={Constant.layIconHeight}
+                    width={Constant.layIconWidth}
+                    fill={footerColor}
+                  />
+                </View>
+              </View>
+            ))}
+
+          <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataPersonal.socialMedia}
           </MuktaText>
         </View>
-      </View>
-      <View
-        style={[
-          styles.lay3ViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList &&
-          socialIconList.map((item) => (
-            <View style={styles.layViewSocialIconRoot}>
-              <View
-                style={[
-                  styles.layViewIcon,
-                  { backgroundColor: footerTextColor },
-                ]}
-              >
-                <Icon
-                  key={item}
-                  name={item}
-                  height={Constant.layIconHeight}
-                  width={Constant.layIconWidth}
-                  fill={footerColor}
-                />
-              </View>
-            </View>
-          ))}
-
-        <MuktaText style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataPersonal.socialMedia}
-        </MuktaText>
-      </View>
+      ) : null}
     </View>
   );
 
@@ -1469,15 +1532,18 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       <View style={styles.lay8ViewNameDesignation}>
-        <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
-          {userDataPersonal.name}
-        </MuktaText>
-
-        <MuktaText
-          style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
-        >
-          {userDataPersonal.designation}
-        </MuktaText>
+        {userDataPersonal.name ? (
+          <MuktaText style={[styles.lay4TxtName, { color: footerTextColor }]}>
+            {userDataPersonal.name}
+          </MuktaText>
+        ) : null}
+        {userDataPersonal.designation ? (
+          <MuktaText
+            style={[styles.lay4TxtDesignation, { color: footerTextColor }]}
+          >
+            {userDataPersonal.designation}
+          </MuktaText>
+        ) : null}
       </View>
     </View>
   );
@@ -1513,7 +1579,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 setVisibleModal(true);
               } else {
                 checkAndSetLayout(item);
-                // setCurrentLayout(item);
               }
             }}
           >

@@ -84,7 +84,7 @@ project.ext.react = [
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gradle"
-
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -93,14 +93,14 @@ apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gra
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-   def enableSeparateBuildPerCPUArchitecture = true
-//def enableSeparateBuildPerCPUArchitecture = false
+  def enableSeparateBuildPerCPUArchitecture = true
+// def enableSeparateBuildPerCPUArchitecture = false
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-    def enableProguardInReleaseBuilds = true
-//def enableProguardInReleaseBuilds = false
+   def enableProguardInReleaseBuilds = true
+// def enableProguardInReleaseBuilds = false
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -136,8 +136,8 @@ android {
         applicationId 'com.bebrandd.branddot'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "1.1.1"
+        versionCode 12
+        versionName "1.1.2"
         multiDexEnabled true
     }
     dexOptions {

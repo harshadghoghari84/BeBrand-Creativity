@@ -49,6 +49,7 @@ let isShareClick = false;
 let msg = "";
 let adAvilable = false;
 let adCounter = 0;
+let setCurLayout = {};
 
 const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
@@ -138,7 +139,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     setVisibleModalAd(!visibleModalAd);
   };
 
-  const toggleVisibleMsgBussiness = () => {
+  const toggleVisibleMsgBussiness = (val) => {
+    if (val === true) {
+      setCurLayout !== undefined &&
+        setCurLayout !== null &&
+        setCurrentLayout(setCurLayout);
+    }
     setVisibleModalMsgbussiness(!visibleModalMsgbussiness);
   };
 
@@ -808,6 +814,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay1Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -828,6 +835,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay2Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -845,6 +853,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay3Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -864,6 +873,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay4Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -881,6 +891,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay5Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -900,6 +911,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay6Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -920,6 +932,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay7Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -940,6 +953,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay8Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -960,6 +974,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay9Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -980,6 +995,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         ) {
           msg = Common.getTranslation(LangKey.businessLay10Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -988,6 +1004,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         if (!userDataBussiness.name || userDataBussiness.name === "") {
           msg = Common.getTranslation(LangKey.businessLay11Msg);
           setVisibleModalMsgbussiness(true);
+          setCurLayout = layout;
         } else {
           setCurrentLayout(layout);
         }
@@ -1041,80 +1058,86 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
 
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layLeftImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layLeftRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="location"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layLeftTxtAddress, { color: footerTextColor }]}>
-          {userDataBussiness.address}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layLeftImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-      </View>
-
-      <View style={styles.layLeftBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layLeftViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      ) : null}
+      {userDataBussiness.address ? (
+        <View style={styles.layLeftRoot}>
           <View
-            key={item}
-            style={[
-              styles.layLeftSocialIconView,
-              { backgroundColor: footerTextColor },
-            ]}
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="location"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+          <Text style={[styles.layLeftTxtAddress, { color: footerTextColor }]}>
+            {userDataBussiness.address}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layLeftBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layLeftViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              key={item}
+              style={[
+                styles.layLeftSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
   const getLayout2 = () => (
@@ -1126,79 +1149,88 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
 
-      <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layRightRoot}>
-        <Text style={[styles.layRightTxtAddress, { color: footerTextColor }]}>
-          {userDataBussiness.address}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="location"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-      </View>
+      ) : null}
 
-      <View style={styles.layRightBottom}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layRightViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      {userDataBussiness.address ? (
+        <View style={styles.layRightRoot}>
+          <Text style={[styles.layRightTxtAddress, { color: footerTextColor }]}>
+            {userDataBussiness.address}
+          </Text>
           <View
-            style={[
-              styles.layRightSocialIconView,
-              { backgroundColor: footerTextColor },
-            ]}
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="location"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+        </View>
+      ) : null}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+      {userDataBussiness.mobile ? (
+        <View style={styles.layRightBottom}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
 
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layRightImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layRightViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layRightSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
+
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layRightImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
     </View>
   );
 
@@ -1210,113 +1242,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layFlatRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="website"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.website}
-        </Text>
-      </View>
-
-      <View style={styles.layFlatBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layFlatViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
-          <View
-            style={[
-              styles.layFlatSocialView,
-              { backgroundColor: footerTextColor },
-            ]}
-          >
-            <Icon
-              key={item}
-              name={item}
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
-          </View>
-        ))}
-
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
-    </View>
-  );
-
-  const getLayout4 = () => (
-    <View style={styles.layFlatViewFooter}>
-      <SvgCss
-        xml={SvgConstant.flatFooterLayout}
-        width="100%"
-        height="100%"
-        fill={footerColor}
-      />
-      <View
-        style={{
-          position: "absolute",
-          left: "2%",
-          top: "12%",
-          width: wp(96),
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          style={{
-            fontSize: Constant.layBigFontSize,
-            color: footerTextColor,
-          }}
-        >
+      {userDataBussiness.name ? (
+        <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
           {userDataBussiness.name}
         </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layFlatRoot,
-          {
-            width: "96%",
-            justifyContent: "space-between",
-          },
-        ]}
-      >
-        <View style={styles.layViewIconRoot}>
+      ) : null}
+      {userDataBussiness.website ? (
+        <View style={styles.layFlatRoot}>
           <View
             style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
@@ -1331,7 +1263,198 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             {userDataBussiness.website}
           </Text>
         </View>
-        <View style={[styles.layViewIconRoot]}>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layFlatBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layFlatViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layFlatSocialView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
+
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
+    </View>
+  );
+
+  const getLayout4 = () => (
+    <View style={styles.layFlatViewFooter}>
+      <SvgCss
+        xml={SvgConstant.flatFooterLayout}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+
+      <View
+        style={{
+          position: "absolute",
+          left: "2%",
+          top: "12%",
+          width: wp(96),
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {userDataBussiness.name ? (
+          <Text
+            style={{
+              fontSize: Constant.layBigFontSize,
+              color: footerTextColor,
+            }}
+          >
+            {userDataBussiness.name}
+          </Text>
+        ) : null}
+      </View>
+
+      <View
+        style={[
+          styles.layFlatRoot,
+          {
+            width: "96%",
+            justifyContent: "space-between",
+          },
+        ]}
+      >
+        {userDataBussiness.website ? (
+          <View style={styles.layViewIconRoot}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="website"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataBussiness.website}
+            </Text>
+          </View>
+        ) : null}
+        {userDataBussiness.email ? (
+          <View style={[styles.layViewIconRoot]}>
+            <View
+              style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+            >
+              <Icon
+                name="email"
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+            <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+              {userDataBussiness.email}
+            </Text>
+          </View>
+        ) : null}
+      </View>
+      {userDataBussiness.mobile ? (
+        <View style={styles.layFlatBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layFlatViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layFlatSocialView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
+
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
+    </View>
+  );
+  const getLayout5 = () => (
+    <View style={styles.layFlatViewFooter}>
+      <SvgCss
+        xml={SvgConstant.flatFooterLayout}
+        width="100%"
+        height="100%"
+        fill={footerColor}
+      />
+      {userDataBussiness.name ? (
+        <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
+        </Text>
+      ) : null}
+      {userDataBussiness.email ? (
+        <View style={styles.layFlatRoot}>
           <View
             style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
@@ -1346,129 +1469,56 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             {userDataBussiness.email}
           </Text>
         </View>
-      </View>
+      ) : null}
 
-      <View style={styles.layFlatBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layFlatViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      {userDataBussiness.mobile ? (
+        <View style={styles.layFlatBottomMobile}>
           <View
-            style={[
-              styles.layFlatSocialView,
-              { backgroundColor: footerTextColor },
-            ]}
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="phone"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
-
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
-    </View>
-  );
-  const getLayout5 = () => (
-    <View style={styles.layFlatViewFooter}>
-      <SvgCss
-        xml={SvgConstant.flatFooterLayout}
-        width="100%"
-        height="100%"
-        fill={footerColor}
-      />
-
-      <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layFlatRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="email"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
         </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.email}
-        </Text>
-      </View>
-
-      <View style={styles.layFlatBottomMobile}>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
         <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          style={[
+            styles.layFlatViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
         >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layFlatSocialView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
+
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
         </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layFlatViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
-          <View
-            style={[
-              styles.layFlatSocialView,
-              { backgroundColor: footerTextColor },
-            ]}
-          >
-            <Icon
-              key={item}
-              name={item}
-              height={Constant.layIconHeight}
-              width={Constant.layIconWidth}
-              fill={footerColor}
-            />
-          </View>
-        ))}
-
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+      ) : null}
     </View>
   );
   const getLayout6 = () => (
@@ -1479,93 +1529,98 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layFlatTopMobile}>
-        <View
-          style={[
-            styles.layViewIcon,
-            {
-              backgroundColor: footerTextColor,
-            },
-          ]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layFlatTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-      </View>
-
-      <View style={styles.layFlatRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="location"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.address}
-        </Text>
-      </View>
-
-      <View style={styles.layFlatBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="website"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.website}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layFlatViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layFlatTopMobile}>
           <View
             style={[
-              styles.layFlatSocialView,
-              { backgroundColor: footerTextColor },
+              styles.layViewIcon,
+              {
+                backgroundColor: footerTextColor,
+              },
             ]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="phone"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.address ? (
+        <View style={styles.layFlatRoot}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="location"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.address}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.website ? (
+        <View style={styles.layFlatBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="website"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.website}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layFlatViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layFlatSocialView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 
@@ -1577,82 +1632,88 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layLeftImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layLeftRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="website"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.website}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layLeftImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-      </View>
-
-      <View style={styles.layLeftBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layLeftViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      ) : null}
+      {userDataBussiness.website ? (
+        <View style={styles.layLeftRoot}>
           <View
-            style={[
-              styles.layLeftSocialIconView,
-              { backgroundColor: footerTextColor },
-            ]}
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="website"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.website}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layLeftBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layLeftViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layLeftSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
+
   const getLayout8 = () => (
     <View style={styles.layLeftViewFooter}>
       <SvgCss
@@ -1661,80 +1722,85 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layLeftImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-
-      <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layLeftRoot}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="email"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.email}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layLeftImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layLeftTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-      </View>
-
-      <View style={styles.layLeftBottomMobile}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layLeftViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
+      ) : null}
+      {userDataBussiness.email ? (
+        <View style={styles.layLeftRoot}>
           <View
-            style={[
-              styles.layLeftSocialIconView,
-              { backgroundColor: footerTextColor },
-            ]}
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
           >
             <Icon
-              key={item}
-              name={item}
+              name="email"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.email}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layLeftBottomMobile}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layLeftViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layLeftSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 
@@ -1746,85 +1812,91 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layRightRoot}>
-        <Text
-          style={[
-            styles.layTxtIcon,
-            { color: footerTextColor, marginRight: wp(1.5) },
-          ]}
-        >
-          {userDataBussiness.website}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="website"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-      </View>
+      ) : null}
 
-      <View style={styles.layRightBottom}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layRightViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
-          <View
+      {userDataBussiness.website ? (
+        <View style={styles.layRightRoot}>
+          <Text
             style={[
-              styles.layRightSocialIconView,
-              { backgroundColor: footerTextColor },
+              styles.layTxtIcon,
+              { color: footerTextColor, marginRight: wp(1.5) },
             ]}
           >
+            {userDataBussiness.website}
+          </Text>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
             <Icon
-              key={item}
-              name={item}
+              name="website"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+        </View>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layRightBottom}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layRightViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layRightSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
-
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layRightImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layRightImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
     </View>
   );
   const getLayout10 = () => (
@@ -1835,85 +1907,90 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
-
-      <View style={styles.layRightRoot}>
-        <Text
-          style={[
-            styles.layTxtIcon,
-            { color: footerTextColor, marginRight: wp(1.5) },
-          ]}
-        >
-          {userDataBussiness.email}
+      {userDataBussiness.name ? (
+        <Text style={[styles.layRightTxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
         </Text>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="email"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-      </View>
-
-      <View style={styles.layRightBottom}>
-        <View
-          style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
-        >
-          <Icon
-            name="phone"
-            height={Constant.layIconHeight}
-            width={Constant.layIconWidth}
-            fill={footerColor}
-          />
-        </View>
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.mobile}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.layRightViewSocialMedia,
-          {
-            color: footerTextColor,
-          },
-        ]}
-      >
-        {socialIconList.map((item) => (
-          <View
+      ) : null}
+      {userDataBussiness.email ? (
+        <View style={styles.layRightRoot}>
+          <Text
             style={[
-              styles.layRightSocialIconView,
-              { backgroundColor: footerTextColor },
+              styles.layTxtIcon,
+              { color: footerTextColor, marginRight: wp(1.5) },
             ]}
           >
+            {userDataBussiness.email}
+          </Text>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
             <Icon
-              key={item}
-              name={item}
+              name="email"
               height={Constant.layIconHeight}
               width={Constant.layIconWidth}
               fill={footerColor}
             />
           </View>
-        ))}
+        </View>
+      ) : null}
+      {userDataBussiness.mobile ? (
+        <View style={styles.layRightBottom}>
+          <View
+            style={[styles.layViewIcon, { backgroundColor: footerTextColor }]}
+          >
+            <Icon
+              name="phone"
+              height={Constant.layIconHeight}
+              width={Constant.layIconWidth}
+              fill={footerColor}
+            />
+          </View>
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.mobile}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.socialMedia ? (
+        <View
+          style={[
+            styles.layRightViewSocialMedia,
+            {
+              color: footerTextColor,
+            },
+          ]}
+        >
+          {socialIconList.map((item) => (
+            <View
+              style={[
+                styles.layRightSocialIconView,
+                { backgroundColor: footerTextColor },
+              ]}
+            >
+              <Icon
+                key={item}
+                name={item}
+                height={Constant.layIconHeight}
+                width={Constant.layIconWidth}
+                fill={footerColor}
+              />
+            </View>
+          ))}
 
-        <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
-          {userDataBussiness.socialMedia}
-        </Text>
-      </View>
-
-      <FastImage
-        onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-        onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
-        source={{ uri: userDataBussiness.image }}
-        style={styles.layRightImgLogo}
-        resizeMode={FastImage.resizeMode.contain}
-      />
+          <Text style={[styles.layTxtIcon, { color: footerTextColor }]}>
+            {userDataBussiness.socialMedia}
+          </Text>
+        </View>
+      ) : null}
+      {userDataBussiness.image ? (
+        <FastImage
+          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
+          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          source={{ uri: userDataBussiness.image }}
+          style={styles.layRightImgLogo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      ) : null}
     </View>
   );
 
@@ -1925,10 +2002,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         height="100%"
         fill={footerColor}
       />
-
-      <Text style={[styles.lay11TxtName, { color: footerTextColor }]}>
-        {userDataBussiness.name}
-      </Text>
+      {userDataBussiness.name ? (
+        <Text style={[styles.lay11TxtName, { color: footerTextColor }]}>
+          {userDataBussiness.name}
+        </Text>
+      ) : null}
     </View>
   );
 

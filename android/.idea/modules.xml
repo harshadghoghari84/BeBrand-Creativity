@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1443970132/host.exp.exponent.my-app.expo-ads-admob.iml" filepath="$PROJECT_DIR$/.idea/modules/1443970132/host.exp.exponent.my-app.expo-ads-admob.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/7943345/host.exp.exponent.my-app.expo-constants.iml" filepath="$PROJECT_DIR$/.idea/modules/7943345/host.exp.exponent.my-app.expo-constants.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/my-app.iml" filepath="$PROJECT_DIR$/.idea/modules/my-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/my-app.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/my-app.app.iml" />
@@ -57,6 +58,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2117047076/my-app.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/2117047076/my-app.unimodules-permissions-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" />

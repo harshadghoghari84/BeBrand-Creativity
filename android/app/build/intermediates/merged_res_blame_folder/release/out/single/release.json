@@ -84,6 +84,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/raw/node_modules_mdndata_css_properties.json"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_33.jpg.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_33.jpg"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
@@ -308,6 +312,10 @@
         "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/res/mipmap-xxxhdpi/ic_notification.png"
     },
     {
+        "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_32.jpg.flat",
+        "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_32.jpg"
+    },
+    {
         "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/raw_node_modules_entities_lib_maps_xml.json.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/raw/node_modules_entities_lib_maps_xml.json"
     },
@@ -342,10 +350,6 @@
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-xhdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
         "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/drawable-xhdpi/node_modules_reactnavigation_stack_src_views_assets_backicon.png"
-    },
-    {
-        "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_img_ads.png.flat",
-        "source": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_img_ads.png"
     },
     {
         "merged": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/res/merged/release/drawable-mdpi_node_modules_reactnavigation_stack_src_views_assets_backicon.png.flat",
