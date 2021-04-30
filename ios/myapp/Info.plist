@@ -75,7 +75,7 @@
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>In the application, we have a custom section where the user can upload images from the gallery and save the image into the gallery. For that, we need gallery access in the app.</string>
 		<key>NSUserTrackingUsageDescription</key>
-		<string>Testing purposes</string>
+		<string>This identifier will be used to deliver personalized ads to you.</string>
 		<key>UIAppFonts</key>
 		<array>
 			<string>Nunito-Black.ttf</string>
