@@ -79,7 +79,7 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="org.unimodules.my-app.unimodules-permissions-interface" />
+    <orderEntry type="module" module-name="my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.unimodules-core" />
     <orderEntry type="module" module-name="my-app.unimodules-task-manager-interface" />
   </component>

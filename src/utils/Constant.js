@@ -47,9 +47,9 @@ export default {
     },
   ],
 
-  // serverUrl: "http://192.168.0.222:5001/gql",
-  serverUrl: "https://api.branddot.in/gql",
-  // serverUrl: "https://admin.branddot.in/gql",
+  // serverUrl: "http://192.168.0.222:5000/gql",
+  // serverUrl: "https://api.branddot.in/gql",
+  serverUrl: "https://admin.branddot.in/gql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
@@ -57,8 +57,8 @@ export default {
 
   freeUserProfileImageLimit: 0,
 
-  razorPayApiKey: "rzp_test_62hWp6Fn3Rflkg",
-  // razorPayApiKey: "rzp_live_mml0VJwNR2J6x8",
+  // razorPayApiKey: "rzp_test_62hWp6Fn3Rflkg",
+  razorPayApiKey: "rzp_live_mml0VJwNR2J6x8",
   profileImageSize: 2000000,
   defLangCode: "en",
   defUserName: "Guest",
@@ -170,19 +170,19 @@ export default {
 
   // for ad
 
-  // rewardAdunitId: "ca-app-pub-1505061127299003/4315408477",
-  // interstitialAdunitId: "ca-app-pub-1505061127299003/3465538847",
-  // InterstitialAdPlacementId: "161899485797593_161899955797546",
-  // InterstitialAdPlacementIdVideo: "161899485797593_162546452399563",
+  rewardAdunitId: "ca-app-pub-1505061127299003/4315408477",
+  interstitialAdunitId: "ca-app-pub-1505061127299003/3465538847",
+  InterstitialAdPlacementId: "161899485797593_161899955797546",
+  InterstitialAdPlacementIdVideo: "161899485797593_162546452399563",
   addCounter: 4,
 
   // testing
 
-  rewardAdunitId: "ca-app-pub-3940256099942544/5224354917",
-  interstitialAdunitId: "ca-app-pub-3940256099942544/1033173712",
-  InterstitialAdPlacementId: "328225604270934_328677554225739",
-  InterstitialAdPlacementIdVideo:
-    "VID_HD_9_16_39S_APP_INSTALL#328225604270934_328677554225739",
+  // rewardAdunitId: "ca-app-pub-3940256099942544/5224354917",
+  // interstitialAdunitId: "ca-app-pub-3940256099942544/1033173712",
+  // InterstitialAdPlacementId: "328225604270934_328677554225739",
+  // InterstitialAdPlacementIdVideo:
+  //   "VID_HD_9_16_39S_APP_INSTALL#328225604270934_328677554225739",
 
   // mobx/DesignStore constants
   designLangCodeAll: "all",

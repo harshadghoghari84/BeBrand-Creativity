@@ -77,6 +77,7 @@ module.exports = {
   txtShare: "txtShare",
   txtDownload: "txtDownload",
   txtEdit: "txtEdit",
+  txtNext: "txtNext",
   txtReset: "txtReset",
   msgPerchasePkg: "msgPerchasePkg",
   msgPkgPurchaseSucess: "msgPkgPurchaseSucess",

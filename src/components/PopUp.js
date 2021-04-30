@@ -377,6 +377,7 @@ const PopUp = ({
                 style={{
                   marginTop: 5,
                   alignSelf: "center",
+                  flexDirection: "row",
                 }}
               >
                 <Button
@@ -398,6 +399,22 @@ const PopUp = ({
                 >
                   {Common.getTranslation(LangKey.txtEdit)}
                 </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  onPress={() => {
+                    toggleVisibleMsg(true);
+                  }}
+                  // icon={
+                  //   <Icon
+                  //     name="edit"
+                  //     height={15}
+                  //     width={15}
+                  //     fill={Color.white}
+                  //   />
+                  // }
+                >
+                  {Common.getTranslation(LangKey.txtNext)}
+                </Button>
               </View>
             </KeyboardAvoidingView>
           </View>
@@ -418,6 +435,7 @@ const PopUp = ({
                 style={{
                   marginTop: 5,
                   alignSelf: "center",
+                  flexDirection: "row",
                 }}
               >
                 <Button
@@ -438,6 +456,22 @@ const PopUp = ({
                   }
                 >
                   {Common.getTranslation(LangKey.labEdit)}
+                </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  onPress={() => {
+                    toggleVisibleMsgBussiness(true);
+                  }}
+                  // icon={
+                  //   <Icon
+                  //     name="edit"
+                  //     height={15}
+                  //     width={15}
+                  //     fill={Color.white}
+                  //   />
+                  // }
+                >
+                  {Common.getTranslation(LangKey.txtNext)}
                 </Button>
               </View>
             </KeyboardAvoidingView>
@@ -602,7 +636,7 @@ const PopUp = ({
                   alignSelf: "center",
                   justifyContent: "space-between",
                   position: "absolute",
-                  bottom: 0,
+                  bottom: 5,
                 }}
               >
                 <Button
@@ -780,7 +814,7 @@ const PopUp = ({
                   alignSelf: "center",
                   justifyContent: "space-between",
                   position: "absolute",
-                  bottom: 0,
+                  bottom: 5,
                 }}
               >
                 <Button

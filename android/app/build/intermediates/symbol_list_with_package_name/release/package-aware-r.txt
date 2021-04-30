@@ -1697,7 +1697,8 @@ drawable rzp_white_border_black_bg
 drawable splash_image
 drawable splashscreen
 drawable splashscreen_image
-drawable src_assets_img_ads
+drawable src_assets_img_32
+drawable src_assets_img_33
 drawable src_assets_img_bdt
 drawable src_assets_img_logo2
 drawable src_assets_img_notavailable

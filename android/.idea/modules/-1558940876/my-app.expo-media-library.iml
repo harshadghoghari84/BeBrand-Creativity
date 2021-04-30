@@ -130,7 +130,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.protobuf:protobuf-java:2.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.bouncycastle:bcprov-jdk15on:1.52" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.2.0@aar" level="project" />
-    <orderEntry type="module" module-name="org.unimodules.my-app.unimodules-permissions-interface" />
+    <orderEntry type="module" module-name="my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.unimodules-core" />
   </component>
 </module>

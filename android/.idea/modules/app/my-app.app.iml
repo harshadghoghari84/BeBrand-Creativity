@@ -199,9 +199,9 @@
     <orderEntry type="module" module-name="my-app.expo-sharing" />
     <orderEntry type="module" module-name="my-app.expo-media-library" />
     <orderEntry type="module" module-name="my-app.expo-image-loader" />
-    <orderEntry type="module" module-name="my-app.expo-ads-admob" />
+    <orderEntry type="module" module-name="host.exp.exponent.my-app.expo-ads-admob" />
     <orderEntry type="module" module-name="my-app.expo-location" />
-    <orderEntry type="module" module-name="org.unimodules.my-app.unimodules-permissions-interface" />
+    <orderEntry type="module" module-name="my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.expo-error-recovery" />
     <orderEntry type="module" module-name="my-app.react-native-iap" />
     <orderEntry type="module" module-name="my-app.react-native-google-signin" />
