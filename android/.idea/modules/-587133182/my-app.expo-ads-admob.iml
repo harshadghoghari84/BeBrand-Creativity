@@ -5,7 +5,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <module external.linked.project.id=":expo-ads-admob" external.linked.project.path="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="host.exp.exponent" external.system.module.version="10.0.4" type="JAVA_MODULE" version="4">
+=======
+<module external.linked.project.id=":expo-ads-admob" external.linked.project.path="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="host.exp.exponent" external.system.module.version="9.0.0" type="JAVA_MODULE" version="4">
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 <module external.linked.project.id=":expo-ads-admob" external.linked.project.path="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="host.exp.exponent" external.system.module.version="9.0.0" type="JAVA_MODULE" version="4">
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
@@ -62,9 +66,12 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/generated/res/resValues/debug" type="java-resource" />
+=======
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
@@ -85,6 +92,7 @@
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -114,6 +122,8 @@
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads:17.2.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-lite:17.2.1@aar" level="project" />
@@ -133,6 +143,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
@@ -153,6 +166,7 @@
     <orderEntry type="library" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -183,6 +197,8 @@
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
     <orderEntry type="library" name="Gradle: androidx.core:core:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.0.0@aar" level="project" />
@@ -200,6 +216,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
+=======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd

@@ -43,7 +43,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <option name="apiVersion" value="1.4" />
+=======
+          <option name="apiVersion" value="1.3" />
+>>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
 =======
           <option name="apiVersion" value="1.3" />
 >>>>>>> ba05dc78fc0f383029c97acbbaf19f04c5768efd
