@@ -763,10 +763,8 @@ attr yearTodayStyle
 bool abc_action_bar_embed_tabs
 bool abc_allow_stacked_button_bar
 bool abc_config_actionMenuItemAllCaps
-bool enable_system_alarm_service_default
-bool enable_system_job_service_default
+bool isTablet
 bool mtrl_btn_textappearance_all_caps
-bool workmanager_test_configuration
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
@@ -1687,6 +1685,15 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable redbox_top_border_background
+drawable rzp_border
+drawable rzp_border_bottom
+drawable rzp_green_button
+drawable rzp_loader_circle
+drawable rzp_logo
+drawable rzp_name_logo
+drawable rzp_poweredby
+drawable rzp_secured_by_bg
+drawable rzp_white_border_black_bg
 drawable splash_image
 drawable splashscreen
 drawable splashscreen_image
@@ -1899,6 +1906,7 @@ id line1
 id line3
 id listMode
 id list_item
+id ll_loader
 id masked
 id media_actions
 id message
@@ -1954,6 +1962,7 @@ id parent_matrix
 id password_toggle
 id peekHeight
 id pin
+id progressBar
 id progress_bar
 id progress_circular
 id progress_horizontal
@@ -1973,6 +1982,10 @@ id rn_redbox_report_button
 id rn_redbox_report_label
 id rn_redbox_stack
 id rounded
+id rzp_innerbox
+id rzp_outerbox
+id rzp_securedpayments
+id rzp_theMainMagicView
 id save_non_transition_alpha
 id save_overlay_view
 id scale
@@ -2208,6 +2221,8 @@ layout notification_template_part_time
 layout redbox_item_frame
 layout redbox_item_title
 layout redbox_view
+layout rzp_loader
+layout rzp_magic_base
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -2273,6 +2288,7 @@ raw node_modules_mdndata_css_atrules
 raw node_modules_mdndata_css_properties
 raw node_modules_mdndata_css_syntaxes
 raw node_modules_reactnativemimetypes_node_modules_mimedb_db
+raw rzp_config
 raw src_languages_en
 raw src_languages_hi
 string abc_action_bar_home_description
@@ -2451,13 +2467,6 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
-string offline_notification_text
-string offline_notification_title
-string offline_opt_in_confirm
-string offline_opt_in_confirmation
-string offline_opt_in_decline
-string offline_opt_in_message
-string offline_opt_in_title
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -2714,6 +2723,7 @@ style CalendarDatePickerStyle
 style CardView
 style CardView_Dark
 style CardView_Light
+style CheckoutTheme
 style ClockTimePickerDialog
 style ClockTimePickerStyle
 style DialogAnimationFade

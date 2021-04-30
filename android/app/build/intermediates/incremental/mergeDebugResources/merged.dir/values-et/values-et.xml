@@ -50,13 +50,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Ava brauseris"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Jaga linki"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Muu"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"Puudutage reklaami avamiseks"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"Vaadake reklaami, mille salvestasite siis, kui teil puudus võrguühendus"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"OK"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"Saate märguande koos lingiga, kui teil on taas võrguühendus"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"Tänan, ei"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"Saadame teile märguande koos lingiga reklaamija saidile."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"Avage reklaam, kui teil on taas võrguühendus."</string>
     <string msgid="368094699078615544" name="s1">"Salvesta kujutis"</string>
     <string msgid="4550830452390689489" name="s2">"Kas lubada reklaamil salvestada kujutis pildigaleriisse?"</string>
     <string msgid="2435407834265420668" name="s3">"Nõustu"</string>

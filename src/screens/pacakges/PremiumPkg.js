@@ -5,31 +5,14 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Dimensions,
-  Animated,
   ScrollView,
   Platform,
-  Linking,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
-import RNIap, {
-  InAppPurchase,
-  PurchaseError,
-  SubscriptionPurchase,
-  acknowledgePurchaseAndroid,
-  finishTransaction,
-  finishTransactionIOS,
-  purchaseErrorListener,
-  purchaseUpdatedListener,
-  initConnection,
-  getProducts as rnIapProducts,
-  flushFailedPurchasesCachedAsPendingAndroid,
-  consumePurchaseAndroid,
-  requestSubscription as rnIapRequestSubscription,
-} from "react-native-iap";
+import RazorpayCheckout from "react-native-razorpay";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Relative Path
 import Common from "../../utils/Common";
@@ -43,13 +26,13 @@ import { SvgUri } from "react-native-svg";
 import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { color } from "react-native-reanimated";
+import Logo from "../../assets/img/bdt.png";
 
 let isGetProducts = false;
 
 const Packages = ({ navigation, designStore, userStore, route }) => {
   const user = toJS(userStore.user);
-  const { isGoback } = route.params;
+  // const { isGoback } = route.params;
   let itemSkus = {};
   const isMountedRef = Common.useIsMountedRef();
 
@@ -59,13 +42,27 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
   const [productList, setProductList] = useState([]);
   const [isFetching, setIsFetching] = useState(0);
 
-  const [addUserDesignPackage, { data, loading, error }] = useMutation(
-    GraphqlQuery.addUserDesignPackage,
+  // const [addUserDesignPackage, { data, loading, error }] = useMutation(
+  //   GraphqlQuery.addUserDesignPackage,
+  //   {
+  //     fetchPolicy: "no-cache",
+  //     errorPolicy: "all",
+  //   }
+  // );
+  const [addUserDesignPackageRzp, { data, loading, error }] = useMutation(
+    GraphqlQuery.addUserDesignPackageRzp,
     {
       fetchPolicy: "no-cache",
       errorPolicy: "all",
     }
   );
+  const [
+    addOrder,
+    { data: orderData, loading: orderLoading, error: orderError },
+  ] = useMutation(GraphqlQuery.addOrder, {
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
+  });
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -85,138 +82,115 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
         ios: filterId,
         android: filterId,
       });
-
-      getProducts();
+      // console.log("itemSkus", itemSkus);
+      // getProducts();
     }
   }, [designStore.designPackages]);
-
-  let purchaseUpdateSubscription;
-  let purchaseErrorSubscription;
-  const goNext = () => {
-    alert("Receipt", this.state.receipt);
-  };
-
-  const getProducts = async () => {
-    try {
-      rnIapProducts(itemSkus)
-        .then((res) => {
-          setIsFetching(1);
-          isGetProducts = true;
-        })
-        .catch((err) => {
-          setIsFetching(2);
-          isGetProducts = false;
-        });
-    } catch (err) {
-      isGetProducts = false;
-    }
-  };
-
-  useEffect(() => {
-    if (isMountedRef.current) {
-      (async () => {
-        try {
-          const result = await initConnection();
-          await flushFailedPurchasesCachedAsPendingAndroid();
-        } catch (err) {
-          console.warn(err.code, err.message);
-        }
-      })();
-      purchaseUpdateSubscription = purchaseUpdatedListener(async (purchase) => {
-        const receipt = purchase.transactionReceipt;
-
-        if (receipt) {
-          try {
-            if (Platform.OS === "ios") {
-              finishTransactionIOS(purchase.transactionId);
-            } else if (Platform.OS === "android") {
-              // If consumable (can be purchased again)
-              // consumePurchaseAndroid(purchase.purchaseToken);
-              await consumePurchaseAndroid(
-                purchase.purchaseToken,
-                purchase.developerPayloadAndroid
-              );
-              // // If not consumable
-              // acknowledgePurchaseAndroid(purchase.purchaseToken);
-              await finishTransaction(purchase);
-            }
-          } catch (ackErr) {
-            console.warn("ackErr", ackErr);
-          }
-          setRecipt(receipt), () => goNext();
-        }
-      });
-
-      purchaseErrorSubscription = purchaseErrorListener((error) => {
-        console.log("purchaseErrorListener", error);
-      });
-      return () => {
-        purchaseUpdateSubscription.remove(), purchaseErrorSubscription.remove();
-      };
-    }
-  }, []);
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-  const requestSubscription = async (sku) => {
+  const requestSubscription = async (
+    amount,
+    pkgName,
+    pkgId,
+    pkgDescription
+  ) => {
     if (user && user !== null) {
-      if (isFetching === 2) {
-        await rnIapProducts(itemSkus);
-      }
-
-      try {
-        rnIapRequestSubscription(sku)
-          .then((res) => {
-            console.log("RESPONSE", res);
-            if (res && res !== null) {
-              addUserDesignPackage({
-                variables: {
-                  packageId: sku,
-                  androidPerchaseToken: res.purchaseToken,
-                },
-              })
-                .then(({ data, errors }) => {
-                  if (errors && errors !== null) {
-                    Common.showMessage(errors[0].message);
-                  } else if (
-                    data.addUserDesignPackage &&
-                    data.addUserDesignPackage !== null &&
-                    Array.isArray(data.addUserDesignPackage)
-                  ) {
-                    console.log("DATA", data);
-                    const newUser = {
-                      ...user,
-                      designPackage: data.addUserDesignPackage
-                        ? data.addUserDesignPackage
-                        : user.designPackage,
-                    };
-                    userStore.setUser(newUser);
-                    Common.showMessage(
-                      Common.getTranslation(LangKey.msgPkgPurchaseSucess)
-                    );
-                    isGoback && navigation.goBack();
-                  }
+      addOrder({
+        variables: {
+          packageId: pkgId,
+        },
+      })
+        .then(({ data }) => {
+          if (data && data.addOrder !== null) {
+            var options = {
+              description: `${pkgDescription}`,
+              // image: { Logo },
+              currency: "INR",
+              order_id: data.addOrder,
+              key: Constant.razorPayApiKey,
+              amount: `${amount + "00"}`,
+              name: `${pkgName}`,
+              prefill: {
+                email: `${user.userInfo.personal.email}`,
+                contact: `${user.mobile}`,
+                name: `${
+                  user?.name
+                    ? user.name
+                    : user?.userInfo?.personal?.name
+                    ? user.userInfo.personal.name
+                    : user?.userInfo?.business?.name
+                    ? user.userInfo.business.name
+                    : ""
+                }`,
+              },
+              theme: { color: Color.primary },
+            };
+            RazorpayCheckout.open(options)
+              .then(async (data) => {
+                let obj = {
+                  orderId: data.razorpay_order_id,
+                  paymentId: data.razorpay_payment_id,
+                  paymentSignature: data.razorpay_signature,
+                };
+                await AsyncStorage.setItem(
+                  Constant.labPurchasedTKNandProdId,
+                  JSON.stringify(obj)
+                );
+                addUserDesignPackageRzp({
+                  variables: {
+                    orderId: data.razorpay_order_id,
+                    paymentId: data.razorpay_payment_id,
+                    paymentSignature: data.razorpay_signature,
+                  },
                 })
-                .catch((err) => {
-                  console.log(err);
-                });
-            }
-          })
-          .catch((err) => Common.showMessage(err.message));
-      } catch (err) {
-        Common.showMessage(err.message);
-      }
+                  .then(async ({ data, errors }) => {
+                    if (errors && errors !== null) {
+                      Common.showMessage(errors[0].message);
+                    } else if (
+                      data.addUserDesignPackageRzp &&
+                      data.addUserDesignPackageRzp !== null &&
+                      Array.isArray(data.addUserDesignPackageRzp)
+                    ) {
+                      await AsyncStorage.getItem(
+                        Constant.labPurchasedTKNandProdId
+                      ).then((response) => {
+                        if (response) {
+                          AsyncStorage.removeItem(
+                            Constant.labPurchasedTKNandProdId
+                          );
+                        }
+                      });
+                      const newUser = {
+                        ...user,
+                        designPackage: data.addUserDesignPackageRzp
+                          ? data.addUserDesignPackageRzp
+                          : user.designPackage,
+                      };
+                      userStore.setUser(newUser);
+                      Common.showMessage(
+                        Common.getTranslation(LangKey.msgPkgPurchaseSucess)
+                      );
+                      // isGoback && navigation.goBack();
+                    }
+                  })
+                  .catch((err) => {
+                    console.log("EEEEEE", err);
+                  });
+              })
+              .catch((error) => {
+                console.log("error", error);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log("ERERER", err);
+        });
     } else {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
     }
   };
-  const prodId =
-    productList &&
-    productList !== null &&
-    productList.map((prod) => prod.productId);
-
-  console.log("prodId", prodId);
 
   const headerComponant = () => {
     return (
@@ -260,9 +234,9 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
             color: Color.accent,
           }}
         >
-          {Common.getTranslation(LangKey.lab1pkg)}
+          {Common.getTranslation(LangKey.lab1pkgAndroid)}
         </Text>
-        <Text
+        {/* <Text
           style={{
             textAlign: "justify",
             marginTop: 5,
@@ -271,14 +245,14 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
           }}
         >
           {Common.getTranslation(LangKey.lab2pkg)}
-        </Text>
+        </Text> */}
       </View>
     );
   };
   return (
     <View style={styles.mainContainer}>
       <ProgressDialog
-        visible={loading}
+        visible={orderLoading ? orderLoading : loading}
         dismissable={false}
         message={Common.getTranslation(LangKey.labLoading)}
       />
@@ -340,15 +314,22 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
       />
 
       <Button
-        disabled={isFetching === 0}
+        disabled={currentItem == null}
         style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
         normal={true}
-        onPress={() => requestSubscription(currentItem.id)}
+        onPress={() => {
+          requestSubscription(
+            currentItem.discountPrice,
+            currentItem.name,
+            currentItem.id,
+            currentItem.description
+          );
+        }}
       >
-        {isFetching === 0 ? (
-          <ActivityIndicator size={18} color={Color.white} />
-        ) : (
+        {currentItem !== null ? (
           Common.getTranslation(LangKey.labPerchase)
+        ) : (
+          <ActivityIndicator size={18} color={Color.white} />
         )}
       </Button>
     </View>
@@ -455,3 +436,132 @@ const styles = StyleSheet.create({
 });
 
 export default inject("designStore", "userStore")(observer(Packages));
+
+// if (isFetching === 2) {
+//   await rnIapProducts(itemSkus);
+// }
+
+//   try {
+//     rnIapRequestSubscription(sku)
+//       .then(async (res) => {
+//         if (res && res !== null) {
+//           let obj = { itemId: sku, PToken: res.purchaseToken };
+//           await AsyncStorage.setItem(
+//             Constant.labPurchasedTKNandProdId,
+//             JSON.stringify(obj)
+//           );
+//           addUserDesignPackage({
+//             variables: {
+//               packageId: sku,
+//               androidPerchaseToken: res.purchaseToken,
+//             },
+//           })
+//             .then(async ({ data, errors }) => {
+//               if (errors && errors !== null) {
+//                 Common.showMessage(errors[0].message);
+//               } else if (
+//                 data.addUserDesignPackage &&
+//                 data.addUserDesignPackage !== null &&
+//                 Array.isArray(data.addUserDesignPackage)
+//               ) {
+//                 await AsyncStorage.getItem(
+//                   Constant.labPurchasedTKNandProdId
+//                 ).then((response) => {
+//                   if (response) {
+//                     AsyncStorage.removeItem(
+//                       Constant.labPurchasedTKNandProdId
+//                     );
+//                   }
+//                 });
+
+//                 const newUser = {
+//                   ...user,
+//                   designPackage: data.addUserDesignPackage
+//                     ? data.addUserDesignPackage
+//                     : user.designPackage,
+//                 };
+//                 userStore.setUser(newUser);
+//                 Common.showMessage(
+//                   Common.getTranslation(LangKey.msgPkgPurchaseSucess)
+//                 );
+//                 // isGoback && navigation.goBack();
+//               }
+//             })
+//             .catch((err) => {
+//               console.log(err);
+//             });
+//         }
+//       })
+//       .catch((err) => Common.showMessage(err.message));
+//   } catch (err) {
+//     Common.showMessage(err.message);
+//   }
+// } else {
+//   Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
+
+// let purchaseUpdateSubscription;
+// let purchaseErrorSubscription;
+// const goNext = () => {
+//   alert("Receipt", this.state.receipt);
+// };
+
+// const getProducts = async () => {
+//   try {
+//     rnIapProducts(itemSkus)
+//       .then((res) => {
+//         // console.log("get product :", res);
+//         setIsFetching(1);
+//         isGetProducts = true;
+//       })
+//       .catch((err) => {
+//         setIsFetching(2);
+//         isGetProducts = false;
+//       });
+//   } catch (err) {
+//     isGetProducts = false;
+//   }
+// };
+
+// useEffect(() => {
+//   if (isMountedRef.current) {
+//     (async () => {
+//       try {
+//         const result = await initConnection();
+//         await flushFailedPurchasesCachedAsPendingAndroid();
+//       } catch (err) {
+//         console.warn(err.code, err.message);
+//       }
+//     })();
+//     purchaseUpdateSubscription = purchaseUpdatedListener(async (purchase) => {
+//       const receipt = purchase.transactionReceipt;
+
+//       if (receipt) {
+//         try {
+//           if (Platform.OS === "ios") {
+//             await finishTransactionIOS(purchase.transactionId);
+//           } else if (Platform.OS === "android") {
+//             // If consumable (can be purchased again)
+//             // consumePurchaseAndroid(purchase.purchaseToken);
+//             await consumePurchaseAndroid(
+//               purchase.purchaseToken,
+//               purchase.developerPayloadAndroid
+//             );
+//             // // If not consumable
+//             // acknowledgePurchaseAndroid(purchase.purchaseToken);
+//             await finishTransaction(purchase);
+//           }
+//         } catch (ackErr) {
+//           console.warn("ackErr", ackErr);
+//         }
+//         setRecipt(receipt), () => goNext();
+//       }
+//     });
+
+//     purchaseErrorSubscription = purchaseErrorListener((error) => {
+//       console.log("purchaseErrorListener", error);
+//     });
+//     return () => {
+//       purchaseUpdateSubscription.remove(), purchaseErrorSubscription.remove();
+//     };
+//   }
+// }, []);

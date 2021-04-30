@@ -8,11 +8,52 @@
   "variantName": "processDebugResources",
   "elements": [
     {
-      "type": "SINGLE",
-      "filters": [],
-      "versionCode": 8,
-      "versionName": "1.0.8",
-      "outputFile": "resources-debug.ap_"
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "versionCode": 4194315,
+      "versionName": "1.1.1",
+      "outputFile": "resources-x86_64Debug.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "versionCode": 2097163,
+      "versionName": "1.1.1",
+      "outputFile": "resources-x86Debug.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "versionCode": 1048587,
+      "versionName": "1.1.1",
+      "outputFile": "resources-armeabi-v7aDebug.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "versionCode": 3145739,
+      "versionName": "1.1.1",
+      "outputFile": "resources-arm64-v8aDebug.ap_"
     }
   ]
 }

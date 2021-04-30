@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
                     "source": "/Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/res/values-watch-v20/values.xml",

@@ -10,7 +10,10 @@ import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import { StackActions } from "@react-navigation/native";
+import { AdMobInterstitial } from "expo-ads-admob";
+import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 
+// relative path
 import GraphqlQuery from "../utils/GraphqlQuery";
 import ItemDesign from "./common/ItemDesign";
 import Common from "../utils/Common";
@@ -20,13 +23,7 @@ import LangKey from "../utils/LangKey";
 import Color from "../utils/Color";
 import FastImage from "react-native-fast-image";
 import PopUp from "../components/PopUp";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  PublisherBanner,
-} from "react-native-admob";
-import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+import { format } from "date-fns";
 
 let adCounter = 0;
 
@@ -51,29 +48,32 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     isMountedRef.current && perchasedDesigns({ variables: { start: 0 } });
   }, []);
+  const googleAdListners = async () => {
+    // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+
+    AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
+    // AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+    //   console.log("AdMobInterstitial adLoaded")
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
+    //   console.log("adFailedToLoad err", error)
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+    //   console.log("AdMobInterstitial => adOpened")
+    // );
+    AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+      console.log("AdMobInterstitial => adClosed");
+      AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+    });
+    // AdMobInterstitial.addEventListener("interstitialWillLeaveApplication", () =>
+    //   console.log("AdMobInterstitial => adLeftApplication")
+    // );
+    AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+  };
 
   useEffect(() => {
     if (isMountedRef.current) {
-      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-      AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitIdTest);
-
-      AdMobInterstitial.addEventListener("adLoaded", () =>
-        console.log("AdMobInterstitial adLoaded")
-      );
-      AdMobInterstitial.addEventListener("adFailedToLoad", (error) =>
-        console.warn(error)
-      );
-      AdMobInterstitial.addEventListener("adOpened", () =>
-        console.log("AdMobInterstitial => adOpened")
-      );
-      AdMobInterstitial.addEventListener("adClosed", () => {
-        console.log("AdMobInterstitial => adClosed");
-        AdMobInterstitial.requestAd().catch((error) => console.warn(error));
-      });
-      AdMobInterstitial.addEventListener("adLeftApplication", () =>
-        console.log("AdMobInterstitial => adLeftApplication")
-      );
-      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      googleAdListners();
       return () => {
         AdMobInterstitial.removeAllListeners();
       };
@@ -88,9 +88,9 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   }, []);
 
   const fbAd = async () => {
-    AdSettings.setLogLevel("debug");
-    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
-    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    // AdSettings.setLogLevel("debug");
+    // console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
     const requestedStatus = await AdSettings.requestTrackingPermission();
     console.log(requestedStatus);
     if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
@@ -102,17 +102,21 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const fbShowAd = () => {
+  const fbShowAd = async () => {
     InterstitialAdManager.showAd(Constant.InterstitialAdPlacementId)
       .then((res) => {
         console.log("res", res);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobInterstitial.requestAdAsync().catch((error) =>
+            console.warn(error)
+          );
       })
       .catch((err) => {
         console.log(err);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobInterstitial.requestAdAsync().catch((error) =>
+            console.warn(error)
+          );
       });
   };
 
@@ -123,28 +127,28 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-  const showAd = () => {
+  const showAd = async () => {
     if (hasPro === false) {
-      AdMobInterstitial.showAd().catch((error) => fbShowAd());
+      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
     }
   };
 
   const onDesignClick = (packageType, design, desIndex) => {
-    if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
-      setmodalVisible(true);
-    } else {
-      const designs = data?.perchasedDesigns.map((item) => {
-        return item.design;
-      });
+    if (packageType === Constant.typeDesignPackageFree) {
       showAd();
-      navigation.dispatch(
-        StackActions.replace(Constant.navDesign, {
-          designs: designs,
-          curDesign: design,
-          curItemIndex: desIndex,
-        })
-      );
+      // setmodalVisible(true);
     }
+    const designs = data?.perchasedDesigns.map((item) => {
+      return item.design;
+    });
+
+    navigation.dispatch(
+      StackActions.replace(Constant.navDesign, {
+        designs: designs,
+        curDesign: design,
+        curItemIndex: desIndex,
+      })
+    );
   };
 
   return (
@@ -165,13 +169,18 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
             const designPackage = designPackages.find(
               (pkg) => pkg.id === item.design.package
             );
+
+            const formatDate = format(
+              new Date(item.purchaseDate),
+              "dd-MM-yyyy"
+            );
             return (
               <ItemDesign
                 design={item.design}
                 desIndex={index}
                 packageType={designPackage.type}
                 onDesignClick={onDesignClick}
-                designDate={Common.convertIsoToDate(item.purchaseDate)}
+                designDate={formatDate}
               />
             );
           }}

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
                     "source": "/Users/bebrandd1/.gradle/caches/transforms-3/edd92bf6217dc1f01e97c82461333d06/transformed/appcompat-1.2.0/res/values-h720dp-v13/values-h720dp-v13.xml",

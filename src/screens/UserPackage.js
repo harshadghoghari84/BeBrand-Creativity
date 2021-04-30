@@ -47,8 +47,12 @@ const UserPackage = ({ navigation, designStore }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      data?.perchasedPackages &&
-        setPerchasedPackages([...perchasedPackages, ...data.perchasedPackages]);
+      console.log("DATAAA", data);
+      data?.perchasedPackagesV2 &&
+        setPerchasedPackages([
+          ...perchasedPackages,
+          ...data.perchasedPackagesV2,
+        ]);
 
       data?.totalPerchasedPackages &&
         setTotalPerchasedPackages(data.totalPerchasedPackages);
@@ -78,7 +82,10 @@ const UserPackage = ({ navigation, designStore }) => {
           keyExtractor={keyExtractor}
           onEndReached={() => loadMoreUserPackages()}
           renderItem={({ item }) => {
-            const curDate = new Date().getTime();
+            const currantDate = new Date().getTime();
+            const curDate = new Date();
+            curDate.setDate(curDate.getDate() + 365 * 10);
+            const chkDate = curDate.getTime();
             const expDate = new Date(item.expiryDate).getTime();
             return (
               <View
@@ -110,7 +117,7 @@ const UserPackage = ({ navigation, designStore }) => {
                   }}
                 >
                   <Text style={{ paddingLeft: 10 }}>{item.package.name}</Text>
-                  {curDate > expDate || item.currentDesignCredit <= 0 ? (
+                  {currantDate > expDate || item.currentDesignCredit <= 0 ? (
                     <View
                       style={{ flexDirection: "row", alignItems: "center" }}
                     >
@@ -202,11 +209,14 @@ const UserPackage = ({ navigation, designStore }) => {
                           )}`}
                         </Text>
                       ) : (
-                        <Text
-                          style={{ fontSize: 12, color: Color.grey }}
-                        >{`${Common.getTranslation(
-                          LangKey.txtExpiredAt
-                        )}`}</Text>
+                        <Text style={{ fontSize: 12, color: Color.grey }}>
+                          {chkDate > expDate
+                            ? `Validity : ${format(
+                                new Date(item.expiryDate),
+                                "dd/MM/yyyy"
+                              )}`
+                            : `${Common.getTranslation(LangKey.txtExpiredAt)}`}
+                        </Text>
                       )}
                     </View>
                   </View>

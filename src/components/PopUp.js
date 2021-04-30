@@ -10,6 +10,8 @@ import {
   Switch,
   Dimensions,
   ActivityIndicator,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
@@ -31,12 +33,18 @@ import { mobileValidatorPro } from "../utils/Validator";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import { format } from "date-fns";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 const { height, width } = Dimensions.get("screen");
 const PopUp = ({
   visible,
   toggleVisible,
   isPurchased,
+  isPurchasedPrem,
+  toggleVisibleForPkgPrem,
   isFirstPurchase,
   other,
   isPicker,
@@ -62,6 +70,9 @@ const PopUp = ({
   isGoback,
   isVisibleAd,
   toggleVisibleAd,
+  isModalOffers,
+  toggleVisibleForModaloffer,
+  modalOfferData,
 }) => {
   // const user = toJS(userStore.user);
   const navigation = useNavigation();
@@ -170,7 +181,7 @@ const PopUp = ({
     <Modal
       transparent={true}
       visible={visible}
-      animationType="slide"
+      animationType="fade"
       onRequestClose={() => {
         toggleVisible();
       }}
@@ -546,59 +557,128 @@ const PopUp = ({
           </View>
         )}
         {isVisibleAd && (
-          <View style={[styles.mainView]}>
-            <View style={[styles.innerView]}>
+          <View
+            style={[styles.mainView, { backgroundColor: Color.blackTrans }]}
+          >
+            <View
+              style={{
+                backgroundColor: Color.transparent,
+              }}
+            >
               <TouchableOpacity
+                activeOpacity={0.6}
                 onPress={() => toggleVisibleAd()}
-                style={styles.btnClose}
+                style={{
+                  width: 20,
+                  height: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: Color.white,
+                  borderRadius: 15,
+                  position: "absolute",
+                  right: 28,
+                  top: 5,
+                  zIndex: 1,
+                  borderColor: "black",
+                  borderWidth: 0.5,
+                }}
               >
-                <ICON name="close" size={22} color={Color.darkBlue} />
+                <ICON name="close" size={18} color={Color.darkBlue} />
               </TouchableOpacity>
 
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <Text>{Common.getTranslation(LangKey.adDesc)}</Text>
-                <Text style={{ fontSize: 20 }}>
-                  {Common.getTranslation(LangKey.Freeforever)}
-                </Text>
-                <FastImage
-                  source={require("../assets/img/Ads.png")}
-                  style={{ height: 200, width: "50%" }}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
+              <FastImage
+                source={require("../assets/img/32.jpg")}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{
+                  height: width - 20,
+                  width: width - 20,
+                  marginHorizontal: 23,
+                  borderRadius: 5,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignSelf: "center",
+                  justifyContent: "space-between",
+                  position: "absolute",
+                  bottom: 0,
+                }}
+              >
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  txtSize={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.titPrimium);
+                    toggleVisibleAd();
                   }}
                 >
-                  <Button
-                    style={{ margin: 5 }}
-                    normal={true}
-                    txtSize={true}
-                    onPress={() => {
-                      navigation.navigate(Constant.navPro, {
-                        screen: Constant.titPrimium,
-                      });
-                      toggleVisibleAd();
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.titleBePremium)}
-                  </Button>
-                  <Button
-                    style={{ margin: 5 }}
-                    normal={true}
-                    txtSize={true}
-                    onPress={() => {
-                      toggleVisibleAd(true);
-                    }}
-                  >
-                    Watch ads
-                    {/* {Common.getTranslation(LangKey.labPremium)} */}
-                  </Button>
-                </View>
+                  {Common.getTranslation(LangKey.titleBePremium)}
+                </Button>
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  txtSize={true}
+                  onPress={() => {
+                    toggleVisibleAd(true);
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labWatchAds)}
+                </Button>
               </View>
             </View>
           </View>
+          // <View style={[styles.mainView]}>
+          //   <View style={[styles.innerView]}>
+          //     <TouchableOpacity
+          //       onPress={() => toggleVisibleAd()}
+          //       style={styles.btnClose}
+          //     >
+          //       <ICON name="close" size={22} color={Color.darkBlue} />
+          //     </TouchableOpacity>
+
+          //     <View style={{ alignItems: "center", justifyContent: "center" }}>
+          //       <Text>{Common.getTranslation(LangKey.adDesc)}</Text>
+          //       <Text style={{ fontSize: 20 }}>
+          //         {Common.getTranslation(LangKey.Freeforever)}
+          //       </Text>
+          //       <FastImage
+          //         source={require("../assets/img/Ads.png")}
+          //         style={{ height: 200, width: "50%" }}
+          //         resizeMode={FastImage.resizeMode.contain}
+          //       />
+          //       <View
+          //         style={{
+          //           flexDirection: "row",
+          //           justifyContent: "space-between",
+          //         }}
+          //       >
+          //         <Button
+          //           style={{ margin: 5 }}
+          //           normal={true}
+          //           txtSize={true}
+          //           onPress={() => {
+          //             navigation.navigate(Constant.titPrimium);
+          //             toggleVisibleAd();
+          //           }}
+          //         >
+          //           {Common.getTranslation(LangKey.titleBePremium)}
+          //         </Button>
+          //         <Button
+          //           style={{ margin: 5 }}
+          //           normal={true}
+          //           txtSize={true}
+          //           onPress={() => {
+          //             toggleVisibleAd(true);
+          //           }}
+          //         >
+          //           {Common.getTranslation(LangKey.labWatchAds)}
+          //         </Button>
+          //       </View>
+          //     </View>
+          //   </View>
+          // </View>
         )}
         {isPurchased && (
           <View style={styles.mainView}>
@@ -643,9 +723,7 @@ const PopUp = ({
                     style={{ margin: 5 }}
                     normal={true}
                     onPress={() => {
-                      navigation.navigate(Constant.navPro, {
-                        screen: Constant.titPrimium,
-                      });
+                      navigation.navigate(Constant.titPrimium);
                       toggleVisible();
                     }}
                   >
@@ -655,6 +733,130 @@ const PopUp = ({
               </View>
             </View>
           </View>
+        )}
+        {isPurchasedPrem && (
+          <View
+            style={[styles.mainView, { backgroundColor: Color.blackTrans }]}
+          >
+            <View
+              style={{
+                backgroundColor: Color.transparent,
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => toggleVisibleForPkgPrem()}
+                style={{
+                  width: 20,
+                  height: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: Color.white,
+                  borderRadius: 15,
+                  position: "absolute",
+                  right: 28,
+                  top: 5,
+                  zIndex: 1,
+                  borderColor: "black",
+                  borderWidth: 0.5,
+                }}
+              >
+                <ICON name="close" size={18} color={Color.darkBlue} />
+              </TouchableOpacity>
+
+              <FastImage
+                source={require("../assets/img/33.jpg")}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{
+                  height: width - 20,
+                  width: width - 20,
+                  marginHorizontal: 23,
+                  borderRadius: 5,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignSelf: "center",
+                  justifyContent: "space-between",
+                  position: "absolute",
+                  bottom: 0,
+                }}
+              >
+                <Button
+                  style={{ margin: 5 }}
+                  normal={true}
+                  onPress={() => {
+                    navigation.navigate(Constant.titPrimium);
+                    toggleVisibleForPkgPrem();
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labPremium)}
+                </Button>
+              </View>
+            </View>
+          </View>
+          // <View style={styles.mainView}>
+          //   <View style={styles.innerView}>
+          //     <View
+          //       style={{
+          //         flexDirection: "row",
+          //         alignItems: "center",
+          //         justifyContent: "space-between",
+          //       }}
+          //     >
+          //       <Text
+          //         style={{
+          //           fontSize: 18,
+          //           fontWeight: "700",
+          //           paddingHorizontal: 10,
+          //         }}
+          //       >
+          //         {Common.getTranslation(LangKey.labFreeDesignLimitOver)}
+          //       </Text>
+          //       <TouchableOpacity
+          //         onPress={() => toggleVisibleForPkgPrem()}
+          //         style={styles.btnClose}
+          //       >
+          //         <ICON name="close" size={22} color={Color.darkBlue} />
+          //       </TouchableOpacity>
+          //     </View>
+          //     <Text
+          //       style={{
+          //         marginTop: 10,
+          //         fontSize: 15,
+          //         paddingLeft: 20,
+          //       }}
+          //     >
+          //       {Common.getTranslation(LangKey.labDownloadMoreImage)}
+          //     </Text>
+          //     <View style={{ alignItems: "center", justifyContent: "center" }}>
+          //       <FastImage
+          //         source={require("../assets/img/Select.png")}
+          //         resizeMode={FastImage.resizeMode.contain}
+          //         style={{ height: 100, width: 100, margin: 10 }}
+          //       />
+          //       <View
+          //         style={{
+          //           marginTop: 10,
+          //           flexDirection: "row",
+          //           justifyContent: "space-between",
+          //         }}
+          //       >
+          //         <Button
+          //           style={{ margin: 5 }}
+          //           normal={true}
+          //           onPress={() => {
+          //             navigation.navigate(Constant.titPrimium);
+          //             toggleVisibleForPkgPrem();
+          //           }}
+          //         >
+          //           {Common.getTranslation(LangKey.labPremium)}
+          //         </Button>
+          //       </View>
+          //     </View>
+          //   </View>
+          // </View>
         )}
         {isPicker && (
           <View style={styles.mainView}>
@@ -727,6 +929,65 @@ const PopUp = ({
             </View>
           </View>
         )}
+        {isModalOffers && (
+          <View
+            style={[styles.mainView, { backgroundColor: Color.blackTrans }]}
+          >
+            <View
+              style={{
+                backgroundColor: Color.transparent,
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => toggleVisibleForModaloffer()}
+                style={{
+                  width: 20,
+                  height: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: Color.white,
+                  borderRadius: 15,
+                  position: "absolute",
+                  right: 14,
+                  top: -10,
+                  zIndex: 1,
+                  borderColor: "black",
+                  borderWidth: 0.5,
+                }}
+              >
+                <ICON name="close" size={18} color={Color.darkBlue} />
+              </TouchableOpacity>
+
+              {/* <FastImage
+                source={{
+                  uri:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW9MfRGLJbpNUQXu89bL2b7za_s0TYWOYnCBqHHMPQU80sOj6pTZ4IURPIC2RfjwPRRlQ&usqp=CAU",
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{
+                  height: 240,
+                  width: 160,
+                  marginHorizontal: 23,
+                }}
+              /> */}
+              {modalOfferData.map((item, index) => {
+                return (
+                  <FastImage
+                    source={{ uri: item.image.url }}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      height: parseInt(item.height),
+                      width: parseInt(item.width),
+                      marginHorizontal: 23,
+                      borderRadius: 5,
+                    }}
+                  />
+                );
+              })}
+            </View>
+          </View>
+        )}
       </KeyboardAvoidingView>
     </Modal>
   );
@@ -743,6 +1004,7 @@ const styles = StyleSheet.create({
   },
   mainView: {
     flex: 1,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },

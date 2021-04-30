@@ -16,6 +16,8 @@ import Packages from "../screens/pacakges/Packages";
 import MyTabs from "../screens/pacakges";
 import Otp from "../screens/Otp";
 import ReferAndEarn from "../screens/ReferAndEarn";
+import PremiumPkg from "../screens/pacakges/PremiumPkg";
+import PremiumPkgIos from "../screens/pacakges/PremiumPkgIos";
 
 const HomeStack = createStackNavigator();
 
@@ -42,8 +44,23 @@ const HomeStackComponent = ({ navigation }) => {
       />
 
       <HomeStack.Screen
-        name={Constant.navPro}
-        component={MyTabs}
+        name={Constant.titPrimium}
+        component={PremiumPkg}
+        options={{
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              ScreenTitle={"Packages"}
+              {...props}
+            />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.titPrimiumIos}
+        component={PremiumPkgIos}
         options={{
           header: (props) => (
             <CustomHeader

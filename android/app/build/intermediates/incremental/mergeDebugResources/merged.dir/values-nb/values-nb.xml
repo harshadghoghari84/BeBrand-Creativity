@@ -80,13 +80,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Åpne i nettleseren"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Del link"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Diverse"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"Trykk for å åpne annonsen"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"Se annonsen du lagret mens du var uten nett"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"OK"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"Du får et varsel med linken når du er på nettet igjen"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"Nei takk"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"Vi sender deg et varsel med en link til annonsørnettstedet."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"Åpne annonsen når du er på nettet igjen."</string>
     <string name="pick_image_intent_chooser_title">Velg kilde</string>
     <string msgid="368094699078615544" name="s1">"Lagre bilde"</string>
     <string msgid="4550830452390689489" name="s2">"Vil du la annonsen lagre bildet i bildegalleriet?"</string>

@@ -27,6 +27,7 @@ class UserStore {
   };
 
   setUser = (user) => {
+    console.log("user", user);
     this.user = user;
     let personalImageLimit = 0;
     let businessImageLimit = 0;
@@ -90,13 +91,11 @@ class UserStore {
       Array.isArray(user.userInfo.personal.image) &&
       user.userInfo.personal.image.length > 0
     ) {
-      console.log("inside if");
       user.userInfo.personal.image = [
         ...user.userInfo.personal.image,
         { url: profileImage, isDefault: false },
       ];
     } else {
-      console.log("inside else");
       const data = user?.userInfo?.personal ? user.userInfo.personal : {};
       user.userInfo = {
         ...user.userInfo,
@@ -108,7 +107,6 @@ class UserStore {
     }
 
     this.user = user;
-    console.log("user chk else", this.user);
   };
 
   addBusinessImage = (profileImage) => {
@@ -138,24 +136,21 @@ class UserStore {
   };
   designCraditsCalculate = () => {
     try {
-      let startFreeDesignCredit = 0;
-      let currentFreeDesignCredit = 0;
+      // let startFreeDesignCredit = 0;
+      // let currentFreeDesignCredit = 0;
       let startProDesignCredit = 0;
       let currentProDesignCredit = 0;
 
       this.user?.designPackage &&
         this.user.designPackage.forEach((item) => {
-          if (item.package.type === Constant.typeDesignPackageFree) {
-            startFreeDesignCredit += item.startDesignCredit;
-            currentFreeDesignCredit += item.currentDesignCredit;
-          } else {
+          if (item.package.type === Constant.typeDesignPackageVip) {
             startProDesignCredit += item.startDesignCredit;
             currentProDesignCredit += item.currentDesignCredit;
           }
         });
 
-      this.startFreeDesignCredit = startFreeDesignCredit;
-      this.currentFreeDesignCredit = currentFreeDesignCredit;
+      // this.startFreeDesignCredit = startFreeDesignCredit;
+      // this.currentFreeDesignCredit = currentFreeDesignCredit;
       this.startProDesignCredit = startProDesignCredit;
       this.currentProDesignCredit = currentProDesignCredit;
     } catch (error) {
@@ -163,9 +158,9 @@ class UserStore {
     }
   };
 
-  updateCurrantDesignCreditFree = (updatedCredit) => {
-    this.currentFreeDesignCredit = updatedCredit;
-  };
+  // updateCurrantDesignCreditFree = (updatedCredit) => {
+  //   this.currentFreeDesignCredit = updatedCredit;
+  // };
   updateCurrantDesignCreditPro = (updatedCredit) => {
     if (updatedCredit <= 0) {
       this.hasPro = false;

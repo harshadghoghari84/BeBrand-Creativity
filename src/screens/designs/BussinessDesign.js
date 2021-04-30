@@ -28,12 +28,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  PublisherBanner,
-} from "react-native-admob";
+import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 
 // relative path
@@ -47,13 +42,13 @@ import GraphqlQuery from "../../utils/GraphqlQuery";
 import PopUp from "../../components/PopUp";
 import SvgConstant from "../../utils/SvgConstant";
 import Text from "../../components/MuktaText";
-import { StackActions } from "@react-navigation/routers";
 
 const { width } = Dimensions.get("window");
 let isShareClick = false;
 
 let msg = "";
 let adAvilable = false;
+let adCounter = 0;
 
 const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
@@ -65,8 +60,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     curPackageType,
     curItemIndex,
   } = route.params;
+
   const allLayouts = toJS(designStore.designLayouts);
   const designRef = useRef();
+  const isMountedRef = Common.useIsMountedRef();
+  const viewRef = useRef(null);
+  const pixels = Common.getPixels(Constant.designPixel);
+
   /*
   ..######..########....###....########.########
   .##....##....##......##.##......##....##......
@@ -77,43 +77,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   ..######.....##....##.....##....##....########
   */
 
-  const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
-    errorPolicy: "all",
-  });
-
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
+
   const [visibleModalAd, setVisibleModalAd] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
-  const toggleVisible = () => {
-    setVisibleModal(!visibleModal);
-  };
-  const toggleFreeVisible = () => {
-    setVisibleFreeModal(!visibleFreeModal);
-  };
   const [visiblePicker, setVisiblePicker] = useState(false);
-
-  const toggleVisibleColorPicker = () => {
-    return setVisiblePicker(!visiblePicker);
-  };
-
-  const toggleVisibleAd = (isDownload) => {
-    if (isDownload) {
-      AdMobRewarded.showAd().catch((error) => {
-        fbShowAd();
-      });
-    } else {
-      designStore.setIsDownloadStartedBusiness(false);
-    }
-    setVisibleModalAd(!visibleModalAd);
-  };
-
   const [visibleModalMsgbussiness, setVisibleModalMsgbussiness] = useState(
     false
   );
-  const toggleVisibleMsgBussiness = () => {
-    setVisibleModalMsgbussiness(!visibleModalMsgbussiness);
-  };
-
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
@@ -124,15 +96,51 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     Constant.defSocialIconList
   );
 
-  const [Pkgtype, setPkgType] = useState(curPackageType);
+  const [Pkgtype, setPkgType] = useState();
   const [adReady, setAdReady] = useState(false);
 
-  const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
-  const [loadingImage, setLoadingImage] = useState(false);
+
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
-  const isMountedRef = Common.useIsMountedRef();
+
+  const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
+    errorPolicy: "all",
+  });
+
+  const toggleVisible = () => {
+    designStore.setIsDownloadStartedBusiness(false);
+
+    setVisibleModal(!visibleModal);
+  };
+  const toggleVisibleForPkg = () => {
+    designStore.setIsDownloadStartedBusiness(false);
+    setVisibleModalForPkg(!visibleModalForPkg);
+  };
+  const toggleFreeVisible = () => {
+    setVisibleFreeModal(!visibleFreeModal);
+  };
+
+  const toggleVisibleColorPicker = () => {
+    return setVisiblePicker(!visiblePicker);
+  };
+
+  const toggleVisibleAd = (isDownload) => {
+    if (isDownload) {
+      setTimeout(() => {
+        AdMobRewarded.showAdAsync().catch((error) => {
+          fbShowAd();
+        });
+      }, 1000);
+    } else {
+      designStore.setIsDownloadStartedBusiness(false);
+    }
+    setVisibleModalAd(!visibleModalAd);
+  };
+
+  const toggleVisibleMsgBussiness = () => {
+    setVisibleModalMsgbussiness(!visibleModalMsgbussiness);
+  };
 
   const fiilterLayouts = () => {
     let filterArr = allLayouts.filter(
@@ -172,32 +180,42 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     }),
     []
   );
-
   useEffect(() => {
-    AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
+    if (isMountedRef.current) {
+      setPkgType(curPackageType);
+    }
+  }, []);
+  useEffect(() => {
+    googleAdListners();
+    return () => {
+      AdMobRewarded.removeAllListeners();
+    };
+  }, []);
+  const googleAdListners = () => {
+    // AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
+
     AdMobRewarded.setAdUnitID(Constant.rewardAdunitId);
-    AdMobRewarded.addEventListener("rewarded", (reward) =>
-      console.log("AdMobRewarded => rewarded", reward)
+
+    AdMobRewarded.addEventListener(
+      "rewardedVideoUserDidEarnReward",
+      (reward) => {
+        console.log("AdMobRewarded => rewarded", reward);
+        adAvilable = true;
+      }
     );
-    AdMobRewarded.addEventListener("adLoaded", () =>
+    AdMobRewarded.addEventListener("rewardedVideoDidLoad", () =>
       console.log("AdMobRewarded adLoaded")
     );
-    AdMobRewarded.addEventListener(
-      "adFailedToLoad",
-      (error) => console.log("dsfdfsfv", error),
-      setAdReady(true),
-      AdMobRewarded.requestAd().catch((error) => console.warn(error))
+    AdMobRewarded.addEventListener("rewardedVideoDidFailToLoad", (error) =>
+      console.log("AdFailedToLoad", error)
     );
-    AdMobRewarded.addEventListener("adOpened", () =>
-      console.log("AdMobRewarded => adOpened Business")
+    AdMobRewarded.addEventListener("rewardedVideoDidPresent", () =>
+      console.log("AdMobRewarded => adOpened")
     );
-    AdMobRewarded.addEventListener("videoStarted", () =>
-      console.log("AdMobRewarded => videoStarted")
+    AdMobRewarded.addEventListener("rewardedVideoDidFailToPresent", () =>
+      console.log("AdMobRewarded => FailToPresent")
     );
-    AdMobRewarded.addEventListener("videoCompleted", () => {
-      console.log("AdMobRewarded => videoCompleted"), (adAvilable = true);
-    });
-    AdMobRewarded.addEventListener("adClosed", () => {
+    AdMobRewarded.addEventListener("rewardedVideoDidDismiss", () => {
       console.log("AdMobRewarded => adClosed");
       console.log("adAvilable", adAvilable);
       if (adAvilable) {
@@ -205,16 +223,52 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       } else {
         designStore.setIsDownloadStartedBusiness(false);
       }
-      AdMobRewarded.requestAd().catch((error) => console.warn(error));
+      AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
     });
-    AdMobRewarded.addEventListener("adLeftApplication", () =>
-      console.log("AdMobRewarded => adLeftApplication")
-    );
-    AdMobRewarded.requestAd().catch((error) => console.warn(error));
-    return () => {
-      AdMobRewarded.removeAllListeners();
-    };
+
+    AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
+  };
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      adsInterstitialListner();
+      return () => {
+        AdMobInterstitial.removeAllListeners();
+      };
+    }
   }, []);
+  const adsInterstitialListner = () => {
+    // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+
+    AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
+    // AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+    //   console.log("AdMobInterstitial adLoaded")
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
+    //   console.log("adFailedToLoad err", error)
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+    //   console.log("AdMobInterstitial => adOpened")
+    // );
+    AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+      console.log("AdMobInterstitial => adClosed");
+      AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+    });
+    // AdMobInterstitial.addEventListener(
+    //   "interstitialWillLeaveApplication",
+    //   () => console.log("AdMobInterstitial => adLeftApplication")
+    // );
+    AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+  };
+  const showAd = () => {
+    console.log("show ad google");
+    if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
+      console.log("inside if");
+
+      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
+      adCounter = 0;
+    }
+  };
 
   useEffect(() => {
     fbAd();
@@ -224,9 +278,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   }, []);
 
   const fbAd = async () => {
-    AdSettings.setLogLevel("debug");
-    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
-    AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+    // AdSettings.setLogLevel("debug");
+    // console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+    // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
     const requestedStatus = await AdSettings.requestTrackingPermission();
     console.log(requestedStatus);
     if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
@@ -243,12 +297,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       .then((res) => {
         console.log("res", res);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       })
       .catch((err) => {
         console.log(err);
         setAdReady(true),
-          AdMobRewarded.requestAd().catch((error) => console.warn(error));
+          AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       });
   };
 
@@ -270,8 +324,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       if (hasPro === true) {
         onClickDownload();
       } else {
-        //AdMobRewarded.showAd().catch((error) => console.warn(error));
-        setVisibleModalAd(true);
+        if (Pkgtype === Constant.typeDesignPackageVip) {
+          setVisibleModal(true);
+        } else {
+          setVisibleModalAd(true);
+        }
       }
     }
   }, [designStore.isDownloadStartedBusiness]);
@@ -353,10 +410,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     fiilterLayouts();
   }, [userDataBussiness]);
 
-  const viewRef = useRef(null);
-
-  const pixels = Common.getPixels(Constant.designPixel);
-
   const onClickDownload = async () => {
     if (user && user !== null) {
       if (currentLayout && currentLayout !== null) {
@@ -401,40 +454,37 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const takeDesignShot = async () => {
-    const currentDesignCreditFree = toJS(userStore.currentFreeDesignCredit);
+    // const currentDesignCreditFree = toJS(userStore.currentFreeDesignCredit);
     const currentDesignCreditPro = toJS(userStore.currentProDesignCredit);
 
     const designPackage = designPackages.find(
       (pkg) => pkg.id === currentDesign.package
     );
 
-    let currentDesignCredit =
-      currentDesignCreditFree > 0
-        ? currentDesignCreditFree
-        : currentDesignCreditPro;
-    if (designPackage.type === Constant.typeDesignPackageVip) {
-      currentDesignCredit = currentDesignCreditPro;
-    }
-    if (currentDesignCredit > 0) {
+    if (
+      designPackage.type !== Constant.typeDesignPackageVip ||
+      (designPackage.type === Constant.typeDesignPackageVip &&
+        currentDesignCreditPro > 0)
+    ) {
       const { data, errors } = await addUserDesign({
         variables: { designId: currentDesign.id },
       });
 
       if (data !== null && !errors) {
-        setLoadingImage(true);
-        if (designPackage.type === Constant.typeDesignPackageFree) {
-          currentDesignCreditFree > 0
-            ? userStore.updateCurrantDesignCreditFree(currentDesignCredit - 1)
-            : userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
-        } else {
-          userStore.updateCurrantDesignCreditPro(currentDesignCredit - 1);
+        if (designPackage.type === Constant.typeDesignPackageVip) {
+          currentDesignCreditPro > 0 &&
+            userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         }
       } else if (errors && errors !== null && errors.length > 0) {
         if (errors[0].extensions.code === Constant.userDesignExits) {
-          setLoadingImage(true);
+        } else if (errors[0].extensions.code === Constant.userFreeDesignLimit) {
+          setVisibleModalForPkg(true);
+          return;
+        } else if (errors[0].extensions.code === Constant.userFreeDesignCut) {
+          userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         } else {
           designStore.setIsDownloadStartedBusiness(false);
-          setLoadingImage(false);
+
           Common.showMessage(errors[0].message);
           return;
         }
@@ -461,7 +511,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       } catch (error) {
         console.log("err", error);
       }
-      setLoadingImage(false);
+
       Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
       designStore.setIsDownloadStartedBusiness(false);
 
@@ -471,8 +521,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       }
     } else {
       designStore.setIsDownloadStartedBusiness(false);
-      // setVisibleModal(true);
-      setVisibleFreeModal(true);
+      setVisibleModal(true);
+      // setVisibleFreeModal(true);
     }
   };
 
@@ -2239,7 +2289,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           }}
         >
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{
+              flex: 1,
+              // marginHorizontal: 6,
+            }}
             showsVerticalScrollIndicator={false}
           >
             <PopUp
@@ -2252,6 +2305,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               visible={visibleModal}
               toggleVisible={toggleVisible}
               isPurchased={true}
+            />
+            <PopUp
+              visible={visibleModalForPkg}
+              toggleVisibleForPkgPrem={toggleVisibleForPkg}
+              isPurchasedPrem={true}
             />
             <PopUp
               visible={visiblePicker}
@@ -2295,16 +2353,21 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                       activeOpacity={0.6}
                       style={styles.listDesignView}
                       onPress={() => {
+                        // designPackage.type === Constant.typeDesignPackageFree &&
+                        hasPro === false && adCounter++;
+
+                        console.log("adCounter", adCounter);
+                        showAd();
                         setPkgType(designPackage.type);
-                        if (
-                          designPackage.type ===
-                            Constant.typeDesignPackageVip &&
-                          hasPro === false
-                        ) {
-                          setVisibleModal(true);
-                        } else {
-                          setCurrentDesign(item);
-                        }
+                        // if (
+                        //   designPackage.type ===
+                        //     Constant.typeDesignPackageVip &&
+                        //   hasPro === false
+                        // ) {
+                        //   setVisibleModal(true);
+                        // } else {
+                        // }
+                        setCurrentDesign(item);
                       }}
                     >
                       <View>
@@ -2367,8 +2430,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 options={{
                   format: "jpg",
                   quality: 1,
-                  width: pixels,
-                  height: pixels,
+                  // width: pixels,
+                  // height: pixels,
                 }}
               >
                 <View style={{ flex: 1 }}>
@@ -2386,95 +2449,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   </FastImage>
                 </View>
               </ViewShot>
-
-              {/* <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: Color.bgcColor,
-                  marginBottom: 10,
-                  marginTop: 10,
-                  borderTopWidth: 5,
-                  borderTopColor: Color.txtIntxtcolor,
-                }}
-              >
-                <View style={{ height: 80, marginTop: 10 }}>
-                  {selected == 0 && layout()}
-                  {selected == 1 && colorCode()}
-                  {selected == 2 && socialIcon()}
-                </View>
-                <View
-                  style={{
-                    backgroundColor: Color.txtIntxtcolor,
-                    height: 1,
-                    width: wp(90),
-                    marginBottom: 15,
-                  }}
-                />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                    width: "100%",
-                  }}
-                >
-                  <TouchableOpacity onPress={() => setSelected(0)}>
-                    <Text
-                      style={{
-                        backgroundColor:
-                          selected === 0 ? Color.txtIntxtcolor : null,
-                        // borderColor: Color.txtIntxtcolor,
-                        // borderWidth: 2,
-                        color:
-                          selected === 0 ? Color.white : Color.txtIntxtcolor,
-                        borderRadius: Platform.OS === "ios" ? 16 : 20,
-                        overflow: "hidden",
-                        paddingHorizontal: 20,
-                        paddingVertical: 5,
-                      }}
-                    >
-                      {Common.getTranslation(LangKey.labLayouts)}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setSelected(1)}>
-                    <Text
-                      style={{
-                        backgroundColor:
-                          selected === 1 ? Color.txtIntxtcolor : null,
-                        // borderColor: Color.txtIntxtcolor,
-                        // borderWidth: 2,
-                        color:
-                          selected === 1 ? Color.white : Color.txtIntxtcolor,
-                        borderRadius: Platform.OS === "ios" ? 16 : 20,
-                        overflow: "hidden",
-                        paddingHorizontal: 20,
-                        paddingVertical: 5,
-                      }}
-                    >
-                      {Common.getTranslation(LangKey.labColorCodeList)}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setSelected(2)}>
-                    <Text
-                      style={{
-                        backgroundColor:
-                          selected === 2 ? Color.txtIntxtcolor : null,
-                        // borderColor: Color.txtIntxtcolor,
-                        // borderWidth: 2,
-                        color:
-                          selected === 2 ? Color.white : Color.txtIntxtcolor,
-                        borderRadius: Platform.OS === "ios" ? 16 : 20,
-                        overflow: "hidden",
-                        paddingHorizontal: 20,
-                        paddingVertical: 5,
-                      }}
-                    >
-                      {Common.getTranslation(LangKey.labSocialMediaIcons)}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View> */}
             </View>
           </ScrollView>
           <View
@@ -2644,13 +2618,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   listLayoutView: {
-    marginLeft: 5,
+    marginHorizontal: 5,
     marginVertical: 5,
     borderRadius: 4,
     overflow: "hidden",
   },
   listDesignView: {
     marginHorizontal: 5,
+
     marginVertical: 5,
     borderRadius: 5,
     overflow: "hidden",
@@ -2744,7 +2719,7 @@ const styles = StyleSheet.create({
     borderRadius: Constant.layIconViewBorderRadius,
     overflow: "hidden",
   },
-  layTxtIcon: { fontSize: Constant.laySmallFontSize, marginLeft: wp(1) },
+  layTxtIcon: { fontSize: Constant.laySmallFontSize, marginLeft: wp(0.5) },
   // common layout left
   layLeftViewFooter: {
     width: "100%",

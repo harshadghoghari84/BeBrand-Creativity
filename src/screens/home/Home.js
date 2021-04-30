@@ -10,9 +10,11 @@ import {
   Text,
   Animated,
   SafeAreaView,
+  TouchableOpacity,
+  Platform,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import ItemSubCategory from "./ItemSubCategory";
 import Constant from "../../utils/Constant";
 import Color from "../../utils/Color";
@@ -28,13 +30,10 @@ import LangKey from "../../utils/LangKey";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { SvgCss } from "react-native-svg";
 import SvgConstant from "../../utils/SvgConstant";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  PublisherBanner,
-} from "react-native-admob";
+import { AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+import { fcmService } from "../../FCM/FCMService";
+import { localNotificationService } from "../../FCM/LocalNotificationService";
 
 const windowWidth = Dimensions.get("window").width;
 const imgWidth = (windowWidth - 30) / 2;
@@ -43,6 +42,189 @@ let isFirstTimeListLoad = true;
 let adCounter = 0;
 
 const Home = ({ navigation, designStore, userStore }) => {
+  const user = toJS(userStore.user);
+
+  const [modalVisibleForModalOffers, setModalVisibleForModalOffers] = useState(
+    false
+  );
+  const toggleVisibleForModalOffers = () => {
+    setModalVisibleForModalOffers(!modalVisibleForModalOffers);
+  };
+  const [scrollY, setScrollY] = useState();
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [modalVisible, setmodalVisible] = useState(false);
+  const toggleVisible = () => {
+    setmodalVisible(!modalVisible);
+  };
+  const [hasPro, sethasPro] = useState(false);
+  const homeDataLoading = toJS(designStore.hdLoading);
+  const designPackages = toJS(designStore.designPackages);
+  const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
+  const [modalOffer, setModalOffer] = useState([]);
+  const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
+  const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
+  const [userSubCategories, setUserSubCategories] = useState([]);
+  const [
+    totalUserSubCategoriesAfter,
+    setTotalUserSubCategoriesAfter,
+  ] = useState(0);
+  const [
+    totalUserSubCategoriesBefore,
+    setTotalUserSubCategoriesBefore,
+  ] = useState(0);
+
+  const [selectedSubCategory, setSelectedSubCategory] = useState();
+
+  const refCategoryList = useRef(null);
+
+  const isMountedRef = Common.useIsMountedRef();
+
+  const { loading, error, data: imageData } = useQuery(GraphqlQuery.offers);
+  const [
+    addUserDesignPackage,
+    { data: dpkgData, loading: dpkgLoading, error: dpkgErr },
+  ] = useMutation(
+    Platform.OS === "ios"
+      ? GraphqlQuery.addUserDesignPackage
+      : GraphqlQuery.addUserDesignPackageRzp,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
+  useEffect(() => {
+    AsyncStorage.getItem(Constant.labPurchasedTKNandProdId).then((response) => {
+      if (response) {
+        console.log("RESPONSE", response);
+        let res = JSON.parse(response);
+        const obj =
+          Platform.OS === "ios"
+            ? {
+                packageId: res.itemId,
+                androidPerchaseToken: res.PToken,
+              }
+            : {
+                orderId: res.orderId,
+                paymentId: res.paymentId,
+                paymentSignature: res.paymentSignature,
+              };
+
+        addUserDesignPackage({
+          variables: obj,
+        })
+          .then(async ({ data, errors }) => {
+            if (errors && errors !== null) {
+              Common.showMessage(errors[0].message);
+            } else if (
+              Platform.OS === "ios"
+                ? data.addUserDesignPackage &&
+                  data.addUserDesignPackage !== null &&
+                  Array.isArray(data.addUserDesignPackage)
+                : data.addUserDesignPackageRzp &&
+                  data.addUserDesignPackageRzp !== null &&
+                  Array.isArray(data.addUserDesignPackageRzp)
+            ) {
+              await AsyncStorage.removeItem(Constant.labPurchasedTKNandProdId);
+
+              const newUserIos = {
+                ...user,
+
+                designPackage: data.addUserDesignPackage
+                  ? data.addUserDesignPackage
+                  : user.designPackage,
+              };
+              const newUserAndroid = {
+                ...user,
+
+                designPackage: data.addUserDesignPackageRzp
+                  ? data.addUserDesignPackageRzp
+                  : user.designPackage,
+              };
+              userStore.setUser(
+                Platform.OS === "ios" ? newUserIos : newUserAndroid
+              );
+              // Common.showMessage(
+              //   Common.getTranslation(LangKey.msgPkgPurchaseSucess)
+              // );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  }, []);
+  useEffect(() => {
+    fcmService.registerAppWithFCM();
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
+    localNotificationService.subscribeToTopics(Constant.Offer);
+    localNotificationService.subscribeToTopics(Constant.SpecialOffer);
+    localNotificationService.subscribeToTopics(Constant.Wishes);
+    localNotificationService.subscribeToTopics(Constant.Information);
+    function onRegister(token) {
+      console.log("on register token: ", token);
+    }
+    function onNotification(remotMessage) {
+      let notify = null;
+      if (Platform.OS === "ios") {
+        notify = remotMessage.data.notification;
+      } else {
+        notify = remotMessage.notification;
+      }
+
+      const options = {
+        soundName: "default",
+        playSound: true,
+        bigPictureUrl: notify.android.imageUrl,
+      };
+
+      if (Platform.OS === "android") {
+        options.channelId = Constant.Default;
+        if (remotMessage.from.includes(Constant.topics)) {
+          if (remotMessage.from.includes(Constant.Offer)) {
+            options.channelId = Constant.Offer;
+          } else if (remotMessage.from.includes(Constant.SpecialOffer)) {
+            options.channelId = Constant.SpecialOffer;
+          } else if (remotMessage.from.includes(Constant.Wishes)) {
+            options.channelId = Constant.Wishes;
+          } else if (remotMessage.from.includes(Constant.Information)) {
+            options.channelId = Constant.Information;
+          }
+        }
+      }
+
+      localNotificationService.showNotification(
+        0,
+        notify.title,
+        notify.body,
+        notify,
+        options
+      );
+    }
+
+    function onOpenNotification(notify) {
+      navigation.navigate(Constant.navNotification);
+    }
+    return () => {
+      fcmService.unRegister();
+      localNotificationService.unregister();
+    };
+  }, []);
+
+  useEffect(() => {
+    const mOffer = toJS(designStore.modalOffers);
+    if (
+      mOffer &&
+      mOffer !== null &&
+      Array.isArray(mOffer) &&
+      mOffer.length > 0
+    ) {
+      setModalVisibleForModalOffers(true);
+      setModalOffer(mOffer);
+    }
+  }, [designStore.modalOffers]);
+
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then((res) => {
@@ -59,33 +241,6 @@ const Home = ({ navigation, designStore, userStore }) => {
       })
       .catch((err) => console.log(err));
   }, []);
-  const { loading, error, data: imageData } = useQuery(GraphqlQuery.offers);
-
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [modalVisible, setmodalVisible] = useState(false);
-  const toggleVisible = () => {
-    setmodalVisible(!modalVisible);
-  };
-  const [hasPro, sethasPro] = useState(false);
-  const homeDataLoading = toJS(designStore.hdLoading);
-  const designPackages = toJS(designStore.designPackages);
-  const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
-  const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
-  const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
-  const [userSubCategories, setUserSubCategories] = useState([]);
-  const [
-    totalUserSubCategoriesAfter,
-    setTotalUserSubCategoriesAfter,
-  ] = useState(0);
-  const [
-    totalUserSubCategoriesBefore,
-    setTotalUserSubCategoriesBefore,
-  ] = useState(0);
-
-  const [selectedSubCategory, setSelectedSubCategory] = useState();
-
-  const refCategoryList = useRef(null);
-  const isMountedRef = Common.useIsMountedRef();
 
   useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
@@ -150,28 +305,8 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-
-      AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
-      AdMobInterstitial.addEventListener("adLoaded", () =>
-        console.log("AdMobInterstitial adLoaded")
-      );
-      AdMobInterstitial.addEventListener("adFailedToLoad", (error) =>
-        console.log("adFailedToLoad err", error)
-      );
-      AdMobInterstitial.addEventListener("adOpened", () =>
-        console.log("AdMobInterstitial => adOpened")
-      );
-      AdMobInterstitial.addEventListener("adClosed", () => {
-        console.log("AdMobInterstitial => adClosed");
-        AdMobInterstitial.requestAd().catch((error) => console.warn(error));
-      });
-      AdMobInterstitial.addEventListener("adLeftApplication", () =>
-        console.log("AdMobInterstitial => adLeftApplication")
-      );
-      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
+      adsInterstitialListner();
       return () => {
-        console.log("removeHome");
         AdMobInterstitial.removeAllListeners();
       };
     }
@@ -183,6 +318,29 @@ const Home = ({ navigation, designStore, userStore }) => {
       AdSettings.clearTestDevices();
     };
   }, []);
+
+  const adsInterstitialListner = () => {
+    // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+
+    AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
+    AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+      console.log("AdMobInterstitial adLoaded")
+    );
+    AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
+      console.log("adFailedToLoad err", error)
+    );
+    AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+      console.log("AdMobInterstitial => adOpened")
+    );
+    AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+      console.log("AdMobInterstitial => adClosed");
+      AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+    });
+    // AdMobInterstitial.addEventListener("interstitialWillLeaveApplication", () =>
+    //   console.log("AdMobInterstitial => adLeftApplication")
+    // );
+    AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
+  };
 
   const fbAd = async () => {
     AdSettings.setLogLevel("debug");
@@ -222,12 +380,16 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   };
 
-  const loadMoreBeforeSubCategories = () => {
-    if (designStore.ahdLoading === false) {
-      const length = userSubCategoriesBefore.length;
-      totalUserSubCategoriesBefore > length &&
-        designStore.loadMoreBeforeSubCategories(length);
-      [];
+  const loadMoreBeforeSubCategories = (topNum) => {
+    console.log("top num :", topNum);
+    if (topNum === 0) {
+      console.log("inside");
+      if (designStore.ahdLoading === false) {
+        const length = userSubCategoriesBefore.length;
+        totalUserSubCategoriesBefore > length &&
+          designStore.loadMoreBeforeSubCategories(length);
+        [];
+      }
     }
   };
 
@@ -266,26 +428,28 @@ const Home = ({ navigation, designStore, userStore }) => {
   );
 
   const showAd = () => {
+    console.log("adCounter", adCounter);
+
     if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
-      AdMobInterstitial.showAd().catch((error) => fbShowAd());
+      console.log("inside if");
+      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
       adCounter = 0;
     }
   };
 
   const onDesignClick = async (packageType, design, desIndex) => {
-    packageType === Constant.typeDesignPackageFree && adCounter++;
-    if (packageType === Constant.typeDesignPackageVip && hasPro === false) {
-      setmodalVisible(true);
-    } else {
-      console.log("adCounter", adCounter);
-      showAd();
-      navigation.navigate(Constant.navDesign, {
-        designs: userSubCategories[selectedSubCategory].designs,
-        curDesign: design,
-        curPackageType: packageType,
-        curItemIndex: desIndex,
-      });
-    }
+    hasPro === false && adCounter++;
+    showAd();
+    // if (packageType === Constant.typeDesignPackageFree) {
+    //   // setmodalVisible(true);
+    // }
+
+    navigation.navigate(Constant.navDesign, {
+      designs: userSubCategories[selectedSubCategory].designs,
+      curDesign: design,
+      curPackageType: packageType,
+      curItemIndex: desIndex,
+    });
   };
 
   const setSubCategoryindex = () => {
@@ -311,11 +475,28 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   const renderImages = ({ item }) => {
     return (
-      <FastImage
-        source={{ uri: item.image.url }}
-        style={{ height: wp(25) }}
-        resizeMode={FastImage.resizeMode.cover}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          if (item.link.linkType === Constant.navPro) {
+            navigation.navigate(
+              Platform.OS === "android"
+                ? Constant.titPrimium
+                : Constant.titPrimiumIos
+            );
+          } else {
+            navigation.navigate(item.link.linkType, {
+              title: item.link.linkData,
+            });
+          }
+        }}
+        activeOpacity={0.8}
+      >
+        <FastImage
+          source={{ uri: item.image.url }}
+          style={{ height: wp(25) }}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -362,6 +543,7 @@ const Home = ({ navigation, designStore, userStore }) => {
             sliderWidth={SLIDER_WIDTH}
             itemWidth={SLIDER_WIDTH}
             autoplay={true}
+            autoplayInterval={6000}
             loop
             onSnapToItem={(index) => setActiveSlide(index)}
             inactiveSlideScale={1}
@@ -392,6 +574,12 @@ const Home = ({ navigation, designStore, userStore }) => {
         visible={modalVisible}
         toggleVisible={toggleVisible}
         isPurchased={true}
+      />
+      <PopUp
+        visible={modalVisibleForModalOffers}
+        modalOfferData={modalOffer}
+        toggleVisibleForModaloffer={toggleVisibleForModalOffers}
+        isModalOffers={true}
       />
 
       <View
@@ -438,6 +626,9 @@ const Home = ({ navigation, designStore, userStore }) => {
               setSubCategoryindex();
             }
           }}
+          onScroll={(e) => {
+            loadMoreBeforeSubCategories(e.nativeEvent.contentOffset.x);
+          }}
           onLayout={() => {
             if (isFirstTimeListLoad === false) {
               setSubCategoryindex();
@@ -456,7 +647,6 @@ const Home = ({ navigation, designStore, userStore }) => {
                   item.designs.length === 0 &&
                   loadMoreDesigns(item.id);
                 designStore.setDesignLang(Constant.designLangCodeAll);
-                console.log("adCountersubcat", adCounter);
 
                 showAd();
               }}

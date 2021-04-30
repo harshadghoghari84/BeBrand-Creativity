@@ -47,13 +47,18 @@ export default {
     },
   ],
 
-  // serverUrl: "https://192.168.0.222:5000/gql",
-  serverUrl: "https://admin.branddot.in/gql",
+  // serverUrl: "http://192.168.0.222:5001/gql",
+  serverUrl: "https://api.branddot.in/gql",
+  // serverUrl: "https://admin.branddot.in/gql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
   splashTime: 3000,
 
+  freeUserProfileImageLimit: 0,
+
+  razorPayApiKey: "rzp_test_62hWp6Fn3Rflkg",
+  // razorPayApiKey: "rzp_live_mml0VJwNR2J6x8",
   profileImageSize: 2000000,
   defLangCode: "en",
   defUserName: "Guest",
@@ -61,6 +66,7 @@ export default {
   prfUserloginTime: "notificationTime",
   prfLangCode: "langCode",
   prfIcons: "setSocialIcons",
+  labPurchasedTKNandProdId: "purchasedTKNandProdId",
 
   branddotLegalUrl: "https://branddot.in/?page_id=559",
 
@@ -233,6 +239,7 @@ export default {
   // pkg name
   titFree: "Free Forever",
   titPrimium: "Premium",
+  titPrimiumIos: "PremiumIos",
 
   // Topics and Channels for notification
   topics: "topics",
@@ -243,6 +250,8 @@ export default {
   Information: "Information",
 
   userDesignExits: "USER_DESIGN_EXIST",
+  userFreeDesignLimit: "USER_FREE_DESIGN_LMIT",
+  userFreeDesignCut: "USER_DESIGN_CUT_FREE",
 
   // personalDesign.js constants
   layIconViewPadding: wp(0.22),

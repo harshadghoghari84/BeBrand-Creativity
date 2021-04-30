@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-zh/values-zh.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-zh/values-zh.xml",
             "map": [
                 {
                     "source": "/Users/bebrandd1/.gradle/caches/transforms-3/0b5668577604af6592a66c2495917328/transformed/jetified-android-image-cropper-2.7.0/res/values-zh/values-zh.xml",

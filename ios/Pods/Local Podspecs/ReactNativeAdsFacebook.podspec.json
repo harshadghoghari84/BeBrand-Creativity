@@ -1,6 +1,6 @@
 {
   "name": "ReactNativeAdsFacebook",
-  "version": "7.0.3",
+  "version": "7.0.5",
   "summary": "Native Facebook Ads for React Native",
   "authors": {
     "abhaynpai": "abhaypai2611@gmail.com"
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/callstack/react-native-fbads",
   "source": {
     "git": "https://github.com/callstack/react-native-fbads",
-    "tag": "v7.0.3"
+    "tag": "v7.0.5"
   },
   "platforms": {
     "ios": "7.0"

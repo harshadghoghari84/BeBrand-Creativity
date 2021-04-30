@@ -50,13 +50,6 @@
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Atidaryti naršyklėje"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Bendrinti nuorodą"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Įvairūs"</string>
-    <string msgid="4014704848104544569" name="offline_notification_text">"Palieskite, kad atidarytumėte skelbimą"</string>
-    <string msgid="6989673690118446590" name="offline_notification_title">"Peržiūrėkite skelbimą, kurį išsaugojote būdami neprisijungę"</string>
-    <string msgid="6452552490969291315" name="offline_opt_in_confirm">"Gerai"</string>
-    <string msgid="2485091187023273083" name="offline_opt_in_confirmation">"Gausite pranešimą su nuoroda, kai vėl prisijungsite"</string>
-    <string msgid="1070677888032715836" name="offline_opt_in_decline">"Ne, ačiū"</string>
-    <string msgid="5998527443747404848" name="offline_opt_in_message">"Atsiųsime jums pranešimą su nuoroda į reklamuotojo svetainę."</string>
-    <string msgid="4928666061183236333" name="offline_opt_in_title">"Atidarykite skelbimą, kai vėl prisijungsite."</string>
     <string msgid="368094699078615544" name="s1">"Išsaugoti vaizdą"</string>
     <string msgid="4550830452390689489" name="s2">"Leisti skelbimui išsaugoti vaizdą nuotraukų galerijoje?"</string>
     <string msgid="2435407834265420668" name="s3">"Sutikti"</string>
