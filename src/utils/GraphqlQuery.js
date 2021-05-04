@@ -75,6 +75,11 @@ export default {
       sendUserOtp(mobile: $mobile)
     }
   `,
+  updateAnltData: gql`
+    mutation updateAnltData($imperssion: [String]!, $view: [String]!) {
+      updateAnltData(imperssion: $imperssion, view: $view)
+    }
+  `,
   userSignupSocial: gql`
     mutation userSignupSocial($token: String!) {
       userSignupSocial(token: $token) {

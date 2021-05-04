@@ -80,6 +80,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [visibleModal, setVisibleModal] = useState(false);
   const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
+  const [viewableItem, setViewableItem] = useState([]);
 
   const [visibleModalAd, setVisibleModalAd] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
@@ -311,6 +312,20 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       });
   };
+  useEffect(() => {
+    if (
+      viewableItem !== null &&
+      Array.isArray(viewableItem) &&
+      viewableItem.length > 0
+    ) {
+      AsyncStorage.setItem(
+        Constant.prfViewDesignsBusiness,
+        JSON.stringify(viewableItem)
+      )
+        .then((res) => console.log("res", res))
+        .catch((err) => console.log("err", err));
+    }
+  }, [viewableItem]);
 
   useEffect(() => {
     if (adReady) {
@@ -2517,7 +2532,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                     onLoadStart={() =>
                       designStore.setIsBusinessDesignLoad(true)
                     }
-                    onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+                    onLoadEnd={() => {
+                      designStore.setIsBusinessDesignLoad(false);
+                      if (!viewableItem.includes(currentDesign.id)) {
+                        if (user && user !== null) {
+                          setViewableItem([...viewableItem, currentDesign.id]);
+                        }
+                      }
+                    }}
                     source={{
                       uri: currentDesign.designImage.url,
                     }}
