@@ -40,7 +40,7 @@ const imgWidth = (windowWidth - 30) / 2;
 
 let isFirstTimeListLoad = true;
 let adCounter = 0;
-
+let impression = [];
 const Home = ({ navigation, designStore, userStore }) => {
   const user = toJS(userStore.user);
 
@@ -50,6 +50,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   const toggleVisibleForModalOffers = () => {
     setModalVisibleForModalOffers(!modalVisibleForModalOffers);
   };
+
   const [scrollY, setScrollY] = useState();
   const [activeSlide, setActiveSlide] = useState(0);
   const [modalVisible, setmodalVisible] = useState(false);
@@ -92,6 +93,15 @@ const Home = ({ navigation, designStore, userStore }) => {
       errorPolicy: "all",
     }
   );
+
+  const [
+    updateAnltData,
+    { data: anlData, loading: anlLoading, error: anlErr },
+  ] = useMutation(GraphqlQuery.updateAnltData, {
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
+  });
+
   useEffect(() => {
     AsyncStorage.getItem(Constant.labPurchasedTKNandProdId).then((response) => {
       if (response) {
@@ -226,6 +236,38 @@ const Home = ({ navigation, designStore, userStore }) => {
   }, [designStore.modalOffers]);
 
   useEffect(() => {
+    const analtdata = toJS(designStore.anltDataObj);
+    if (user && user !== null) {
+      if (
+        analtdata.imp &&
+        analtdata.imp !== null &&
+        analtdata.imp.length > 0 &&
+        analtdata.vie &&
+        analtdata.vie !== null &&
+        analtdata.vie.length > 0
+      ) {
+        updateAnltData({
+          variables: {
+            imperssion: analtdata.imp,
+            view: analtdata.vie,
+          },
+        })
+          .then(({ data, errors }) => {
+            if (errors && errors !== null) {
+            }
+            if (data && data !== null) {
+              AsyncStorage.removeItem(Constant.prfImpression);
+              AsyncStorage.removeItem(Constant.prfViewDesigns);
+            }
+          })
+          .catch((erre) => {
+            console.log(erre);
+          });
+      }
+    }
+  }, [designStore.anltDataObj]);
+
+  useEffect(() => {
     AsyncStorage.getItem(Constant.prfUserloginTime)
       .then((res) => {
         if (res && res !== null) {
@@ -245,6 +287,18 @@ const Home = ({ navigation, designStore, userStore }) => {
   useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
   }, [userStore.hasPro]);
+
+  useEffect(() => {
+    if (
+      impression !== null &&
+      Array.isArray(impression) &&
+      impression.length > 0
+    ) {
+      AsyncStorage.setItem(Constant.prfImpression, JSON.stringify(impression))
+        .then((res) => {})
+        .catch((err) => {});
+    }
+  }, [impression]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -381,9 +435,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   };
 
   const loadMoreBeforeSubCategories = (topNum) => {
-    console.log("top num :", topNum);
     if (topNum === 0) {
-      console.log("inside");
       if (designStore.ahdLoading === false) {
         const length = userSubCategoriesBefore.length;
         totalUserSubCategoriesBefore > length &&
@@ -554,6 +606,19 @@ const Home = ({ navigation, designStore, userStore }) => {
     );
   };
 
+  const onViewRef = React.useRef(({ viewableItems }) => {
+    viewableItems.forEach((ele) => {
+      if (!impression.includes(ele.item.id)) {
+        if (user && user !== null) {
+          impression = [...impression, ele.item.id];
+        }
+      }
+    });
+
+    // Use viewable items in state or as intended
+  });
+  const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
+
   /*
   ..######...#######..##.....##.########...#######..##....##....###....##....##.########
   .##....##.##.....##.###...###.##.....##.##.....##.###...##...##.##...###...##....##...
@@ -672,6 +737,8 @@ const Home = ({ navigation, designStore, userStore }) => {
               }
               showsVerticalScrollIndicator={false}
               style={styles.listSubCategoryDesign}
+              onViewableItemsChanged={onViewRef.current}
+              viewabilityConfig={viewConfigRef.current}
               data={userSubCategories[selectedSubCategory].designs}
               keyExtractor={keyExtractor}
               maxToRenderPerBatch={6}

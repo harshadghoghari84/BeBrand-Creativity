@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   TouchableHighlight,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
@@ -577,9 +578,11 @@ const PopUp = ({
                     style={{ margin: 5 }}
                     normal={true}
                     onPress={() => {
-                      navigation.navigate(Constant.navPro, {
-                        screen: Constant.titPrimium,
-                      });
+                      navigation.navigate(
+                        Platform.OS === "android"
+                          ? Constant.titPrimium
+                          : Constant.titPrimiumIos
+                      );
                       toggleVisible();
                     }}
                   >
@@ -644,7 +647,11 @@ const PopUp = ({
                   normal={true}
                   txtSize={true}
                   onPress={() => {
-                    navigation.navigate(Constant.titPrimium);
+                    navigation.navigate(
+                      Platform.OS === "android"
+                        ? Constant.titPrimium
+                        : Constant.titPrimiumIos
+                    );
                     toggleVisibleAd();
                   }}
                 >
@@ -757,7 +764,11 @@ const PopUp = ({
                     style={{ margin: 5 }}
                     normal={true}
                     onPress={() => {
-                      navigation.navigate(Constant.titPrimium);
+                      navigation.navigate(
+                        Platform.OS === "android"
+                          ? Constant.titPrimium
+                          : Constant.titPrimiumIos
+                      );
                       toggleVisible();
                     }}
                   >
@@ -821,7 +832,11 @@ const PopUp = ({
                   style={{ margin: 5 }}
                   normal={true}
                   onPress={() => {
-                    navigation.navigate(Constant.titPrimium);
+                    navigation.navigate(
+                      Platform.OS === "android"
+                        ? Constant.titPrimium
+                        : Constant.titPrimiumIos
+                    );
                     toggleVisibleForPkgPrem();
                   }}
                 >

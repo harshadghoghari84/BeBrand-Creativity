@@ -3,6 +3,7 @@ import { observable, action, decorate, toJS } from "mobx";
 import ApolloClient from "../utils/ApolloClient";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const assignPackageToSubCategory = (subCategoryArray, packageArray) => {
   subCategoryArray.map((item) => {
@@ -48,6 +49,7 @@ class DesignStore {
   lastNotificationTime = undefined;
   userNotificationTime = new Date();
   modalOffers = [];
+  anltDataObj = {};
 
   udLoading = false;
   userDesignsF = [];
@@ -80,6 +82,7 @@ class DesignStore {
           this.lastNotificationTime = new Date(data.lastNotificationTime);
           this.languages = data.languages;
           this.calcualteNotificationTime();
+          this.anlticData();
           this.modalOffers = data.modalOffers;
         }
       })
@@ -296,6 +299,34 @@ class DesignStore {
     this.isNewNotification =
       this.userNotificationTime.getTime() < this.lastNotificationTime.getTime();
   };
+  anlticData = async () => {
+    let obj = {
+      imp: [],
+      vie: [],
+    };
+    await AsyncStorage.getItem(Constant.prfImpression)
+      .then((res) => {
+        if (res && res !== null) {
+          obj.imp = JSON.parse(res);
+        }
+      })
+      .catch((err) => console.log(err));
+    await AsyncStorage.getItem(Constant.prfViewDesigns)
+      .then((res) => {
+        if (res && res !== null) {
+          obj.vie = JSON.parse(res);
+        }
+      })
+      .catch((err) => console.log(err));
+    await AsyncStorage.getItem(Constant.prfViewDesignsBusiness)
+      .then((res) => {
+        if (res && res !== null) {
+          obj.vie = [...obj.vie, JSON.parse(res)];
+        }
+      })
+      .catch((err) => console.log(err));
+    this.anltDataObj = toJS(obj);
+  };
 }
 
 decorate(DesignStore, {
@@ -317,6 +348,7 @@ decorate(DesignStore, {
   globleUserSubCategoriesAfter: observable,
   globleUserSubCategoriesBefore: observable,
   designLayouts: observable,
+  anltDataObj: observable,
   languages: observable,
   loadHomeData: action,
   loadMoreAfterSubCategories: action,
@@ -329,6 +361,7 @@ decorate(DesignStore, {
   setIsPersonalDesignLoad: action,
   setIsBusinessDesignLoad: action,
   setUserNotificationTime: action,
+  anlticData: action,
 });
 
 export default new DesignStore();

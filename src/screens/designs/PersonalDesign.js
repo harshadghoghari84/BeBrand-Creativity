@@ -85,6 +85,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
   const [layouts, setLayouts] = useState([]);
+  const [viewableItem, setViewableItem] = useState([]);
   const [currentLayout, setCurrentLayout] = useState(null);
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
@@ -203,6 +204,21 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       };
     }
   }, []);
+
+  useEffect(() => {
+    if (
+      viewableItem !== null &&
+      Array.isArray(viewableItem) &&
+      viewableItem.length > 0
+    ) {
+      AsyncStorage.setItem(
+        Constant.prfViewDesigns,
+        JSON.stringify(viewableItem)
+      )
+        .then((res) => console.log("res", res))
+        .catch((err) => console.log("err", err));
+    }
+  }, [viewableItem]);
 
   const adsInterstitialListner = () => {
     // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
@@ -2065,7 +2081,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               >
                 <FastImage
                   onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-                  onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+                  onLoadEnd={() => {
+                    designStore.setIsPersonalDesignLoad(false);
+                    if (!viewableItem.includes(currentDesign.id)) {
+                      if (user && user !== null) {
+                        setViewableItem([...viewableItem, currentDesign.id]);
+                      }
+                    }
+                  }}
                   source={{
                     uri: currentDesign.designImage.url,
                   }}
