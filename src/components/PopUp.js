@@ -603,7 +603,7 @@ const PopUp = ({
               }}
             >
               <TouchableOpacity
-                activeOpacity={0.6}
+                activeOpacity={0.3}
                 onPress={() => toggleVisibleAd()}
                 style={{
                   width: 20,
@@ -670,56 +670,6 @@ const PopUp = ({
               </View>
             </View>
           </View>
-          // <View style={[styles.mainView]}>
-          //   <View style={[styles.innerView]}>
-          //     <TouchableOpacity
-          //       onPress={() => toggleVisibleAd()}
-          //       style={styles.btnClose}
-          //     >
-          //       <ICON name="close" size={22} color={Color.darkBlue} />
-          //     </TouchableOpacity>
-
-          //     <View style={{ alignItems: "center", justifyContent: "center" }}>
-          //       <Text>{Common.getTranslation(LangKey.adDesc)}</Text>
-          //       <Text style={{ fontSize: 20 }}>
-          //         {Common.getTranslation(LangKey.Freeforever)}
-          //       </Text>
-          //       <FastImage
-          //         source={require("../assets/img/Ads.png")}
-          //         style={{ height: 200, width: "50%" }}
-          //         resizeMode={FastImage.resizeMode.contain}
-          //       />
-          //       <View
-          //         style={{
-          //           flexDirection: "row",
-          //           justifyContent: "space-between",
-          //         }}
-          //       >
-          //         <Button
-          //           style={{ margin: 5 }}
-          //           normal={true}
-          //           txtSize={true}
-          //           onPress={() => {
-          //             navigation.navigate(Constant.titPrimium);
-          //             toggleVisibleAd();
-          //           }}
-          //         >
-          //           {Common.getTranslation(LangKey.titleBePremium)}
-          //         </Button>
-          //         <Button
-          //           style={{ margin: 5 }}
-          //           normal={true}
-          //           txtSize={true}
-          //           onPress={() => {
-          //             toggleVisibleAd(true);
-          //           }}
-          //         >
-          //           {Common.getTranslation(LangKey.labWatchAds)}
-          //         </Button>
-          //       </View>
-          //     </View>
-          //   </View>
-          // </View>
         )}
         {isPurchased && (
           <View style={styles.mainView}>
@@ -845,67 +795,6 @@ const PopUp = ({
               </View>
             </View>
           </View>
-          // <View style={styles.mainView}>
-          //   <View style={styles.innerView}>
-          //     <View
-          //       style={{
-          //         flexDirection: "row",
-          //         alignItems: "center",
-          //         justifyContent: "space-between",
-          //       }}
-          //     >
-          //       <Text
-          //         style={{
-          //           fontSize: 18,
-          //           fontWeight: "700",
-          //           paddingHorizontal: 10,
-          //         }}
-          //       >
-          //         {Common.getTranslation(LangKey.labFreeDesignLimitOver)}
-          //       </Text>
-          //       <TouchableOpacity
-          //         onPress={() => toggleVisibleForPkgPrem()}
-          //         style={styles.btnClose}
-          //       >
-          //         <ICON name="close" size={22} color={Color.darkBlue} />
-          //       </TouchableOpacity>
-          //     </View>
-          //     <Text
-          //       style={{
-          //         marginTop: 10,
-          //         fontSize: 15,
-          //         paddingLeft: 20,
-          //       }}
-          //     >
-          //       {Common.getTranslation(LangKey.labDownloadMoreImage)}
-          //     </Text>
-          //     <View style={{ alignItems: "center", justifyContent: "center" }}>
-          //       <FastImage
-          //         source={require("../assets/img/Select.png")}
-          //         resizeMode={FastImage.resizeMode.contain}
-          //         style={{ height: 100, width: 100, margin: 10 }}
-          //       />
-          //       <View
-          //         style={{
-          //           marginTop: 10,
-          //           flexDirection: "row",
-          //           justifyContent: "space-between",
-          //         }}
-          //       >
-          //         <Button
-          //           style={{ margin: 5 }}
-          //           normal={true}
-          //           onPress={() => {
-          //             navigation.navigate(Constant.titPrimium);
-          //             toggleVisibleForPkgPrem();
-          //           }}
-          //         >
-          //           {Common.getTranslation(LangKey.labPremium)}
-          //         </Button>
-          //       </View>
-          //     </View>
-          //   </View>
-          // </View>
         )}
         {isPicker && (
           <View style={styles.mainView}>
@@ -1008,18 +897,6 @@ const PopUp = ({
                 <ICON name="close" size={18} color={Color.darkBlue} />
               </TouchableOpacity>
 
-              {/* <FastImage
-                source={{
-                  uri:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW9MfRGLJbpNUQXu89bL2b7za_s0TYWOYnCBqHHMPQU80sOj6pTZ4IURPIC2RfjwPRRlQ&usqp=CAU",
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={{
-                  height: 240,
-                  width: 160,
-                  marginHorizontal: 23,
-                }}
-              /> */}
               {modalOfferData.map((item, index) => {
                 return (
                   <FastImage

@@ -30,6 +30,7 @@ import Animated from "react-native-reanimated";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+import { Pagination } from "react-native-snap-carousel";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -64,6 +65,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const allLayouts = toJS(designStore.designLayouts);
   const designRef = useRef();
+  const layRef = useRef();
   const isMountedRef = Common.useIsMountedRef();
   const viewRef = useRef(null);
   const pixels = Common.getPixels(Constant.designPixel);
@@ -77,6 +79,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   .##....##....##....##.....##....##....##......
   ..######.....##....##.....##....##....########
   */
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const [visibleModal, setVisibleModal] = useState(false);
   const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
@@ -142,6 +145,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const toggleVisibleMsgBussiness = (val) => {
     if (val === true) {
+      let findIndex = layouts.findIndex((ele) => ele.id === setCurLayout.id);
+      setActiveSlide(findIndex);
       setCurLayout !== undefined &&
         setCurLayout !== null &&
         setCurrentLayout(setCurLayout);
@@ -157,7 +162,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     );
 
     setLayouts(filterArr);
-    checkLayout(filterArr);
+    // checkLayout(filterArr);
   };
 
   const onReset = () => {
@@ -302,7 +307,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const fbShowAd = () => {
     InterstitialAdManager.showAd(Constant.InterstitialAdPlacementIdVideo)
       .then((res) => {
-        console.log("res", res);
         setAdReady(true),
           AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       })
@@ -321,9 +325,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       AsyncStorage.setItem(
         Constant.prfViewDesignsBusiness,
         JSON.stringify(viewableItem)
-      )
-        .then((res) => console.log("res", res))
-        .catch((err) => console.log("err", err));
+      );
     }
   }, [viewableItem]);
 
@@ -433,12 +435,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const onClickDownload = async () => {
     if (user && user !== null) {
-      if (currentLayout && currentLayout !== null) {
-        await saveDesign();
-      } else {
-        designStore.setIsDownloadStartedBusiness(false);
-        Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
-      }
+      await saveDesign();
+      // if (currentLayout && currentLayout !== null) {
+      // } else {
+      //   designStore.setIsDownloadStartedBusiness(false);
+      //   Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
+      // }
     } else {
       designStore.setIsDownloadStartedBusiness(false);
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
@@ -527,8 +529,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               asset,
               false
             )
-              .then((res) => console.log("res: ", res))
-              .catch((err) => console.log("err: ", err));
+              .then((res) => {})
+              .catch((err) => {});
       } catch (error) {
         console.log("err", error);
       }
@@ -562,18 +564,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       UTI: "image/jpeg", // iOS
     });
   };
-
-  // const plusBTN = () => {
-  //   return (
-  //     <TouchableOpacity
-  //       activeOpacity={0.6}
-  //       onPress={() => setVisiblePicker(true)}
-  //       style={styles.plusButton}
-  //     >
-  //       <Icon name="plus" fill={Color.white} height={15} width={15} />
-  //     </TouchableOpacity>
-  //   );
-  // };
 
   const plusBTN = () => {
     return (
@@ -830,7 +820,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay1Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -851,7 +845,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay2Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -869,7 +867,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay3Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -889,7 +891,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay4Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -907,7 +913,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay5Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -927,7 +937,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay6Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -948,7 +962,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay7Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -969,7 +987,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay8Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -990,7 +1012,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay9Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -1011,7 +1037,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay10Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -1020,15 +1050,19 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           msg = Common.getTranslation(LangKey.businessLay11Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
     }
   };
 
-  const getLayout = () => {
-    switch (currentLayout.id) {
+  const getLayout = (curLayoutId) => {
+    switch (curLayoutId) {
       case Constant.businessLay1Id:
         return getLayout1();
       case Constant.businessLay2Id:
@@ -2025,6 +2059,31 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
+  const pagination = () => {
+    return (
+      <Pagination
+        dotsLength={layouts ? layouts.length : 0}
+        activeDotIndex={activeSlide}
+        containerStyle={{
+          alignSelf: "center",
+          paddingTop: 5,
+          paddingBottom: 10,
+        }}
+        dotStyle={{
+          width: 7,
+          height: 7,
+          marginHorizontal: -8,
+          backgroundColor: Color.primary,
+        }}
+        inactiveDotStyle={{
+          backgroundColor: Color.txtIntxtcolor,
+        }}
+        inactiveDotOpacity={0.6}
+        inactiveDotScale={0.8}
+      />
+    );
+  };
+
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
@@ -2042,12 +2101,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     return (
       <FlatList
         horizontal
+        ref={layRef}
         showsHorizontalScrollIndicator={false}
         data={layouts}
         keyExtractor={keyExtractor}
         contentContainerStyle={{}}
         contentContainerStyle={styles.flatlist}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={0.6}
             key={item.id}
@@ -2059,7 +2119,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               ) {
                 setVisibleModal(true);
               } else {
-                checkAndSetLayout(item);
+                flatlistSliderRef.current.scrollToIndex({
+                  index: index,
+                });
+                // checkAndSetLayout(item);
                 // setCurrentLayout(item);
               }
             }}
@@ -2070,7 +2133,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 style={{ width: width / 2.5, height: 40 }}
                 resizeMode={FastImage.resizeMode.contain}
               />
-              {currentLayout && item.id === currentLayout.id && (
+              {index === activeSlide && (
                 <View
                   style={[
                     styles.icnCheck,
@@ -2343,6 +2406,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       {socialIcon()}
     </View>
   );
+  const onViewRef = React.useRef((viewableItems) => {
+    layRef.current.scrollToIndex({
+      index: viewableItems.viewableItems[0].index,
+    });
+    setActiveSlide(viewableItems.viewableItems[0].index);
+  });
+  const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
+  const flatlistSliderRef = useRef();
 
   const bussiness = () => {
     return (
@@ -2545,10 +2616,31 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                     }}
                     style={{ flex: 1 }}
                   >
-                    {currentLayout && getLayout()}
+                    <FlatList
+                      ref={flatlistSliderRef}
+                      data={layouts}
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      pagingEnabled
+                      onViewableItemsChanged={onViewRef.current}
+                      viewabilityConfig={viewConfigRef.current}
+                      keyExt={keyExtractor}
+                      renderItem={({ item, index }) => {
+                        return (
+                          <View
+                            style={{
+                              width: width - 25,
+                            }}
+                          >
+                            {getLayout(item.id, index)}
+                          </View>
+                        );
+                      }}
+                    />
                   </FastImage>
                 </View>
               </ViewShot>
+              {pagination()}
             </View>
           </ScrollView>
           <View

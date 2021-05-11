@@ -1,17 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import { StackActions } from "@react-navigation/native";
 import { AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+import { format } from "date-fns";
 
 // relative path
 import GraphqlQuery from "../utils/GraphqlQuery";
@@ -23,7 +18,6 @@ import LangKey from "../utils/LangKey";
 import Color from "../utils/Color";
 import FastImage from "react-native-fast-image";
 import PopUp from "../components/PopUp";
-import { format } from "date-fns";
 
 let adCounter = 0;
 

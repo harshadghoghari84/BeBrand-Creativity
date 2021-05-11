@@ -467,7 +467,22 @@ export default {
           url
         }
       }
-
+      designPackagesIos {
+        id
+        name
+        type
+        actualPrice
+        discountPrice
+        designCredit
+        description
+        businessImageLimit
+        personalImageLimit
+        validity
+        features
+        image {
+          url
+        }
+      }
       lastNotificationTime
       modalOffers {
         id

@@ -4,52 +4,69 @@ import {
   StyleSheet,
   TextInput,
   SafeAreaView,
-  Platform,
-  StatusBar,
   Keyboard,
   TouchableOpacity,
   Text,
 } from "react-native";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { inject, observer } from "mobx-react";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// relative path
 import Color from "../utils/Color";
 import Button from "../components/Button";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "../components/svgIcons";
 import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
-import FastImage from "react-native-fast-image";
 import Logo from "../components/Logo";
 
 let myInterval;
 
 const Otp = ({ route, navigation, userStore }) => {
-  // state for textInput
+  const { mobile, password } = route.params;
+  /*
+  ..######..########....###....########.########
+  .##....##....##......##.##......##....##......
+  .##..........##.....##...##.....##....##......
+  ..######.....##....##.....##....##....######..
+  .......##....##....#########....##....##......
+  .##....##....##....##.....##....##....##......
+  ..######.....##....##.....##....##....########
+  */
   const [firstVal, setFirstVal] = useState("");
   const [secondVal, setSecondVal] = useState("");
   const [thirdVal, setThirdVal] = useState("");
   const [fourVal, setFourVal] = useState("");
   const [fiveVal, setFiveVal] = useState("");
   const [sixVal, setSixVal] = useState("");
-
   const [time, setTime] = useState({ minutes: 2, seconds: 0 });
-
   const [disable, setDisable] = useState(true);
+
+  const [sendUserOtp, { loading: otpLoading, data: otpData }] = useMutation(
+    GraphqlQuery.sendUserOtp,
+    {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    }
+  );
+  const [verifyUserOtp, { loading, data, error }] = useLazyQuery(
+    password ? GraphqlQuery.resetUserPassword : GraphqlQuery.verifyUserOtp,
+    {
+      errorPolicy: "all",
+    }
+  );
 
   useEffect(() => {
     startInterval();
-
     return () => {
       setTime({ seconds: 0, minutes: 0 });
     };
   }, []);
+
   useEffect(() => {
     if (time.minutes <= 2 && (time.seconds > 0 || time.minutes > 0)) {
-      console.log("inside");
       startInterval();
     }
   }, [time.seconds, time.minutes]);
@@ -73,22 +90,6 @@ const Otp = ({ route, navigation, userStore }) => {
   const fourRef = useRef(null);
   const fiveRef = useRef(null);
   const sixRef = useRef(null);
-
-  const { mobile, password } = route.params;
-
-  const [sendUserOtp, { loading: otpLoading, data: otpData }] = useMutation(
-    GraphqlQuery.sendUserOtp,
-    {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    }
-  );
-  const [verifyUserOtp, { loading, data, error }] = useLazyQuery(
-    password ? GraphqlQuery.resetUserPassword : GraphqlQuery.verifyUserOtp,
-    {
-      errorPolicy: "all",
-    }
-  );
 
   useEffect(() => {
     firstRef.current.focus();
@@ -191,6 +192,15 @@ const Otp = ({ route, navigation, userStore }) => {
       .catch((err) => console.log("catch er", err));
   };
 
+  /*
+  ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
+  .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
+  .##.......##.....##.####.####.##.....##.##.....##.####..##.##.......####..##....##....##......
+  .##.......##.....##.##.###.##.########..##.....##.##.##.##.######...##.##.##....##.....######.
+  .##.......##.....##.##.....##.##........##.....##.##..####.##.......##..####....##..........##
+  .##....##.##.....##.##.....##.##........##.....##.##...###.##.......##...###....##....##....##
+  ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
+  */
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -413,14 +423,6 @@ const Otp = ({ route, navigation, userStore }) => {
   );
 };
 export default inject("userStore")(observer(Otp));
-
-const getStatusBarHeight = () => {
-  let height = 0;
-
-  if (Platform.OS == "android") height = StatusBar.currentHeight;
-
-  return height;
-};
 
 const styles = StyleSheet.create({
   container: {

@@ -17,7 +17,7 @@ import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
 import FastImage from "react-native-fast-image";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
-
+import { FileSystem } from "react-native-unimodules";
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -27,18 +27,16 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { AddressValidatorPro, emptyValidator } from "../../utils/Validator";
+import { AddressValidatorPro } from "../../utils/Validator";
 import PopUp from "../../components/PopUp";
 import {
   nameValidatorPro,
   mobileValidatorPro,
   emailValidatorPro,
-  designationValidatorPro,
   SocailMediaValidatorPro,
   websiteValidatorPro,
 } from "../../utils/Validator";
 import Constant from "../../utils/Constant";
-import { FileSystem } from "react-native-unimodules";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -565,15 +563,24 @@ const BusinessProfile = ({ userStore }) => {
 
                   {defaultImageUrl === item.url && (
                     <View
-                      style={[
-                        styles.toProfileImage,
-                        {
-                          backgroundColor: Color.blackTransparant,
-                          position: "absolute",
-                          opacity: 0.5,
-                        },
-                      ]}
-                    />
+                      style={{
+                        position: "absolute",
+                        zIndex: 1,
+                        bottom: 5,
+                        backgroundColor: Color.blackTransTagFree,
+                        width: "90%",
+                        alignItems: "center",
+                        paddingVertical: 2,
+                        borderRadius: 5,
+                      }}
+                    >
+                      <Icon
+                        name="mark"
+                        height={18}
+                        width={18}
+                        fill={Color.darkBlue}
+                      />
+                    </View>
                   )}
                   <TouchableOpacity
                     onPress={() => onCloseBTN(item.url)}
@@ -721,11 +728,11 @@ const styles = StyleSheet.create({
   txtUploadImage: {
     paddingHorizontal: 20,
     backgroundColor: Color.white,
+    fontSize: 12,
   },
   txtUploadImage1: {
-    paddingHorizontal: 20,
     paddingVertical: 5,
-    backgroundColor: Color.white,
+    fontSize: 12,
   },
   UploadPng: { alignSelf: "center" },
 });

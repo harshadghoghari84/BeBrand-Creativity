@@ -12,20 +12,18 @@ import {
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import RNIap, {
-  InAppPurchase,
-  PurchaseError,
-  SubscriptionPurchase,
-  acknowledgePurchaseAndroid,
   finishTransaction,
   finishTransactionIOS,
   purchaseErrorListener,
   purchaseUpdatedListener,
   initConnection,
   getProducts as rnIapProducts,
-  flushFailedPurchasesCachedAsPendingAndroid,
   consumePurchaseAndroid,
   requestSubscription as rnIapRequestSubscription,
 } from "react-native-iap";
+import { SvgUri } from "react-native-svg";
+import { useMutation } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Relative Path
 import Common from "../../utils/Common";
@@ -34,13 +32,8 @@ import LangKey from "../../utils/LangKey";
 import Button from "../../components/Button";
 import Constant from "../../utils/Constant";
 import Icon from "../../components/svgIcons";
-import FastImage from "react-native-fast-image";
-import { SvgUri } from "react-native-svg";
-import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import { color } from "react-native-reanimated";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let isGetProducts = false;
 
@@ -66,7 +59,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      const designPackages = toJS(designStore.designPackages);
+      const designPackages = toJS(designStore.designPackagesIos);
       const filterData = designPackages.filter(
         (ele) => ele.type === Constant.vip
       );
@@ -97,24 +90,28 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
   const getProducts = async () => {
     console.log("inside get product");
     try {
-      const result = await initConnection();
-      if (result) {
-        try {
-          rnIapProducts(itemSkus)
-            .then((res) => {
-              console.log("get product :", res);
-              setIsFetching(1);
-              isGetProducts = true;
-            })
-            .catch((err) => {
-              console.log("ahacacb", err);
-              setIsFetching(2);
-              isGetProducts = false;
-            });
-        } catch (err) {
-          isGetProducts = false;
-        }
-      }
+      initConnection()
+        .then(() => {
+          try {
+            rnIapProducts(itemSkus)
+              .then((res) => {
+                console.log("get product :", res);
+                setIsFetching(1);
+                isGetProducts = true;
+              })
+              .catch((err) => {
+                console.log("ahacacb", err);
+                setIsFetching(2);
+                isGetProducts = false;
+              });
+          } catch (err) {
+            isGetProducts = false;
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+
       // await flushFailedPurchasesCachedAsPendingAndroid();
     } catch (err) {
       console.log(err.code, err.message);
@@ -169,6 +166,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
       try {
         rnIapRequestSubscription(sku)
           .then(async (res) => {
+            console.log("res", res);
             if (res && res !== null) {
               let obj = { itemId: sku, PToken: res.purchaseToken };
               await AsyncStorage.setItem(
@@ -178,7 +176,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
               addUserDesignPackage({
                 variables: {
                   packageId: sku,
-                  androidPerchaseToken: res.purchaseToken,
+                  iosPerchaseReceipt: res.transactionReceipt,
                 },
               })
                 .then(async ({ data, errors }) => {

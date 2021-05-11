@@ -28,6 +28,7 @@ import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+import { Pagination } from "react-native-snap-carousel";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -42,11 +43,13 @@ import SvgConstant from "../../utils/SvgConstant";
 import MuktaText from "../../components/MuktaText";
 
 const { width, height } = Dimensions.get("window");
+
 let isShareClick = false;
 let msg = "";
 let adAvilable = false;
 let adCounter = 0;
 let setCurLayout = {};
+let firstTime = true;
 
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
@@ -73,6 +76,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   .##....##....##....##.....##....##....##......
   ..######.....##....##.....##....##....########
   */
+
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const [visibleModal, setVisibleModal] = useState(false);
   const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
@@ -118,6 +123,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const toggleVisibleMsg = (val) => {
     if (val === true) {
+      let findIndex = layouts.findIndex((ele) => ele.id === setCurLayout.id);
+      setActiveSlide(findIndex);
       setCurLayout !== undefined &&
         setCurLayout !== null &&
         setCurrentLayout(setCurLayout);
@@ -214,9 +221,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       AsyncStorage.setItem(
         Constant.prfViewDesigns,
         JSON.stringify(viewableItem)
-      )
-        .then((res) => console.log("res", res))
-        .catch((err) => console.log("err", err));
+      );
     }
   }, [viewableItem]);
 
@@ -262,7 +267,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const fbShowAd = () => {
     InterstitialAdManager.showAd(Constant.InterstitialAdPlacementIdVideo)
       .then((res) => {
-        console.log("res", res);
         setAdReady(true),
           AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
       })
@@ -412,7 +416,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     );
 
     setLayouts(filterArr);
-    checkLayout(filterArr);
+    // checkLayout(filterArr);
   };
   const onReset = () => {
     if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
@@ -425,12 +429,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const onClickDownload = async () => {
     if (user && user !== null) {
-      if (currentLayout && currentLayout !== null) {
-        await saveDesign();
-      } else {
-        designStore.setIsDownloadStartedPersonal(false);
-        Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
-      }
+      await saveDesign();
+      // if (currentLayout && currentLayout !== null) {
+      // } else {
+      //   designStore.setIsDownloadStartedPersonal(false);
+      //   Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
+      // }
     } else {
       designStore.setIsDownloadStartedPersonal(false);
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
@@ -521,8 +525,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               asset,
               false
             )
-              .then((res) => console.log("res: ", res))
-              .catch((err) => console.log("err: ", err));
+              .then((res) => {})
+              .catch((err) => {});
       } catch (error) {
         console.log("err", error);
       }
@@ -612,6 +616,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.socialMedia &&
               userDataPersonal.socialMedia !== ""
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -629,6 +635,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.image !== "" &&
               userDataPersonal.image.length > 0
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -646,6 +654,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.image !== "" &&
               userDataPersonal.image.length > 0
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
             }
@@ -661,6 +671,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.socialMedia &&
               userDataPersonal.socialMedia !== ""
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -677,6 +689,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.socialMedia &&
               userDataPersonal.socialMedia !== ""
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -696,6 +710,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.image !== "" &&
               userDataPersonal.image.length > 0
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -715,6 +731,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.image !== "" &&
               userDataPersonal.image.length > 0
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -727,12 +745,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               userDataPersonal.designation &&
               userDataPersonal.designation !== ""
             ) {
+              let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+              setActiveSlide(findInd);
               setCurrentLayout(layout);
               isSet = true;
               return true;
             }
             break;
           case Constant.personalLay9Id:
+            let findInd = layouts.findIndex((ele) => ele.id === layout.id);
+            setActiveSlide(findInd);
             setCurrentLayout(layout);
             isSet = true;
             return true;
@@ -746,6 +768,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     }
   };
   const checkAndSetLayout = (layout) => {
+    console.log("layout", layout);
     switch (layout.id) {
       case Constant.personalLay1Id:
         if (
@@ -766,6 +789,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -785,6 +810,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -804,6 +831,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -822,6 +851,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -841,6 +872,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setCurLayout = layout;
         } else {
           msg = "";
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -862,6 +895,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -883,6 +918,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
@@ -897,33 +934,37 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           setVisibleModalMsg(true);
           setCurLayout = layout;
         } else {
+          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+          setActiveSlide(findIndex);
           setCurrentLayout(layout);
         }
         break;
       case Constant.personalLay9Id:
+        let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
+        setActiveSlide(findIndex);
         setCurrentLayout(layout);
         break;
     }
   };
 
-  const getLayout = () => {
-    switch (currentLayout.id) {
+  const getLayout = (curLayId, index) => {
+    switch (curLayId) {
       case Constant.personalLay1Id:
-        return getLayout1();
+        return GetLayout1();
       case Constant.personalLay2Id:
-        return getLayout2();
+        return GetLayout2();
       case Constant.personalLay3Id:
-        return getLayout3();
+        return GetLayout3();
       case Constant.personalLay4Id:
-        return getLayout4();
+        return GetLayout4();
       case Constant.personalLay5Id:
-        return getLayout5();
+        return GetLayout5();
       case Constant.personalLay6Id:
-        return getLayout6();
+        return GetLayout6();
       case Constant.personalLay7Id:
-        return getLayout7();
+        return GetLayout7();
       case Constant.personalLay8Id:
-        return getLayout8();
+        return GetLayout8();
       case Constant.personalLay9Id:
         return <></>;
     }
@@ -942,7 +983,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   .########.##.....##....##.....#######...#######.....##.......##.....######.
   */
 
-  const getLayout1 = () => (
+  const GetLayout1 = () => (
     <View style={styles.lay1ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout1}
@@ -1058,7 +1099,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout2 = () => (
+  const GetLayout2 = () => (
     <View style={styles.lay2ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1124,7 +1165,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout3 = () => (
+  const GetLayout3 = () => (
     <View style={styles.lay3ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1191,7 +1232,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout4 = () => (
+  const GetLayout4 = () => (
     <View style={styles.lay4ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1271,7 +1312,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout5 = () => (
+  const GetLayout5 = () => (
     <View style={styles.lay4ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1351,7 +1392,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout6 = () => (
+  const GetLayout6 = () => (
     <View style={styles.lay2ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1440,7 +1481,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout7 = () => (
+  const GetLayout7 = () => (
     <View style={styles.lay3ViewFooter}>
       <SvgCss
         xml={SvgConstant.footerPersonalLayout2}
@@ -1533,7 +1574,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     </View>
   );
 
-  const getLayout8 = () => (
+  const GetLayout8 = () => (
     <View
       style={[
         styles.lay4ViewFooter,
@@ -1578,11 +1619,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     return (
       <FlatList
         horizontal
+        ref={layRef}
         showsHorizontalScrollIndicator={false}
         data={layouts}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.flatlist}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={0.6}
             key={item.id}
@@ -1594,7 +1636,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               ) {
                 setVisibleModal(true);
               } else {
-                checkAndSetLayout(item);
+                flatlistSliderRef.current.scrollToIndex({
+                  index: index,
+                });
+                // checkAndSetLayout(item);
               }
             }}
           >
@@ -1607,7 +1652,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
                 resizeMode={FastImage.resizeMode.contain}
               />
-              {currentLayout && item.id === currentLayout.id && (
+              {index === activeSlide && (
                 <View
                   style={[
                     styles.icnCheck,
@@ -1891,6 +1936,40 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       {socialIcons()}
     </View>
   );
+  const pagination = () => {
+    return (
+      <Pagination
+        dotsLength={layouts ? layouts.length : 0}
+        activeDotIndex={activeSlide}
+        containerStyle={{
+          alignSelf: "center",
+          paddingTop: 5,
+          paddingBottom: 10,
+        }}
+        dotStyle={{
+          width: 7,
+          height: 7,
+          marginHorizontal: -8,
+          backgroundColor: Color.primary,
+        }}
+        inactiveDotStyle={{
+          backgroundColor: Color.txtIntxtcolor,
+        }}
+        inactiveDotOpacity={0.6}
+        inactiveDotScale={0.8}
+      />
+    );
+  };
+
+  const onViewRef = React.useRef((viewableItems) => {
+    layRef.current.scrollToIndex({
+      index: viewableItems.viewableItems[0].index,
+    });
+    setActiveSlide(viewableItems.viewableItems[0].index);
+  });
+  const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
+  const flatlistSliderRef = useRef();
+  const layRef = useRef();
 
   const designRef = useRef();
   return (
@@ -2069,7 +2148,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               options={{
                 format: "jpg",
                 quality: 1,
-
                 // width: pixels,
                 // height: pixels,
               }}
@@ -2094,10 +2172,31 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                   }}
                   style={{ flex: 1 }}
                 >
-                  {currentLayout && getLayout()}
+                  <FlatList
+                    ref={flatlistSliderRef}
+                    data={layouts}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled
+                    onViewableItemsChanged={onViewRef.current}
+                    viewabilityConfig={viewConfigRef.current}
+                    keyExt={keyExtractor}
+                    renderItem={({ item, index }) => {
+                      return (
+                        <View
+                          style={{
+                            width: width - 25,
+                          }}
+                        >
+                          {getLayout(item.id, index)}
+                        </View>
+                      );
+                    }}
+                  />
                 </FastImage>
               </View>
             </ViewShot>
+            {pagination()}
           </View>
         </ScrollView>
         <View
