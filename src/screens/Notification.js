@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { format } from "date-fns";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { inject, observer } from "mobx-react";
+import FastImage from "react-native-fast-image";
 // relative path
 import Icon from "../components/svgIcons";
 import Color from "../utils/Color";
@@ -20,8 +21,6 @@ import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
 import Constant from "../utils/Constant";
 import PopUp from "../components/PopUp";
-import { inject, observer } from "mobx-react";
-import FastImage from "react-native-fast-image";
 
 let notiMsgItem = {};
 let iconName = {};

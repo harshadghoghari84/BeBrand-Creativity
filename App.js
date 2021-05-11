@@ -42,51 +42,6 @@ const DrawerScreen = () => {
 };
 
 const App = () => {
-  // const navigation = useNavigation();
-
-  // const [isTimerRunning, setIsTimerRunning] = useState(true);
-
-  // let loading = false;
-  // useEffect(() => {
-  //   loading = true;
-  //   SplashScreen.preventAutoHideAsync()
-  //     .then((result) => {})
-  //     .catch((err) => {});
-  //   AsyncStorage.getItem(Constant.prfUserToken).then(async (token) => {
-  //     console.log("==>toen", token);
-  //     token &&
-  //       client
-  //         .query({
-  //           query: GraphqlQuery.user,
-  //           errorPolicy: {
-  //             errorPolicy: "all",
-  //           },
-  //         })
-  //         .then(async ({ data, errors }) => {
-  //           console.log("data", data);
-  //           console.log("err", errors);
-  //           !errors && data?.user && userStore.setUser(data.user);
-  //           loading = false;
-
-  //           !isTimerRunning && (await openScreen());
-  //         })
-  //         .catch((err) => (loading = false));
-  //     startWithDelay();
-  //   });
-  // }, []);
-  // const startWithDelay = () => {
-  //   setTimeout(async () => {
-  //     setIsTimerRunning(false);
-  //     !loading && (await openScreen());
-  //   }, Constant.splashTime);
-  // };
-  // const openScreen = async () => {
-  //   await SplashScreen.hideAsync();
-
-  //   // navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-  // };
-  // !loading && isTimerRunning === false && openScreen();
-
   return (
     <Provider designStore={DesignStore} userStore={UserStore}>
       <ApolloProvider client={client}>

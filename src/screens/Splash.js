@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, Platform } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
-import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { StackActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";

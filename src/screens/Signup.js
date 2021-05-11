@@ -8,13 +8,10 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
-import { GoogleSignin } from "@react-native-community/google-signin";
-import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { inject, observer } from "mobx-react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import auth from "@react-native-firebase/auth";
+
 // Relative path
 import TextInput from "../components/TextInput";
 import { paperTheme as theme } from "../utils/Theme";
@@ -35,8 +32,16 @@ import Logo from "../components/Logo";
 
 const RegisterScreen = ({ userStore }) => {
   const navigation = useNavigation();
+  /*
+  ..######..########....###....########.########
+  .##....##....##......##.##......##....##......
+  .##..........##.....##...##.....##....##......
+  ..######.....##....##.....##....##....######..
+  .......##....##....#########....##....##......
+  .##....##....##....##.....##....##....##......
+  ..######.....##....##.....##....##....########
+  */
   const [loader, setLoader] = useState(false);
-
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [confirmPassword, setConfirmPassword] = useState({
@@ -50,134 +55,6 @@ const RegisterScreen = ({ userStore }) => {
   const [userSignup, { loading }] = useMutation(GraphqlQuery.userSignup, {
     errorPolicy: "all",
   });
-
-  const [userSignupSocial, { loading: mutLoading }] = useMutation(
-    GraphqlQuery.userSignupSocial,
-    {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    }
-  );
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: Constant.webClientId,
-      offlineAccess: true,
-    });
-  }, []);
-
-  /*
-  .##....##....###....##.....##.####..######......###....########.####..#######..##....##
-  .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
-  .####..##..##...##..##.....##..##..##.........##...##.....##.....##..##.....##.####..##
-  .##.##.##.##.....##.##.....##..##..##...####.##.....##....##.....##..##.....##.##.##.##
-  .##..####.#########..##...##...##..##....##..#########....##.....##..##.....##.##..####
-  .##...###.##.....##...##.##....##..##....##..##.....##....##.....##..##.....##.##...###
-  .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
-  */
-
-  const sendTokentoServer = (response) => {
-    try {
-      auth()
-        .currentUser?.getIdToken()
-        .then((token) => {
-          return userSignupSocial({
-            variables: {
-              token: token,
-            },
-          })
-            .then(({ data, errors }) => {
-              if (errors && errors.length > 0) {
-                const errorMsg = data.errors[0].message;
-                Common.showMessage(errorMsg);
-              }
-
-              if (data) {
-                if (data != null) {
-                  // set user to userStore
-                  data?.userSignupSocial?.user &&
-                    userStore.setUser(data.userSignupSocial.user);
-
-                  const token = data.userSignupSocial.token;
-
-                  AsyncStorage.setItem(Constant.prfUserToken, token).then(
-                    () => {
-                      navigation.navigate(Constant.navHome);
-                    }
-                  );
-                }
-              }
-            })
-            .catch((error) => {
-              console.log("catch error", error);
-            });
-        });
-    } catch (err) {
-      console.log("=======>err", err);
-    }
-  };
-
-  const onGoogleLogin = async () => {
-    try {
-      setLoader(true);
-      const isSignedIn = await GoogleSignin.isSignedIn();
-      if (isSignedIn) {
-        try {
-          const userInfo = await GoogleSignin.signInSilently();
-          const googleCredential = auth.GoogleAuthProvider.credential(
-            userInfo.idToken
-          );
-          auth()
-            .signInWithCredential(googleCredential)
-            .then((res) => {
-              sendTokentoServer(res);
-              setLoader(false);
-            });
-        } catch (error) {
-          setLoader(false);
-
-          console.log(error);
-        }
-      } else {
-        const { idToken } = await GoogleSignin.signIn();
-
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        return auth()
-          .signInWithCredential(googleCredential)
-          .then((res) => {
-            sendTokentoServer(res);
-          });
-      }
-    } catch (error) {
-      console.log("===>", error);
-    }
-  };
-
-  const onFaceBookLogin = async () => {
-    try {
-      const result = await LoginManager.logInWithPermissions([
-        "public_profile",
-        "email",
-      ]);
-      if (result.isCancelled) {
-        throw "User cancelled the login process";
-      }
-      const data = await AccessToken.getCurrentAccessToken();
-      if (!data) {
-        throw "Something went wrong obtaining access token";
-      }
-      const facebookCredential = auth.FacebookAuthProvider.credential(
-        data.accessToken
-      );
-      return auth()
-        .signInWithCredential(facebookCredential)
-        .then((res) => {
-          sendTokentoServer(res);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const _onSendOtp = async () => {
     const mobileError = mobileValidator(mobileNo.value);
@@ -216,96 +93,19 @@ const RegisterScreen = ({ userStore }) => {
     }
   };
 
-  const [verifyUserOtp, { error, data }] = useLazyQuery(
-    GraphqlQuery.verifyUserOtp
-  );
-
-  if (error && error.length > 0) {
-    const errorMsg = result.errors[0].message;
-    Common.showMessage(errorMsg);
-  }
-
-  if (data) {
-    if (data != null) {
-      // set user to userStore
-      data?.verifyUserOtp?.user && userStore.setUser(data.verifyUserOtp.user);
-
-      const token = data.verifyUserOtp.token;
-
-      AsyncStorage.setItem(Constant.prfUserToken, token).then(() => {
-        navigation.navigate(Constant.navHome);
-      });
-    } else {
-    }
-  }
-
-  const verifyOtp = () => {
-    try {
-      verifyUserOtp({
-        variables: {
-          mobile: mobileNo.value,
-          otp: otp,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const onPressGetOtp = () => {
-    setOtpVisible(true);
-
-    const mobileError = mobileValidator(mobileNo.value);
-    const passwordError = passwordValidator(password.value);
-    const confirmPasswordError = confirmPasswordValidator(
-      password.value,
-      confirmPassword.value
-    );
-
-    if (mobileError || passwordError || confirmPasswordError) {
-      setMobileNo({ ...mobileNo, error: mobileError });
-      setPassword({ ...password, error: passwordError });
-      setConfirmPassword({ ...confirmPassword, error: confirmPasswordError });
-      return;
-    }
-
-    try {
-      userSignup({
-        variables: {
-          mobile: mobileNo.value,
-          password: password.value,
-        },
-      }).then((result) => {
-        const data = result.data;
-        if (data !== null) {
-        } else {
-          const errorMsg = result.errors[0].message;
-          Common.showMessage(errorMsg);
-        }
-      });
-    } catch (err) {
-      console.log("ERROR", err);
-    }
-  };
-
-  const makeFadeInTranslation = (translationType, fromValue) => {
-    return {
-      from: {
-        opacity: 0,
-        [translationType]: fromValue,
-      },
-      to: {
-        opacity: 1,
-        [translationType]: 0,
-      },
-    };
-  };
-
-  const fadeInDown = makeFadeInTranslation("translateY", -30);
-
   const onLegal = () => {
     Common.openWeb();
   };
+
+  /*
+  ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
+  .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
+  .##.......##.....##.####.####.##.....##.##.....##.####..##.##.......####..##....##....##......
+  .##.......##.....##.##.###.##.########..##.....##.##.##.##.######...##.##.##....##.....######.
+  .##.......##.....##.##.....##.##........##.....##.##..####.##.......##..####....##..........##
+  .##....##.##.....##.##.....##.##........##.....##.##...###.##.......##...###....##....##....##
+  ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
+  */
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -385,16 +185,6 @@ const RegisterScreen = ({ userStore }) => {
               ) && "mark"
             }
           />
-          {/* <TextInput
-            placeholder={Common.getTranslation(LangKey.labReferralcode)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="done"
-            iconName="refferfilld"
-            value={referrCode}
-            onChangeText={(text) => setReferrCode(text)}
-            // error={!!confirmPassword.error}
-            // errorText={confirmPassword.error}
-          /> */}
 
           <View style={{ marginVertical: 20 }}>
             <Button
@@ -429,79 +219,6 @@ const RegisterScreen = ({ userStore }) => {
               </Text>
             </TouchableOpacity>
           </View>
-
-          {/* {otpVisible && (
-            <Animatable.View
-              animation={fadeInDown}
-              direction="normal"
-              duration={500}
-              style={{
-                width: "95%",
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "center",
-              }}
-            >
-              <View
-                style={[
-                  styles.socialBTNView,
-                  {
-                    width: "50%",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  },
-                ]}
-              >
-                <TEXTINPUT
-                  style={[
-                    styles.socialTXT,
-                    {
-                      width: "100%",
-                      textAlign: "center",
-                      letterSpacing: 5,
-                    },
-                  ]}
-                  placeholder="______"
-                  placeholderTextColor={Color.txtIntxtcolor}
-                  keyboardType="number-pad"
-                  maxLength={6}
-                  value={otp}
-                  onChangeText={(val) => setOtp(val)}
-                />
-              </View>
-              <Text
-                style={{
-                  alignSelf: "center",
-                  color: Color.darkBlue,
-                  fontSize: 12,
-                  paddingVertical: 8,
-                }}
-              >
-                {Common.getTranslation(LangKey.labAnOtpSent)}
-              </Text>
-            </Animatable.View>
-          )} */}
-          {/* {password.value.length > 0 ? (
-            <>
-              {otp !== null && otp.length > 5 ? (
-                <Button
-                  normal={true}
-                  onPress={() => verifyOtp()}
-                  disabled={loading}
-                >
-                  {Common.getTranslation(LangKey.labSignup)}
-                </Button>
-              ) : (
-                <Button
-                  normal={true}
-                  onPress={() => _onSignUpPressed()}
-                  disabled={loading}
-                >
-                  {Common.getTranslation(LangKey.labSendOTP)}
-                </Button>
-              )}
-            </>
-          ) : null} */}
         </View>
         <View
           style={{

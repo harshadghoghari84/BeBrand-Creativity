@@ -7,16 +7,17 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
+import FastImage from "react-native-fast-image";
+// relative path
 import Color from "../../utils/Color";
 import Constant from "../../utils/Constant";
-import FastImage from "react-native-fast-image";
 import Icon from "../../components/svgIcons";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
+
 const imgWidth = (Dimensions.get("window").width - 30) / 2;
 
 const ItemDesign = ({
-  dummyView,
   packageType,
   design,
   onDesignClick,

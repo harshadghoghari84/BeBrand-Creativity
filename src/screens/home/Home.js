@@ -14,24 +14,24 @@ import {
   Platform,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import FastImage from "react-native-fast-image";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { AdMobInterstitial } from "expo-ads-admob";
+import { InterstitialAdManager, AdSettings } from "react-native-fbads";
+
+// relative path
+import GraphqlQuery from "../../utils/GraphqlQuery";
+import LangKey from "../../utils/LangKey";
+import ProgressDialog from "../common/ProgressDialog";
 import ItemSubCategory from "./ItemSubCategory";
 import Constant from "../../utils/Constant";
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import FastImage from "react-native-fast-image";
-import ProgressDialog from "../common/ProgressDialog";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import GraphqlQuery from "../../utils/GraphqlQuery";
-import LangKey from "../../utils/LangKey";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { SvgCss } from "react-native-svg";
-import SvgConstant from "../../utils/SvgConstant";
-import { AdMobInterstitial } from "expo-ads-admob";
-import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { fcmService } from "../../FCM/FCMService";
 import { localNotificationService } from "../../FCM/LocalNotificationService";
 
@@ -237,6 +237,7 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   useEffect(() => {
     const analtdata = toJS(designStore.anltDataObj);
+
     if (user && user !== null) {
       if (
         analtdata.imp &&

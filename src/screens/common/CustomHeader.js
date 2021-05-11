@@ -5,18 +5,17 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
-  Image,
   Text,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import FastImage from "react-native-fast-image";
+import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
 // relative Path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
 import Modal from "../../components/modal";
 import Constant from "../../utils/Constant";
-import FastImage from "react-native-fast-image";
-import { inject, observer } from "mobx-react";
-import { toJS } from "mobx";
 
 const CustomHeader = ({
   langauge = false,

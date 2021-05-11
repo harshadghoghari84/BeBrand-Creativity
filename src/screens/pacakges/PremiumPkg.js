@@ -13,6 +13,8 @@ import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import RazorpayCheckout from "react-native-razorpay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgUri } from "react-native-svg";
+import { useMutation } from "@apollo/client";
 
 // Relative Path
 import Common from "../../utils/Common";
@@ -21,12 +23,8 @@ import LangKey from "../../utils/LangKey";
 import Button from "../../components/Button";
 import Constant from "../../utils/Constant";
 import Icon from "../../components/svgIcons";
-import FastImage from "react-native-fast-image";
-import { SvgUri } from "react-native-svg";
-import { useMutation } from "@apollo/client";
 import GraphqlQuery from "../../utils/GraphqlQuery";
 import ProgressDialog from "../common/ProgressDialog";
-import Logo from "../../assets/img/bdt.png";
 
 let isGetProducts = false;
 

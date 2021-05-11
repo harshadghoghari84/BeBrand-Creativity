@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { Modal, Portal } from "react-native-paper";
-import ColorPropType from "react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType";
+// relative path
 import Color from "../../utils/Color";
 
 const ProgressDialog = ({ visible, dismissable, title, message, color }) => (

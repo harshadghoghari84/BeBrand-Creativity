@@ -44,6 +44,7 @@ class DesignStore {
   totalUserSubCategoriesBefore = 0;
   designLayouts = [];
   designPackages = [];
+  designPackagesIos = [];
   languages = [];
   isNewNotification = false;
   lastNotificationTime = undefined;
@@ -72,6 +73,7 @@ class DesignStore {
 
         if (data) {
           this.designPackages = data.designPackages;
+          this.designPackagesIos = data.designPackagesIos;
           this.userSubCategoriesHome = data.userSubCategoriesAfter;
           this.globleUserSubCategoriesAfter = data.userSubCategoriesAfter;
           this.globleUserSubCategoriesBefore = data.userSubCategoriesBefore;
@@ -318,13 +320,13 @@ class DesignStore {
         }
       })
       .catch((err) => console.log(err));
-    await AsyncStorage.getItem(Constant.prfViewDesignsBusiness)
-      .then((res) => {
-        if (res && res !== null) {
-          obj.vie = [...obj.vie, JSON.parse(res)];
-        }
-      })
-      .catch((err) => console.log(err));
+    // await AsyncStorage.getItem(Constant.prfViewDesignsBusiness)
+    //   .then((res) => {
+    //     if (res && res !== null) {
+    //       obj.vie = [...obj.vie, JSON.parse(res)];
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
     this.anltDataObj = toJS(obj);
   };
 }
@@ -340,6 +342,7 @@ decorate(DesignStore, {
   bhdLoading: observable,
   udLoading: observable,
   designPackages: observable,
+  designPackagesIos: observable,
   modalOffers: observable,
   userSubCategoriesAfter: observable,
   totalUserSubCategoriesAfter: observable,

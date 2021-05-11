@@ -10,18 +10,12 @@ import {
 import { useMutation } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
-import * as Animatable from "react-native-animatable";
-import {
-  GoogleSignin,
-  statusCodes,
-} from "@react-native-community/google-signin";
-import {
-  AccessToken,
-  GraphRequest,
-  GraphRequestManager,
-  LoginManager,
-} from "react-native-fbsdk";
-
+import { GoogleSignin } from "@react-native-community/google-signin";
+import { AccessToken, LoginManager } from "react-native-fbsdk";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "../components/svgIcons";
+import auth from "@react-native-firebase/auth";
+// relative path
 import TextInput from "../components/TextInput";
 import { paperTheme as theme } from "../utils/Theme";
 import {
@@ -33,10 +27,7 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 import Constant from "../utils/Constant";
 import LangKey from "../utils/LangKey";
 import Common from "../utils/Common";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Color from "../utils/Color";
-import Icon from "../components/svgIcons";
-import auth from "@react-native-firebase/auth";
 import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
@@ -44,11 +35,17 @@ import Logo from "../components/Logo";
 const SignInScreen = ({ userStore }) => {
   const navigation = useNavigation();
 
+  /*
+  ..######..########....###....########.########
+  .##....##....##......##.##......##....##......
+  .##..........##.....##...##.....##....##......
+  ..######.....##....##.....##....##....######..
+  .......##....##....#########....##....##......
+  .##....##....##....##.....##....##....##......
+  ..######.....##....##.....##....##....########
+  */
   const [loader, setLoader] = useState(false);
   const [secureText, setSecureText] = useState(true);
-  const toggleSecureText = () => {
-    setSecureText(!secureText);
-  };
   const [mobileNo, setMobileNo] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [userNotVerify, setUserNotVerify] = useState(false);
@@ -57,8 +54,6 @@ const SignInScreen = ({ userStore }) => {
     error: "",
   });
   const [isForgotPass, setIsForgotPass] = useState(false);
-  const [user, setUser] = useState();
-  const [initializing, setInitializing] = useState(true);
 
   const [userLogin, { loading }] = useMutation(GraphqlQuery.userLogin, {
     errorPolicy: "all",
@@ -78,22 +73,16 @@ const SignInScreen = ({ userStore }) => {
     }
   );
 
+  const toggleSecureText = () => {
+    setSecureText(!secureText);
+  };
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: Constant.webClientId,
       offlineAccess: true,
     });
   }, []);
-
-  /*
-  .##....##....###....##.....##.####..######......###....########.####..#######..##....##
-  .###...##...##.##...##.....##..##..##....##....##.##......##.....##..##.....##.###...##
-  .####..##..##...##..##.....##..##..##.........##...##.....##.....##..##.....##.####..##
-  .##.##.##.##.....##.##.....##..##..##...####.##.....##....##.....##..##.....##.##.##.##
-  .##..####.#########..##...##...##..##....##..#########....##.....##..##.....##.##..####
-  .##...###.##.....##...##.##....##..##....##..##.....##....##.....##..##.....##.##...###
-  .##....##.##.....##....###....####..######...##.....##....##....####..#######..##....##
-  */
 
   const sendTokentoServer = () => {
     try {
@@ -320,20 +309,15 @@ const SignInScreen = ({ userStore }) => {
       });
   };
 
-  const makeFadeInTranslation = (translationType, fromValue) => {
-    return {
-      from: {
-        opacity: 0,
-        [translationType]: fromValue,
-      },
-      to: {
-        opacity: 1,
-        [translationType]: 0,
-      },
-    };
-  };
-
-  const fadeInDown = makeFadeInTranslation("translateY", -30);
+  /*
+  ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
+  .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
+  .##.......##.....##.####.####.##.....##.##.....##.####..##.##.......####..##....##....##......
+  .##.......##.....##.##.###.##.########..##.....##.##.##.##.######...##.##.##....##.....######.
+  .##.......##.....##.##.....##.##........##.....##.##..####.##.......##..####....##..........##
+  .##....##.##.....##.##.....##.##........##.....##.##...###.##.......##...###....##....##....##
+  ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
+  */
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView

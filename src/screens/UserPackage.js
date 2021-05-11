@@ -1,26 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
-
+import FastImage from "react-native-fast-image";
+import { SvgUri } from "react-native-svg";
+import { format } from "date-fns";
+// relative path
 import GraphqlQuery from "../utils/GraphqlQuery";
-import ItemDesign from "./common/ItemDesign";
 import Common from "../utils/Common";
 import Constant from "../utils/Constant";
 import Color from "../utils/Color";
-import { color } from "react-native-reanimated";
 import LangKey from "../utils/LangKey";
-import FastImage from "react-native-fast-image";
 import ProgressDialog from "./common/ProgressDialog";
-import { SvgUri } from "react-native-svg";
-import { format } from "date-fns";
 
 let isFirstTime = true;
 

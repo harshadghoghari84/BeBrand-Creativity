@@ -11,6 +11,8 @@ import {
   Platform,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import ICON from "react-native-vector-icons/MaterialCommunityIcons";
+import { format } from "date-fns";
 // relative Path
 import Button from "../components/Button";
 import Icon from "../components/svgIcons";
@@ -21,8 +23,6 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 import LangKey from "../utils/LangKey";
 import ProgressDialog from "./common/ProgressDialog";
 import { emptyValidator } from "../utils/Validator";
-import ICON from "react-native-vector-icons/MaterialCommunityIcons";
-import { format } from "date-fns";
 
 const UserProfile = ({ userStore }) => {
   const user = toJS(userStore.user);

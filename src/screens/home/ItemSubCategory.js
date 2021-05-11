@@ -1,11 +1,12 @@
 import React, { memo } from "react";
 import moment from "moment";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import FastImage from "react-native-fast-image";
+// relative path
 import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
 import Constant from "../../utils/Constant";
-import FastImage from "react-native-fast-image";
 
 const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
   const color = isSelectedId === index ? Color.primary : Color.black;
