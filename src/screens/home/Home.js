@@ -44,9 +44,8 @@ let impression = [];
 const Home = ({ navigation, designStore, userStore }) => {
   const user = toJS(userStore.user);
 
-  const [modalVisibleForModalOffers, setModalVisibleForModalOffers] = useState(
-    false
-  );
+  const [modalVisibleForModalOffers, setModalVisibleForModalOffers] =
+    useState(false);
   const toggleVisibleForModalOffers = () => {
     setModalVisibleForModalOffers(!modalVisibleForModalOffers);
   };
@@ -65,14 +64,10 @@ const Home = ({ navigation, designStore, userStore }) => {
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
   const [userSubCategories, setUserSubCategories] = useState([]);
-  const [
-    totalUserSubCategoriesAfter,
-    setTotalUserSubCategoriesAfter,
-  ] = useState(0);
-  const [
-    totalUserSubCategoriesBefore,
-    setTotalUserSubCategoriesBefore,
-  ] = useState(0);
+  const [totalUserSubCategoriesAfter, setTotalUserSubCategoriesAfter] =
+    useState(0);
+  const [totalUserSubCategoriesBefore, setTotalUserSubCategoriesBefore] =
+    useState(0);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState();
 
@@ -111,7 +106,7 @@ const Home = ({ navigation, designStore, userStore }) => {
           Platform.OS === "ios"
             ? {
                 packageId: res.itemId,
-                androidPerchaseToken: res.PToken,
+                iosPerchaseReceipt: res.P_recipt,
               }
             : {
                 orderId: res.orderId,

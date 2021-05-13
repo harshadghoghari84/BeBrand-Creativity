@@ -6,10 +6,12 @@ import {
   View,
   ScrollView,
   SafeAreaView,
+  Platform,
 } from "react-native";
 import { useMutation } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
+import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-community/google-signin";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -32,6 +34,7 @@ import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
 
+let user = null;
 const SignInScreen = ({ userStore }) => {
   const navigation = useNavigation();
 
@@ -84,6 +87,26 @@ const SignInScreen = ({ userStore }) => {
     });
   }, []);
 
+  const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch((error) =>
+      updateCredentialStateForUser(`Error: ${error.code}`)
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    return appleAuth.onCredentialRevoked(async () => {
+      console.warn("Credential Revoked");
+      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(
+        (error) => updateCredentialStateForUser(`Error: ${error.code}`)
+      );
+    });
+  }, []);
+
   const sendTokentoServer = () => {
     try {
       auth()
@@ -122,6 +145,63 @@ const SignInScreen = ({ userStore }) => {
         });
     } catch (err) {
       console.log("=======>err", err);
+    }
+  };
+  async function fetchAndUpdateCredentialState(updateCredentialStateForUser) {
+    if (user === null) {
+      updateCredentialStateForUser("N/A");
+    } else {
+      const credentialState = await appleAuth.getCredentialStateForUser(user);
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        updateCredentialStateForUser("AUTHORIZED");
+      } else {
+        updateCredentialStateForUser(credentialState);
+      }
+    }
+  }
+
+  const onAppleLogin = async (updateCredentialStateForUser) => {
+    if (!appleAuth.isSupported) {
+      return alert("Apple Authentication is not supported on this device.");
+    } else {
+      try {
+        const appleAuthRequestResponse = await appleAuth.performRequest({
+          requestedOperation: appleAuth.Operation.LOGIN,
+          requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+        });
+
+        console.log("appleAuthRequestResponse", appleAuthRequestResponse);
+
+        const {
+          user: newUser,
+          email,
+          nonce,
+          identityToken,
+          realUserStatus,
+        } = appleAuthRequestResponse;
+
+        user = newUser;
+
+        fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(
+          (error) => updateCredentialStateForUser(`Error: ${error.code}`)
+        );
+
+        if (identityToken) {
+          // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
+          console.log("---IDENTITY_TOKEN-----", nonce, identityToken);
+          sendTokentoServer();
+        } else {
+          alert("Sign in failed");
+        }
+
+        console.warn(`Apple Authentication Completed, ${user}, ${email}`);
+      } catch (error) {
+        if (error.code === appleAuth.Error.CANCELED) {
+          console.warn("User canceled Apple Sign in.");
+        } else {
+          console.error("-Error--", error);
+        }
+      }
     }
   };
 
@@ -222,6 +302,7 @@ const SignInScreen = ({ userStore }) => {
         },
       }).then((result) => {
         const data = result.data;
+
         if (data != null) {
           data?.userLogin?.msg && Common.showMessage(data.userLogin.msg);
           // set user to userStore
@@ -512,40 +593,78 @@ const SignInScreen = ({ userStore }) => {
           </View>
 
           <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => onGoogleLogin()}
-              style={styles.socialBTNView}
-            >
-              <View
-                style={{
-                  backgroundColor: Color.txtIntxtcolor,
-                  height: 30,
-                  width: 30,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 50,
-                  marginHorizontal: 8,
-                }}
+            {Platform.OS === "ios" ? (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => onAppleLogin(updateCredentialStateForUser)}
+                style={styles.socialBTNView}
               >
-                <Icon
-                  name="google"
-                  fill={Color.white}
-                  height={"60%"}
-                  width={"60%"}
-                />
-              </View>
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: "700",
-                  color: Color.txtIntxtcolor,
-                  paddingRight: 10,
-                }}
+                <View
+                  style={{
+                    backgroundColor: Color.txtIntxtcolor,
+                    height: 30,
+                    width: 30,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 50,
+                    marginHorizontal: 8,
+                  }}
+                >
+                  <Icon
+                    name="apple"
+                    fill={Color.white}
+                    height={30}
+                    width={30}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "700",
+                    color: Color.txtIntxtcolor,
+                    paddingRight: 10,
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labSignInWithApple)}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => onGoogleLogin()}
+                style={styles.socialBTNView}
               >
-                {Common.getTranslation(LangKey.labSignInWithGoogle)}
-              </Text>
-            </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: Color.txtIntxtcolor,
+                    height: 30,
+                    width: 30,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 50,
+                    marginHorizontal: 8,
+                  }}
+                >
+                  <Icon
+                    name="google"
+                    fill={Color.white}
+                    height={"60%"}
+                    width={"60%"}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "700",
+                    color: Color.txtIntxtcolor,
+                    paddingRight: 10,
+                  }}
+                >
+                  {Common.getTranslation(LangKey.labSignInWithGoogle)}
+                </Text>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={() => onFaceBookLogin()}
@@ -673,6 +792,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 25,
     top: 20,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "pink",
+  },
+  horizontal: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
   },
 });
 

@@ -131,7 +131,6 @@ class UserStore {
       };
     }
 
-    console.log("user chk else", user);
     this.user = user;
   };
   designCraditsCalculate = () => {

@@ -33,19 +33,19 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
-anim fragment_close_enter
-anim fragment_close_exit
-anim fragment_fade_enter
-anim fragment_fade_exit
 anim fragment_fast_out_extra_slow_in
-anim fragment_open_enter
-anim fragment_open_exit
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
+animator fragment_close_enter
+animator fragment_close_exit
+animator fragment_fade_enter
+animator fragment_fade_exit
+animator fragment_open_enter
+animator fragment_open_exit
 animator mtrl_btn_state_list_anim
 animator mtrl_btn_unelevated_state_list_anim
 animator mtrl_card_state_list_anim
@@ -2007,6 +2007,7 @@ id snackbar_text
 id snap
 id snapMargins
 id spacer
+id special_effects_controller_view_tag
 id split_action_bar
 id src_atop
 id src_in
@@ -2060,6 +2061,9 @@ id useLogo
 id view_offset_helper
 id view_tag_instance_handle
 id view_tag_native_id
+id view_tree_lifecycle_owner
+id view_tree_saved_state_registry_owner
+id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
 id wide
@@ -3169,6 +3173,7 @@ style com_facebook_button_send
 style com_facebook_button_share
 style com_facebook_loginview_default_style
 style redboxButton
+style sign_in_with_apple_button_DialogTheme
 style tooltip_bubble_text
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity

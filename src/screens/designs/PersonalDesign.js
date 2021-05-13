@@ -578,7 +578,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
           ]}
         >
           <TouchableOpacity
-            disabled={currentLayout == null}
             activeOpacity={0.6}
             onPress={() => {
               setVisiblePicker(true);
@@ -1962,10 +1961,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const onViewRef = React.useRef((viewableItems) => {
-    layRef.current.scrollToIndex({
-      index: viewableItems.viewableItems[0].index,
-    });
-    setActiveSlide(viewableItems.viewableItems[0].index);
+    if (
+      viewableItems &&
+      viewableItems.viewableItems !== null &&
+      viewableItems.viewableItems.length > 0
+    ) {
+      layRef.current.scrollToIndex({
+        index: viewableItems.viewableItems[0].index,
+      });
+      setActiveSlide(viewableItems.viewableItems[0].index);
+    }
   });
   const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
   const flatlistSliderRef = useRef();

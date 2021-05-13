@@ -115,7 +115,7 @@ const RegisterScreen = ({ userStore }) => {
       >
         <ProgressDialog
           color={Color.white}
-          visible={loader ? loader : mutLoading ? mutLoading : loading}
+          visible={loader ? loader : loading}
           dismissable={false}
           message={Common.getTranslation(LangKey.labLoading)}
         />

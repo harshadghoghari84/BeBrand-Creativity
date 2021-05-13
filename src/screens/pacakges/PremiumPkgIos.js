@@ -46,8 +46,8 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [currentItem, setCurrentItem] = useState();
   const [recipt, setRecipt] = useState();
-  const [productList, setProductList] = useState([]);
   const [isFetching, setIsFetching] = useState(0);
+  const [loader, setLoader] = useState(false);
 
   const [addUserDesignPackage, { data, loading, error }] = useMutation(
     GraphqlQuery.addUserDesignPackage,
@@ -127,16 +127,6 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
           try {
             if (Platform.OS === "ios") {
               await finishTransactionIOS(purchase.transactionId);
-            } else if (Platform.OS === "android") {
-              // If consumable (can be purchased again)
-              // consumePurchaseAndroid(purchase.purchaseToken);
-              await consumePurchaseAndroid(
-                purchase.purchaseToken,
-                purchase.developerPayloadAndroid
-              );
-              // // If not consumable
-              // acknowledgePurchaseAndroid(purchase.purchaseToken);
-              await finishTransaction(purchase);
             }
           } catch (ackErr) {
             console.warn("ackErr", ackErr);
@@ -146,6 +136,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
       });
 
       purchaseErrorSubscription = purchaseErrorListener((error) => {
+        setLoader(false);
         console.log("purchaseErrorListener", error);
       });
       return () => {
@@ -159,6 +150,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
 
   const requestSubscription = async (sku) => {
     if (user && user !== null) {
+      setLoader(true);
       if (isFetching === 2) {
         await rnIapProducts(itemSkus);
       }
@@ -168,7 +160,11 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
           .then(async (res) => {
             console.log("res", res);
             if (res && res !== null) {
-              let obj = { itemId: sku, PToken: res.purchaseToken };
+              setLoader(false);
+              let obj = {
+                itemId: sku,
+                P_recipt: res.transactionReceipt,
+              };
               await AsyncStorage.setItem(
                 Constant.labPurchasedTKNandProdId,
                 JSON.stringify(obj)
@@ -181,6 +177,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
               })
                 .then(async ({ data, errors }) => {
                   if (errors && errors !== null) {
+                    console.log("---ERR---", errors[0].message);
                     Common.showMessage(errors[0].message);
                   } else if (
                     data.addUserDesignPackage &&
@@ -223,12 +220,6 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAccForPKg));
     }
   };
-  // const prodId =
-  //   productList &&
-  //   productList !== null &&
-  //   productList.map((prod) => prod.productId);
-
-  // console.log("prodId", prodId);
 
   const headerComponant = () => {
     return (
@@ -300,7 +291,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
   return (
     <View style={styles.mainContainer}>
       <ProgressDialog
-        visible={loading}
+        visible={loader || loading || isFetching === 0}
         dismissable={false}
         message={Common.getTranslation(LangKey.labLoading)}
       />
@@ -367,11 +358,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
         normal={true}
         onPress={() => requestSubscription(currentItem.id)}
       >
-        {isFetching === 0 ? (
-          <ActivityIndicator size={18} color={Color.white} />
-        ) : (
-          Common.getTranslation(LangKey.labPerchase)
-        )}
+        {Common.getTranslation(LangKey.labPerchase)}
       </Button>
     </View>
   );

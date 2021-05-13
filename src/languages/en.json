@@ -33,6 +33,7 @@
   "labGetStarted": "Get Started.",
   "labSignup": "Sign Up",
   "labSignInWithGoogle": "Google Sign in",
+  "labSignInWithApple": "Apple Sign in",
   "labSignInWithFacebook": "Facebook Sign in",
   "labSendOTP": "send OTP",
   "labVarifyOTP": "verify",
