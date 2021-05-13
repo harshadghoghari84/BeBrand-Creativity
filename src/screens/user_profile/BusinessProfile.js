@@ -578,7 +578,7 @@ const BusinessProfile = ({ userStore }) => {
                         name="mark"
                         height={18}
                         width={18}
-                        fill={Color.darkBlue}
+                        fill={Color.primary}
                       />
                     </View>
                   )}

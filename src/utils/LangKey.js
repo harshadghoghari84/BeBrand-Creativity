@@ -49,6 +49,7 @@ module.exports = {
   labGetStarted: "labGetStarted",
   labSignup: "labSignup",
   labSignInWithGoogle: "labSignInWithGoogle",
+  labSignInWithApple: "labSignInWithApple",
   labSignInWithFacebook: "labSignInWithFacebook",
   txtWelcome: "txtWelcome",
   txtCreateAccount: "txtCreateAccount",

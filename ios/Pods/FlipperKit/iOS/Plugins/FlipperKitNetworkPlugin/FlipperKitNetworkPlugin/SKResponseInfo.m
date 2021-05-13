@@ -29,14 +29,18 @@
 }
 
 + (BOOL)shouldStripReponseBodyWithResponse:(NSURLResponse*)response {
+  // Only HTTP(S) responses have Content-Type headers
+  if (![response isKindOfClass:[NSHTTPURLResponse class]]) {
+    return YES;
+  }
+
   NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
   NSString* contentType = httpResponse.allHeaderFields[@"content-type"];
   if (!contentType) {
     return NO;
   }
 
-  return [contentType containsString:@"image/"] ||
-      [contentType containsString:@"video/"] ||
+  return [contentType containsString:@"video/"] ||
       [contentType containsString:@"application/zip"];
 }
 

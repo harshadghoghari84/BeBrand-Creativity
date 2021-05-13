@@ -7,13 +7,15 @@
 
 #if FB_SONARKIT_ENABLED
 
+#import "SKDescriptorMapper.h"
+
 #import <Foundation/Foundation.h>
 
 #import <FlipperKit/FlipperPlugin.h>
+#import <FlipperKit/SKMacros.h>
 
-#import "SKDescriptorMapper.h"
-#import "SKInvalidation.h"
-#import "SKTapListener.h"
+#import <FlipperKitLayoutHelpers/SKInvalidation.h>
+#import <FlipperKitLayoutHelpers/SKTapListener.h>
 
 @interface FlipperKitLayoutPlugin
     : NSObject<FlipperPlugin, SKInvalidationDelegate>
@@ -28,5 +30,8 @@
 @property(nonatomic, readonly, strong) SKDescriptorMapper* descriptorMapper;
 
 @end
+
+/** Exposed for tests only. */
+SK_EXTERN_C dispatch_queue_t SKLayoutPluginSerialBackgroundQueue(void);
 
 #endif

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
+    "@invertase/react-native-apple-authentication": "^2.1.2",
     "@kcodev/react-native-progress-bar": "^1.0.1",
     "@react-native-async-storage/async-storage": "^1.13.1",
     "@react-native-community/datetimepicker": "3.0.4",
@@ -54,7 +55,7 @@
     "react-native-paper": "^4.0.1",
     "react-native-popover-view": "^3.1.1",
     "react-native-popup-menu": "^0.15.10",
-    "react-native-push-notification": "^7.2.1",
+    "react-native-push-notification": "^7.3.1",
     "react-native-rate": "^1.2.4",
     "react-native-razorpay": "^2.2.4",
     "react-native-reanimated": "~1.13.0",
