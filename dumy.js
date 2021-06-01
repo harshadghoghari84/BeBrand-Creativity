@@ -1,226 +1,130 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
-  Button,
-  Platform,
-  ScrollView,
   StyleSheet,
-  Text,
   View,
+  Text,
+  Image,
+  Animated,
+  SafeAreaView,
 } from "react-native";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  PublisherBanner,
-} from "react-native-admob";
 
-const BannerExample = ({ style, title, children, ...props }) => (
-  <View {...props} style={[styles.example, style]}>
-    <Text style={styles.title}>{title}</Text>
-    <View>{children}</View>
-  </View>
-);
+const list = [
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1622248382646-b7439ba4abb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+];
 
-const bannerWidths = [200, 250, 320];
+const HEADER_HEIGHT = 100;
 
-export default class Example extends Component {
-  constructor() {
-    super();
-    this.state = {
-      fluidSizeIndex: 0,
-    };
-  }
+function App() {
+  const [scrollAnim] = useState(new Animated.Value(0));
+  const [offsetAnim] = useState(new Animated.Value(0));
+  const [clampedScroll, setClampedScroll] = useState(
+    Animated.diffClamp(
+      Animated.add(
+        scrollAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolateLeft: "clamp",
+        }),
+        offsetAnim
+      ),
+      0,
+      1
+    )
+  );
 
-  componentDidMount() {
-    AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
-    AdMobRewarded.setAdUnitID("ca-app-pub-3940256099942544/5224354917");
+  const navbarTranslate = clampedScroll.interpolate({
+    inputRange: [0, HEADER_HEIGHT],
+    outputRange: [0, -HEADER_HEIGHT],
+    extrapolate: "clamp",
+  });
 
-    AdMobRewarded.addEventListener("rewarded", (reward) =>
-      console.log("AdMobRewarded => rewarded", reward)
-    );
-    AdMobRewarded.addEventListener("adLoaded", () =>
-      console.log("AdMobRewarded => adLoaded")
-    );
-    AdMobRewarded.addEventListener("adFailedToLoad", (error) =>
-      console.warn(error)
-    );
-    AdMobRewarded.addEventListener("adOpened", () =>
-      console.log("AdMobRewarded => adOpened")
-    );
-    AdMobRewarded.addEventListener("videoStarted", () =>
-      console.log("AdMobRewarded => videoStarted")
-    );
-    AdMobRewarded.addEventListener("adClosed", () => {
-      console.log("AdMobRewarded => adClosed");
-      AdMobRewarded.requestAd().catch((error) => console.warn(error));
-    });
-    AdMobRewarded.addEventListener("adLeftApplication", () =>
-      console.log("AdMobRewarded => adLeftApplication")
-    );
-
-    AdMobRewarded.requestAd().catch((error) => console.warn(error));
-
-    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-    AdMobInterstitial.setAdUnitID("ca-app-pub-3940256099942544/1033173712");
-
-    AdMobInterstitial.addEventListener("adLoaded", () =>
-      console.log("AdMobInterstitial adLoaded")
-    );
-    AdMobInterstitial.addEventListener("adFailedToLoad", (error) =>
-      console.warn(error)
-    );
-    AdMobInterstitial.addEventListener("adOpened", () =>
-      console.log("AdMobInterstitial => adOpened")
-    );
-    AdMobInterstitial.addEventListener("adClosed", () => {
-      console.log("AdMobInterstitial => adClosed");
-      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
-    });
-    AdMobInterstitial.addEventListener("adLeftApplication", () =>
-      console.log("AdMobInterstitial => adLeftApplication")
-    );
-
-    AdMobInterstitial.requestAd().catch((error) => console.warn(error));
-  }
-
-  componentWillUnmount() {
-    AdMobRewarded.removeAllListeners();
-    AdMobInterstitial.removeAllListeners();
-  }
-
-  showRewarded() {
-    AdMobRewarded.showAd().catch((error) => console.warn(error));
-  }
-
-  showInterstitial() {
-    AdMobInterstitial.showAd().catch((error) => console.warn(error));
-  }
-
-  render() {
+  const renderList = ({ item }) => {
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <BannerExample title="AdMob - Basic">
-            <AdMobBanner
-              adSize="banner"
-              adUnitID="ca-app-pub-3940256099942544/2934735716"
-              ref={(el) => (this._basicExample = el)}
-            />
-            <Button
-              title="Reload"
-              onPress={() => this._basicExample.loadBanner()}
-            />
-          </BannerExample>
-          <BannerExample title="Smart Banner">
-            <AdMobBanner
-              adSize="smartBannerPortrait"
-              adUnitID="ca-app-pub-3940256099942544/2934735716"
-              ref={(el) => (this._smartBannerExample = el)}
-            />
-            <Button
-              title="Reload"
-              onPress={() => this._smartBannerExample.loadBanner()}
-            />
-          </BannerExample>
-          <BannerExample title="Rewarded">
-            <Button
-              title="Show Rewarded Video and preload next"
-              onPress={this.showRewarded}
-            />
-          </BannerExample>
-          <BannerExample title="Interstitial">
-            <Button
-              title="Show Interstitial and preload next"
-              onPress={this.showInterstitial}
-            />
-          </BannerExample>
-          <BannerExample title="DFP - Multiple Ad Sizes">
-            <PublisherBanner
-              adSize="banner"
-              validAdSizes={["banner", "largeBanner", "mediumRectangle"]}
-              adUnitID="/6499/example/APIDemo/AdSizes"
-              ref={(el) => (this._adSizesExample = el)}
-            />
-            <Button
-              title="Reload"
-              onPress={() => this._adSizesExample.loadBanner()}
-            />
-          </BannerExample>
-          <BannerExample
-            title="DFP - App Events"
-            style={this.state.appEventsExampleStyle}
-          >
-            <PublisherBanner
-              style={{ height: 50 }}
-              adUnitID="/6499/example/APIDemo/AppEvents"
-              onAdFailedToLoad={(error) => {
-                console.warn(error);
-              }}
-              onAppEvent={(event) => {
-                if (event.name === "color") {
-                  this.setState({
-                    appEventsExampleStyle: { backgroundColor: event.info },
-                  });
-                }
-              }}
-              ref={(el) => (this._appEventsExample = el)}
-            />
-            <Button
-              title="Reload"
-              onPress={() => this._appEventsExample.loadBanner()}
-              style={styles.button}
-            />
-          </BannerExample>
-          <BannerExample title="DFP - Fluid Ad Size">
-            <View
-              style={[
-                { backgroundColor: "#f3f", paddingVertical: 10 },
-                this.state.fluidAdSizeExampleStyle,
-              ]}
-            >
-              <PublisherBanner
-                adSize="fluid"
-                adUnitID="/6499/example/APIDemo/Fluid"
-                ref={(el) => (this._appFluidAdSizeExample = el)}
-                style={{ flex: 1 }}
-              />
-            </View>
-            <Button
-              title="Change Banner Width"
-              onPress={() =>
-                this.setState((prevState) => ({
-                  fluidSizeIndex: prevState.fluidSizeIndex + 1,
-                  fluidAdSizeExampleStyle: {
-                    width:
-                      bannerWidths[
-                        prevState.fluidSizeIndex % bannerWidths.length
-                      ],
-                  },
-                }))
-              }
-              style={styles.button}
-            />
-            <Button
-              title="Reload"
-              onPress={() => this._appFluidAdSizeExample.loadBanner()}
-              style={styles.button}
-            />
-          </BannerExample>
-        </ScrollView>
-      </View>
+      <Image source={{ uri: item }} style={{ width: "100%", height: 300 }} />
     );
-  }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={[
+          styles.header,
+          {
+            transform: [{ translateY: navbarTranslate }],
+          },
+        ]}
+        onLayout={(event) => {
+          let { height } = event.nativeEvent.layout;
+          setClampedScroll(
+            Animated.diffClamp(
+              Animated.add(
+                scrollAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1],
+                  extrapolateLeft: "clamp",
+                }),
+                offsetAnim
+              ),
+              0,
+              height
+            )
+          );
+        }}
+      >
+        <Text style={styles.headerText}>HEADER</Text>
+      </Animated.View>
+      <View style={{ height: 40, borderRightColor: "green" }}>
+        <Text>dljfgdiufgbc</Text>
+      </View>
+      <Animated.FlatList
+        // contentInset={{ top: HEADER_HEIGHT }}
+        // contentOffset={{ y: -HEADER_HEIGHT }}
+        bounces={false}
+        scrollEventThrottle={16}
+        // style={{ flexGrow: 1, width: "100%" }}
+        data={list}
+        renderItem={renderList}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: { y: scrollAnim },
+              },
+            },
+          ],
+          { useNativeDriver: true }
+        )}
+      />
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === "ios" ? 30 : 10,
+    flex: 1,
   },
-  example: {
-    paddingVertical: 10,
+  header: {
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    zIndex: 999,
   },
-  title: {
-    margin: 10,
+  headerText: {
+    fontWeight: "bold",
     fontSize: 20,
   },
 });
+
+export default App;

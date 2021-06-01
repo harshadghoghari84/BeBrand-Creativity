@@ -5,7 +5,8 @@ import { ApolloProvider, useLazyQuery } from "@apollo/client";
 import { Provider } from "mobx-react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Platform } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View } from "react-native";
 
 // relative path
 import Common from "./src/utils/Common";
@@ -21,22 +22,46 @@ import client from "./src/utils/ApolloClient";
 import CustomDrawer from "./src/screens/common/CustomDrawer";
 import HomeStackComponent from "./src/stacks/HomeStack";
 import Signin from "./src/screens/Signin";
+import BottomBar from "./src/screens/common/BottomBar";
+import Home from "./src/screens/home/Home";
+import UserDesign from "./src/screens/UserDesign";
+import UserPackage from "./src/screens/UserPackage";
+import Notification from "./src/screens/Notification";
+import MydesignStack from "./src/stacks/MydesignStack";
+import MyPackageStack from "./src/stacks/MypackageStack";
+import HomeScreenStackComponent from "./src/stacks/HomeScreenStack";
+import NotificationStack from "./src/stacks/NotificationStack";
 
 Common.setTranslationInit();
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+// const BottomTabs = () => {
+//   return (
+//     <Tab.Navigator
+//       initialRouteName={Constant.navHome}
+//       tabBar={(props) => <BottomBar {...props} />}
+//     >
+//       <Tab.Screen name={Constant.navHome} component={HomeStackComponent} />
+//       {/* <Tab.Screen name={Constant.navDesign} component={MydesignStack} />
+//       <Tab.Screen name={Constant.navPackage} component={MyPackageStack} />
+//       <Tab.Screen
+//         name={Constant.navNotification}
+//         component={NotificationStack}
+//       /> */}
+//     </Tab.Navigator>
+//   );
+// };
+
 const DrawerScreen = () => {
   return (
-    <Drawer.Navigator
-      // initialRouteName={initScreen}
-      drawerContent={(props) => <CustomDrawer {...props} />}
-    >
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
       <Drawer.Screen
         name={Constant.navHomeStack}
         component={HomeStackComponent}
       />
-      {/* <Drawer.Screen name={Constant.navDesign} component={DesignStack} /> */}
     </Drawer.Navigator>
   );
 };

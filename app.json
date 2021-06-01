@@ -22,7 +22,7 @@
       "buildNumber": "1.0.0",
       "supportsTablet": true,
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+        "googleMobileAdsAppId": "ca-app-pub-1505061127299003~5966536494"
       },
       "splash": {
         "image": "./assets/DFS.png",

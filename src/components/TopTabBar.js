@@ -155,7 +155,7 @@ const TopTabBar = ({
         </View>
         {/* </View> */}
 
-        {isDownload && (
+        {/* {isDownload && (
           <TouchableOpacity
             disabled={
               (isDownloadingP && isDownloadingP === true) ||
@@ -191,7 +191,7 @@ const TopTabBar = ({
               </View>
             )}
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     );
   };
@@ -204,13 +204,13 @@ const TopTabBar = ({
           Platform.OS === "ios" && styles.shadow,
         ]}
       >
-        {isDownload && (
+        {/* {isDownload && (
           <StatusBar
             barStyle="dark-content"
             backgroundColor={Color.white}
             translucent={Platform.OS === "ios" ? true : false}
           />
-        )}
+        )} */}
         {renderTop()}
       </SafeAreaView>
     );

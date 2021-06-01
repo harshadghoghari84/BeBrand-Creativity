@@ -12,6 +12,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Platform,
+  findNodeHandle,
+  ScrollView,
 } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { useMutation, useQuery } from "@apollo/client";
@@ -32,25 +34,52 @@ import Color from "../../utils/Color";
 import Common from "../../utils/Common";
 import ItemDesign from "../common/ItemDesign";
 import PopUp from "../../components/PopUp";
+import Modal from "../../components/modal";
+import Icon from "../../components/svgIcons";
 import { fcmService } from "../../FCM/FCMService";
 import { localNotificationService } from "../../FCM/LocalNotificationService";
+import CustomHeader from "../common/CustomHeader";
 
 const windowWidth = Dimensions.get("window").width;
-const imgWidth = (windowWidth - 30) / 2;
+const imgWidth = (windowWidth - 20) / 2;
 
 let isFirstTimeListLoad = true;
 let adCounter = 0;
 let impression = [];
+let catTxtMeasure = {};
+let txtWidth = [];
+let offset = 0;
+let curDirection = "";
+let directionTime;
+// let visibleHeader = true;
 const Home = ({ navigation, designStore, userStore }) => {
   const user = toJS(userStore.user);
+  const scrollY = new Animated.Value(0);
 
-  const [modalVisibleForModalOffers, setModalVisibleForModalOffers] =
-    useState(false);
-  const toggleVisibleForModalOffers = () => {
-    setModalVisibleForModalOffers(!modalVisibleForModalOffers);
-  };
-
-  const [scrollY, setScrollY] = useState();
+  const diffClamp = Animated.diffClamp(scrollY, 0, 50);
+  const headerHeight = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [50, 0],
+    extrapolate: "clamp",
+  });
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+    extrapolate: "clamp",
+  });
+  const transY = diffClamp.interpolate({
+    inputRange: [0, 40],
+    outputRange: [0, -40],
+    extrapolate: "clamp",
+  });
+  const opacity = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+  const [stopScroll, setStopScroll] = useState(false);
+  const [scrollVal, setScrollVal] = useState(false);
+  const [visibleHeader, setVisibleHeader] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
   const [modalVisible, setmodalVisible] = useState(false);
   const toggleVisible = () => {
@@ -60,7 +89,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   const homeDataLoading = toJS(designStore.hdLoading);
   const designPackages = toJS(designStore.designPackages);
   const userSubCategoriesHome = toJS(designStore.userSubCategoriesHome);
-  const [modalOffer, setModalOffer] = useState([]);
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
   const [userSubCategories, setUserSubCategories] = useState([]);
@@ -70,12 +98,37 @@ const Home = ({ navigation, designStore, userStore }) => {
     useState(0);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState();
+  const [modalVisibleForModalOffers, setModalVisibleForModalOffers] =
+    useState(false);
+  const toggleVisibleForModalOffers = () => {
+    setModalVisibleForModalOffers(!modalVisibleForModalOffers);
+  };
+  const [modalOffer, setModalOffer] = useState([]);
+  const topCatagory = [
+    { name: "Festivals" },
+    { name: "Quote" },
+    // { name: "Quote" },
+    // { name: "Kids" },
+    // { name: "Frame" },
+  ];
+  const [activeCat, setActiveCat] = useState("Festivals");
 
   const refCategoryList = useRef(null);
+  const catRef = useRef(null);
+  const catTxtRef = useRef(null);
 
   const isMountedRef = Common.useIsMountedRef();
 
   const { loading, error, data: imageData } = useQuery(GraphqlQuery.offers);
+
+  const [
+    updateAnltData,
+    { data: anlData, loading: anlLoading, error: anlErr },
+  ] = useMutation(GraphqlQuery.updateAnltData, {
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
+  });
+
   const [
     addUserDesignPackage,
     { data: dpkgData, loading: dpkgLoading, error: dpkgErr },
@@ -88,14 +141,6 @@ const Home = ({ navigation, designStore, userStore }) => {
       errorPolicy: "all",
     }
   );
-
-  const [
-    updateAnltData,
-    { data: anlData, loading: anlLoading, error: anlErr },
-  ] = useMutation(GraphqlQuery.updateAnltData, {
-    fetchPolicy: "no-cache",
-    errorPolicy: "all",
-  });
 
   useEffect(() => {
     AsyncStorage.getItem(Constant.labPurchasedTKNandProdId).then((response) => {
@@ -159,6 +204,20 @@ const Home = ({ navigation, designStore, userStore }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const mOffer = toJS(designStore.modalOffers);
+    if (
+      mOffer &&
+      mOffer !== null &&
+      Array.isArray(mOffer) &&
+      mOffer.length > 0
+    ) {
+      setModalVisibleForModalOffers(true);
+      setModalOffer(mOffer);
+    }
+  }, [designStore.modalOffers]);
+
   useEffect(() => {
     fcmService.registerAppWithFCM();
     fcmService.register(onRegister, onNotification, onOpenNotification);
@@ -216,19 +275,6 @@ const Home = ({ navigation, designStore, userStore }) => {
       localNotificationService.unregister();
     };
   }, []);
-
-  useEffect(() => {
-    const mOffer = toJS(designStore.modalOffers);
-    if (
-      mOffer &&
-      mOffer !== null &&
-      Array.isArray(mOffer) &&
-      mOffer.length > 0
-    ) {
-      setModalVisibleForModalOffers(true);
-      setModalOffer(mOffer);
-    }
-  }, [designStore.modalOffers]);
 
   useEffect(() => {
     const analtdata = toJS(designStore.anltDataObj);
@@ -369,6 +415,10 @@ const Home = ({ navigation, designStore, userStore }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   console.log("catTxtMeasure", catTxtMeasure && catTxtMeasure);
+  // }, [catTxtMeasure, activeCat]);
+
   const adsInterstitialListner = () => {
     // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
 
@@ -475,12 +525,19 @@ const Home = ({ navigation, designStore, userStore }) => {
     []
   );
 
+  const onLayoutCats = useCallback((event) => {
+    catTxtMeasure = event.nativeEvent.layout;
+    txtWidth.push(catTxtMeasure);
+  }, []);
+
   const showAd = () => {
     console.log("adCounter", adCounter);
 
     if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
       console.log("inside if");
-      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
+      AdMobInterstitial.showAdAsync().catch((error) => {
+        Platform.OS === "android" ? fbShowAd() : null;
+      });
       adCounter = 0;
     }
   };
@@ -555,8 +612,8 @@ const Home = ({ navigation, designStore, userStore }) => {
         activeDotIndex={activeSlide}
         containerStyle={{
           alignSelf: "center",
-          paddingTop: 5,
-          paddingBottom: 10,
+          paddingTop: 1,
+          paddingBottom: 5,
         }}
         dotStyle={{
           width: 7,
@@ -575,11 +632,16 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   const slider = () => {
     return (
-      <>
+      <View
+        style={{
+          backgroundColor: Color.bgcColor,
+          marginBottom: 5,
+        }}
+      >
         <View
           style={{
             marginVertical: 10,
-            marginHorizontal: 10,
+            marginHorizontal: 15,
             height: wp(25),
             borderRadius: 5,
             overflow: "hidden",
@@ -598,7 +660,7 @@ const Home = ({ navigation, designStore, userStore }) => {
           />
         </View>
         {pagination()}
-      </>
+      </View>
     );
   };
 
@@ -615,6 +677,82 @@ const Home = ({ navigation, designStore, userStore }) => {
   });
   const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
 
+  const [visibleModal, setVisibleModal] = useState(false);
+
+  const bottom = [
+    { icon: "postprofile" },
+    { icon: "design" },
+    { icon: "package" },
+    { icon: "notification" },
+    { icon: "language" },
+  ];
+
+  const toggleVisibleLanguage = () => {
+    setVisibleModal(!visibleModal);
+  };
+
+  const onPressName = (curIndex) => {
+    if (curIndex === 0) {
+      navigation.navigate(Constant.navProfile);
+    } else if (curIndex === 1) {
+      navigation.navigate(Constant.navDesigns);
+    } else if (curIndex === 2) {
+      navigation.navigate(Constant.navPackage);
+    } else if (curIndex === 3) {
+      navigation.navigate(Constant.navNotification);
+    } else if (curIndex === 4) {
+      setVisibleModal(true);
+    }
+  };
+
+  const renderBottom = () => {
+    return (
+      <View
+        style={{
+          backgroundColor: Color.white,
+          borderTopColor: Color.blackTrans,
+          borderTopWidth: 0.7,
+        }}
+      >
+        <Modal visible={visibleModal} toggleVisible={toggleVisibleLanguage} />
+
+        <FlatList
+          bounces={false}
+          data={bottom}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={styles.bottomStyle}
+          horizontal={true}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  onPressName(index);
+                }}
+              >
+                <Icon
+                  name={item.icon}
+                  fill={Color.darkBlue}
+                  height={22}
+                  width={22}
+                />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+    );
+  };
+  const onPressCat = (curCat, itmIndex) => {
+    catRef?.current?.scrollToOffset({
+      offset: itmIndex * windowWidth,
+    });
+    setActiveCat(curCat);
+  };
   /*
   ..######...#######..##.....##.########...#######..##....##....###....##....##.########
   .##....##.##.....##.###...###.##.....##.##.....##.###...##...##.##...###...##....##...
@@ -626,15 +764,15 @@ const Home = ({ navigation, designStore, userStore }) => {
   */
   return (
     <SafeAreaView style={styles.containerMain}>
-      <ProgressDialog
-        visible={homeDataLoading}
-        dismissable={false}
-        message={Common.getTranslation(LangKey.labLoading)}
-      />
       <PopUp
         visible={modalVisible}
         toggleVisible={toggleVisible}
         isPurchased={true}
+      />
+      <ProgressDialog
+        visible={homeDataLoading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
       />
       <PopUp
         visible={modalVisibleForModalOffers}
@@ -642,156 +780,292 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisibleForModaloffer={toggleVisibleForModalOffers}
         isModalOffers={true}
       />
-
-      <View
+      {/* <Animated.View
         style={{
-          backgroundColor: Color.white,
-          width: "100%",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.22,
-          shadowRadius: 2.22,
-          elevation: 3,
+          zIndex: 1,
+          opacity,
+          height: headerHeight,
+          transform: [{ translateY }],
         }}
+      > */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        style={{ flex: 1 }}
+        stickyHeaderIndices={[1]}
       >
-        <FlatList
-          horizontal
-          ref={refCategoryList}
-          data={userSubCategories}
-          extraData={selectedSubCategory}
-          showsHorizontalScrollIndicator={false}
-          ListFooterComponent={
-            designStore.ahdLoading ? (
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <ActivityIndicator size={20} color={Color.primary} />
-              </View>
-            ) : null
-          }
-          contentContainerStyle={{
-            paddingHorizontal: 10,
-          }}
-          onEndReached={() => loadMoreAfterSubCategories()}
-          keyExtractor={keyExtractor}
-          onContentSizeChange={() => {
-            if (isFirstTimeListLoad) {
-              isFirstTimeListLoad = false;
-              setSubCategoryindex();
-            }
-          }}
-          onScroll={(e) => {
-            loadMoreBeforeSubCategories(e.nativeEvent.contentOffset.x);
-          }}
-          onLayout={() => {
-            if (isFirstTimeListLoad === false) {
-              setSubCategoryindex();
-            }
-          }}
-          getItemLayout={getItemLayoutsCategory}
-          renderItem={({ item, index }) => (
-            <ItemSubCategory
-              item={item}
-              index={index}
-              isSelectedId={selectedSubCategory}
-              onSelect={(itemId) => {
-                adCounter++;
-                setSelectedSubCategory(itemId);
-                item.totalDesign > 0 &&
-                  item.designs.length === 0 &&
-                  loadMoreDesigns(item.id);
-                designStore.setDesignLang(Constant.designLangCodeAll);
-
-                showAd();
-              }}
-            />
-          )}
-        />
-      </View>
-      <View style={styles.containerDesignList}>
-        {userSubCategories &&
-        selectedSubCategory !== undefined &&
-        userSubCategories[selectedSubCategory].totalDesign > 0 &&
-        userSubCategories[selectedSubCategory].designs.length > 0 ? (
-          <>
+        {visibleHeader === true ? (
+          <CustomHeader
+            langauge={true}
+            notification={true}
+            // position={true}
+            bottomBorder={true}
+            bePrem={true}
+            menu={true}
+            isTtileImage={true}
+            navigation={navigation}
+          />
+        ) : null}
+        {/* </Animated.View> */}
+        <View>
+          <Animated.View
+            style={{
+              // paddingTop: 50,
+              backgroundColor: Color.white,
+              width: "100%",
+              borderBottomColor: Color.blackTransBorder,
+              borderBottomWidth: 0.5,
+              // transform: [{ translateY }],
+            }}
+          >
             <FlatList
-              key={2}
-              numColumns={2}
-              ListHeaderComponent={
-                imageData?.offers &&
-                imageData?.offers !== null &&
-                imageData?.offers.length > 0
-                  ? slider()
-                  : null
-              }
-              showsVerticalScrollIndicator={false}
-              style={styles.listSubCategoryDesign}
-              onViewableItemsChanged={onViewRef.current}
-              viewabilityConfig={viewConfigRef.current}
-              data={userSubCategories[selectedSubCategory].designs}
-              keyExtractor={keyExtractor}
-              maxToRenderPerBatch={6}
-              windowSize={10}
-              onEndReached={() => {
-                !designStore.udLoading &&
-                  loadMoreDesigns(userSubCategories[selectedSubCategory].id);
-              }}
-              renderItem={({ item: design, index: desIndex }) => {
-                const designPackage = designPackages.find(
-                  (item) => item.id === design.package
-                );
+              ref={catRef}
+              data={topCatagory}
+              keyExtractor={(item) => item}
+              horizontal
+              contentContainerStyle={{ flex: 1 }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item, index }) => {
                 return (
-                  <ItemDesign
-                    design={design}
-                    packageType={designPackage.type}
-                    desIndex={desIndex}
-                    onDesignClick={onDesignClick}
-                  />
+                  <TouchableOpacity
+                    onPress={() => onPressCat(item.name, index)}
+                  >
+                    <View style={{ alignItems: "center" }}>
+                      <View
+                        onLayout={(event) => {
+                          if (!txtWidth[index]) {
+                            let catTxtMeasure = {};
+                            catTxtMeasure = event.nativeEvent.layout;
+                            txtWidth[index] = catTxtMeasure;
+                          }
+                        }}
+                        style={{ marginHorizontal: 15 }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 17,
+                            color:
+                              activeCat === item.name
+                                ? Color.darkBlue
+                                : Color.grey,
+                            paddingVertical: 7,
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                        {activeCat === item.name ? (
+                          <View
+                            style={{
+                              height: 3,
+                              borderTopLeftRadius: 5,
+                              borderTopRightRadius: 5,
+                              width: txtWidth[index]?.width,
+                              // width: 82.5,
+                              backgroundColor:
+                                activeCat === item.name
+                                  ? Color.darkBlue
+                                  : Color.grey,
+                            }}
+                          />
+                        ) : null}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 );
               }}
             />
-            {designStore.udLoading ? (
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
+          </Animated.View>
+
+          <Animated.View
+            style={{
+              borderBottomColor: Color.blackTrans,
+              borderBottomWidth: 0.7,
+              backgroundColor: Color.white,
+            }}
+          >
+            <FlatList
+              horizontal
+              ref={refCategoryList}
+              data={userSubCategories}
+              extraData={selectedSubCategory}
+              showsHorizontalScrollIndicator={false}
+              ListFooterComponent={
+                designStore.ahdLoading ? (
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ActivityIndicator size={20} color={Color.primary} />
+                  </View>
+                ) : null
+              }
+              contentContainerStyle={{
+                paddingHorizontal: 10,
+
+                // borderBottomColor: Color.blackTrans,
+                // borderBottomWidth: 1,
+              }}
+              onEndReached={() => loadMoreAfterSubCategories()}
+              keyExtractor={keyExtractor}
+              onContentSizeChange={() => {
+                if (isFirstTimeListLoad) {
+                  isFirstTimeListLoad = false;
+                  setSubCategoryindex();
+                }
+              }}
+              onScroll={(e) => {
+                loadMoreBeforeSubCategories(e.nativeEvent.contentOffset.x);
+              }}
+              onLayout={() => {
+                if (isFirstTimeListLoad === false) {
+                  setSubCategoryindex();
+                }
+              }}
+              getItemLayout={getItemLayoutsCategory}
+              renderItem={({ item, index }) => (
+                <ItemSubCategory
+                  item={item}
+                  index={index}
+                  isSelectedId={selectedSubCategory}
+                  onSelect={(itemId) => {
+                    adCounter++;
+                    setSelectedSubCategory(itemId);
+                    item.totalDesign > 0 &&
+                      item.designs.length === 0 &&
+                      loadMoreDesigns(item.id);
+                    designStore.setDesignLang(Constant.designLangCodeAll);
+                    showAd();
+                  }}
+                />
+              )}
+            />
+          </Animated.View>
+        </View>
+        <View style={styles.containerDesignList}>
+          {userSubCategories &&
+          selectedSubCategory !== undefined &&
+          userSubCategories[selectedSubCategory].totalDesign > 0 &&
+          userSubCategories[selectedSubCategory].designs.length > 0 ? (
+            <>
+              <Animated.FlatList
+                key={2}
+                numColumns={2}
+                ListHeaderComponent={
+                  imageData?.offers &&
+                  imageData?.offers !== null &&
+                  imageData?.offers.length > 0
+                    ? slider()
+                    : null
+                }
+                showsVerticalScrollIndicator={false}
+                style={styles.listSubCategoryDesign}
+                onViewableItemsChanged={onViewRef.current}
+                viewabilityConfig={viewConfigRef.current}
+                data={userSubCategories[selectedSubCategory].designs}
+                keyExtractor={keyExtractor}
+                legacyImplementation={false}
+                maxToRenderPerBatch={6}
+                windowSize={10}
+                bounces={false}
+                stickyHeaderIndices={[0]}
+                scrollEventThrottle={16}
+                // onScroll={Animated.event(
+                //   [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                //   { useNativeDriver: true }
+                // )}
+                onScrollEndDrag={() => setStopScroll(true)}
+                // onScroll={(e) => {
+                //   setScrollVal(e.nativeEvent.contentOffset.y);
+                //   if (scrollVal > e.nativeEvent.contentOffset.y) {
+                //     setVisibleHeader(true);
+                //   } else {
+                //     setVisibleHeader(false);
+                //   }
+                //   // var currentOffset = e.nativeEvent.contentOffset.y;
+                //   // var direction = currentOffset > offset ? "down" : "up";
+                //   // if (stopScroll) {
+                //   //   curDirection = direction;
+                //   //   directionTime = new Date().getTime();
+                //   //   setStopScroll(false);
+                //   // }
+                //   // if (curDirection === direction) {
+                //   //   // console.log("curDirection", curDirection);
+                //   //   // console.log(
+                //   //   //   "directionTime",
+                //   //   //   directionTime,
+                //   //   //   new Date().getTime()
+                //   //   // );
+
+                //   //   if (directionTime < new Date().getTime()) {
+                //   //     setScrollVal(e.nativeEvent.contentOffset.y);
+                //   //     scrollY.setValue(e.nativeEvent.contentOffset.y);
+                //   //   }
+                //   //   console.log("old", scrollVal);
+                //   //   console.log("new", e.nativeEvent.contentOffset.y);
+                //   // }
+                //   // setScrollVal(e.nativeEvent.contentOffset.y)
+                //   // if(scrollVal<e.nativeEvent.contentOffset.y){
+                //   //   scrollY.setValue(e.nativeEvent.contentOffset.y);
+                //   // }
+                // }}
+                onEndReached={() => {
+                  !designStore.udLoading &&
+                    loadMoreDesigns(userSubCategories[selectedSubCategory].id);
                 }}
-              >
-                <ActivityIndicator size={25} color={Color.primary} />
-                <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
-                  {Common.getTranslation(LangKey.labLoading)}
-                </Text>
-              </View>
-            ) : null}
-          </>
-        ) : (
-          <View style={styles.containerNoDesign}>
-            {homeDataLoading ? null : designStore.udLoading ? (
-              <>
-                <ActivityIndicator size={25} color={Color.primary} />
-                <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
-                  {Common.getTranslation(LangKey.labLoading)}
-                </Text>
-              </>
-            ) : (
-              <FastImage
-                source={require("../../assets/img/soon.png")}
-                style={{ height: "80%", width: "80%" }}
-                resizeMode={FastImage.resizeMode.contain}
+                renderItem={({ item: design, index: desIndex }) => {
+                  const designPackage = designPackages.find(
+                    (item) => item.id === design.package
+                  );
+                  return (
+                    <ItemDesign
+                      design={design}
+                      packageType={designPackage.type}
+                      desIndex={desIndex}
+                      onDesignClick={onDesignClick}
+                    />
+                  );
+                }}
               />
-              // <SvgCss xml={SvgConstant.noContent} width="100%" height="100%" />
-              // <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
-            )}
-          </View>
-        )}
-      </View>
+              {designStore.udLoading ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                  }}
+                >
+                  <ActivityIndicator size={25} color={Color.primary} />
+                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                    {Common.getTranslation(LangKey.labLoading)}
+                  </Text>
+                </View>
+              ) : null}
+            </>
+          ) : (
+            <View style={styles.containerNoDesign}>
+              {homeDataLoading ? null : designStore.udLoading ? (
+                <>
+                  <ActivityIndicator size={25} color={Color.primary} />
+                  <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                    {Common.getTranslation(LangKey.labLoading)}
+                  </Text>
+                </>
+              ) : (
+                <FastImage
+                  source={require("../../assets/img/soon.png")}
+                  style={{ height: "80%", width: "80%" }}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                // <SvgCss xml={SvgConstant.noContent} width="100%" height="100%" />
+                // <Text>{Common.getTranslation(LangKey.labNoDesignAvailable)}</Text>
+              )}
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      {renderBottom()}
     </SafeAreaView>
   );
 };
@@ -800,19 +1074,19 @@ export default inject("designStore", "userStore")(observer(Home));
 const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
-    backgroundColor: Color.bgcColor,
+    backgroundColor: Color.white,
   },
   containerSub: {
     // flex: 1,
-    backgroundColor: Color.bgcColor,
+    backgroundColor: Color.white,
   },
   containerDesignList: {
     flex: 1,
-    backgroundColor: Color.bgcColor,
+    backgroundColor: Color.white,
   },
   containerNoDesign: {
     flex: 1,
-    backgroundColor: Color.bgcColor,
+    backgroundColor: Color.white,
 
     justifyContent: "center",
     alignItems: "center",
@@ -820,18 +1094,13 @@ const styles = StyleSheet.create({
   listAllDesign: { paddingTop: 10 },
   listHorizontalDesign: { marginBottom: 10 },
 
-  listSubCategoryDesign: { marginBottom: 10 },
+  listSubCategoryDesign: { backgroundColor: Color.bgcColor },
   imgAllDesign: {
     width: 150,
     height: 150,
     marginLeft: 10,
   },
-  imgSubCategoryDesign: {
-    width: imgWidth,
-    height: imgWidth,
-    marginLeft: 10,
-    marginBottom: 10,
-  },
+
   tagPro: {
     backgroundColor: Color.tagColor,
     paddingHorizontal: 8,
@@ -843,6 +1112,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     overflow: "hidden",
+  },
+  bottomStyle: {
+    flex: 1,
+    height: 50,
+    justifyContent: "space-around",
+    flexDirection: "row",
   },
 });
 

@@ -10,6 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 // import Icon from "react-native-vector-icons/Ionicons";
 import ViewShot from "react-native-view-shot";
@@ -51,6 +52,11 @@ let msg = "";
 let adAvilable = false;
 let adCounter = 0;
 let setCurLayout = {};
+let defaultImg = "";
+let uDataBus = {};
+let curLayoutId = "";
+let firstTimeColor = true;
+let colorArr = [];
 
 const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
@@ -84,13 +90,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
   const [viewableItem, setViewableItem] = useState([]);
+  const [visibleModalForEditBusinessInfo, setModalForEditBusinessInfo] =
+    useState(false);
+  const [defaultImageUrl, setDefaultImageUrl] = useState(null);
 
   const [visibleModalAd, setVisibleModalAd] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const [visiblePicker, setVisiblePicker] = useState(false);
-  const [visibleModalMsgbussiness, setVisibleModalMsgbussiness] = useState(
-    false
-  );
+  const [visibleModalMsgbussiness, setVisibleModalMsgbussiness] =
+    useState(false);
   const [hasPro, sethasPro] = useState(false);
   const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
@@ -100,6 +108,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
+
+  const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
+  const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
 
   const [Pkgtype, setPkgType] = useState();
   const [adReady, setAdReady] = useState(false);
@@ -114,19 +125,30 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   });
 
   const toggleVisible = () => {
-    designStore.setIsDownloadStartedBusiness(false);
+    setIsdesignImageLoad(false);
 
     setVisibleModal(!visibleModal);
   };
   const toggleVisibleForPkg = () => {
-    designStore.setIsDownloadStartedBusiness(false);
+    setIsdesignImageLoad(false);
     setVisibleModalForPkg(!visibleModalForPkg);
   };
   const toggleFreeVisible = () => {
     setVisibleFreeModal(!visibleFreeModal);
   };
 
-  const toggleVisibleColorPicker = () => {
+  const toggleVisibleModalForEditBussinessInfo = () => {
+    setModalForEditBusinessInfo(!visibleModalForEditBusinessInfo);
+  };
+
+  const toggleVisibleColorPicker = (color) => {
+    colorArr = [
+      ...colorArr,
+      {
+        selectedFooterColor: color,
+        selectedFooterTxtColor: footerTextColor,
+      },
+    ];
     return setVisiblePicker(!visiblePicker);
   };
 
@@ -134,11 +156,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     if (isDownload) {
       setTimeout(() => {
         AdMobRewarded.showAdAsync().catch((error) => {
-          fbShowAd();
+          Platform.OS === "android" ? fbShowAd() : setAdReady(true);
         });
       }, 1000);
     } else {
-      designStore.setIsDownloadStartedBusiness(false);
+      setIsdesignImageLoad(false);
     }
     setVisibleModalAd(!visibleModalAd);
   };
@@ -147,9 +169,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     if (val === true) {
       let findIndex = layouts.findIndex((ele) => ele.id === setCurLayout.id);
       setActiveSlide(findIndex);
+      flatlistSliderRef.current.scrollToIndex({
+        index: findIndex,
+      });
       setCurLayout !== undefined &&
         setCurLayout !== null &&
         setCurrentLayout(setCurLayout);
+    }
+    if (val === "edit") {
+      setModalForEditBusinessInfo(true);
     }
     setVisibleModalMsgbussiness(!visibleModalMsgbussiness);
   };
@@ -162,7 +190,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     );
 
     setLayouts(filterArr);
-    // checkLayout(filterArr);
+    checkLayout(filterArr);
   };
 
   const onReset = () => {
@@ -233,7 +261,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       if (adAvilable) {
         setAdReady(true);
       } else {
-        designStore.setIsDownloadStartedBusiness(false);
+        setIsdesignImageLoad(false);
       }
       AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
     });
@@ -339,25 +367,25 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     }
   }, [adReady]);
 
-  useEffect(() => {
-    const isDownloadStartedBusiness = toJS(
-      designStore.isDownloadStartedBusiness
-    );
-    if (isDownloadStartedBusiness && isDownloadStartedBusiness === true) {
-      if (hasPro === true) {
-        onClickDownload();
-      } else {
-        if (Pkgtype === Constant.typeDesignPackageVip) {
-          setVisibleModal(true);
-        } else {
-          setVisibleModalAd(true);
-        }
-      }
-    }
-  }, [designStore.isDownloadStartedBusiness]);
+  // useEffect(() => {
+  //   const isDownloadStartedBusiness = toJS(
+  //     designStore.isDownloadStartedBusiness
+  //   );
+  //   if (isDownloadStartedBusiness && isDownloadStartedBusiness === true) {
+  //     if (hasPro === true) {
+  //       onClickDownload();
+  //     } else {
+  //       if (Pkgtype === Constant.typeDesignPackageVip) {
+  //         setVisibleModal(true);
+  //       } else {
+  //         setVisibleModalAd(true);
+  //       }
+  //     }
+  //   }
+  // }, [designStore.isDownloadStartedBusiness]);
 
   useEffect(() => {
-    AsyncStorage.getItem(Constant.prfIcons)
+    AsyncStorage.getItem(Constant.prfIconsB)
       .then((res) => {
         if (res && res !== null) {
           setSocialIconList(JSON.parse(res));
@@ -365,6 +393,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       })
       .catch((err) => console.log(err));
   }, []);
+  useEffect(() => {
+    const socialIconsB = toJS(designStore.socialIconsBusiness);
+    setSocialIconList(socialIconsB);
+  }, [designStore.socialIconsBusiness]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -426,23 +458,34 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             }
           : Constant.dummyCompnyData[0]
       );
+      user?.userInfo?.business?.image && user.userInfo.business.image.length > 0
+        ? setDefaultImageUrl(
+            user.userInfo.business.image.find((item) => item.isDefault === true)
+              .url
+          )
+        : setDefaultImageUrl(null);
     }
   }, [userStore.user]);
 
   useEffect(() => {
     fiilterLayouts();
+    uDataBus = userDataBussiness;
   }, [userDataBussiness]);
 
   const onClickDownload = async () => {
     if (user && user !== null) {
+      setIsdesignImageLoad(true);
       await saveDesign();
       // if (currentLayout && currentLayout !== null) {
       // } else {
-      //   designStore.setIsDownloadStartedBusiness(false);
+      //   setIsdesignImageLoad(false);
       //   Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
       // }
     } else {
-      designStore.setIsDownloadStartedBusiness(false);
+      setTimeout(() => {
+        setIsdesignImageLoad(false);
+      }, 1000);
+      setIsdesignImageLoad(false);
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
   };
@@ -464,7 +507,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         Permissions.MEDIA_LIBRARY
       );
       if (newStatus !== Permissions.PermissionStatus.GRANTED) {
-        designStore.setIsDownloadStartedBusiness(false);
+        setIsdesignImageLoad(false);
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
         );
@@ -506,7 +549,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         } else if (errors[0].extensions.code === Constant.userFreeDesignCut) {
           userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         } else {
-          designStore.setIsDownloadStartedBusiness(false);
+          setIsdesignImageLoad(false);
 
           Common.showMessage(errors[0].message);
           return;
@@ -536,14 +579,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       }
 
       Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
-      designStore.setIsDownloadStartedBusiness(false);
+      setIsdesignImageLoad(false);
 
       if (isShareClick === true) {
         isShareClick = false;
         await openShareDialogAsync(uri);
       }
     } else {
-      designStore.setIsDownloadStartedBusiness(false);
+      setIsdesignImageLoad(false);
       setVisibleModal(true);
       // setVisibleFreeModal(true);
     }
@@ -599,23 +642,23 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const checkLayout = (layouts) => {
-    if (userDataBussiness) {
+    if (uDataBus) {
       let isSet = false;
       layouts.some((layout) => {
         switch (layout.id) {
           case Constant.businessLay1Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.address &&
-              userDataBussiness.address !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.address &&
+              uDataBus.address !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -624,17 +667,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay2Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.address &&
-              userDataBussiness.address !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.address &&
+              uDataBus.address !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -643,14 +686,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay3Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.website &&
-              userDataBussiness.website !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.website &&
+              uDataBus.website !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== ""
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -658,16 +701,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay4Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.website &&
-              userDataBussiness.website !== "" &&
-              userDataBussiness.email &&
-              userDataBussiness.email !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.website &&
+              uDataBus.website !== "" &&
+              uDataBus.email &&
+              uDataBus.email !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== ""
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -676,14 +719,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay5Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.email &&
-              userDataBussiness.email !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.email &&
+              uDataBus.email !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== ""
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -692,16 +735,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay6Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.address &&
-              userDataBussiness.address !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.website &&
-              userDataBussiness.website !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== ""
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.address &&
+              uDataBus.address !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.website &&
+              uDataBus.website !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== ""
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -710,17 +753,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay7Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.website &&
-              userDataBussiness.website !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.website &&
+              uDataBus.website !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -729,17 +772,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay8Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.email &&
-              userDataBussiness.email !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.email &&
+              uDataBus.email !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -748,17 +791,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay9Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.website &&
-              userDataBussiness.website !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.website &&
+              uDataBus.website !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -767,17 +810,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.businessLay10Id:
             if (
-              userDataBussiness.name &&
-              userDataBussiness.name !== "" &&
-              userDataBussiness.email &&
-              userDataBussiness.email !== "" &&
-              userDataBussiness.mobile &&
-              userDataBussiness.mobile !== "" &&
-              userDataBussiness.socialMedia &&
-              userDataBussiness.socialMedia !== "" &&
-              userDataBussiness.image &&
-              userDataBussiness.image !== "" &&
-              userDataBussiness.image.length > 0
+              uDataBus.name &&
+              uDataBus.name !== "" &&
+              uDataBus.email &&
+              uDataBus.email !== "" &&
+              uDataBus.mobile &&
+              uDataBus.mobile !== "" &&
+              uDataBus.socialMedia &&
+              uDataBus.socialMedia !== "" &&
+              uDataBus.image &&
+              uDataBus.image !== "" &&
+              uDataBus.image.length > 0
             ) {
               setCurrentLayout(layout);
               isSet = true;
@@ -785,7 +828,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
             }
             break;
           case Constant.businessLay11Id:
-            if (userDataBussiness.name && userDataBussiness.name !== "") {
+            if (uDataBus.name && uDataBus.name !== "") {
               setCurrentLayout(layout);
               isSet = true;
               return true;
@@ -805,17 +848,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     switch (layout.id) {
       case Constant.businessLay1Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.address ||
-          userDataBussiness.address === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.address ||
+          uDataBus.address === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay1Msg);
           setVisibleModalMsgbussiness(true);
@@ -830,17 +873,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay2Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.address ||
-          userDataBussiness.address === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.address ||
+          uDataBus.address === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay2Msg);
           setVisibleModalMsgbussiness(true);
@@ -855,14 +898,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay3Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.website ||
-          userDataBussiness.website === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.website ||
+          uDataBus.website === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === ""
         ) {
           msg = Common.getTranslation(LangKey.businessLay3Msg);
           setVisibleModalMsgbussiness(true);
@@ -877,16 +920,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay4Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.website ||
-          userDataBussiness.website === "" ||
-          !userDataBussiness.email ||
-          userDataBussiness.email === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.website ||
+          uDataBus.website === "" ||
+          !uDataBus.email ||
+          uDataBus.email === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === ""
         ) {
           msg = Common.getTranslation(LangKey.businessLay4Msg);
           setVisibleModalMsgbussiness(true);
@@ -901,14 +944,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay5Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.email ||
-          userDataBussiness.email === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.email ||
+          uDataBus.email === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === ""
         ) {
           msg = Common.getTranslation(LangKey.businessLay5Msg);
           setVisibleModalMsgbussiness(true);
@@ -923,16 +966,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay6Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.website ||
-          userDataBussiness.website === "" ||
-          !userDataBussiness.address ||
-          userDataBussiness.address === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === ""
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.website ||
+          uDataBus.website === "" ||
+          !uDataBus.address ||
+          uDataBus.address === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === ""
         ) {
           msg = Common.getTranslation(LangKey.businessLay6Msg);
           setVisibleModalMsgbussiness(true);
@@ -947,17 +990,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay7Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.website ||
-          userDataBussiness.website === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.website ||
+          uDataBus.website === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay7Msg);
           setVisibleModalMsgbussiness(true);
@@ -972,17 +1015,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay8Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.email ||
-          userDataBussiness.email === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.email ||
+          uDataBus.email === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay8Msg);
           setVisibleModalMsgbussiness(true);
@@ -997,17 +1040,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay9Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.website ||
-          userDataBussiness.website === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.website ||
+          uDataBus.website === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay9Msg);
           setVisibleModalMsgbussiness(true);
@@ -1022,17 +1065,17 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         break;
       case Constant.businessLay10Id:
         if (
-          !userDataBussiness.name ||
-          userDataBussiness.name === "" ||
-          !userDataBussiness.mobile ||
-          userDataBussiness.mobile === "" ||
-          !userDataBussiness.email ||
-          userDataBussiness.email === "" ||
-          !userDataBussiness.socialMedia ||
-          userDataBussiness.socialMedia === "" ||
-          !userDataBussiness.image ||
-          userDataBussiness.image === "" ||
-          userDataBussiness.image.length < 0
+          !uDataBus.name ||
+          uDataBus.name === "" ||
+          !uDataBus.mobile ||
+          uDataBus.mobile === "" ||
+          !uDataBus.email ||
+          uDataBus.email === "" ||
+          !uDataBus.socialMedia ||
+          uDataBus.socialMedia === "" ||
+          !uDataBus.image ||
+          uDataBus.image === "" ||
+          uDataBus.image.length < 0
         ) {
           msg = Common.getTranslation(LangKey.businessLay10Msg);
           setVisibleModalMsgbussiness(true);
@@ -1046,7 +1089,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         }
         break;
       case Constant.businessLay11Id:
-        if (!userDataBussiness.name || userDataBussiness.name === "") {
+        if (!uDataBus.name || uDataBus.name === "") {
           msg = Common.getTranslation(LangKey.businessLay11Msg);
           setVisibleModalMsgbussiness(true);
           setCurLayout = layout;
@@ -1109,8 +1152,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay1Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay1Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layLeftImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -1273,8 +1324,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       ) : null}
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay2Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay2Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layRightImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -1683,8 +1742,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay7Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay7Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layLeftImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -1773,8 +1840,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       />
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay8Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay8Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layLeftImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -1939,8 +2014,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       ) : null}
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay9Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay9Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layRightImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -2033,8 +2116,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       ) : null}
       {userDataBussiness.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsBusinessDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsBusinessDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.businessLay10Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.businessLay10Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataBussiness.image }}
           style={styles.layRightImgLogo}
           resizeMode={FastImage.resizeMode.contain}
@@ -2178,6 +2269,30 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               key={index}
               style={{ ...styles.colorCode, backgroundColor: item.code }}
               onPress={() => {
+                if (firstTimeColor === true) {
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: currentDesign?.colorCodes[0].code,
+                      selectedFooterTxtColor:
+                        currentDesign?.colorCodes[0].isLight == true
+                          ? currentDesign.darkTextColor
+                          : currentDesign.lightTextColor,
+                    },
+                  ];
+                }
+                firstTimeColor = false;
+
+                colorArr = [
+                  ...colorArr,
+                  {
+                    selectedFooterColor: item.code,
+                    selectedFooterTxtColor:
+                      item.isLight == true
+                        ? currentDesign.darkTextColor
+                        : currentDesign.lightTextColor,
+                  },
+                ];
                 setSelectedPicker(false);
                 setFooterColor(item.code);
                 item.isLight == true
@@ -2245,7 +2360,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   shadowRadius: 3.84,
                   elevation: 5,
                 }}
-                onPress={() => setFooterTextColor(Color.black)}
+                onPress={() => {
+                  setFooterTextColor(Color.black);
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: footerColor,
+                      selectedFooterTxtColor: Color.black,
+                    },
+                  ];
+                }}
               />
             </View>
 
@@ -2276,7 +2400,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   shadowRadius: 3.84,
                   elevation: 5,
                 }}
-                onPress={() => setFooterTextColor(Color.white)}
+                onPress={() => {
+                  setFooterTextColor(Color.white);
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: footerColor,
+                      selectedFooterTxtColor: Color.white,
+                    },
+                  ];
+                }}
               />
             </View>
           </View>
@@ -2412,19 +2545,41 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       viewableItems.viewableItems !== null &&
       viewableItems.viewableItems.length > 0
     ) {
-      layRef.current.scrollToIndex({
-        index: viewableItems.viewableItems[0].index,
-      });
+      curLayoutId = viewableItems.viewableItems[0].item.id;
+      checkAndSetLayout(viewableItems.viewableItems[0].item);
+      // layRef.current.scrollToIndex({
+      //   index: viewableItems.viewableItems[0].index,
+      // });
       setActiveSlide(viewableItems.viewableItems[0].index);
     }
   });
   const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
   const flatlistSliderRef = useRef();
 
+  const onPressBack = () => {
+    console.log("colorArr.length", colorArr.length);
+    if (colorArr.length > 1) {
+      colorArr.pop();
+      setFooterColor(
+        colorArr && colorArr.length > 0
+          ? colorArr[colorArr.length - 1].selectedFooterColor
+          : null
+      );
+      setFooterTextColor(
+        colorArr && colorArr.length > 0
+          ? colorArr[colorArr.length - 1].selectedFooterTxtColor
+          : null
+      );
+    } else {
+      Common.showMessage("there is no changes");
+    }
+    console.log("colorArrcolorArrcolorArrcolorArrcolorArr", colorArr);
+  };
+
   const bussiness = () => {
     return (
       <>
-        <BottomSheet
+        {/* <BottomSheet
           ref={layoutRef}
           snapPoints={[100, 100, 0]}
           borderRadius={10}
@@ -2433,7 +2588,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           enabledGestureInteraction={false}
           callbackNode={fall}
           renderContent={renderContentLayout}
-        />
+        /> */}
         <BottomSheet
           ref={colorRef}
           snapPoints={[100, 100, 0]}
@@ -2443,7 +2598,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           callbackNode={fall}
           renderContent={renderContentColor}
         />
-        <BottomSheet
+        {/* <BottomSheet
           ref={socialRef}
           snapPoints={[100, 100, 0]}
           borderRadius={10}
@@ -2451,7 +2606,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           enabledGestureInteraction={false}
           callbackNode={fall}
           renderContent={renderContentSocial}
-        />
+        /> */}
         <View
           style={{
             flex: 1,
@@ -2460,7 +2615,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         >
           <ScrollView
             contentContainerStyle={{
-              flex: 1,
+              flexGrow: 1,
               // marginHorizontal: 6,
             }}
             showsVerticalScrollIndicator={false}
@@ -2502,6 +2657,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               toggleVisibleAd={toggleVisibleAd}
               isVisibleAd={true}
             />
+
+            <PopUp
+              visible={visibleModalForEditBusinessInfo}
+              toggleVisibleModalForEditBussinessInfo={
+                toggleVisibleModalForEditBussinessInfo
+              }
+              isVisibleBusinessInfo={true}
+            />
             <View style={styles.container}>
               <FlatList
                 horizontal
@@ -2523,9 +2686,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                       activeOpacity={0.6}
                       style={styles.listDesignView}
                       onPress={() => {
+                        firstTimeColor = true;
+                        colorArr = [];
                         // designPackage.type === Constant.typeDesignPackageFree &&
                         hasPro === false && adCounter++;
-
                         console.log("adCounter", adCounter);
                         showAd();
                         setPkgType(designPackage.type);
@@ -2606,11 +2770,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               >
                 <View style={{ flex: 1 }}>
                   <FastImage
-                    onLoadStart={() =>
-                      designStore.setIsBusinessDesignLoad(true)
-                    }
+                    onLoadStart={() => setIsdesignImageLoad(true)}
                     onLoadEnd={() => {
-                      designStore.setIsBusinessDesignLoad(false);
+                      setIsdesignImageLoad(false);
                       if (!viewableItem.includes(currentDesign.id)) {
                         if (user && user !== null) {
                           setViewableItem([...viewableItem, currentDesign.id]);
@@ -2648,6 +2810,98 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               </ViewShot>
               {pagination()}
             </View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              {user?.userInfo?.business?.image &&
+              user.userInfo.business.image.length > 0 ? (
+                <View
+                  style={{
+                    borderColor: Color.blackTransBorder,
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    height: 116,
+                    maxWidth: width - 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={
+                      Array.isArray(user?.userInfo?.business?.image)
+                        ? user.userInfo.business.image
+                        : []
+                    }
+                    keyExtractor={(index) => index.toString()}
+                    renderItem={({ item }) => {
+                      return (
+                        <TouchableOpacity
+                          style={styles.toProfileImage}
+                          onPress={async () => {
+                            await setDefaultImageUrl(item.url);
+                            defaultImg = item.url;
+                            setTimeout(() => {
+                              let newImage = [];
+                              if (defaultImg && defaultImg !== "") {
+                                newImage = user?.userInfo?.business?.image.map(
+                                  (item) => {
+                                    if (item.url == defaultImg) {
+                                      item.isDefault = true;
+                                    } else {
+                                      item.isDefault = false;
+                                    }
+                                    return item;
+                                  }
+                                );
+                              }
+                              const newUser = {
+                                ...user,
+                                userInfo: {
+                                  ...user?.userInfo,
+                                  business: {
+                                    ...user?.userInfo.business,
+                                    image: newImage,
+                                  },
+                                },
+                              };
+                              userStore.setOnlyUserDetail(newUser);
+                            }, 1000);
+                          }}
+                        >
+                          {item.url && item.url !== "" && (
+                            <FastImage
+                              source={{ uri: item.url }}
+                              style={styles.toProfileImage}
+                            />
+                          )}
+
+                          {defaultImageUrl === item.url && (
+                            <View
+                              style={{
+                                position: "absolute",
+                                zIndex: 1,
+                                bottom: 5,
+                                backgroundColor: Color.blackTransTagFree,
+                                width: "90%",
+                                alignItems: "center",
+                                paddingVertical: 2,
+                                borderRadius: 5,
+                              }}
+                            >
+                              <Icon
+                                name="mark"
+                                height={18}
+                                width={18}
+                                fill={Color.primary}
+                              />
+                            </View>
+                          )}
+                        </TouchableOpacity>
+                      );
+                    }}
+                  />
+                </View>
+              ) : null}
+            </View>
           </ScrollView>
           <View
             style={{
@@ -2672,9 +2926,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   flexDirection: "row",
                   flex: 1,
                   marginHorizontal: 20,
+                  marginBottom: Platform.OS === "ios" ? 10 : null,
                 }}
               >
-                <Button
+                {/* <Button
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => layoutRef.current.snapTo(0)}
                   isVertical={true}
@@ -2689,7 +2944,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   textColor={true}
                 >
                   {Common.getTranslation(LangKey.labLayouts)}
-                </Button>
+                </Button> */}
                 <Button
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => colorRef.current.snapTo(0)}
@@ -2706,7 +2961,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 >
                   {Common.getTranslation(LangKey.labColorCodeList)}
                 </Button>
-                <Button
+                {/* <Button
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => socialRef.current.snapTo(0)}
                   isVertical={true}
@@ -2721,16 +2976,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   textColor={true}
                 >
                   {Common.getTranslation(LangKey.labSocialMediaIcons)}
-                </Button>
+                </Button> */}
                 <Button
                   disable={designs == null || designs == undefined}
                   isVertical={true}
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => {
                     if (user && user !== null) {
-                      navigation.navigate(Constant.navProfile, {
-                        title: Constant.titBusinessProfile,
-                      });
+                      setModalForEditBusinessInfo(true);
                     } else {
                       Common.showMessage(
                         Common.getTranslation(LangKey.msgCreateAccEdit)
@@ -2747,7 +3000,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   }
                   textColor={true}
                 >
-                  {Common.getTranslation(LangKey.txtEdit)}
+                  {Common.getTranslation(LangKey.txtProfile)}
                 </Button>
 
                 <Button
@@ -2755,14 +3008,15 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   isVertical={true}
                   onPress={() => {
+                    onPressBack();
                     // if (currentDesign.id === curDesign.id) {
                     //   onReset();
                     // } else {
                     //   setCurrentDesign(curDesign);
                     // }
-                    onReset();
-                    fiilterLayouts();
-                    setSelectedPicker(false);
+                    // onReset();
+                    // fiilterLayouts();
+                    // setSelectedPicker(false);
                   }}
                   icon={
                     <Icon
@@ -2774,8 +3028,48 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   }
                   textColor={true}
                 >
-                  {Common.getTranslation(LangKey.txtReset)}
+                  {Common.getTranslation(LangKey.txtBack)}
                 </Button>
+                <View
+                  style={{
+                    width: 50,
+                    height: 50,
+                    marginVertical: Platform.OS === "android" ? 5 : 0,
+                  }}
+                >
+                  <Button
+                    disable={
+                      isdesignImageLoad === true ||
+                      isUserDesignImageLoad === true
+                    }
+                    style={{ backgroundColor: Color.transparent }}
+                    isVertical={true}
+                    onPress={() => {
+                      onClickDownload();
+                      setIsdesignImageLoad(true);
+                    }}
+                    icon={
+                      <Icon
+                        name="download"
+                        height={14}
+                        width={14}
+                        fill={Color.grey}
+                      />
+                    }
+                    textColor={true}
+                  >
+                    {isdesignImageLoad === true ||
+                    isUserDesignImageLoad === true ? (
+                      <ActivityIndicator
+                        style={{ margin: 5 }}
+                        size={20}
+                        color={Color.darkBlue}
+                      />
+                    ) : (
+                      Common.getTranslation(LangKey.txtSave)
+                    )}
+                  </Button>
+                </View>
               </View>
             </ScrollView>
           </View>
@@ -2820,6 +3114,14 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 4,
     overflow: "hidden",
+  },
+  toProfileImage: {
+    width: 80,
+    height: 95,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
   },
   listDesignView: {
     marginHorizontal: 5,

@@ -51,6 +51,8 @@ class DesignStore {
   userNotificationTime = new Date();
   modalOffers = [];
   anltDataObj = {};
+  socialIconsPersonal = [];
+  socialIconsBusiness = [];
 
   udLoading = false;
   userDesignsF = [];
@@ -301,6 +303,12 @@ class DesignStore {
     this.isNewNotification =
       this.userNotificationTime.getTime() < this.lastNotificationTime.getTime();
   };
+  updateSocialIconsPersonal = (val) => {
+    this.socialIconsPersonal = val;
+  };
+  updateSocialIconsBusiness = (val) => {
+    this.socialIconsBusiness = val;
+  };
   anlticData = async () => {
     let obj = {
       imp: [],
@@ -353,6 +361,10 @@ decorate(DesignStore, {
   designLayouts: observable,
   anltDataObj: observable,
   languages: observable,
+  socialIconsPersonal: observable,
+  socialIconsBusiness: observable,
+  updateSocialIconsPersonal: action,
+  updateSocialIconsBusiness: action,
   loadHomeData: action,
   loadMoreAfterSubCategories: action,
   loadMoreBeforeSubCategories: action,

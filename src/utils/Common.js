@@ -83,11 +83,7 @@ const showMessage = (message) => {
 const onShare = async () => {
   const options = {
     title: "App link",
-    message: `${Constant.whatsAppShareMsg} Applink : ${
-      Platform.OS === "ios"
-        ? Constant.titAppleIdForAppStore
-        : Constant.androidPlaystoreLink
-    }`,
+    message: `${Constant.whatsAppShareMsg}\n Apple : ${Constant.titAppleIdForAppStore}\n Android : ${Constant.androidPlaystoreLink}`,
     url: image1,
   };
   try {

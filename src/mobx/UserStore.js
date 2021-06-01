@@ -91,11 +91,15 @@ class UserStore {
       Array.isArray(user.userInfo.personal.image) &&
       user.userInfo.personal.image.length > 0
     ) {
+      console.log("inside if");
+
       user.userInfo.personal.image = [
         ...user.userInfo.personal.image,
         { url: profileImage, isDefault: false },
       ];
+      console.log("object", user.userInfo.personal.image);
     } else {
+      console.log("inside else");
       const data = user?.userInfo?.personal ? user.userInfo.personal : {};
       user.userInfo = {
         ...user.userInfo,

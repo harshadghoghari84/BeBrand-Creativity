@@ -286,22 +286,43 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
                   marginHorizontal: 10,
                 }}
               >
-                <SvgUri
-                  uri={item.image.url}
-                  width={32}
-                  height={32}
-                  fill={
-                    currentItem.id === item.id ? Color.white : Color.primary
-                  }
-                />
-                <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                  <View style={styles.innerfitContainer}>
-                    <Text style={styles.txtlable}>{item.name}</Text>
+                <View
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: "row",
+                    }}
+                  >
+                    <SvgUri
+                      uri={item.image.url}
+                      width={32}
+                      height={32}
+                      fill={
+                        currentItem.id === item.id ? Color.white : Color.primary
+                      }
+                    />
+
+                    <View style={styles.innerfitContainer}>
+                      <Text style={styles.txtlable}>{item.name}</Text>
+                    </View>
                   </View>
-                  <View style={styles.innerfitContainer}>
+                  <View
+                    style={{
+                      height: 0.5,
+                      width: "95%",
+                      backgroundColor: Color.black,
+                      marginVertical: 5,
+                    }}
+                  />
+                  <View style={styles.descContainer}>
                     <Text style={styles.txtdes}>{item.description}</Text>
                   </View>
                 </View>
+
                 <View style={styles.discountView}>
                   <Text style={styles.txtdiscount}>₹ {item.discountPrice}</Text>
                 </View>
@@ -313,7 +334,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
 
       <Button
         disabled={currentItem == null}
-        style={{ marginTop: 5, marginBottom: Platform.OS === "ios" ? 20 : 5 }}
+        style={{ marginTop: 5, marginBottom: 5 }}
         normal={true}
         onPress={() => {
           requestSubscription(
@@ -388,7 +409,11 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   innerfitContainer: {
-    // marginVertical: 5,
+    marginTop: 5,
+    marginLeft: 10,
+  },
+  descContainer: {
+    // marginTop: 5,
   },
   txtlable: {
     fontSize: 18,
