@@ -29,6 +29,9 @@ const CustomHeader = ({
   ScreenTitle,
   isShadow = false,
   designStore,
+  bePrem = false,
+  bottomBorder = false,
+  position = false,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [isNewNotification, setIsNewNotification] = useState(false);
@@ -43,10 +46,17 @@ const CustomHeader = ({
   };
 
   return (
-    <View style={[styles.container, isShadow && styles.shadow]}>
+    <View
+      style={[
+        styles.container,
+        position && styles.posAbs,
+        isShadow && styles.shadow,
+        bottomBorder && styles.borderBottom,
+      ]}
+    >
       <StatusBar
-        barStyle="light-content"
-        backgroundColor={Color.primary}
+        barStyle="dark-content"
+        backgroundColor={Color.white}
         translucent={Platform.OS === "ios" ? true : false}
       />
       <Modal visible={visibleModal} toggleVisible={toggleVisible} />
@@ -62,7 +72,7 @@ const CustomHeader = ({
                 style={styles.icons}
                 onPress={() => navigation.goBack()}
               >
-                <Icon name="back" fill={Color.white} height={17} width={17} />
+                <Icon name="back" fill={Color.grey} height={17} width={17} />
               </TouchableOpacity>
             )}
             {menu === true && (
@@ -70,21 +80,22 @@ const CustomHeader = ({
                 style={[styles.icons, { paddingLeft: 10 }]}
                 onPress={() => navigation.openDrawer()}
               >
-                <Icon name="menu" fill={Color.white} height={17} width={17} />
+                <Icon name="menu" fill={Color.grey} height={17} width={17} />
               </TouchableOpacity>
             )}
+            {isTtileImage === true ? (
+              <FastImage
+                source={require("../../assets/img/headerlogo.png")}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.companyLogo}
+              />
+            ) : null}
           </View>
-          {isTtileImage === true ? (
-            <FastImage
-              source={require("../../assets/img/LOGO2.png")}
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.companyLogo}
-            />
-          ) : (
+          {isTtileImage === true ? null : (
             <Text
               style={{
                 fontSize: 18,
-                color: Color.white,
+                color: Color.grey,
               }}
             >
               {ScreenTitle}
@@ -92,19 +103,7 @@ const CustomHeader = ({
           )}
 
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            {search === true && (
-              <View style={styles.icons}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <Icon
-                    name="search"
-                    fill={Color.white}
-                    height={20}
-                    width={20}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
-            {notification === true && (
+            {/* {notification === true && (
               <TouchableOpacity
                 onPress={() => navigation.navigate(Constant.navNotification)}
                 style={[styles.icons, { paddingRight: 10 }]}
@@ -131,8 +130,8 @@ const CustomHeader = ({
                   />
                 )}
               </TouchableOpacity>
-            )}
-            {langauge === true && (
+            )} */}
+            {/* {langauge === true && (
               <View style={[styles.icons, { paddingRight: 10 }]}>
                 <TouchableOpacity
                   onPress={() => {
@@ -141,10 +140,47 @@ const CustomHeader = ({
                 >
                   <Icon
                     name="language"
-                    fill={Color.white}
+                    fill={Color.grey}
                     height={17}
                     width={17}
                   />
+                </TouchableOpacity>
+              </View>
+            )} */}
+            {bePrem === true && (
+              <View style={[styles.icons, { paddingRight: 10 }]}>
+                <TouchableOpacity
+                  style={{
+                    borderColor: Color.grey,
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    paddingHorizontal: 10,
+                    paddingVertical: 2,
+                  }}
+                  onPress={() =>
+                    navigation.navigate(
+                      Platform.OS === "ios"
+                        ? Constant.titPrimiumIos
+                        : Constant.titPrimium
+                    )
+                  }
+                >
+                  <Icon
+                    name="Premium"
+                    fill={Color.primary}
+                    height={13}
+                    width={13}
+                  />
+                  <Text
+                    style={{
+                      color: Color.darkBlue,
+                      fontSize: 10,
+                      paddingLeft: 5,
+                    }}
+                  >
+                    Be Premium
+                  </Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -168,34 +204,49 @@ const CustomHeader = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.primary,
+    backgroundColor: Color.white,
+
+    // bottom: 0,
   },
   safeArea: {
-    backgroundColor: Color.primary,
+    backgroundColor: Color.white,
   },
   header: {
     height: 50,
-    paddingHorizontal: 10,
+    paddingLeft: 10,
+    paddingRight: 1,
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
   },
   companyLogo: {
-    flex: 1,
+    // flex: 1,
+    width: 150,
     height: 18,
   },
   icons: {
     paddingLeft: 5,
   },
   shadow: {
-    shadowColor: Color.black,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
+  },
+  borderBottom: {
+    borderBottomColor: Color.blackTrans,
+    borderBottomWidth: 0.7,
+  },
+  posAbs: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
   },
 });
 

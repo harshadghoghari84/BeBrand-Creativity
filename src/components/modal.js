@@ -11,15 +11,20 @@ import {
   Text,
   Easing,
   Platform,
+  Dimensions,
 } from "react-native";
-import Popover, { Rect, PopoverMode } from "react-native-popover-view";
+import Popover, {
+  Rect,
+  PopoverMode,
+  PopoverPlacement,
+} from "react-native-popover-view";
 // relative Path
 import Color from "../utils/Color";
 import Common from "../utils/Common";
 import LangKey from "../utils/LangKey";
 
 const lng = [{ code: "all", name: "All" }];
-
+const { width, height } = Dimensions.get("screen");
 const Modal = ({ visible, toggleVisible, designStore }) => {
   const [lang, setLang] = useState(lng[0].code);
   const [languages, setLanguages] = useState(lng);
@@ -42,12 +47,13 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
     <Popover
       from={
         Platform.OS === "android"
-          ? new Rect(200, 50, 310, 0)
-          : new Rect(200, 50, 350, 50)
+          ? new Rect(200, 50, 310, 800)
+          : new Rect(200, 50, 350, 1350)
       }
+      arrowShift={0.5}
       isVisible={visible}
       animationConfig={animating}
-      placement="bottom"
+      placement={PopoverPlacement.RIGHT}
       onRequestClose={() => toggleVisible()}
     >
       <View style={{ height: 200, width: 150, backgroundColor: Color.white }}>

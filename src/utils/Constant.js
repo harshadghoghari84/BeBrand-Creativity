@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -69,6 +70,7 @@ export default {
   prfViewDesignsBusiness: "viewDesignsbusiness",
   prfLangCode: "langCode",
   prfIcons: "setSocialIcons",
+  prfIconsB: "setSocialIconsB",
   labPurchasedTKNandProdId: "purchasedTKNandProdId",
 
   branddotLegalUrl: "https://branddot.in/?page_id=559",
@@ -173,8 +175,14 @@ export default {
 
   // for ad
 
-  // rewardAdunitId: "ca-app-pub-1505061127299003/4315408477",
-  // interstitialAdunitId: "ca-app-pub-1505061127299003/3465538847",
+  // rewardAdunitId:
+  //   Platform.OS === "ios"
+  //     ? "ca-app-pub-1505061127299003/5391821423"
+  //     : "ca-app-pub-1505061127299003/4315408477",
+  // interstitialAdunitId:
+  //   Platform.OS === "ios"
+  //     ? "ca-app-pub-1505061127299003/8401128147"
+  //     : "ca-app-pub-1505061127299003/3465538847",
   // InterstitialAdPlacementId: "161899485797593_161899955797546",
   // InterstitialAdPlacementIdVideo: "161899485797593_162546452399563",
   addCounter: 4,
@@ -228,8 +236,7 @@ export default {
   whatsAppNumber: "7069587069",
 
   // Rating POPup
-  titAppleIdForAppStore:
-    "https://apps.apple.com/us/app/su-yao/id1166499145?ls=1",
+  titAppleIdForAppStore: "https://apps.apple.com/us/app/keynote/id1561916063",
   titPkgnameForAndroidPlayStore: "com.bebrandd.branddot",
   OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
   fallbackPlatformURL: "https://branddot.in/",

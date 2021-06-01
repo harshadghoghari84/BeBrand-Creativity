@@ -25,6 +25,7 @@ import PopUp from "../../components/PopUp";
 import Common from "../../utils/Common";
 import Ratings from "../../utils/ratings";
 import LangKey from "../../utils/LangKey";
+import { StackActions } from "@react-navigation/routers";
 
 class CustomDrawer extends Component {
   state = {
@@ -137,7 +138,19 @@ class CustomDrawer extends Component {
         </Modal>
 
         <View style={styles.container}>
-          <SafeAreaView style={{ backgroundColor: Color.primary }}>
+          <SafeAreaView
+            style={{
+              backgroundColor: Color.primary,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}
+          >
             <View style={styles.containerUserDetails}>
               <FastImage
                 source={{
@@ -784,14 +797,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 10,
     backgroundColor: Color.primary,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   containerSubUserDetails: { width: "60%", left: 15 },
   txtUserName: { color: Color.drawerTextColor, fontSize: 17 },

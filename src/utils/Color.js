@@ -42,6 +42,7 @@ export default {
   transparent: "transparent",
   layerColor: "#e8e8e8",
   blackTrans: "rgba(0,0,0,0.3)",
+  blackTransBorder: "rgba(0,0,0,0.1)",
   whiteTrans: "rgba(255,255,255,0.3)",
   blackTransTagFree: "rgba(0,0,0,0.5)",
 };

@@ -1,0 +1,19 @@
+{
+  "titleHome": "Home",
+  "titleFavourite": "Favourite",
+  "titleCart": "Cart",
+  "titleNotification": "Notification",
+  "titleProfile": "Profile",
+
+  "errorMobileNo": "Please enter valid mobile number",
+  "errorEmail": "Please enter valid email address",
+  "errorPassword": "Please enter valid password",
+  "errorName": "Please enter your name",
+
+  "headerSearchHint": "Search Items. E.g Diwali",
+
+  "cartEmpty": "Your cart is empty",
+
+  "welcome": "आपका स्वागत है",
+  "name": "सौरभ"
+}

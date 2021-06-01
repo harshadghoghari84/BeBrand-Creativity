@@ -58,7 +58,7 @@ PODS:
     - UMFileSystemInterface
   - EXStructuredHeaders (1.0.1):
     - UMCore
-  - EXUpdates (0.5.4):
+  - EXUpdates (0.5.5):
     - EXStructuredHeaders
     - React-Core
     - UMCore
@@ -86,20 +86,20 @@ PODS:
     - FBSDKShareKit/Share (= 8.2.0)
   - FBSDKShareKit/Share (8.2.0):
     - FBSDKCoreKit (~> 8.2.0)
-  - Firebase/Auth (7.10.0):
+  - Firebase/Auth (7.11.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 7.10.0)
-  - Firebase/CoreOnly (7.10.0):
-    - FirebaseCore (= 7.10.0)
-  - Firebase/Messaging (7.10.0):
+    - FirebaseAuth (~> 7.11.0)
+  - Firebase/CoreOnly (7.11.0):
+    - FirebaseCore (= 7.11.0)
+  - Firebase/Messaging (7.11.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.10.0)
-  - FirebaseAuth (7.10.0):
+    - FirebaseMessaging (~> 7.11.0)
+  - FirebaseAuth (7.11.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseCore (7.10.0):
+  - FirebaseCore (7.11.0):
     - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
@@ -118,8 +118,9 @@ PODS:
     - FirebaseInstallations (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.10.0):
+  - FirebaseMessaging (7.11.0):
     - FirebaseCore (~> 7.0)
+    - FirebaseInstallations (~> 7.0)
     - FirebaseInstanceID (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
@@ -257,7 +258,7 @@ PODS:
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
-  - razorpay-pod (1.1.12)
+  - razorpay-pod (1.1.13)
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
     - FBLazyVector (= 0.63.4)
@@ -528,15 +529,15 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.8)
     - SDWebImageWebPCoder (~> 0.6.1)
-  - RNFBApp (11.3.3):
-    - Firebase/CoreOnly (= 7.10.0)
+  - RNFBApp (11.5.0):
+    - Firebase/CoreOnly (= 7.11.0)
     - React-Core
-  - RNFBAuth (11.3.3):
-    - Firebase/Auth (= 7.10.0)
+  - RNFBAuth (11.5.0):
+    - Firebase/Auth (= 7.11.0)
     - React-Core
     - RNFBApp
-  - RNFBMessaging (11.3.3):
-    - Firebase/Messaging (= 7.10.0)
+  - RNFBMessaging (11.5.0):
+    - Firebase/Messaging (= 7.11.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (1.8.0):
@@ -546,8 +547,8 @@ PODS:
     - React-Core
   - RNIap (5.2.14):
     - React-Core
-  - RNRate (1.2.4):
-    - React
+  - RNRate (1.2.6):
+    - React-Core
   - RNReanimated (1.13.3):
     - React-Core
   - RNScreens (2.15.2):
@@ -924,20 +925,20 @@ SPEC CHECKSUMS:
   EXSharing: 6b3b821c930a68e4c37b1afede6b558d4f00cf39
   EXSQLite: bda6a286dded0637bb312ee781239dcca163ff4b
   EXStructuredHeaders: be834496a4d9fd0069cd12ec1cc57b31c6d3b256
-  EXUpdates: e191b83e00d3e7ebfd7db3986806ceca09b7b322
+  EXUpdates: efe0e8c514dcff06a8fd0b63be6019a6365fb9c7
   FBAudienceNetwork: 1974ec59ef88102f284c29941d73d0cbec3f2874
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
   FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
   FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
   FBSDKShareKit: 0c0d51b3af47075a85ed9bea0e28b2fc70e3594b
-  Firebase: fffddd0bab8677d07376538365faa93ff3889b39
-  FirebaseAuth: 675f2c4eb4426e7c58a78a89965a6530e7863535
-  FirebaseCore: ec566d917b2195fc2610aeb148dae99f57a788f9
+  Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
+  FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
+  FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
   FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
   FirebaseInstanceID: ad5135045a498d7775903efd39762d2cdfa1be27
-  FirebaseMessaging: 76b3058cef7f339cf10db196e03bbbb2165fb5d7
+  FirebaseMessaging: 163435fb6db065e3b6228f1e577b10ed2cc506d2
   Flipper: 1bd2db48dcc31e4b167b9a33ec1df01c2ded4893
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -960,7 +961,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  razorpay-pod: e2e8cf25aea59eef51c6851716f188df71adab86
+  razorpay-pod: c0e9c4ae3ed168ab0f59be2acfb3ba8fd57eba57
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -995,13 +996,13 @@ SPEC CHECKSUMS:
   RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
   RNDateTimePicker: 3d1931e387248cb8f1d1d33740d4a1a82dfe622a
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
-  RNFBApp: 8b1b4308daa657b8ea87dbed517e31215f5f1456
-  RNFBAuth: b86ae9875cf59cc895fb0ca7f554390dfed1a44a
-  RNFBMessaging: 851ec0d1a9cb22e80dcf5f5ea57775fe1f78e629
+  RNFBApp: 9c90f9d576861947ba75fe0830567c570bcbcf6d
+  RNFBAuth: 99fdbce04ff3d39e57a7a3956d632ee69145685b
+  RNFBMessaging: c873e6c37f69d22de22cab134413030a9c6330a9
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNIap: f00befe6581a5953191108cb97d9b3872473337b
-  RNRate: 15b861025a7821730761fce7f44561ce7e0b2de0
+  RNRate: cb88d5a0aa7be8bfae67dafbbbba2c9cd5e6faf2
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: 3d682bcaba69a4f8e55543d90818704f34338db1
   RNShare: 4df87d1791f50a2c7b1d89432fb9bbb7c02a9c9a

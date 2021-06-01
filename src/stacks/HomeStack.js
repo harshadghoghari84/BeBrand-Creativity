@@ -31,15 +31,19 @@ const HomeStackComponent = ({ navigation }) => {
         name={Constant.navHome}
         component={HomeScreen}
         options={{
-          header: (props) => (
-            <CustomHeader
-              langauge={true}
-              notification={true}
-              menu={true}
-              isTtileImage={true}
-              {...props}
-            />
-          ),
+          headerShown: false,
+
+          // header: (props) => (
+          //   <CustomHeader
+          //     langauge={true}
+          //     notification={true}
+          //     isShadow={true}
+          //     bePrem={true}
+          //     menu={true}
+          //     isTtileImage={true}
+          //     {...props}
+          //   />
+          // ),
         }}
       />
 
@@ -52,6 +56,7 @@ const HomeStackComponent = ({ navigation }) => {
               isBackVisible={true}
               menu={true}
               empty={true}
+              isShadow={true}
               ScreenTitle={"Packages"}
               {...props}
             />
@@ -66,6 +71,7 @@ const HomeStackComponent = ({ navigation }) => {
             <CustomHeader
               isBackVisible={true}
               menu={true}
+              isShadow={true}
               empty={true}
               ScreenTitle={"Packages"}
               {...props}
@@ -99,7 +105,7 @@ const HomeStackComponent = ({ navigation }) => {
               menu={true}
               empty={true}
               isShadow={true}
-              ScreenTitle={"User Design"}
+              ScreenTitle={"My Design"}
               {...props}
             />
           ),
@@ -116,7 +122,7 @@ const HomeStackComponent = ({ navigation }) => {
               menu={true}
               empty={true}
               isShadow={true}
-              ScreenTitle={"User Package"}
+              ScreenTitle={"My Package"}
               {...props}
             />
           ),
@@ -149,7 +155,7 @@ const HomeStackComponent = ({ navigation }) => {
               isBackVisible={true}
               empty={true}
               menu={true}
-              // isShadow={true}
+              isShadow={true}
               ScreenTitle={"PostProfile"}
               {...props}
             />

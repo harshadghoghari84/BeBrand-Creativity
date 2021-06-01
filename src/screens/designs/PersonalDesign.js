@@ -11,6 +11,8 @@ import {
   ScrollView,
   TouchableOpacity,
   PixelRatio,
+  ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 
 import ViewShot from "react-native-view-shot";
@@ -50,7 +52,11 @@ let adAvilable = false;
 let adCounter = 0;
 let setCurLayout = {};
 let firstTime = true;
-
+let defaultImg = "";
+let uDataPer = {};
+let curLayoutId = "";
+let firstTimeColor = true;
+let colorArr = [];
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
   const designPackages = toJS(designStore.designPackages);
@@ -80,6 +86,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalForEditPersonalInfo, setModalForEditPersonalInfo] =
+    useState(false);
   const [visibleModalForPkg, setVisibleModalForPkg] = useState(false);
   const [visibleFreeModal, setVisibleFreeModal] = useState(false);
   const [visibleModalMsg, setVisibleModalMsg] = useState(false);
@@ -95,7 +103,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
   );
-
+  const [defaultImageUrl, setDefaultImageUrl] = useState(null);
   const [Pkgtype, setPkgType] = useState();
   const [adReady, setAdReady] = useState(false);
 
@@ -104,35 +112,56 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [userDataPersonal, setUserDataPersonal] = useState();
 
+  const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
+  const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
+
   const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
     errorPolicy: "all",
   });
 
   const toggleVisible = () => {
-    designStore.setIsDownloadStartedPersonal(false);
+    setIsdesignImageLoad(false);
     setVisibleModal(!visibleModal);
   };
 
   const toggleVisibleForPkg = () => {
-    designStore.setIsDownloadStartedPersonal(false);
+    setIsdesignImageLoad(false);
     setVisibleModalForPkg(!visibleModalForPkg);
   };
   const toggleFreeVisible = () => {
     setVisibleFreeModal(!visibleFreeModal);
   };
+  const toggleVisibleModalForEditPersonalInfo = () => {
+    setModalForEditPersonalInfo(!visibleModalForEditPersonalInfo);
+  };
 
   const toggleVisibleMsg = (val) => {
     if (val === true) {
       let findIndex = layouts.findIndex((ele) => ele.id === setCurLayout.id);
+      console.log(findIndex);
       setActiveSlide(findIndex);
+      flatlistSliderRef.current.scrollToIndex({
+        index: findIndex,
+      });
       setCurLayout !== undefined &&
         setCurLayout !== null &&
         setCurrentLayout(setCurLayout);
     }
+    if (val === "edit") {
+      setModalForEditPersonalInfo(true);
+    }
     setVisibleModalMsg(!visibleModalMsg);
   };
 
-  const toggleVisibleColorPicker = () => {
+  const toggleVisibleColorPicker = (color) => {
+    console.log("color", color);
+    colorArr = [
+      ...colorArr,
+      {
+        selectedFooterColor: color,
+        selectedFooterTxtColor: footerTextColor,
+      },
+    ];
     return setVisiblePicker(!visiblePicker);
   };
 
@@ -140,11 +169,11 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     if (isDownload) {
       setTimeout(() => {
         AdMobRewarded.showAdAsync().catch((error) => {
-          fbShowAd();
+          Platform.OS === "android" ? fbShowAd() : setAdReady(true);
         });
       }, 1000);
     } else {
-      designStore.setIsDownloadStartedPersonal(false);
+      setIsdesignImageLoad(false);
     }
     setVisibleModalAd(!visibleModalAd);
   };
@@ -195,7 +224,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       if (adAvilable) {
         setAdReady(true);
       } else {
-        designStore.setIsDownloadStartedPersonal(false);
+        setIsdesignImageLoad(false);
       }
       AdMobRewarded.requestAdAsync().catch((error) => console.warn(error));
     });
@@ -279,7 +308,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const showAd = () => {
     if (hasPro === false && adCounter && adCounter >= Constant.addCounter) {
-      AdMobInterstitial.showAdAsync().catch((error) => fbShowAd());
+      AdMobInterstitial.showAdAsync().catch((error) => {
+        Platform.OS === "android" ? fbShowAd() : null;
+      });
       adCounter = 0;
     }
   };
@@ -307,30 +338,27 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     if (adReady) {
       setAdReady(false);
       adAvilable = false;
-      if (designStore.isDownloadStartedPersonal === true) {
-        onClickDownload();
-      }
+      saveDesign();
     }
   }, [adReady]);
 
-  useEffect(() => {
-    const isDownloadStartedPersonal = toJS(
-      designStore.isDownloadStartedPersonal
-    );
+  // useEffect(() => {
+  //   const isDownloadStartedPersonal = toJS(
+  //     designStore.isDownloadStartedPersonal
+  //   );
 
-    if (isDownloadStartedPersonal && isDownloadStartedPersonal === true) {
-      if (hasPro === true) {
-        onClickDownload();
-      } else {
-        if (Pkgtype === Constant.typeDesignPackageVip) {
-          setVisibleModal(true);
-        } else {
-          setVisibleModalAd(true);
-        }
-        //AdMobRewarded.showAd().catch((error) => console.warn(error));
-      }
-    }
-  }, [designStore.isDownloadStartedPersonal]);
+  //   if (isDownloadStartedPersonal && isDownloadStartedPersonal === true) {
+  //     if (hasPro === true) {
+  //       onClickDownload();
+  //     } else {
+  //       if (Pkgtype === Constant.typeDesignPackageVip) {
+  //         setVisibleModal(true);
+  //       } else {
+  //         setVisibleModalAd(true);
+  //       }
+  //     }
+  //   }
+  // }, [designStore.isDownloadStartedPersonal]);
 
   useEffect(() => {
     AsyncStorage.getItem(Constant.prfIcons)
@@ -341,6 +369,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       })
       .catch((err) => console.log("async err", err));
   }, []);
+  useEffect(() => {
+    const socialIconsP = toJS(designStore.socialIconsPersonal);
+    setSocialIconList(socialIconsP);
+  }, [designStore.socialIconsPersonal]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -401,11 +433,18 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             }
           : Constant.dummyUserData[0]
       );
+      user?.userInfo?.personal?.image && user.userInfo.personal.image.length > 0
+        ? setDefaultImageUrl(
+            user.userInfo.personal.image.find((item) => item.isDefault === true)
+              .url
+          )
+        : setDefaultImageUrl(null);
     }
   }, [userStore.user]);
 
   useEffect(() => {
     fiilterLayouts();
+    uDataPer = userDataPersonal;
   }, [userDataPersonal]);
 
   const fiilterLayouts = () => {
@@ -416,7 +455,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     );
 
     setLayouts(filterArr);
-    // checkLayout(filterArr);
+    checkLayout(filterArr);
   };
   const onReset = () => {
     if (currentDesign?.colorCodes && currentDesign.colorCodes.length > 0) {
@@ -429,14 +468,19 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const onClickDownload = async () => {
     if (user && user !== null) {
-      await saveDesign();
-      // if (currentLayout && currentLayout !== null) {
-      // } else {
-      //   designStore.setIsDownloadStartedPersonal(false);
-      //   Common.showMessage(Common.getTranslation(LangKey.msgSelectLayout));
-      // }
+      if (hasPro === true) {
+        await saveDesign();
+      } else {
+        if (Pkgtype === Constant.typeDesignPackageVip) {
+          setVisibleModal(true);
+        } else {
+          setVisibleModalAd(true);
+        }
+      }
     } else {
-      designStore.setIsDownloadStartedPersonal(false);
+      setTimeout(() => {
+        setIsdesignImageLoad(false);
+      }, 1000);
       Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
     }
   };
@@ -458,7 +502,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         Permissions.MEDIA_LIBRARY
       );
       if (newStatus !== Permissions.PermissionStatus.GRANTED) {
-        designStore.setIsDownloadStartedPersonal(false);
+        setIsdesignImageLoad(false);
 
         Common.showMessage(
           Common.getTranslation(LangKey.msgCameraRollPermission)
@@ -502,7 +546,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         } else if (errors[0].extensions.code === Constant.userFreeDesignCut) {
           userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         } else {
-          designStore.setIsDownloadStartedPersonal(false);
+          setIsdesignImageLoad(false);
 
           Common.showMessage(errors[0].message);
           return;
@@ -532,14 +576,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       }
 
       Common.showMessage(Common.getTranslation(LangKey.msgDesignDownload));
-      designStore.setIsDownloadStartedPersonal(false);
+      setIsdesignImageLoad(false);
 
       if (isShareClick === true) {
         isShareClick = false;
         await openShareDialogAsync(uri);
       }
     } else {
-      designStore.setIsDownloadStartedPersonal(false);
+      setIsdesignImageLoad(false);
 
       setVisibleModal(true);
       // setVisibleFreeModal(true);
@@ -596,24 +640,24 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const checkLayout = (layouts) => {
-    if (userDataPersonal) {
+    if (uDataPer) {
       let isSet = false;
       layouts.some((layout) => {
         switch (layout.id) {
           case Constant.personalLay1Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.website &&
-              userDataPersonal.website !== "" &&
-              userDataPersonal.email &&
-              userDataPersonal.email !== "" &&
-              userDataPersonal.mobile &&
-              userDataPersonal.mobile !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.website &&
+              uDataPer.website !== "" &&
+              uDataPer.email &&
+              uDataPer.email !== "" &&
+              uDataPer.mobile &&
+              uDataPer.mobile !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== ""
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -624,15 +668,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay2Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== "" &&
-              userDataPersonal.image &&
-              userDataPersonal.image !== "" &&
-              userDataPersonal.image.length > 0
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== "" &&
+              uDataPer.image &&
+              uDataPer.image !== "" &&
+              uDataPer.image.length > 0
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -643,15 +687,15 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay3Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== "" &&
-              userDataPersonal.image &&
-              userDataPersonal.image !== "" &&
-              userDataPersonal.image.length > 0
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== "" &&
+              uDataPer.image &&
+              uDataPer.image !== "" &&
+              uDataPer.image.length > 0
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -661,14 +705,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay4Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.website &&
-              userDataPersonal.website !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.website &&
+              uDataPer.website !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== ""
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -679,14 +723,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay5Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.email &&
-              userDataPersonal.email !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== ""
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.email &&
+              uDataPer.email !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== ""
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -697,17 +741,17 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay6Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.mobile &&
-              userDataPersonal.mobile !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== "" &&
-              userDataPersonal.image &&
-              userDataPersonal.image !== "" &&
-              userDataPersonal.image.length > 0
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.mobile &&
+              uDataPer.mobile !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== "" &&
+              uDataPer.image &&
+              uDataPer.image !== "" &&
+              uDataPer.image.length > 0
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -718,17 +762,17 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay7Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== "" &&
-              userDataPersonal.mobile &&
-              userDataPersonal.mobile !== "" &&
-              userDataPersonal.socialMedia &&
-              userDataPersonal.socialMedia !== "" &&
-              userDataPersonal.image &&
-              userDataPersonal.image !== "" &&
-              userDataPersonal.image.length > 0
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== "" &&
+              uDataPer.mobile &&
+              uDataPer.mobile !== "" &&
+              uDataPer.socialMedia &&
+              uDataPer.socialMedia !== "" &&
+              uDataPer.image &&
+              uDataPer.image !== "" &&
+              uDataPer.image.length > 0
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -739,10 +783,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             break;
           case Constant.personalLay8Id:
             if (
-              userDataPersonal.name &&
-              userDataPersonal.name !== "" &&
-              userDataPersonal.designation &&
-              userDataPersonal.designation !== ""
+              uDataPer.name &&
+              uDataPer.name !== "" &&
+              uDataPer.designation &&
+              uDataPer.designation !== ""
             ) {
               let findInd = layouts.findIndex((ele) => ele.id === layout.id);
               setActiveSlide(findInd);
@@ -767,182 +811,166 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
     }
   };
   const checkAndSetLayout = (layout) => {
-    console.log("layout", layout);
-    switch (layout.id) {
-      case Constant.personalLay1Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.website ||
-          userDataPersonal.website === "" ||
-          !userDataPersonal.email ||
-          userDataPersonal.email === "" ||
-          !userDataPersonal.mobile ||
-          userDataPersonal.mobile === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay1Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
+    if (uDataPer && uDataPer !== null) {
+      switch (layout.id) {
+        case Constant.personalLay1Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.website ||
+            uDataPer.website === "" ||
+            !uDataPer.email ||
+            uDataPer.email === "" ||
+            !uDataPer.mobile ||
+            uDataPer.mobile === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === ""
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay1Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay2Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === "" ||
+            !uDataPer.image ||
+            uDataPer.image === "" ||
+            uDataPer.image.length < 0
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay2Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay3Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === "" ||
+            !uDataPer.image ||
+            uDataPer.image === "" ||
+            uDataPer.image.length < 0
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay3Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay4Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.website ||
+            uDataPer.website === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === ""
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay4Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay5Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.email ||
+            uDataPer.email === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === ""
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay5Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            msg = "";
+
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay6Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.mobile ||
+            uDataPer.mobile === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === "" ||
+            !uDataPer.image ||
+            uDataPer.image === "" ||
+            uDataPer.image.length < 0
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay6Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay7Id:
+          if (
+            !uDataPer.name ||
+            uDataPer.name === "" ||
+            !uDataPer.designation ||
+            uDataPer.designation === "" ||
+            !uDataPer.mobile ||
+            uDataPer.mobile === "" ||
+            !uDataPer.socialMedia ||
+            uDataPer.socialMedia === "" ||
+            !uDataPer.image ||
+            uDataPer.image === "" ||
+            uDataPer.image.length < 0
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay7Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay8Id:
+          if (
+            !uDataPer.name &&
+            uDataPer.name === "" &&
+            !uDataPer.designation &&
+            uDataPer.designation === ""
+          ) {
+            msg = Common.getTranslation(LangKey.personalLay8Msg);
+            setVisibleModalMsg(true);
+            setCurLayout = layout;
+          } else {
+            setCurrentLayout(layout);
+          }
+          break;
+        case Constant.personalLay9Id:
           setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay2Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === "" ||
-          !userDataPersonal.image ||
-          userDataPersonal.image === "" ||
-          userDataPersonal.image.length < 0
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay2Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay3Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === "" ||
-          !userDataPersonal.image ||
-          userDataPersonal.image === "" ||
-          userDataPersonal.image.length < 0
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay3Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay4Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.website ||
-          userDataPersonal.website === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay4Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay5Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.email ||
-          userDataPersonal.email === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === ""
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay5Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          msg = "";
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay6Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.mobile ||
-          userDataPersonal.mobile === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === "" ||
-          !userDataPersonal.image ||
-          userDataPersonal.image === "" ||
-          userDataPersonal.image.length < 0
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay6Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay7Id:
-        if (
-          !userDataPersonal.name ||
-          userDataPersonal.name === "" ||
-          !userDataPersonal.designation ||
-          userDataPersonal.designation === "" ||
-          !userDataPersonal.mobile ||
-          userDataPersonal.mobile === "" ||
-          !userDataPersonal.socialMedia ||
-          userDataPersonal.socialMedia === "" ||
-          !userDataPersonal.image ||
-          userDataPersonal.image === "" ||
-          userDataPersonal.image.length < 0
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay7Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay8Id:
-        if (
-          !userDataPersonal.name &&
-          userDataPersonal.name === "" &&
-          !userDataPersonal.designation &&
-          userDataPersonal.designation === ""
-        ) {
-          msg = Common.getTranslation(LangKey.personalLay8Msg);
-          setVisibleModalMsg(true);
-          setCurLayout = layout;
-        } else {
-          let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-          setActiveSlide(findIndex);
-          setCurrentLayout(layout);
-        }
-        break;
-      case Constant.personalLay9Id:
-        let findIndex = layouts.findIndex((ele) => ele.id === layout.id);
-        setActiveSlide(findIndex);
-        setCurrentLayout(layout);
-        break;
+          break;
+      }
     }
   };
 
@@ -1107,13 +1135,26 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
-        <FastImage
-          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
-          source={{ uri: userDataPersonal.image }}
-          style={styles.lay2ImgUser}
-          resizeMode={FastImage.resizeMode.contain}
-        />
+        <View style={styles.lay2ImgUser}>
+          <FastImage
+            onLoadStart={() => {
+              if (Constant.personalLay2Id === curLayoutId) {
+                setIsUserDesignImageLoad(true);
+              }
+            }}
+            onLoadEnd={() => {
+              if (Constant.personalLay2Id === curLayoutId) {
+                setIsUserDesignImageLoad(false);
+              }
+            }}
+            source={{ uri: userDataPersonal.image }}
+            style={{
+              height: "100%",
+              width: "100%",
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
       ) : null}
       {userDataPersonal.name ? (
         <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
@@ -1175,8 +1216,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
       {userDataPersonal.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.personalLay3Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.personalLay3Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataPersonal.image }}
           style={styles.lay3ImgUser}
           resizeMode={FastImage.resizeMode.contain}
@@ -1401,8 +1450,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
       {userDataPersonal.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.personalLay6Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.personalLay6Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataPersonal.image }}
           style={styles.lay2ImgUser}
           resizeMode={FastImage.resizeMode.contain}
@@ -1490,8 +1547,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
       {userDataPersonal.image ? (
         <FastImage
-          onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
-          onLoadEnd={() => designStore.setIsPersonalDesignLoad(false)}
+          onLoadStart={() => {
+            if (Constant.personalLay7Id === curLayoutId) {
+              setIsUserDesignImageLoad(true);
+            }
+          }}
+          onLoadEnd={() => {
+            if (Constant.personalLay7Id === curLayoutId) {
+              setIsUserDesignImageLoad(false);
+            }
+          }}
           source={{ uri: userDataPersonal.image }}
           style={styles.lay3ImgUser}
           resizeMode={FastImage.resizeMode.contain}
@@ -1701,6 +1766,30 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 backgroundColor: item.code,
               }}
               onPress={() => {
+                if (firstTimeColor === true) {
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: currentDesign?.colorCodes[0].code,
+                      selectedFooterTxtColor:
+                        currentDesign?.colorCodes[0].isLight == true
+                          ? currentDesign.darkTextColor
+                          : currentDesign.lightTextColor,
+                    },
+                  ];
+                }
+                firstTimeColor = false;
+
+                colorArr = [
+                  ...colorArr,
+                  {
+                    selectedFooterColor: item.code,
+                    selectedFooterTxtColor:
+                      item.isLight == true
+                        ? currentDesign.darkTextColor
+                        : currentDesign.lightTextColor,
+                  },
+                ];
                 setSelectedPicker(false);
                 setFooterColor(item.code);
                 item.isLight == true
@@ -1768,7 +1857,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                   shadowRadius: 3.84,
                   elevation: 5,
                 }}
-                onPress={() => setFooterTextColor(Color.black)}
+                onPress={() => {
+                  setFooterTextColor(Color.black);
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: footerColor,
+                      selectedFooterTxtColor: Color.black,
+                    },
+                  ];
+                }}
               />
             </View>
 
@@ -1799,7 +1897,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                   shadowRadius: 3.84,
                   elevation: 5,
                 }}
-                onPress={() => setFooterTextColor(Color.white)}
+                onPress={() => {
+                  setFooterTextColor(Color.white);
+                  colorArr = [
+                    ...colorArr,
+                    {
+                      selectedFooterColor: footerColor,
+                      selectedFooterTxtColor: Color.white,
+                    },
+                  ];
+                }}
               />
             </View>
           </View>
@@ -1966,9 +2073,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       viewableItems.viewableItems !== null &&
       viewableItems.viewableItems.length > 0
     ) {
-      layRef.current.scrollToIndex({
-        index: viewableItems.viewableItems[0].index,
-      });
+      curLayoutId = viewableItems.viewableItems[0].item.id;
+
+      setTimeout(() => {
+        checkAndSetLayout(viewableItems.viewableItems[0].item);
+      }, 1000);
+      // layRef.current.scrollToIndex({
+      //   index: viewableItems.viewableItems[0].index,
+      // });
       setActiveSlide(viewableItems.viewableItems[0].index);
     }
   });
@@ -1977,9 +2089,28 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const layRef = useRef();
 
   const designRef = useRef();
+  const onPressBack = () => {
+    if (colorArr.length > 1) {
+      colorArr.pop();
+      setFooterColor(
+        colorArr && colorArr.length > 0
+          ? colorArr[colorArr.length - 1].selectedFooterColor
+          : null
+      );
+      setFooterTextColor(
+        colorArr && colorArr.length > 0
+          ? colorArr[colorArr.length - 1].selectedFooterTxtColor
+          : currentDesign?.colorCodes[0].isLight === true
+          ? currentDesign.darkTextColor
+          : currentDesign.lightTextColor
+      );
+    } else {
+      Common.showMessage("there is no changes");
+    }
+  };
   return (
     <>
-      <BottomSheet
+      {/* <BottomSheet
         ref={layoutRef}
         snapPoints={[100, 100, 0]}
         borderRadius={10}
@@ -1988,7 +2119,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         enabledGestureInteraction={false}
         callbackNode={fall}
         renderContent={renderContentLayout}
-      />
+      /> */}
       <BottomSheet
         ref={colorRef}
         snapPoints={[100, 100, 0]}
@@ -1998,7 +2129,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         callbackNode={fall}
         renderContent={renderContentColor}
       />
-      <BottomSheet
+      {/* <BottomSheet
         ref={socialRef}
         snapPoints={[100, 100, 0]}
         borderRadius={10}
@@ -2006,7 +2137,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         enabledGestureInteraction={false}
         callbackNode={fall}
         renderContent={renderContentSocial}
-      />
+      /> */}
       <View
         style={{
           flex: 1,
@@ -2015,7 +2146,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       >
         <ScrollView
           contentContainerStyle={{
-            flex: 1,
+            flexGrow: 1,
           }}
           showsVerticalScrollIndicator={false}
         >
@@ -2056,6 +2187,13 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             toggleVisibleAd={toggleVisibleAd}
             isVisibleAd={true}
           />
+          <PopUp
+            visible={visibleModalForEditPersonalInfo}
+            toggleVisibleModalForEditPersonalInfo={
+              toggleVisibleModalForEditPersonalInfo
+            }
+            isVisiblePersonalInfo={true}
+          />
 
           <View style={styles.container}>
             <FlatList
@@ -2079,6 +2217,8 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     activeOpacity={0.6}
                     style={styles.listDesignView}
                     onPress={() => {
+                      firstTimeColor = true;
+                      colorArr = [];
                       // designPackage.type === Constant.typeDesignPackageFree &&
                       hasPro === false && adCounter++;
                       console.log("adCounter", adCounter);
@@ -2163,9 +2303,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <FastImage
-                  onLoadStart={() => designStore.setIsPersonalDesignLoad(true)}
+                  onLoadStart={() => setIsdesignImageLoad(true)}
                   onLoadEnd={() => {
-                    designStore.setIsPersonalDesignLoad(false);
+                    setIsdesignImageLoad(false);
                     if (!viewableItem.includes(currentDesign.id)) {
                       if (user && user !== null) {
                         setViewableItem([...viewableItem, currentDesign.id]);
@@ -2203,6 +2343,103 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             </ViewShot>
             {pagination()}
           </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+            }}
+          >
+            {user?.userInfo?.personal?.image &&
+            user.userInfo.personal.image.length > 0 ? (
+              <View
+                style={{
+                  borderColor: Color.blackTransBorder,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  height: 116,
+                  maxWidth: width - 10,
+                  marginBottom: 10,
+                }}
+              >
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={
+                    Array.isArray(user?.userInfo?.personal?.image)
+                      ? user.userInfo.personal.image
+                      : []
+                  }
+                  keyExtractor={(index) => index.toString()}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                        style={styles.toProfileImage}
+                        onPress={async () => {
+                          await setDefaultImageUrl(item.url);
+                          defaultImg = item.url;
+                          setTimeout(() => {
+                            let newImage = [];
+                            if (defaultImg && defaultImg !== "") {
+                              newImage = user?.userInfo?.personal?.image.map(
+                                (item) => {
+                                  if (item.url == defaultImg) {
+                                    item.isDefault = true;
+                                  } else {
+                                    item.isDefault = false;
+                                  }
+                                  return item;
+                                }
+                              );
+                            }
+                            const newUser = {
+                              ...user,
+                              userInfo: {
+                                ...user?.userInfo,
+                                personal: {
+                                  ...user?.userInfo.personal,
+                                  image: newImage,
+                                },
+                              },
+                            };
+                            userStore.setOnlyUserDetail(newUser);
+                          }, 1000);
+                        }}
+                      >
+                        {item.url && item.url !== "" && (
+                          <FastImage
+                            source={{ uri: item.url }}
+                            style={styles.toProfileImage}
+                          />
+                        )}
+
+                        {defaultImageUrl === item.url && (
+                          <View
+                            style={{
+                              position: "absolute",
+                              zIndex: 1,
+                              bottom: 5,
+                              backgroundColor: Color.blackTransTagFree,
+                              width: "90%",
+                              alignItems: "center",
+                              paddingVertical: 2,
+                              borderRadius: 5,
+                            }}
+                          >
+                            <Icon
+                              name="mark"
+                              height={18}
+                              width={18}
+                              fill={Color.primary}
+                            />
+                          </View>
+                        )}
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </View>
+            ) : null}
+          </View>
         </ScrollView>
         <View
           style={{
@@ -2215,7 +2452,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
-              marginBottom: Platform.OS === "ios" ? 10 : 0,
               alignItems: "center",
               justifyContent: "center",
               flex: 1,
@@ -2226,10 +2462,12 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 justifyContent: "space-between",
                 flexDirection: "row",
                 flex: 1,
-                marginHorizontal: 10,
+                marginHorizontal: 20,
+                alignItems: "center",
+                marginBottom: Platform.OS === "ios" ? 10 : null,
               }}
             >
-              <Button
+              {/* <Button
                 style={{ margin: 5, backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={() => layoutRef.current.snapTo(0)}
@@ -2244,7 +2482,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 textColor={true}
               >
                 {Common.getTranslation(LangKey.labLayouts)}
-              </Button>
+              </Button> */}
               <Button
                 style={{ margin: 5, backgroundColor: Color.transparent }}
                 isVertical={true}
@@ -2256,7 +2494,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               >
                 {Common.getTranslation(LangKey.labColorCodeList)}
               </Button>
-              <Button
+              {/* <Button
                 style={{ margin: 5, backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={() => socialRef.current.snapTo(0)}
@@ -2271,16 +2509,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 textColor={true}
               >
                 {Common.getTranslation(LangKey.labSocialMediaIcons)}
-              </Button>
+              </Button> */}
               <Button
                 disable={designs == null || designs == undefined}
-                style={{ margin: 5, backgroundColor: Color.transparent }}
+                style={{ backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={() => {
                   if (user && user !== null) {
-                    navigation.navigate(Constant.navProfile, {
-                      title: Constant.titPersonalProfile,
-                    });
+                    setModalForEditPersonalInfo(true);
                   } else {
                     Common.showMessage(
                       Common.getTranslation(LangKey.msgCreateAccEdit)
@@ -2292,30 +2528,67 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }
                 textColor={true}
               >
-                {Common.getTranslation(LangKey.txtEdit)}
+                {Common.getTranslation(LangKey.txtProfile)}
               </Button>
 
               <Button
                 disable={designs == null || designs == undefined}
-                style={{ margin: 5, backgroundColor: Color.transparent }}
+                style={{ backgroundColor: Color.transparent }}
                 isVertical={true}
-                onPress={() => {
+                onPress={
+                  () => onPressBack()
                   // if (currentDesign.id === curDesign.id) {
                   //   onReset();
                   // } else {
                   //   setCurrentDesign(curDesign);
                   // }
-                  onReset();
-                  fiilterLayouts();
-                  setSelectedPicker(false);
-                }}
+                  // onReset();
+                  // fiilterLayouts();
+                  // setSelectedPicker(false);
+
+                  // colorArr.pop()
+                }
                 icon={
                   <Icon name="reset" height={14} width={14} fill={Color.grey} />
                 }
                 textColor={true}
               >
-                {Common.getTranslation(LangKey.txtReset)}
+                {Common.getTranslation(LangKey.txtBack)}
               </Button>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  marginVertical: Platform.OS === "android" ? 5 : 0,
+                }}
+              >
+                <Button
+                  disable={
+                    isdesignImageLoad === true || isUserDesignImageLoad === true
+                  }
+                  style={{ backgroundColor: Color.transparent }}
+                  isVertical={true}
+                  onPress={() => {
+                    setIsdesignImageLoad(true);
+                    onClickDownload();
+                  }}
+                  icon={
+                    <Icon
+                      name="download"
+                      height={14}
+                      width={14}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {isdesignImageLoad || isUserDesignImageLoad ? (
+                    <ActivityIndicator size={20} color={Color.darkBlue} />
+                  ) : (
+                    Common.getTranslation(LangKey.txtSave)
+                  )}
+                </Button>
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -2386,7 +2659,14 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     height: 40,
   },
-
+  toProfileImage: {
+    width: 80,
+    height: 95,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+  },
   designView: {
     margin: 10,
     width: width - 25,
@@ -2468,7 +2748,7 @@ const styles = StyleSheet.create({
     paddingLeft: wp(0.5),
   },
   layBigTxtIcon: {
-    fontSize: Constant.layBigFontSize,
+    fontSize: Constant.laySmallFontSize,
     marginLeft: wp(0.5),
   },
   layViewSocialIconRoot: {
@@ -2530,10 +2810,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   lay2ImgUser: {
-    left: "1.93%",
+    left: 0,
     position: "absolute",
     bottom: 0,
-    width: "16.67%",
+    width: "19%",
     height: "160%",
   },
   lay2TxtName: {

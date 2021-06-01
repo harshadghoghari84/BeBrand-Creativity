@@ -33,6 +33,7 @@ import Color from "../utils/Color";
 import ProgressDialog from "./common/ProgressDialog";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 let user = null;
 const SignInScreen = ({ userStore }) => {
@@ -490,11 +491,6 @@ const SignInScreen = ({ userStore }) => {
             <View style={styles.forgotPassword}>
               <TouchableOpacity
                 onPress={() => {
-                  // const mobileError = mobileValidator(mobileNo.value);
-                  // if (mobileError) {
-                  //   setMobileNo({ ...mobileNo, error: mobileError });
-                  //   return;
-                  // }
                   setIsForgotPass(true);
                   setPassword({ value: "", error: "" });
                 }}
@@ -591,114 +587,87 @@ const SignInScreen = ({ userStore }) => {
             </View>
             <View style={styles.sapratorLines} />
           </View>
-
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            {Platform.OS === "ios" ? (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => onAppleLogin(updateCredentialStateForUser)}
-                style={styles.socialBTNView}
-              >
-                <View
-                  style={{
-                    backgroundColor: Color.txtIntxtcolor,
-                    height: 30,
-                    width: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 50,
-                    marginHorizontal: 8,
-                  }}
+          <View style={{ alignSelf: "center", marginBottom: 40 }}>
+            <>
+              {Platform.OS === "ios" ? (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  onPress={() => onAppleLogin(updateCredentialStateForUser)}
+                  style={styles.socialBTNViewIos}
                 >
-                  <Icon
-                    name="apple"
-                    fill={Color.white}
-                    height={30}
-                    width={30}
-                  />
-                </View>
-                <Text
-                  style={{
-                    fontSize: 13,
-                    fontWeight: "700",
-                    color: Color.txtIntxtcolor,
-                    paddingRight: 10,
-                  }}
-                >
-                  {Common.getTranslation(LangKey.labSignInWithApple)}
-                </Text>
-              </TouchableOpacity>
-            ) : (
+                  <View style={styles.SocialIconContIos}>
+                    <Icon
+                      name="apple"
+                      fill={Color.black}
+                      height={50}
+                      width={50}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: "700",
+                        color: Color.black,
+                        paddingRight: 10,
+                        marginTop: 4,
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.labSignInWithApple)}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ) : null}
               <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={() => onGoogleLogin()}
-                style={styles.socialBTNView}
+                style={[styles.socialBTNViewIos, { borderColor: "red" }]}
               >
-                <View
-                  style={{
-                    backgroundColor: Color.txtIntxtcolor,
-                    height: 30,
-                    width: 30,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 50,
-                    marginHorizontal: 8,
-                  }}
-                >
+                <View style={styles.SocialIconContIos}>
                   <Icon
-                    name="google"
-                    fill={Color.white}
-                    height={"60%"}
-                    width={"60%"}
+                    name="googleColor"
+                    fill={Color.black}
+                    height={25}
+                    width={25}
                   />
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: "700",
+                      color: "#F14336",
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labSignInWithGoogle)}
+                  </Text>
                 </View>
-                <Text
-                  style={{
-                    fontSize: 13,
-                    fontWeight: "700",
-                    color: Color.txtIntxtcolor,
-                    paddingRight: 10,
-                  }}
-                >
-                  {Common.getTranslation(LangKey.labSignInWithGoogle)}
-                </Text>
               </TouchableOpacity>
-            )}
 
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => onFaceBookLogin()}
-              style={styles.socialBTNView}
-            >
-              <View
-                style={{
-                  backgroundColor: Color.txtIntxtcolor,
-                  height: 30,
-                  width: 30,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 50,
-                  marginHorizontal: 8,
-                }}
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => onFaceBookLogin()}
+                style={[styles.socialBTNViewIos, { borderColor: "#1976D2" }]}
               >
-                <Icon
-                  name="facebook"
-                  fill={Color.white}
-                  height={"60%"}
-                  width={"60%"}
-                />
-              </View>
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: "700",
-                  color: Color.txtIntxtcolor,
-                  paddingRight: 10,
-                }}
-              >
-                {Common.getTranslation(LangKey.labSignInWithFacebook)}
-              </Text>
-            </TouchableOpacity>
+                <View style={styles.SocialIconContIos}>
+                  <Icon
+                    name="facebookColor"
+                    fill={Color.black}
+                    height={25}
+                    width={25}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: "700",
+                      color: "#1976D2",
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.labSignInWithFacebook)}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
           </View>
         </View>
       </ScrollView>
@@ -718,11 +687,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   label: {
-    color: theme.colors.secondary,
+    color: Color.grey,
   },
   link: {
     fontWeight: "bold",
-    color: theme.colors.primary,
+    color: Color.grey,
   },
   socialBTNView: {
     height: 40,
@@ -732,6 +701,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
+  },
+  socialBTNViewIos: {
+    height: 50,
+    width: 300,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    borderColor: Color.black,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 10,
+  },
+  SocialIconCont: {
+    backgroundColor: Color.txtIntxtcolor,
+    height: 30,
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    marginHorizontal: 8,
+  },
+  SocialIconContIos: {
+    flexDirection: "row",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    marginHorizontal: 8,
   },
   sapratorView: {
     flexDirection: "row",

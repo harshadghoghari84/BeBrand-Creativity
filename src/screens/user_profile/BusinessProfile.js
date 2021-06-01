@@ -7,6 +7,7 @@ import {
   ScrollView,
   FlatList,
   Text,
+  ToastAndroid,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { useMutation } from "@apollo/client";
@@ -37,6 +38,7 @@ import {
   websiteValidatorPro,
 } from "../../utils/Validator";
 import Constant from "../../utils/Constant";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const generateRNFile = (uri, name) => {
   return uri
@@ -70,6 +72,20 @@ const BusinessProfile = ({ userStore }) => {
   const [errorAddress, setErrorAddress] = useState("");
   const [errorSocialMediaId, setErrorSocailMediaId] = useState("");
   const [errorWebsite, setErrorWebsite] = useState("");
+
+  const [socialIconList, setSocialIconList] = useState(
+    Constant.defSocialIconList
+  );
+
+  useEffect(() => {
+    AsyncStorage.getItem(Constant.prfIconsB)
+      .then((res) => {
+        if (res && res !== null) {
+          setSocialIconList(JSON.parse(res));
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     isUpdated = true;
@@ -200,27 +216,22 @@ const BusinessProfile = ({ userStore }) => {
       quality: 1,
     });
 
-    let fileInfo = await FileSystem.getInfoAsync(result.uri);
-    if (fileInfo.size > Constant.profileImageSize) {
-      Common.showMessage(Common.getTranslation(LangKey.labProfileImageSize));
-    } else {
-      try {
-        if (!result.cancelled) {
-          const file = generateRNFile(result.uri, `${Date.now()}`);
-          const { data, errors } = await addBusinessImage({
-            variables: { image: file },
-          });
+    try {
+      if (!result.cancelled) {
+        const file = generateRNFile(result.uri, `${Date.now()}`);
+        const { data, errors } = await addBusinessImage({
+          variables: { image: file },
+        });
 
-          if (!errors) {
-            userStore.addBusinessImage(data.addBusinessImageV2);
-          } else {
-            console.log("error", errors);
-            Common.showMessage(errors[0].message);
-          }
+        if (!errors) {
+          userStore.addBusinessImage(data.addBusinessImageV2);
+        } else {
+          console.log("error", errors);
+          Common.showMessage(errors[0].message);
         }
-      } catch (error) {
-        console.log("error", error);
       }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
@@ -523,7 +534,74 @@ const BusinessProfile = ({ userStore }) => {
             }
           />
         </View>
-
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ marginLeft: 15 }}>Social Icons</Text>
+          <FlatList
+            style={styles.socialIconList}
+            data={Constant.socialIconList}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                style={{
+                  height: 35,
+                  width: 35,
+                  margin: 3,
+                  backgroundColor: Color.darkBlue,
+                  borderRadius: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={async () => {
+                  let addIcons = [];
+                  if (socialIconList.indexOf(item) >= 0) {
+                    addIcons = socialIconList.filter((val) => val !== item);
+                    setSocialIconList(
+                      socialIconList.filter((val) => val !== item)
+                    );
+                  } else if (socialIconList.length < Constant.socialIconLimit) {
+                    addIcons.push(...socialIconList, item);
+                    setSocialIconList([...socialIconList, item]);
+                  } else {
+                    Platform.OS == "android"
+                      ? ToastAndroid.show(
+                          Common.getTranslation(LangKey.msgSocialIconLimit),
+                          ToastAndroid.LONG
+                        )
+                      : alert(
+                          Common.getTranslation(LangKey.msgSocialIconLimit)
+                        );
+                  }
+                  await AsyncStorage.setItem(
+                    Constant.prfIconsB,
+                    JSON.stringify(addIcons)
+                  );
+                }}
+              >
+                <View
+                  style={{
+                    height: 35,
+                    width: 35,
+                    backgroundColor:
+                      socialIconList.indexOf(item) < 0 ? null : Color.white,
+                    opacity: 0.3,
+                    position: "absolute",
+                    borderRadius: 50,
+                  }}
+                />
+                <Icon
+                  name={item}
+                  height={25}
+                  width={25}
+                  fill={Color.white}
+                  key={index}
+                />
+              </TouchableOpacity>
+            )}
+          />
+        </View>
         <View style={styles.containerProfile}>
           <FlatList
             horizontal
@@ -603,6 +681,9 @@ const BusinessProfile = ({ userStore }) => {
             <Text style={styles.txtUploadImage1}>
               {Common.getTranslation(LangKey.txtUploadPNG)}
             </Text>
+            <Text style={styles.txtUploadImage1}>
+              {Common.getTranslation(LangKey.txtLogoSize)}
+            </Text>
           </View>
         </View>
         <Button
@@ -643,8 +724,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flex: 1,
     marginHorizontal: 20,
-    borderColor: Color.blackTransTagFree,
-    borderWidth: 2,
+    borderColor: Color.blackTransBorder,
+    borderWidth: 1,
+    borderRadius: 5,
   },
   toProfileImage: {
     width: 80,
@@ -657,8 +739,8 @@ const styles = StyleSheet.create({
   addImage: {
     width: 100,
     height: 90,
-    borderRightColor: Color.blackTransTagFree,
-    borderRightWidth: 2,
+    borderRightColor: Color.blackTransBorder,
+    borderRightWidth: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
@@ -729,10 +811,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: Color.white,
     fontSize: 12,
+    color: Color.txtIntxtcolor,
   },
   txtUploadImage1: {
-    paddingVertical: 5,
     fontSize: 12,
+    color: Color.txtIntxtcolor,
   },
-  UploadPng: { alignSelf: "center" },
+  UploadPng: { alignSelf: "center", paddingVertical: 5, alignItems: "center" },
+  socialIconList: {
+    marginTop: 15,
+    marginHorizontal: 10,
+  },
 });

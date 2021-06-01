@@ -66,10 +66,11 @@ const styles = StyleSheet.create({
   },
   image: {
     width: Constant.ItemSubCategoryWidth,
-    height: 70,
+    height: 60,
     borderRadius: 5,
     alignItems: "center",
     alignSelf: "center",
+    
   },
   date: {
     textAlign: "center",

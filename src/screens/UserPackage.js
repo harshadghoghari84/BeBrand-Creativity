@@ -38,7 +38,6 @@ const UserPackage = ({ navigation, designStore }) => {
 
   useEffect(() => {
     if (isMountedRef.current) {
-      console.log("DATAAA", data);
       data?.perchasedPackagesV2 &&
         setPerchasedPackages([
           ...perchasedPackages,

@@ -78,8 +78,10 @@ module.exports = {
   txtShare: "txtShare",
   txtDownload: "txtDownload",
   txtEdit: "txtEdit",
+  txtProfile: "txtProfile",
   txtNext: "txtNext",
   txtReset: "txtReset",
+  txtBack: "txtBack",
   msgPerchasePkg: "msgPerchasePkg",
   msgPkgPurchaseSucess: "msgPkgPurchaseSucess",
   msgCreateAcc: "msgCreateAcc",
@@ -114,6 +116,8 @@ module.exports = {
   personalWebsiteErr: "personalWebsiteErr",
   txtUploadPhotoHere: "txtUploadPhotoHere",
   txtUploadPNG: "txtUploadPNG",
+  txtPhotoSize: "txtPhotoSize",
+  txtLogoSize: "txtLogoSize",
 
   //BusinessProfile Screen
   labCompanyName: "labCompanyName",
