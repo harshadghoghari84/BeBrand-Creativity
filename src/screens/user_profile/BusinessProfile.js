@@ -52,7 +52,7 @@ const generateRNFile = (uri, name) => {
 
 let isUpdated = false;
 
-const BusinessProfile = ({ userStore }) => {
+const BusinessProfile = ({ userStore, navigation }) => {
   const businessImageLimit = userStore.businessImageLimit;
 
   const [user, setUser] = useState();
@@ -94,6 +94,7 @@ const BusinessProfile = ({ userStore }) => {
   useEffect(() => {
     const user = toJS(userStore.user);
     if (!user || user == null) {
+      Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
       navigation.goBack();
     }
     setUser(user);

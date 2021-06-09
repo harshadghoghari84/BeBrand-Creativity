@@ -365,6 +365,7 @@ export default {
         code
         name
       }
+
       userSubCategoriesAfter: userSubCategories(
         start: $afterStart
         type: $afterType
@@ -507,6 +508,49 @@ export default {
         link {
           linkType
           linkData
+        }
+      }
+    }
+  `,
+  userOtherSubCategories: gql`
+    query userOtherSubCategories(
+      $OtherStart: Int!
+      $OtherType: UserOtherSubCategoryType!
+    ) {
+      userOtherSubCategories: userOtherSubCategories(
+        start: $OtherStart
+        type: $OtherType
+      ) {
+        id
+        name
+        startDate
+        endDate
+        totalDesign
+        image {
+          url
+        }
+        designs {
+          id
+          layouts
+          designType
+          subCategory
+          package
+          language {
+            code
+          }
+          thumbImage {
+            url
+          }
+          designImage {
+            url
+          }
+          colorCodes {
+            code
+            isLight
+          }
+          darkTextColor
+          lightTextColor
+          categoryRank
         }
       }
     }
@@ -729,42 +773,42 @@ export default {
     }
   `,
   addPersonalImage: gql`
-    mutation($image: GraphQLUpload!) {
+    mutation ($image: GraphQLUpload!) {
       addPersonalImageV2(image: $image)
     }
   `,
   addBusinessImage: gql`
-    mutation($image: GraphQLUpload!) {
+    mutation ($image: GraphQLUpload!) {
       addBusinessImageV2(image: $image)
     }
   `,
   addRequestFeature: gql`
-    mutation($feature: String!) {
+    mutation ($feature: String!) {
       addRequestFeature(feature: $feature)
     }
   `,
   deletePersonalImage: gql`
-    mutation($image: String!) {
+    mutation ($image: String!) {
       deletePersonalImage(image: $image)
     }
   `,
   deleteBusinessImage: gql`
-    mutation($image: String!) {
+    mutation ($image: String!) {
       deleteBusinessImage(image: $image)
     }
   `,
   deleteBusinessImage: gql`
-    mutation($image: String!) {
+    mutation ($image: String!) {
       deleteBusinessImage(image: $image)
     }
   `,
   addOrder: gql`
-    mutation($packageId: String!) {
+    mutation ($packageId: String!) {
       addOrder(packageId: $packageId)
     }
   `,
   updateWhatsappInfo: gql`
-    mutation($whatsappNo: String!, $isUpdateEnable: Boolean!) {
+    mutation ($whatsappNo: String!, $isUpdateEnable: Boolean!) {
       updateWhatsappInfo(
         whatsappNo: $whatsappNo
         isUpdateEnable: $isUpdateEnable
@@ -772,7 +816,7 @@ export default {
     }
   `,
   addUserDesignPackage: gql`
-    mutation(
+    mutation (
       $packageId: String!
       $androidPerchaseToken: String
       $iosPerchaseReceipt: String
@@ -813,7 +857,7 @@ export default {
     }
   `,
   addUserDesignPackageRzp: gql`
-    mutation(
+    mutation (
       $orderId: String!
       $paymentId: String!
       $paymentSignature: String!
@@ -855,7 +899,7 @@ export default {
   `,
 
   updatePersonalUserInfo: gql`
-    mutation(
+    mutation (
       $name: String!
       $mobile: String
       $email: String
@@ -876,7 +920,7 @@ export default {
     }
   `,
   updateBusinessUserInfo: gql`
-    mutation(
+    mutation (
       $name: String!
       $mobile: String
       $email: String

@@ -208,7 +208,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const scrollTodesign = () => {
     designRef.current.scrollToIndex({
       animated: true,
-      index: curItemIndex && curItemIndex,
+      index:  curItemIndex,
     });
   };
 

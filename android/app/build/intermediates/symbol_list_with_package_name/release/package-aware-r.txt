@@ -1705,7 +1705,6 @@ drawable src_assets_img_headerlogo
 drawable src_assets_img_notavailable
 drawable src_assets_img_rating
 drawable src_assets_img_select
-drawable src_assets_img_soon
 drawable src_assets_img_splash_image
 drawable test_custom_background
 drawable tooltip_frame_dark

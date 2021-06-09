@@ -37,7 +37,7 @@
           <option name="noReflect" value="true" />
           <option name="moduleName" value="invertase_react-native-apple-authentication_debug" />
           <option name="languageVersion" value="1.4" />
-          <option name="apiVersion" value="1.4" />
+          <option name="apiVersion" value="1.3" />
           <option name="pluginOptions">
             <array />
           </option>

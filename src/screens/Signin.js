@@ -17,6 +17,8 @@ import { AccessToken, LoginManager } from "react-native-fbsdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "../components/svgIcons";
 import auth from "@react-native-firebase/auth";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 // relative path
 import TextInput from "../components/TextInput";
 import { paperTheme as theme } from "../utils/Theme";
@@ -426,7 +428,21 @@ const SignInScreen = ({ userStore }) => {
           style={styles.icons}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+          {Platform.OS === "ios" ? (
+            <View
+              style={{
+                // backgroundColor: "green",
+                height: 25,
+                alignItems: "center",
+                justifyContent: "center",
+                // marginBottom: 20,
+              }}
+            >
+              <Ionicons name="chevron-back" color={Color.darkBlue} size={25} />
+            </View>
+          ) : (
+            <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+          )}
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
           {!isForgotPass && (

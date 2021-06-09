@@ -6,6 +6,7 @@ import {
   Image,
   Animated,
   SafeAreaView,
+  Platform,
 } from "react-native";
 
 const list = [
@@ -22,32 +23,44 @@ const list = [
 const HEADER_HEIGHT = 100;
 
 function App() {
-  const [scrollAnim] = useState(new Animated.Value(0));
-  const [offsetAnim] = useState(new Animated.Value(0));
-  const [clampedScroll, setClampedScroll] = useState(
-    Animated.diffClamp(
-      Animated.add(
-        scrollAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-          extrapolateLeft: "clamp",
-        }),
-        offsetAnim
-      ),
-      0,
-      1
-    )
-  );
+  const scrollY = new Animated.Value(0);
 
-  const navbarTranslate = clampedScroll.interpolate({
-    inputRange: [0, HEADER_HEIGHT],
-    outputRange: [0, -HEADER_HEIGHT],
+  const diffClamp = Animated.diffClamp(scrollY, 0, 100);
+  const headerHeight = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [50, 0],
     extrapolate: "clamp",
   });
-
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+    extrapolate: "clamp",
+  });
+  const tranY = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+    extrapolate: "clamp",
+  });
+  const transY = diffClamp.interpolate({
+    inputRange: [0, 40],
+    outputRange: [0, -40],
+    extrapolate: "clamp",
+  });
+  const opacity = diffClamp.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
   const renderList = ({ item }) => {
     return (
-      <Image source={{ uri: item }} style={{ width: "100%", height: 300 }} />
+      <Image
+        source={{ uri: item }}
+        style={{
+          height: 300,
+          marginVertical: 10,
+          marginHorizontal: 10,
+        }}
+      />
     );
   };
 
@@ -57,48 +70,36 @@ function App() {
         style={[
           styles.header,
           {
-            transform: [{ translateY: navbarTranslate }],
+            transform: [{ translateY }],
           },
         ]}
-        onLayout={(event) => {
-          let { height } = event.nativeEvent.layout;
-          setClampedScroll(
-            Animated.diffClamp(
-              Animated.add(
-                scrollAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 1],
-                  extrapolateLeft: "clamp",
-                }),
-                offsetAnim
-              ),
-              0,
-              height
-            )
-          );
-        }}
       >
         <Text style={styles.headerText}>HEADER</Text>
       </Animated.View>
-      <View style={{ height: 40, borderRightColor: "green" }}>
+      <Animated.View
+        style={{
+          height: 150,
+          backgroundColor: "green",
+          transform: [{ translateY: tranY }],
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 50,
+          zIndex: 9999,
+        }}
+      >
         <Text>dljfgdiufgbc</Text>
-      </View>
+      </Animated.View>
       <Animated.FlatList
-        // contentInset={{ top: HEADER_HEIGHT }}
-        // contentOffset={{ y: -HEADER_HEIGHT }}
+        // contentInset={{ top: 50 }}
+        // contentOffset={{ y: -50 }}
         bounces={false}
         scrollEventThrottle={16}
-        // style={{ flexGrow: 1, width: "100%" }}
+        style={{ flex: 1, width: "100%", paddingTop: 150 }}
         data={list}
         renderItem={renderList}
         onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: { y: scrollAnim },
-              },
-            },
-          ],
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
         )}
       />
@@ -109,12 +110,14 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: "white",
   },
   header: {
-    height: 100,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "red",
+    opacity: 0.3,
     position: "absolute",
     left: 0,
     right: 0,

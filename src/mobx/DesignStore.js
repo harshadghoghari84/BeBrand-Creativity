@@ -33,11 +33,14 @@ class DesignStore {
   isBusinessDesignLoad = false;
   hdLoading = true;
   ahdLoading = false;
+  uoscLoading = false;
   bhdLoading = false;
   designLang = Constant.designLangCodeAll;
   userSubCategoriesHome = [];
+  userOtherSubCategories = [];
   userSubCategoriesAfter = [];
   userSubCategoriesBefore = [];
+  globleUserOtherSubCategories = [];
   globleUserSubCategoriesAfter = [];
   globleUserSubCategoriesBefore = [];
   totalUserSubCategoriesAfter = 0;
@@ -96,10 +99,35 @@ class DesignStore {
       });
   };
 
-  loadMoreAfterSubCategories = (start) => {
+  loadUserOtherSubCategories = (start, type) => {
+    this.uoscLoading = true;
+    ApolloClient.query({
+      query: GraphqlQuery.userOtherSubCategories,
+      variables: {
+        OtherStart: start,
+        OtherType: type,
+      },
+      fetchPolicy: "cache-first",
+      errorPolicy: "all",
+    })
+      .then(({ data, error }) => {
+        this.uoscLoading = false;
+
+        if (data) {
+          this.userOtherSubCategories = [...data.userOtherSubCategories];
+          this.globleUserOtherSubCategories = [...data.userOtherSubCategories];
+        }
+      })
+      .catch((error) => {
+        this.uoscLoading = false;
+        console.error(error);
+      });
+  };
+  loadMoreAfterSubCategories = (start, type) => {
     this.ahdLoading = true;
     ApolloClient.query({
       query: GraphqlQuery.userSubCategoriesAfter,
+
       variables: {
         afterStart: start,
         afterType: Constant.userSubCategoryTypeAfter,
@@ -185,14 +213,18 @@ class DesignStore {
               const globleUserSubCategoriesBefore = toJS(
                 this.globleUserSubCategoriesBefore
               );
+              const globleUserOtherSubCategories = toJS(
+                this.globleUserOtherSubCategories
+              );
 
               let userSubCategories = [];
-              if (type === Constant.userSubCategoryTypeAfter) {
+              if (type === Constant.topCatQuotes) {
+                userSubCategories = globleUserOtherSubCategories;
+              } else if (type === Constant.userSubCategoryTypeAfter) {
                 userSubCategories = globleUserSubCategoriesAfter;
               } else {
                 userSubCategories = globleUserSubCategoriesBefore;
               }
-
               const index = userSubCategories.findIndex(
                 (item) => item.id === subCategory
               );
@@ -205,7 +237,9 @@ class DesignStore {
 
                 userSubCategories[index] = subItem;
 
-                type === Constant.globleuserSubCategoryTypeAfter
+                type === Constant.topCatQuotes
+                  ? (this.globleUserOtherSubCategories = [...userSubCategories])
+                  : type === Constant.globleuserSubCategoryTypeAfter
                   ? (this.globleUserSubCategoriesAfter = [...userSubCategories])
                   : (this.globleUserSubCategoriesBefore = [
                       ...userSubCategories,
@@ -213,17 +247,7 @@ class DesignStore {
               }
             }
             this.udLoading = false;
-
             this.changeDesignByLanguage();
-
-            // if (ud.length > 0) {
-            //   this.userSubCategoriesAfter.map((item) => {
-            //     if (item.id === subCategory) {
-            //       item.designs = [...item.designs, ...ud];
-            //     }
-            //     return item;
-            //   });
-            // }
           }
         })
         .catch((error) => {
@@ -241,10 +265,25 @@ class DesignStore {
   changeDesignByLanguage = () => {
     const currDesignCode = toJS(this.designLang);
 
+    let designTypeOther = toJS(this.globleUserOtherSubCategories);
     let designAfter = toJS(this.globleUserSubCategoriesAfter);
     let designBefore = toJS(this.globleUserSubCategoriesBefore);
 
     if (currDesignCode !== Constant.designLangCodeAll) {
+      designTypeOther = designTypeOther.map((ele, index) => {
+        if (
+          ele.designs !== undefined &&
+          ele.designs !== null &&
+          currDesignCode !== Constant.designLangCodeAll &&
+          ele.designs.length > 0
+        ) {
+          ele.designs = ele.designs.filter(
+            (item) => item.language.code === currDesignCode
+          );
+        }
+        return ele;
+      });
+
       designAfter = designAfter.map((ele, index) => {
         if (
           ele.designs !== undefined &&
@@ -273,6 +312,8 @@ class DesignStore {
         return ele;
       });
     }
+
+    this.userOtherSubCategories = [...designTypeOther];
 
     this.userSubCategoriesAfter = [...designAfter];
     this.userSubCategoriesBefore = [...designBefore];
@@ -346,16 +387,19 @@ decorate(DesignStore, {
   isBusinessDesignLoad: observable,
   isNewNotification: observable,
   hdLoading: observable,
+  uoscLoading: observable,
   ahdLoading: observable,
   bhdLoading: observable,
   udLoading: observable,
   designPackages: observable,
   designPackagesIos: observable,
   modalOffers: observable,
+  userOtherSubCategories: observable,
   userSubCategoriesAfter: observable,
   totalUserSubCategoriesAfter: observable,
   userSubCategoriesBefore: observable,
   totalUserSubCategoriesBefore: observable,
+  globleUserOtherSubCategories: observable,
   globleUserSubCategoriesAfter: observable,
   globleUserSubCategoriesBefore: observable,
   designLayouts: observable,
@@ -366,6 +410,7 @@ decorate(DesignStore, {
   updateSocialIconsPersonal: action,
   updateSocialIconsBusiness: action,
   loadHomeData: action,
+  loadUserOtherSubCategories: action,
   loadMoreAfterSubCategories: action,
   loadMoreBeforeSubCategories: action,
   loaduserDesigns: action,

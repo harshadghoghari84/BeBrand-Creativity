@@ -11,6 +11,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { inject, observer } from "mobx-react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Relative path
 import TextInput from "../components/TextInput";
@@ -124,7 +125,21 @@ const RegisterScreen = ({ userStore }) => {
           style={styles.icons}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+          {Platform.OS === "ios" ? (
+            <View
+              style={{
+                // backgroundColor: "green",
+                height: 25,
+                alignItems: "center",
+                justifyContent: "center",
+                // marginBottom: 20,
+              }}
+            >
+              <Ionicons name="chevron-back" color={Color.darkBlue} size={25} />
+            </View>
+          ) : (
+            <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+          )}
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <Text
