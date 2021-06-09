@@ -18,6 +18,7 @@ import Otp from "../screens/Otp";
 import ReferAndEarn from "../screens/ReferAndEarn";
 import PremiumPkg from "../screens/pacakges/PremiumPkg";
 import PremiumPkgIos from "../screens/pacakges/PremiumPkgIos";
+import ViewMoreDesign from "../screens/home/ViewMoreDesign";
 
 const HomeStack = createStackNavigator();
 
@@ -106,6 +107,22 @@ const HomeStackComponent = ({ navigation }) => {
               empty={true}
               isShadow={true}
               ScreenTitle={"My Design"}
+              {...props}
+            />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.navMoreDesigns}
+        component={ViewMoreDesign}
+        options={{
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              menu={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={"All Designs"}
               {...props}
             />
           ),

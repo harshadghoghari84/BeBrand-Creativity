@@ -1704,11 +1704,10 @@ int drawable src_assets_img_headerlogo 0x7f0700dd
 int drawable src_assets_img_notavailable 0x7f0700de
 int drawable src_assets_img_rating 0x7f0700df
 int drawable src_assets_img_select 0x7f0700e0
-int drawable src_assets_img_soon 0x7f0700e1
-int drawable src_assets_img_splash_image 0x7f0700e2
-int drawable test_custom_background 0x7f0700e3
-int drawable tooltip_frame_dark 0x7f0700e4
-int drawable tooltip_frame_light 0x7f0700e5
+int drawable src_assets_img_splash_image 0x7f0700e1
+int drawable test_custom_background 0x7f0700e2
+int drawable tooltip_frame_dark 0x7f0700e3
+int drawable tooltip_frame_light 0x7f0700e4
 int id ALT 0x7f080000
 int id BOTTOM_END 0x7f080001
 int id BOTTOM_START 0x7f080002

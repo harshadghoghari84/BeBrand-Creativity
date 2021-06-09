@@ -49,8 +49,8 @@ export default {
   ],
 
   // serverUrl: "http://192.168.0.222:5000/gql",
-  // serverUrl: "https://api.branddot.in/gql",
-  serverUrl: "https://admin.branddot.in/gql",
+  serverUrl: "https://api.branddot.in/gql",
+  // serverUrl: "https://admin.branddot.in/gql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
@@ -105,6 +105,7 @@ export default {
   navBusinessProfile: "business",
   navPackage: "userPackage",
   navDesigns: "userDesigns",
+  navMoreDesigns: "moreDesigns",
   navWhatsAppUs: "whatsAppUs",
   navFaq: "faq",
   navWorkCulture: "workCulture",
@@ -171,7 +172,7 @@ export default {
 
   // Home ItemSubCategory
   ItemSubCategoryWidth: 100,
-  homeItemSubCategoryWidth: 100 + 16.1,
+  homeItemSubCategoryWidth: 100 + 12.1,
 
   // for ad
 
@@ -201,10 +202,17 @@ export default {
   userSubCategoryTypeBefore: "BEFORE",
   globleuserSubCategoryTypeAfter: "AFTER",
   globleuserSubCategoryTypeBefore: "BEFORE",
+  UserOtherSubCategoryTypeQuots: "QUOTES",
 
   typeDesignPackageFree: "FREE",
   typeDesignPackagePro: "PRO",
   typeDesignPackageVip: "VIP",
+
+  // top catagory names
+
+  topCatFestivals: "Festivals",
+  topCatQuotes: "QUOTES",
+  topCatFestival: "FESTIVALS",
 
   // userDesign types
   designTypeALL: "ALL",

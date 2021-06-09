@@ -97,6 +97,7 @@ const PersonalProfile = ({ navigation, userStore }) => {
     const user = toJS(userStore.user);
 
     if (!user || user == null) {
+      Common.showMessage(Common.getTranslation(LangKey.msgCreateAcc));
       navigation.goBack();
     }
 

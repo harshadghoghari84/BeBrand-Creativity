@@ -12,7 +12,6 @@ const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = ({ route }) => {
   const { designs, curDesign, curItemIndex, curPackageType } = route.params;
-
   return (
     <Tab.Navigator
       initialRouteName={

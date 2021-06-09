@@ -15,7 +15,7 @@ import Icon from "../../components/svgIcons";
 import Common from "../../utils/Common";
 import LangKey from "../../utils/LangKey";
 
-const imgWidth = (Dimensions.get("window").width - 50) / 2;
+const imgWidth = (Dimensions.get("window").width - 45) / 2;
 
 const ItemDesign = ({
   packageType,
@@ -74,7 +74,7 @@ export default ItemDesign;
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 17,
+    marginLeft: 15,
     marginBottom: 15,
     borderRadius: 3,
     shadowOffset: { width: 0, height: 4 },

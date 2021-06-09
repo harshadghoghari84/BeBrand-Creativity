@@ -207,11 +207,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  loading: {
-    marginTop: 10,
-  },
   listDesign: {
-    marginTop: 10,
+    paddingTop: 10,
   },
   containerNoDesign: {
     flex: 1,

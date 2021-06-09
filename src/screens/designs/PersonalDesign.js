@@ -181,7 +181,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const scrollTodesign = () => {
     designRef.current.scrollToIndex({
       animated: true,
-      index: curItemIndex && curItemIndex,
+      index: curItemIndex,
     });
   };
 
@@ -2313,7 +2313,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                     }
                   }}
                   source={{
-                    uri: currentDesign.designImage.url,
+                    uri: currentDesign?.designImage?.url,
                   }}
                   style={{ flex: 1 }}
                 >

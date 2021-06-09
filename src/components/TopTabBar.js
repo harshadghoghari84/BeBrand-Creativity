@@ -15,6 +15,7 @@ import {
   Platform,
 } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Color from "../utils/Color";
 import Common from "../utils/Common";
@@ -82,7 +83,25 @@ const TopTabBar = ({
             style={styles.icons}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+            {Platform.OS === "ios" ? (
+              <View
+                style={{
+                  // backgroundColor: "green",
+                  height: 25,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  // marginBottom: 20,
+                }}
+              >
+                <Ionicons
+                  name="chevron-back"
+                  color={Color.darkBlue}
+                  size={25}
+                />
+              </View>
+            ) : (
+              <Icon name="back" fill={Color.darkBlue} height={17} width={17} />
+            )}
           </TouchableOpacity>
         )}
         {/* <View

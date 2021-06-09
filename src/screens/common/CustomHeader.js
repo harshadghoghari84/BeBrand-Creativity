@@ -11,6 +11,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import FastImage from "react-native-fast-image";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
+import Ionicons from "react-native-vector-icons/Ionicons";
 // relative Path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -57,7 +58,7 @@ const CustomHeader = ({
       <StatusBar
         barStyle="dark-content"
         backgroundColor={Color.white}
-        translucent={Platform.OS === "ios" ? true : false}
+        // translucent={false}
       />
       <Modal visible={visibleModal} toggleVisible={toggleVisible} />
       <SafeAreaView style={styles.safeArea}>
@@ -65,6 +66,7 @@ const CustomHeader = ({
           <View
             style={{
               flexDirection: "row",
+              alignItems: "center",
             }}
           >
             {isBackVisible === true && (
@@ -72,15 +74,46 @@ const CustomHeader = ({
                 style={styles.icons}
                 onPress={() => navigation.goBack()}
               >
-                <Icon name="back" fill={Color.grey} height={17} width={17} />
+                {Platform.OS === "ios" ? (
+                  <View
+                    style={{
+                      // backgroundColor: "green",
+                      height: 25,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      // marginBottom: 20,
+                    }}
+                  >
+                    <Ionicons
+                      name="chevron-back"
+                      color={Color.darkBlue}
+                      size={25}
+                    />
+                  </View>
+                ) : (
+                  <Icon
+                    name="back"
+                    fill={Color.darkBlue}
+                    height={17}
+                    width={17}
+                  />
+                )}
               </TouchableOpacity>
             )}
             {menu === true && (
               <TouchableOpacity
-                style={[styles.icons, { paddingLeft: 10 }]}
+                style={[
+                  styles.icons,
+                  { paddingLeft: Platform.OS === "ios" ? 5 : 10 },
+                ]}
                 onPress={() => navigation.openDrawer()}
               >
-                <Icon name="menu" fill={Color.grey} height={17} width={17} />
+                <Icon
+                  name="menu"
+                  fill={Color.darkBlue}
+                  height={17}
+                  width={17}
+                />
               </TouchableOpacity>
             )}
             {isTtileImage === true ? (
@@ -95,7 +128,7 @@ const CustomHeader = ({
             <Text
               style={{
                 fontSize: 18,
-                color: Color.grey,
+                color: Color.darkBlue,
               }}
             >
               {ScreenTitle}
@@ -110,7 +143,7 @@ const CustomHeader = ({
               >
                 <Icon
                   name="notification"
-                  fill={Color.white}
+                  fill={Color.darkBlue}
                   height={17}
                   width={17}
                 />
@@ -121,7 +154,7 @@ const CustomHeader = ({
                       width: 9,
                       backgroundColor: "red",
                       borderRadius: 5,
-                      borderColor: "white",
+                      borderColor: "darkBlue",
                       borderWidth: 1,
                       position: "absolute",
                       top: 0.5,
@@ -140,7 +173,7 @@ const CustomHeader = ({
                 >
                   <Icon
                     name="language"
-                    fill={Color.grey}
+                    fill={Color.darkBlue}
                     height={17}
                     width={17}
                   />
@@ -151,12 +184,11 @@ const CustomHeader = ({
               <View style={[styles.icons, { paddingRight: 10 }]}>
                 <TouchableOpacity
                   style={{
-                    borderColor: Color.grey,
-                    borderWidth: 1,
+                    backgroundColor: Color.darkBlue,
                     borderRadius: 10,
                     flexDirection: "row",
-                    paddingHorizontal: 10,
-                    paddingVertical: 2,
+                    paddingHorizontal: 8,
+                    paddingVertical: 4,
                   }}
                   onPress={() =>
                     navigation.navigate(
@@ -174,7 +206,7 @@ const CustomHeader = ({
                   />
                   <Text
                     style={{
-                      color: Color.darkBlue,
+                      color: Color.white,
                       fontSize: 10,
                       paddingLeft: 5,
                     }}
@@ -205,14 +237,12 @@ const CustomHeader = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.white,
-
-    // bottom: 0,
   },
   safeArea: {
     backgroundColor: Color.white,
   },
   header: {
-    height: 50,
+    height: 40,
     paddingLeft: 10,
     paddingRight: 1,
     alignItems: "center",
@@ -226,6 +256,7 @@ const styles = StyleSheet.create({
   },
   icons: {
     paddingLeft: 5,
+    // backgroundColor: "red",
   },
   shadow: {
     shadowColor: "#000",
@@ -240,7 +271,7 @@ const styles = StyleSheet.create({
   },
   borderBottom: {
     borderBottomColor: Color.blackTrans,
-    borderBottomWidth: 0.7,
+    borderBottomWidth: 0.5,
   },
   posAbs: {
     position: "absolute",

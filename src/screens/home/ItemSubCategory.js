@@ -18,9 +18,10 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
       style={styles.mainContainer}
       onPress={() => {
         onSelect(
-          item.id !== Constant.defHomeSubCategory
-            ? index
-            : Constant.defHomeSubCategory
+          index
+          // item.id !== Constant.defHomeSubCategory
+          //   ? index
+          //   : Constant.defHomeSubCategory
         );
       }}
     >
@@ -36,7 +37,7 @@ const ItemSubCategory = ({ item, index, isSelectedId, onSelect }) => {
           </View>
         ) : (
           <FastImage
-            source={{ uri: item.image.url }}
+            source={{ uri: item?.image?.url }}
             resizeMode={FastImage.resizeMode.cover}
             style={styles.image}
           />
@@ -54,8 +55,9 @@ export default memo(ItemSubCategory);
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: Constant.ItemSubCategoryWidth,
-    marginHorizontal: 8,
+    height: 90,
+    marginTop: 5,
+    marginHorizontal: 6,
     alignItems: "center",
     flexDirection: "column",
   },
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     alignSelf: "center",
-    
   },
   date: {
     textAlign: "center",

@@ -47,13 +47,13 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
     <Popover
       from={
         Platform.OS === "android"
-          ? new Rect(200, 50, 310, 800)
+          ? new Rect(200, 50, 310, 1350)
           : new Rect(200, 50, 350, 1350)
       }
       arrowShift={0.5}
       isVisible={visible}
       animationConfig={animating}
-      placement={PopoverPlacement.RIGHT}
+      placement={PopoverPlacement.BOTTOM}
       onRequestClose={() => toggleVisible()}
     >
       <View style={{ height: 200, width: 150, backgroundColor: Color.white }}>
