@@ -156,9 +156,6 @@ const Home = ({ navigation, designStore, userStore }) => {
       stopAutoPlay();
     };
   }, []);
-  useEffect(() => {
-    console.log("scrollVal", scrollVal);
-  }, [scrollVal]);
 
   const startAutoPlay = () => {
     setInterval(() => {
@@ -174,7 +171,6 @@ const Home = ({ navigation, designStore, userStore }) => {
   };
 
   const goToNextPage = () => {
-    console.log("scrollVal inside next page", scrollVal);
     if (scrollVal) {
       if (CurrentSlide >= 2) {
         isFirstTimeIndex = true;
@@ -469,15 +465,15 @@ const Home = ({ navigation, designStore, userStore }) => {
     // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
 
     AdMobInterstitial.setAdUnitID(Constant.interstitialAdunitId);
-    AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
-      console.log("AdMobInterstitial adLoaded")
-    );
-    AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
-      console.log("adFailedToLoad err", error)
-    );
-    AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
-      console.log("AdMobInterstitial => adOpened")
-    );
+    // AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+    //   console.log("AdMobInterstitial adLoaded")
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidFailToLoad", (error) =>
+    //   console.log("adFailedToLoad err", error)
+    // );
+    // AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+    //   console.log("AdMobInterstitial => adOpened")
+    // );
     AdMobInterstitial.addEventListener("interstitialDidClose", () => {
       console.log("AdMobInterstitial => adClosed");
       AdMobInterstitial.requestAdAsync().catch((error) => console.warn(error));
@@ -490,10 +486,10 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   const fbAd = async () => {
     AdSettings.setLogLevel("debug");
-    console.log("AdSettings.currentDeviceHash", AdSettings.currentDeviceHash);
+
     AdSettings.addTestDevice(AdSettings.currentDeviceHash);
     const requestedStatus = await AdSettings.requestTrackingPermission();
-    console.log(requestedStatus);
+
     if (requestedStatus === "authorized" || requestedStatus === "unavailable") {
       AdSettings.setAdvertiserIDCollectionEnabled(true);
 
@@ -505,9 +501,7 @@ const Home = ({ navigation, designStore, userStore }) => {
 
   const fbShowAd = () => {
     InterstitialAdManager.showAd(Constant.InterstitialAdPlacementId)
-      .then((res) => {
-        console.log("res", res);
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -725,14 +719,13 @@ const Home = ({ navigation, designStore, userStore }) => {
     );
   };
 
+  const keyGenerator = Math.random().toString(36).substr(2, 9);
   const slider = () => {
-    let autoPlayInterval = scrollVal === false ? 600000 : 6000;
-    const keyGenerator = Math.random().toString(36).substr(2, 9);
-
-    console.log("keyGenrator", keyGenerator);
     return (
       <View
         style={{
+          // borderTopColor: Color.bgcColor,
+          // borderTopWidth: 5,
           backgroundColor: Color.white,
           marginBottom: 10,
         }}
@@ -855,7 +848,7 @@ const Home = ({ navigation, designStore, userStore }) => {
               >
                 <Icon
                   name={item.icon}
-                  fill={Color.grey}
+                  fill={Color.borderColor}
                   height={22}
                   width={22}
                 />
@@ -946,7 +939,7 @@ const Home = ({ navigation, designStore, userStore }) => {
       <View
         style={{
           backgroundColor: Color.bgcColor,
-          height: 8,
+          height: 5,
         }}
       />
     );
@@ -961,7 +954,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
   return (
-    <View style={styles.containerMain}>
+    <SafeAreaView style={styles.containerMain}>
       <PopUp
         visible={modalVisible}
         toggleVisible={toggleVisible}
@@ -978,35 +971,35 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisibleForModaloffer={toggleVisibleForModalOffers}
         isModalOffers={true}
       />
-      <SafeAreaView
+      {/* <SafeAreaView
         style={{
           // backgroundColor: Color.white,
           height: Platform.OS === "ios" ? 70 : 40,
         }}
+      > */}
+      <Animated.View
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: Platform.OS === "ios" ? getStatusBarHeight() : 0,
+          zIndex: 9999,
+          opacity,
+          transform: [{ translateY }],
+        }}
       >
-        <Animated.View
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: Platform.OS === "ios" ? 29 : 0,
-            zIndex: 9999,
-            opacity,
-            transform: [{ translateY }],
-          }}
-        >
-          <CustomHeader
-            langauge={true}
-            notification={true}
-            // position={true}
-            bottomBorder={true}
-            bePrem={true}
-            menu={true}
-            isTtileImage={true}
-            navigation={navigation}
-          />
-        </Animated.View>
-      </SafeAreaView>
+        <CustomHeader
+          langauge={true}
+          notification={true}
+          // position={true}
+          bottomBorder={true}
+          bePrem={true}
+          menu={true}
+          isTtileImage={true}
+          navigation={navigation}
+        />
+      </Animated.View>
+      {/* </SafeAreaView> */}
       <Animated.View
         style={{
           transform: [{ translateY: transY }],
@@ -1020,8 +1013,8 @@ const Home = ({ navigation, designStore, userStore }) => {
         <View
           style={{
             backgroundColor: Color.white,
-            borderBottomColor: Color.bgcColor,
-            borderBottomWidth: 8,
+            borderBottomColor: Color.blackTrans,
+            borderBottomWidth: 0.5,
           }}
         >
           <FlatList
@@ -1192,7 +1185,7 @@ const Home = ({ navigation, designStore, userStore }) => {
               }}
             >
               {index === 0 && (
-                <View style={{ backgroundColor: Color.bgcColor, height: 8 }} />
+                <View style={{ backgroundColor: Color.bgcColor, height: 5 }} />
               )}
               <Text style={{ ...styles.date, color: Color.black }}>
                 {`${moment(new Date(item.endDate)).format("DD MMM")} - ${
@@ -1324,7 +1317,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         )}
       </View> */}
       {renderBottom()}
-    </View>
+    </SafeAreaView>
   );
 };
 export default inject("designStore", "userStore")(observer(Home));
@@ -1358,9 +1351,9 @@ const styles = StyleSheet.create({
     paddingTop:
       Platform.OS === "ios"
         ? isIphoneX()
-          ? getStatusBarHeight() + 20
-          : getStatusBarHeight() + 20
-        : 50,
+          ? getStatusBarHeight() + 40
+          : getStatusBarHeight() + 40
+        : 85,
   },
   imgAllDesign: {
     width: 150,

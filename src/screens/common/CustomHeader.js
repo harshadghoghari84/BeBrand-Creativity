@@ -184,8 +184,9 @@ const CustomHeader = ({
               <View style={[styles.icons, { paddingRight: 10 }]}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: Color.darkBlue,
-                    borderRadius: 10,
+                    borderColor: Color.darkBlue,
+                    borderWidth: 1,
+                    borderRadius: 15,
                     flexDirection: "row",
                     paddingHorizontal: 8,
                     paddingVertical: 4,
@@ -206,7 +207,7 @@ const CustomHeader = ({
                   />
                   <Text
                     style={{
-                      color: Color.white,
+                      color: Color.darkBlue,
                       fontSize: 10,
                       paddingLeft: 5,
                     }}
