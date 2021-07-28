@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   FlatList,
+  SafeAreaView,
 } from "react-native";
 import { AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
@@ -21,12 +22,72 @@ let impression = [];
 let adCounter = 0;
 
 const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
-  const { designs, curItemIndex, activeCat } = route.params;
+  const { usubCat, designs, curItemIndex, activeCat, curCatId } = route.params;
   const designPackages = toJS(designStore.designPackages);
   const isMountedRef = Common.useIsMountedRef();
   const user = toJS(userStore.user);
-
+  const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
+  const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
+  const [userSubCategories, setUserSubCategories] = useState([]);
+  const [dess, setDess] = useState([]);
   const [hasPro, sethasPro] = useState(false);
+
+  useEffect(() => {
+    if (
+      userSubCategories &&
+      userSubCategories !== null &&
+      userSubCategories.length > 0
+    ) {
+      const index = userSubCategories.findIndex((item) => item.id === curCatId);
+      setDess(userSubCategories[index]?.designs);
+    }
+  }, [userSubCategories]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      let afterCategory = toJS(designStore.userSubCategoriesAfter);
+
+      let onlyDesignArr = [];
+
+      if (userSubCategoriesAfter.length <= afterCategory.length) {
+        afterCategory.forEach((ele) => {
+          if (ele.designs.length > 0 && ele.totalDesign > 0) {
+            onlyDesignArr.push(ele);
+          }
+        });
+
+        setUserSubCategoriesAfter(onlyDesignArr);
+      }
+    }
+  }, [designStore.userSubCategoriesAfter]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const otherSubCatagory = toJS(designStore.userOtherSubCategories);
+      console.log("otherSubCatagory", otherSubCatagory);
+      let onlyDesignArr = [];
+      otherSubCatagory.forEach((ele) => {
+        if (ele.designs.length > 0 && ele.totalDesign > 0) {
+          onlyDesignArr.push(ele);
+        }
+      });
+
+      setUserOtherSubCategoryes(onlyDesignArr);
+    }
+  }, [designStore.userOtherSubCategories]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      if (activeCat !== "Quotes") {
+        setUserSubCategories([
+          // ...userSubCategoriesBefore,
+          ...userSubCategoriesAfter,
+        ]);
+      } else {
+        setUserSubCategories(userOtherSubCategoryes);
+      }
+    }
+  }, [userSubCategoriesAfter, userOtherSubCategoryes]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -48,8 +109,8 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const loadMoreDesigns = async (subCategoryId) => {
-    const index = designs.findIndex((item) => item.id === subCategoryId);
-    const subCategory = designs[index];
+    const index = usubCat.findIndex((item) => item.id === subCategoryId);
+    const subCategory = usubCat[index];
     const designLen = subCategory.designs.length;
 
     if (activeCat === "Quotes") {
@@ -158,7 +219,7 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
     // }
 
     navigation.navigate(Constant.navDesign, {
-      designs: designs,
+      designs: dess,
       curDesign: design,
       curPackageType: packageType,
       curItemIndex: desIndex,
@@ -177,7 +238,7 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
   });
   const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
   return (
-    <View style={styles.containerDesignList}>
+    <SafeAreaView style={styles.containerDesignList}>
       {/* {designs &&
       curItemIndex !== undefined &&
       designs.totalDesign > 0 &&
@@ -190,7 +251,7 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
           contentContainerStyle={styles.listSubCategoryDesign}
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewConfigRef.current}
-          data={designs}
+          data={dess}
           keyExtractor={keyExtractor}
           legacyImplementation={false}
           maxToRenderPerBatch={6}
@@ -198,7 +259,8 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
           bounces={false}
           scrollEventThrottle={16}
           onEndReached={() => {
-            !designStore.udLoading && loadMoreDesigns(designs[curItemIndex].id);
+            console.log("called", curCatId);
+            !designStore.udLoading && loadMoreDesigns(curCatId);
           }}
           renderItem={({ item: design, index: desIndex }) => {
             const designPackage = designPackages.find(
@@ -248,7 +310,7 @@ const ViewMoreDesign = ({ navigation, route, designStore, userStore }) => {
           )}
         </View>
       )} */}
-    </View>
+    </SafeAreaView>
   );
 };
 

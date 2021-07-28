@@ -11,6 +11,7 @@ export default {
   drawerTextColor: "white",
 
   bgcColor: "#e9e4de",
+  bottomColor: "#F6F6F6",
 
   tagColor: "#FBBF17",
   tagTextColor: "#545454",
@@ -19,6 +20,7 @@ export default {
   txtDesignDate: "#ffffff",
 
   dividerColor: "#d4d4d4",
+  dividerHomeColor: "#C9CED1",
 
   borderColor: "#545454",
   btnborder: "#adadad",
@@ -45,4 +47,5 @@ export default {
   blackTransBorder: "rgba(0,0,0,0.1)",
   whiteTrans: "rgba(255,255,255,0.3)",
   blackTransTagFree: "rgba(0,0,0,0.5)",
+  blackTransModal: "rgba(0,0,0,0.8)",
 };

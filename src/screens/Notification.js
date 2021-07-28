@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import { format } from "date-fns";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -261,7 +262,11 @@ const Notification = ({ designStore }) => {
     );
   };
   const renderMainView = () => {
-    return <View style={{ flex: 1 }}>{renderNotifications()}</View>;
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: Color.white }}>
+        {renderNotifications()}
+      </SafeAreaView>
+    );
   };
   return renderMainView();
 };

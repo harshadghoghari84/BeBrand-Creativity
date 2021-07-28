@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, View } from "react-native";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -146,7 +146,7 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <PopUp
         visible={modalVisible}
         toggleVisible={toggleVisible}
@@ -199,13 +199,14 @@ const UserDesign = ({ navigation, designStore, userStore }) => {
           )}
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Color.white,
   },
   listDesign: {
     paddingTop: 10,

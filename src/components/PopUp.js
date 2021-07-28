@@ -15,6 +15,7 @@ import {
   Platform,
   FlatList,
   ToastAndroid,
+  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
@@ -87,6 +88,7 @@ const PopUp = ({
   isVisibleAd,
   toggleVisibleAd,
   isModalOffers,
+  isModalUpdateApp,
   toggleVisibleForModaloffer,
   modalOfferData,
   isVisiblePersonalInfo,
@@ -1371,7 +1373,10 @@ const PopUp = ({
         )}
         {isModalOffers && (
           <View
-            style={[styles.mainView, { backgroundColor: Color.blackTrans }]}
+            style={[
+              styles.mainView,
+              { backgroundColor: Color.blackTransModal },
+            ]}
           >
             <View
               style={{
@@ -1382,8 +1387,8 @@ const PopUp = ({
                 activeOpacity={0.6}
                 onPress={() => toggleVisibleForModaloffer()}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 25,
+                  height: 25,
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: Color.white,
@@ -1413,6 +1418,45 @@ const PopUp = ({
                   />
                 );
               })}
+            </View>
+          </View>
+        )}
+        {isModalUpdateApp && (
+          <View
+            style={[
+              styles.mainView,
+              { backgroundColor: Color.blackTransModal },
+            ]}
+          >
+            <View
+              style={{
+                backgroundColor: Color.white,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                marginHorizontal: 20,
+              }}
+            >
+              <Text style={{ fontSize: 18, marginVertical: 8 }}>
+                Update are Available !
+              </Text>
+              <Text style={{ textAlign: "center" }}>
+                Make sure you update your app to recive the best possible
+                experience !
+              </Text>
+              <Button
+                style={{ margin: 5 }}
+                normal={true}
+                onPress={() => {
+                  Linking.openURL(
+                    Platform.OS === "ios"
+                      ? Constant.titAppleIdForAppStore
+                      : Constant.androidPlaystoreLink
+                  );
+                }}
+              >
+                Update App
+              </Button>
             </View>
           </View>
         )}

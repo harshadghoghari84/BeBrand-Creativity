@@ -158,7 +158,7 @@
     <orderEntry type="library" name="Gradle: com.facebook.fresco:nativeimagetranscoder:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.play:core:1.9.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.installreferrer:installreferrer:1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.installreferrer:installreferrer:1.1.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: pl.droidsonroids.gif:android-gif-drawable:1.2.22@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-base:19.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.nlopez.smartlocation:library:3.2.11@aar" level="project" />
@@ -191,6 +191,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.savedstate:savedstate:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.installreferrer:installreferrer:1.0@aar" level="project" />
     <orderEntry type="module" module-name="my-app.invertase_react-native-apple-authentication" />
     <orderEntry type="module" module-name="my-app.react-native-firebase_auth" />
     <orderEntry type="module" module-name="my-app.react-native-firebase_messaging" />
@@ -233,6 +234,7 @@
     <orderEntry type="module" module-name="my-app.react-native-community_datetimepicker" />
     <orderEntry type="module" module-name="my-app.react-native-community_google-signin" />
     <orderEntry type="module" module-name="my-app.react-native-community_masked-view" />
+    <orderEntry type="module" module-name="my-app.react-native-device-info" />
     <orderEntry type="module" module-name="my-app.react-native-fast-image" />
     <orderEntry type="module" module-name="my-app.react-native-fbads" />
     <orderEntry type="module" module-name="my-app.react-native-fbsdk" />

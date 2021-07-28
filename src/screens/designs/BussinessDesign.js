@@ -208,7 +208,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const scrollTodesign = () => {
     designRef.current.scrollToIndex({
       animated: true,
-      index:  curItemIndex,
+      index: curItemIndex,
     });
   };
 
@@ -395,7 +395,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   }, []);
   useEffect(() => {
     const socialIconsB = toJS(designStore.socialIconsBusiness);
-    setSocialIconList(socialIconsB);
+    if (user && user !== null) {
+      if (socialIconsB && socialIconsB !== null && socialIconsB.length > 0) {
+        setSocialIconList(socialIconsB);
+      } else {
+        setSocialIconList(Constant.defSocialIconList);
+      }
+    }
   }, [designStore.socialIconsBusiness]);
 
   useEffect(() => {
@@ -2546,7 +2552,11 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       viewableItems.viewableItems.length > 0
     ) {
       curLayoutId = viewableItems.viewableItems[0].item.id;
+      // navigation.addListener("focus", (e) => {
+      //   console.log("focus business");
+      // });
       checkAndSetLayout(viewableItems.viewableItems[0].item);
+
       // layRef.current.scrollToIndex({
       //   index: viewableItems.viewableItems[0].index,
       // });
@@ -2607,10 +2617,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           callbackNode={fall}
           renderContent={renderContentSocial}
         /> */}
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
-            backgroundColor: Color.bgcColor,
+            backgroundColor: Color.white,
           }}
         >
           <ScrollView
@@ -2908,6 +2918,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               borderTopColor: Color.txtIntxtcolor,
               borderTopWidth: 1,
               backgroundColor: Color.white,
+              height: 50,
             }}
           >
             <ScrollView
@@ -2925,8 +2936,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   justifyContent: "space-between",
                   flexDirection: "row",
                   flex: 1,
+                  marginTop: 5,
                   marginHorizontal: 20,
-                  marginBottom: Platform.OS === "ios" ? 10 : null,
                 }}
               >
                 {/* <Button
@@ -3073,7 +3084,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               </View>
             </ScrollView>
           </View>
-        </View>
+        </SafeAreaView>
       </>
     );
   };

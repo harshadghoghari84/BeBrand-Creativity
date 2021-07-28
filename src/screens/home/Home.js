@@ -12,10 +12,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Platform,
-  findNodeHandle,
-  ScrollView,
-  InteractionManager,
-  StatusBar,
 } from "react-native";
 import { useMutation, useQuery } from "@apollo/client";
 import Carousel, { Pagination } from "react-native-snap-carousel";
@@ -26,6 +22,8 @@ import { AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { isIphoneX, getStatusBarHeight } from "react-native-iphone-x-helper";
 import moment from "moment";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // relative path
 import GraphqlQuery from "../../utils/GraphqlQuery";
@@ -59,37 +57,72 @@ let scrollVal = true;
 
 const Home = ({ navigation, designStore, userStore }) => {
   const user = toJS(userStore.user);
+  const insets = useSafeAreaInsets();
   const scrollY = new Animated.Value(0);
+  const clampedScrollY = scrollY.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+    extrapolateLeft: "clamp",
+  });
 
-  const diffClamp = Animated.diffClamp(scrollY, 0, 40);
+  const diffClamp = Animated.diffClamp(clampedScrollY, 0, 50);
 
   const translateY = diffClamp.interpolate({
-    inputRange: [0, 38],
-    outputRange: [0, -38],
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+    extrapolate: "clamp",
+  });
+  const translateYDown = diffClamp.interpolate({
+    inputRange: [0, 40],
+    outputRange: [0, -100],
     extrapolate: "clamp",
   });
   const transY = diffClamp.interpolate({
-    inputRange: [0, 40],
-    outputRange: [0, -40],
+    inputRange: [0, 48],
+    outputRange: [0, -48],
     extrapolate: "clamp",
   });
   const opacity = diffClamp.interpolate({
-    inputRange: [0, 40],
+    inputRange: [0, 45],
     outputRange: [1, 0],
     extrapolate: "clamp",
+  });
+  const elev = scrollY.interpolate({
+    inputRange: [0, 5],
+    outputRange: [0, 5],
+    extrapolate: "clamp",
+  });
+  const shadowOpa = scrollY.interpolate({
+    inputRange: [0, 0.25],
+    outputRange: [0, 0.25],
+    extrapolate: "clamp",
+  });
+  const ShadowRadius = scrollY.interpolate({
+    inputRange: [0, 2.84],
+    outputRange: [0, 2.84],
+    extrapolate: "clamp",
+  });
+  const backgroundInterpolate = diffClamp.interpolate({
+    inputRange: [0, 45],
+    outputRange: [Color.white, Color.bgcColor],
   });
 
   const homeDataLoading = toJS(designStore.hdLoading);
   const otherCatLoading = toJS(designStore.uoscLoading);
   const designPackages = toJS(designStore.designPackages);
-  // const [scrollVal, setScrollVal] = useState(true);
+  const [isFeturedLoad, setIsFetureLoad] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [modalVisible, setmodalVisible] = useState(false);
   const toggleVisible = () => {
     setmodalVisible(!modalVisible);
   };
+  // const [scrollUp, setScrollUp] = useState(false);
   const [hasPro, sethasPro] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
+  const [userSubCategoriesHome, setUserSubCategoriesHome] = useState([]);
+  const [userOtherSubCategoryesHome, setUserOtherSubCategoryesHome] = useState(
+    []
+  );
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
   const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
@@ -119,9 +152,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   const refCategoryList = useRef(null);
   const catRef = useRef(null);
   const caraRef = useRef(null);
-
   const isMountedRef = Common.useIsMountedRef();
-
   const { loading, error, data: imageData } = useQuery(GraphqlQuery.offers);
 
   useEffect(() => {
@@ -149,6 +180,110 @@ const Home = ({ navigation, designStore, userStore }) => {
       errorPolicy: "all",
     }
   );
+  useEffect(() => {
+    console.log("userSubCategories", userSubCategories);
+    // if (
+    //   userSubCategories &&
+    //   userSubCategories !== null &&
+    //   userSubCategories.length > 0 &&
+    //   refCategoryList.current.scrollToIndex
+    // ) {
+    //   setTimeout(() => {
+    //     refCategoryList.current.scrollToIndex({
+    //       index: 60,
+    //     });
+    //   }, 3000);
+    // }
+  }, [userSubCategories]);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const subCatagoryHome = toJS(designStore.userSubCategoriesHome);
+
+      let onlyDesignArr = [];
+      if (userSubCategoriesHome.length <= subCatagoryHome.length) {
+        subCatagoryHome.forEach((ele) => {
+          if (ele.designs.length > 0 && ele.totalDesign > 0) {
+            onlyDesignArr.push(ele);
+          }
+        });
+
+        setUserSubCategoriesHome(onlyDesignArr);
+      }
+    }
+  }, [designStore.userSubCategoriesHome]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      let afterCategory = toJS(designStore.userSubCategoriesAfter);
+
+      let onlyDesignArr = [];
+
+      if (userSubCategoriesAfter.length <= afterCategory.length) {
+        afterCategory.forEach((ele) => {
+          if (ele.designs.length > 0 && ele.totalDesign > 0) {
+            onlyDesignArr.push(ele);
+          }
+        });
+
+        setUserSubCategoriesAfter(onlyDesignArr);
+      }
+    }
+  }, [designStore.userSubCategoriesAfter]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
+      console.log("beforeCatragory", beforeCatragory);
+      let tmpArr = beforeCatragory.splice(
+        beforeCatragory.length - 10,
+        beforeCatragory.length - 1
+      );
+      console.log("tmpArr", tmpArr);
+      setUserSubCategoriesBefore(tmpArr);
+    }
+  }, [designStore.userSubCategoriesBefore]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const otherSubCatagoryHome = toJS(designStore.userOtherSubCategoriesHome);
+
+      let onlyDesignArr = [];
+      otherSubCatagoryHome.forEach((ele) => {
+        if (ele.designs.length > 0 && ele.totalDesign > 0) {
+          onlyDesignArr.push(ele);
+        }
+      });
+
+      setUserOtherSubCategoryesHome(onlyDesignArr);
+    }
+  }, [designStore.userOtherSubCategoriesHome]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      if (activeCat !== "Quotes") {
+        setUserSubCategories([
+          ...userSubCategoriesBefore,
+          ...userSubCategoriesHome,
+        ]);
+      } else {
+        setUserSubCategories(userOtherSubCategoryesHome);
+      }
+    }
+  }, [
+    userSubCategoriesHome,
+    userOtherSubCategoryesHome,
+    userSubCategoriesBefore,
+  ]);
+
+  // useEffect(() => {
+  //   if (isMountedRef.current) {
+  //     const subCatagoryHome = toJS(designStore.userSubCategoriesHome);
+  //     if (activeCat !== "Quotes") {
+  //       setUserSubCategories(subCatagoryHome);
+  //     }
+  //   }
+  // }, [designStore.userSubCategoriesHome]);
+
   useEffect(() => {
     // stopAutoPlay();
     startAutoPlay();
@@ -398,52 +533,14 @@ const Home = ({ navigation, designStore, userStore }) => {
   }, []);
 
   useEffect(() => {
-    if (isMountedRef.current) {
-      const afterCategory = toJS(designStore.userSubCategoriesAfter);
-
-      if (userSubCategoriesAfter.length <= afterCategory.length) {
-        setUserSubCategoriesAfter(afterCategory);
-      }
-    }
-  }, [designStore.userSubCategoriesAfter]);
-
-  useEffect(() => {
-    if (isMountedRef.current) {
-      const beforeCatragory = toJS(designStore.userSubCategoriesBefore);
-      setUserSubCategoriesBefore(beforeCatragory);
-    }
-  }, [designStore.userSubCategoriesBefore]);
-
-  useEffect(() => {
-    if (isMountedRef.current) {
-      const otherSubCatagory = toJS(designStore.userOtherSubCategories);
-
-      setUserOtherSubCategoryes(otherSubCatagory);
-    }
-  }, [designStore.userOtherSubCategories]);
-
-  useEffect(() => {
-    if (isMountedRef.current) {
-      if (activeCat !== "Quotes") {
-        setUserSubCategories([
-          // ...userSubCategoriesBefore,
-          ...userSubCategoriesAfter,
-        ]);
-      } else {
-        setUserSubCategories(userOtherSubCategoryes);
-      }
-    }
-  }, [userSubCategoriesAfter, userSubCategoriesBefore, userOtherSubCategoryes]);
-
-  useEffect(() => {
     isMountedRef.current &&
       setTotalUserSubCategoriesAfter(designStore.totalUserSubCategoriesAfter);
   }, [designStore.totalUserSubCategoriesAfter]);
 
-  useEffect(() => {
-    isMountedRef.current &&
-      setTotalUserSubCategoriesBefore(designStore.totalUserSubCategoriesBefore);
-  }, [designStore.totalUserSubCategoriesBefore]);
+  // useEffect(() => {
+  //   isMountedRef.current &&
+  //     setTotalHomeIte(designStore.totalUserSubCategoriesBefore);
+  // }, [designStore.totalUserSubCategoriesBefore]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -821,7 +918,7 @@ const Home = ({ navigation, designStore, userStore }) => {
     return (
       <View
         style={{
-          backgroundColor: Color.bgcColor,
+          backgroundColor: Color.bottomColor,
           borderTopColor: Color.blackTrans,
           borderTopWidth: 0.7,
         }}
@@ -878,28 +975,30 @@ const Home = ({ navigation, designStore, userStore }) => {
       </View>
     );
   };
-  const onPressCat = (curCat, tit) => {
+  const onPressCat = async (curCat, tit) => {
+    scrollY.setValue(0);
     setActiveCat(curCat);
     actCat = curCat;
-    designStore.loadUserOtherSubCategories(0, Constant.topCatQuotes);
-    if (actCat == curCat) {
-      isFirstTimeListLoad = true;
 
-      if (tit === Constant.topCatQuotes) {
-        if (
-          userOtherSubCategoryes &&
-          userOtherSubCategoryes !== null &&
-          userOtherSubCategoryes.length > 0
-        ) {
-          setUserSubCategories(userOtherSubCategoryes);
-        }
-      } else if (tit === Constant.topCatFestival) {
-        setUserSubCategories([
-          // ...userSubCategoriesBefore,
-          ...userSubCategoriesAfter,
-        ]);
+    // if (actCat == curCat) {
+    isFirstTimeListLoad = true;
+
+    if (tit === Constant.topCatQuotes) {
+      await designStore.loadUserOtherSubCategories(0, Constant.topCatQuotes);
+      if (
+        userOtherSubCategoryesHome &&
+        userOtherSubCategoryesHome !== null &&
+        userOtherSubCategoryesHome.length > 0
+      ) {
+        setUserSubCategories(userOtherSubCategoryesHome);
       }
+    } else if (tit === Constant.topCatFestival) {
+      setUserSubCategories([
+        ...userSubCategoriesBefore,
+        ...userSubCategoriesHome,
+      ]);
     }
+    // }
   };
   const viewMoreDesigns = (designs, desIndex) => {
     return (
@@ -938,11 +1037,51 @@ const Home = ({ navigation, designStore, userStore }) => {
     return (
       <View
         style={{
+<<<<<<< HEAD
+          backgroundColor: Color.dividerHomeColor,
+          height: 6.5,
+=======
           backgroundColor: Color.bgcColor,
           height: 5,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
         }}
       />
     );
+  };
+  const getItemLayoutsCategory = useCallback(
+    (data, index) => ({
+      length: Platform.OS === "ios" ? imgWidth + 79 : imgWidth + 79,
+      offset: (Platform.OS === "ios" ? imgWidth + 79 : imgWidth + 79) * index,
+      index,
+    }),
+    []
+  );
+  const setSubCategoryindex = () => {
+    if (
+      refCategoryList &&
+      refCategoryList.current.scrollToIndex &&
+      userSubCategoriesBefore &&
+      userSubCategoriesBefore.length > 0
+    ) {
+      const index =
+        userSubCategories.length > userSubCategoriesBefore.length
+          ? userSubCategoriesBefore.length
+          : userSubCategoriesBefore.length - 1;
+
+      refCategoryList.current.scrollToIndex({
+        index: index,
+      });
+      // setSelectedSubCategory(index);
+    }
   };
   /*
   ..######...#######..##.....##.########...#######..##....##....###....##....##.########
@@ -954,7 +1093,30 @@ const Home = ({ navigation, designStore, userStore }) => {
   ..######...#######..##.....##.##.........#######..##....##.##.....##.##....##....##...
   */
   return (
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <>
+      <SafeAreaView
+        style={{
+          flex: 0,
+          zIndex: 999,
+          backgroundColor: Color.white,
+        }}
+      />
+=======
     <SafeAreaView style={styles.containerMain}>
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+    <SafeAreaView style={styles.containerMain}>
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+    <SafeAreaView style={styles.containerMain}>
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+    <SafeAreaView style={styles.containerMain}>
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
       <PopUp
         visible={modalVisible}
         toggleVisible={toggleVisible}
@@ -971,6 +1133,50 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisibleForModaloffer={toggleVisibleForModalOffers}
         isModalOffers={true}
       />
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <View style={styles.containerMain}>
+        <Animated.View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            zIndex: 9999,
+            // opacity,
+            transform: [{ translateY }],
+          }}
+        >
+          <CustomHeader
+            langauge={true}
+            notification={true}
+            // position={true}
+            bottomBorder={true}
+            bePrem={true}
+            menu={true}
+            isTtileImage={true}
+            navigation={navigation}
+          />
+        </Animated.View>
+
+        <Animated.View
+          style={{
+            transform: [{ translateY: transY }],
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 45,
+            zIndex: 999,
+            // backgroundColor: backgroundInterpolate,
+=======
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
       {/* <SafeAreaView
         style={{
           // backgroundColor: Color.white,
@@ -1015,69 +1221,96 @@ const Home = ({ navigation, designStore, userStore }) => {
             backgroundColor: Color.white,
             borderBottomColor: Color.blackTrans,
             borderBottomWidth: 0.5,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
           }}
         >
-          <FlatList
-            ref={catRef}
-            data={topCatagory}
-            keyExtractor={(item, index) => index.toString()}
-            horizontal
-            contentContainerStyle={{
-              flex: 1,
-            }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  disabled={activeCat === item.name}
-                  onPress={() => onPressCat(item.name, item.tit)}
-                >
-                  <View style={{ alignItems: "center" }}>
-                    <View
-                      onLayout={(event) => {
-                        if (!txtWidth[index]) {
-                          let catTxtMeasure = {};
-                          catTxtMeasure = event.nativeEvent.layout;
-                          txtWidth[index] = catTxtMeasure;
-                        }
-                      }}
-                      style={{ marginHorizontal: 15 }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 15,
-                          color:
-                            activeCat === item.name
-                              ? Color.darkBlue
-                              : Color.grey,
-                          paddingVertical: 8,
+          <Animated.View
+            style={[
+              {
+                backgroundColor: Color.white,
+                borderBottomColor: Color.blackTrans,
+                borderBottomWidth: 0.7,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                shadowOpacity: Platform.OS === "ios" ? shadowOpa : null,
+                shadowRadius: Platform.OS === "ios" ? ShadowRadius : null,
+                elevation: elev,
+              },
+            ]}
+          >
+            <FlatList
+              ref={catRef}
+              data={topCatagory}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal
+              contentContainerStyle={{
+                flex: 1,
+              }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity
+                    disabled={activeCat === item.name}
+                    onPress={() => onPressCat(item.name, item.tit)}
+                  >
+                    <View style={{ alignItems: "center" }}>
+                      <View
+                        onLayout={(event) => {
+                          if (!txtWidth[index]) {
+                            let catTxtMeasure = {};
+                            catTxtMeasure = event.nativeEvent.layout;
+                            txtWidth[index] = catTxtMeasure;
+                          }
                         }}
+                        style={{ marginHorizontal: 15 }}
                       >
-                        {item.name}
-                      </Text>
-                      {activeCat === item.name ? (
-                        <View
+                        <Text
                           style={{
-                            height: 3,
-                            borderTopLeftRadius: 5,
-                            borderTopRightRadius: 5,
-                            width: txtWidth[index]?.width,
-                            // width: 82.5,
-                            backgroundColor:
+                            fontSize: 15,
+                            color:
                               activeCat === item.name
-                                ? Color.darkBlue
+                                ? Color.primary
                                 : Color.grey,
+                            paddingVertical: 10,
                           }}
-                        />
-                      ) : null}
+                        >
+                          {item.name}
+                        </Text>
+                        {activeCat === item.name ? (
+                          <View
+                            style={{
+                              height: 3,
+                              borderTopLeftRadius: 5,
+                              borderTopRightRadius: 5,
+                              width: txtWidth[index]?.width,
+                              // width: 82.5,
+                              backgroundColor:
+                                activeCat === item.name
+                                  ? Color.primary
+                                  : Color.grey,
+                            }}
+                          />
+                        ) : null}
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-        {/* <FlatList
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </Animated.View>
+          {/* <FlatList
           horizontal
           ref={refCategoryList}
           data={userSubCategories}
@@ -1144,6 +1377,96 @@ const Home = ({ navigation, designStore, userStore }) => {
             );
           }}
         /> */}
+<<<<<<< HEAD
+        </Animated.View>
+        {/* <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        > */}
+        {userSubCategories &&
+        userSubCategories.length > 0 &&
+        userSubCategories !== null ? (
+          <Animated.FlatList
+            ListHeaderComponent={
+              imageData?.offers &&
+              imageData?.offers !== null &&
+              imageData?.offers.length > 0
+                ? slider()
+                : null
+            }
+            ref={refCategoryList}
+            data={userSubCategories}
+            bounces={false}
+            horizontal={false}
+            scrollEventThrottle={16}
+            alwaysBounceVertical={false}
+            alwaysBounceHorizontal={false}
+            showsVerticalScrollIndicator={false}
+            onContentSizeChange={() => {
+              if (isFirstTimeListLoad) {
+                isFirstTimeListLoad = false;
+                setSubCategoryindex();
+              }
+            }}
+            onLayout={() => {
+              if (isFirstTimeListLoad === false) {
+                setSubCategoryindex();
+              }
+            }}
+            getItemLayout={getItemLayoutsCategory}
+            ItemSeparatorComponent={() => itemSaprater()}
+            contentContainerStyle={styles.listSubCategoryDesign}
+            onScroll={
+              isFirstTimeListLoad
+                ? null
+                : Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    {
+                      listener: (event) => {
+                        var currentOffset = event.nativeEvent.contentOffset.y;
+                        if (offset < currentOffset) {
+                          scrollVal = false;
+                        } else {
+                          scrollVal = true;
+                        }
+                      },
+                      useNativeDriver: true,
+                    }
+                  )
+            }
+            // onScroll={(e) => {
+            //   scrollY.setValue(e.nativeEvent.contentOffset.y);
+            // var currentOffset = e.nativeEvent.contentOffset.y;
+            // // var direction = currentOffset > offset ? "down" : "up";
+            // if (offset < currentOffset) {
+            //   setVisibleShadow(false);
+            //   scrollVal = false;
+            // } else {
+            //   setVisibleShadow(true);
+            //   scrollVal = true;
+            // }
+            //   // offset = currentOffset;
+            // }}
+            keyExtractor={(item, index) => `${item.id + index}`}
+            renderItem={({ item, index }) => {
+              return (
+                <View
+                  style={{
+                    // marginHorizontal: 10,
+                    backgroundColor: "white",
+                    marginVertical: 5,
+                  }}
+                >
+                  {index === 0 && (
+                    <View
+                      style={{
+                        backgroundColor: Color.dividerHomeColor,
+                        height: 6.5,
+                      }}
+=======
       </Animated.View>
       <Animated.FlatList
         ListHeaderComponent={
@@ -1212,15 +1535,101 @@ const Home = ({ navigation, designStore, userStore }) => {
                       packageType={designPackage.type}
                       desIndex={desIndex}
                       onDesignClick={onDesignClick}
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
                     />
-                  );
-                }}
+                  )}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      // justifyContent: "center",
+                    }}
+                  >
+                    {activeCat === "Festivals" && (
+                      <>
+                        <Text
+                          style={{
+                            ...styles.date,
+                            color: Color.black,
+                            fontWeight: "600",
+                            marginLeft: 10,
+                          }}
+                        >
+                          {`${moment(new Date(item.endDate)).format("DD MMM")}`}
+                        </Text>
+                        <Ionicons
+                          name="chevron-forward"
+                          color={Color.darkBlue}
+                          size={20}
+                        />
+                      </>
+                    )}
+                    <Text
+                      style={{
+                        ...styles.date,
+                        color: Color.black,
+                        fontWeight: "600",
+                        marginLeft: activeCat === "Festivals" ? null : 10,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                  </View>
+                  <FlatList
+                    data={item.designs}
+                    keyExtractor={keyExtractor}
+                    bounces={false}
+                    horizontal
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                    // ListFooterComponent={viewMoreDesigns(item.designs, index)}
+                    showsHorizontalScrollIndicator={false}
+                    // onEndReached={() => {
+                    //   console.log("called", item.id);
+                    //   !designStore.udLoading && loadMoreDesigns(item.id);
+                    // }}
+                    renderItem={({ item: design, index: desIndex }) => {
+                      const designPackage = designPackages.find(
+                        (item) => item.id === design.package
+                      );
+                      return (
+                        <HomeItemDesign
+                          usubCat={userSubCategories}
+                          designs={item.designs}
+                          design={design}
+                          curCatId={item.id}
+                          activeCat={activeCat}
+                          navigation={navigation}
+                          packageType={designPackage?.type}
+                          desIndex={desIndex}
+                          onDesignClick={onDesignClick}
+                        />
+                      );
+                    }}
+                  />
+                </View>
+              );
+            }}
+          />
+        ) : (
+          <>
+            {!homeDataLoading ? (
+              <FastImage
+                source={require("../../assets/img/soon.png")}
+                style={{ height: "80%", width: "80%" }}
+                resizeMode={FastImage.resizeMode.contain}
               />
-            </View>
-          );
-        }}
-      />
-      {/* <View style={styles.containerDesignList}>
+            ) : designStore.udLoading ? (
+              <>
+                <ActivityIndicator size={25} color={Color.primary} />
+                <Text style={{ color: Color.txtIntxtcolor, fontSize: 22 }}>
+                  {Common.getTranslation(LangKey.labLoading)}
+                </Text>
+              </>
+            ) : null}
+          </>
+        )}
+        {/* </View> */}
+        {/* <View style={styles.containerDesignList}>
         {userSubCategories &&
         selectedSubCategory !== undefined &&
         userSubCategories[selectedSubCategory]?.totalDesign > 0 &&
@@ -1316,8 +1725,39 @@ const Home = ({ navigation, designStore, userStore }) => {
           </View>
         )}
       </View> */}
+<<<<<<< HEAD
+        <Animated.View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            transform: [{ translateY: Animated.multiply(translateYDown, -1) }],
+          }}
+        >
+          {renderBottom()}
+          <SafeAreaView
+            style={{
+              flex: 0,
+              backgroundColor: Color.bottomColor,
+            }}
+          />
+        </Animated.View>
+      </View>
+    </>
+=======
       {renderBottom()}
     </SafeAreaView>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
   );
 };
 export default inject("designStore", "userStore")(observer(Home));
@@ -1337,7 +1777,7 @@ const styles = StyleSheet.create({
   },
   containerNoDesign: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.red,
 
     justifyContent: "center",
     alignItems: "center",
@@ -1348,12 +1788,25 @@ const styles = StyleSheet.create({
   listSubCategoryDesign: {
     backgroundColor: Color.white,
     flexGrow: 1,
+<<<<<<< HEAD
+    paddingTop: Platform.OS === "ios" ? (isIphoneX() ? 94 : 90) : 92,
+=======
     paddingTop:
       Platform.OS === "ios"
         ? isIphoneX()
           ? getStatusBarHeight() + 40
           : getStatusBarHeight() + 40
         : 85,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
   },
   imgAllDesign: {
     width: 150,
@@ -1384,11 +1837,19 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 5,
     alignItems: "center",
-    // alignSelf: "center",
   },
   date: {
-    fontSize: 12,
+    fontSize: 15,
     paddingVertical: 8,
-    marginLeft: 10,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 2.84,
+    elevation: 0,
   },
 });

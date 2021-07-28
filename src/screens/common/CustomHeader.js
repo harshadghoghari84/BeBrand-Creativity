@@ -33,6 +33,7 @@ const CustomHeader = ({
   bePrem = false,
   bottomBorder = false,
   position = false,
+  scrollUp = false,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [isNewNotification, setIsNewNotification] = useState(false);
@@ -41,6 +42,9 @@ const CustomHeader = ({
     const val = toJS(designStore.isNewNotification);
     setIsNewNotification(val);
   }, [designStore.isNewNotification]);
+  useEffect(() => {
+    console.log("scrollUp", scrollUp);
+  }, [scrollUp]);
 
   const toggleVisible = () => {
     setVisibleModal(!visibleModal);
@@ -243,7 +247,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white,
   },
   header: {
-    height: 40,
+    height: 45,
     paddingLeft: 10,
     paddingRight: 1,
     alignItems: "center",
@@ -267,11 +271,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
-
     elevation: 1,
   },
   borderBottom: {
-    borderBottomColor: Color.blackTrans,
+    borderBottomColor: Color.blackTransBorder,
     borderBottomWidth: 0.5,
   },
   posAbs: {

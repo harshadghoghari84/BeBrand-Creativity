@@ -27,10 +27,6 @@ import Home from "./src/screens/home/Home";
 import UserDesign from "./src/screens/UserDesign";
 import UserPackage from "./src/screens/UserPackage";
 import Notification from "./src/screens/Notification";
-import MydesignStack from "./src/stacks/MydesignStack";
-import MyPackageStack from "./src/stacks/MypackageStack";
-import HomeScreenStackComponent from "./src/stacks/HomeScreenStack";
-import NotificationStack from "./src/stacks/NotificationStack";
 
 Common.setTranslationInit();
 

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -177,7 +178,6 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
               })
                 .then(async ({ data, errors }) => {
                   if (errors && errors !== null) {
-                    console.log("---ERR---", errors[0].message);
                     Common.showMessage(errors[0].message);
                   } else if (
                     data.addUserDesignPackage &&
@@ -289,7 +289,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
     );
   };
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <ProgressDialog
         visible={loader || loading || isFetching === 0}
         dismissable={false}
@@ -297,7 +297,7 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
       />
       <FlatList
         data={filteredData}
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 10, paddingHorizontal: 10 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={headerComponant()}
         ListFooterComponent={footerComponant()}
@@ -375,13 +375,13 @@ const Packages = ({ navigation, designStore, userStore, route }) => {
 
       <Button
         disabled={isFetching === 0}
-        style={{ marginTop: 5, marginBottom: 10 }}
+        style={{ marginTop: 5 }}
         normal={true}
         onPress={() => requestSubscription(currentItem.id)}
       >
         {Common.getTranslation(LangKey.labPerchase)}
       </Button>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -389,6 +389,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 10,
+    backgroundColor: Color.white,
   },
 
   txtFeaturetitle: { fontSize: 16, fontWeight: "700", marginVertical: 8 },

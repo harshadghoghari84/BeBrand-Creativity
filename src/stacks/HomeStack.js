@@ -55,7 +55,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               empty={true}
               isShadow={true}
               ScreenTitle={"Packages"}
@@ -71,7 +71,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               isShadow={true}
               empty={true}
               ScreenTitle={"Packages"}
@@ -103,7 +103,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               empty={true}
               isShadow={true}
               ScreenTitle={"My Design"}
@@ -119,7 +119,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               empty={true}
               isShadow={true}
               ScreenTitle={"All Designs"}
@@ -136,7 +136,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               empty={true}
               isShadow={true}
               ScreenTitle={"My Package"}
@@ -154,7 +154,7 @@ const HomeStackComponent = ({ navigation }) => {
           // header: (props) => (
           //   <CustomHeader
           //     isBackVisible={true}
-          //     menu={true}
+          // menu={true}
           //     empty={true}
           //     ScreenTitle={"Designs"}
           //     {...props}
@@ -171,7 +171,7 @@ const HomeStackComponent = ({ navigation }) => {
             <CustomHeader
               isBackVisible={true}
               empty={true}
-              menu={true}
+              // menu={true}
               isShadow={true}
               ScreenTitle={"PostProfile"}
               {...props}
@@ -215,7 +215,7 @@ const HomeStackComponent = ({ navigation }) => {
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
-              menu={true}
+              // menu={true}
               empty={true}
               ScreenTitle={"Reffer & Earn"}
               {...props}
