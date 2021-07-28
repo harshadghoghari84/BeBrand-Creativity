@@ -9,6 +9,7 @@ import {
   Text,
   Platform,
   ToastAndroid,
+  SafeAreaView,
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import { useMutation } from "@apollo/client";
@@ -389,30 +390,31 @@ const PersonalProfile = ({ navigation, userStore }) => {
   const keyExtractor = useCallback((item, index) => index.toString(), []);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
-      <View style={styles.container}>
-        <ProgressDialog
-          visible={loadingUserImage}
-          dismissable={false}
-          message={Common.getTranslation(LangKey.labUploadingImage)}
-        />
-        <ProgressDialog
-          visible={loading}
-          dismissable={false}
-          message={Common.getTranslation(LangKey.labsSaving)}
-        />
-        <ProgressDialog
-          visible={loadingDeleteImage}
-          dismissable={true}
-          message={Common.getTranslation(LangKey.labLoading)}
-        />
-        <PopUp
-          visible={modalVisible}
-          toggleVisible={toggleVisible}
-          isPurchased={true}
-          isGoback={true}
-        />
-        {/* {personalImageLimit > 0 && (
+    <SafeAreaView style={{ flex: 1, backgroundColor: Color.white }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.sv}>
+        <View style={styles.container}>
+          <ProgressDialog
+            visible={loadingUserImage}
+            dismissable={false}
+            message={Common.getTranslation(LangKey.labUploadingImage)}
+          />
+          <ProgressDialog
+            visible={loading}
+            dismissable={false}
+            message={Common.getTranslation(LangKey.labsSaving)}
+          />
+          <ProgressDialog
+            visible={loadingDeleteImage}
+            dismissable={true}
+            message={Common.getTranslation(LangKey.labLoading)}
+          />
+          <PopUp
+            visible={modalVisible}
+            toggleVisible={toggleVisible}
+            isPurchased={true}
+            isGoback={true}
+          />
+          {/* {personalImageLimit > 0 && (
           <TouchableOpacity style={styles.toUserImage}>
             <View>
               {defaultImageUrl &&
@@ -428,292 +430,297 @@ const PersonalProfile = ({ navigation, userStore }) => {
           </TouchableOpacity>
         )} */}
 
-        <View style={styles.containerTil}>
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labUser)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="user"
-            value={userName}
-            maxLength={25}
-            onChangeText={(text) => {
-              setUserName(text);
-              setErrorUserName("");
-            }}
-            autoCapitalize="none"
-            // error={!!errorUserName}
-            errorText={errorUserName}
-            marked={
-              !nameValidatorPro(userName, Constant.titPersonalProfile) && "mark"
-            }
-          />
+          <View style={styles.containerTil}>
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labUser)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="user"
+              value={userName}
+              maxLength={25}
+              onChangeText={(text) => {
+                setUserName(text);
+                setErrorUserName("");
+              }}
+              autoCapitalize="none"
+              // error={!!errorUserName}
+              errorText={errorUserName}
+              marked={
+                !nameValidatorPro(userName, Constant.titPersonalProfile) &&
+                "mark"
+              }
+            />
 
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labMobile)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="phone"
-            value={mobile}
-            maxLength={10}
-            keyboardType="phone-pad"
-            onChangeText={(text) => {
-              setMobile(text), setErrorMobile("");
-            }}
-            autoCapitalize="none"
-            error={!!errorMobile}
-            errorText={errorMobile}
-            marked={
-              !mobileValidatorPro(mobile, Constant.titPersonalProfile) && "mark"
-            }
-          />
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labMobile)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="phone"
+              value={mobile}
+              maxLength={10}
+              keyboardType="phone-pad"
+              onChangeText={(text) => {
+                setMobile(text), setErrorMobile("");
+              }}
+              autoCapitalize="none"
+              error={!!errorMobile}
+              errorText={errorMobile}
+              marked={
+                !mobileValidatorPro(mobile, Constant.titPersonalProfile) &&
+                "mark"
+              }
+            />
 
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labEmail)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="email"
-            value={email}
-            maxLength={26}
-            onChangeText={(text) => {
-              setEmail(text), setErrorEmail("");
-            }}
-            autoCapitalize="none"
-            error={!!errorEmail}
-            errorText={errorEmail}
-            marked={
-              !emailValidatorPro(email, Constant.titPersonalProfile) && "mark"
-            }
-          />
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labEmail)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="email"
+              value={email}
+              maxLength={26}
+              onChangeText={(text) => {
+                setEmail(text), setErrorEmail("");
+              }}
+              autoCapitalize="none"
+              error={!!errorEmail}
+              errorText={errorEmail}
+              marked={
+                !emailValidatorPro(email, Constant.titPersonalProfile) && "mark"
+              }
+            />
 
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labDesignation)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="designation"
-            value={designation}
-            maxLength={18}
-            onChangeText={(text) => {
-              setDesignation(text), setErrorDesignation("");
-            }}
-            autoCapitalize="none"
-            error={!!errorDesignation}
-            errorText={errorDesignation}
-            marked={
-              !designationValidatorPro(
-                designation,
-                Constant.titPersonalProfile
-              ) && "mark"
-            }
-          />
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labDesignation)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="designation"
+              value={designation}
+              maxLength={18}
+              onChangeText={(text) => {
+                setDesignation(text), setErrorDesignation("");
+              }}
+              autoCapitalize="none"
+              error={!!errorDesignation}
+              errorText={errorDesignation}
+              marked={
+                !designationValidatorPro(
+                  designation,
+                  Constant.titPersonalProfile
+                ) && "mark"
+              }
+            />
 
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="social_id"
-            maxLength={20}
-            value={socialMediaId}
-            onChangeText={(text) => {
-              setSocialMediaId(text), setErrorSocailMediaId("");
-            }}
-            autoCapitalize="none"
-            error={!!errorSocialMediaId}
-            errorText={errorSocialMediaId}
-            marked={
-              !SocailMediaValidatorPro(
-                socialMediaId,
-                Constant.titPersonalProfile
-              ) && "mark"
-            }
-          />
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labSocialMediaId)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="social_id"
+              maxLength={20}
+              value={socialMediaId}
+              onChangeText={(text) => {
+                setSocialMediaId(text), setErrorSocailMediaId("");
+              }}
+              autoCapitalize="none"
+              error={!!errorSocialMediaId}
+              errorText={errorSocialMediaId}
+              marked={
+                !SocailMediaValidatorPro(
+                  socialMediaId,
+                  Constant.titPersonalProfile
+                ) && "mark"
+              }
+            />
 
-          <TextInput
-            placeholder={Common.getTranslation(LangKey.labWebsite)}
-            placeholderTextColor={Color.txtIntxtcolor}
-            returnKeyType="next"
-            iconName="website"
-            value={website}
-            maxLength={26}
-            onChangeText={(text) => {
-              setWebsite(text), setErrorWebsite("");
-            }}
-            autoCapitalize="none"
-            error={!!errorWebsite}
-            errorText={errorWebsite}
-            marked={
-              !websiteValidatorPro(website, Constant.titPersonalProfile) &&
-              "mark"
-            }
-          />
-        </View>
-        <View style={{ marginVertical: 10 }}>
-          <Text style={{ marginLeft: 15 }}>Social Icons</Text>
-          <FlatList
-            style={styles.socialIconList}
-            data={Constant.socialIconList}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                style={{
-                  height: 35,
-                  width: 35,
-                  margin: 3,
-                  backgroundColor: Color.darkBlue,
-                  borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={async () => {
-                  let addIcons = [];
-                  if (socialIconList.indexOf(item) >= 0) {
-                    addIcons = socialIconList.filter((val) => val !== item);
-
-                    setSocialIconList(
-                      socialIconList.filter((val) => val !== item)
-                    );
-                  } else if (socialIconList.length < Constant.socialIconLimit) {
-                    addIcons.push(...socialIconList, item);
-
-                    setSocialIconList([...socialIconList, item]);
-                  } else {
-                    Platform.OS == "android"
-                      ? ToastAndroid.show(
-                          Common.getTranslation(LangKey.msgSocialIconLimit),
-                          ToastAndroid.LONG
-                        )
-                      : alert(
-                          Common.getTranslation(LangKey.msgSocialIconLimit)
-                        );
-                  }
-                  await AsyncStorage.setItem(
-                    Constant.prfIcons,
-                    JSON.stringify(addIcons)
-                  );
-                }}
-              >
-                <View
+            <TextInput
+              placeholder={Common.getTranslation(LangKey.labWebsite)}
+              placeholderTextColor={Color.txtIntxtcolor}
+              returnKeyType="next"
+              iconName="website"
+              value={website}
+              maxLength={26}
+              onChangeText={(text) => {
+                setWebsite(text), setErrorWebsite("");
+              }}
+              autoCapitalize="none"
+              error={!!errorWebsite}
+              errorText={errorWebsite}
+              marked={
+                !websiteValidatorPro(website, Constant.titPersonalProfile) &&
+                "mark"
+              }
+            />
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <Text style={{ marginLeft: 15 }}>Social Icons</Text>
+            <FlatList
+              style={styles.socialIconList}
+              data={Constant.socialIconList}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                <TouchableOpacity
+                  activeOpacity={0.6}
                   style={{
                     height: 35,
                     width: 35,
-                    backgroundColor:
-                      socialIconList && socialIconList.indexOf(item) < 0
-                        ? null
-                        : Color.white,
-                    opacity: 0.3,
-                    position: "absolute",
+                    margin: 3,
+                    backgroundColor: Color.darkBlue,
                     borderRadius: 50,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                />
+                  onPress={async () => {
+                    let addIcons = [];
+                    if (socialIconList.indexOf(item) >= 0) {
+                      addIcons = socialIconList.filter((val) => val !== item);
 
-                <Icon
-                  name={item}
-                  height={20}
-                  width={20}
-                  fill={Color.white}
-                  key={index}
-                />
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        <View style={styles.containerProfile}>
-          <FlatList
-            horizontal
-            contentContainerStyle={{ padding: 5, marginTop: 5 }}
-            ListHeaderComponent={
-              isFirstTime &&
-              user?.userInfo?.personal?.image &&
-              user.userInfo.personal.image.length <=
-                Constant.freeUserProfileImageLimit
-                ? getImagePickerView()
-                : personalImageLimit > 0 &&
-                  Array.isArray(user?.userInfo?.personal?.image) &&
-                  user.userInfo.personal.image.length < personalImageLimit &&
-                  getImagePickerView()
-            }
-            showsHorizontalScrollIndicator={false}
-            data={
-              Array.isArray(user?.userInfo?.personal?.image)
-                ? user.userInfo.personal.image
-                : []
-            }
-            keyExtractor={keyExtractor}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  style={styles.toProfileImage}
-                  onPress={() => {
-                    setDefaultImageUrl(item.url);
+                      setSocialIconList(
+                        socialIconList.filter((val) => val !== item)
+                      );
+                    } else if (
+                      socialIconList.length < Constant.socialIconLimit
+                    ) {
+                      addIcons.push(...socialIconList, item);
+
+                      setSocialIconList([...socialIconList, item]);
+                    } else {
+                      Platform.OS == "android"
+                        ? ToastAndroid.show(
+                            Common.getTranslation(LangKey.msgSocialIconLimit),
+                            ToastAndroid.LONG
+                          )
+                        : alert(
+                            Common.getTranslation(LangKey.msgSocialIconLimit)
+                          );
+                    }
+                    await AsyncStorage.setItem(
+                      Constant.prfIcons,
+                      JSON.stringify(addIcons)
+                    );
                   }}
                 >
-                  {item.url && item.url !== "" && (
-                    <FastImage
-                      source={{ uri: item.url }}
-                      style={styles.toProfileImage}
-                    />
-                  )}
+                  <View
+                    style={{
+                      height: 35,
+                      width: 35,
+                      backgroundColor:
+                        socialIconList && socialIconList.indexOf(item) < 0
+                          ? null
+                          : Color.white,
+                      opacity: 0.3,
+                      position: "absolute",
+                      borderRadius: 50,
+                    }}
+                  />
 
-                  {defaultImageUrl === item.url && (
-                    <View
-                      style={{
-                        position: "absolute",
-                        zIndex: 1,
-                        bottom: 5,
-                        backgroundColor: Color.blackTransTagFree,
-                        width: "90%",
-                        alignItems: "center",
-                        paddingVertical: 2,
-                        borderRadius: 5,
-                      }}
-                    >
-                      <Icon
-                        name="mark"
-                        height={18}
-                        width={18}
-                        fill={Color.primary}
-                      />
-                    </View>
-                  )}
-                  <TouchableOpacity
-                    onPress={() => onCloseBTN(item.url)}
-                    activeOpacity={0.6}
-                    style={styles.closeBtn}
-                  >
-                    <ICON name="close" size={18} color={Color.darkBlue} />
-                  </TouchableOpacity>
+                  <Icon
+                    name={item}
+                    height={20}
+                    width={20}
+                    fill={Color.white}
+                    key={index}
+                  />
                 </TouchableOpacity>
-              );
-            }}
-          />
+              )}
+            />
+          </View>
+          <View style={styles.containerProfile}>
+            <FlatList
+              horizontal
+              contentContainerStyle={{ padding: 5, marginTop: 5 }}
+              ListHeaderComponent={
+                isFirstTime &&
+                user?.userInfo?.personal?.image &&
+                user.userInfo.personal.image.length <=
+                  Constant.freeUserProfileImageLimit
+                  ? getImagePickerView()
+                  : personalImageLimit > 0 &&
+                    Array.isArray(user?.userInfo?.personal?.image) &&
+                    user.userInfo.personal.image.length < personalImageLimit &&
+                    getImagePickerView()
+              }
+              showsHorizontalScrollIndicator={false}
+              data={
+                Array.isArray(user?.userInfo?.personal?.image)
+                  ? user.userInfo.personal.image
+                  : []
+              }
+              keyExtractor={keyExtractor}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.toProfileImage}
+                    onPress={() => {
+                      setDefaultImageUrl(item.url);
+                    }}
+                  >
+                    {item.url && item.url !== "" && (
+                      <FastImage
+                        source={{ uri: item.url }}
+                        style={styles.toProfileImage}
+                      />
+                    )}
 
-          <View style={styles.addimageContainer}>
-            <Text style={styles.txtUploadImage}>
-              {Common.getTranslation(LangKey.txtUploadPhotoHere)}
-            </Text>
+                    {defaultImageUrl === item.url && (
+                      <View
+                        style={{
+                          position: "absolute",
+                          zIndex: 1,
+                          bottom: 5,
+                          backgroundColor: Color.blackTransTagFree,
+                          width: "90%",
+                          alignItems: "center",
+                          paddingVertical: 2,
+                          borderRadius: 5,
+                        }}
+                      >
+                        <Icon
+                          name="mark"
+                          height={18}
+                          width={18}
+                          fill={Color.primary}
+                        />
+                      </View>
+                    )}
+                    <TouchableOpacity
+                      onPress={() => onCloseBTN(item.url)}
+                      activeOpacity={0.6}
+                      style={styles.closeBtn}
+                    >
+                      <ICON name="close" size={18} color={Color.darkBlue} />
+                    </TouchableOpacity>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+
+            <View style={styles.addimageContainer}>
+              <Text style={styles.txtUploadImage}>
+                {Common.getTranslation(LangKey.txtUploadPhotoHere)}
+              </Text>
+            </View>
+            <View style={styles.UploadPng}>
+              <Text style={styles.txtUploadImage1}>
+                {Common.getTranslation(LangKey.txtUploadPNG)}
+              </Text>
+              <Text style={styles.txtUploadImage1}>
+                {Common.getTranslation(LangKey.txtPhotoSize)}
+              </Text>
+            </View>
           </View>
-          <View style={styles.UploadPng}>
-            <Text style={styles.txtUploadImage1}>
-              {Common.getTranslation(LangKey.txtUploadPNG)}
-            </Text>
-            <Text style={styles.txtUploadImage1}>
-              {Common.getTranslation(LangKey.txtPhotoSize)}
-            </Text>
-          </View>
+          <Button
+            loading={loading}
+            normal={true}
+            disabled={loading}
+            style={styles.btnSave}
+            onPress={onClickSave}
+          >
+            {Common.getTranslation(LangKey.txtSave)}
+          </Button>
         </View>
-        <Button
-          loading={loading}
-          normal={true}
-          disabled={loading}
-          style={styles.btnSave}
-          onPress={onClickSave}
-        >
-          {Common.getTranslation(LangKey.txtSave)}
-        </Button>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 export default inject("userStore")(observer(PersonalProfile));

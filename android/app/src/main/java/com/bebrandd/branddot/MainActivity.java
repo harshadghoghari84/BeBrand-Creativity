@@ -38,24 +38,24 @@ public class MainActivity extends ReactActivity {
         SplashScreen.show(this, R.style.SplashScreenTheme);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-      AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(MainActivity.this);
-      Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-
-
-      appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
-          @Override
-          public void onSuccess(AppUpdateInfo result) {
-              if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
-                      result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
-                  try {
-                      appUpdateManager.startUpdateFlowForResult(
-                              result,AppUpdateType.IMMEDIATE,MainActivity.this,REQUEST_CODE);
-                  } catch (IntentSender.SendIntentException e) {
-                      e.printStackTrace();
-                  }
-              }
-          }
-      });
+//      AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(MainActivity.this);
+//      Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+//
+//
+//      appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+//          @Override
+//          public void onSuccess(AppUpdateInfo result) {
+//              if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+//                      result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+//                  try {
+//                      appUpdateManager.startUpdateFlowForResult(
+//                              result,AppUpdateType.IMMEDIATE,MainActivity.this,REQUEST_CODE);
+//                  } catch (IntentSender.SendIntentException e) {
+//                      e.printStackTrace();
+//                  }
+//              }
+//          }
+//      });
   }
 
 
@@ -65,16 +65,16 @@ public class MainActivity extends ReactActivity {
      * This is used to schedule rendering of the component.
      */
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE){
-            // Toast.makeText(this,"Start Download",Toast.LENGTH_SHORT).show();
-            if(resultCode != RESULT_OK){
-                Log.d("mmm","Update flow failed"+resultCode);
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == REQUEST_CODE){
+//            // Toast.makeText(this,"Start Download",Toast.LENGTH_SHORT).show();
+//            if(resultCode != RESULT_OK){
+//                Log.d("mmm","Update flow failed"+resultCode);
+//            }
+//        }
+//    }
     @Override
     protected String getMainComponentName() {
         return "main";

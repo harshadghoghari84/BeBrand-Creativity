@@ -1,0 +1,21 @@
+{
+  "name": "react-native-record-screen",
+  "version": "0.3.2",
+  "summary": "react-native-record-screen",
+  "homepage": "https://github.com/yutasuzuki/react-native-record-screen#readme",
+  "license": "MIT",
+  "authors": "Yuta Suzuki <yutasuzuki.r@gmail.com> (https://github.com/yutasuzuki)",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://github.com/yutasuzuki/react-native-record-screen.git",
+    "tag": "0.3.2"
+  },
+  "source_files": "ios/**/*.{h,m,mm}",
+  "dependencies": {
+    "React": [
+
+    ]
+  }
+}

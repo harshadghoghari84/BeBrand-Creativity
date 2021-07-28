@@ -240,6 +240,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       };
     }
   }, []);
+  useEffect(() => {
+    console.log("socialIconList", socialIconList);
+  }, [socialIconList]);
 
   useEffect(() => {
     if (
@@ -371,7 +374,13 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   }, []);
   useEffect(() => {
     const socialIconsP = toJS(designStore.socialIconsPersonal);
-    setSocialIconList(socialIconsP);
+    if (user && user !== null) {
+      if (socialIconsP && socialIconsP !== null && socialIconsP.length > 0) {
+        setSocialIconList(socialIconsP);
+      } else {
+        setSocialIconList(Constant.defSocialIconList);
+      }
+    }
   }, [designStore.socialIconsPersonal]);
 
   useEffect(() => {
@@ -584,7 +593,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       }
     } else {
       setIsdesignImageLoad(false);
-
       setVisibleModal(true);
       // setVisibleFreeModal(true);
     }
@@ -2076,6 +2084,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       curLayoutId = viewableItems.viewableItems[0].item.id;
 
       setTimeout(() => {
+        // navigation.addListener("focus", (e) => {
+        //   console.log("focus personal");
+        // });
         checkAndSetLayout(viewableItems.viewableItems[0].item);
       }, 1000);
       // layRef.current.scrollToIndex({
@@ -2138,10 +2149,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         callbackNode={fall}
         renderContent={renderContentSocial}
       /> */}
-      <View
+      <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: Color.bgcColor,
+          backgroundColor: Color.white,
         }}
       >
         <ScrollView
@@ -2446,6 +2457,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             borderTopColor: Color.txtIntxtcolor,
             borderTopWidth: 1,
             backgroundColor: Color.white,
+            height: 50,
           }}
         >
           <ScrollView
@@ -2462,9 +2474,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 justifyContent: "space-between",
                 flexDirection: "row",
                 flex: 1,
+                marginTop: 5,
                 marginHorizontal: 20,
                 alignItems: "center",
-                marginBottom: Platform.OS === "ios" ? 10 : null,
               }}
             >
               {/* <Button
@@ -2592,7 +2604,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             </View>
           </ScrollView>
         </View>
-      </View>
+      </SafeAreaView>
     </>
   );
 };
@@ -2813,8 +2825,8 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
     bottom: 0,
-    width: "19%",
-    height: "160%",
+    width: "21%",
+    height: "180%",
   },
   lay2TxtName: {
     fontSize: Constant.layBigFontSize,
@@ -2844,11 +2856,11 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   lay3ImgUser: {
-    right: "1.93%",
+    right: 0,
     position: "absolute",
     bottom: 0,
-    width: "16.67%",
-    height: "160%",
+    width: "21%",
+    height: "180%",
   },
   lay3TxtName: {
     fontSize: Constant.layBigFontSize,

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { useLazyQuery } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
@@ -62,7 +62,7 @@ const UserPackage = ({ navigation, designStore }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {perchasedPackages &&
       perchasedPackages !== null &&
       perchasedPackages.length > 0 ? (
@@ -235,13 +235,14 @@ const UserPackage = ({ navigation, designStore }) => {
           )}
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Color.white,
   },
   loading: {
     marginTop: 10,

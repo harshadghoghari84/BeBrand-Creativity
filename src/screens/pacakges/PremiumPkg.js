@@ -359,6 +359,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 10,
+    backgroundColor: Color.white,
   },
 
   txtFeaturetitle: { fontSize: 16, fontWeight: "700", marginVertical: 8 },

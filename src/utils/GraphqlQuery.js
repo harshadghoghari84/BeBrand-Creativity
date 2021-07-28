@@ -417,6 +417,26 @@ export default {
         }
         designs {
           id
+          layouts
+          designType
+          subCategory
+          package
+          language {
+            code
+          }
+          thumbImage {
+            url
+          }
+          designImage {
+            url
+          }
+          colorCodes {
+            code
+            isLight
+          }
+          darkTextColor
+          lightTextColor
+          categoryRank
         }
       }
 
@@ -509,6 +529,14 @@ export default {
           linkType
           linkData
         }
+      }
+    }
+  `,
+  appVersionDetails: gql`
+    query {
+      appDetail {
+        androidVersion
+        iosVersion
       }
     }
   `,

@@ -875,10 +875,10 @@ library {
   maven_library {
     groupId: "com.android.installreferrer"
     artifactId: "installreferrer"
-    version: "1.0"
+    version: "1.1.2"
   }
   digests {
-    sha256: "o\200\357\221$4\250D%\227z\220\264\032\262bY\367\320\311S\355\257\220\003\236}\001\324C\203\253"
+    sha256: "\330\367r\367\372\215\322\026\243_,d\336g\256ra!\220WLS\250N\000\242t\246\247\224c\307"
   }
 }
 library {
@@ -1436,6 +1436,16 @@ library {
   }
   digests {
     sha256: "\v|7!\310Kb\347\004\0250r9\355J\177\231\211\211\bK\362\203?\220\271\365\276\243\tZ\005"
+  }
+}
+library {
+  maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-iid"
+    version: "17.0.0"
+  }
+  digests {
+    sha256: "\327\335\316\254\206\022\336[\t\023qe\022y\353F\037\\\366\371\266m\235\225\320|8;\201\231\030i"
   }
 }
 library {
@@ -2282,34 +2292,43 @@ library_dependencies {
 }
 library_dependencies {
   library_index: 144
+  library_dep_index: 5
+  library_dep_index: 13
+  library_dep_index: 103
+  library_dep_index: 8
+  library_dep_index: 11
+  library_dep_index: 35
+}
+library_dependencies {
+  library_index: 145
   library_dep_index: 113
   library_dep_index: 53
   library_dep_index: 12
 }
 library_dependencies {
-  library_index: 145
+  library_index: 146
   library_dep_index: 12
   library_dep_index: 13
   library_dep_index: 32
   library_dep_index: 5
 }
 library_dependencies {
-  library_index: 146
+  library_index: 147
   library_dep_index: 8
 }
 library_dependencies {
-  library_index: 148
+  library_index: 149
   library_dep_index: 100
   library_dep_index: 101
 }
 library_dependencies {
-  library_index: 149
+  library_index: 150
   library_dep_index: 12
   library_dep_index: 13
   library_dep_index: 5
 }
 library_dependencies {
-  library_index: 150
+  library_index: 151
   library_dep_index: 12
   library_dep_index: 47
   library_dep_index: 90
@@ -2317,21 +2336,21 @@ library_dependencies {
   library_dep_index: 13
   library_dep_index: 26
   library_dep_index: 18
-  library_dep_index: 145
-  library_dep_index: 149
+  library_dep_index: 146
+  library_dep_index: 150
   library_dep_index: 60
-  library_dep_index: 151
+  library_dep_index: 152
 }
 library_dependencies {
-  library_index: 151
+  library_index: 152
   library_dep_index: 12
   library_dep_index: 26
-  library_dep_index: 145
+  library_dep_index: 146
   library_dep_index: 13
   library_dep_index: 5
 }
 library_dependencies {
-  library_index: 152
+  library_index: 153
 }
 module_dependencies {
   module_name: "base"
@@ -2340,7 +2359,7 @@ module_dependencies {
   dependency_index: 128
   dependency_index: 1
   dependency_index: 104
-  dependency_index: 152
+  dependency_index: 153
   dependency_index: 42
   dependency_index: 43
   dependency_index: 76

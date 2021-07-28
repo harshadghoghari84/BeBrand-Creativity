@@ -37,10 +37,12 @@ class DesignStore {
   bhdLoading = false;
   designLang = Constant.designLangCodeAll;
   userSubCategoriesHome = [];
+  userOtherSubCategoriesHome = [];
   userOtherSubCategories = [];
   userSubCategoriesAfter = [];
   userSubCategoriesBefore = [];
   globleUserOtherSubCategories = [];
+  globleUserSubCategoriesHome = [];
   globleUserSubCategoriesAfter = [];
   globleUserSubCategoriesBefore = [];
   totalUserSubCategoriesAfter = 0;
@@ -79,7 +81,7 @@ class DesignStore {
         if (data) {
           this.designPackages = data.designPackages;
           this.designPackagesIos = data.designPackagesIos;
-          this.userSubCategoriesHome = data.userSubCategoriesAfter;
+          this.globleUserSubCategoriesHome = data.userSubCategoriesAfter;
           this.globleUserSubCategoriesAfter = data.userSubCategoriesAfter;
           this.globleUserSubCategoriesBefore = data.userSubCategoriesBefore;
           this.changeDesignByLanguage();
@@ -114,6 +116,7 @@ class DesignStore {
         this.uoscLoading = false;
 
         if (data) {
+          this.userOtherSubCategoriesHome = [...data.userOtherSubCategories];
           this.userOtherSubCategories = [...data.userOtherSubCategories];
           this.globleUserOtherSubCategories = [...data.userOtherSubCategories];
         }
@@ -143,12 +146,16 @@ class DesignStore {
           //   data.userSubCategoriesAfter,
           //   this.designPackages
           // );
+          this.userSubCategoriesHome = [
+            ...this.userSubCategoriesHome,
+            ...data.userSubCategoriesAfter,
+          ];
           this.userSubCategoriesAfter = [
-            ...toJS(this.userSubCategoriesAfter),
+            ...this.userSubCategoriesAfter,
             ...data.userSubCategoriesAfter,
           ];
           this.globleUserSubCategoriesAfter = [
-            ...toJS(this.globleUserSubCategoriesAfter),
+            ...this.globleUserSubCategoriesAfter,
             ...data.userSubCategoriesAfter,
           ];
         }
@@ -165,7 +172,7 @@ class DesignStore {
       query: GraphqlQuery.userSubCategoriesBefore,
       variables: {
         afterStart: start,
-        afterType: Constant.userSubCategoryTypeAfter,
+        afterType: Constant.userSubCategoryTypeBefore,
       },
       fetchPolicy: "cache-first",
       errorPolicy: "all",
@@ -204,6 +211,7 @@ class DesignStore {
         errorPolicy: "all",
       })
         .then(({ data, error }) => {
+          console.log("d a t a :", data);
           if (data) {
             const ud = data.userDesignsP;
             if (ud.length > 0) {
@@ -234,7 +242,6 @@ class DesignStore {
 
               if (tempArray.length <= subItem.totalDesign) {
                 subItem.designs = tempArray;
-
                 userSubCategories[index] = subItem;
 
                 type === Constant.topCatQuotes
@@ -265,11 +272,40 @@ class DesignStore {
   changeDesignByLanguage = () => {
     const currDesignCode = toJS(this.designLang);
 
+    let designHome = toJS(this.globleUserSubCategoriesHome);
+    let designTypeOtherHome = toJS(this.userOtherSubCategoriesHome);
     let designTypeOther = toJS(this.globleUserOtherSubCategories);
     let designAfter = toJS(this.globleUserSubCategoriesAfter);
     let designBefore = toJS(this.globleUserSubCategoriesBefore);
 
     if (currDesignCode !== Constant.designLangCodeAll) {
+      designTypeOtherHome = designTypeOtherHome.map((ele, index) => {
+        if (
+          ele.designs !== undefined &&
+          ele.designs !== null &&
+          currDesignCode !== Constant.designLangCodeAll &&
+          ele.designs.length > 0
+        ) {
+          ele.designs = ele.designs.filter(
+            (item) => item.language.code === currDesignCode
+          );
+        }
+        return ele;
+      });
+      designHome = designHome.map((ele, index) => {
+        if (
+          ele.designs !== undefined &&
+          ele.designs !== null &&
+          currDesignCode !== Constant.designLangCodeAll &&
+          ele.designs.length > 0
+        ) {
+          ele.designs = ele.designs.filter(
+            (item) => item.language.code === currDesignCode
+          );
+        }
+        return ele;
+      });
+
       designTypeOther = designTypeOther.map((ele, index) => {
         if (
           ele.designs !== undefined &&
@@ -313,6 +349,8 @@ class DesignStore {
       });
     }
 
+    this.userSubCategoriesHome = [...designHome];
+    this.userOtherSubCategoriesHome = [...designTypeOtherHome];
     this.userOtherSubCategories = [...designTypeOther];
 
     this.userSubCategoriesAfter = [...designAfter];
@@ -394,10 +432,13 @@ decorate(DesignStore, {
   designPackages: observable,
   designPackagesIos: observable,
   modalOffers: observable,
+  userOtherSubCategoriesHome: observable,
   userOtherSubCategories: observable,
+  userSubCategoriesHome: observable,
   userSubCategoriesAfter: observable,
   totalUserSubCategoriesAfter: observable,
   userSubCategoriesBefore: observable,
+  globleUserSubCategoriesHome: observable,
   totalUserSubCategoriesBefore: observable,
   globleUserOtherSubCategories: observable,
   globleUserSubCategoriesAfter: observable,
