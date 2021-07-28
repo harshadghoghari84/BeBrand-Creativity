@@ -57,17 +57,20 @@ let uDataPer = {};
 let curLayoutId = "";
 let firstTimeColor = true;
 let colorArr = [];
+let isFirstTimeLoad = true;
 const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const isMountedRef = Common.useIsMountedRef();
   const designPackages = toJS(designStore.designPackages);
 
   const user = toJS(userStore.user);
   const {
-    designs: designsArr,
     curDesign,
     curScreen,
     curPackageType,
     curItemIndex,
+    curDesignId,
+    curCatId,
+    activeCat,
   } = route.params;
   const allLayouts = toJS(designStore.designLayouts);
   const viewRef = useRef(null);
@@ -95,7 +98,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [visiblePicker, setVisiblePicker] = useState(false);
   const [selectedPicker, setSelectedPicker] = useState(false);
   const [hasPro, sethasPro] = useState(false);
-  const [designs, setDesigns] = useState([]);
   const [currentDesign, setCurrentDesign] = useState(curDesign);
   const [layouts, setLayouts] = useState([]);
   const [viewableItem, setViewableItem] = useState([]);
@@ -114,6 +116,74 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [isdesignImageLoad, setIsdesignImageLoad] = useState(false);
   const [isUserDesignImageLoad, setIsUserDesignImageLoad] = useState(false);
+  const [dess, setDess] = useState([]);
+  const [userSubCategories, setUserSubCategories] = useState([]);
+  const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
+  const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
+  useEffect(() => {
+    return () => {
+      console.log("leave personal design");
+      isFirstTimeLoad = true;
+    };
+  }, []);
+  useEffect(() => {
+    dess && dess !== null && console.log("dess", dess);
+  }, [dess]);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      let afterCategory = toJS(designStore.userSubCategoriesAfter);
+
+      let onlyDesignArr = [];
+
+      if (userSubCategoriesAfter.length <= afterCategory.length) {
+        afterCategory.forEach((ele) => {
+          if (ele.designs.length > 0 && ele.totalDesign > 0) {
+            onlyDesignArr.push(ele);
+          }
+        });
+
+        setUserSubCategoriesAfter(onlyDesignArr);
+      }
+    }
+  }, [designStore.userSubCategoriesAfter]);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const otherSubCatagory = toJS(designStore.userOtherSubCategories);
+      console.log("otherSubCatagory", otherSubCatagory);
+      let onlyDesignArr = [];
+      otherSubCatagory.forEach((ele) => {
+        if (ele.designs.length > 0 && ele.totalDesign > 0) {
+          onlyDesignArr.push(ele);
+        }
+      });
+
+      setUserOtherSubCategoryes(onlyDesignArr);
+    }
+  }, [designStore.userOtherSubCategories]);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      if (activeCat !== "Quotes") {
+        setUserSubCategories([
+          // ...userSubCategoriesBefore,
+          ...userSubCategoriesAfter,
+        ]);
+      } else {
+        setUserSubCategories(userOtherSubCategoryes);
+      }
+    }
+  }, [userSubCategoriesAfter, userOtherSubCategoryes]);
+
+  useEffect(() => {
+    if (
+      userSubCategories &&
+      userSubCategories !== null &&
+      userSubCategories.length > 0
+    ) {
+      const index = userSubCategories.findIndex((item) => item.id === curCatId);
+      setDess(userSubCategories[index]?.designs);
+    }
+  }, [userSubCategories]);
 
   const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
     errorPolicy: "all",
@@ -138,7 +208,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const toggleVisibleMsg = (val) => {
     if (val === true) {
       let findIndex = layouts.findIndex((ele) => ele.id === setCurLayout.id);
-      console.log(findIndex);
+
       setActiveSlide(findIndex);
       flatlistSliderRef.current.scrollToIndex({
         index: findIndex,
@@ -154,7 +224,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const toggleVisibleColorPicker = (color) => {
-    console.log("color", color);
     colorArr = [
       ...colorArr,
       {
@@ -179,15 +248,17 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const scrollTodesign = () => {
-    designRef.current.scrollToIndex({
-      animated: true,
-      index: curItemIndex,
-    });
+    if (dess && dess !== null && dess.length > 0) {
+      designRef.current.scrollToIndex({
+        index: curItemIndex,
+      });
+      isFirstTimeLoad = false;
+    }
   };
 
   const getItemLayoutsCategory = useCallback(
     (data, index) => ({
-      length: 75,
+      length: 85,
       offset: 85 * index,
       index,
     }),
@@ -240,9 +311,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       };
     }
   }, []);
-  useEffect(() => {
-    console.log("socialIconList", socialIconList);
-  }, [socialIconList]);
 
   useEffect(() => {
     if (
@@ -390,19 +458,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   }, [currentDesign]);
 
   useEffect(() => {
-    if (isMountedRef.current) {
-      let filterArr = [];
-      filterArr = designsArr.filter(
-        (ele) =>
-          ele.designType !== null &&
-          (ele.designType === Constant.designTypePERSONAL ||
-            ele.designType === Constant.designTypeALL)
-      );
-      setDesigns(filterArr);
-    }
-  }, []);
-
-  useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
   }, [userStore.hasPro]);
 
@@ -547,7 +602,6 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             userStore.updateCurrantDesignCreditPro(currentDesignCreditPro - 1);
         }
       } else if (errors && errors !== null && errors.length > 0) {
-        console.log("error", errors[0].extensions.code);
         if (errors[0].extensions.code === Constant.userDesignExits) {
         } else if (errors[0].extensions.code === Constant.userFreeDesignLimit) {
           setVisibleModalForPkg(true);
@@ -1676,6 +1730,22 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       </View>
     </View>
   );
+  const loadMoreDesigns = async (subCategoryId) => {
+    // const index = designs.findIndex((item) => item.id === subCategoryId);
+    // const subCategory = designs[index];
+    // const designLen = dess.length;
+    // console.log("designLen", designLen);
+
+    if (activeCat === "Quotes") {
+      const type = Constant.topCatQuotes;
+
+      await designStore.loaduserDesigns(subCategoryId, type, hasPro);
+    } else {
+      const type = Constant.userSubCategoryTypeAfter;
+
+      await designStore.loaduserDesigns(subCategoryId, type, hasPro);
+    }
+  };
 
   /*
 ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
@@ -2211,12 +2281,26 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               horizontal
               ref={designRef}
               showsHorizontalScrollIndicator={false}
-              data={designs}
+              data={dess}
+              ListFooterComponent={
+                designStore.udLoading || designStore.uoscLoading ? (
+                  <ActivityIndicator size={25} color={Color.primary} />
+                ) : null
+              }
+              ListFooterComponentStyle={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onContentSizeChange={() => {
-                scrollTodesign();
+                if (isFirstTimeLoad) {
+                  scrollTodesign();
+                }
               }}
               getItemLayout={getItemLayoutsCategory}
               keyExtractor={keyExtractor}
+              onEndReached={() => {
+                !designStore.udLoading && loadMoreDesigns(curDesignId);
+              }}
               contentContainerStyle={styles.flatlist}
               renderItem={({ item }) => {
                 const designPackage = designPackages.find(
@@ -2224,71 +2308,68 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 );
 
                 return (
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={styles.listDesignView}
-                    onPress={() => {
-                      firstTimeColor = true;
-                      colorArr = [];
-                      // designPackage.type === Constant.typeDesignPackageFree &&
-                      hasPro === false && adCounter++;
-                      console.log("adCounter", adCounter);
-                      showAd();
-                      setPkgType(designPackage.type);
-                      // if (
-                      //   designPackage.type === Constant.typeDesignPackageVip &&
-                      //   hasPro === false
-                      // ) {
-                      //   setVisibleModal(true);
-                      // } else {
-                      // }
-                      setCurrentDesign(item);
-                    }}
-                  >
-                    <View>
-                      <FastImage
-                        source={{ uri: item.thumbImage.url }}
-                        style={{ width: 75, height: 75 }}
-                      />
+                  <>
+                    <TouchableOpacity
+                      activeOpacity={0.6}
+                      style={styles.listDesignView}
+                      onPress={() => {
+                        firstTimeColor = true;
+                        colorArr = [];
+                        hasPro === false && adCounter++;
+                        console.log("adCounter", adCounter);
+                        showAd();
+                        setPkgType(designPackage.type);
 
-                      {item.id === currentDesign.id && (
-                        <View
-                          style={[
-                            styles.icnCheck,
-                            {
-                              backgroundColor: Color.blackTransparant,
-                              opacity: 0.6,
-                              width: 75,
-                              height: 75,
-                            },
-                          ]}
+                        setCurrentDesign(item);
+                      }}
+                    >
+                      <View>
+                        <FastImage
+                          source={{ uri: item.thumbImage.url }}
+                          style={{ width: 75, height: 75 }}
                         />
-                      )}
-                      {designPackage.type === Constant.typeDesignPackageVip ? (
-                        <Icon
-                          style={styles.tagPro}
-                          name="Premium"
-                          height={18}
-                          width={10}
-                          fill={Color.primary}
-                        />
-                      ) : (
-                        <View style={styles.tagfree}>
-                          <Text
-                            style={{
-                              color: Color.white,
-                              fontSize: 6,
-                            }}
-                          >
-                            {Common.getTranslation(LangKey.free)}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
-                  </TouchableOpacity>
+
+                        {item.id === currentDesign.id && (
+                          <View
+                            style={[
+                              styles.icnCheck,
+                              {
+                                backgroundColor: Color.blackTransparant,
+                                opacity: 0.6,
+                                width: 75,
+                                height: 75,
+                              },
+                            ]}
+                          />
+                        )}
+                        {designPackage.type ===
+                        Constant.typeDesignPackageVip ? (
+                          <Icon
+                            style={styles.tagPro}
+                            name="Premium"
+                            height={18}
+                            width={10}
+                            fill={Color.primary}
+                          />
+                        ) : (
+                          <View style={styles.tagfree}>
+                            <Text
+                              style={{
+                                color: Color.white,
+                                fontSize: 6,
+                              }}
+                            >
+                              {Common.getTranslation(LangKey.free)}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  </>
                 );
               }}
             />
+
             <View
               style={{
                 height: 1,
@@ -2523,7 +2604,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 {Common.getTranslation(LangKey.labSocialMediaIcons)}
               </Button> */}
               <Button
-                disable={designs == null || designs == undefined}
+                disable={dess == null || dess == undefined}
                 style={{ backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={() => {
@@ -2544,7 +2625,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               </Button>
 
               <Button
-                disable={designs == null || designs == undefined}
+                disable={dess == null || dess == undefined}
                 style={{ backgroundColor: Color.transparent }}
                 isVertical={true}
                 onPress={
@@ -2575,9 +2656,7 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <Button
-                  disable={
-                    isdesignImageLoad === true || isUserDesignImageLoad === true
-                  }
+                  disable={isdesignImageLoad || isUserDesignImageLoad}
                   style={{ backgroundColor: Color.transparent }}
                   isVertical={true}
                   onPress={() => {
@@ -2825,8 +2904,8 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
     bottom: 0,
-    width: "21%",
-    height: "180%",
+    width: "18%",
+    height: "190%",
   },
   lay2TxtName: {
     fontSize: Constant.layBigFontSize,
@@ -2836,6 +2915,7 @@ const styles = StyleSheet.create({
   },
   lay2TxtDesignation: {
     fontSize: Constant.laySmallFontSize,
+
     left: "21%",
     position: "absolute",
     bottom: "7%",
@@ -2954,56 +3034,3 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
-
-{
-  /* <Button
-                disable={designs == null || designs == undefined}
-                style={{ margin: 5 }}
-                icon={
-                  <Icon
-                    name="share"
-                    height={15}
-                    width={15}
-                    fill={Color.white}
-                  />
-                }
-                onPress={onClickShare}
-              >
-                {Common.getTranslation(LangKey.txtShare)}
-              </Button> */
-}
-{
-  /* <Button
-              disable={
-                isdesignImageLoad
-                  ? isdesignImageLoad
-                  : isUserDesignImageLoad
-                  ? isUserDesignImageLoad
-                  : loadingImage
-              }
-              style={{
-                margin: 5,
-                backgroundColor: Color.transparent,
-              }}
-              icon={
-                <Icon
-                  name="download"
-                  height={15}
-                  width={15}
-                  fill={Color.darkBlue}
-                />
-              }
-              textColor={true}
-              onPress={onClickDownload}
-            >
-              {isdesignImageLoad ? (
-                isdesignImageLoad
-              ) : isUserDesignImageLoad ? (
-                isUserDesignImageLoad
-              ) : loadingImage ? (
-                <ActivityIndicator color={Color.darkBlue} size={15} />
-              ) : (
-                Common.getTranslation(LangKey.txtDownload)
-              )}
-            </Button> */
-}

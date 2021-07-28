@@ -55,6 +55,7 @@ const { height, width } = Dimensions.get("screen");
 
 let isUpdated = false;
 let changedColor;
+
 const PopUp = ({
   visible,
   toggleVisible,
@@ -89,6 +90,10 @@ const PopUp = ({
   toggleVisibleAd,
   isModalOffers,
   isModalUpdateApp,
+  imgHeight,
+  imgWidth,
+  appDetails,
+  toggleVisibleModal,
   toggleVisibleForModaloffer,
   modalOfferData,
   isVisiblePersonalInfo,
@@ -135,6 +140,8 @@ const PopUp = ({
 
   const [defaultImageUrl, setDefaultImageUrl] = useState(null);
   const [defaultImageUrlB, setDefaultImageUrlB] = useState(null);
+  const [updateApp, setUpdateApp] = useState({});
+  const [buttonvisible, setButtonVisible] = useState(false);
 
   const [socialIconList, setSocialIconList] = useState(
     Constant.defSocialIconList
@@ -165,6 +172,11 @@ const PopUp = ({
   useEffect(() => {
     isUpdated = true;
   }, []);
+  useEffect(() => {
+    if (appDetails != undefined) {
+      setUpdateApp(appDetails);
+    }
+  }, [appDetails, imgWidth, imgHeight]);
   useEffect(() => {
     const user = toJS(userStore.user);
     setUser(user);
@@ -752,8 +764,8 @@ const PopUp = ({
                 activeOpacity={0.3}
                 onPress={() => toggleVisibleMsg()}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: Color.white,
@@ -813,51 +825,6 @@ const PopUp = ({
               </View>
             </View>
           </View>
-          // <View style={styles.mainView}>
-          //   <KeyboardAvoidingView style={styles.innerView}>
-          //     <TouchableOpacity
-          //       onPress={() => toggleVisibleMsg()}
-          //       style={styles.btnClose}
-          //     >
-          //       <ICON name="close" size={22} color={Color.darkBlue} />
-          //     </TouchableOpacity>
-          //     <View style={{ marginHorizontal: 20 }}>
-          //       <Text style={{ textAlign: "center" }}>{msg}</Text>
-          //     </View>
-          //     <View
-          //       style={{
-          //         marginTop: 5,
-          //         alignSelf: "center",
-          //         flexDirection: "row",
-          //       }}
-          //     >
-          //       <Button
-          //         style={{ margin: 5 }}
-          //         onPress={() => {
-          //           toggleVisibleMsg("edit");
-          //         }}
-          //         icon={
-          //           <Icon
-          //             name="edit"
-          //             height={15}
-          //             width={15}
-          //             fill={Color.white}
-          //           />
-          //         }
-          //       >
-          //         {Common.getTranslation(LangKey.txtEdit)}
-          //       </Button>
-          //       <Button
-          //         style={{ margin: 5 }}
-          //         onPress={() => {
-          //           toggleVisibleMsg(true);
-          //         }}
-          //       >
-          //         {Common.getTranslation(LangKey.txtNext)}
-          //       </Button>
-          //     </View>
-          //   </KeyboardAvoidingView>
-          // </View>
         )}
         {isLayoutBussiness && (
           <View
@@ -872,8 +839,8 @@ const PopUp = ({
                 activeOpacity={0.3}
                 onPress={() => toggleVisibleMsgBussiness()}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: Color.white,
@@ -1430,33 +1397,98 @@ const PopUp = ({
           >
             <View
               style={{
-                backgroundColor: Color.white,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 10,
-                marginHorizontal: 20,
+                backgroundColor: Color.transparent,
               }}
             >
-              <Text style={{ fontSize: 18, marginVertical: 8 }}>
-                Update are Available !
-              </Text>
-              <Text style={{ textAlign: "center" }}>
-                Make sure you update your app to recive the best possible
-                experience !
-              </Text>
-              <Button
-                style={{ margin: 5 }}
-                normal={true}
-                onPress={() => {
-                  Linking.openURL(
-                    Platform.OS === "ios"
-                      ? Constant.titAppleIdForAppStore
-                      : Constant.androidPlaystoreLink
-                  );
-                }}
-              >
-                Update App
-              </Button>
+              {/* <TouchableOpacity
+             activeOpacity={0.6}
+             onPress={() => toggleVisibleForModaloffer()}
+             style={{
+               width: 25,
+               height: 25,
+               alignItems: "center",
+               justifyContent: "center",
+               backgroundColor: Color.white,
+               borderRadius: 15,
+               position: "absolute",
+               right: 14,
+               top: -10,
+               zIndex: 1,
+               borderColor: "black",
+               borderWidth: 0.5,
+             }}
+           >
+             <ICON name="close" size={18} color={Color.darkBlue} />
+           </TouchableOpacity> */}
+
+              {updateApp && updateApp?.image !== null ? (
+                <>
+                  <FastImage
+                    onLoadEnd={() => setButtonVisible(true)}
+                    source={{ uri: updateApp?.image?.url }}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      height: imgHeight,
+                      width: imgWidth,
+                      marginHorizontal: 23,
+                      borderRadius: 5,
+                    }}
+                  />
+                  {buttonvisible && (
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        alignSelf: "center",
+                        position: "absolute",
+                        bottom: 25,
+                        width: imgWidth,
+                        // backgroundColor: "pink",
+                      }}
+                    >
+                      {/* {updateApp?.isDismissible ? ( */}
+                        <TouchableOpacity
+                          activeOpacity={0.6}
+                          onPress={() => {
+                            toggleVisibleModal();
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              color: Color.white,
+                              paddingHorizontal: 30,
+                              textDecorationLine: "underline",
+                              // textTransform: "uppercase",
+                              fontFamily: "Nunito-Light",
+                            }}
+                          >
+                            skip
+                          </Text>
+                        </TouchableOpacity>
+                       {/* ) : null} */}
+                      <Button
+                        style={{
+                          backgroundColor: Color.darkBlue,
+                        }}
+                        normal={true}
+                        onPress={() => {
+                          Linking.openURL(
+                            Platform.OS === "ios"
+                              ? updateApp?.iosBundle
+                              : updateApp?.androidPackage
+                          );
+                        }}
+                      >
+                        {Common.getTranslation(LangKey.labUpdate)}
+                      </Button>
+                    </View>
+                  )}
+                </>
+              ) : (
+                <ActivityIndicator size="large" color={Color.white} />
+              )}
             </View>
           </View>
         )}

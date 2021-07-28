@@ -1,6 +1,6 @@
 {
   "name": "react-native-razorpay",
-  "version": "2.2.4",
+  "version": "2.2.7",
   "summary": "React Native wrapper for Razorpay",
   "license": "MIT",
   "authors": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/razorpay/react-native-razorpay.git",
-    "tag": "v2.2.4"
+    "tag": "v2.2.7"
   },
   "source_files": "ios/**/*.{h,m}",
   "dependencies": {

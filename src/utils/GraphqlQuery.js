@@ -537,6 +537,15 @@ export default {
       appDetail {
         androidVersion
         iosVersion
+        androidPackage
+        iosBundle
+        width
+        height
+        isDismissible
+        ratingTime
+        image {
+          url
+        }
       }
     }
   `,

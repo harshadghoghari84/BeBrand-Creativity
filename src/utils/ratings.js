@@ -83,8 +83,8 @@ const Ratings = ({
             if (InAppReview.isAvailable()) {
               InAppReview.RequestInAppReview();
             }
+
             toggleforRating();
-            //  open_Store()
           }}
           big={true}
         >

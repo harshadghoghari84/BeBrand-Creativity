@@ -23,12 +23,13 @@ const ItemDesign = ({
   onDesignClick,
   designDate,
   desIndex,
+  curDesignId,
 }) => (
   <>
     <TouchableOpacity
       activeOpacity={0.6}
       style={styles.container}
-      onPress={() => onDesignClick(packageType, design, desIndex)}
+      onPress={() => onDesignClick(packageType, design, desIndex, curDesignId)}
     >
       <View style={styles.innContainer}>
         <FastImage

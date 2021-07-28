@@ -57,16 +57,19 @@ let uDataBus = {};
 let curLayoutId = "";
 let firstTimeColor = true;
 let colorArr = [];
+let isFirstTimeLoad = true;
 
 const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const designPackages = toJS(designStore.designPackages);
   const user = toJS(userStore.user);
   const {
-    designs: designsArr,
     curDesign,
     curScreen,
     curPackageType,
     curItemIndex,
+    curDesignId,
+    curCatId,
+    activeCat,
   } = route.params;
 
   const allLayouts = toJS(designStore.designLayouts);
@@ -100,7 +103,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [visibleModalMsgbussiness, setVisibleModalMsgbussiness] =
     useState(false);
   const [hasPro, sethasPro] = useState(false);
-  const [designs, setDesigns] = useState([]);
+
   const [currentDesign, setCurrentDesign] = useState(curDesign);
   const [userDataBussiness, setUserDataBussiness] = useState();
   const [layouts, setLayouts] = useState([]);
@@ -119,6 +122,71 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
 
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
+  const [dess, setDess] = useState([]);
+  const [userSubCategories, setUserSubCategories] = useState([]);
+  const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
+  const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      console.log("leave business design");
+      isFirstTimeLoad = true;
+    };
+  }, []);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      let afterCategory = toJS(designStore.userSubCategoriesAfter);
+
+      let onlyDesignArr = [];
+
+      if (userSubCategoriesAfter.length <= afterCategory.length) {
+        afterCategory.forEach((ele) => {
+          if (ele.designs.length > 0 && ele.totalDesign > 0) {
+            onlyDesignArr.push(ele);
+          }
+        });
+
+        setUserSubCategoriesAfter(onlyDesignArr);
+      }
+    }
+  }, [designStore.userSubCategoriesAfter]);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      const otherSubCatagory = toJS(designStore.userOtherSubCategories);
+
+      let onlyDesignArr = [];
+      otherSubCatagory.forEach((ele) => {
+        if (ele.designs.length > 0 && ele.totalDesign > 0) {
+          onlyDesignArr.push(ele);
+        }
+      });
+
+      setUserOtherSubCategoryes(onlyDesignArr);
+    }
+  }, [designStore.userOtherSubCategories]);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      if (activeCat === "Quotes") {
+        setUserSubCategories(userOtherSubCategoryes);
+      } else {
+        setUserSubCategories([
+          // ...userSubCategoriesBefore,
+          ...userSubCategoriesAfter,
+        ]);
+      }
+    }
+  }, [userSubCategoriesAfter, userOtherSubCategoryes]);
+
+  useEffect(() => {
+    if (
+      userSubCategories &&
+      userSubCategories !== null &&
+      userSubCategories.length > 0
+    ) {
+      const index = userSubCategories.findIndex((item) => item.id === curCatId);
+      setDess(userSubCategories[index]?.designs);
+    }
+  }, [userSubCategories]);
 
   const [addUserDesign, { loading }] = useMutation(GraphqlQuery.addUserDesign, {
     errorPolicy: "all",
@@ -206,15 +274,18 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   };
 
   const scrollTodesign = () => {
-    designRef.current.scrollToIndex({
-      animated: true,
-      index: curItemIndex,
-    });
+    if (dess && dess !== null && dess.length > 0) {
+      designRef.current.scrollToIndex({
+        animated: true,
+        index: curItemIndex,
+      });
+      isFirstTimeLoad = false;
+    }
   };
 
   const getItemLayoutsCategory = useCallback(
     (data, index) => ({
-      length: 75,
+      length: 85,
       offset: 85 * index,
       index,
     }),
@@ -409,20 +480,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       onReset();
     }
   }, [currentDesign]);
-
-  useEffect(() => {
-    if (isMountedRef.current) {
-      let filterArr = [];
-
-      filterArr = designsArr.filter(
-        (ele) =>
-          ele.designType !== null &&
-          (ele.designType === Constant.designTypeBUSINESS ||
-            ele.designType === Constant.designTypeALL)
-      );
-      setDesigns(filterArr);
-    }
-  }, []);
 
   useEffect(() => {
     isMountedRef.current && sethasPro(userStore.hasPro);
@@ -2184,6 +2241,23 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
+  const loadMoreDesigns = async (subCategoryId) => {
+    // const index = designs.findIndex((item) => item.id === subCategoryId);
+    // const subCategory = designs[index];
+    const designLen = dess.length;
+    console.log("designLen", designLen);
+
+    if (activeCat === "Quotes") {
+      const type = Constant.topCatQuotes;
+
+      await designStore.loaduserDesigns(subCategoryId, designLen, type, hasPro);
+    } else {
+      const type = Constant.userSubCategoryTypeAfter;
+
+      await designStore.loaduserDesigns(subCategoryId, designLen, type, hasPro);
+    }
+  };
+
   /*
   ..######...#######..##.....##.########...#######..##....##.########.##....##.########..######.
   .##....##.##.....##.###...###.##.....##.##.....##.###...##.##.......###...##....##....##....##
@@ -2680,9 +2754,24 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 ref={designRef}
-                data={designs}
+                data={dess}
+                ListFooterComponent={
+                  designStore.udLoading || designStore.uoscLoading ? (
+                    <ActivityIndicator size={25} color={Color.primary} />
+                  ) : null
+                }
+                ListFooterComponentStyle={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 onContentSizeChange={() => {
-                  scrollTodesign();
+                  if (isFirstTimeLoad) {
+                    scrollTodesign();
+                  }
+                }}
+                onEndReached={() => {
+                  console.log("on end");
+                  !designStore.udLoading && loadMoreDesigns(curDesignId);
                 }}
                 getItemLayout={getItemLayoutsCategory}
                 keyExtractor={keyExtractor}
@@ -2989,7 +3078,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   {Common.getTranslation(LangKey.labSocialMediaIcons)}
                 </Button> */}
                 <Button
-                  disable={designs == null || designs == undefined}
+                  disable={dess == null || dess == undefined}
                   isVertical={true}
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => {
@@ -3015,7 +3104,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 </Button>
 
                 <Button
-                  disable={designs == null || designs == undefined}
+                  disable={dess == null || dess == undefined}
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   isVertical={true}
                   onPress={() => {
@@ -3049,10 +3138,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   }}
                 >
                   <Button
-                    disable={
-                      isdesignImageLoad === true ||
-                      isUserDesignImageLoad === true
-                    }
+                    disable={isdesignImageLoad || isUserDesignImageLoad}
                     style={{ backgroundColor: Color.transparent }}
                     isVertical={true}
                     onPress={() => {
@@ -3448,91 +3534,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//setting layoutFields to JSX object
-// const objFooter = currentLayout?.layoutFields?.footer
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.footer)
-//   : undefined;
-// const objName = currentLayout?.layoutFields?.name
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.name)
-//   : undefined;
-// const objMobile = currentLayout?.layoutFields?.mobile
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.mobile)
-//   : undefined;
-// const objDesignation = currentLayout?.layoutFields?.designation
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.designation)
-//   : undefined;
-// const objAddress = currentLayout?.layoutFields?.address
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.address)
-//   : undefined;
-// const objImage = currentLayout?.layoutFields?.image
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.image)
-//   : undefined;
-// const objSocialMediaView = currentLayout?.layoutFields?.socialMediaView
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaView)
-//   : undefined;
-// const objSocialMediaLabel = currentLayout?.layoutFields?.socialMediaLabel
-//   ? Common.convertStringToObject(
-//       currentLayout?.layoutFields?.socialMediaLabel
-//     )
-//   : undefined;
-// const objSocialMediaName = currentLayout?.layoutFields?.socialMediaName
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialMediaName)
-//   : undefined;
-// const objSocialIcon = currentLayout?.layoutFields?.socialIcon
-//   ? Common.convertStringToObject(currentLayout?.layoutFields?.socialIcon)
-//   : undefined;
-
-{
-  /* <Button
-          disable={designs == null || designs == undefined}
-          style={{ margin: 5 }}
-          icon={
-            <Icon
-              name="share"
-              height={15}
-              width={15}
-              fill={Color.white}
-            />
-          }
-          onPress={onClickShare}
-        >
-          {Common.getTranslation(LangKey.txtShare)}
-        </Button> */
-}
-
-{
-  /* <Button
-                disable={
-                  isdesignImageLoad
-                    ? isdesignImageLoad
-                    : isUserDesignImageLoad
-                    ? isUserDesignImageLoad
-                    : loadingImage
-                }
-                style={{
-                  margin: 5,
-                  backgroundColor: Color.transparent,
-                }}
-                icon={
-                  <Icon
-                    name="download"
-                    height={15}
-                    width={15}
-                    fill={Color.darkBlue}
-                  />
-                }
-                textColor={true}
-                onPress={onClickDownload}
-              >
-                {isdesignImageLoad ? (
-                  isdesignImageLoad
-                ) : isUserDesignImageLoad ? (
-                  isUserDesignImageLoad
-                ) : loadingImage ? (
-                  <ActivityIndicator color={Color.darkBlue} size={15} />
-                ) : (
-                  Common.getTranslation(LangKey.txtDownload)
-                )}
-              </Button> */
-}

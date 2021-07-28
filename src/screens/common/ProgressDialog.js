@@ -1,6 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  Platform,
+} from "react-native";
 import { Modal, Portal } from "react-native-paper";
+import LottieView from "lottie-react-native";
+
 // relative path
 import Color from "../../utils/Color";
 
@@ -13,7 +21,16 @@ const ProgressDialog = ({ visible, dismissable, title, message, color }) => (
     >
       <View style={styles.container}>
         <View style={styles.content}>
-          {title && <Text style={styles.title}>{title}</Text>}
+          <LottieView
+            style={{ height: 70, width: 70 }}
+            source={require("../../assets/load.json")}
+            autoPlay
+            loop
+          />
+          <Text style={[styles.loadingContent, { color: Color.white }]}>
+            {message}
+          </Text>
+          {/* {title && <Text style={styles.title}>{title}</Text>}
           <View style={styles.loading}>
             <View style={styles.loader}>
               <ActivityIndicator size="large" color={Color.black} />
@@ -23,7 +40,7 @@ const ProgressDialog = ({ visible, dismissable, title, message, color }) => (
                 {message}
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </View>
     </Modal>
@@ -40,6 +57,8 @@ const styles = StyleSheet.create({
   content: {
     padding: 35,
     backgroundColor: Color.transparent,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 18,
@@ -54,7 +73,7 @@ const styles = StyleSheet.create({
   loader: {},
   loadingContent: {
     fontSize: 20,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
 });
 

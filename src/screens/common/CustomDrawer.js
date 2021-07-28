@@ -94,7 +94,7 @@ class CustomDrawer extends Component {
           transparent={true}
           visible={this.state.modalVisibleforRating}
           animationType="slide"
-          onRequestClose={() => toggleVisibleforRating()}
+          onRequestClose={() => this.toggleVisibleforRating()}
         >
           <View style={styles.centeredView}>
             <View
