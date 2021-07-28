@@ -1,0 +1,944 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.bebrandd.branddot"
+4    android:versionCode="16"
+5    android:versionName="1.1.5" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+9        android:targetSdkVersion="29" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/debug/AndroidManifest.xml:4:5-77
+11-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/debug/AndroidManifest.xml:4:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:2:3-64
+12-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:2:20-62
+13    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+13-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:3:3-77
+13-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:3:20-75
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:4:3-78
+14-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:4:20-76
+15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+15-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:5:3-77
+15-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:5:20-75
+16    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+16-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:6:3-69
+16-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:6:20-66
+17    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+17-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:7:3-75
+17-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:7:20-72
+18    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+18-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:8:3-79
+18-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:8:20-77
+19    <uses-permission android:name="com.android.vending.BILLING" />
+19-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:9:3-65
+19-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:9:20-62
+20    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+20-->[com.facebook.flipper:flipper:0.33.1] /Users/bebrandd1/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/AndroidManifest.xml:16:5-76
+20-->[com.facebook.flipper:flipper:0.33.1] /Users/bebrandd1/.gradle/caches/transforms-3/654bdbdaf3b2d98b9992adf8d509e698/transformed/jetified-flipper-0.33.1/AndroidManifest.xml:16:22-73
+21    <uses-permission android:name="android.permission.WAKE_LOCK" />
+21-->[:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-68
+21-->[:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-65
+22    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required for picking images from camera directly -->
+22-->[:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-79
+22-->[:react-native-firebase_auth] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-76
+23    <uses-permission android:name="android.permission.CAMERA" />
+23-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-65
+23-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-62
+24    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+24-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-81
+24-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-78
+25    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+25-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-79
+25-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-76
+26    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+26-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:26:5-110
+26-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:26:22-107
+27    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+27-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:15:5-98
+27-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:15:22-95
+28    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" /> <!-- for android -->
+28-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:16:5-94
+28-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:16:22-91
+29    <!-- <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/> -->
+30    <!-- <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS"/> -->
+31    <!-- <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> -->
+32    <!-- <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" /> -->
+33    <!-- for Samsung -->
+34    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+34-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:19:5-86
+34-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:19:22-83
+35    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" /> <!-- for htc -->
+35-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:20:5-87
+35-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:20:22-84
+36    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+36-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:23:5-81
+36-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:23:22-78
+37    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" /> <!-- for sony -->
+37-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:24:5-83
+37-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:24:22-80
+38    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+38-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:27:5-88
+38-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:27:22-85
+39    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" /> <!-- for apex -->
+39-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:28:5-92
+39-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:28:22-89
+40    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" /> <!-- for solid -->
+40-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:31:5-84
+40-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:31:22-81
+41    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" /> <!-- for huawei -->
+41-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:34:5-83
+41-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:34:22-80
+42    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+42-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:37:5-91
+42-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:37:22-88
+43    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+43-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:38:5-92
+43-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:38:22-89
+44    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" /> <!-- for ZUK -->
+44-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:39:5-93
+44-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:39:22-90
+45    <uses-permission android:name="android.permission.READ_APP_BADGE" /> <!-- for OPPO -->
+45-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:42:5-73
+45-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:42:22-70
+46    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />
+46-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:45:5-82
+46-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:45:22-79
+47    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" /> <!-- for EvMe -->
+47-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:46:5-83
+47-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:46:22-80
+48    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" />
+48-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:49:5-88
+48-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:49:22-85
+49    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
+49-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:50:5-89
+49-->[me.leolin:ShortcutBadger:1.1.22] /Users/bebrandd1/.gradle/caches/transforms-3/e055bb1a2b3bccf7b262cf03109154c5/transformed/jetified-ShortcutBadger-1.1.22/AndroidManifest.xml:50:22-86
+50
+51    <application
+51-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:3-46:17
+52        android:name="com.bebrandd.branddot.MainApplication"
+52-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:16-68
+53        android:allowBackup="true"
+53-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:183-209
+54        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+54-->[androidx.core:core:1.3.0] /Users/bebrandd1/.gradle/caches/transforms-3/3f8f70787420a220a507c94d3ea5aeba/transformed/core-1.3.0/AndroidManifest.xml:24:18-86
+55        android:debuggable="true"
+56        android:extractNativeLibs="false"
+57        android:icon="@mipmap/ic_launcher"
+57-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:102-136
+58        android:label="@string/app_name"
+58-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:69-101
+59        android:requestLegacyExternalStorage="true"
+59-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:242-285
+60        android:roundIcon="@mipmap/ic_launcher_round"
+60-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:137-182
+61        android:supportsRtl="true"
+61-->[com.facebook.android:facebook-android-sdk:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/fc618ab7dff0fb8d025e1ecc00d456a8/transformed/jetified-facebook-android-sdk-7.1.0/AndroidManifest.xml:28:18-44
+62        android:theme="@style/AppTheme"
+62-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:10:210-241
+63        android:usesCleartextTraffic="true" >
+63-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/debug/AndroidManifest.xml:6:18-53
+64        <meta-data
+64-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:11:5-94
+65            android:name="expo.modules.updates.EXPO_SDK_VERSION"
+65-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:11:16-68
+66            android:value="38.0.0" />
+66-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:11:69-91
+67        <meta-data
+67-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:12:5-82
+68            android:name="expo.modules.updates.ENABLED"
+68-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:12:16-59
+69            android:value="true" />
+69-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:12:60-80
+70        <meta-data
+70-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:13:5-105
+71            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+71-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:13:16-80
+72            android:value="ALWAYS" />
+72-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:13:81-103
+73        <meta-data
+73-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:14:5-99
+74            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+74-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:14:16-79
+75            android:value="0" />
+75-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:14:80-97
+76        <meta-data
+76-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:15:5-103
+77            android:name="com.facebook.sdk.ApplicationId"
+77-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:15:16-61
+78            android:value="@string/facebook_app_id" />
+78-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:15:62-101
+79        <meta-data
+79-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:16:5-120
+80            android:name="expo.modules.updates.EXPO_UPDATE_URL"
+80-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:16:16-67
+81            android:value="https://exp.host/@suratrun/my-app" />
+81-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:16:68-117
+82        <meta-data
+82-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:17:5-99
+83            android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL"
+83-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:17:16-72
+84            android:value="default" />
+84-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:17:73-96
+85        <meta-data
+85-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:19:5-131
+86            android:name="com.google.firebase.messaging.default_notification_icon"
+86-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:19:16-86
+87            android:resource="@mipmap/ic_notification" />
+87-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:19:87-129
+88        <meta-data
+88-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:20:5-129
+89            android:name="com.google.android.gms.ads.APPLICATION_ID"
+89-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:20:16-72
+90            android:value="ca-app-pub-1505061127299003~6931615918" />
+90-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:20:73-127
+91
+92        <activity
+92-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:21:5-22:114
+93            android:name="com.facebook.FacebookActivity"
+93-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:21:15-59
+94            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+94-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:21:60-160
+95            android:label="@string/app_name"
+95-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:22:79-111
+96            android:theme="@style/com_facebook_activity_theme" />
+96-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/99ffbd7f50ce8c16b3cabf1f4d877d78/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:33:13-63
+97        <activity
+97-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:23:5-30:16
+98            android:name="com.facebook.CustomTabActivity"
+98-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:23:15-60
+99            android:exported="true" >
+99-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:23:61-84
+100            <intent-filter>
+100-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:24:7-29:23
+101                <action android:name="android.intent.action.VIEW" />
+101-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:9-61
+101-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:17-58
+102
+103                <category android:name="android.intent.category.DEFAULT" />
+103-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+103-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+104                <category android:name="android.intent.category.BROWSABLE" />
+104-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:9-70
+104-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:19-67
+105
+106                <data android:scheme="@string/fb_login_protocol_scheme" />
+106-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+106-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+107            </intent-filter>
+108            <intent-filter>
+108-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/99ffbd7f50ce8c16b3cabf1f4d877d78/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:39:13-48:29
+109                <action android:name="android.intent.action.VIEW" />
+109-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:9-61
+109-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:17-58
+110
+111                <category android:name="android.intent.category.DEFAULT" />
+111-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+111-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+112                <category android:name="android.intent.category.BROWSABLE" />
+112-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:9-70
+112-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:19-67
+113
+114                <data
+114-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+115                    android:host="cct.com.bebrandd.branddot"
+116                    android:scheme="fbconnect" />
+116-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+117            </intent-filter>
+118        </activity>
+119        <activity
+119-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:5-43:16
+120            android:name="com.bebrandd.branddot.MainActivity"
+120-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:15-64
+121            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+121-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:98-175
+122            android:label="@string/app_name"
+122-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:65-97
+123            android:launchMode="singleTask"
+123-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:176-207
+124            android:screenOrientation="portrait"
+124-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:307-343
+125            android:theme="@style/SplashScreenTheme"
+125-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:266-306
+126            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" >
+126-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:32:208-265
+127            <intent-filter>
+127-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:33:7-36:23
+128                <action android:name="android.intent.action.MAIN" />
+128-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:34:9-60
+128-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:34:17-58
+129
+130                <category android:name="android.intent.category.LAUNCHER" />
+130-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:35:9-68
+130-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:35:19-66
+131            </intent-filter>
+132            <intent-filter>
+132-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:37:7-42:23
+133                <action android:name="android.intent.action.VIEW" />
+133-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:9-61
+133-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:17-58
+134
+135                <category android:name="android.intent.category.DEFAULT" />
+135-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+135-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+136                <category android:name="android.intent.category.BROWSABLE" />
+136-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:9-70
+136-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:19-67
+137
+138                <data android:scheme="com.bebrandd.yourdesign" />
+138-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+138-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+139            </intent-filter>
+140        </activity>
+141        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+141-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:44:5-81
+141-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:44:15-79
+142        <activity
+142-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:45:5-123
+143            android:name="com.facebook.ads.InterstitialAdActivity"
+143-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:45:15-69
+144            android:configChanges="keyboardHidden|orientation" /> <!-- The activities will be merged into the manifest of the hosting app. -->
+144-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:45:70-120
+145        <activity
+145-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:5-271
+146            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
+146-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:15-102
+147            android:enabled="false"
+147-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:103-126
+148            android:exported="false"
+148-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:127-151
+149            android:launchMode="singleInstance"
+149-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:204-239
+150            android:process=":playcore_missing_splits_activity"
+150-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:152-203
+151            android:stateNotNeeded="true" />
+151-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:240-269
+152        <activity
+152-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:5-226
+153            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+153-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:15-95
+154            android:enabled="false"
+154-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:96-119
+155            android:exported="false"
+155-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:120-144
+156            android:stateNotNeeded="true"
+156-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:145-174
+157            android:theme="@style/Theme.PlayCore.Transparent" /> <!-- The service will be merged into the manifest of the hosting app. -->
+157-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:13:175-224
+158        <service
+158-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:5-145
+159            android:name="com.google.android.play.core.assetpacks.AssetPackExtractionService"
+159-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:14-95
+160            android:enabled="false"
+160-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:96-119
+161            android:exported="true" />
+161-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/32c373f4b66cba40f80608523fe5bd0a/transformed/jetified-core-1.9.0/AndroidManifest.xml:16:120-143
+162        <service android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingHeadlessService" />
+162-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:9-111
+162-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:18-108
+163        <service
+163-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:9-23:19
+164            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+164-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-95
+165            android:exported="false" >
+165-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-37
+166            <intent-filter>
+166-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-22:29
+167                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+167-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:17-78
+167-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:25-75
+168            </intent-filter>
+169        </service>
+170
+171        <receiver
+171-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:9-32:20
+172            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingReceiver"
+172-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:13-96
+173            android:exported="true"
+173-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-36
+174            android:permission="com.google.android.c2dm.permission.SEND" >
+174-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:13-73
+175            <intent-filter>
+175-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:13-31:29
+176                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+176-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:17-81
+176-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:25-78
+177            </intent-filter>
+178        </receiver>
+179
+180        <meta-data
+180-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:9-36:36
+181            android:name="firebase_messaging_auto_init_enabled"
+181-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:13-64
+182            android:value="true" />
+182-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-33
+183        <meta-data
+183-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:9-39:32
+184            android:name="com.google.firebase.messaging.default_notification_channel_id"
+184-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-89
+185            android:value="" />
+185-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-29
+186        <meta-data
+186-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:9-42:47
+187            android:name="com.google.firebase.messaging.default_notification_color"
+187-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:13-84
+188            android:resource="@color/white" />
+188-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-44
+189        <meta-data
+189-->[:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-14:91
+190            android:name="org.unimodules.core.AppLoader#react-native-headless"
+190-->[:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-79
+191            android:value="org.unimodules.adapters.react.apploader.RNHeadlessAppLoader" />
+191-->[:unimodules-react-native-adapter] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/react-native-adapter/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-88
+192
+193        <activity
+193-->[:react-native-razorpay] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-razorpay/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-14:86
+194            android:name="com.razorpay.CheckoutActivity"
+194-->[:react-native-razorpay] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-razorpay/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-57
+195            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+195-->[:react-native-razorpay] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-razorpay/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-83
+196            android:theme="@style/CheckoutTheme" >
+196-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:21:13-49
+197            <intent-filter>
+197-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:22:13-28:29
+198                <action android:name="android.intent.action.MAIN" />
+198-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:34:9-60
+198-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:34:17-58
+199
+200                <data
+200-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+201                    android:host="rzp.io"
+202                    android:scheme="io.rzp" />
+202-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+203            </intent-filter>
+204        </activity>
+205
+206        <provider
+206-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:9-18:20
+207            android:name="cl.json.RNShareFileProvider"
+207-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-55
+208            android:authorities="com.bebrandd.branddot.rnshare.fileprovider"
+208-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-72
+209            android:exported="false"
+209-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-37
+210            android:grantUriPermissions="true" >
+210-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-47
+211            <meta-data
+211-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-17:64
+212                android:name="android.support.FILE_PROVIDER_PATHS"
+212-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+213                android:resource="@xml/share_download_paths" />
+213-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-61
+214        </provider>
+215        <provider
+215-->[:react-native-webview] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+216            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+216-->[:react-native-webview] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
+217            android:authorities="com.bebrandd.branddot.fileprovider"
+217-->[:react-native-webview] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+218            android:exported="false"
+218-->[:react-native-webview] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+219            android:grantUriPermissions="true" >
+219-->[:react-native-webview] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+220            <meta-data
+220-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-17:64
+221                android:name="android.support.FILE_PROVIDER_PATHS"
+221-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+222                android:resource="@xml/file_provider_paths" />
+222-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-61
+223        </provider>
+224        <provider
+224-->[:expo-file-system] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:9-26:20
+225            android:name="expo.modules.filesystem.FileSystemFileProvider"
+225-->[:expo-file-system] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-74
+226            android:authorities="com.bebrandd.branddot.FileSystemFileProvider"
+226-->[:expo-file-system] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-74
+227            android:exported="false"
+227-->[:expo-file-system] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-37
+228            android:grantUriPermissions="true" >
+228-->[:expo-file-system] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-file-system/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-47
+229            <meta-data
+229-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-17:64
+230                android:name="android.support.FILE_PROVIDER_PATHS"
+230-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+231                android:resource="@xml/file_system_provider_paths" />
+231-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-61
+232        </provider> <!-- https://developer.android.com/guide/topics/manifest/provider-element.html -->
+233        <provider
+233-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:9-28:20
+234            android:name="expo.modules.imagepicker.ImagePickerFileProvider"
+234-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-76
+235            android:authorities="com.bebrandd.branddot.ImagePickerFileProvider"
+235-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-75
+236            android:exported="false"
+236-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-37
+237            android:grantUriPermissions="true" >
+237-->[:expo-image-picker] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-47
+238            <meta-data
+238-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-17:64
+239                android:name="android.support.FILE_PROVIDER_PATHS"
+239-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+240                android:resource="@xml/image_picker_provider_paths" />
+240-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-61
+241        </provider>
+242        <provider
+242-->[:expo-sharing] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+243            android:name="expo.modules.sharing.SharingFileProvider"
+243-->[:expo-sharing] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-68
+244            android:authorities="com.bebrandd.branddot.SharingFileProvider"
+244-->[:expo-sharing] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-71
+245            android:exported="false"
+245-->[:expo-sharing] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+246            android:grantUriPermissions="true" >
+246-->[:expo-sharing] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-sharing/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+247            <meta-data
+247-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-17:64
+248                android:name="android.support.FILE_PROVIDER_PATHS"
+248-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+249                android:resource="@xml/sharing_provider_paths" />
+249-->[:react-native-share] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/react-native-share/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-61
+250        </provider>
+251
+252        <activity android:name="com.facebook.CustomTabMainActivity" />
+252-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/99ffbd7f50ce8c16b3cabf1f4d877d78/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:34:9-71
+252-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/99ffbd7f50ce8c16b3cabf1f4d877d78/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:34:19-68
+253
+254        <service
+254-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:9-18:40
+255            android:name="expo.modules.location.services.LocationTaskService"
+255-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-78
+256            android:exported="false" />
+256-->[:expo-location] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/expo-location/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-37
+257
+258        <meta-data
+258-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/bebrandd1/.gradle/caches/transforms-3/a065a4989271c1548d5e584940f304a6/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:11:9-13:43
+259            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+259-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/bebrandd1/.gradle/caches/transforms-3/a065a4989271c1548d5e584940f304a6/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:12:13-84
+260            android:value="GlideModule" />
+260-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] /Users/bebrandd1/.gradle/caches/transforms-3/a065a4989271c1548d5e584940f304a6/transformed/jetified-okhttp3-integration-4.11.0/AndroidManifest.xml:13:13-40
+261
+262        <receiver
+262-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:29:9-33:20
+263            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+263-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:30:13-85
+264            android:enabled="true"
+264-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:31:13-35
+265            android:exported="false" >
+265-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:32:13-37
+266        </receiver>
+267
+268        <service
+268-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:35:9-38:40
+269            android:name="com.google.android.gms.measurement.AppMeasurementService"
+269-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:36:13-84
+270            android:enabled="true"
+270-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:37:13-35
+271            android:exported="false" />
+271-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:38:13-37
+272        <service
+272-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:39:9-43:72
+273            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+273-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:40:13-87
+274            android:enabled="true"
+274-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:41:13-35
+275            android:exported="false"
+275-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:42:13-37
+276            android:permission="android.permission.BIND_JOB_SERVICE" />
+276-->[com.google.android.gms:play-services-measurement:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/f7d2d316f1fca43e8d722a995d8f96a3/transformed/jetified-play-services-measurement-18.0.2/AndroidManifest.xml:43:13-69
+277        <service
+277-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:27:9-33:19
+278            android:name="com.google.firebase.components.ComponentDiscoveryService"
+278-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:28:13-84
+279            android:directBootAware="true"
+279-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:35:13-43
+280            android:exported="false" >
+280-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:29:13-37
+281            <meta-data
+281-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:30:13-32:85
+282                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+282-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:31:17-139
+283                android:value="com.google.firebase.components.ComponentRegistrar" />
+283-->[com.google.android.gms:play-services-measurement-api:18.0.2] /Users/bebrandd1/.gradle/caches/transforms-3/70ab22982f59a8440d5cd668f1a9047f/transformed/jetified-play-services-measurement-api-18.0.2/AndroidManifest.xml:32:17-82
+284            <meta-data
+284-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:77:13-79:85
+285                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+285-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:78:17-109
+286                android:value="com.google.firebase.components.ComponentRegistrar" />
+286-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:79:17-82
+287            <meta-data
+287-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:52:13-54:85
+288                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+288-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:53:17-119
+289                android:value="com.google.firebase.components.ComponentRegistrar" />
+289-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:54:17-82
+290            <meta-data
+290-->[com.google.firebase:firebase-iid:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/6cca715789c81a3e63467d0ae6ed1441/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:32:13-34:85
+291                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+291-->[com.google.firebase:firebase-iid:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/6cca715789c81a3e63467d0ae6ed1441/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:33:17-96
+292                android:value="com.google.firebase.components.ComponentRegistrar" />
+292-->[com.google.firebase:firebase-iid:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/6cca715789c81a3e63467d0ae6ed1441/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:34:17-82
+293            <meta-data
+293-->[com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:18:13-20:85
+294                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+294-->[com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:19:17-127
+295                android:value="com.google.firebase.components.ComponentRegistrar" />
+295-->[com.google.firebase:firebase-installations:16.3.5] /Users/bebrandd1/.gradle/caches/transforms-3/8b1412eb2ac5365db186ab19bfabbbe4/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:20:17-82
+296            <meta-data
+296-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:28:13-30:85
+297                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+297-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:29:17-115
+298                android:value="com.google.firebase.components.ComponentRegistrar" />
+298-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/bebrandd1/.gradle/caches/transforms-3/c480e185b7b903718d297661753ab65c/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:30:17-82
+299            <!--
+300                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
+301                clients to use it as well, by defining this registrar in their own core/common library.
+302            -->
+303            <meta-data
+303-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:43:13-45:85
+304                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
+304-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
+305                android:value="com.google.firebase.components.ComponentRegistrar" />
+305-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:45:17-82
+306        </service>
+307
+308        <meta-data
+308-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:13:9-15:37
+309            android:name="com.google.android.play.billingclient.version"
+309-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:14:13-73
+310            android:value="3.0.0" />
+310-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:15:13-34
+311
+312        <activity
+312-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:17:9-20:75
+313            android:name="com.android.billingclient.api.ProxyBillingActivity"
+313-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:18:13-78
+314            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+314-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:19:13-96
+315            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+315-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/79df063e307b295e34185afec9a36261/transformed/jetified-billing-3.0.0/AndroidManifest.xml:20:13-72
+316        <!--
+317         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+318         with the application context. This config is merged in with the host app's manifest,
+319         but there can only be one provider with the same authority activated at any given
+320         point; so if the end user has two or more different apps that use Facebook SDK, only the
+321         first one will be able to use the provider. To work around this problem, we use the
+322         following placeholder in the authority to identify each host application as if it was
+323         a completely different provider.
+324        -->
+325        <provider
+325-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:39:9-42:40
+326            android:name="com.facebook.internal.FacebookInitProvider"
+326-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:40:13-70
+327            android:authorities="com.bebrandd.branddot.FacebookInitProvider"
+327-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:41:13-72
+328            android:exported="false" />
+328-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:42:13-37
+329
+330        <receiver
+330-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:44:9-50:20
+331            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+331-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:45:13-86
+332            android:exported="false" >
+332-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:46:13-37
+333            <intent-filter>
+333-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:47:13-49:29
+334                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+334-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:48:17-95
+334-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/a6e39b51de7b4139ea0c28d24356ee5c/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:48:25-92
+335            </intent-filter>
+336        </receiver>
+337        <receiver android:name="com.razorpay.RzpTokenReceiver" >
+337-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:12:9-16:20
+337-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:12:19-63
+338            <intent-filter>
+338-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:13:13-15:29
+339                <action android:name="rzp.device_token.share" />
+339-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:14:17-65
+339-->[com.razorpay:checkout:1.6.9] /Users/bebrandd1/.gradle/caches/transforms-3/3b5241d35ead4c649b4400602f11c43b/transformed/jetified-checkout-1.6.9/AndroidManifest.xml:14:25-62
+340            </intent-filter>
+341        </receiver>
+342
+343        <activity
+343-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:23:9-27:75
+344            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+344-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:24:13-93
+345            android:excludeFromRecents="true"
+345-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:25:13-46
+346            android:exported="false"
+346-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:26:13-37
+347            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+347-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:27:13-72
+348        <!--
+349            Service handling Google Sign-In user revocation. For apps that do not integrate with
+350            Google Sign-In, this service will never be started.
+351        -->
+352        <service
+352-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:33:9-37:51
+353            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+353-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:34:13-89
+354            android:exported="true"
+354-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:35:13-36
+355            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+355-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:36:13-107
+356            android:visibleToInstantApps="true" />
+356-->[com.google.android.gms:play-services-auth:19.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/6e29728906ad25d686a8cd3314034b07/transformed/jetified-play-services-auth-19.0.0/AndroidManifest.xml:37:13-48
+357
+358        <activity
+358-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:27:9-44:20
+359            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+359-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:28:13-80
+360            android:excludeFromRecents="true"
+360-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:29:13-46
+361            android:exported="true"
+361-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:30:13-36
+362            android:launchMode="singleTask"
+362-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:31:13-44
+363            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+363-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:32:13-72
+364            <intent-filter>
+364-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:33:13-43:29
+365                <action android:name="android.intent.action.VIEW" />
+365-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:9-61
+365-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:17-58
+366
+367                <category android:name="android.intent.category.DEFAULT" />
+367-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+367-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+368                <category android:name="android.intent.category.BROWSABLE" />
+368-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:9-70
+368-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:19-67
+369
+370                <data
+370-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+371                    android:host="firebase.auth"
+372                    android:path="/"
+373                    android:scheme="genericidp" />
+373-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+374            </intent-filter>
+375        </activity>
+376        <activity
+376-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:45:9-62:20
+377            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+377-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:46:13-79
+378            android:excludeFromRecents="true"
+378-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:47:13-46
+379            android:exported="true"
+379-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:48:13-36
+380            android:launchMode="singleTask"
+380-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:49:13-44
+381            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+381-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:50:13-72
+382            <intent-filter>
+382-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:51:13-61:29
+383                <action android:name="android.intent.action.VIEW" />
+383-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:9-61
+383-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:25:17-58
+384
+385                <category android:name="android.intent.category.DEFAULT" />
+385-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+385-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+386                <category android:name="android.intent.category.BROWSABLE" />
+386-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:9-70
+386-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:27:19-67
+387
+388                <data
+388-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:9-67
+389                    android:host="firebase.auth"
+390                    android:path="/"
+391                    android:scheme="recaptcha" />
+391-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:28:15-64
+392            </intent-filter>
+393        </activity>
+394
+395        <service
+395-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:64:9-73:19
+396            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+396-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:65:13-101
+397            android:enabled="true"
+397-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:66:13-35
+398            android:exported="false" >
+398-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:67:13-37
+399            <intent-filter>
+399-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:68:13-72:29
+400                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+400-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:69:17-89
+400-->[com.google.firebase:firebase-auth:20.0.3] /Users/bebrandd1/.gradle/caches/transforms-3/2c1ee02bab5b2f132fb6883b69f41e5a/transformed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:69:25-86
+401
+402                <category android:name="android.intent.category.DEFAULT" />
+402-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:9-68
+402-->/Users/bebrandd1/Desktop/bebrandd 2/android/app/src/main/AndroidManifest.xml:26:19-65
+403            </intent-filter>
+404        </service>
+405
+406        <activity
+406-->[com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:23:9-26:75
+407            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+407-->[com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:24:13-79
+408            android:exported="false"
+408-->[com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:25:13-37
+409            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+409-->[com.google.android.gms:play-services-base:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/1fb1dbb9bf28d569207830d56f0e5ea6/transformed/jetified-play-services-base-17.5.0/AndroidManifest.xml:26:13-72
+410        <activity
+410-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:15:9-19:75
+411            android:name="com.facebook.ads.AudienceNetworkActivity"
+411-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:16:13-68
+412            android:configChanges="keyboardHidden|orientation|screenSize"
+412-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:17:13-74
+413            android:exported="false"
+413-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:18:13-37
+414            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+414-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:19:13-72
+415
+416        <provider
+416-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:21:9-24:40
+417            android:name="com.facebook.ads.AudienceNetworkContentProvider"
+417-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:22:13-75
+418            android:authorities="com.bebrandd.branddot.AudienceNetworkContentProvider"
+418-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:23:13-82
+419            android:exported="false" />
+419-->[com.facebook.android:audience-network-sdk:6.2.1] /Users/bebrandd1/.gradle/caches/transforms-3/5dbf7347898bd08c2ce8367ae02d3134/transformed/jetified-audience-network-sdk-6.2.1/AndroidManifest.xml:24:13-37
+420
+421        <receiver
+421-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:28:9-35:20
+422            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+422-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:29:13-78
+423            android:exported="true"
+423-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:30:13-36
+424            android:permission="com.google.android.c2dm.permission.SEND" >
+424-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:31:13-73
+425            <intent-filter>
+425-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:13-31:29
+426                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+426-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:17-81
+426-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:25-78
+427            </intent-filter>
+428        </receiver>
+429        <!--
+430             FirebaseMessagingService performs security checks at runtime,
+431             but set to not exported to explicitly avoid allowing another app to call it.
+432        -->
+433        <service
+433-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:41:9-48:19
+434            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+434-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:42:13-82
+435            android:directBootAware="true"
+435-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:43:13-43
+436            android:exported="false" >
+436-->[com.google.firebase:firebase-messaging:21.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aac49d3822f4b48796c83cb3e638fd73/transformed/jetified-firebase-messaging-21.1.0/AndroidManifest.xml:44:13-37
+437            <intent-filter android:priority="-500" >
+437-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-22:29
+438                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+438-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:17-78
+438-->[:react-native-firebase_messaging] /Users/bebrandd1/Desktop/bebrandd 2/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:25-75
+439            </intent-filter>
+440        </service> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+441        <activity
+441-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:29:9-33:64
+442            android:name="com.google.android.gms.ads.AdActivity"
+442-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:30:13-65
+443            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+443-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:31:13-122
+444            android:exported="false"
+444-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:32:13-37
+445            android:theme="@android:style/Theme.Translucent" />
+445-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:33:13-61
+446
+447        <provider
+447-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:35:9-39:39
+448            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+448-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:36:13-76
+449            android:authorities="com.bebrandd.branddot.mobileadsinitprovider"
+449-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:37:13-73
+450            android:exported="false"
+450-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:38:13-37
+451            android:initOrder="100" />
+451-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:39:13-36
+452
+453        <service
+453-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:41:9-44:40
+454            android:name="com.google.android.gms.ads.AdService"
+454-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:42:13-64
+455            android:enabled="true"
+455-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:43:13-35
+456            android:exported="false" />
+456-->[com.google.android.gms:play-services-ads-lite:19.4.0] /Users/bebrandd1/.gradle/caches/transforms-3/392bbd36a2aaad14e469c94cf9b9ab0a/transformed/jetified-play-services-ads-lite-19.4.0/AndroidManifest.xml:44:13-37
+457
+458        <provider
+458-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:26:9-31:39
+459            android:name="com.google.firebase.provider.FirebaseInitProvider"
+459-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:27:13-77
+460            android:authorities="com.bebrandd.branddot.firebaseinitprovider"
+460-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:28:13-72
+461            android:directBootAware="true"
+461-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:29:13-43
+462            android:exported="false"
+462-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:30:13-37
+463            android:initOrder="100" />
+463-->[com.google.firebase:firebase-common:19.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/eb9815666c232604179d8ca82fb1214a/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:31:13-36
+464
+465        <meta-data
+465-->[com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:23:9-25:69
+466            android:name="com.google.android.gms.version"
+466-->[com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:24:13-58
+467            android:value="@integer/google_play_services_version" />
+467-->[com.google.android.gms:play-services-basement:17.5.0] /Users/bebrandd1/.gradle/caches/transforms-3/db94228427c76a20d818548865cd893f/transformed/jetified-play-services-basement-17.5.0/AndroidManifest.xml:25:13-66
+468
+469        <service
+469-->[androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
+470            android:name="androidx.room.MultiInstanceInvalidationService"
+470-->[androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:26:13-74
+471            android:exported="false" />
+471-->[androidx.room:room-runtime:2.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/642d68c62320392f1616a7be8fa8943c/transformed/room-runtime-2.1.0/AndroidManifest.xml:27:13-37
+472        <service
+472-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+473            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+473-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+474            android:exported="false" >
+474-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+475            <meta-data
+475-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+476                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+476-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+477                android:value="cct" />
+477-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/226643337dbc484cbb594140e428ca15/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+478        </service>
+479        <service
+479-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:26:9-30:19
+480            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+480-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:27:13-117
+481            android:exported="false"
+481-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:28:13-37
+482            android:permission="android.permission.BIND_JOB_SERVICE" >
+482-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:29:13-69
+483        </service>
+484
+485        <receiver
+485-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:32:9-34:40
+486            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+486-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:33:13-132
+487            android:exported="false" />
+487-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/b37a80927aa364d71dcbb4a3ee6e309c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:34:13-37
+488
+489        <service
+489-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:19:9-21:40
+490            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
+490-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:20:13-132
+491            android:exported="false" />
+491-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:21:13-37
+492        <service
+492-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:22:9-24:40
+493            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
+493-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:23:13-127
+494            android:exported="false" />
+494-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:24:13-37
+495        <service
+495-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:25:9-27:40
+496            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
+496-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:26:13-120
+497            android:exported="false" />
+497-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/fd619d3101ae3b63817c0bf08ca91ad9/transformed/jetified-library-3.2.11/AndroidManifest.xml:27:13-37
+498    </application>
+499
+500</manifest>

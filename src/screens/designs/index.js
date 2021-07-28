@@ -11,7 +11,15 @@ import CustomHeader from "../common/CustomHeader";
 const Tab = createMaterialTopTabNavigator();
 
 const MyTabs = ({ route }) => {
-  const { designs, curDesign, curItemIndex, curPackageType } = route.params;
+  const {
+    designs,
+    curDesign,
+    curItemIndex,
+    curPackageType,
+    curDesignId,
+    curCatId,
+    activeCat,
+  } = route.params;
   return (
     <Tab.Navigator
       initialRouteName={
@@ -41,6 +49,9 @@ const MyTabs = ({ route }) => {
               : Constant.navPersonalProfile,
           curItemIndex: curItemIndex,
           curPackageType: curPackageType,
+          curDesignId: curDesignId,
+          curCatId: curCatId,
+          activeCat: activeCat,
         }}
       />
       <Tab.Screen
@@ -55,6 +66,9 @@ const MyTabs = ({ route }) => {
               : Constant.navPersonalProfile,
           curItemIndex: curItemIndex,
           curPackageType: curPackageType,
+          curDesignId: curDesignId,
+          curCatId: curCatId,
+          activeCat: activeCat,
         }}
       />
     </Tab.Navigator>

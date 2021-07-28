@@ -1,1 +1,1 @@
-../../../../../node_modules/expo-ads-admob/node_modules/unimodules-permissions-interface/ios/UMPermissionsInterface/UMPermissionsInterface.h
+../../../../../node_modules/unimodules-permissions-interface/ios/UMPermissionsInterface/UMPermissionsInterface.h

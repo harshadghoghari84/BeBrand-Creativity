@@ -33,8 +33,17 @@ const HomeItemDesign = ({
     <>
       <TouchableOpacity
         activeOpacity={0.6}
-        style={styles.container}
-        onPress={() => onDesignClick(designs, packageType, design, desIndex)}
+        style={[styles.container, { marginLeft: desIndex == 0 ? 10 : null }]}
+        onPress={() =>
+          onDesignClick(
+            designs,
+            packageType,
+            design,
+            desIndex,
+            curCatId,
+            activeCat
+          )
+        }
       >
         <View style={[styles.innContainer]}>
           <FastImage
@@ -50,8 +59,6 @@ const HomeItemDesign = ({
               onPress={() => {
                 navigation.navigate(Constant.navMoreDesigns, {
                   usubCat: usubCat,
-                  designs: designs,
-                  curItemIndex: desIndex,
                   activeCat: activeCat,
                   curCatId: curCatId,
                 });

@@ -16,10 +16,20 @@ import client from "../utils/ApolloClient";
 import { useQuery } from "@apollo/client";
 import PopUp from "../components/PopUp";
 
-const Splash = ({ navigation, userStore }) => {
+const Splash = ({ navigation, userStore, designStore }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [visibleModal, setVisibleModal] = useState(false);
   const [chkUpdate, setChkUpdate] = useState(false);
+  const [appDetails, setAppDetails] = useState({});
+  const [imgHeight, setImgHeight] = useState(0);
+  const [imgWidth, setImgWidth] = useState(0);
+  const toggleVisibleModal = () => {
+    setVisibleModal(!visibleModal);
+    if (visibleModal) {
+      navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+      Platform.OS === "android" && SplashScreen.hide();
+    }
+  };
   const {
     loading: load,
     error,
@@ -29,21 +39,24 @@ const Splash = ({ navigation, userStore }) => {
   let loading = false;
   useEffect(() => {
     if (chkUpdate) {
-      navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-      Platform.OS === "android" && SplashScreen.hide();
-      // if (vData?.appDetail && vData?.appDetail !== null) {
-      //   if (
-      //     DeviceInfo.getVersion() !==
-      //     (Platform.OS === "ios"
-      //       ? vData?.appDetail?.iosVersion
-      //       : vData?.appDetail?.androidVersion)
-      //   ) {
-      //     setVisibleModal(true);
-      //   } else {
-      //     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-      //     Platform.OS === "android" && SplashScreen.hide();
-      //   }
-      // }
+      if (vData?.appDetail && vData?.appDetail !== null) {
+        designStore.setRatingTime(vData?.appDetail.ratingTime);
+        setAppDetails(vData?.appDetail);
+        setImgHeight(parseInt(vData?.appDetail?.height));
+        setImgWidth(parseInt(vData?.appDetail?.width));
+
+        if (
+          DeviceInfo.getVersion() !==
+          (Platform.OS === "ios"
+            ? vData?.appDetail?.iosVersion
+            : vData?.appDetail?.androidVersion)
+        ) {
+          setVisibleModal(true);
+        } else {
+          navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+          Platform.OS === "android" && SplashScreen.hide();
+        }
+      }
     }
   }, [vData, chkUpdate]);
 
@@ -108,23 +121,19 @@ const Splash = ({ navigation, userStore }) => {
   };
   // !loading && isTimerRunning === false && openScreen();
 
-  const renderSplash = () => {
-    return (
-      <>
-        <View style={styles.round} />
-        <FastImage
-          source={require("../assets/img/DFS.png")}
-          style={styles.logoImg}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </>
-    );
-  };
-
   const renderMainView = () => {
     return (
       <View style={styles.container}>
-        <PopUp visible={visibleModal} isModalUpdateApp={true} />
+        {appDetails != undefined && appDetails !== null ? (
+          <PopUp
+            visible={visibleModal}
+            isModalUpdateApp={true}
+            toggleVisibleModal={toggleVisibleModal}
+            imgHeight={imgHeight}
+            imgWidth={imgWidth}
+            appDetails={appDetails}
+          />
+        ) : null}
         {Platform.OS === "ios" && (
           <FastImage
             source={require("../assets/img/splash_image.gif")}
@@ -138,7 +147,7 @@ const Splash = ({ navigation, userStore }) => {
 
   return renderMainView();
 };
-export default inject("userStore")(observer(Splash));
+export default inject("userStore", "designStore")(observer(Splash));
 const styles = StyleSheet.create({
   container: {
     flex: 1,

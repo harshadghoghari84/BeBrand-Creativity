@@ -25,10 +25,13 @@ import LangKey from "../utils/LangKey";
 
 const lng = [{ code: "all", name: "All" }];
 const { width, height } = Dimensions.get("screen");
-const Modal = ({ visible, toggleVisible, designStore }) => {
+const Modal = ({ visible, toggleVisible, designStore, bottom, ref }) => {
   const [lang, setLang] = useState(lng[0].code);
   const [languages, setLanguages] = useState(lng);
 
+  useEffect(() => {
+    console.log("bottom", bottom);
+  }, [bottom]);
   useEffect(() => {
     setLang(toJS(designStore.designLang));
   }, [designStore.designLang]);
@@ -40,15 +43,16 @@ const Modal = ({ visible, toggleVisible, designStore }) => {
   }, [designStore.languages]);
 
   const animating = {
-    duration: 300,
+    duration: 200,
     easing: Easing.inOut(Easing.cubic),
   };
+
   return (
     <Popover
       from={
         Platform.OS === "android"
           ? new Rect(200, 50, 310, 1350)
-          : new Rect(200, 50, 350, 1350)
+          : new Rect(200, 50, 310, 1350)
       }
       arrowShift={0.5}
       isVisible={visible}

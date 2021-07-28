@@ -122,6 +122,7 @@ const HomeStackComponent = ({ navigation }) => {
               // menu={true}
               empty={true}
               isShadow={true}
+              langauge={true}
               ScreenTitle={"All Designs"}
               {...props}
             />

@@ -107,6 +107,7 @@
   "labSelecteLang":"Select Language",
   "labClose":"Close",
   "labSubmit":"Submit",
+  "labUpdate":"Update",
   "labSubmitSucess":"Submit Sucessfully.",
   "labEdit":"edit",
   "txtNext":"Next",
@@ -203,6 +204,6 @@
   "txtUploadPhotoHere":"Upload your photo here",
   "txtUploadLogoHere":"Upload your logo here",
   "txtUploadPNG":"Upload PNG images for better experience",
-  "txtPhotoSize":"Photo original size : 340 * 248 px",
-  "txtLogoSize":"Logo original size : 340 * 340 px"
+  "txtPhotoSize":"Photo original size : 373 * 406 px",
+  "txtLogoSize":"Logo original size : 373 * 406 px"
 }

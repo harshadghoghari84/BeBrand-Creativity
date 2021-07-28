@@ -148,6 +148,7 @@ module.exports = {
   labSelecteLang: "labSelecteLang",
   labClose: "labClose",
   labSubmit: "labSubmit",
+  labUpdate: "labUpdate",
   labSubmitSucess: "labSubmitSucess",
   labEdit: "labEdit",
   labPurchase: "labPurchase",
