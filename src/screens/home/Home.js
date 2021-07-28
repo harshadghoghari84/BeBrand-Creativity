@@ -1045,6 +1045,9 @@ const Home = ({ navigation, designStore, userStore }) => {
           height: 5,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
@@ -1093,6 +1096,7 @@ const Home = ({ navigation, designStore, userStore }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <>
       <SafeAreaView
         style={{
@@ -1101,6 +1105,9 @@ const Home = ({ navigation, designStore, userStore }) => {
           backgroundColor: Color.white,
         }}
       />
+=======
+    <SafeAreaView style={styles.containerMain}>
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
     <SafeAreaView style={styles.containerMain}>
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
@@ -1126,6 +1133,7 @@ const Home = ({ navigation, designStore, userStore }) => {
         toggleVisibleForModaloffer={toggleVisibleForModalOffers}
         isModalOffers={true}
       />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1163,6 +1171,8 @@ const Home = ({ navigation, designStore, userStore }) => {
             zIndex: 999,
             // backgroundColor: backgroundInterpolate,
 =======
+=======
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
@@ -1213,6 +1223,9 @@ const Home = ({ navigation, designStore, userStore }) => {
             borderBottomWidth: 0.5,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
@@ -1737,6 +1750,9 @@ const Home = ({ navigation, designStore, userStore }) => {
     </SafeAreaView>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
@@ -1783,6 +1799,9 @@ const styles = StyleSheet.create({
         : 85,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
+=======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
 =======
 >>>>>>> 182f3aa6de850d85c8cb6e79b3ce3cc6c82b9e71
