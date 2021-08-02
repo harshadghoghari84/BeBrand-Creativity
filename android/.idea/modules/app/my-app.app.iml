@@ -54,7 +54,7 @@
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.3.0-alpha01" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:3.12.12" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.14.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.4" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-android:1.4.0" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-applinks:1.4.0" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-tasks:1.4.0" level="project" />
@@ -163,15 +163,16 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-base:19.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.nlopez.smartlocation:library:3.2.11@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.webkit:android-jsc:r245459@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.12.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:1.15.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-common:2.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.4.21" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.50" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:disklrucache:4.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.5" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.21" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.50" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.play:core:1.8.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.browser:browser:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:glide:4.9.0@aar" level="project" />
@@ -207,8 +208,8 @@
     <orderEntry type="module" module-name="my-app.expo-image-loader" />
     <orderEntry type="module" module-name="host.exp.exponent.my-app.expo-ads-admob" />
     <orderEntry type="module" module-name="my-app.expo-location" />
-    <orderEntry type="module" module-name="my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.expo-error-recovery" />
+    <orderEntry type="module" module-name="android.my-app.unimodules-permissions-interface" />
     <orderEntry type="module" module-name="my-app.react-native-iap" />
     <orderEntry type="module" module-name="my-app.react-native-google-signin" />
     <orderEntry type="module" module-name="my-app.unimodules-core" />
@@ -217,6 +218,7 @@
     <orderEntry type="module" module-name="my-app.expo-font" />
     <orderEntry type="module" module-name="my-app.expo-keep-awake" />
     <orderEntry type="module" module-name="my-app.expo-linear-gradient" />
+    <orderEntry type="module" module-name="my-app.expo-modules-core" />
     <orderEntry type="module" module-name="my-app.expo-secure-store" />
     <orderEntry type="module" module-name="my-app.expo-sqlite" />
     <orderEntry type="module" module-name="my-app.expo-structured-headers" />
@@ -234,6 +236,7 @@
     <orderEntry type="module" module-name="my-app.react-native-community_datetimepicker" />
     <orderEntry type="module" module-name="my-app.react-native-community_google-signin" />
     <orderEntry type="module" module-name="my-app.react-native-community_masked-view" />
+    <orderEntry type="module" module-name="my-app.lottie-react-native" />
     <orderEntry type="module" module-name="my-app.react-native-device-info" />
     <orderEntry type="module" module-name="my-app.react-native-fast-image" />
     <orderEntry type="module" module-name="my-app.react-native-fbads" />

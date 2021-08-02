@@ -2257,24 +2257,24 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             isPicker={true}
           />
 
-          <PopUp
+          {/* <PopUp
             visible={visibleModalMsg}
             toggleVisibleMsg={toggleVisibleMsg}
             isLayout={true}
             msg={msg}
-          />
+          /> */}
           <PopUp
             visible={visibleModalAd}
             toggleVisibleAd={toggleVisibleAd}
             isVisibleAd={true}
           />
-          <PopUp
+          {/* <PopUp
             visible={visibleModalForEditPersonalInfo}
             toggleVisibleModalForEditPersonalInfo={
               toggleVisibleModalForEditPersonalInfo
             }
             isVisiblePersonalInfo={true}
-          />
+          /> */}
 
           <View style={styles.container}>
             <FlatList

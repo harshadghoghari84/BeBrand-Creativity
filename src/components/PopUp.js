@@ -1447,7 +1447,7 @@ const PopUp = ({
                         // backgroundColor: "pink",
                       }}
                     >
-                      {/* {updateApp?.isDismissible ? ( */}
+                      {updateApp?.isDismissible ? (
                         <TouchableOpacity
                           activeOpacity={0.6}
                           onPress={() => {
@@ -1467,7 +1467,7 @@ const PopUp = ({
                             skip
                           </Text>
                         </TouchableOpacity>
-                       {/* ) : null} */}
+                      ) : null}
                       <Button
                         style={{
                           backgroundColor: Color.darkBlue,
