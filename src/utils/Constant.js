@@ -58,8 +58,8 @@ export default {
 
   freeUserProfileImageLimit: 0,
 
-  razorPayApiKey: "rzp_test_62hWp6Fn3Rflkg",
-  // razorPayApiKey: "rzp_live_mml0VJwNR2J6x8",
+  // razorPayApiKey: "rzp_test_62hWp6Fn3Rflkg",
+  razorPayApiKey: "rzp_live_mml0VJwNR2J6x8",
   profileImageSize: 2000000,
   defLangCode: "en",
   defUserName: "Guest",

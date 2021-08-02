@@ -2729,12 +2729,12 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               isPicker={true}
             />
 
-            <PopUp
+            {/* <PopUp
               visible={visibleModalMsgbussiness}
               toggleVisibleMsgBussiness={toggleVisibleMsgBussiness}
               isLayoutBussiness={true}
               msg={msg}
-            />
+            /> */}
 
             <PopUp
               visible={visibleModalAd}
@@ -2742,13 +2742,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               isVisibleAd={true}
             />
 
-            <PopUp
+            {/* <PopUp
               visible={visibleModalForEditBusinessInfo}
               toggleVisibleModalForEditBussinessInfo={
                 toggleVisibleModalForEditBussinessInfo
               }
               isVisibleBusinessInfo={true}
-            />
+            /> */}
             <View style={styles.container}>
               <FlatList
                 horizontal

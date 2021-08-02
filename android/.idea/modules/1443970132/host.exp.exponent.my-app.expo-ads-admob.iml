@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":expo-ads-admob" external.linked.project.path="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="host.exp.exponent" external.system.module.version="10.0.4" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":expo-ads-admob" external.linked.project.path="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="host.exp.exponent" external.system.module.version="10.1.2" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -25,8 +25,33 @@
         <option name="PROJECT_TYPE" value="1" />
       </configuration>
     </facet>
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/tmp/kotlin-classes/debug" />
+          <option name="classpath" value="$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/intermediates/compile_r_class_jar/debug/R.jar:/Users/bebrandd1/.gradle/caches/transforms-3/ff2d6465a8c05676daaba3629433149c/transformed/jetified-play-services-ads-19.4.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/a1520951b4a8b733dc7eed3b94ddd965/transformed/browser-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/4bb4dfdb8d83410d5559ecf0bffb7c8d/transformed/jetified-play-services-gass-19.4.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/e37caed98f160da127d0973f747d0275/transformed/jetified-play-services-ads-identifier-17.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/9ef266f538165487dbf91883690b100d/transformed/jetified-play-services-ads-lite-19.4.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/e4d87e7755b15db1cdb8f40eeac980fb/transformed/jetified-play-services-measurement-sdk-api-17.2.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/79845c87dfcfcb74cd912c12fd8fd9ba/transformed/jetified-play-services-tasks-17.1.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/2b22f43d195a3cec82807170d00c567c/transformed/jetified-play-services-measurement-base-17.2.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/4a404f38ae9b0349fd280c77d47d4712/transformed/jetified-play-services-basement-17.3.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/449dff110fb1affcde4a50f5fdbf5ca3/transformed/fragment-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/a70c78a684e1d2b20aca9967256b8bb1/transformed/legacy-support-core-ui-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/70d35cfc31d65a350112caedcb2008af/transformed/legacy-support-core-utils-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/be65a014285ef9314cba33f912c7863e/transformed/viewpager-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/a4547b586d99727f4af201eb3b2b1ba7/transformed/coordinatorlayout-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/05fe0cecb4bfab6afb86d35f8cc99170/transformed/drawerlayout-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/03dbebc743eb0eb0e991305833568931/transformed/slidingpanelayout-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/dabf2f84b61baedc27b755a4d3636801/transformed/customview-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/0dfd10b648da2e00190cac42af98db41/transformed/swiperefreshlayout-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/51dbfa9f1ca28cc0b5c41022a7771ac6/transformed/asynclayoutinflater-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/8190d143f514b0d3ac7c09d291e6acd9/transformed/loader-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/a87bfd33bdb020f8b1a0696b779d4581/transformed/core-1.2.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/1614547da129a1a7799518957832f23d/transformed/versionedparcelable-1.1.0-api.jar:/Users/bebrandd1/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.0.0/42858b26cafdaa69b6149f45dfc2894007bc2c7a/collection-1.0.0.jar:/Users/bebrandd1/.gradle/caches/transforms-3/0ee7a9213ad26c205154f034752b85f9/transformed/interpolator-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/cb9fae51cf66d26847d0affaee62fa88/transformed/lifecycle-runtime-2.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/3e9a6e609911d00be18f752bb05deb46/transformed/cursoradapter-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/0974526e126d098372308af69576bbec/transformed/lifecycle-livedata-2.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/cb14b0ec2563a5e8bc0eeb1038fcd7e6/transformed/lifecycle-livedata-core-2.0.0-api.jar:/Users/bebrandd1/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.0.0/e070ffae07452331bc5684734fce6831d531785c/lifecycle-common-2.0.0.jar:/Users/bebrandd1/.gradle/caches/transforms-3/b88c84018379d73b8520d4e6913e38fb/transformed/core-runtime-2.0.0-api.jar:/Users/bebrandd1/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.0.0/bb21b9a11761451b51624ac428d1f1bb5deeac38/core-common-2.0.0.jar:/Users/bebrandd1/.gradle/caches/transforms-3/ffec556c64aba9f40f9bd88d627febfe/transformed/lifecycle-viewmodel-2.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/01ff997315312e9c66ad14cb5bd7ff6a/transformed/documentfile-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/d9c8e1be03294e1e86e58d351f60fa1f/transformed/localbroadcastmanager-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/8665e9a2d64e61fb43537afab5a53641/transformed/print-1.0.0-api.jar:/Users/bebrandd1/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation/1.1.0/e3a6fb2f40e3a3842e6b7472628ba4ce416ea4c8/annotation-1.1.0.jar:/Users/bebrandd1/.gradle/caches/transforms-3/7fee21ce8ed8b2bea82332862725c4af/transformed/jetified-play-services-ads-base-19.4.0-api.jar:/Users/bebrandd1/.gradle/caches/transforms-3/08390a10683b7508e6b502bc60f551e1/transformed/jetified-kotlin-stdlib-jdk7-1.4.21.jar:/Users/bebrandd1/.gradle/caches/transforms-3/b5687a619eb290e20695234e6d8d45c2/transformed/jetified-kotlin-stdlib-1.4.21.jar:/Users/bebrandd1/.gradle/caches/transforms-3/0134f1dd70bf1e0d276ae65234d12a25/transformed/jetified-kotlin-stdlib-common-1.4.21.jar:/Users/bebrandd1/.gradle/caches/transforms-3/b3d3833c49493b1f4b605cdb15252bfb/transformed/jetified-annotations-13.0.jar:/Users/bebrandd1/Desktop/bebrandd 2/node_modules/@unimodules/core/android/build/intermediates/compile_library_classes_jar/debug/classes.jar:/Users/bebrandd1/Library/Android/sdk/platforms/android-29/android.jar:/Users/bebrandd1/Library/Android/sdk/build-tools/29.0.2/core-lambda-stubs.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="expo-ads-admob_debug" />
+          <option name="languageVersion" value="1.4" />
+          <option name="apiVersion" value="1.4" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/intermediates/javac/debug/classes" />
     <output-test url="file://$MODULE_DIR$/../../../../node_modules/expo-ads-admob/android/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
@@ -44,6 +69,10 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.4.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads:19.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.browser:browser:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-gass:19.4.0@aar" level="project" />

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1254421111/android.my-app.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1254421111/android.my-app.unimodules-permissions-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1443970132/host.exp.exponent.my-app.expo-ads-admob.iml" filepath="$PROJECT_DIR$/.idea/modules/1443970132/host.exp.exponent.my-app.expo-ads-admob.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/7943345/host.exp.exponent.my-app.expo-constants.iml" filepath="$PROJECT_DIR$/.idea/modules/7943345/host.exp.exponent.my-app.expo-constants.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/my-app.iml" filepath="$PROJECT_DIR$/.idea/modules/my-app.iml" />
@@ -17,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1467652678/my-app.expo-linear-gradient.iml" filepath="$PROJECT_DIR$/.idea/modules/-1467652678/my-app.expo-linear-gradient.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1147160877/my-app.expo-location.iml" filepath="$PROJECT_DIR$/.idea/modules/-1147160877/my-app.expo-location.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1558940876/my-app.expo-media-library.iml" filepath="$PROJECT_DIR$/.idea/modules/-1558940876/my-app.expo-media-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1310435407/my-app.expo-modules-core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1310435407/my-app.expo-modules-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-569386394/my-app.expo-permissions.iml" filepath="$PROJECT_DIR$/.idea/modules/-569386394/my-app.expo-permissions.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1381074217/my-app.expo-secure-store.iml" filepath="$PROJECT_DIR$/.idea/modules/1381074217/my-app.expo-secure-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-154431554/my-app.expo-sharing.iml" filepath="$PROJECT_DIR$/.idea/modules/-154431554/my-app.expo-sharing.iml" />
@@ -24,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1533296278/my-app.expo-structured-headers.iml" filepath="$PROJECT_DIR$/.idea/modules/1533296278/my-app.expo-structured-headers.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-996036180/my-app.expo-updates.iml" filepath="$PROJECT_DIR$/.idea/modules/-996036180/my-app.expo-updates.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-312745840/my-app.invertase_react-native-apple-authentication.iml" filepath="$PROJECT_DIR$/.idea/modules/-312745840/my-app.invertase_react-native-apple-authentication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-225555911/my-app.lottie-react-native.iml" filepath="$PROJECT_DIR$/.idea/modules/-225555911/my-app.lottie-react-native.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1687531456/my-app.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/1687531456/my-app.react-native-async-storage_async-storage.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1032715628/my-app.react-native-community_datetimepicker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1032715628/my-app.react-native-community_datetimepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/699593035/my-app.react-native-community_google-signin.iml" filepath="$PROJECT_DIR$/.idea/modules/699593035/my-app.react-native-community_google-signin.iml" />
@@ -60,7 +63,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1757687597/my-app.unimodules-file-system-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-2071331500/my-app.unimodules-font-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/66583370/my-app.unimodules-image-loader-interface.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2117047076/my-app.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/2117047076/my-app.unimodules-permissions-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/-703511268/my-app.unimodules-react-native-adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-519301012/my-app.unimodules-sensors-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1683185174/my-app.unimodules-task-manager-interface.iml" />
