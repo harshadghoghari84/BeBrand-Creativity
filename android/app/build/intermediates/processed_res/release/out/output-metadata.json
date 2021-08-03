@@ -15,9 +15,21 @@
           "value": "x86_64"
         }
       ],
-      "versionCode": 4194321,
+      "versionCode": 4194324,
       "versionName": "1.1.9",
       "outputFile": "resources-x86_64Release.ap_"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "versionCode": 3145748,
+      "versionName": "1.1.9",
+      "outputFile": "resources-arm64-v8aRelease.ap_"
     },
     {
       "type": "ONE_OF_MANY",
@@ -27,7 +39,7 @@
           "value": "armeabi-v7a"
         }
       ],
-      "versionCode": 1048593,
+      "versionCode": 1048596,
       "versionName": "1.1.9",
       "outputFile": "resources-armeabi-v7aRelease.ap_"
     },
@@ -39,21 +51,9 @@
           "value": "x86"
         }
       ],
-      "versionCode": 2097169,
+      "versionCode": 2097172,
       "versionName": "1.1.9",
       "outputFile": "resources-x86Release.ap_"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "arm64-v8a"
-        }
-      ],
-      "versionCode": 3145745,
-      "versionName": "1.1.9",
-      "outputFile": "resources-arm64-v8aRelease.ap_"
     }
   ]
 }
