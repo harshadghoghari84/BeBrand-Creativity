@@ -48,9 +48,9 @@ export default {
     },
   ],
 
-  // serverUrl: "http://192.168.0.222:5000/gql",
+  serverUrl: "http://192.168.0.222:5001/gql",
   // serverUrl: "https://api.branddot.in/gql",
-  serverUrl: "https://admin.branddot.in/gql",
+  // serverUrl: "https://admin.branddot.in/gql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
@@ -116,6 +116,7 @@ export default {
   navSignOut: "logOut",
   navWebView: "WebView",
   navReferandEarn: "Refer and Earn",
+  navShareandEarn: "Share and Earn",
 
   // titles
   titHome: "Home",

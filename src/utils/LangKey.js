@@ -4,6 +4,7 @@ module.exports = {
   titleBePremium: "titleBePremium",
   titleRateUs: "titleRateUs",
   titleShareApp: "titleShareApp",
+  titleShareAndEarn: "titleShareAndEarn",
   titleReportIssue: "titleReportIssue",
   titleAccount: "titleAccount",
   titleFavourite: "titleFavourite",
@@ -106,6 +107,7 @@ module.exports = {
   labSocialMediaId: "labSocialMediaId",
   labWebsite: "labWebsite",
   txtSave: "txtSave",
+  genRefCode: "genRefCode",
   errUserName: "errUserName",
 
   personalUserNameErr: "personalUserNameErr",

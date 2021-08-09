@@ -14,6 +14,7 @@
   "titlePostProfile": "Post Profile",
   "titleWhatsAppUpdates": "WhatsApp Updates",
   "titReferandEarn": "Refer & Earn",
+  "titleShareAndEarn": "Share & Earn",
   "titLegal": "Legal",
   "titSignOut": "Sign Out",
   "titSignIn": "Sign In",
@@ -147,6 +148,7 @@
   "FontColor":"Font color",
   "labProfileImageSize":"Max. upload file size : 2 MB",
   "labWatchAds":"Watch ads",
+  "genRefCode":"Genrate Reffer Code",
 
   "nolayout":"Please enter all required details to get this layout.",
   "nolayoutBussiness":"Please enter all required details to get this layout.",

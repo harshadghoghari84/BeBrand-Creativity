@@ -80,6 +80,31 @@ export default {
       updateAnltData(imperssion: $imperssion, view: $view)
     }
   `,
+  generateRefCode: gql`
+    mutation {
+      generateRefCode
+    }
+  `,
+  addRefCode: gql`
+    mutation addRefCode($refCode: String!) {
+      addRefCode(refCode: $refCode) {
+        id
+        startDesignCredit
+        currentDesignCredit
+        price
+        purchaseDate
+        expiryDate
+        package {
+          id
+          name
+          type
+          image {
+            url
+          }
+        }
+      }
+    }
+  `,
   userSignupSocial: gql`
     mutation userSignupSocial($token: String!) {
       userSignupSocial(token: $token) {
@@ -274,6 +299,20 @@ export default {
             expiryDate
           }
         }
+      }
+    }
+  `,
+  referralPackages: gql`
+    query ($start: Int!) {
+      referralPackages(start: $start) {
+        id
+        refUser {
+          id
+          name
+          mobile
+        }
+        status
+        createdAt
       }
     }
   `,
@@ -765,7 +804,6 @@ export default {
   `,
   initPerchasedPackages: gql`
     query perchasedPackages($start: Int!) {
-      totalperchasedPackages
       perchasedPackages(start: $start) {
         id
         startDesignCredit
@@ -844,6 +882,27 @@ export default {
       addOrder(packageId: $packageId)
     }
   `,
+  activateRefferal: gql`
+    mutation ($id: ID!) {
+      activateRefferal(id: $id) {
+        id
+        startDesignCredit
+        currentDesignCredit
+        price
+        purchaseDate
+        expiryDate
+        package {
+          id
+          name
+          type
+          image {
+            url
+          }
+        }
+      }
+    }
+  `,
+
   updateWhatsappInfo: gql`
     mutation ($whatsappNo: String!, $isUpdateEnable: Boolean!) {
       updateWhatsappInfo(

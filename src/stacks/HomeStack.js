@@ -12,13 +12,10 @@ import UserProfile from "../screens/user_profile";
 import ProfileUser from "../screens/ProfileUser";
 import WebViews from "../components/WebViews";
 import Notification from "../screens/Notification";
-import Packages from "../screens/pacakges/Packages";
-import MyTabs from "../screens/pacakges";
-import Otp from "../screens/Otp";
-import ReferAndEarn from "../screens/ReferAndEarn";
 import PremiumPkg from "../screens/pacakges/PremiumPkg";
 import PremiumPkgIos from "../screens/pacakges/PremiumPkgIos";
 import ViewMoreDesign from "../screens/home/ViewMoreDesign";
+import ShareAndEarn from "../screens/ShareAndEarn";
 
 const HomeStack = createStackNavigator();
 
@@ -210,15 +207,16 @@ const HomeStackComponent = ({ navigation }) => {
         }}
       />
       <HomeStack.Screen
-        name={Constant.navReferandEarn}
-        component={ReferAndEarn}
+        name={Constant.navShareandEarn}
+        component={ShareAndEarn}
         options={{
           header: (props) => (
             <CustomHeader
               isBackVisible={true}
               // menu={true}
               empty={true}
-              ScreenTitle={"Reffer & Earn"}
+              isShadow={true}
+              ScreenTitle={"Share & Earn"}
               {...props}
             />
           ),
