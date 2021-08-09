@@ -79,6 +79,7 @@ class DesignStore {
       errorPolicy: "all",
     })
       .then(({ data, error }) => {
+        console.log("data  : : :: ", data);
         this.hdLoading = false;
 
         if (data) {

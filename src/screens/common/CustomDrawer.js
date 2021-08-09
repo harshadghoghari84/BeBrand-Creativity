@@ -56,15 +56,10 @@ class CustomDrawer extends Component {
   render() {
     const user = toJS(this.props.userStore.user);
 
-    const startDesignCreditFree = toJS(
-      this.props.userStore.startFreeDesignCredit
-    );
     const startDesignCreditPro = toJS(
       this.props.userStore.startProDesignCredit
     );
-    const currentDesignCreditFree = toJS(
-      this.props.userStore.currentFreeDesignCredit
-    );
+
     const currentDesignCreditPro = toJS(
       this.props.userStore.currentProDesignCredit
     );
@@ -323,7 +318,10 @@ class CustomDrawer extends Component {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => Common.onShare()}
+                onPress={() => {
+                  this.props.navigation.navigate(Constant.navShareandEarn);
+                  // Common.onShare()
+                }}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -343,7 +341,7 @@ class CustomDrawer extends Component {
                     color: this.getColor(false),
                   }}
                 >
-                  {Common.getTranslation(LangKey.titleShareApp)}
+                  {Common.getTranslation(LangKey.titleShareAndEarn)}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -352,8 +350,8 @@ class CustomDrawer extends Component {
                   flexDirection: "row",
                   alignItems: "center",
                   paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Color.dividerColor,
+                  // borderBottomWidth: 1,
+                  // borderBottomColor: Color.dividerColor,
                 }}
               >
                 <View style={{ paddingHorizontal: 30 }}>
@@ -376,34 +374,36 @@ class CustomDrawer extends Component {
             <View>
               {this.props.userStore.user !== null && (
                 <View>
-                  {/* <TouchableOpacity
-                    onPress={() =>
-                      this.setState({ modalVisibleforreffer: true })
-                    }
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingVertical: 10,
-                      borderBottomWidth: 1,
-                      borderBottomColor: Color.dividerColor,
-                    }}
-                  >
-                    <View style={{ paddingHorizontal: 30 }}>
-                      <Icon
-                        name="reffer"
-                        fill={this.getColor(false)}
-                        height={20}
-                        width={20}
-                      />
-                    </View>
-                    <Text
+                  {this.props.userStore.user?.parentRefCode == null && (
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.setState({ modalVisibleforreffer: true })
+                      }
                       style={{
-                        color: this.getColor(false),
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: Color.dividerColor,
                       }}
                     >
-                      {Common.getTranslation(LangKey.titleAddReffercode)}
-                    </Text>
-                  </TouchableOpacity> */}
+                      <View style={{ paddingHorizontal: 30 }}>
+                        <Icon
+                          name="reffer"
+                          fill={this.getColor(false)}
+                          height={20}
+                          width={20}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          color: this.getColor(false),
+                        }}
+                      >
+                        {Common.getTranslation(LangKey.titleAddReffercode)}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
                   <TouchableOpacity
                     onPress={() => {
                       if (this.state.Activated === Constant.titAccount) {
@@ -598,6 +598,38 @@ class CustomDrawer extends Component {
                   ) : null}
                 </View>
               )}
+              {/* <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate(Constant.navReferandEarn)
+                }
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 10,
+                  // borderBottomWidth: 1,
+                  // borderBottomColor: Color.dividerColor,
+                }}
+              >
+                <View style={{ paddingHorizontal: 30 }}>
+                  <Icon
+                    name="report"
+                    fill={this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    )}
+                    height={20}
+                    width={20}
+                  />
+                </View>
+                <Text
+                  style={{
+                    color: this.getColor(
+                      this.state.Activated === Constant.titLegal
+                    ),
+                  }}
+                >
+                  {Common.getTranslation(LangKey.titReferandEarn)}
+                </Text>
+              </TouchableOpacity> */}
               {this.props.userStore.user !== null && (
                 <TouchableOpacity
                   onPress={() => this.setState({ modalVisible: true })}
@@ -629,38 +661,6 @@ class CustomDrawer extends Component {
                 </TouchableOpacity>
               )}
 
-              {/* <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate(Constant.navReferandEarn)
-                }
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Color.dividerColor,
-                }}
-              >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="report"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titLegal
-                    )}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titLegal
-                    ),
-                  }}
-                >
-                  {Common.getTranslation(LangKey.titReferandEarn)}
-                </Text>
-              </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate(Constant.navWebView, {

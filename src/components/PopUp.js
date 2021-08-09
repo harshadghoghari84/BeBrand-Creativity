@@ -297,6 +297,12 @@ const PopUp = ({
       errorPolicy: "all",
     }
   );
+  const [addRefCode, { loading: adRefLoading }] = useMutation(
+    GraphqlQuery.addRefCode,
+    {
+      errorPolicy: "all",
+    }
+  );
 
   const onsubmit = () => {
     userRequestFeture({
@@ -1294,7 +1300,7 @@ const PopUp = ({
           <View style={styles.modalView}>
             <TouchableOpacity
               onPress={() => toggleVisible()}
-              style={styles.btnClose}
+              style={[styles.btnClose, { margin: 5 }]}
             >
               <ICON name="close" size={22} color={Color.darkBlue} />
             </TouchableOpacity>
@@ -1330,9 +1336,32 @@ const PopUp = ({
                 <Button
                   style={{ margin: 5 }}
                   normal={true}
-                  onPress={() => toggleVisible()}
+                  onPress={() => {
+                    addRefCode({ variables: { refCode: refferCode } }).then(
+                      ({ data, errors }) => {
+                        if (errors && errors !== null) {
+                          Common.showMessage(errors[0].message);
+                        }
+                        if (data && data?.addRefCode !== null) {
+                          console.log("addRefCode", data.addRefCode);
+                          const newUser = {
+                            ...user,
+                            designPackage: data.addRefCode
+                              ? data.addRefCode
+                              : user.designPackage,
+                          };
+                          userStore.setUser(newUser);
+                          toggleVisible();
+                        }
+                      }
+                    );
+                  }}
                 >
-                  {Common.getTranslation(LangKey.labSubmit)}
+                  {adRefLoading ? (
+                    <ActivityIndicator color={Color.white} />
+                  ) : (
+                    Common.getTranslation(LangKey.labSubmit)
+                  )}
                 </Button>
               </View>
             </View>

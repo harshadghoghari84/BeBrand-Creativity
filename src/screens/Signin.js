@@ -309,6 +309,7 @@ const SignInScreen = ({ userStore }) => {
         if (data != null) {
           data?.userLogin?.msg && Common.showMessage(data.userLogin.msg);
           // set user to userStore
+          console.log("data?.userLogin?.user", data?.userLogin?.user);
           data?.userLogin?.user && userStore.setUser(data.userLogin.user);
 
           AsyncStorage.setItem(

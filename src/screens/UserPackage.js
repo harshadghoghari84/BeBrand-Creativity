@@ -48,6 +48,9 @@ const UserPackage = ({ navigation, designStore }) => {
         setTotalPerchasedPackages(data.totalPerchasedPackages);
     }
   }, [data]);
+  useEffect(() => {
+    console.log("perchasedPackages", perchasedPackages);
+  }, [perchasedPackages]);
 
   // key extractors
   const keyExtractor = useCallback((item) => item.id.toString(), []);

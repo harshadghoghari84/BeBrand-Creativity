@@ -820,11 +820,11 @@ const Home = ({ navigation, designStore, userStore }) => {
   };
 
   const bottom = [
-    { icon: "postprofile" },
-    { icon: "design" },
-    { icon: "package" },
-    { icon: "notification" },
-    { icon: "language" },
+    { icon: "postprofile", tit: "Profile" },
+    { icon: "design", tit: "Design" },
+    { icon: "package", tit: "Package" },
+    { icon: "notification", tit: "Notification" },
+    { icon: "language", tit: "Language" },
   ];
 
   const toggleVisibleLanguage = () => {
@@ -910,6 +910,15 @@ const Home = ({ navigation, designStore, userStore }) => {
                           height={22}
                           width={22}
                         />
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            fontFamily: "Nunito-Regular",
+                            paddingTop: 5,
+                          }}
+                        >
+                          {item.tit}
+                        </Text>
                       </TouchableOpacity>
                     }
                     // arrowShift={0.5}
@@ -983,6 +992,15 @@ const Home = ({ navigation, designStore, userStore }) => {
                       height={22}
                       width={22}
                     />
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        fontFamily: "Nunito-Regular",
+                        paddingTop: 5,
+                      }}
+                    >
+                      {item.tit}
+                    </Text>
                     {item.icon === "notification" && (
                       <>
                         {isNewNotification && (
