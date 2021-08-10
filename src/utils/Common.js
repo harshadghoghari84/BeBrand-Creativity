@@ -14,6 +14,9 @@ import Share from "react-native-share";
 import Constant from "./Constant";
 import { image1 } from "../assets/img/ImageBase64";
 
+import user from "../mobx/UserStore";
+import UserStore from "../mobx/UserStore";
+
 const useIsMountedRef = () => {
   const isMountedRef = useRef(null);
   useEffect(() => {
@@ -80,18 +83,23 @@ const showMessage = (message) => {
     : Alert.alert(message);
 };
 
-const onShare = async () => {
+const onShare = async (val) => {
+  let refcode = "";
+  if (val) {
+    refcode = `Social media design in a single click ? Use my code : ${val} & Get Premium Design FREE !!!`;
+  } else {
+    refcode = Constant.whatsAppShareMsg;
+  }
+
   const options = {
     title: "App link",
-    message: `${Constant.whatsAppShareMsg}\n Apple : ${Constant.titAppleIdForAppStore}\n Android : ${Constant.androidPlaystoreLink}`,
+    message: `${refcode}\nApple : ${Constant.titAppleIdForAppStore}\n Android : ${Constant.androidPlaystoreLink} \n`,
     url: image1,
   };
   try {
-    const result = await Share.open(options);
-
-    console.log("result", result);
+    await Share.open(options);
   } catch (error) {
-    showMessage(error.message);
+    // showMessage(error.message);
   }
 };
 

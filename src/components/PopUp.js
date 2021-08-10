@@ -50,6 +50,8 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgCss } from "react-native-svg";
+import SvgConstant from "../utils/SvgConstant";
 
 const { height, width } = Dimensions.get("screen");
 
@@ -1297,13 +1299,13 @@ const PopUp = ({
         )}
 
         {reffer && (
-          <View style={styles.modalView}>
-            <TouchableOpacity
+          <View style={[styles.modalView, { height: 300, width: "90%" }]}>
+            {/* <TouchableOpacity
               onPress={() => toggleVisible()}
               style={[styles.btnClose, { margin: 5 }]}
             >
               <ICON name="close" size={22} color={Color.darkBlue} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View
               style={{
                 flex: 1,
@@ -1311,30 +1313,30 @@ const PopUp = ({
                 justifyContent: "center",
               }}
             >
+              <SvgCss xml={SvgConstant.invite} width="50%" height={200} />
               <TextInput
                 placeholder={Common.getTranslation(LangKey.titleAddReffercode)}
                 placeholderTextColor={Color.grey}
-                multiline={true}
                 value={refferCode}
                 onChangeText={(val) => setRefferCode(val)}
                 style={{
                   // flex: 1,
-                  height: 50,
+                  height: 40,
                   width: "90%",
                   borderRadius: 10,
                   paddingHorizontal: 20,
+
                   backgroundColor: Color.txtInBgColor,
                 }}
               />
               <View
                 style={{
-                  marginTop: 20,
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: "space-evenly",
+                  width: "90%",
                 }}
               >
                 <Button
-                  style={{ margin: 5 }}
                   normal={true}
                   onPress={() => {
                     addRefCode({ variables: { refCode: refferCode } }).then(
@@ -1346,12 +1348,13 @@ const PopUp = ({
                           console.log("addRefCode", data.addRefCode);
                           const newUser = {
                             ...user,
+                            parentRefCode:refferCode,
                             designPackage: data.addRefCode
                               ? data.addRefCode
                               : user.designPackage,
                           };
                           userStore.setUser(newUser);
-                          toggleVisible();
+                          toggleVisible(true);
                         }
                       }
                     );
@@ -1362,6 +1365,14 @@ const PopUp = ({
                   ) : (
                     Common.getTranslation(LangKey.labSubmit)
                   )}
+                </Button>
+                <Button
+                  normal={true}
+                  onPress={() => {
+                    toggleVisible();
+                  }}
+                >
+                  Cancel
                 </Button>
               </View>
             </View>

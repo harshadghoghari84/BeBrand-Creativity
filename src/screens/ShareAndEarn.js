@@ -2,181 +2,160 @@ import { useMutation, useQuery } from "@apollo/client";
 import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+import FastImage from "react-native-fast-image";
 import { FlatList } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native-paper";
+import { SvgCss } from "react-native-svg";
 import Button from "../components/Button";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
+import Constant from "../utils/Constant";
 import GraphqlQuery from "../utils/GraphqlQuery";
 import LangKey from "../utils/LangKey";
+import SvgConstant from "../utils/SvgConstant";
 
-const ShareAndEarn = ({ userStore }) => {
+const ShareAndEarn = ({ navigation, userStore }) => {
   const user = toJS(userStore.user);
-  const [refCode, setRefCode] = useState("");
-  const [refPkg, setRefPkg] = useState([]);
-  const { loading, data, error } = useQuery(GraphqlQuery.referralPackages, {
-    variables: { start: 0 },
-    errorPolicy: "all",
-    fetchPolicy: "no-cache",
-  });
-  const [generateRefCode] = useMutation(GraphqlQuery.generateRefCode, {
-    errorPolicy: "all",
-    fetchPolicy: "no-cache",
-  });
-  const [activateRefferal, { loading: actvRefLoad }] = useMutation(
-    GraphqlQuery.activateRefferal,
-    {
-      errorPolicy: "all",
-      fetchPolicy: "no-cache",
-    }
-  );
-  useEffect(() => {
-    if (data && data?.referralPackages !== null) {
-      console.log("data :", data);
-      setRefPkg(data.referralPackages);
-    }
-    if (error && error !== null) {
-      console.log("error :", error);
-    }
-  }, [data, error, refPkg]);
-  useEffect(() => {
-    console.log("refPkg  : : : ", refPkg);
-  }, [refPkg]);
+  // const [refCode, setRefCode] = useState("");
+  // const [refPkg, setRefPkg] = useState([]);
+  // const { loading, data, error } = useQuery(GraphqlQuery.referralPackages, {
+  //   variables: { start: 0 },
+  //   errorPolicy: "all",
+  //   fetchPolicy: "no-cache",
+  // });
+  // const [generateRefCode] = useMutation(GraphqlQuery.generateRefCode, {
+  //   errorPolicy: "all",
+  //   fetchPolicy: "no-cache",
+  // });
+  // const [activateRefferal, { loading: actvRefLoad }] = useMutation(
+  //   GraphqlQuery.activateRefferal,
+  //   {
+  //     errorPolicy: "all",
+  //     fetchPolicy: "no-cache",
+  //   }
+  // );
+  // useEffect(() => {
+  //   if (data && data?.referralPackages !== null) {
+  //     console.log("data :", data);
+  //     setRefPkg(data.referralPackages);
+  //   }
+  //   if (error && error !== null) {
+  //     console.log("error :", error);
+  //   }
+  // }, [data, error, refPkg]);
+  // useEffect(() => {
+  //   console.log("refPkg  : : : ", refPkg);
+  // }, [refPkg]);
   return (
     <View style={{ flex: 1, backgroundColor: Color.white }}>
-      {user && user !== null ? (
-        <>
-          {!user.refCode ? (
-            <Button
-              normal={true}
-              onPress={() => {
-                generateRefCode()
-                  .then(({ data, errors }) => {
-                    if (data && data?.generateRefCode !== null) {
-                      console.log("data", data.generateRefCode);
-                      setRefCode(data.generateRefCode);
-                    }
-                    if (errors && errors !== null) {
-                      Common.showMessage(errors[0].message);
-                      console.log("errors", errors[0].message);
-                    }
-                  })
-
-                  .catch((err) => console.log("err", err));
-              }}
-            >
-              {Common.getTranslation(LangKey.genRefCode)}
-            </Button>
-          ) : (
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
-              <Text>{`your Reffer Code : ${
-                refCode && refCode !== null ? refCode : user?.refCode
-              }`}</Text>
-              <Button normal={true} onPress={() => Common.onShare()}>
-                {Common.getTranslation(LangKey.txtShare)}
-              </Button>
-            </View>
-          )}
-          <FlatList
-            bounces={false}
-            data={refPkg}
-            contentContainerStyle={{ flex: 1 }}
-            renderItem={({ item, index }) => {
-              return (
-                <View style={[styles.fltContainer]}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    <Text style={styles.txtlable}>
-                      {item?.refUser?.name !== null
-                        ? item.refUser.name
-                        : item.refUser.mobile}
-                    </Text>
-
-                    <TouchableOpacity
-                      activeOpacity={0.6}
-                      style={styles.discountView}
-                      onPress={() => {
-                        activateRefferal({
-                          variables: { id: item.id },
-                        }).then(({ data, errors }) => {
-                          if (data && data.activateRefferal !== null) {
-                            const newUser = {
-                              ...user,
-                              designPackage: data.activateRefferal
-                                ? data.activateRefferal
-                                : user.designPackage,
-                            };
-                            userStore.setUser(newUser);
-                            refPkg.splice(index, 1);
-                            setRefPkg(refPkg);
-                          }
-                          if (errors && errors !== null) {
-                            Common.showMessage(errors[0].message);
-                            console.log("errors", errors[0].message);
-                          }
-                        });
-                      }}
-                    >
-                      <Text style={styles.txtdiscount}>
-                        {actvRefLoad ? (
-                          <ActivityIndicator color={Color.white} />
-                        ) : (
-                          "Activate"
-                        )}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, backgroundColor: Color.white }}
+      >
+        <SvgCss
+          xml={SvgConstant.invite}
+          width="100%"
+          height={250}
+          style={{ marginTop: 10 }}
+        />
+        <View style={{ alignSelf: "center" }}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "Nunito-Regular",
+              marginTop: 20,
             }}
-          />
-        </>
-      ) : (
-        <View
+          >
+            Invitw your friends to brand Dot & get
+          </Text>
+          <View style={{ paddingVertical: 20 }}>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Unlimited premium Design
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: "Nunito-Regular",
+              }}
+            >
+              (5 design per share)
+            </Text>
+          </View>
+          <Text
+            style={{
+              textAlign: "center",
+
+              fontFamily: "Nunito-Regular",
+            }}
+          >
+            And your friends also gets 5 premium
+          </Text>
+          {/* <Text
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
+            textAlign: "center",
+            fontSize: 18,
+            color: Color.primary,
           }}
         >
-          <Button normal={true} onPress={() => Common.onShare()}>
-            {Common.getTranslation(LangKey.txtShare)}
-          </Button>
+          Know more
+        </Text> */}
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 30,
+              fontWeight: "bold",
+              paddingVertical: 20,
+            }}
+          >
+            Max share.Max design
+          </Text>
         </View>
-      )}
-
-      {/* <Button
-        normal={true}
-        onPress={() => {
-          generateRefCode()
-            .then(({ data, errors }) => {
-              if (data && data?.generateRefCode !== null) {
-                console.log("data", data);
-              }
-              if (errors && errors !== null) {
-                console.log("errors", errors[0].message);
-                Common.showMessage(errors[0].message);
-              }
-            })
-
-            .catch((err) => console.log("err", err));
+      </ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-evenly",
         }}
       >
-        {Common.getTranslation(LangKey.genRefCode)}
-      </Button> */}
+        <Button
+          normal={true}
+          onPress={() => Common.onShare(user?.refCode && user.refCode)}
+        >
+          Invite friends
+        </Button>
+        {user && user !== null ? (
+          <Button
+            normal={true}
+            onPress={() => {
+              navigation.navigate(Constant.navMyReward);
+            }}
+          >
+            My Reward
+          </Button>
+        ) : null}
+      </View>
+      <SafeAreaView
+        style={{
+          flex: 0,
+          backgroundColor: Color.white,
+        }}
+      />
     </View>
   );
 };
