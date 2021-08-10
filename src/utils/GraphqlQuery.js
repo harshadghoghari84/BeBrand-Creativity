@@ -105,6 +105,11 @@ export default {
       }
     }
   `,
+  totalReferralPackages: gql`
+    query totalReferralPackages($onlyActive: Boolean!) {
+      totalReferralPackages(onlyActive: $onlyActive)
+    }
+  `,
   userSignupSocial: gql`
     mutation userSignupSocial($token: String!) {
       userSignupSocial(token: $token) {

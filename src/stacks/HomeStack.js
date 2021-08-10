@@ -16,6 +16,7 @@ import PremiumPkg from "../screens/pacakges/PremiumPkg";
 import PremiumPkgIos from "../screens/pacakges/PremiumPkgIos";
 import ViewMoreDesign from "../screens/home/ViewMoreDesign";
 import ShareAndEarn from "../screens/ShareAndEarn";
+import MyReward from "../screens/MyReward";
 
 const HomeStack = createStackNavigator();
 
@@ -217,6 +218,22 @@ const HomeStackComponent = ({ navigation }) => {
               empty={true}
               isShadow={true}
               ScreenTitle={"Share & Earn"}
+              {...props}
+            />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.navMyReward}
+        component={MyReward}
+        options={{
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              // menu={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={Constant.navMyReward}
               {...props}
             />
           ),

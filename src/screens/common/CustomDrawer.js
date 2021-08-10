@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 
-import { ProgressBar } from "react-native-paper";
+import { ActivityIndicator, ProgressBar } from "react-native-paper";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
@@ -25,117 +25,79 @@ import PopUp from "../../components/PopUp";
 import Common from "../../utils/Common";
 import Ratings from "../../utils/ratings";
 import LangKey from "../../utils/LangKey";
-import { StackActions } from "@react-navigation/routers";
+import Button from "../../components/Button";
+import { useMutation } from "@apollo/client";
+import GraphqlQuery from "../../utils/GraphqlQuery";
 
-class CustomDrawer extends Component {
-  state = {
-    isSelected: false,
-    Activated: Constant.titAccount,
-    modalVisible: false,
-    modalVisibleforRating: false,
-    modalVisibleforreffer: false,
-    toggleVisibleImproved: false,
-  };
+const CustomDrawer = ({ navigation, userStore }) => {
+  const user = toJS(userStore.user);
 
-  toggleVisible = () => {
-    this.setState({ modalVisible: !this.state.modalVisible });
+  const [Activated, setActivated] = useState(Constant.titAccount);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleforRating, setModalVisibleforRating] = useState(false);
+  const [modalVisibleforreffer, setModalVisibleforreffer] = useState(false);
+  const [toggleVisibleImproved, setToggleVisibleImproved] = useState(false);
+  const [refCode, setRefCode] = useState("");
+
+  const toggleVisible = () => {
+    setModalVisible(!modalVisible);
   };
-  toggleVisibleforreffer = () => {
-    this.setState({ modalVisibleforreffer: !this.state.modalVisibleforreffer });
+  const toggleVisibleforreffer = (val) => {
+    setModalVisibleforreffer(!modalVisibleforreffer);
   };
-  toggleVisibleforRating = () => {
-    this.setState({ modalVisibleforRating: !this.state.modalVisibleforRating });
+  const toggleVisibleforRating = () => {
+    setModalVisibleforRating(!modalVisibleforRating);
   };
-  toggleVisibleforImprove = () => {
-    this.setState({ toggleVisibleImproved: !this.state.toggleVisibleImproved });
+  const toggleVisibleforImprove = () => {
+    setToggleVisibleImproved(!toggleVisibleImproved);
   };
-  getColor = (val) => {
+  const getColor = (val) => {
     return val == true ? Color.primary : Color.grey;
   };
 
-  render() {
-    const user = toJS(this.props.userStore.user);
+  const startDesignCreditPro = toJS(userStore.startProDesignCredit);
 
-    const startDesignCreditPro = toJS(
-      this.props.userStore.startProDesignCredit
-    );
+  const currentDesignCreditPro = toJS(userStore.currentProDesignCredit);
+  const calculate = 100 - (currentDesignCreditPro * 100) / startDesignCreditPro;
+  const progressLimit = calculate / 100;
 
-    const currentDesignCreditPro = toJS(
-      this.props.userStore.currentProDesignCredit
-    );
-    const calculate =
-      100 - (currentDesignCreditPro * 100) / startDesignCreditPro;
-    const progressLimit = calculate / 100;
-
-    return (
-      <View style={styles.container}>
-        <PopUp
-          visible={this.state.modalVisible}
-          toggleVisible={this.toggleVisible}
-          wpNum={user?.whatsappNo && user.whatsappNo}
-          toggle={true}
-        />
-        <PopUp
-          visible={this.state.modalVisibleforreffer}
-          toggleVisible={this.toggleVisibleforreffer}
-          reffer={true}
-        />
-        <PopUp
-          visible={this.state.toggleVisibleImproved}
-          toggleVisible={this.toggleVisibleforImprove}
-          other={true}
-        />
-        <Modal
-          transparent={true}
-          visible={this.state.modalVisibleforRating}
-          animationType="slide"
-          onRequestClose={() => this.toggleVisibleforRating()}
-        >
-          <View style={styles.centeredView}>
-            <View
-              style={{
-                padding: 10,
-                backgroundColor: Color.white,
-                borderRadius: 20,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                marginHorizontal: 20,
-                minWidth: "80%",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => this.setState({ modalVisibleforRating: false })}
-                style={{
-                  width: 25,
-                  height: 25,
-                  margin: 10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "flex-end",
-
-                  borderRadius: 20,
-                }}
-              >
-                <ICON name="close" size={22} color={Color.darkBlue} />
-              </TouchableOpacity>
-              <Ratings
-                toggleforRating={this.toggleVisibleforRating}
-                toggleVisibleforImprove={this.toggleVisibleforImprove}
-              />
-            </View>
-          </View>
-        </Modal>
-
-        <View style={styles.container}>
-          <SafeAreaView
+  const [generateRefCode, { loading: genRefLoad }] = useMutation(
+    GraphqlQuery.generateRefCode,
+    {
+      errorPolicy: "all",
+      fetchPolicy: "no-cache",
+    }
+  );
+  return (
+    <View style={styles.container}>
+      <PopUp
+        visible={modalVisible}
+        toggleVisible={toggleVisible}
+        wpNum={user?.whatsappNo && user.whatsappNo}
+        toggle={true}
+      />
+      <PopUp
+        visible={modalVisibleforreffer}
+        toggleVisible={toggleVisibleforreffer}
+        reffer={true}
+      />
+      <PopUp
+        visible={toggleVisibleImproved}
+        toggleVisible={toggleVisibleforImprove}
+        other={true}
+      />
+      <Modal
+        transparent={true}
+        visible={modalVisibleforRating}
+        animationType="slide"
+        onRequestClose={() => toggleVisibleforRating()}
+      >
+        <View style={styles.centeredView}>
+          <View
             style={{
-              backgroundColor: Color.primary,
+              padding: 10,
+              backgroundColor: Color.white,
+              borderRadius: 20,
               shadowColor: "#000",
               shadowOffset: {
                 width: 0,
@@ -144,124 +106,248 @@ class CustomDrawer extends Component {
               shadowOpacity: 0.25,
               shadowRadius: 3.84,
               elevation: 5,
+              marginHorizontal: 20,
+              minWidth: "80%",
             }}
           >
-            <View style={styles.containerUserDetails}>
-              <FastImage
-                source={{
-                  uri: user?.userInfo?.personal?.image[0]?.url
-                    ? user.userInfo.personal?.image[0].url
-                    : Constant.dummyUserImage,
-                }}
-                style={{ height: 60, width: 60, borderRadius: 50 }}
-              />
-              <View style={styles.containerSubUserDetails}>
-                <Text style={styles.txtUserName}>
-                  {user?.name
-                    ? user.name
-                    : user?.userInfo?.personal?.name
-                    ? user.userInfo.personal.name
-                    : user?.userInfo?.business?.name
-                    ? user.userInfo.business.name
-                    : Constant.defUserName}
-                </Text>
-                {user?.designPackage &&
-                  user.designPackage !== null &&
-                  user.designPackage.length > 0 && (
-                    <View style={{ width: "80%" }}>
-                      <ProgressBar
-                        progress={Math.abs(progressLimit)}
-                        color={Color.white}
-                        style={{
-                          height: 7,
-                          marginTop: 5,
-                          borderRadius: 5,
-                          overflow: "hidden",
-                        }}
-                      />
-                    </View>
-                  )}
-              </View>
+            <TouchableOpacity
+              onPress={() => setModalVisibleforRating(false)}
+              style={{
+                width: 25,
+                height: 25,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+
+                borderRadius: 20,
+              }}
+            >
+              <ICON name="close" size={22} color={Color.darkBlue} />
+            </TouchableOpacity>
+            <Ratings
+              toggleforRating={toggleVisibleforRating}
+              toggleVisibleforImprove={toggleVisibleforImprove}
+            />
+          </View>
+        </View>
+      </Modal>
+
+      <View style={styles.container}>
+        <SafeAreaView
+          style={{
+            backgroundColor: Color.primary,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+        >
+          <View style={styles.containerUserDetails}>
+            <FastImage
+              source={{
+                uri: user?.userInfo?.personal?.image[0]?.url
+                  ? user.userInfo.personal?.image[0].url
+                  : Constant.dummyUserImage,
+              }}
+              style={{ height: 60, width: 60, borderRadius: 50 }}
+            />
+            <View style={styles.containerSubUserDetails}>
+              <Text style={styles.txtUserName}>
+                {user?.name
+                  ? user.name
+                  : user?.userInfo?.personal?.name
+                  ? user.userInfo.personal.name
+                  : user?.userInfo?.business?.name
+                  ? user.userInfo.business.name
+                  : Constant.defUserName}
+              </Text>
+              {user?.designPackage &&
+                user.designPackage !== null &&
+                user.designPackage.length > 0 && (
+                  <View style={{ width: "80%" }}>
+                    <ProgressBar
+                      progress={Math.abs(progressLimit)}
+                      color={Color.white}
+                      style={{
+                        height: 7,
+                        marginTop: 5,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                      }}
+                    />
+                  </View>
+                )}
             </View>
-          </SafeAreaView>
-          <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-            <View>
-              <TouchableOpacity
-                onPress={() =>
-                  // this.setState({ Activated: Constant.titHome }, () =>
-                  // )
-                  this.props.navigation.navigate(Constant.navHome)
-                }
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="home"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titHome
+          </View>
+          {user && user !== null && (
+            <>
+              {!user?.refCode ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    generateRefCode()
+                      .then(({ data, errors }) => {
+                        if (data && data?.generateRefCode !== null) {
+                          console.log("data", data.generateRefCode);
+                          setRefCode(data.generateRefCode);
+                          const newUser = {
+                            ...user,
+                            refCode: data.generateRefCode,
+                          };
+                          userStore.setUser(newUser);
+                        }
+                        if (errors && errors !== null) {
+                          Common.showMessage(errors[0].message);
+                          console.log("errors", errors[0].message);
+                        }
+                      })
+                      .catch((err) => console.log("err", err));
+                  }}
+                  style={{ alignSelf: "center", paddingVertical: 5 }}
+                >
+                  <Text
+                    style={{
+                      paddingHorizontal: 8,
+                      backgroundColor: Color.white,
+                      borderRadius: 10,
+                      overflow: "hidden",
+                    }}
+                  >
+                    {genRefLoad ? (
+                      <ActivityIndicator color={Color.white} />
+                    ) : (
+                      Common.getTranslation(LangKey.genRefCode)
                     )}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <View
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titHome
-                    ),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    paddingVertical: 5,
                   }}
                 >
-                  {Common.getTranslation(LangKey.titleHome)}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  // this.setState({ Activated: Constant.titPro }, () =>
-                  // )
-                  this.props.navigation.navigate(
-                    Platform.OS === "ios"
-                      ? Constant.titPrimiumIos
-                      : Constant.titPrimium
-                  )
-                }
+                  <Text>{`your Reffer Code : ${
+                    refCode && refCode !== null ? refCode : user?.refCode
+                  }`}</Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Common.onShare(user?.refCode && user.refCode)
+                    }
+                  >
+                    <Text
+                      style={{
+                        paddingHorizontal: 8,
+                        backgroundColor: Color.white,
+                        borderRadius: 10,
+                        overflow: "hidden",
+                      }}
+                    >
+                      {Common.getTranslation(LangKey.txtShare)}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </>
+          )}
+        </SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(Constant.navHome)}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="home"
+                  fill={getColor(Activated === Constant.titHome)}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Color.dividerColor,
+                  color: getColor(Activated === Constant.titHome),
                 }}
               >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="Premium"
-                    fill={this.getColor(
-                      // this.state.Activated === Constant.titPro
-                      true
-                    )}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
+                {Common.getTranslation(LangKey.titleHome)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(
+                  Platform.OS === "ios"
+                    ? Constant.titPrimiumIos
+                    : Constant.titPrimium
+                )
+              }
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: Color.dividerColor,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="Premium"
+                  fill={getColor(true)}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
+                style={{
+                  color: getColor(Activated === Constant.titPro),
+                }}
+              >
+                {Common.getTranslation(LangKey.titleBePremium)}
+              </Text>
+            </TouchableOpacity>
+            {user?.parentRefCode !== null ? null : (
+              <>
+                <TouchableOpacity
+                  onPress={() => setModalVisibleforreffer(true)}
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titPro
-                    ),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingVertical: 10,
+                    borderBottomWidth: 1,
+                    borderBottomColor: Color.dividerColor,
                   }}
                 >
-                  {Common.getTranslation(LangKey.titleBePremium)}
-                </Text>
-              </TouchableOpacity>
-              {/* <TouchableOpacity
+                  <View style={{ paddingHorizontal: 30 }}>
+                    <Icon
+                      name="reffer"
+                      fill={getColor(false)}
+                      height={20}
+                      width={20}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      color: getColor(false),
+                    }}
+                  >
+                    {Common.getTranslation(LangKey.titleAddReffercode)}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
+            {/* <TouchableOpacity
                 onPress={() =>
-                  this.setState({ Activated: Constant.titNotification }, () =>
-                    this.props.navigation.navigate(Constant.navNotification)
-                  )
+            {}
                 }
                 style={{
                   flexDirection: "row",
@@ -274,8 +360,8 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="notification"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titNotification
+                    fill={getColor(
+                      Activated === Constant.titNotification
                     )}
                     height={20}
                     width={20}
@@ -283,188 +369,158 @@ class CustomDrawer extends Component {
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titNotification
+                    color: getColor(
+                      Activated === Constant.titNotification
                     ),
                   }}
                 >
                   {Constant.titNotification}
                 </Text>
               </TouchableOpacity> */}
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => this.setState({ modalVisibleforRating: true })}
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisibleforRating(true)}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="rate"
+                  fill={getColor(false)}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
+                  color: getColor(false),
                 }}
               >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="rate"
-                    fill={this.getColor(false)}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: this.getColor(false),
-                  }}
-                >
-                  {Common.getTranslation(LangKey.titleRateUs)}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate(Constant.navShareandEarn);
-                  // Common.onShare()
-                }}
+                {Common.getTranslation(LangKey.titleRateUs)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Constant.navShareandEarn);
+                // Common.onShare()
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="share"
+                  fill={getColor(false)}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
+                  color: getColor(false),
                 }}
               >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="share"
-                    fill={this.getColor(false)}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: this.getColor(false),
-                  }}
-                >
-                  {Common.getTranslation(LangKey.titleShareAndEarn)}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => Common.openWhatsApp(Constant.whatsAppNumber, "")}
+                {Common.getTranslation(LangKey.titleShareAndEarn)}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Common.openWhatsApp(Constant.whatsAppNumber, "")}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+                // borderBottomWidth: 1,
+                // borderBottomColor: Color.dividerColor,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="report"
+                  fill={getColor(false)}
+                  height={20}
+                  width={20}
+                />
+              </View>
+              <Text
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                  // borderBottomWidth: 1,
-                  // borderBottomColor: Color.dividerColor,
+                  color: getColor(false),
                 }}
               >
-                <View style={{ paddingHorizontal: 30 }}>
-                  <Icon
-                    name="report"
-                    fill={this.getColor(false)}
-                    height={20}
-                    width={20}
-                  />
-                </View>
-                <Text
+                {Common.getTranslation(LangKey.titleReportIssue)}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            {user !== null && (
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (Activated === Constant.titAccount) {
+                      setActivated("");
+                    } else {
+                      setActivated(Constant.titAccount);
+                    }
+                  }}
                   style={{
-                    color: this.getColor(false),
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingVertical: 10,
+                    borderBottomWidth: 1,
+                    borderBottomColor: Color.dividerColor,
                   }}
                 >
-                  {Common.getTranslation(LangKey.titleReportIssue)}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              {this.props.userStore.user !== null && (
-                <View>
-                  {this.props.userStore.user?.parentRefCode == null && (
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.setState({ modalVisibleforreffer: true })
-                      }
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ paddingHorizontal: 30 }}>
+                      <Icon
+                        name="account"
+                        fill={getColor(false)}
+                        height={20}
+                        width={20}
+                      />
+                    </View>
+                    <Text
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingVertical: 10,
-                        borderBottomWidth: 1,
-                        borderBottomColor: Color.dividerColor,
+                        color: getColor(false),
                       }}
                     >
-                      <View style={{ paddingHorizontal: 30 }}>
-                        <Icon
-                          name="reffer"
-                          fill={this.getColor(false)}
-                          height={20}
-                          width={20}
-                        />
-                      </View>
-                      <Text
-                        style={{
-                          color: this.getColor(false),
-                        }}
-                      >
-                        {Common.getTranslation(LangKey.titleAddReffercode)}
-                      </Text>
-                    </TouchableOpacity>
+                      {Common.getTranslation(LangKey.titleAccount)}
+                    </Text>
+                  </View>
+                  {Activated === Constant.titAccount ? (
+                    <Icon
+                      name="up"
+                      height={15}
+                      width={15}
+                      fill={getColor(false)}
+                      style={{
+                        marginRight: 20,
+                      }}
+                    />
+                  ) : (
+                    <Icon
+                      name="down"
+                      height={15}
+                      width={15}
+                      fill={getColor(false)}
+                      style={{
+                        marginRight: 20,
+                      }}
+                    />
                   )}
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (this.state.Activated === Constant.titAccount) {
-                        this.setState({ Activated: "" });
-                      } else {
-                        this.setState({ Activated: Constant.titAccount });
-                      }
-                    }}
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      paddingVertical: 10,
-                      borderBottomWidth: 1,
-                      borderBottomColor: Color.dividerColor,
-                    }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={{ paddingHorizontal: 30 }}>
-                        <Icon
-                          name="account"
-                          fill={this.getColor(false)}
-                          height={20}
-                          width={20}
-                        />
-                      </View>
-                      <Text
-                        style={{
-                          color: this.getColor(false),
-                        }}
-                      >
-                        {Common.getTranslation(LangKey.titleAccount)}
-                      </Text>
-                    </View>
-                    {this.state.Activated === Constant.titAccount ? (
-                      <Icon
-                        name="up"
-                        height={15}
-                        width={15}
-                        fill={this.getColor(false)}
-                        style={{
-                          marginRight: 20,
-                        }}
-                      />
-                    ) : (
-                      <Icon
-                        name="down"
-                        height={15}
-                        width={15}
-                        fill={this.getColor(false)}
-                        style={{
-                          marginRight: 20,
-                        }}
-                      />
-                    )}
-                  </TouchableOpacity>
-                  {this.state.Activated === Constant.titAccount ? (
-                    <>
-                      {/* <TouchableOpacity
+                </TouchableOpacity>
+                {Activated === Constant.titAccount ? (
+                  <>
+                    {/* <TouchableOpacity
                         onPress={() =>
-                          this.props.navigation.navigate(
+                          navigation.navigate(
                             Constant.navProfileUser
                           )
                         }
@@ -477,8 +533,8 @@ class CustomDrawer extends Component {
                         <View style={{ paddingHorizontal: 30 }}>
                           <Icon
                             name="profile"
-                            fill={this.getColor(
-                              this.state.Activated === Constant.titProfile
+                            fill={getColor(
+                              Activated === Constant.titProfile
                             )}
                             height={20}
                             width={20}
@@ -486,121 +542,95 @@ class CustomDrawer extends Component {
                         </View>
                         <Text
                           style={{
-                            color: this.getColor(
-                              this.state.Activated === Constant.titProfile
+                            color: getColor(
+                              Activated === Constant.titProfile
                             ),
                           }}
                         >
                           {Common.getTranslation(LangKey.titleProfile)}
                         </Text>
                       </TouchableOpacity> */}
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.props.navigation.navigate(Constant.navProfile)
-                        }
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate(Constant.navProfile)}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                      }}
+                    >
+                      <View style={{ paddingHorizontal: 30 }}>
+                        <Icon
+                          name="postprofile"
+                          fill={getColor(Activated === Constant.titProfile)}
+                          height={20}
+                          width={20}
+                        />
+                      </View>
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          paddingVertical: 10,
+                          color: getColor(Activated === Constant.titProfile),
                         }}
                       >
-                        <View style={{ paddingHorizontal: 30 }}>
-                          <Icon
-                            name="postprofile"
-                            fill={this.getColor(
-                              this.state.Activated === Constant.titProfile
-                            )}
-                            height={20}
-                            width={20}
-                          />
-                        </View>
-                        <Text
-                          style={{
-                            color: this.getColor(
-                              this.state.Activated === Constant.titProfile
-                            ),
-                          }}
-                        >
-                          {Common.getTranslation(LangKey.titlePostProfile)}
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() =>
-                          // this.setState(
-                          //   { Activated: Constant.titPackage },
-                          //   () =>
-                          //   )
-                          this.props.navigation.navigate(Constant.navPackage)
-                        }
+                        {Common.getTranslation(LangKey.titlePostProfile)}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate(Constant.navPackage)}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                      }}
+                    >
+                      <View style={{ paddingHorizontal: 30 }}>
+                        <Icon
+                          name="package"
+                          fill={getColor(Activated === Constant.titPackage)}
+                          height={20}
+                          width={20}
+                        />
+                      </View>
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          paddingVertical: 10,
+                          color: getColor(Activated === Constant.titPackage),
                         }}
                       >
-                        <View style={{ paddingHorizontal: 30 }}>
-                          <Icon
-                            name="package"
-                            fill={this.getColor(
-                              this.state.Activated === Constant.titPackage
-                            )}
-                            height={20}
-                            width={20}
-                          />
-                        </View>
-                        <Text
-                          style={{
-                            color: this.getColor(
-                              this.state.Activated === Constant.titPackage
-                            ),
-                          }}
-                        >
-                          {Common.getTranslation(LangKey.titlePackage)}
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() =>
-                          // this.setState(
-                          //   { Activated: Constant.titDesigns },
-                          //   () =>
-                          //   )
-                          this.props.navigation.navigate(Constant.navDesigns)
-                        }
+                        {Common.getTranslation(LangKey.titlePackage)}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate(Constant.navDesigns)}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                        borderBottomWidth: 1,
+                        borderBottomColor: Color.dividerColor,
+                      }}
+                    >
+                      <View style={{ paddingHorizontal: 30 }}>
+                        <Icon
+                          name="design"
+                          fill={getColor(Activated === Constant.titDesigns)}
+                          height={20}
+                          width={20}
+                        />
+                      </View>
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          paddingVertical: 10,
-                          borderBottomWidth: 1,
-                          borderBottomColor: Color.dividerColor,
+                          color: getColor(Activated === Constant.titDesigns),
                         }}
                       >
-                        <View style={{ paddingHorizontal: 30 }}>
-                          <Icon
-                            name="design"
-                            fill={this.getColor(
-                              this.state.Activated === Constant.titDesigns
-                            )}
-                            height={20}
-                            width={20}
-                          />
-                        </View>
-                        <Text
-                          style={{
-                            color: this.getColor(
-                              this.state.Activated === Constant.titDesigns
-                            ),
-                          }}
-                        >
-                          {Common.getTranslation(LangKey.titleDesign)}
-                        </Text>
-                      </TouchableOpacity>
-                    </>
-                  ) : null}
-                </View>
-              )}
-              {/* <TouchableOpacity
+                        {Common.getTranslation(LangKey.titleDesign)}
+                      </Text>
+                    </TouchableOpacity>
+                  </>
+                ) : null}
+              </View>
+            )}
+            {/* <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate(Constant.navReferandEarn)
+                  navigation.navigate(Constant.navReferandEarn)
                 }
                 style={{
                   flexDirection: "row",
@@ -613,8 +643,8 @@ class CustomDrawer extends Component {
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
                     name="report"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titLegal
+                    fill={getColor(
+                      Activated === Constant.titLegal
                     )}
                     height={20}
                     width={20}
@@ -622,51 +652,17 @@ class CustomDrawer extends Component {
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titLegal
+                    color: getColor(
+                      Activated === Constant.titLegal
                     ),
                   }}
                 >
                   {Common.getTranslation(LangKey.titReferandEarn)}
                 </Text>
               </TouchableOpacity> */}
-              {this.props.userStore.user !== null && (
-                <TouchableOpacity
-                  onPress={() => this.setState({ modalVisible: true })}
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingVertical: 10,
-                  }}
-                >
-                  <View style={{ paddingHorizontal: 30 }}>
-                    <Icon
-                      name="whatsapp"
-                      fill={this.getColor(
-                        this.state.Activated === Constant.titWhatsAppUs
-                      )}
-                      height={20}
-                      width={20}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      color: this.getColor(
-                        this.state.Activated === Constant.titWhatsAppUs
-                      ),
-                    }}
-                  >
-                    {Common.getTranslation(LangKey.titleWhatsAppUpdates)}
-                  </Text>
-                </TouchableOpacity>
-              )}
-
+            {user !== null && (
               <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate(Constant.navWebView, {
-                    uri: "https://branddot.in/?page_id=559",
-                  })
-                }
+                onPress={() => setModalVisible(true)}
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -675,106 +671,127 @@ class CustomDrawer extends Component {
               >
                 <View style={{ paddingHorizontal: 30 }}>
                   <Icon
-                    name="legal"
-                    fill={this.getColor(
-                      this.state.Activated === Constant.titLegal
-                    )}
-                    height={22}
-                    width={22}
+                    name="whatsapp"
+                    fill={getColor(Activated === Constant.titWhatsAppUs)}
+                    height={20}
+                    width={20}
                   />
                 </View>
                 <Text
                   style={{
-                    color: this.getColor(
-                      this.state.Activated === Constant.titLegal
-                    ),
+                    color: getColor(Activated === Constant.titWhatsAppUs),
                   }}
                 >
-                  {Common.getTranslation(LangKey.titLegal)}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
-        <View>
-          <View
-            style={{ borderTopColor: Color.dividerColor, borderTopWidth: 1 }}
-          >
-            <Text
-              style={{
-                alignSelf: "center",
-                paddingVertical: 10,
-                color: Color.grey,
-              }}
-            >
-              {Common.getTranslation(LangKey.titMadeWithLoveInIndia)}
-            </Text>
-          </View>
-          <View style={styles.bottomDrawerSection}>
-            {user && user !== null ? (
-              <TouchableOpacity
-                onPress={() => {
-                  AsyncStorage.removeItem(Constant.prfUserToken);
-                  this.props.userStore.setUser(null);
-                }}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <View style={{ marginLeft: 30 }}>
-                  <Icon
-                    name="signout"
-                    fill={this.getColor(false)}
-                    height={22}
-                    width={22}
-                  />
-                </View>
-                <Text
-                  style={{
-                    paddingLeft: 30,
-                    color: this.getColor(false),
-                  }}
-                >
-                  {Common.getTranslation(LangKey.titSignOut)}
-                </Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate(Constant.navSignIn)
-                }
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <View style={{ marginLeft: 30 }}>
-                  <Icon
-                    name="signin"
-                    fill={this.getColor(false)}
-                    height={22}
-                    width={22}
-                  />
-                </View>
-                <Text
-                  style={{
-                    paddingLeft: 30,
-                    color: this.getColor(false),
-                  }}
-                >
-                  {Common.getTranslation(LangKey.titSignIn)}
+                  {Common.getTranslation(LangKey.titleWhatsAppUpdates)}
                 </Text>
               </TouchableOpacity>
             )}
+
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(Constant.navWebView, {
+                  uri: "https://branddot.in/?page_id=559",
+                })
+              }
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ paddingHorizontal: 30 }}>
+                <Icon
+                  name="legal"
+                  fill={getColor(Activated === Constant.titLegal)}
+                  height={22}
+                  width={22}
+                />
+              </View>
+              <Text
+                style={{
+                  color: getColor(Activated === Constant.titLegal),
+                }}
+              >
+                {Common.getTranslation(LangKey.titLegal)}
+              </Text>
+            </TouchableOpacity>
           </View>
+        </ScrollView>
+      </View>
+      <View>
+        <View style={{ borderTopColor: Color.dividerColor, borderTopWidth: 1 }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              paddingVertical: 10,
+              color: Color.grey,
+            }}
+          >
+            {Common.getTranslation(LangKey.titMadeWithLoveInIndia)}
+          </Text>
+        </View>
+        <View style={styles.bottomDrawerSection}>
+          {user && user !== null ? (
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.removeItem(Constant.prfUserToken);
+                userStore.setUser(null);
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ marginLeft: 30 }}>
+                <Icon
+                  name="signout"
+                  fill={getColor(false)}
+                  height={22}
+                  width={22}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingLeft: 30,
+                  color: getColor(false),
+                }}
+              >
+                {Common.getTranslation(LangKey.titSignOut)}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate(Constant.navSignIn)}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <View style={{ marginLeft: 30 }}>
+                <Icon
+                  name="signin"
+                  fill={getColor(false)}
+                  height={22}
+                  width={22}
+                />
+              </View>
+              <Text
+                style={{
+                  paddingLeft: 30,
+                  color: getColor(false),
+                }}
+              >
+                {Common.getTranslation(LangKey.titSignIn)}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 export default inject("userStore")(observer(CustomDrawer));
 
 const styles = StyleSheet.create({
