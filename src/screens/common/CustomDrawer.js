@@ -405,7 +405,12 @@ const CustomDrawer = ({ navigation, userStore }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate(Constant.navShareandEarn);
+                if (user && user !== null) {
+                  navigation.navigate(Constant.navShareandEarn);
+                } else {
+                  Common.showMessage("You have to login first!");
+                }
+
                 // Common.onShare()
               }}
               style={{

@@ -105,7 +105,7 @@ const ShareAndEarn = ({ navigation, userStore }) => {
           >
             And your friends also gets 5 premium
           </Text>
-          {/* <Text
+          <Text
           style={{
             textAlign: "center",
             fontSize: 18,
@@ -113,7 +113,7 @@ const ShareAndEarn = ({ navigation, userStore }) => {
           }}
         >
           Know more
-        </Text> */}
+        </Text>
           <Text
             style={{
               textAlign: "center",
