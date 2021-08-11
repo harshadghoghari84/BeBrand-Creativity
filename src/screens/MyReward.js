@@ -21,8 +21,8 @@ import GraphqlQuery from "../utils/GraphqlQuery";
 const MyReward = ({ userStore }) => {
   const user = toJS(userStore.user);
   const [refPkg, setRefPkg] = useState([]);
-  const [remPkg, setRemPkg] = useState("");
-  const [totPkg, setTotPkg] = useState("");
+  const [remPkg, setRemPkg] = useState(0);
+  const [totPkg, setTotPkg] = useState(0);
   const [ind, setInd] = useState(0);
   const [referralPackages, { loading, data, error }] = useLazyQuery(
     GraphqlQuery.referralPackages,
@@ -66,7 +66,7 @@ const MyReward = ({ userStore }) => {
       setRemPkg(rmTRefPkgData.totalReferralPackages);
     }
     if (rmTRefPkgError && rmTRefPkgError !== null) {
-      Common.showMessage(rmTRefPkgError.message);
+      console.log("rmTRefPkgError :", rmTRefPkgError);
     }
   }, [rmTRefPkgData, rmTRefPkgError]);
   useEffect(() => {
@@ -74,7 +74,7 @@ const MyReward = ({ userStore }) => {
       setTotPkg(TRefPkgData.totalReferralPackages);
     }
     if (TRefPkgError && TRefPkgError !== null) {
-      Common.showMessage(TRefPkgError.message);
+      console.log("TRefPkgError :", TRefPkgError);
     }
   }, [TRefPkgData, TRefPkgError]);
   useEffect(() => {
@@ -83,6 +83,7 @@ const MyReward = ({ userStore }) => {
       setRefPkg(data.referralPackages);
     }
     if (error && error !== null) {
+      Common.showMessage(error[0].message);
       console.log("error :", error);
     }
   }, [data, error, refPkg]);

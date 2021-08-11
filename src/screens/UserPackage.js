@@ -70,6 +70,8 @@ const UserPackage = ({ navigation, designStore }) => {
       perchasedPackages !== null &&
       perchasedPackages.length > 0 ? (
         <FlatList
+          bounces={false}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listDesign}
           data={perchasedPackages}
           keyExtractor={keyExtractor}
@@ -80,6 +82,10 @@ const UserPackage = ({ navigation, designStore }) => {
             curDate.setDate(curDate.getDate() + 365 * 10);
             const chkDate = curDate.getTime();
             const expDate = new Date(item.expiryDate).getTime();
+            const oneDay = 1000 * 60 * 60 * 24;
+            const difDays = expDate - new Date().getTime();
+            const totalDays = Math.round(difDays / oneDay);
+
             return (
               <View
                 style={{
@@ -201,13 +207,11 @@ const UserPackage = ({ navigation, designStore }) => {
                             "dd/MM/yyyy"
                           )}`}
                         </Text>
-                      ) : (
+                      ) : currantDate > expDate ||
+                        item.currentDesignCredit <= 0 ? null : (
                         <Text style={{ fontSize: 12, color: Color.grey }}>
                           {chkDate > expDate
-                            ? `Validity : ${format(
-                                new Date(item.expiryDate),
-                                "dd/MM/yyyy"
-                              )}`
+                            ? `Validity : ${totalDays} days`
                             : `${Common.getTranslation(LangKey.txtExpiredAt)}`}
                         </Text>
                       )}
