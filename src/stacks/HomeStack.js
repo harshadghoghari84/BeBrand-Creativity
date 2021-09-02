@@ -17,6 +17,7 @@ import PremiumPkgIos from "../screens/pacakges/PremiumPkgIos";
 import ViewMoreDesign from "../screens/home/ViewMoreDesign";
 import ShareAndEarn from "../screens/ShareAndEarn";
 import MyReward from "../screens/MyReward";
+import KnowMore from "../screens/KnowMore";
 
 const HomeStack = createStackNavigator();
 
@@ -234,6 +235,22 @@ const HomeStackComponent = ({ navigation }) => {
               empty={true}
               isShadow={true}
               ScreenTitle={Constant.navMyReward}
+              {...props}
+            />
+          ),
+        }}
+      />
+      <HomeStack.Screen
+        name={Constant.navKnowMore}
+        component={KnowMore}
+        options={{
+          header: (props) => (
+            <CustomHeader
+              isBackVisible={true}
+              // menu={true}
+              empty={true}
+              isShadow={true}
+              ScreenTitle={"How referral work ?"}
               {...props}
             />
           ),

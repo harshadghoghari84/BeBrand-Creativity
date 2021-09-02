@@ -49,8 +49,8 @@ export default {
   ],
 
   // serverUrl: "http://192.168.0.222:5001/gql",
-  serverUrl: "https://api.branddot.in/gql",
-  // serverUrl: "https://admin.branddot.in/gql",
+  // serverUrl: "https://api.branddot.in/gql",
+  serverUrl: "https://admin.branddot.in/gql",
 
   playStoreURL:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddottu&hl=en",
@@ -118,6 +118,7 @@ export default {
   navReferandEarn: "Refer and Earn",
   navShareandEarn: "Share and Earn",
   navMyReward: "My Reward",
+  navKnowMore: "Know More",
 
   // titles
   titHome: "Home",
@@ -257,7 +258,7 @@ export default {
   androidPlaystoreLink:
     "https://play.google.com/store/apps/details?id=com.bebrandd.branddot",
   whatsAppShareMsg:
-    "Hey, Want to create your brand designs in single click ?? Social media branding made easy with BrandDot, Check It out. Download Now and get your brand Designs free forever.",
+    "social media design for your business and personal branding in single click. download app and create your design now !!!",
   // pkg name
   titFree: "Free Forever",
   titPrimium: "Premium",

@@ -29,7 +29,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name="com.bebrandd.branddot.MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" android:theme="@style/SplashScreenTheme" android:screenOrientation="portrait">
+    <activity android:name="com.bebrandd.branddot.MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:theme="@style/SplashScreenTheme" android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>

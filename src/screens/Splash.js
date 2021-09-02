@@ -23,41 +23,41 @@ const Splash = ({ navigation, userStore, designStore }) => {
   const [appDetails, setAppDetails] = useState({});
   const [imgHeight, setImgHeight] = useState(0);
   const [imgWidth, setImgWidth] = useState(0);
-  // const toggleVisibleModal = () => {
-  //   setVisibleModal(!visibleModal);
-  //   if (visibleModal) {
-  //     navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-  //     Platform.OS === "android" && SplashScreen.hide();
-  //   }
-  // };
-  // const {
-  //   loading: load,
-  //   error,
-  //   data: vData,
-  // } = useQuery(GraphqlQuery.appVersionDetails);
+  const toggleVisibleModal = () => {
+    setVisibleModal(!visibleModal);
+    if (visibleModal) {
+      navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+      Platform.OS === "android" && SplashScreen.hide();
+    }
+  };
+  const {
+    loading: load,
+    error,
+    data: vData,
+  } = useQuery(GraphqlQuery.appVersionDetails);
 
-  // useEffect(() => {
-  //   if (chkUpdate) {
-  //     if (vData?.appDetail && vData?.appDetail !== null) {
-  //       designStore.setRatingTime(vData?.appDetail.ratingTime);
-  //       setAppDetails(vData?.appDetail);
-  //       setImgHeight(parseInt(vData?.appDetail?.height));
-  //       setImgWidth(parseInt(vData?.appDetail?.width));
+  useEffect(() => {
+    if (chkUpdate) {
+      if (vData?.appDetail && vData?.appDetail !== null) {
+        designStore.setRatingTime(vData?.appDetail.ratingTime);
+        setAppDetails(vData?.appDetail);
+        setImgHeight(parseInt(vData?.appDetail?.height));
+        setImgWidth(parseInt(vData?.appDetail?.width));
 
-  //       if (
-  //         DeviceInfo.getVersion() !==
-  //         (Platform.OS === "ios"
-  //           ? vData?.appDetail?.iosVersion
-  //           : vData?.appDetail?.androidVersion)
-  //       ) {
-  //         setVisibleModal(true);
-  //       } else {
-  //         navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-  //         Platform.OS === "android" && SplashScreen.hide();
-  //       }
-  //     }
-  //   }
-  // }, [vData, chkUpdate]);
+        if (
+          DeviceInfo.getVersion() !==
+          (Platform.OS === "ios"
+            ? vData?.appDetail?.iosVersion
+            : vData?.appDetail?.androidVersion)
+        ) {
+          setVisibleModal(true);
+        } else {
+          navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+          Platform.OS === "android" && SplashScreen.hide();
+        }
+      }
+    }
+  }, [vData, chkUpdate]);
 
   useEffect(() => {
     Platform.OS === "ios" && SplashScreen.hide();
@@ -104,9 +104,12 @@ const Splash = ({ navigation, userStore, designStore }) => {
   };
   const openScreen = async () => {
     console.log("in open screen");
-    navigation.dispatch(StackActions.replace(Constant.navHomeStack));
-    Platform.OS === "android" && SplashScreen.hide();
-    // setChkUpdate(true);
+    if (Platform.OS === "ios") {
+      setChkUpdate(true);
+    } else {
+      navigation.dispatch(StackActions.replace(Constant.navHomeStack));
+      Platform.OS === "android" && SplashScreen.hide();
+    }
     // console.log("vData ::", vData);
     // if (
     //   DeviceInfo.getVersion().toString() < Platform.OS === "ios"
@@ -125,22 +128,24 @@ const Splash = ({ navigation, userStore, designStore }) => {
   const renderMainView = () => {
     return (
       <View style={styles.container}>
-        {/* {appDetails != undefined && appDetails !== null ? (
-          <PopUp
-            visible={visibleModal}
-            isModalUpdateApp={true}
-            toggleVisibleModal={toggleVisibleModal}
-            imgHeight={imgHeight}
-            imgWidth={imgWidth}
-            appDetails={appDetails}
-          />
-        ) : null} */}
         {Platform.OS === "ios" && (
-          <FastImage
-            source={require("../assets/img/splash_image.gif")}
-            style={styles.logoImg}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+          <>
+            {appDetails != undefined && appDetails !== null ? (
+              <PopUp
+                visible={visibleModal}
+                isModalUpdateApp={true}
+                toggleVisibleModal={toggleVisibleModal}
+                imgHeight={imgHeight}
+                imgWidth={imgWidth}
+                appDetails={appDetails}
+              />
+            ) : null}
+            <FastImage
+              source={require("../assets/img/splash_image.gif")}
+              style={styles.logoImg}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </>
         )}
       </View>
     );
