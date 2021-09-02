@@ -1717,9 +1717,9 @@ int drawable src_assets_img_32 0x7f0700da
 int drawable src_assets_img_33 0x7f0700db
 int drawable src_assets_img_401 0x7f0700dc
 int drawable src_assets_img_41 0x7f0700dd
-int drawable src_assets_img_badge 0x7f0700de
-int drawable src_assets_img_bdt 0x7f0700df
-int drawable src_assets_img_headerlogo 0x7f0700e0
+int drawable src_assets_img_bdt 0x7f0700de
+int drawable src_assets_img_headerlogo 0x7f0700df
+int drawable src_assets_img_know 0x7f0700e0
 int drawable src_assets_img_notavailable 0x7f0700e1
 int drawable src_assets_img_rating 0x7f0700e2
 int drawable src_assets_img_select 0x7f0700e3

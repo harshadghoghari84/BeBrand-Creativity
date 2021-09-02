@@ -2268,13 +2268,13 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             toggleVisibleAd={toggleVisibleAd}
             isVisibleAd={true}
           />
-          {/* <PopUp
+          <PopUp
             visible={visibleModalForEditPersonalInfo}
             toggleVisibleModalForEditPersonalInfo={
               toggleVisibleModalForEditPersonalInfo
             }
             isVisiblePersonalInfo={true}
-          /> */}
+          />
 
           <View style={styles.container}>
             <FlatList

@@ -24,36 +24,7 @@ import SvgConstant from "../utils/SvgConstant";
 
 const ShareAndEarn = ({ navigation, userStore }) => {
   const user = toJS(userStore.user);
-  // const [refCode, setRefCode] = useState("");
-  // const [refPkg, setRefPkg] = useState([]);
-  // const { loading, data, error } = useQuery(GraphqlQuery.referralPackages, {
-  //   variables: { start: 0 },
-  //   errorPolicy: "all",
-  //   fetchPolicy: "no-cache",
-  // });
-  // const [generateRefCode] = useMutation(GraphqlQuery.generateRefCode, {
-  //   errorPolicy: "all",
-  //   fetchPolicy: "no-cache",
-  // });
-  // const [activateRefferal, { loading: actvRefLoad }] = useMutation(
-  //   GraphqlQuery.activateRefferal,
-  //   {
-  //     errorPolicy: "all",
-  //     fetchPolicy: "no-cache",
-  //   }
-  // );
-  // useEffect(() => {
-  //   if (data && data?.referralPackages !== null) {
-  //     console.log("data :", data);
-  //     setRefPkg(data.referralPackages);
-  //   }
-  //   if (error && error !== null) {
-  //     console.log("error :", error);
-  //   }
-  // }, [data, error, refPkg]);
-  // useEffect(() => {
-  //   console.log("refPkg  : : : ", refPkg);
-  // }, [refPkg]);
+
   return (
     <View style={{ flex: 1, backgroundColor: Color.white }}>
       <ScrollView
@@ -64,10 +35,28 @@ const ShareAndEarn = ({ navigation, userStore }) => {
         <SvgCss
           xml={SvgConstant.invite}
           width="100%"
-          height={250}
+          height={200}
           style={{ marginTop: 10 }}
         />
-        <View style={{ alignSelf: "center" }}>
+
+        <View
+          style={{
+            marginTop: 20,
+            alignSelf: "center",
+            paddingVertical: 10,
+            paddingHorizontal: 10,
+            borderRadius: 10,
+            backgroundColor: Color.white,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.22,
+            shadowRadius: 2.22,
+            elevation: 3,
+          }}
+        >
           <Text
             style={{
               textAlign: "center",
@@ -75,7 +64,7 @@ const ShareAndEarn = ({ navigation, userStore }) => {
               marginTop: 20,
             }}
           >
-            Invitw your friends to brand Dot & get
+            Invite a friends & get
           </Text>
           <View style={{ paddingVertical: 20 }}>
             <Text
@@ -93,39 +82,45 @@ const ShareAndEarn = ({ navigation, userStore }) => {
                 fontFamily: "Nunito-Regular",
               }}
             >
-              (5 design per share)
+              (5 design per sharing)
             </Text>
           </View>
           <Text
             style={{
               textAlign: "center",
-
               fontFamily: "Nunito-Regular",
             }}
           >
-            And your friends also gets 5 premium
+            And your friends also gets 5 Premium design
           </Text>
-          <Text
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.navigate(Constant.navKnowMore)}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                color: Color.primary,
+                textDecorationLine: "underline",
+              }}
+            >
+              Know more
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Text
           style={{
             textAlign: "center",
-            fontSize: 18,
-            color: Color.primary,
+            fontSize: 30,
+            fontWeight: "bold",
+            paddingVertical: 20,
           }}
         >
-          Know more
+          Max share.Max design
         </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 30,
-              fontWeight: "bold",
-              paddingVertical: 20,
-            }}
-          >
-            Max share.Max design
-          </Text>
-        </View>
       </ScrollView>
+
       <View
         style={{
           flexDirection: "row",
@@ -137,18 +132,21 @@ const ShareAndEarn = ({ navigation, userStore }) => {
           normal={true}
           onPress={() => Common.onShare(user?.refCode && user.refCode)}
         >
-          Invite friends
+          Invite friend
         </Button>
-        {user && user !== null ? (
-          <Button
-            normal={true}
-            onPress={() => {
+
+        <Button
+          normal={true}
+          onPress={() => {
+            if (user && user !== null) {
               navigation.navigate(Constant.navMyReward);
-            }}
-          >
-            My Reward
-          </Button>
-        ) : null}
+            } else {
+              Common.showMessage("you have to login first!");
+            }
+          }}
+        >
+          My reward
+        </Button>
       </View>
       <SafeAreaView
         style={{

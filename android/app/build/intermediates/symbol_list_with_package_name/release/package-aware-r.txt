@@ -1718,9 +1718,9 @@ drawable src_assets_img_32
 drawable src_assets_img_33
 drawable src_assets_img_401
 drawable src_assets_img_41
-drawable src_assets_img_badge
 drawable src_assets_img_bdt
 drawable src_assets_img_headerlogo
+drawable src_assets_img_know
 drawable src_assets_img_notavailable
 drawable src_assets_img_rating
 drawable src_assets_img_select

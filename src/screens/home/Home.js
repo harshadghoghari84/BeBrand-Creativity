@@ -802,8 +802,6 @@ const Home = ({ navigation, designStore, userStore }) => {
           <Carousel
             data={imageData?.offers}
             renderItem={renderImages}
-            initialNumToRender={1}
-            maxToRenderPerBatch={1}
             keyExtractor={(item, index) => `${item.id + index}`}
             sliderWidth={SLIDER_WIDTH}
             itemWidth={SLIDER_WIDTH}
@@ -811,7 +809,6 @@ const Home = ({ navigation, designStore, userStore }) => {
             autoplayInterval={6000}
             loop
             onSnapToItem={(index) => setActiveSlide(index)}
-            inactiveSlideScale={1}
           />
         </View>
         {pagination()}

@@ -233,6 +233,7 @@
     <orderEntry type="module" module-name="my-app.unimodules-sensors-interface" />
     <orderEntry type="module" module-name="my-app.unimodules-task-manager-interface" />
     <orderEntry type="module" module-name="my-app.react-native-async-storage_async-storage" />
+    <orderEntry type="module" module-name="my-app.react-native-community_clipboard" />
     <orderEntry type="module" module-name="my-app.react-native-community_datetimepicker" />
     <orderEntry type="module" module-name="my-app.react-native-community_google-signin" />
     <orderEntry type="module" module-name="my-app.react-native-community_masked-view" />

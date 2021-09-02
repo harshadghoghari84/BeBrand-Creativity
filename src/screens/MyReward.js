@@ -1,7 +1,7 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,11 +12,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { useState } from "react/cjs/react.development";
 import Button from "../components/Button";
 import Color from "../utils/Color";
 import Common from "../utils/Common";
 import GraphqlQuery from "../utils/GraphqlQuery";
+import LangKey from "../utils/LangKey";
+import ProgressDialog from "./common/ProgressDialog";
 
 const MyReward = ({ userStore }) => {
   const user = toJS(userStore.user);
@@ -63,6 +64,10 @@ const MyReward = ({ userStore }) => {
 
   useEffect(() => {
     if (rmTRefPkgData && rmTRefPkgData?.totalReferralPackages !== null) {
+      console.log(
+        "rmTRefPkgData.totalReferralPackages",
+        rmTRefPkgData.totalReferralPackages
+      );
       setRemPkg(rmTRefPkgData.totalReferralPackages);
     }
     if (rmTRefPkgError && rmTRefPkgError !== null) {
@@ -71,6 +76,10 @@ const MyReward = ({ userStore }) => {
   }, [rmTRefPkgData, rmTRefPkgError]);
   useEffect(() => {
     if (TRefPkgData && TRefPkgData?.totalReferralPackages !== null) {
+      console.log(
+        "TRefPkgData.totalReferralPackages",
+        TRefPkgData.totalReferralPackages
+      );
       setTotPkg(TRefPkgData.totalReferralPackages);
     }
     if (TRefPkgError && TRefPkgError !== null) {
@@ -83,44 +92,60 @@ const MyReward = ({ userStore }) => {
       setRefPkg(data.referralPackages);
     }
     if (error && error !== null) {
-      Common.showMessage(error[0].message);
+      // Common.showMessage(error);
       console.log("error :", error);
     }
   }, [data, error, refPkg]);
   const Rwards = () => {
     return (
-      <View style={{ backgroundColor: Color.white }}>
+      <View
+        style={{
+          backgroundColor: Color.white,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            alignSelf: "center",
-            backgroundColor: Color.txtInBgColor,
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-            borderRadius: 50,
-            marginVertical: 10,
-          }}
-        >
-          <Image
-            source={require("../assets/img/badge.png")}
-            style={{ height: 30, width: 30 }}
-          />
-          <Text style={{ paddingLeft: 10 }}>Total Rewards : {totPkg}</Text>
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            alignSelf: "center",
-            backgroundColor: Color.txtInBgColor,
+            // backgroundColor: Color.txtInBgColor,
             paddingHorizontal: 20,
             paddingVertical: 10,
             borderRadius: 50,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Text style={{ textAlign: "center" }}>
-            Remaining Rewards : {remPkg}
-          </Text>
+          {/* <Image
+            source={require("../assets/img/badge.png")}
+            style={{ height: 30, width: 30 }}
+          /> */}
+          <Text style={{ paddingLeft: 10 }}>Total Rewards</Text>
+          {TRefPkgLoad ? (
+            <ActivityIndicator color={Color.primary} />
+          ) : (
+            <Text style={{ paddingLeft: 10 }}>{totPkg}</Text>
+          )}
+        </View>
+        <View
+          style={{ height: 35, width: 1, backgroundColor: Color.blackTrans }}
+        />
+        <View
+          style={{
+            // backgroundColor: Color.txtInBgColor,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderRadius: 50,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{}}>Remaining Rewards</Text>
+          {rmTRefPkgLoad ? (
+            <ActivityIndicator color={Color.primary} />
+          ) : (
+            <Text style={{}}>{remPkg}</Text>
+          )}
         </View>
       </View>
     );
@@ -131,7 +156,7 @@ const MyReward = ({ userStore }) => {
         bounces={false}
         data={refPkg}
         onEndReached={() => {
-          if (refPkg.length <= remPkg) {
+          if (refPkg.length < remPkg) {
             referralPackages({ variables: { start: refPkg.length } });
           }
         }}
@@ -197,7 +222,13 @@ const MyReward = ({ userStore }) => {
   };
   return (
     <View style={{ flex: 1, backgroundColor: Color.white }}>
+      <ProgressDialog
+        visible={loading}
+        dismissable={false}
+        message={Common.getTranslation(LangKey.labLoading)}
+      />
       {Rwards()}
+      <View style={{ height: 0.3, backgroundColor: Color.blackTrans }} />
       {RefPackages()}
 
       <Button

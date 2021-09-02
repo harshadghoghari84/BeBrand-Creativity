@@ -137,7 +137,7 @@ const CustomHeader = ({
             )}
             {menu === true && (
               <TouchableOpacity
-                style={{ paddingLeft: Platform.OS === "ios" ? 5 : 10 }}
+                style={{ padding: 5 }}
                 onPress={() => navigation.openDrawer()}
               >
                 <Icon
@@ -203,7 +203,6 @@ const CustomHeader = ({
                   <TouchableOpacity
                     style={{ padding: 5 }}
                     onPress={() => {
-                  
                       setVisibleModal(true);
                     }}
                   >

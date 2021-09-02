@@ -233,13 +233,13 @@ const CustomDrawer = ({ navigation, userStore }) => {
                     paddingVertical: 5,
                   }}
                 >
-                  <Text>{`your Reffer Code : ${
+                  <Text>{`Reffer Code : ${
                     refCode && refCode !== null ? refCode : user?.refCode
                   }`}</Text>
                   <TouchableOpacity
-                    onPress={() =>
-                      Common.onShare(user?.refCode && user.refCode)
-                    }
+                    onPress={() => {
+                      navigation.navigate(Constant.navShareandEarn);
+                    }}
                   >
                     <Text
                       style={{
@@ -405,11 +405,7 @@ const CustomDrawer = ({ navigation, userStore }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                if (user && user !== null) {
-                  navigation.navigate(Constant.navShareandEarn);
-                } else {
-                  Common.showMessage("You have to login first!");
-                }
+                navigation.navigate(Constant.navShareandEarn);
 
                 // Common.onShare()
               }}

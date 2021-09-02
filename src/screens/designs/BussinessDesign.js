@@ -2742,13 +2742,13 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
               isVisibleAd={true}
             />
 
-            {/* <PopUp
+            <PopUp
               visible={visibleModalForEditBusinessInfo}
               toggleVisibleModalForEditBussinessInfo={
                 toggleVisibleModalForEditBussinessInfo
               }
               isVisibleBusinessInfo={true}
-            /> */}
+            />
             <View style={styles.container}>
               <FlatList
                 horizontal

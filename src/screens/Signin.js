@@ -115,6 +115,7 @@ const SignInScreen = ({ userStore }) => {
       auth()
         .currentUser?.getIdToken()
         .then((token) => {
+          console.log("token :", token);
           userSignupSocial({
             variables: {
               token: token,

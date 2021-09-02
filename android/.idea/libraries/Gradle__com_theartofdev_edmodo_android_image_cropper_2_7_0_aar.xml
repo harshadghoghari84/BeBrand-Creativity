@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0b5668577604af6592a66c2495917328/transformed/jetified-android-image-cropper-2.7.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b5668577604af6592a66c2495917328/transformed/jetified-android-image-cropper-2.7.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b5668577604af6592a66c2495917328/transformed/jetified-android-image-cropper-2.7.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/362f178a0798ca4e5c6b771ab81db3e7/transformed/jetified-android-image-cropper-2.7.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/362f178a0798ca4e5c6b771ab81db3e7/transformed/jetified-android-image-cropper-2.7.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/362f178a0798ca4e5c6b771ab81db3e7/transformed/jetified-android-image-cropper-2.7.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.theartofdev.edmodo/android-image-cropper/2.7.0/b09b91344e82ab3a1ba3770766962adcbb1c7d20/android-image-cropper-2.7.0-javadoc.jar!/" />

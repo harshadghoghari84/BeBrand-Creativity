@@ -584,7 +584,11 @@ const PopUp = ({
         toggleVisible();
       }}
     >
-      <KeyboardAvoidingView style={styles.centeredView}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={-50}
+        style={styles.centeredView}
+      >
         {toggle && (
           <View style={styles.mainView}>
             <View style={styles.innerView}>
@@ -689,9 +693,7 @@ const PopUp = ({
         )}
         {isNotiMsg && (
           <View style={styles.mainView}>
-            <KeyboardAvoidingView
-              style={[styles.innerView, { minWidth: "60%" }]}
-            >
+            <View style={[styles.innerView, { minWidth: "60%" }]}>
               <View
                 style={{
                   flexDirection: "row",
@@ -756,7 +758,7 @@ const PopUp = ({
               >
                 {itmDate}
               </Text>
-            </KeyboardAvoidingView>
+            </View>
           </View>
         )}
         {isLayout && (
@@ -958,7 +960,7 @@ const PopUp = ({
         )}
         {other && (
           <View style={styles.mainView}>
-            <KeyboardAvoidingView style={styles.innerView}>
+            <View style={styles.innerView}>
               <TouchableOpacity
                 onPress={() => toggleVisible()}
                 style={styles.btnClose}
@@ -998,7 +1000,7 @@ const PopUp = ({
                   )}
                 </Button>
               </View>
-            </KeyboardAvoidingView>
+            </View>
           </View>
         )}
         {isfree && (
@@ -1314,6 +1316,7 @@ const PopUp = ({
               }}
             >
               <SvgCss xml={SvgConstant.invite} width="50%" height={200} />
+
               <TextInput
                 placeholder={Common.getTranslation(LangKey.titleAddReffercode)}
                 placeholderTextColor={Color.grey}
@@ -1348,7 +1351,7 @@ const PopUp = ({
                           console.log("addRefCode", data.addRefCode);
                           const newUser = {
                             ...user,
-                            parentRefCode:refferCode,
+                            parentRefCode: refferCode,
                             designPackage: data.addRefCode
                               ? data.addRefCode
                               : user.designPackage,
@@ -1413,16 +1416,23 @@ const PopUp = ({
 
               {modalOfferData.map((item, index) => {
                 return (
-                  <FastImage
-                    source={{ uri: item.image.url }}
-                    resizeMode={FastImage.resizeMode.contain}
-                    style={{
-                      height: parseInt(item.height),
-                      width: parseInt(item.width),
-                      marginHorizontal: 23,
-                      borderRadius: 5,
+                  <TouchableWithoutFeedback
+                    onPress={() => {
+                      navigation.navigate(Constant.navShareandEarn);
+                      toggleVisibleForModaloffer();
                     }}
-                  />
+                  >
+                    <FastImage
+                      source={{ uri: item.image.url }}
+                      resizeMode={FastImage.resizeMode.contain}
+                      style={{
+                        height: parseInt(item.height),
+                        width: parseInt(item.width),
+                        marginHorizontal: 23,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableWithoutFeedback>
                 );
               })}
             </View>
