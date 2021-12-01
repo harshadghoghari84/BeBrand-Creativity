@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.android:facebook-login:6.5.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/af5691b27b0f57eb09d7057ad49b1d48/transformed/jetified-facebook-login-6.5.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/af5691b27b0f57eb09d7057ad49b1d48/transformed/jetified-facebook-login-6.5.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/af5691b27b0f57eb09d7057ad49b1d48/transformed/jetified-facebook-login-6.5.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29735cf75cb1520979c475af2081d591/transformed/jetified-facebook-login-6.5.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/29735cf75cb1520979c475af2081d591/transformed/jetified-facebook-login-6.5.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/29735cf75cb1520979c475af2081d591/transformed/jetified-facebook-login-6.5.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/300fe22b6fe002cbac80d2d9d2e71280/transformed/jetified-facebook-login-6.5.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/300fe22b6fe002cbac80d2d9d2e71280/transformed/jetified-facebook-login-6.5.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/300fe22b6fe002cbac80d2d9d2e71280/transformed/jetified-facebook-login-6.5.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-login/6.5.1/e795f27ad7b7f2ee2e92df450d5f10734207e184/facebook-login-6.5.1-javadoc.jar!/" />

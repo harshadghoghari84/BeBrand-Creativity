@@ -69,19 +69,10 @@
     <string msgid="3441753203274453993" name="common_signin_button_text">"Đăng nhập"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Đăng nhập bằng Google"</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Đã sao chép đường liên kết vào khay nhớ tạm"</string>
-    <string name="crop_image_activity_no_permissions">Đang hủy, các quyền đã yêu cầu không được cấp</string>
-    <string name="crop_image_activity_title"/>
-    <string name="crop_image_menu_crop">Cắt</string>
-    <string name="crop_image_menu_flip">Lật</string>
-    <string name="crop_image_menu_flip_horizontally">Lật theo chiều ngang</string>
-    <string name="crop_image_menu_flip_vertically">Lật theo chiều dọc</string>
-    <string name="crop_image_menu_rotate_left">Xoay theo chiều kim đồng hồ</string>
-    <string name="crop_image_menu_rotate_right">Xoay</string>
     <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Sao chép đường liên kết"</string>
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Mở trong trình duyệt"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Chia sẻ liên kết"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Khác"</string>
-    <string name="pick_image_intent_chooser_title">Chọn nguồn</string>
     <string msgid="368094699078615544" name="s1">"Lưu hình ảnh"</string>
     <string msgid="4550830452390689489" name="s2">"Cho phép Quảng cáo lưu trữ hình ảnh trong thư viện Ảnh?"</string>
     <string msgid="2435407834265420668" name="s3">"Chấp nhận"</string>
@@ -91,4 +82,5 @@
     <string msgid="7163549807207034258" name="s7">"Quảng cáo thử nghiệm"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Tìm kiếm"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="wallet_buy_button_place_holder">Mua hàng bằng Google</string>
 </resources>

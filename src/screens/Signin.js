@@ -12,7 +12,7 @@ import { useMutation } from "@apollo/client";
 import { inject, observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
-import { GoogleSignin } from "@react-native-community/google-signin";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "../components/svgIcons";

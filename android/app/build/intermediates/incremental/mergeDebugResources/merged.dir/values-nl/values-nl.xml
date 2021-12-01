@@ -69,19 +69,10 @@
     <string msgid="3441753203274453993" name="common_signin_button_text">"Inloggen"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Inloggen met Google"</string>
     <string msgid="3260749812566568062" name="copy_toast_msg">"Link naar klembord gekopieerd"</string>
-    <string name="crop_image_activity_no_permissions">Wordt geannuleerd, vereiste machtigingen zijn niet toegekend</string>
-    <string name="crop_image_activity_title"/>
-    <string name="crop_image_menu_crop">Bijsnijden</string>
-    <string name="crop_image_menu_flip">Spiegelen</string>
-    <string name="crop_image_menu_flip_horizontally">Horizontaal spiegelen</string>
-    <string name="crop_image_menu_flip_vertically">Verticaal spiegelen</string>
-    <string name="crop_image_menu_rotate_left">Tegen de klok in draaien</string>
-    <string name="crop_image_menu_rotate_right">Draaien</string>
     <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Link kopiëren"</string>
     <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Openen in browser"</string>
     <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Link delen"</string>
     <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Overige"</string>
-    <string name="pick_image_intent_chooser_title">Bron selecteren</string>
     <string msgid="368094699078615544" name="s1">"Afbeelding opslaan"</string>
     <string msgid="4550830452390689489" name="s2">"Advertentie toestaan om afbeelding op te slaan in fotogalerij?"</string>
     <string msgid="2435407834265420668" name="s3">"Accepteren"</string>
@@ -91,4 +82,5 @@
     <string msgid="7163549807207034258" name="s7">"Testadvertentie"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Zoeken"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="wallet_buy_button_place_holder">Kopen met Google</string>
 </resources>

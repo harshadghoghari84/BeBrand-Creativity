@@ -59,4 +59,5 @@
     <string msgid="7163549807207034258" name="s7">"სატესტო რეკლამა"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"ძიება"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="wallet_buy_button_place_holder">Google-ით ყიდვა</string>
 </resources>

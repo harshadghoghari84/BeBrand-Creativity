@@ -19,8 +19,6 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.clipboard.ClipboardPackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
-// @react-native-community/google-signin
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // @react-native-firebase/app
@@ -29,6 +27,8 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 // @react-native-firebase/messaging
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+// @react-native-google-signin/google-signin
+import com.reactnativegooglesignin.RNGoogleSigninPackage;
 // lottie-react-native
 import com.airbnb.android.react.lottie.LottiePackage;
 // react-native-device-info
@@ -43,6 +43,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-iap
 import com.dooboolab.RNIap.RNIapPackage;
+// react-native-image-picker
+import com.imagepicker.ImagePickerPackage;
 // react-native-in-app-review
 import com.ibits.react_native_in_app_review.AppReviewPackage;
 // react-native-push-notification
@@ -118,11 +120,11 @@ public class PackageList {
       new AsyncStoragePackage(),
       new ClipboardPackage(),
       new RNDateTimePickerPackage(),
-      new RNGoogleSigninPackage(),
       new RNCMaskedViewPackage(),
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
       new ReactNativeFirebaseMessagingPackage(),
+      new RNGoogleSigninPackage(),
       new LottiePackage(),
       new RNDeviceInfo(),
       new FastImageViewPackage(),
@@ -130,6 +132,7 @@ public class PackageList {
       new FBSDKPackage(),
       new RNGestureHandlerPackage(),
       new RNIapPackage(),
+      new ImagePickerPackage(),
       new AppReviewPackage(),
       new ReactNativePushNotificationPackage(),
       new RNRatePackage(),
