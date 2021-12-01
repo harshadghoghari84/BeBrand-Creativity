@@ -13,7 +13,9 @@ import {
 import { inject, observer } from "mobx-react";
 import { useMutation } from "@apollo/client";
 import { toJS } from "mobx";
-import * as ImagePicker from "expo-image-picker";
+// import * as ImagePicker from "expo-image-picker";
+import { launchImageLibrary } from "react-native-image-picker";
+
 import * as Permissions from "expo-permissions";
 import { ReactNativeFile } from "apollo-upload-client";
 import * as mime from "react-native-mime-types";
@@ -211,26 +213,58 @@ const BusinessProfile = ({ userStore, navigation }) => {
   };
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      aspect: [3, 4],
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //   allowsEditing: false,
+    //   aspect: [3, 4],
+    //   quality: 1,
+    // });
+    // try {
+    //   if (!result.cancelled) {
+    //     const file = generateRNFile(result.uri, `${Date.now()}`);
+    //     const { data, errors } = await addBusinessImage({
+    //       variables: { image: file },
+    //     });
+    //     if (!errors) {
+    //       userStore.addBusinessImage(data.addBusinessImageV2);
+    //     } else {
+    //       console.log("error", errors);
+    //       Common.showMessage(errors[0].message);
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log("error", error);
+    // }
+    let options = {
+      mediaType: "photo",
       quality: 1,
+      storageOptions: {
+        skipBackup: true,
+        path: "images",
+      },
+    };
+
+    let result = await launchImageLibrary(options, (response) => {
+      result = response;
     });
 
     try {
-      if (!result.cancelled) {
-        const file = generateRNFile(result.uri, `${Date.now()}`);
-        const { data, errors } = await addBusinessImage({
-          variables: { image: file },
+      if (result.assets) {
+        result?.assets.map(async ({ uri }) => {
+          const file = generateRNFile(uri, `${Date.now()}`);
+          console.log("file", file);
+          console.log("uri", uri);
+          const { data, errors } = await addBusinessImage({
+            variables: { image: file },
+          });
+          console.log("data", data);
+          if (!errors) {
+            userStore.addBusinessImage(data.addBusinessImageV2);
+          } else {
+            console.log("error", errors);
+            Common.showMessage(errors[0].message);
+          }
         });
-
-        if (!errors) {
-          userStore.addBusinessImage(data.addBusinessImageV2);
-        } else {
-          console.log("error", errors);
-          Common.showMessage(errors[0].message);
-        }
       }
     } catch (error) {
       console.log("error", error);

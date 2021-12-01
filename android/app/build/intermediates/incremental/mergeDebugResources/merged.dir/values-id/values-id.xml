@@ -22,4 +22,5 @@
     <string name="com_facebook_smart_login_confirmation_cancel">Bukan Anda?</string>
     <string name="com_facebook_smart_login_confirmation_title">Konfirmasikan Masuk</string>
     <string name="com_facebook_tooltip_default">Anda memegang kendali - pilih info yang ingin Anda bagikan dengan aplikasi.</string>
+    <string name="wallet_buy_button_place_holder">Beli dengan Google</string>
 </resources>

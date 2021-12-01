@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bebrandd1/Desktop/bebrandd 2/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
+            "outputFile": "/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/edd92bf6217dc1f01e97c82461333d06/transformed/appcompat-1.2.0/res/values-large-v4/values-large-v4.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10",
-                        "startColumns": "4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,114,185,256,326,396,464,532,636",
-                        "endColumns": "58,70,70,69,69,67,67,103,115",
-                        "endOffsets": "109,180,251,321,391,459,527,631,747"
-                    }
-                },
-                {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/1a0245b80bcb43206861625e1ef7defa/transformed/material-1.1.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/dceafb67c9bba67f8a15649d2381780f/transformed/material-1.1.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -28,6 +18,16 @@
                         "startOffsets": "752,874",
                         "endColumns": "121,133",
                         "endOffsets": "869,1003"
+                    }
+                },
+                {
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/10787b822ce05e9183ee43e4ce7a2f14/transformed/appcompat-1.2.0/res/values-large-v4/values-large-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,114,185,256,326,396,464,532,636",
+                        "endColumns": "58,70,70,69,69,67,67,103,115",
+                        "endOffsets": "109,180,251,321,391,459,527,631,747"
                     }
                 }
             ]
