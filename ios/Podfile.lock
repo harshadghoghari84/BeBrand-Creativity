@@ -67,6 +67,8 @@ PODS:
     - EXStructuredHeaders
     - React-Core
     - UMCore
+  - FBAEMKit (12.1.0):
+    - FBSDKCoreKit_Basics (= 12.1.0)
   - FBAudienceNetwork (6.9.0)
   - FBLazyVector (0.63.4)
   - FBReactNativeSpec (0.63.4):
@@ -76,20 +78,14 @@ PODS:
     - React-Core (= 0.63.4)
     - React-jsi (= 0.63.4)
     - ReactCommon/turbomodule/core (= 0.63.4)
-  - FBSDKCoreKit (8.2.0):
-    - FBSDKCoreKit/Basics (= 8.2.0)
-    - FBSDKCoreKit/Core (= 8.2.0)
-  - FBSDKCoreKit/Basics (8.2.0)
-  - FBSDKCoreKit/Core (8.2.0):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (8.2.0):
-    - FBSDKLoginKit/Login (= 8.2.0)
-  - FBSDKLoginKit/Login (8.2.0):
-    - FBSDKCoreKit (~> 8.2.0)
-  - FBSDKShareKit (8.2.0):
-    - FBSDKShareKit/Share (= 8.2.0)
-  - FBSDKShareKit/Share (8.2.0):
-    - FBSDKCoreKit (~> 8.2.0)
+  - FBSDKCoreKit (12.1.0):
+    - FBAEMKit (= 12.1.0)
+    - FBSDKCoreKit_Basics (= 12.1.0)
+  - FBSDKCoreKit_Basics (12.1.0)
+  - FBSDKLoginKit (12.1.0):
+    - FBSDKCoreKit (= 12.1.0)
+  - FBSDKShareKit (12.1.0):
+    - FBSDKCoreKit (= 12.1.0)
   - Firebase/Auth (7.11.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.11.0)
@@ -266,7 +262,7 @@ PODS:
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
-  - razorpay-pod (1.1.16)
+  - razorpay-pod (1.1.17)
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
     - FBLazyVector (= 0.63.4)
@@ -433,21 +429,21 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-fbsdk (3.0.0):
-    - React
-    - react-native-fbsdk/Core (= 3.0.0)
-    - react-native-fbsdk/Login (= 3.0.0)
-    - react-native-fbsdk/Share (= 3.0.0)
-  - react-native-fbsdk/Core (3.0.0):
-    - FBSDKCoreKit (~> 8.1)
-    - React
-  - react-native-fbsdk/Login (3.0.0):
-    - FBSDKLoginKit (~> 8.1)
-    - React
-  - react-native-fbsdk/Share (3.0.0):
-    - FBSDKShareKit (~> 8.1)
-    - React
-  - react-native-image-picker (4.3.0):
+  - react-native-fbsdk-next (6.1.1):
+    - React-Core
+    - react-native-fbsdk-next/Core (= 6.1.1)
+    - react-native-fbsdk-next/Login (= 6.1.1)
+    - react-native-fbsdk-next/Share (= 6.1.1)
+  - react-native-fbsdk-next/Core (6.1.1):
+    - FBSDKCoreKit (~> 12.1.0)
+    - React-Core
+  - react-native-fbsdk-next/Login (6.1.1):
+    - FBSDKLoginKit (~> 12.1.0)
+    - React-Core
+  - react-native-fbsdk-next/Share (6.1.1):
+    - FBSDKShareKit (~> 12.1.0)
+    - React-Core
+  - react-native-image-picker (4.4.0):
     - React-Core
   - react-native-in-app-review (3.2.3):
     - React
@@ -660,7 +656,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
+  - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-in-app-review (from `../node_modules/react-native-in-app-review`)
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
@@ -719,8 +715,10 @@ SPEC REPOS:
     - AppAuth
     - boost-for-react-native
     - CocoaAsyncSocket
+    - FBAEMKit
     - FBAudienceNetwork
     - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
     - FBSDKLoginKit
     - FBSDKShareKit
     - Firebase
@@ -826,8 +824,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-fbsdk:
-    :path: "../node_modules/react-native-fbsdk"
+  react-native-fbsdk-next:
+    :path: "../node_modules/react-native-fbsdk-next"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-in-app-review:
@@ -956,12 +954,14 @@ SPEC CHECKSUMS:
   EXSQLite: bda6a286dded0637bb312ee781239dcca163ff4b
   EXStructuredHeaders: be834496a4d9fd0069cd12ec1cc57b31c6d3b256
   EXUpdates: efe0e8c514dcff06a8fd0b63be6019a6365fb9c7
+  FBAEMKit: 56c0bb9b42e3747cd82b67934f0c2b19325382ea
   FBAudienceNetwork: 83096d73433759c10f9cf9b3bad5e5cff58694cb
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
-  FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
-  FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
-  FBSDKShareKit: 0c0d51b3af47075a85ed9bea0e28b2fc70e3594b
+  FBSDKCoreKit: 75368765d9c2303073145a7925dfaa9d60bcd77b
+  FBSDKCoreKit_Basics: 39865aff97e5f6951a78fb3e89dc4460e35e1895
+  FBSDKLoginKit: e993f97c7cc794c5da4056d8aec3c3d66033a727
+  FBSDKShareKit: 24943f539dbe382a6fad04952ea1aee29b100c1f
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
@@ -993,7 +993,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  razorpay-pod: f1763f8ee8f83152837abe7de1cdfbcd4eb035b9
+  razorpay-pod: 570fa697c5c0d8e356f42d783bf37d9361334062
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -1004,8 +1004,8 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
-  react-native-image-picker: 869530859570f2af86ae57bc48886a5e2367a825
+  react-native-fbsdk-next: 50b2ce0e56ef9b68cb0fd7f19072364296896c20
+  react-native-image-picker: 14910ea6b6a38bd45d1a69cb643b157e6ac142cb
   react-native-in-app-review: 23f4f5b9fcd94339dd5d93c6230557f9c67c7dda
   react-native-razorpay: 6796178680164b4716b9cbdacdda5da98781fb0a
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
