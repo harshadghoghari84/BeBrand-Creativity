@@ -27,7 +27,7 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Zdieľať s"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Zdieľať s aplikáciou <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Zbaliť"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">Navštívte stránku &lt;b>facebook.com/device&lt;/b> a zadajte kód zobrazený vyššie.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">Prejdite na stránku &lt;b>facebook.com/device&lt;/b> a zadajte kód, ktorý je zobrazený vyššie.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">Pri sťahovaní obrázka sa vyskytla neočakávaná chyba.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">Na prihlásenie cez WebView sa vyžaduje povolenie internetu</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">Chyba AndroidManifest</string>
@@ -45,7 +45,7 @@
     <string gender="unknown" name="com_facebook_send_button_text">Poslať</string>
     <string gender="unknown" name="com_facebook_share_button_text">Zdieľať</string>
     <string gender="unknown" name="com_facebook_smart_device_instructions">Ak si chcete pripojiť účet, vo svojom mobilnom zariadení otvorte aplikáciu Facebook a pozrite si upozornenia.</string>
-    <string gender="unknown" name="com_facebook_smart_device_instructions_or">- ALEBO -</string>
+    <string gender="unknown" name="com_facebook_smart_device_instructions_or">– ALEBO –</string>
     <string gender="unknown" name="com_facebook_smart_login_confirmation_cancel">Nie ste to vy?</string>
     <string gender="unknown" name="com_facebook_smart_login_confirmation_continue_as">Pokračovať ako %1$s</string>
     <string gender="unknown" name="com_facebook_smart_login_confirmation_title">Potvrdiť prihlásenie</string>

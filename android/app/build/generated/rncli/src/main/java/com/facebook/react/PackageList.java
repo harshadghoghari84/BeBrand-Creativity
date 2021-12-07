@@ -37,7 +37,7 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-fbads
 import suraj.tiwari.reactnativefbads.FBAdsPackage;
-// react-native-fbsdk
+// react-native-fbsdk-next
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;

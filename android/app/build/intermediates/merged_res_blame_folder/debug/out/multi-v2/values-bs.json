@@ -38,6 +38,23 @@
                     }
                 },
                 {
+                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/e055a03171eec67bd0ea3ee9f9983660/transformed/core-1.3.2/res/values-bs/values-bs.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "60",
+                        "startColumns": "4",
+                        "startOffsets": "6740",
+                        "endColumns": "100",
+                        "endOffsets": "6836"
+                    }
+                },
+                {
                     "source": "/Users/bebrandd1/.gradle/caches/transforms-3/563874807732b82c1bb1f64574bf726f/transformed/jetified-play-services-base-17.5.0/res/values-bs/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -86,23 +103,6 @@
                         "startOffsets": "6034,6108,6231,6301,6368,6460,6579",
                         "endColumns": "73,122,69,66,91,118,73",
                         "endOffsets": "6103,6226,6296,6363,6455,6574,6648"
-                    }
-                },
-                {
-                    "source": "/Users/bebrandd1/.gradle/caches/transforms-3/5d8759602187b8d56d216bce68acc929/transformed/core-1.3.1/res/values-bs/values-bs.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "60",
-                        "startColumns": "4",
-                        "startOffsets": "6740",
-                        "endColumns": "100",
-                        "endOffsets": "6836"
                     }
                 },
                 {

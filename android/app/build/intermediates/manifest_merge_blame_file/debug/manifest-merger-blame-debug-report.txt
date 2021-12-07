@@ -141,7 +141,7 @@
 66        android:allowBackup="true"
 66-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:183-209
 67        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-67-->[androidx.core:core:1.3.1] /Users/bebrandd1/.gradle/caches/transforms-3/5d8759602187b8d56d216bce68acc929/transformed/core-1.3.1/AndroidManifest.xml:24:18-86
+67-->[androidx.core:core:1.3.2] /Users/bebrandd1/.gradle/caches/transforms-3/e055a03171eec67bd0ea3ee9f9983660/transformed/core-1.3.2/AndroidManifest.xml:24:18-86
 68        android:debuggable="true"
 69        android:icon="@mipmap/ic_launcher"
 69-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:102-136
@@ -152,7 +152,7 @@
 72        android:roundIcon="@mipmap/ic_launcher_round"
 72-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:137-182
 73        android:supportsRtl="true"
-73-->[com.facebook.android:facebook-android-sdk:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/aab805b680a16b8ee47039144891203e/transformed/jetified-facebook-android-sdk-7.1.0/AndroidManifest.xml:28:18-44
+73-->[com.facebook.android:facebook-android-sdk:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/bbb20e6336b47bc37c1edcad0b01e0b9/transformed/jetified-facebook-android-sdk-12.1.0/AndroidManifest.xml:28:18-44
 74        android:theme="@style/AppTheme"
 74-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:210-241
 75        android:usesCleartextTraffic="true" >
@@ -221,7 +221,7 @@
 107            android:label="@string/app_name"
 107-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:22:79-111
 108            android:theme="@style/com_facebook_activity_theme" />
-108-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/8aad9669997c1ed598ff1ec3ef1a5041/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:33:13-63
+108-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:33:13-63
 109        <activity
 109-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:23:5-30:16
 110            android:name="com.facebook.CustomTabActivity"
@@ -246,7 +246,7 @@
 118-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:28:15-64
 119            </intent-filter>
 120            <intent-filter>
-120-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/8aad9669997c1ed598ff1ec3ef1a5041/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:39:13-48:29
+120-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:39:13-48:29
 121                <action android:name="android.intent.action.VIEW" />
 121-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:25:9-61
 121-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:25:17-58
@@ -317,8 +317,8 @@
 155            android:configChanges="keyboardHidden|orientation" />
 155-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:45:70-120
 156        <activity android:name="com.facebook.CustomTabMainActivity" /> <!-- The activities will be merged into the manifest of the hosting app. -->
-156-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/8aad9669997c1ed598ff1ec3ef1a5041/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:34:9-71
-156-->[com.facebook.android:facebook-common:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/8aad9669997c1ed598ff1ec3ef1a5041/transformed/jetified-facebook-common-7.1.0/AndroidManifest.xml:34:19-68
+156-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:34:9-71
+156-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:34:19-68
 157        <activity
 157-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/0e670d0a196a09a40de23cd3dbfa24f0/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:5-271
 158            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
@@ -882,92 +882,105 @@
 467         a completely different provider.
 468        -->
 469        <provider
-469-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:39:9-42:40
+469-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:39:9-42:40
 470            android:name="com.facebook.internal.FacebookInitProvider"
-470-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:40:13-70
+470-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:40:13-70
 471            android:authorities="com.bebrandd.branddot.FacebookInitProvider"
-471-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:41:13-72
+471-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:41:13-72
 472            android:exported="false" />
-472-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:42:13-37
+472-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:42:13-37
 473
 474        <receiver
-474-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:44:9-50:20
+474-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:44:9-50:20
 475            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
-475-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:45:13-86
+475-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:45:13-86
 476            android:exported="false" >
-476-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:46:13-37
+476-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:46:13-37
 477            <intent-filter>
-477-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:47:13-49:29
+477-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:47:13-49:29
 478                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
-478-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:48:17-95
-478-->[com.facebook.android:facebook-core:7.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/95292f653602ce0a70ced425cffd753d/transformed/jetified-facebook-core-7.1.0/AndroidManifest.xml:48:25-92
+478-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:48:17-95
+478-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:48:25-92
 479            </intent-filter>
 480        </receiver>
-481
-482        <service
-482-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
-483            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
-483-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
-484            android:exported="false" >
-484-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
-485            <meta-data
-485-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
-486                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
-486-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
-487                android:value="cct" />
-487-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
-488        </service>
+481        <receiver
+481-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:51:9-57:20
+482            android:name="com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver"
+482-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:52:13-118
+483            android:exported="false" >
+483-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:53:13-37
+484            <intent-filter>
+484-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:54:13-56:29
+485                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED" />
+485-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:55:17-103
+485-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:55:25-100
+486            </intent-filter>
+487        </receiver>
+488
 489        <service
-489-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:26:9-30:19
-490            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-490-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:27:13-117
-491            android:exported="false"
-491-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:28:13-37
-492            android:permission="android.permission.BIND_JOB_SERVICE" >
-492-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:29:13-69
-493        </service>
-494
-495        <receiver
-495-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:32:9-34:40
-496            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
-496-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:33:13-132
-497            android:exported="false" />
-497-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:34:13-37
-498
-499        <meta-data
-499-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:13:9-15:37
-500            android:name="com.google.android.play.billingclient.version"
-500-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:14:13-73
-501            android:value="3.0.0" />
-501-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:15:13-34
-502
-503        <activity
-503-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:17:9-20:75
-504            android:name="com.android.billingclient.api.ProxyBillingActivity"
-504-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:18:13-78
-505            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-505-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:19:13-96
-506            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-506-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:20:13-72
-507
-508        <service
-508-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:19:9-21:40
-509            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
-509-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:20:13-132
-510            android:exported="false" />
-510-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:21:13-37
-511        <service
-511-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:22:9-24:40
-512            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
-512-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:23:13-127
-513            android:exported="false" />
-513-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:24:13-37
-514        <service
-514-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:25:9-27:40
-515            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
-515-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:26:13-120
-516            android:exported="false" />
-516-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:27:13-37
-517    </application>
-518
-519</manifest>
+489-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+490            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+490-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+491            android:exported="false" >
+491-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+492            <meta-data
+492-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+493                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+493-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+494                android:value="cct" />
+494-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/bebrandd1/.gradle/caches/transforms-3/5328d3d01fa05f5f90550d2acb75303e/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+495        </service>
+496        <service
+496-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:26:9-30:19
+497            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+497-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:27:13-117
+498            android:exported="false"
+498-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:28:13-37
+499            android:permission="android.permission.BIND_JOB_SERVICE" >
+499-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:29:13-69
+500        </service>
+501
+502        <receiver
+502-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:32:9-34:40
+503            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+503-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:33:13-132
+504            android:exported="false" />
+504-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/bebrandd1/.gradle/caches/transforms-3/99bf512c7abc074d5bee0f3fc217d18c/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:34:13-37
+505
+506        <meta-data
+506-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:13:9-15:37
+507            android:name="com.google.android.play.billingclient.version"
+507-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:14:13-73
+508            android:value="3.0.0" />
+508-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:15:13-34
+509
+510        <activity
+510-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:17:9-20:75
+511            android:name="com.android.billingclient.api.ProxyBillingActivity"
+511-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:18:13-78
+512            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+512-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:19:13-96
+513            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+513-->[com.android.billingclient:billing:3.0.0] /Users/bebrandd1/.gradle/caches/transforms-3/266cd26711da8f5d8ab611cb4b87c9c8/transformed/jetified-billing-3.0.0/AndroidManifest.xml:20:13-72
+514
+515        <service
+515-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:19:9-21:40
+516            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
+516-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:20:13-132
+517            android:exported="false" />
+517-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:21:13-37
+518        <service
+518-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:22:9-24:40
+519            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
+519-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:23:13-127
+520            android:exported="false" />
+520-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:24:13-37
+521        <service
+521-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:25:9-27:40
+522            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
+522-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:26:13-120
+523            android:exported="false" />
+523-->[io.nlopez.smartlocation:library:3.2.11] /Users/bebrandd1/.gradle/caches/transforms-3/d4cdb41a431019d48014c4dbf1b06558/transformed/jetified-library-3.2.11/AndroidManifest.xml:27:13-37
+524    </application>
+525
+526</manifest>

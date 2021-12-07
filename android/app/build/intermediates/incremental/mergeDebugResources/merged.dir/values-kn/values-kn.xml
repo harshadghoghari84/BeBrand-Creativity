@@ -27,7 +27,7 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"ಇವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"<ns1:g id="APPLICATION_NAME">%s</ns1:g> ನೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"ಕುಗ್ಗಿಸಿ"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">&lt;b>facebook.com/device&lt;/b> ಗೆ ಭೇಟಿ ನೀಡಿ ಮತ್ತು ಮೇಲೆ ತೋರಿಸಿದ ಕೋಡ್ ಅನ್ನು ನಮೂದಿಸಿ.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">Visit &lt;b>facebook.com/device&lt;/b> ಮತ್ತು ಮೇಲೆ ತೋರಿಸಿರುವ ಕೋಡ್ ಅನ್ನು ನಮೂದಿಸಿ.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">ಚಿತ್ರವನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವಾಗ ಅನಿರೀಕ್ಷಿತ ದೋಷ.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">ವೆಬ್ ವೀಕ್ಷಣೆ ಲಾಗಿನ್‌ಗೆ ಇಂಟರ್ನೆಟ್ ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">Android ಮ್ಯಾನಿಫೆಸ್ಟ್ ದೋಷ</string>

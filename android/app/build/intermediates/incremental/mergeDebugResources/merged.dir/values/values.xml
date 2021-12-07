@@ -8070,6 +8070,8 @@
             <enum name="display_always" value="1"/>
             <enum name="never_display" value="2"/>
         </attr>
+        <attr format="dimension" name="com_facebook_login_button_radius"/>
+        <attr format="integer" name="com_facebook_login_button_transparency"/>
     </declare-styleable>
     <declare-styleable name="com_facebook_profile_picture_view">
         <attr name="com_facebook_preset_size">
