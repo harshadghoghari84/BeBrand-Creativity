@@ -35,7 +35,7 @@ public class MainActivity extends ReactActivity {
     // Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually
 //    SplashScreen.show(this, SplashScreenImageResizeMode.COVER, false);
 //    SplashScreen.show(this, SplashScreenImageResizeMode.COVER, ReactRootView.class, false);
-        SplashScreen.show(this, R.style.SplashScreenTheme);
+        SplashScreen.show(this, true);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
      AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(MainActivity.this);

@@ -28,7 +28,7 @@ import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
-import ICON from "react-native-vector-icons/MaterialCommunityIcons";
+import ICON from "react-native-vector-icons/MaterialIcons";
 import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { Pagination } from "react-native-snap-carousel";
@@ -123,9 +123,46 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   const [footerColor, setFooterColor] = useState();
   const [footerTextColor, setFooterTextColor] = useState(Color.black);
   const [dess, setDess] = useState([]);
+  const [left, setLeft] = useState(true);
+  const [rigth, setRight] = useState(false);
   const [userSubCategories, setUserSubCategories] = useState([]);
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
+  const [activeTopLayOut, setActiveTopLayout] = useState(
+    SvgConstant.topRightCurve
+  );
+  const [topLayoutIndex, setTopLayoutIndex] = useState(0);
+
+  const TOP_LAYOUTS = [
+    {
+      txt: "left1",
+      layOut: SvgConstant.topRightCurve,
+    },
+    {
+      txt: "right1",
+      layOut: SvgConstant.topLeftCurve,
+    },
+    {
+      txt: "hello",
+      layOut: SvgConstant.topBottomCenterCurve,
+    },
+    {
+      txt: "hello",
+      layOut: SvgConstant.topBottomMinorCurve,
+    },
+    {
+      txt: "left1",
+      layOut: SvgConstant.topBottomRightCurve,
+    },
+    {
+      txt: "right2",
+      layOut: SvgConstant.topBottomLeftCurve,
+    },
+    {
+      txt: "hello",
+      layOut: SvgConstant.topBottomHugeCurve,
+    },
+  ];
 
   useEffect(() => {
     return () => {
@@ -2268,6 +2305,74 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   ..######...#######..##.....##.##.........#######..##....##.########.##....##....##.....######.
   */
 
+  const topLayout = () => {
+    return (
+      <FlatList
+        horizontal
+        ref={layRef}
+        showsHorizontalScrollIndicator={false}
+        data={TOP_LAYOUTS}
+        // keyExtractor={keyExtractor}
+        contentContainerStyle={styles.flatlist}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.listLayoutView}
+            onPress={() => {
+              setActiveTopLayout(item.layOut);
+              setTopLayoutIndex(index);
+              if (item.txt == "right1" || item.txt == "right2") {
+                setRight(true);
+                setLeft(false);
+              } else if (item.txt == "left1" || item.txt == "left2") {
+                setLeft(true);
+                setRight(false);
+              }
+            }}
+          >
+            <View
+              style={{
+                width: 80,
+                height: 50,
+                marginHorizontal: 3,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <SvgCss
+                xml={item.layOut}
+                width="80%"
+                height="80%"
+                fill={Color.bkgDesignDate}
+              />
+              {index === topLayoutIndex && (
+                <View
+                  style={{
+                    backgroundColor: Color.blackTransparant,
+                    opacity: 0.6,
+                    width: 80,
+                    height: 50,
+                    position: "absolute",
+                    borderRadius: 5,
+                  }}
+                />
+              )}
+
+              {/* {item.package.type === Constant.typeDesignPackageVip && (
+                <Icon
+                  style={styles.tagPro}
+                  name="Premium"
+                  height={18}
+                  width={10}
+                  fill={Color.primary}
+                />
+              )} */}
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
   const layout = () => {
     return (
       <FlatList
@@ -2276,7 +2381,6 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         showsHorizontalScrollIndicator={false}
         data={layouts}
         keyExtractor={keyExtractor}
-        contentContainerStyle={{}}
         contentContainerStyle={styles.flatlist}
         renderItem={({ item, index }) => (
           <TouchableOpacity
@@ -2563,10 +2667,73 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     );
   };
 
+  const topLayoutRef = React.useRef(null);
   const layoutRef = React.useRef(null);
   const colorRef = React.useRef(null);
   const socialRef = React.useRef(null);
   const fall = new Animated.Value(1);
+
+  const topLayoutLeftRigthPosition = () => {
+    return (
+      <View
+        style={{
+          height: 40,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            setLeft(true);
+            setRight(false);
+          }}
+          style={{
+            backgroundColor: Color.blackTrans,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+          }}
+        >
+          <Text style={{ color: Color.black }}>Left</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setLeft(false);
+            setRight(true);
+          }}
+          style={{
+            backgroundColor: Color.blackTrans,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+          }}
+        >
+          <Text style={{ color: Color.black }}>Right</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderContentTopLayout = () => (
+    <View
+      style={{
+        backgroundColor: Color.white,
+        padding: 5,
+        height: 130,
+      }}
+    >
+      <TouchableOpacity
+        onPress={() => topLayoutRef.current.snapTo(2)}
+        style={styles.btnClose}
+      >
+        <Text style={{ fontWeight: "700" }}>X</Text>
+        {/* <ICON name="close" size={20} color={Color.black} /> */}
+      </TouchableOpacity>
+      {topLayout()}
+      {topLayoutLeftRigthPosition()}
+    </View>
+  );
   const renderContentLayout = () => (
     <View
       style={{
@@ -2577,9 +2744,9 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
     >
       <TouchableOpacity
         onPress={() => layoutRef.current.snapTo(2)}
-        style={styles.btnClose}
+        style={[styles.btnClose]}
       >
-        <ICON name="close" size={22} color={Color.darkBlue} />
+        <ICON name="close" size={22} color={Color.black} />
       </TouchableOpacity>
       {layout()}
     </View>
@@ -2673,6 +2840,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
           callbackNode={fall}
           renderContent={renderContentLayout}
         /> */}
+        <BottomSheet
+          ref={topLayoutRef}
+          snapPoints={[130, 130, 0]}
+          borderRadius={10}
+          initialSnap={2}
+          enabledInnerScrolling={true}
+          enabledGestureInteraction={false}
+          callbackNode={fall}
+          renderContent={renderContentTopLayout}
+        />
         <BottomSheet
           ref={colorRef}
           snapPoints={[100, 100, 0]}
@@ -2868,6 +3045,49 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 }}
               >
                 <View style={{ flex: 1 }}>
+                  <View
+                    style={[
+                      {
+                        height: 90,
+                        width: 90,
+                        position: "absolute",
+                        top: -15,
+                        zIndex: 9999,
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                      left && { left: 0 },
+                      rigth && { right: 0 },
+                    ]}
+                  >
+                    <SvgCss
+                      xml={activeTopLayOut}
+                      width="100%"
+                      height="100%"
+                      fill={Color.white}
+                    />
+                    <FastImage
+                      onLoadStart={() => {
+                        if (Constant.businessLay1Id === curLayoutId) {
+                          setIsUserDesignImageLoad(true);
+                        }
+                      }}
+                      onLoadEnd={() => {
+                        if (Constant.businessLay1Id === curLayoutId) {
+                          setIsUserDesignImageLoad(false);
+                        }
+                      }}
+                      source={{ uri: userDataBussiness?.image }}
+                      style={{
+                        height: "55%",
+                        width: "55%",
+                        position: "absolute",
+
+                        // top: 5,
+                      }}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </View>
                   <FastImage
                     onLoadStart={() => setIsdesignImageLoad(true)}
                     onLoadEnd={() => {
@@ -3029,6 +3249,22 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   marginHorizontal: 20,
                 }}
               >
+                <Button
+                  style={{ margin: 5, backgroundColor: Color.transparent }}
+                  onPress={() => topLayoutRef.current.snapTo(0)}
+                  isVertical={true}
+                  icon={
+                    <Icon
+                      name="layout"
+                      height={14}
+                      width={14}
+                      fill={Color.grey}
+                    />
+                  }
+                  textColor={true}
+                >
+                  {Common.getTranslation(LangKey.labLayouts)}
+                </Button>
                 {/* <Button
                   style={{ margin: 5, backgroundColor: Color.transparent }}
                   onPress={() => layoutRef.current.snapTo(0)}

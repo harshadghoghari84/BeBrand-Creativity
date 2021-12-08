@@ -1143,4 +1143,93 @@ viewBox="0 0 335.06 515.72"
  </g>
 </svg>
   `,
+
+  topRightCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 23.42 16.1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M-0 0l15.37 0c4.43,0 8.05,3.62 8.05,8.05l0 0c0,4.43 -3.62,8.05 -8.05,8.05l-15.37 0 0 -16.1z"/>
+   </g>
+  </svg>
+  `,
+  topLeftCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 24.79 17.05"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+  
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M24.79 0l-16.27 0c-4.69,0 -8.52,3.84 -8.52,8.52l0 0c0,4.69 3.84,8.52 8.52,8.52l16.27 0 0 -17.05z"/>
+   </g>
+  </svg>
+  
+  `,
+  topBottomCenterCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 27.57 18.95"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <polygon class="fil0" points="-0,0 27.57,0 27.57,18.95 13.85,16.54 -0,18.95 "/>
+   </g>
+  </svg>
+  `,
+  topBottomMinorCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 33.59 23.09"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M-0 0l33.59 0 0 18.14c0,2.72 -2.23,4.95 -4.95,4.95l-23.69 0c-2.72,0 -4.95,-2.23 -4.95,-4.95l0 -18.14z"/>
+   </g>
+  </svg>
+  `,
+  topBottomRightCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 43.09 29.63"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M-0 0l43.09 0 0 16.68c0,7.12 -5.82,12.94 -12.94,12.94l-30.15 0 0 -29.63z"/>
+   </g>
+  </svg>
+  
+  `,
+  topBottomLeftCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 45.34 31.17"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ 
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M45.34 0l-45.34 0 0 17.55c0,7.49 6.13,13.62 13.62,13.62l31.72 0 0 -31.17z"/>
+   </g>
+  </svg>
+  
+  `,
+  topBottomHugeCurve: `
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.33334in" height="0.916669in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  viewBox="0 0 60.49 41.59"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+
+   <g id="Layer_x0020_1">
+    <metadata id="CorelCorpID_0Corel-Layer"/>
+    <path class="fil0" d="M-0 0l60.49 0 0 20.79c0,11.44 -9.36,20.79 -20.79,20.79l-18.9 0c-11.44,0 -20.79,-9.36 -20.79,-20.79l0 -20.79z"/>
+   </g>
+  </svg>
+  
+  `,
 };

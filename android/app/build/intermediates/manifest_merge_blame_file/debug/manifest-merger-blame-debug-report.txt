@@ -152,7 +152,7 @@
 72        android:roundIcon="@mipmap/ic_launcher_round"
 72-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:137-182
 73        android:supportsRtl="true"
-73-->[com.facebook.android:facebook-android-sdk:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/bbb20e6336b47bc37c1edcad0b01e0b9/transformed/jetified-facebook-android-sdk-12.1.0/AndroidManifest.xml:28:18-44
+73-->[com.facebook.android:facebook-android-sdk:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/bbb20e6336b47bc37c1edcad0b01e0b9/transformed/jetified-facebook-android-sdk-12.1.0/AndroidManifest.xml:28:18-44
 74        android:theme="@style/AppTheme"
 74-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:10:210-241
 75        android:usesCleartextTraffic="true" >
@@ -221,7 +221,7 @@
 107            android:label="@string/app_name"
 107-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:22:79-111
 108            android:theme="@style/com_facebook_activity_theme" />
-108-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:33:13-63
+108-->[com.facebook.android:facebook-common:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/a225e92eb13e8e14bb8428bb4f80b74e/transformed/jetified-facebook-common-12.2.0/AndroidManifest.xml:33:13-63
 109        <activity
 109-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:23:5-30:16
 110            android:name="com.facebook.CustomTabActivity"
@@ -246,7 +246,7 @@
 118-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:28:15-64
 119            </intent-filter>
 120            <intent-filter>
-120-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:39:13-48:29
+120-->[com.facebook.android:facebook-common:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/a225e92eb13e8e14bb8428bb4f80b74e/transformed/jetified-facebook-common-12.2.0/AndroidManifest.xml:39:13-48:29
 121                <action android:name="android.intent.action.VIEW" />
 121-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:25:9-61
 121-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:25:17-58
@@ -317,8 +317,8 @@
 155            android:configChanges="keyboardHidden|orientation" />
 155-->/Users/bebrandd1/Desktop/BeBrand-Creativity/android/app/src/main/AndroidManifest.xml:45:70-120
 156        <activity android:name="com.facebook.CustomTabMainActivity" /> <!-- The activities will be merged into the manifest of the hosting app. -->
-156-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:34:9-71
-156-->[com.facebook.android:facebook-common:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/08adae4810ab4cfd2b59f9bc0b4f6d6d/transformed/jetified-facebook-common-12.1.0/AndroidManifest.xml:34:19-68
+156-->[com.facebook.android:facebook-common:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/a225e92eb13e8e14bb8428bb4f80b74e/transformed/jetified-facebook-common-12.2.0/AndroidManifest.xml:34:9-71
+156-->[com.facebook.android:facebook-common:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/a225e92eb13e8e14bb8428bb4f80b74e/transformed/jetified-facebook-common-12.2.0/AndroidManifest.xml:34:19-68
 157        <activity
 157-->[com.google.android.play:core:1.9.0] /Users/bebrandd1/.gradle/caches/transforms-3/0e670d0a196a09a40de23cd3dbfa24f0/transformed/jetified-core-1.9.0/AndroidManifest.xml:12:5-271
 158            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
@@ -882,38 +882,38 @@
 467         a completely different provider.
 468        -->
 469        <provider
-469-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:39:9-42:40
+469-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:39:9-42:40
 470            android:name="com.facebook.internal.FacebookInitProvider"
-470-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:40:13-70
+470-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:40:13-70
 471            android:authorities="com.bebrandd.branddot.FacebookInitProvider"
-471-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:41:13-72
+471-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:41:13-72
 472            android:exported="false" />
-472-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:42:13-37
+472-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:42:13-37
 473
 474        <receiver
-474-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:44:9-50:20
+474-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:44:9-50:20
 475            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
-475-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:45:13-86
+475-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:45:13-86
 476            android:exported="false" >
-476-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:46:13-37
+476-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:46:13-37
 477            <intent-filter>
-477-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:47:13-49:29
+477-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:47:13-49:29
 478                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
-478-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:48:17-95
-478-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:48:25-92
+478-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:48:17-95
+478-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:48:25-92
 479            </intent-filter>
 480        </receiver>
 481        <receiver
-481-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:51:9-57:20
+481-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:51:9-57:20
 482            android:name="com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver"
-482-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:52:13-118
+482-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:52:13-118
 483            android:exported="false" >
-483-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:53:13-37
+483-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:53:13-37
 484            <intent-filter>
-484-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:54:13-56:29
+484-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:54:13-56:29
 485                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED" />
-485-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:55:17-103
-485-->[com.facebook.android:facebook-core:12.1.0] /Users/bebrandd1/.gradle/caches/transforms-3/f1f366d285451c44db68f8c88ecc9a90/transformed/jetified-facebook-core-12.1.0/AndroidManifest.xml:55:25-100
+485-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:55:17-103
+485-->[com.facebook.android:facebook-core:12.2.0] /Users/bebrandd1/.gradle/caches/transforms-3/32e409f3b1ea0de6be1c6c58d25bca8c/transformed/jetified-facebook-core-12.2.0/AndroidManifest.xml:55:25-100
 486            </intent-filter>
 487        </receiver>
 488
