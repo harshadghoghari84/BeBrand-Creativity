@@ -31,7 +31,7 @@ import Animated from "react-native-reanimated";
 import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { Pagination } from "react-native-snap-carousel";
-
+import ReactNativeZoomableView from "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView";
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -1198,24 +1198,33 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
       {userDataPersonal.image ? (
         <View style={styles.lay2ImgUser}>
-          <FastImage
-            onLoadStart={() => {
-              if (Constant.personalLay2Id === curLayoutId) {
-                setIsUserDesignImageLoad(true);
-              }
-            }}
-            onLoadEnd={() => {
-              if (Constant.personalLay2Id === curLayoutId) {
-                setIsUserDesignImageLoad(false);
-              }
-            }}
-            source={{ uri: userDataPersonal.image }}
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+          <ReactNativeZoomableView
+            maxZoom={1.5}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+            // onZoomAfter={this.logOutZoomState}
+          >
+            <FastImage
+              onLoadStart={() => {
+                if (Constant.personalLay2Id === curLayoutId) {
+                  setIsUserDesignImageLoad(true);
+                }
+              }}
+              onLoadEnd={() => {
+                if (Constant.personalLay2Id === curLayoutId) {
+                  setIsUserDesignImageLoad(false);
+                }
+              }}
+              source={{ uri: userDataPersonal.image }}
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </ReactNativeZoomableView>
         </View>
       ) : null}
       {userDataPersonal.name ? (
@@ -1277,21 +1286,35 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       {userDataPersonal.image ? (
-        <FastImage
-          onLoadStart={() => {
-            if (Constant.personalLay3Id === curLayoutId) {
-              setIsUserDesignImageLoad(true);
-            }
-          }}
-          onLoadEnd={() => {
-            if (Constant.personalLay3Id === curLayoutId) {
-              setIsUserDesignImageLoad(false);
-            }
-          }}
-          source={{ uri: userDataPersonal.image }}
-          style={styles.lay3ImgUser}
-          resizeMode={FastImage.resizeMode.contain}
-        />
+        <View style={styles.lay3ImgUser}>
+          <ReactNativeZoomableView
+            maxZoom={1.5}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+            // onZoomAfter={this.logOutZoomState}
+          >
+            <FastImage
+              onLoadStart={() => {
+                if (Constant.personalLay3Id === curLayoutId) {
+                  setIsUserDesignImageLoad(true);
+                }
+              }}
+              onLoadEnd={() => {
+                if (Constant.personalLay3Id === curLayoutId) {
+                  setIsUserDesignImageLoad(false);
+                }
+              }}
+              source={{ uri: userDataPersonal.image }}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </ReactNativeZoomableView>
+        </View>
       ) : null}
       {userDataPersonal.name ? (
         <MuktaText style={[styles.lay3TxtName, { color: footerTextColor }]}>
@@ -1511,21 +1534,32 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
-        <FastImage
-          onLoadStart={() => {
-            if (Constant.personalLay6Id === curLayoutId) {
-              setIsUserDesignImageLoad(true);
-            }
-          }}
-          onLoadEnd={() => {
-            if (Constant.personalLay6Id === curLayoutId) {
-              setIsUserDesignImageLoad(false);
-            }
-          }}
-          source={{ uri: userDataPersonal.image }}
-          style={styles.lay2ImgUser}
-          resizeMode={FastImage.resizeMode.contain}
-        />
+        <View style={styles.lay2ImgUser}>
+          <ReactNativeZoomableView
+            maxZoom={1.5}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+            // onZoomAfter={this.logOutZoomState}
+          >
+            <FastImage
+              onLoadStart={() => {
+                if (Constant.personalLay6Id === curLayoutId) {
+                  setIsUserDesignImageLoad(true);
+                }
+              }}
+              onLoadEnd={() => {
+                if (Constant.personalLay6Id === curLayoutId) {
+                  setIsUserDesignImageLoad(false);
+                }
+              }}
+              source={{ uri: userDataPersonal.image }}
+              style={{ height: "100%", width: "100%" }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </ReactNativeZoomableView>
+        </View>
       ) : null}
       {userDataPersonal.name ? (
         <MuktaText style={[styles.lay2TxtName, { color: footerTextColor }]}>
@@ -1608,6 +1642,18 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
+        <View 
+        style={styles.lay3ImgUser}
+        
+        >
+         <ReactNativeZoomableView
+         maxZoom={1.5}
+         minZoom={0.5}
+         zoomStep={0.5}
+         initialZoom={1}
+         bindToBorders={true}
+         // onZoomAfter={this.logOutZoomState}
+       >
         <FastImage
           onLoadStart={() => {
             if (Constant.personalLay7Id === curLayoutId) {
@@ -1620,9 +1666,14 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
             }
           }}
           source={{ uri: userDataPersonal.image }}
-          style={styles.lay3ImgUser}
+          style={{
+            height:"100%",
+            width:"100%",
+          }}
           resizeMode={FastImage.resizeMode.contain}
         />
+        </ReactNativeZoomableView>
+        </View>
       ) : null}
       {userDataPersonal.name ? (
         <MuktaText
