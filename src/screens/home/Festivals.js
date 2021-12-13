@@ -62,10 +62,10 @@ const Festivals = ({ navigation, designStore, userStore }) => {
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
   const [userSubCategories, setUserSubCategories] = useState([]);
-  const [totalUserSubCategoriesAfter, setTotalUserSubCategoriesAfter] =
-    useState(0);
-  const [totalUserSubCategoriesBefore, setTotalUserSubCategoriesBefore] =
-    useState(0);
+  // const [totalUserSubCategoriesAfter, setTotalUserSubCategoriesAfter] =
+  //   useState(0);
+  // const [totalUserSubCategoriesBefore, setTotalUserSubCategoriesBefore] =
+  //   useState(0);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState();
   const [modalVisibleForModalOffers, setModalVisibleForModalOffers] =
@@ -360,15 +360,15 @@ const Festivals = ({ navigation, designStore, userStore }) => {
     }
   }, [userSubCategoriesAfter, userSubCategoriesBefore]);
 
-  useEffect(() => {
-    isMountedRef.current &&
-      setTotalUserSubCategoriesAfter(designStore.totalUserSubCategoriesAfter);
-  }, [designStore.totalUserSubCategoriesAfter]);
+  // useEffect(() => {
+  //   isMountedRef.current &&
+  //     setTotalUserSubCategoriesAfter(designStore.totalUserSubCategoriesAfter);
+  // }, [designStore.totalUserSubCategoriesAfter]);
 
-  useEffect(() => {
-    isMountedRef.current &&
-      setTotalUserSubCategoriesBefore(designStore.totalUserSubCategoriesBefore);
-  }, [designStore.totalUserSubCategoriesBefore]);
+  // useEffect(() => {
+  //   isMountedRef.current &&
+  //     setTotalUserSubCategoriesBefore(designStore.totalUserSubCategoriesBefore);
+  // }, [designStore.totalUserSubCategoriesBefore]);
 
   useEffect(() => {
     if (isMountedRef.current) {
@@ -840,7 +840,7 @@ const Festivals = ({ navigation, designStore, userStore }) => {
             // borderBottomColor: Color.blackTrans,
             // borderBottomWidth: 1,
           }}
-          onEndReached={() => loadMoreAfterSubCategories()}
+          // onEndReached={() => loadMoreAfterSubCategories()}
           keyExtractor={keyExtractor}
           onContentSizeChange={() => {
             if (isFirstTimeListLoad) {
@@ -848,9 +848,9 @@ const Festivals = ({ navigation, designStore, userStore }) => {
               setSubCategoryindex();
             }
           }}
-          onScroll={(e) => {
-            loadMoreBeforeSubCategories(e.nativeEvent.contentOffset.x);
-          }}
+          // onScroll={(e) => {
+          //   loadMoreBeforeSubCategories(e.nativeEvent.contentOffset.x);
+          // }}
           onLayout={() => {
             if (isFirstTimeListLoad === false) {
               setSubCategoryindex();

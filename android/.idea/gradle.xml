@@ -44,9 +44,10 @@
             <option value="$PROJECT_DIR$/../node_modules/react-native-device-info/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-fast-image/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-fbads/android/app" />
-            <option value="$PROJECT_DIR$/../node_modules/react-native-fbsdk/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-fbsdk-next/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-gesture-handler/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-iap/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-image-picker/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-in-app-review/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-push-notification/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-rate/android" />

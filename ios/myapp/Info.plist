@@ -73,7 +73,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>In the application, we have a custom section where the user can upload images from the gallery and save the image into the gallery. For that, we need gallery access in the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

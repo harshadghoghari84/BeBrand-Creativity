@@ -484,36 +484,10 @@ export default {
         }
       }
 
-      totalUserSubCategoriesAfter: totalUserSubCategories(type: $afterType)
-
-      totalUserSubCategoriesBefore: totalUserSubCategories(type: $beforeType)
-
       designLayouts {
         id
-        layoutName
+
         layoutType
-        package {
-          id
-          type
-        }
-        layoutFields {
-          name
-          designation
-          mobile
-          image
-          address
-          footer
-          socialMediaView
-          socialMediaLabel
-          socialMediaName
-          socialIcon
-        }
-        layoutImage {
-          url
-        }
-        footerImage {
-          url
-        }
       }
 
       designPackages {
