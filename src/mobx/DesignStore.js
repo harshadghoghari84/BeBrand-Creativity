@@ -46,8 +46,8 @@ class DesignStore {
   globleUserSubCategoriesHome = [];
   globleUserSubCategoriesAfter = [];
   globleUserSubCategoriesBefore = [];
-  totalUserSubCategoriesAfter = 0;
-  totalUserSubCategoriesBefore = 0;
+  // totalUserSubCategoriesAfter = 0;
+  // totalUserSubCategoriesBefore = 0;
   designLayouts = [];
   designPackages = [];
   designPackagesIos = [];
@@ -90,8 +90,8 @@ class DesignStore {
           this.globleUserSubCategoriesBefore = data.userSubCategoriesBefore;
           this.changeDesignByLanguage();
           this.designLayouts = data.designLayouts;
-          this.totalUserSubCategoriesAfter = data.totalUserSubCategoriesAfter;
-          this.totalUserSubCategoriesBefore = data.totalUserSubCategoriesBefore;
+          // this.totalUserSubCategoriesAfter = data.totalUserSubCategoriesAfter;
+          // this.totalUserSubCategoriesBefore = data.totalUserSubCategoriesBefore;
           this.lastNotificationTime = new Date(data.lastNotificationTime);
           this.languages = data.languages;
           this.calcualteNotificationTime();
@@ -467,11 +467,11 @@ decorate(DesignStore, {
   userOtherSubCategories: observable,
   userSubCategoriesHome: observable,
   userSubCategoriesAfter: observable,
-  totalUserSubCategoriesAfter: observable,
+  // totalUserSubCategoriesAfter: observable,
   userSubCategoriesBefore: observable,
   globleUserSubCategoriesHome: observable,
   globleUserOtherSubCategoriesHome: observable,
-  totalUserSubCategoriesBefore: observable,
+  // totalUserSubCategoriesBefore: observable,
   globleUserOtherSubCategories: observable,
   globleUserSubCategoriesAfter: observable,
   globleUserSubCategoriesBefore: observable,

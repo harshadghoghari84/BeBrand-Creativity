@@ -136,10 +136,10 @@ const Home = ({ navigation, designStore, userStore }) => {
   const [userSubCategoriesBefore, setUserSubCategoriesBefore] = useState([]);
   const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
   const [userSubCategories, setUserSubCategories] = useState([]);
-  const [totalUserSubCategoriesAfter, setTotalUserSubCategoriesAfter] =
-    useState(0);
-  const [totalUserSubCategoriesBefore, setTotalUserSubCategoriesBefore] =
-    useState(0);
+  // const [totalUserSubCategoriesAfter, setTotalUserSubCategoriesAfter] =
+  //   useState(0);
+  // const [totalUserSubCategoriesBefore, setTotalUserSubCategoriesBefore] =
+  //   useState(0);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState();
   const [modalVisibleForModalOffers, setModalVisibleForModalOffers] =
@@ -539,10 +539,10 @@ const Home = ({ navigation, designStore, userStore }) => {
     }
   }, []);
 
-  useEffect(() => {
-    isMountedRef.current &&
-      setTotalUserSubCategoriesAfter(designStore.totalUserSubCategoriesAfter);
-  }, [designStore.totalUserSubCategoriesAfter]);
+  // useEffect(() => {
+  //   isMountedRef.current &&
+  //     setTotalUserSubCategoriesAfter(designStore.totalUserSubCategoriesAfter);
+  // }, [designStore.totalUserSubCategoriesAfter]);
 
   // useEffect(() => {
   //   isMountedRef.current &&

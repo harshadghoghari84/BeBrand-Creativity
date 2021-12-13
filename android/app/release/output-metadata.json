@@ -5,7 +5,7 @@
     "kind": "Directory"
   },
   "applicationId": "com.bebrandd.branddot",
-  "variantName": "processReleaseResources",
+  "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",

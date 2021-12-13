@@ -120,6 +120,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [userSubCategories, setUserSubCategories] = useState([]);
   const [userSubCategoriesAfter, setUserSubCategoriesAfter] = useState([]);
   const [userOtherSubCategoryes, setUserOtherSubCategoryes] = useState([]);
+  const [picWidth, setPicWidth] = useState(18);
+  const [picHeight, setPicHeight] = useState(190);
+  const [flip, setFlip] = useState(false);
+
   useEffect(() => {
     return () => {
       console.log("leave personal design");
@@ -1197,34 +1201,40 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
-        <View style={styles.lay2ImgUser}>
-          <ReactNativeZoomableView
+        <View
+          style={[
+            styles.lay2ImgUser,
+            { width: `${picWidth}%`, height: `${picHeight}%` },
+            flip && { transform: [{ scaleX: -1 }] },
+          ]}
+        >
+          {/* <ReactNativeZoomableView
             maxZoom={1.5}
             minZoom={0.5}
             zoomStep={0.5}
             initialZoom={1}
             bindToBorders={true}
             // onZoomAfter={this.logOutZoomState}
-          >
-            <FastImage
-              onLoadStart={() => {
-                if (Constant.personalLay2Id === curLayoutId) {
-                  setIsUserDesignImageLoad(true);
-                }
-              }}
-              onLoadEnd={() => {
-                if (Constant.personalLay2Id === curLayoutId) {
-                  setIsUserDesignImageLoad(false);
-                }
-              }}
-              source={{ uri: userDataPersonal.image }}
-              style={{
-                height: "100%",
-                width: "100%",
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </ReactNativeZoomableView>
+          > */}
+          <FastImage
+            onLoadStart={() => {
+              if (Constant.personalLay2Id === curLayoutId) {
+                setIsUserDesignImageLoad(true);
+              }
+            }}
+            onLoadEnd={() => {
+              if (Constant.personalLay2Id === curLayoutId) {
+                setIsUserDesignImageLoad(false);
+              }
+            }}
+            source={{ uri: userDataPersonal.image }}
+            style={{
+              height: "100%",
+              width: "100%",
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          {/* </ReactNativeZoomableView> */}
         </View>
       ) : null}
       {userDataPersonal.name ? (
@@ -1286,34 +1296,40 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       />
 
       {userDataPersonal.image ? (
-        <View style={styles.lay3ImgUser}>
-          <ReactNativeZoomableView
+        <View
+          style={[
+            styles.lay3ImgUser,
+            { width: `${picWidth}%`, height: `${picHeight}%` },
+            flip && { transform: [{ scaleX: -1 }] },
+          ]}
+        >
+          {/* <ReactNativeZoomableView
             maxZoom={1.5}
             minZoom={0.5}
             zoomStep={0.5}
             initialZoom={1}
             bindToBorders={true}
             // onZoomAfter={this.logOutZoomState}
-          >
-            <FastImage
-              onLoadStart={() => {
-                if (Constant.personalLay3Id === curLayoutId) {
-                  setIsUserDesignImageLoad(true);
-                }
-              }}
-              onLoadEnd={() => {
-                if (Constant.personalLay3Id === curLayoutId) {
-                  setIsUserDesignImageLoad(false);
-                }
-              }}
-              source={{ uri: userDataPersonal.image }}
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </ReactNativeZoomableView>
+          > */}
+          <FastImage
+            onLoadStart={() => {
+              if (Constant.personalLay3Id === curLayoutId) {
+                setIsUserDesignImageLoad(true);
+              }
+            }}
+            onLoadEnd={() => {
+              if (Constant.personalLay3Id === curLayoutId) {
+                setIsUserDesignImageLoad(false);
+              }
+            }}
+            source={{ uri: userDataPersonal.image }}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          {/* </ReactNativeZoomableView> */}
         </View>
       ) : null}
       {userDataPersonal.name ? (
@@ -1534,31 +1550,37 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
-        <View style={styles.lay2ImgUser}>
-          <ReactNativeZoomableView
+        <View
+          style={[
+            styles.lay2ImgUser,
+            { width: `${picWidth}%`, height: `${picHeight}%` },
+            flip && { transform: [{ scaleX: -1 }] },
+          ]}
+        >
+          {/* <ReactNativeZoomableView
             maxZoom={1.5}
             minZoom={0.5}
             zoomStep={0.5}
             initialZoom={1}
             bindToBorders={true}
             // onZoomAfter={this.logOutZoomState}
-          >
-            <FastImage
-              onLoadStart={() => {
-                if (Constant.personalLay6Id === curLayoutId) {
-                  setIsUserDesignImageLoad(true);
-                }
-              }}
-              onLoadEnd={() => {
-                if (Constant.personalLay6Id === curLayoutId) {
-                  setIsUserDesignImageLoad(false);
-                }
-              }}
-              source={{ uri: userDataPersonal.image }}
-              style={{ height: "100%", width: "100%" }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </ReactNativeZoomableView>
+          > */}
+          <FastImage
+            onLoadStart={() => {
+              if (Constant.personalLay6Id === curLayoutId) {
+                setIsUserDesignImageLoad(true);
+              }
+            }}
+            onLoadEnd={() => {
+              if (Constant.personalLay6Id === curLayoutId) {
+                setIsUserDesignImageLoad(false);
+              }
+            }}
+            source={{ uri: userDataPersonal.image }}
+            style={{ height: "100%", width: "100%" }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          {/* </ReactNativeZoomableView> */}
         </View>
       ) : null}
       {userDataPersonal.name ? (
@@ -1642,37 +1664,40 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         fill={footerColor}
       />
       {userDataPersonal.image ? (
-        <View 
-        style={styles.lay3ImgUser}
-        
+        <View
+          style={[
+            styles.lay3ImgUser,
+            flip && { transform: [{ scaleX: -1 }] },
+            { width: `${picWidth}%`, height: `${picHeight}%` },
+          ]}
         >
-         <ReactNativeZoomableView
-         maxZoom={1.5}
-         minZoom={0.5}
-         zoomStep={0.5}
-         initialZoom={1}
-         bindToBorders={true}
-         // onZoomAfter={this.logOutZoomState}
-       >
-        <FastImage
-          onLoadStart={() => {
-            if (Constant.personalLay7Id === curLayoutId) {
-              setIsUserDesignImageLoad(true);
-            }
-          }}
-          onLoadEnd={() => {
-            if (Constant.personalLay7Id === curLayoutId) {
-              setIsUserDesignImageLoad(false);
-            }
-          }}
-          source={{ uri: userDataPersonal.image }}
-          style={{
-            height:"100%",
-            width:"100%",
-          }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-        </ReactNativeZoomableView>
+          {/* <ReactNativeZoomableView
+            maxZoom={1.5}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+            // onZoomAfter={this.logOutZoomState}
+          > */}
+          <FastImage
+            onLoadStart={() => {
+              if (Constant.personalLay7Id === curLayoutId) {
+                setIsUserDesignImageLoad(true);
+              }
+            }}
+            onLoadEnd={() => {
+              if (Constant.personalLay7Id === curLayoutId) {
+                setIsUserDesignImageLoad(false);
+              }
+            }}
+            source={{ uri: userDataPersonal.image }}
+            style={{
+              height: "100%",
+              width: "100%",
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          {/* </ReactNativeZoomableView> */}
         </View>
       ) : null}
       {userDataPersonal.name ? (
@@ -2485,6 +2510,63 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
               </View>
             </ViewShot>
             {pagination()}
+            <View
+              style={{
+                flexDirection: "row",
+                flex: 1,
+                width: "80%",
+                justifyContent: "space-between",
+                marginVertical: 10,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setPicWidth(picWidth - picWidth / 10);
+                  setPicHeight(picHeight - picHeight / 10);
+                }}
+                style={{
+                  width: 70,
+                  height: 30,
+                  backgroundColor: Color.blackTrans,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 5,
+                }}
+              >
+                <Text>-</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setPicWidth(picWidth + picWidth / 10);
+                  setPicHeight(picHeight + picHeight / 10);
+                }}
+                style={{
+                  width: 70,
+                  height: 30,
+                  backgroundColor: Color.blackTrans,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 5,
+                }}
+              >
+                <Text>+</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setFlip(!flip);
+                }}
+                style={{
+                  width: 70,
+                  height: 30,
+                  backgroundColor: Color.blackTrans,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 5,
+                }}
+              >
+                <Text>flip</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View
             style={{
@@ -2990,8 +3072,8 @@ const styles = StyleSheet.create({
     right: 0,
     position: "absolute",
     bottom: 0,
-    width: "21%",
-    height: "180%",
+    width: "18%",
+    height: "190%",
   },
   lay3TxtName: {
     fontSize: Constant.layBigFontSize,

@@ -218,6 +218,7 @@ module.exports = {
   personalLay8Msg: "personalLay8Msg",
 
   labLayouts: "labLayouts",
+  labPatch: "labPatch",
   labColorCodeList: "labColorCodeList",
   labSocialMediaIcons: "labSocialMediaIcons",
   // bussiness

@@ -28,10 +28,11 @@ import FastImage from "react-native-fast-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
-import ICON from "react-native-vector-icons/MaterialIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { Pagination } from "react-native-snap-carousel";
+import ReactNativeZoomableView from "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView";
 
 // relative path
 import Icon from "../../components/svgIcons";
@@ -133,7 +134,14 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
   );
   const [topLayoutIndex, setTopLayoutIndex] = useState(0);
 
+  const [picWidth, setPicWidth] = useState(128);
+  const [picHeight, setPicHeight] = useState(88);
+
   const TOP_LAYOUTS = [
+    {
+      txt: "noPatch",
+      layOut: null,
+    },
     {
       txt: "left1",
       layOut: SvgConstant.topRightCurve,
@@ -2339,12 +2347,16 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 justifyContent: "center",
               }}
             >
-              <SvgCss
-                xml={item.layOut}
-                width="80%"
-                height="80%"
-                fill={Color.bkgDesignDate}
-              />
+              {item.layOut === null ? (
+                <Text>no Patch</Text>
+              ) : (
+                <SvgCss
+                  xml={item.layOut}
+                  width="80%"
+                  height="80%"
+                  fill={Color.bkgDesignDate}
+                />
+              )}
               {index === topLayoutIndex && (
                 <View
                   style={{
@@ -2727,8 +2739,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         onPress={() => topLayoutRef.current.snapTo(2)}
         style={styles.btnClose}
       >
-        <Text style={{ fontWeight: "700" }}>X</Text>
-        {/* <ICON name="close" size={20} color={Color.black} /> */}
+        <MaterialIcons name="close" size={20} color={Color.black} />
       </TouchableOpacity>
       {topLayout()}
       {topLayoutLeftRigthPosition()}
@@ -2746,7 +2757,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         onPress={() => layoutRef.current.snapTo(2)}
         style={[styles.btnClose]}
       >
-        <ICON name="close" size={22} color={Color.black} />
+        <MaterialIcons name="close" size={22} color={Color.black} />
       </TouchableOpacity>
       {layout()}
     </View>
@@ -2765,7 +2776,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         onPress={() => colorRef.current.snapTo(2)}
         style={[styles.btnClose, { alignSelf: "flex-start" }]}
       >
-        <ICON name="close" size={22} color={Color.darkBlue} />
+        <MaterialIcons name="close" size={22} color={Color.darkBlue} />
       </TouchableOpacity>
     </View>
   );
@@ -2781,7 +2792,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
         onPress={() => socialRef.current.snapTo(2)}
         style={styles.btnClose}
       >
-        <ICON name="close" size={22} color={Color.darkBlue} />
+        <MaterialIcons name="close" size={22} color={Color.darkBlue} />
       </TouchableOpacity>
       {socialIcon()}
     </View>
@@ -2825,6 +2836,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
       Common.showMessage("there is no changes");
     }
     console.log("colorArrcolorArrcolorArrcolorArrcolorArr", colorArr);
+  };
+
+  const getPercentage = (val) => {
+    return val / 10;
   };
 
   const bussiness = () => {
@@ -3048,10 +3063,10 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   <View
                     style={[
                       {
-                        height: 90,
-                        width: 90,
+                        height: picHeight,
+                        width: picWidth,
                         position: "absolute",
-                        top: -15,
+                        top: 0,
                         zIndex: 9999,
                         alignItems: "center",
                         justifyContent: "center",
@@ -3079,8 +3094,8 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                       }}
                       source={{ uri: userDataBussiness?.image }}
                       style={{
-                        height: "55%",
-                        width: "55%",
+                        height: "60%",
+                        width: "60%",
                         position: "absolute",
 
                         // top: 5,
@@ -3128,6 +3143,48 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                 </View>
               </ViewShot>
               {pagination()}
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  width: "80%",
+                  justifyContent: "space-between",
+                  marginVertical: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    setPicWidth(picWidth - picWidth / 10);
+                    setPicHeight(picHeight - picHeight / 10);
+                  }}
+                  style={{
+                    width: 70,
+                    height: 30,
+                    backgroundColor: Color.blackTrans,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text>-</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setPicWidth(picWidth + picWidth / 10);
+                    setPicHeight(picHeight + picHeight / 10);
+                  }}
+                  style={{
+                    width: 70,
+                    height: 30,
+                    backgroundColor: Color.blackTrans,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text>+</Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>
               {user?.userInfo?.business?.image &&
@@ -3263,7 +3320,7 @@ const BussinessDesign = ({ route, designStore, userStore, navigation }) => {
                   }
                   textColor={true}
                 >
-                  {Common.getTranslation(LangKey.labLayouts)}
+                  Patches
                 </Button>
                 {/* <Button
                   style={{ margin: 5, backgroundColor: Color.transparent }}
