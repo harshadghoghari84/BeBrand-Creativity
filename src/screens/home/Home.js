@@ -181,6 +181,7 @@ const Home = ({ navigation, designStore, userStore }) => {
   const topCatagory = [
     { name: "Festivals", tit: "FESTIVALS" },
     { name: "Quotes", tit: "QUOTES" },
+    { name: "Wishish", tit: "WISHISH" },
     // { name: "Quote" },
     // { name: "Kids" },
     // { name: "Frame" },
@@ -1048,6 +1049,8 @@ const Home = ({ navigation, designStore, userStore }) => {
         ...userSubCategoriesBefore,
         ...userSubCategoriesHome,
       ]);
+    } else {
+      setUserSubCategories(userSubCategoriesHome);
     }
     // }
   };
@@ -1471,11 +1474,21 @@ const Home = ({ navigation, designStore, userStore }) => {
                         >
                           {`${moment(new Date(item.endDate)).format("DD MMM")}`}
                         </Text>
-                        <Ionicons
+                        {/* <View style={{ marginHorizontal: 5 }}> */}
+                        <Image
+                          source={require("../../assets/img/right.png")}
+                          style={{
+                            height: 13,
+                            width: 13,
+                            marginHorizontal: 5,
+                          }}
+                        />
+                        {/* </View> */}
+                        {/* <Ionicons
                           name="chevron-forward"
                           color={Color.darkBlue}
                           size={20}
-                        />
+                        /> */}
                       </>
                     )}
                     <Text

@@ -17,10 +17,11 @@ const TextInput = ({
   secureTextEntry,
   errorText,
   setError,
+  stylee,
   ...props
 }) => (
   <>
-    <View style={styles.socialBTNView}>
+    <View style={[styles.socialBTNView, { stylee }]}>
       <View style={styles.filedsIcon}>
         <Icon
           name={iconName}
