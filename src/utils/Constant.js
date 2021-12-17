@@ -216,6 +216,7 @@ export default {
   topCatFestivals: "Festivals",
   topCatQuotes: "QUOTES",
   topCatFestival: "FESTIVALS",
+  topCatWishish: "WISHISH",
 
   // userDesign types
   designTypeALL: "ALL",

@@ -16,6 +16,7 @@ import {
   FlatList,
   ToastAndroid,
   Linking,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ICON from "react-native-vector-icons/MaterialCommunityIcons";
@@ -1411,7 +1412,11 @@ const PopUp = ({
                   borderWidth: 0.5,
                 }}
               >
-                <ICON name="close" size={18} color={Color.darkBlue} />
+                <Image
+                  source={require("../assets/img/close.png")}
+                  style={{ height: 20, width: 20 }}
+                />
+                {/* <ICON name="close" size={18} color={Color.darkBlue} /> */}
               </TouchableOpacity>
 
               {modalOfferData.map((item, index) => {

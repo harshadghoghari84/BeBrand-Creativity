@@ -10,7 +10,7 @@ import CustomHeader from "../common/CustomHeader";
 
 const Tab = createMaterialTopTabNavigator();
 
-const MyTabs = ({ route }) => {
+const MyTabs = ({ route, navigation }) => {
   const {
     designs,
     curDesign,
@@ -20,8 +20,10 @@ const MyTabs = ({ route }) => {
     curCatId,
     activeCat,
   } = route.params;
+
   return (
     <Tab.Navigator
+      swipeEnabled={false}
       initialRouteName={
         curDesign.designType === Constant.designTypeBUSINESS
           ? Constant.navBusinessProfile

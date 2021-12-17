@@ -13,6 +13,7 @@ import {
   PixelRatio,
   ActivityIndicator,
   SafeAreaView,
+  TextInput,
 } from "react-native";
 
 import ViewShot from "react-native-view-shot";
@@ -32,6 +33,8 @@ import { AdMobRewarded, AdMobInterstitial } from "expo-ads-admob";
 import { InterstitialAdManager, AdSettings } from "react-native-fbads";
 import { Pagination } from "react-native-snap-carousel";
 import ReactNativeZoomableView from "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView";
+import { launchImageLibrary } from "react-native-image-picker";
+
 // relative path
 import Icon from "../../components/svgIcons";
 import Color from "../../utils/Color";
@@ -123,6 +126,9 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
   const [picWidth, setPicWidth] = useState(18);
   const [picHeight, setPicHeight] = useState(190);
   const [flip, setFlip] = useState(false);
+  const [mySelectedImage, setMySelectedImage] = useState(null);
+  const [txt1, setTxt1] = useState("");
+  const [txt2, setTxt2] = useState("");
 
   useEffect(() => {
     return () => {
@@ -2265,9 +2271,10 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
       Common.showMessage("there is no changes");
     }
   };
-  return (
-    <>
-      {/* <BottomSheet
+  const renderBottomSheets = () => {
+    return (
+      <>
+        {/* <BottomSheet
         ref={layoutRef}
         snapPoints={[100, 100, 0]}
         borderRadius={10}
@@ -2277,16 +2284,16 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         callbackNode={fall}
         renderContent={renderContentLayout}
       /> */}
-      <BottomSheet
-        ref={colorRef}
-        snapPoints={[100, 100, 0]}
-        borderRadius={10}
-        initialSnap={2}
-        enabledGestureInteraction={false}
-        callbackNode={fall}
-        renderContent={renderContentColor}
-      />
-      {/* <BottomSheet
+        <BottomSheet
+          ref={colorRef}
+          snapPoints={[100, 100, 0]}
+          borderRadius={10}
+          initialSnap={2}
+          enabledGestureInteraction={false}
+          callbackNode={fall}
+          renderContent={renderContentColor}
+        />
+        {/* <BottomSheet
         ref={socialRef}
         snapPoints={[100, 100, 0]}
         borderRadius={10}
@@ -2295,411 +2302,706 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
         callbackNode={fall}
         renderContent={renderContentSocial}
       /> */}
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: Color.white,
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
+      </>
+    );
+  };
+  const renderPopups = () => {
+    return (
+      <>
+        <PopUp
+          visible={visibleFreeModal}
+          toggleVisible={toggleFreeVisible}
+          isfree={true}
+        />
+
+        <PopUp
+          visible={visibleModal}
+          toggleVisible={toggleVisible}
+          isPurchased={true}
+        />
+        <PopUp
+          visible={visibleModalForPkg}
+          toggleVisibleForPkgPrem={toggleVisibleForPkg}
+          isPurchasedPrem={true}
+        />
+
+        <PopUp
+          visible={visiblePicker}
+          initialColor={footerColor}
+          setPickerColor={setFooterColor}
+          setSelectedPicker={setSelectedPicker}
+          toggleVisibleColorPicker={toggleVisibleColorPicker}
+          isPicker={true}
+        />
+
+        {/* <PopUp
+    visible={visibleModalMsg}
+    toggleVisibleMsg={toggleVisibleMsg}
+    isLayout={true}
+    msg={msg}
+  /> */}
+        <PopUp
+          visible={visibleModalAd}
+          toggleVisibleAd={toggleVisibleAd}
+          isVisibleAd={true}
+        />
+        <PopUp
+          visible={visibleModalForEditPersonalInfo}
+          toggleVisibleModalForEditPersonalInfo={
+            toggleVisibleModalForEditPersonalInfo
+          }
+          isVisiblePersonalInfo={true}
+        />
+      </>
+    );
+  };
+
+  const renderTopDesigns = () => {
+    return (
+      <>
+        <FlatList
+          horizontal
+          ref={designRef}
+          showsHorizontalScrollIndicator={false}
+          data={dess}
+          ListFooterComponent={
+            designStore.udLoading || designStore.uoscLoading ? (
+              <ActivityIndicator size={25} color={Color.primary} />
+            ) : null
+          }
+          ListFooterComponentStyle={{
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          showsVerticalScrollIndicator={false}
-        >
-          <PopUp
-            visible={visibleFreeModal}
-            toggleVisible={toggleFreeVisible}
-            isfree={true}
-          />
-
-          <PopUp
-            visible={visibleModal}
-            toggleVisible={toggleVisible}
-            isPurchased={true}
-          />
-          <PopUp
-            visible={visibleModalForPkg}
-            toggleVisibleForPkgPrem={toggleVisibleForPkg}
-            isPurchasedPrem={true}
-          />
-
-          <PopUp
-            visible={visiblePicker}
-            initialColor={footerColor}
-            setPickerColor={setFooterColor}
-            setSelectedPicker={setSelectedPicker}
-            toggleVisibleColorPicker={toggleVisibleColorPicker}
-            isPicker={true}
-          />
-
-          {/* <PopUp
-            visible={visibleModalMsg}
-            toggleVisibleMsg={toggleVisibleMsg}
-            isLayout={true}
-            msg={msg}
-          /> */}
-          <PopUp
-            visible={visibleModalAd}
-            toggleVisibleAd={toggleVisibleAd}
-            isVisibleAd={true}
-          />
-          <PopUp
-            visible={visibleModalForEditPersonalInfo}
-            toggleVisibleModalForEditPersonalInfo={
-              toggleVisibleModalForEditPersonalInfo
+          onContentSizeChange={() => {
+            if (isFirstTimeLoad) {
+              scrollTodesign();
             }
-            isVisiblePersonalInfo={true}
-          />
+          }}
+          getItemLayout={getItemLayoutsCategory}
+          keyExtractor={keyExtractor}
+          onEndReached={() => {
+            !designStore.udLoading && loadMoreDesigns(curDesignId);
+          }}
+          contentContainerStyle={styles.flatlist}
+          renderItem={({ item }) => {
+            const designPackage = designPackages.find(
+              (pkg) => pkg.id === item.package
+            );
 
-          <View style={styles.container}>
-            <FlatList
-              horizontal
-              ref={designRef}
-              showsHorizontalScrollIndicator={false}
-              data={dess}
-              ListFooterComponent={
-                designStore.udLoading || designStore.uoscLoading ? (
-                  <ActivityIndicator size={25} color={Color.primary} />
-                ) : null
-              }
-              ListFooterComponentStyle={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onContentSizeChange={() => {
-                if (isFirstTimeLoad) {
-                  scrollTodesign();
-                }
-              }}
-              getItemLayout={getItemLayoutsCategory}
-              keyExtractor={keyExtractor}
-              onEndReached={() => {
-                !designStore.udLoading && loadMoreDesigns(curDesignId);
-              }}
-              contentContainerStyle={styles.flatlist}
-              renderItem={({ item }) => {
-                const designPackage = designPackages.find(
-                  (pkg) => pkg.id === item.package
-                );
+            return (
+              <>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={styles.listDesignView}
+                  onPress={() => {
+                    firstTimeColor = true;
+                    colorArr = [];
+                    hasPro === false && adCounter++;
+                    console.log("adCounter", adCounter);
+                    showAd();
+                    setPkgType(designPackage.type);
 
-                return (
-                  <>
-                    <TouchableOpacity
-                      activeOpacity={0.6}
-                      style={styles.listDesignView}
-                      onPress={() => {
-                        firstTimeColor = true;
-                        colorArr = [];
-                        hasPro === false && adCounter++;
-                        console.log("adCounter", adCounter);
-                        showAd();
-                        setPkgType(designPackage.type);
-
-                        setCurrentDesign(item);
-                      }}
-                    >
-                      <View>
-                        <FastImage
-                          source={{ uri: item.thumbImage.url }}
-                          style={{ width: 75, height: 75 }}
-                        />
-
-                        {item.id === currentDesign.id && (
-                          <View
-                            style={[
-                              styles.icnCheck,
-                              {
-                                backgroundColor: Color.blackTransparant,
-                                opacity: 0.6,
-                                width: 75,
-                                height: 75,
-                              },
-                            ]}
-                          />
-                        )}
-                        {designPackage.type ===
-                        Constant.typeDesignPackageVip ? (
-                          <Icon
-                            style={styles.tagPro}
-                            name="Premium"
-                            height={18}
-                            width={10}
-                            fill={Color.primary}
-                          />
-                        ) : (
-                          <View style={styles.tagfree}>
-                            <Text
-                              style={{
-                                color: Color.white,
-                                fontSize: 6,
-                              }}
-                            >
-                              {Common.getTranslation(LangKey.free)}
-                            </Text>
-                          </View>
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                  </>
-                );
-              }}
-            />
-
-            <View
-              style={{
-                height: 1,
-                width: "95%",
-                backgroundColor: Color.txtIntxtcolor,
-                marginVertical: 10,
-              }}
-            />
-
-            <ViewShot
-              style={styles.designView}
-              ref={viewRef}
-              options={{
-                format: "jpg",
-                quality: 1,
-                // width: pixels,
-                // height: pixels,
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                }}
-              >
-                <FastImage
-                  onLoadStart={() => setIsdesignImageLoad(true)}
-                  onLoadEnd={() => {
-                    setIsdesignImageLoad(false);
-                    if (!viewableItem.includes(currentDesign.id)) {
-                      if (user && user !== null) {
-                        setViewableItem([...viewableItem, currentDesign.id]);
-                      }
-                    }
+                    setCurrentDesign(item);
                   }}
-                  source={{
-                    uri: currentDesign?.designImage?.url,
-                  }}
-                  style={{ flex: 1 }}
                 >
-                  <FlatList
-                    ref={flatlistSliderRef}
-                    data={layouts}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled
-                    onViewableItemsChanged={onViewRef.current}
-                    viewabilityConfig={viewConfigRef.current}
-                    keyExt={keyExtractor}
-                    renderItem={({ item, index }) => {
-                      return (
-                        <View
+                  <View>
+                    <FastImage
+                      source={{ uri: item.thumbImage.url }}
+                      style={{ width: 75, height: 75 }}
+                    />
+
+                    {item.id === currentDesign.id && (
+                      <View
+                        style={[
+                          styles.icnCheck,
+                          {
+                            backgroundColor: Color.blackTransparant,
+                            opacity: 0.6,
+                            width: 75,
+                            height: 75,
+                          },
+                        ]}
+                      />
+                    )}
+                    {designPackage.type === Constant.typeDesignPackageVip ? (
+                      <Icon
+                        style={styles.tagPro}
+                        name="Premium"
+                        height={18}
+                        width={10}
+                        fill={Color.primary}
+                      />
+                    ) : (
+                      <View style={styles.tagfree}>
+                        <Text
                           style={{
-                            width: width - 25,
+                            color: Color.white,
+                            fontSize: 6,
                           }}
                         >
-                          {getLayout(item.id, index)}
-                        </View>
-                      );
-                    }}
-                  />
-                </FastImage>
-              </View>
-            </ViewShot>
-            {pagination()}
-            <View
-              style={{
-                flexDirection: "row",
-                flex: 1,
-                width: "80%",
-                justifyContent: "space-between",
-                marginVertical: 10,
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  setPicWidth(picWidth - picWidth / 10);
-                  setPicHeight(picHeight - picHeight / 10);
-                }}
-                style={{
-                  width: 70,
-                  height: 30,
-                  backgroundColor: Color.blackTrans,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 5,
-                }}
-              >
-                <Text>-</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setPicWidth(picWidth + picWidth / 10);
-                  setPicHeight(picHeight + picHeight / 10);
-                }}
-                style={{
-                  width: 70,
-                  height: 30,
-                  backgroundColor: Color.blackTrans,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 5,
-                }}
-              >
-                <Text>+</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setFlip(!flip);
-                }}
-                style={{
-                  width: 70,
-                  height: 30,
-                  backgroundColor: Color.blackTrans,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 5,
-                }}
-              >
-                <Text>flip</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+                          {Common.getTranslation(LangKey.free)}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              </>
+            );
+          }}
+        />
+      </>
+    );
+  };
+
+  const renderNormalImage = () => {
+    return (
+      <>
+        <FastImage
+          onLoadStart={() => setIsdesignImageLoad(true)}
+          onLoadEnd={() => {
+            setIsdesignImageLoad(false);
+            if (!viewableItem.includes(currentDesign.id)) {
+              if (user && user !== null) {
+                setViewableItem([...viewableItem, currentDesign.id]);
+              }
+            }
+          }}
+          source={{
+            uri: currentDesign?.designImage?.url,
+          }}
+          style={{ flex: 1 }}
+        >
+          <FlatList
+            ref={flatlistSliderRef}
+            data={layouts}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onViewableItemsChanged={onViewRef.current}
+            viewabilityConfig={viewConfigRef.current}
+            keyExt={keyExtractor}
+            renderItem={({ item, index }) => {
+              return (
+                <View
+                  style={{
+                    width: width - 25,
+                  }}
+                >
+                  {getLayout(item.id, index)}
+                </View>
+              );
+            }}
+          />
+        </FastImage>
+      </>
+    );
+  };
+  const pickImage = async () => {
+    let options = {
+      mediaType: "photo",
+      quality: 1,
+      storageOptions: {
+        skipBackup: true,
+        path: "images",
+      },
+    };
+
+    let result = await launchImageLibrary(options, (response) => {
+      result = response;
+    });
+
+    try {
+      if (result.assets) {
+        result?.assets.map(async ({ uri }) => {
+          setMySelectedImage(uri);
+        });
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const renderAddImageAndText = () => {
+    return (
+      <View style={{ width: width - 25 }}>
+        <TouchableOpacity
+          style={{ height: 40, width: 40 }}
+          onPress={() => pickImage()}
+        >
+          <Icon name="addImg" fill={Color.white} height={35} width={35} />
+        </TouchableOpacity>
+        <TextInput
+          placeholder={"write here..."}
+          placeholderTextColor={Color.txtIntxtcolor}
+          // iconName="user"
+          returnKeyType="next"
+          value={txt1}
+          maxLength={35}
+          onChangeText={(text) => {
+            setTxt1(text);
+          }}
+          autoCapitalize="none"
+          style={{
+            backgroundColor: Color.txtInBgColor,
+            borderRadius: 8,
+            margin: 5,
+          }}
+        />
+        <TextInput
+          placeholder={"write here..."}
+          placeholderTextColor={Color.txtIntxtcolor}
+          // iconName="user"
+          returnKeyType="next"
+          value={txt2}
+          maxLength={35}
+          onChangeText={(text) => {
+            setTxt2(text);
+          }}
+          autoCapitalize="none"
+          style={{
+            backgroundColor: Color.txtInBgColor,
+            borderRadius: 8,
+            margin: 5,
+          }}
+        />
+      </View>
+    );
+  };
+  const renderViewShot = () => {
+    return (
+      <>
+        <View
+          style={{
+            height: 1,
+            width: "95%",
+            backgroundColor: Color.txtIntxtcolor,
+            marginVertical: 10,
+          }}
+        />
+
+        <ViewShot
+          style={styles.designView}
+          ref={viewRef}
+          options={{
+            format: "jpg",
+            quality: 1,
+            // width: pixels,
+            // height: pixels,
+          }}
+        >
           <View
             style={{
               flex: 1,
-              alignItems: "center",
             }}
           >
-            {user?.userInfo?.personal?.image &&
-            user.userInfo.personal.image.length > 0 ? (
-              <View
-                style={{
-                  borderColor: Color.blackTransBorder,
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  height: 116,
-                  maxWidth: width - 10,
-                  marginBottom: 10,
-                }}
-              >
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={
-                    Array.isArray(user?.userInfo?.personal?.image)
-                      ? user.userInfo.personal.image
-                      : []
-                  }
-                  keyExtractor={(index) => index.toString()}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        style={styles.toProfileImage}
-                        onPress={async () => {
-                          await setDefaultImageUrl(item.url);
-                          defaultImg = item.url;
-                          setTimeout(() => {
-                            let newImage = [];
-                            if (defaultImg && defaultImg !== "") {
-                              newImage = user?.userInfo?.personal?.image.map(
-                                (item) => {
-                                  if (item.url == defaultImg) {
-                                    item.isDefault = true;
-                                  } else {
-                                    item.isDefault = false;
-                                  }
-                                  return item;
-                                }
-                              );
-                            }
-                            const newUser = {
-                              ...user,
-                              userInfo: {
-                                ...user?.userInfo,
-                                personal: {
-                                  ...user?.userInfo.personal,
-                                  image: newImage,
-                                },
-                              },
-                            };
-                            userStore.setOnlyUserDetail(newUser);
-                          }, 1000);
-                        }}
-                      >
-                        {item.url && item.url !== "" && (
-                          <FastImage
-                            source={{ uri: item.url }}
-                            style={styles.toProfileImage}
-                          />
-                        )}
-
-                        {defaultImageUrl === item.url && (
-                          <View
-                            style={{
-                              position: "absolute",
-                              zIndex: 1,
-                              bottom: 5,
-                              backgroundColor: Color.blackTransTagFree,
-                              width: "90%",
-                              alignItems: "center",
-                              paddingVertical: 2,
-                              borderRadius: 5,
-                            }}
-                          >
-                            <Icon
-                              name="mark"
-                              height={18}
-                              width={18}
-                              fill={Color.primary}
-                            />
-                          </View>
-                        )}
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
-              </View>
-            ) : null}
+            {activeCat == "Wishish" ? renderWishish() : renderNormalImage()}
           </View>
-        </ScrollView>
-        <View
+        </ViewShot>
+        {activeCat == "Wishish" && renderAddImageAndText()}
+        {activeCat !== "Wishish" && pagination()}
+      </>
+    );
+  };
+  const renderButtons = () => {
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          width: "80%",
+          justifyContent: "space-between",
+          marginVertical: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            setPicWidth(picWidth - picWidth / 10);
+            setPicHeight(picHeight - picHeight / 10);
+          }}
           style={{
-            borderTopColor: Color.txtIntxtcolor,
-            borderTopWidth: 1,
-            backgroundColor: Color.white,
-            height: 50,
+            width: 70,
+            height: 30,
+            backgroundColor: Color.blackTrans,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 5,
           }}
         >
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-              flex: 1,
+          <Text>-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setPicWidth(picWidth + picWidth / 10);
+            setPicHeight(picHeight + picHeight / 10);
+          }}
+          style={{
+            width: 70,
+            height: 30,
+            backgroundColor: Color.blackTrans,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 5,
+          }}
+        >
+          <Text>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setFlip(!flip);
+          }}
+          style={{
+            width: 70,
+            height: 30,
+            backgroundColor: Color.blackTrans,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 5,
+          }}
+        >
+          <Text>flip</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+  const renderChooseDefaultImage = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        {user?.userInfo?.personal?.image &&
+        user.userInfo.personal.image.length > 0 ? (
+          <View
+            style={{
+              borderColor: Color.blackTransBorder,
+              borderWidth: 1,
+              borderRadius: 10,
+              height: 116,
+              maxWidth: width - 10,
+              marginBottom: 10,
             }}
           >
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={
+                Array.isArray(user?.userInfo?.personal?.image)
+                  ? user.userInfo.personal.image
+                  : []
+              }
+              keyExtractor={(index) => index.toString()}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.toProfileImage}
+                    onPress={async () => {
+                      await setDefaultImageUrl(item.url);
+                      defaultImg = item.url;
+                      setTimeout(() => {
+                        let newImage = [];
+                        if (defaultImg && defaultImg !== "") {
+                          newImage = user?.userInfo?.personal?.image.map(
+                            (item) => {
+                              if (item.url == defaultImg) {
+                                item.isDefault = true;
+                              } else {
+                                item.isDefault = false;
+                              }
+                              return item;
+                            }
+                          );
+                        }
+                        const newUser = {
+                          ...user,
+                          userInfo: {
+                            ...user?.userInfo,
+                            personal: {
+                              ...user?.userInfo.personal,
+                              image: newImage,
+                            },
+                          },
+                        };
+                        userStore.setOnlyUserDetail(newUser);
+                      }, 1000);
+                    }}
+                  >
+                    {item.url && item.url !== "" && (
+                      <FastImage
+                        source={{ uri: item.url }}
+                        style={styles.toProfileImage}
+                      />
+                    )}
+
+                    {defaultImageUrl === item.url && (
+                      <View
+                        style={{
+                          position: "absolute",
+                          zIndex: 1,
+                          bottom: 5,
+                          backgroundColor: Color.blackTransTagFree,
+                          width: "90%",
+                          alignItems: "center",
+                          paddingVertical: 2,
+                          borderRadius: 5,
+                        }}
+                      >
+                        <Icon
+                          name="mark"
+                          height={18}
+                          width={18}
+                          fill={Color.primary}
+                        />
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
+        ) : null}
+      </View>
+    );
+  };
+  const renderWishish = () => {
+    return (
+      <>
+        <View
+          style={{
+            width: width - 25,
+            height: width - 25,
+
+            position: "absolute",
+            // zIndex: 99,
+            alignItems: "center",
+            // top: 31,
+            // backgroundColor: "red",
+          }}
+        >
+          <ReactNativeZoomableView
+            maxZoom={1.2}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+            style={{
+              // backgroundColor: "green",
+              marginBottom: 115,
+            }}
+          >
+            <FastImage
+              source={{
+                uri: mySelectedImage ? mySelectedImage : defaultImageUrl,
+              }}
+              style={{
+                height: 160,
+                width: 136,
+                // position: "absolute",
+                // zIndex: 99,
+              }}
+            />
+          </ReactNativeZoomableView>
+        </View>
+
+        {/* <View
+          style={{
+            height: 160,
+            width: 136,
+            position: "absolute",
+            backgroundColor: "red",
+            zIndex: 999,
+            alignSelf: "center",
+            top: 31,
+          }}
+        /> */}
+        <FastImage
+          source={require("../../assets/cong.png")}
+          style={{ flex: 1 }}
+        />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+            bottom: 50,
+            alignSelf: "center",
+            width: width - 50,
+          }}
+        >
+          <Text
+            numberOfLines={1}
+            style={{
+              color: Color.white,
+            }}
+          >
+            {txt1}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{
+              color: Color.white,
+            }}
+          >
+            {txt2}
+          </Text>
+        </View>
+      </>
+    );
+  };
+  const renderMainContainer = () => {
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          {renderTopDesigns()}
+          {renderViewShot()}
+
+          {activeCat !== "Wishish" && renderButtons()}
+        </View>
+        {activeCat !== "Wishish" && renderChooseDefaultImage()}
+      </ScrollView>
+    );
+  };
+  const renderBottomView = () => {
+    return (
+      <View
+        style={{
+          borderTopColor: Color.txtIntxtcolor,
+          borderTopWidth: 1,
+          backgroundColor: Color.white,
+          height: 50,
+        }}
+      >
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+              flex: 1,
+              marginTop: 5,
+              marginHorizontal: 20,
+              alignItems: "center",
+            }}
+          >
+            {/* <Button
+            style={{ margin: 5, backgroundColor: Color.transparent }}
+            isVertical={true}
+            onPress={() => layoutRef.current.snapTo(0)}
+            icon={
+              <Icon
+                name="layout"
+                height={14}
+                width={14}
+                fill={Color.grey}
+              />
+            }
+            textColor={true}
+          >
+            {Common.getTranslation(LangKey.labLayouts)}
+          </Button> */}
+            <Button
+              style={{ margin: 5, backgroundColor: Color.transparent }}
+              isVertical={true}
+              onPress={() => colorRef.current.snapTo(0)}
+              icon={
+                <Icon name="color" height={15} width={15} fill={Color.grey} />
+              }
+              textColor={true}
+            >
+              {Common.getTranslation(LangKey.labColorCodeList)}
+            </Button>
+            {/* <Button
+            style={{ margin: 5, backgroundColor: Color.transparent }}
+            isVertical={true}
+            onPress={() => socialRef.current.snapTo(0)}
+            icon={
+              <Icon
+                name="socialicon"
+                height={15}
+                width={15}
+                fill={Color.grey}
+              />
+            }
+            textColor={true}
+          >
+            {Common.getTranslation(LangKey.labSocialMediaIcons)}
+          </Button> */}
+            <Button
+              disable={dess == null || dess == undefined}
+              style={{ backgroundColor: Color.transparent }}
+              isVertical={true}
+              onPress={() => {
+                if (user && user !== null) {
+                  setModalForEditPersonalInfo(true);
+                } else {
+                  Common.showMessage(
+                    Common.getTranslation(LangKey.msgCreateAccEdit)
+                  );
+                }
+              }}
+              icon={
+                <Icon name="edit" height={14} width={14} fill={Color.grey} />
+              }
+              textColor={true}
+            >
+              {Common.getTranslation(LangKey.txtProfile)}
+            </Button>
+
+            <Button
+              disable={dess == null || dess == undefined}
+              style={{ backgroundColor: Color.transparent }}
+              isVertical={true}
+              onPress={
+                () => onPressBack()
+                // if (currentDesign.id === curDesign.id) {
+                //   onReset();
+                // } else {
+                //   setCurrentDesign(curDesign);
+                // }
+                // onReset();
+                // fiilterLayouts();
+                // setSelectedPicker(false);
+
+                // colorArr.pop()
+              }
+              icon={
+                <Icon name="reset" height={14} width={14} fill={Color.grey} />
+              }
+              textColor={true}
+            >
+              {Common.getTranslation(LangKey.txtBack)}
+            </Button>
             <View
               style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                flex: 1,
-                marginTop: 5,
-                marginHorizontal: 20,
-                alignItems: "center",
+                width: 50,
+                height: 50,
+                marginVertical: Platform.OS === "android" ? 5 : 0,
               }}
             >
-              {/* <Button
-                style={{ margin: 5, backgroundColor: Color.transparent }}
+              <Button
+                disable={isdesignImageLoad || isUserDesignImageLoad}
+                style={{ backgroundColor: Color.transparent }}
                 isVertical={true}
-                onPress={() => layoutRef.current.snapTo(0)}
+                onPress={() => {
+                  setIsdesignImageLoad(true);
+                  onClickDownload();
+                }}
                 icon={
                   <Icon
-                    name="layout"
+                    name="download"
                     height={14}
                     width={14}
                     fill={Color.grey}
@@ -2707,115 +3009,32 @@ const PersonalDesign = ({ route, designStore, userStore, navigation }) => {
                 }
                 textColor={true}
               >
-                {Common.getTranslation(LangKey.labLayouts)}
-              </Button> */}
-              <Button
-                style={{ margin: 5, backgroundColor: Color.transparent }}
-                isVertical={true}
-                onPress={() => colorRef.current.snapTo(0)}
-                icon={
-                  <Icon name="color" height={15} width={15} fill={Color.grey} />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.labColorCodeList)}
+                {isdesignImageLoad || isUserDesignImageLoad ? (
+                  <ActivityIndicator size={20} color={Color.darkBlue} />
+                ) : (
+                  Common.getTranslation(LangKey.txtSave)
+                )}
               </Button>
-              {/* <Button
-                style={{ margin: 5, backgroundColor: Color.transparent }}
-                isVertical={true}
-                onPress={() => socialRef.current.snapTo(0)}
-                icon={
-                  <Icon
-                    name="socialicon"
-                    height={15}
-                    width={15}
-                    fill={Color.grey}
-                  />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.labSocialMediaIcons)}
-              </Button> */}
-              <Button
-                disable={dess == null || dess == undefined}
-                style={{ backgroundColor: Color.transparent }}
-                isVertical={true}
-                onPress={() => {
-                  if (user && user !== null) {
-                    setModalForEditPersonalInfo(true);
-                  } else {
-                    Common.showMessage(
-                      Common.getTranslation(LangKey.msgCreateAccEdit)
-                    );
-                  }
-                }}
-                icon={
-                  <Icon name="edit" height={14} width={14} fill={Color.grey} />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.txtProfile)}
-              </Button>
-
-              <Button
-                disable={dess == null || dess == undefined}
-                style={{ backgroundColor: Color.transparent }}
-                isVertical={true}
-                onPress={
-                  () => onPressBack()
-                  // if (currentDesign.id === curDesign.id) {
-                  //   onReset();
-                  // } else {
-                  //   setCurrentDesign(curDesign);
-                  // }
-                  // onReset();
-                  // fiilterLayouts();
-                  // setSelectedPicker(false);
-
-                  // colorArr.pop()
-                }
-                icon={
-                  <Icon name="reset" height={14} width={14} fill={Color.grey} />
-                }
-                textColor={true}
-              >
-                {Common.getTranslation(LangKey.txtBack)}
-              </Button>
-              <View
-                style={{
-                  width: 50,
-                  height: 50,
-                  marginVertical: Platform.OS === "android" ? 5 : 0,
-                }}
-              >
-                <Button
-                  disable={isdesignImageLoad || isUserDesignImageLoad}
-                  style={{ backgroundColor: Color.transparent }}
-                  isVertical={true}
-                  onPress={() => {
-                    setIsdesignImageLoad(true);
-                    onClickDownload();
-                  }}
-                  icon={
-                    <Icon
-                      name="download"
-                      height={14}
-                      width={14}
-                      fill={Color.grey}
-                    />
-                  }
-                  textColor={true}
-                >
-                  {isdesignImageLoad || isUserDesignImageLoad ? (
-                    <ActivityIndicator size={20} color={Color.darkBlue} />
-                  ) : (
-                    Common.getTranslation(LangKey.txtSave)
-                  )}
-                </Button>
-              </View>
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
+      </View>
+    );
+  };
+
+  return (
+    <>
+      {renderBottomSheets()}
+
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: Color.white,
+        }}
+      >
+        {renderPopups()}
+        {renderMainContainer()}
+        {renderBottomView()}
       </SafeAreaView>
     </>
   );
